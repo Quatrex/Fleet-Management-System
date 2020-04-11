@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Hirumal Priyashan">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- OG meta tags -->
+    <meta property="og:site_name" content="Fleet Management System">
+    <meta property="og:title" content="Fleet Management System">
+    <meta property="og:description" content="Fleet Management System">
+    <!--<meta property="og:image" itemprop="image" content="/images/complex-logo.jpg">-->
+    <meta property="og:type" content="website">
+
+    <title>Sign Up</title>
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style_authentication.css">
+</head>
+
+<body class="bg-light">
+    <!--Header-->
+    <div class="container-sm mt-3">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="bg-transparent">
+                    <img src="images/national-logo.png" class="mx-auto d-block" id="ministry-logo" alt=""logo>
+                </div>
+            </div>
+            <div class="col-sm-10 mt-3 text-center" >
+                <p>විදේශ කටයුතු අමාත්‍යාංශය ශ්‍රී ලංකාව</p>
+                <p>Ministry of Foreign Affairs Sri Lanka</p>
+                <p>வெளிநாட்டு அலுவல்கள் அமைச்சு இலங்கை</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <!--Registration Card-->
+    <div class="container-sm" id="register-container">
+        <div class="card card-register mx-auto mt-5 bg-transparent w-50" id="register-card">
+                <div class="card-body">
+                     <!--SignUp title-->
+                    <h2 class="card-title">Sign Up</h2>
+
+                    <form action="signup_inc.php" method="post">
+                         <!--Form-Username-->
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <label>Username</label>
+                                    <input type="text" name="user" class="form-control" placeholder="Username..." required>
+                                </div>
+                            </div>
+                        </div>
+                         <!--Form-Email-->
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <label>Email Address</label>
+                                    <input type="email" name="email" aria-describedby="emailHelp" class="form-control"
+                                        placeholder="Your Email address..." required>
+                                </div>
+                            </div>
+                        </div>
+                         <!--Form-Password-->
+                        <div class="form-group">
+                            <div class="form-row">
+
+                                <div class="col-md-6">
+                                    <label>Password</label>
+                                    <input type="password" name="password_1" class="form-control" placeholder="Enter a password..."
+                                        required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label>Confirm Password</label>
+                                    <input type="password" name="password_2" class="form-control" placeholder="Retype your password..."
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+                         <!--Sign Up Button-->
+                        <div style="text-align: right;">
+                            <button type="submit" class="btn btn-primary" name="signup-submit">Sign Up</button>
+                        </div>
+                        
+                    </form>
+                     <!--Already have an account?-->
+                    <div class="text-center">
+                        <a class="d-block small mt-3" href="login.html">Already have an account?</a>
+                      </div>
+                </div>
+        </div>
+    </div>
+</body>
+
+</html>

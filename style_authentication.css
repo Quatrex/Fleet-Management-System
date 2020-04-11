@@ -1,0 +1,52 @@
+/*body{
+    background-color: tan ;
+    background-size: 100% 100%;
+    background-position: center;
+    background-image: url(images/back.jpg);
+    background-repeat: no-repeat;
+}*/
+.login-box{
+    max-width: 700px;
+    float: none;
+    margin: 150px auto;
+    background-color: (211,211,211,0.5);
+    padding: 30px;
+}
+
+
+
+.form-control{
+    background-color: transparent !important;
+}
+
+#ministry-logo{
+    height: 3.7cm;
+    width: 2.6cm;
+}
+
+.header-logo {
+    z-index: 501;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 7.5rem;
+    top: 10%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .header-logo a {
+    display: block;
+    padding: 0;
+    outline: 0;
+    border: none;
+  }
+  
+  .header-logo img {
+    width: 2.6cm;
+    height: 3.7cm;
+  }
