@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded',()=>{
+	document.documentElement.requestFullscreen();
+});
+
 //##############           Header         ###################
 
 //user name text-click
