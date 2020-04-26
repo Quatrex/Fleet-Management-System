@@ -9,6 +9,21 @@
         $dropoff=$_POST['dropoff'];
 
         //do the MySQL query here
+        /*
+        if($result->num_rows>0){
+            while($row=$result->fetch_assoc()){
+                $_SESSION['firstname']=$row["firstname"];
+                $_SESSION['lastname']=$row['lastname'];
+                $_SESSION['nic_num']=$row['nic_num'];
+                $_SESSION['password']=$row['password'];
+            }
+            header('location:home.php');
+        }else{
+            echo '<script type="text/javascript">';
+            echo 'alert("Invalid NIC num or password")';
+            echo '</script>';
+        }
+        */
     }
 ?>
 
