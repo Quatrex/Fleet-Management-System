@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DashBoard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="style.css">-->
+</head>
+
+<body>
+    <!--Ministry logo and user details-->
+    <div class="row" id="heading">
+        <!--Ministry Text-->
+        <div class="ministry-text col-sm-3">
+            <img src="images/logo.jpg" alt="Foreign Ministry">
+        </div>
+        <!--Inner space-->
+        <div class="col-sm-6"></div>
+        <!--User name & image-->
+        <div class="user-text col-sm-3  ">
+            <div class="row float-right">
+                <div class="user-name">User name</div>
+                <img src="images/default-user-image.png" alt="" height="80px" width="80px" class="rounded-circle"
+                    style="cursor: pointer; vertical-align: middle;">
+            </div>
+
+        </div>
+    </div>
+
+    <nav id="navigation-bar">
+
+        <!--Navigation Links -->
+        <a class="navigation-link" data-index="0">Request Vehicle</a>
+        <div class="underline"></div>
+        <a class="navigation-link" data-index="1">Justyfy Requests</a>
+    </nav>
+
+    <!--Justify details tab-->
+    <!--Inner datails-->
+    <div style="margin: 3rem;">
+        <!--Awaiting requests-->
+        <div>
+            <h3>Awaiting Requests</h3>
+            <!--Table of awaiting requests-->
+            <table>
+                <tr>
+                    <th>Ticket Number</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+                <tr>
+                    <td>56</td>
+                    <td>27/03/2020</td>
+                    <td>9.00 AM</td>
+                </tr>
+                <tr>
+                    <td>56</td>
+                    <td>27/03/2020</td>
+                    <td>9.00 AM</td>
+                </tr>
+                <tr>
+                    <td>56</td>
+                    <td>27/03/2020</td>
+                    <td>9.00 AM</td>
+                </tr>
+                <tr>
+                    <td>56</td>
+                    <td>27/03/2020</td>
+                    <td>9.00 AM</td>
+                </tr>
+            </table>
+        </div>
+
+        <!--History-->
+        <div>
+            <h3>History</h3>
+            <!--Table of requests-->
+            <table>
+                <tr>
+                    <th>Ticket Number</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+                <tr>
+                    <td>56</td>
+                    <td>Approval Denied</td>
+                    <td>27/03/2020</td>
+                    <td>9.00 AM</td>
+                </tr>
+                <tr>
+                    <td>56</td>
+                    <td>Approves</td>
+                    <td>27/03/2020</td>
+                    <td>9.00 AM</td>
+                </tr>
+                <tr>
+                    <td>56</td>
+                    <td>Justified</td>
+                    <td>27/03/2020</td>
+                    <td>9.00 AM</td>
+                </tr>
+                <tr>
+                    <td>56</td>
+                    <td>Completed</td>
+                    <td>27/03/2020</td>
+                    <td>9.00 AM</td>
+                </tr>
+            </table>
+        </div>
+
+
+    </div>
+
+    <!--Request details popup-->
+    <div class="popup" id="request-preview-popup">
+        <!-- Request details content -->
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="request-preview-close">&times;</span>
+                <h3>Request Details</h3>
+                <hr>
+            </div>
+            <div class="popup-body">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Requester</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Text</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Designation</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Text</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Date</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>DD-MM-YYYY</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Time</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>HH:MM: AM/PM</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Pick-up Location</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Text</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Drop-off Location</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Text</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Status</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Text</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Purpose</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Text</p>
+                    </div>
+                </div>
+
+                <input type="button" value="Justyfy Request" class="btn btn-primary"
+                    id="request-details-justify-button">
+                <input type="button" value="Decline" class="btn btn-danger" id="request-details-decline-button">
+
+            </div>
+            <div class="popup-footer">
+                <input type="button" value="Exit" class="btn btn-light" id="request-details-exit-button">
+            </div>
+        </div>
+    </div>
+
+    <!--Justify Confirm alert-->
+    <div class="popup" id="cancel-request-alert">
+        <!-- Justify alert content -->
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="confirm-alert-close">&times;</span>
+                <h3>Do you wish to procees?</h3>
+                <hr>
+            </div>
+            <div class="popup-body">
+
+                <p>Are you sure you want to justify the request?</p>
+                <textarea placeholder="Comments" rows="4"></textarea>
+
+
+            </div>
+            <div class="popup-footer">
+
+                <input type="button" value="Justify Request" class="btn btn-success" id="justify-alert-justify-button">
+                <input type="button" value="Cancel" class="btn btn-light" id="justify-alert-cancel-button">
+            </div>
+        </div>
+    </div>
+
+    <!--Decline Confirm alert-->
+    <div class="popup" id="cancel-request-alert">
+        <!-- Decline alert content -->
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="confirm-alert-close">&times;</span>
+                <h3>Do you wish to procees?</h3>
+                <hr>
+            </div>
+            <div class="popup-body">
+
+                <p>Are you sure you want to decline the request?</p>
+                <textarea placeholder="Comments" rows="4"></textarea>
+
+
+            </div>
+            <div class="popup-footer">
+
+                <input type="button" value="Decline Request" class="btn btn-danger" id="decline-alert-decline-button">
+                <input type="button" value="Cancel" class="btn btn-light" id="decline-alert-cancel-button">
+            </div>
+        </div>
+    </div>
+
+    <!--Pop up my profile-->
+    <div class="popup" id="my-profile">
+        <!-- My profile content -->
+        <div class="popup-content">
+
+            <div class="popup-header">
+                <span class="close" id="my-profile-close">&times;</span>
+                <h2>My Profile</h2>
+                <hr>
+            </div>
+
+            <div class="popup-body">
+
+                <div class="col" style="text-align: center;">
+                    <div>
+                        <img src="images/default-user-image.png" alt="" height="120px" width="120px"
+                            class="rounded-circle"
+                            style="cursor: pointer; vertical-align: middle; margin-bottom:20px ;">
+                    </div>
+
+                    <p>Name</p>
+                    <p>Occupation</p>
+                    <p>Email</p>
+                    <a href="">Change password</a>
+
+                </div>
+
+            </div>
+            <div class="popup-footer">
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
