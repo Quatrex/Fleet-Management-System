@@ -1,3 +1,17 @@
+<?php
+    session_start();
+    require 'config.php';
+
+    if (isset($_POST['submit_request'])){
+        $date=$_POST['date'];
+        $time=$_POST['time'];
+        $pickup=$_POST['pickup'];
+        $dropoff=$_POST['dropoff'];
+
+        //do the MySQL query here
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -165,7 +179,7 @@
                                         <div class="tab-pane fade" id="profile">
                                             <div class="p-t-15">
                                                 <h4>New Request</h4>
-                                                <form id="submit-form">
+                                                <form id="submit-form" action="login.php" method="post">
 
                                                     <div class="form-group">
                                                         <input type="text" class="form-control" name="date" placeholder="Date" autocomplete="off">
@@ -187,7 +201,7 @@
                                                         <input type="text" class="form-control" name="purpose" placeholder="Purpose" autocomplete="off">
                                                     </div>
 
-                                                    <input type="button" value="Submit" class="btn btn-primary" id="request-form-submit-button">
+                                                    <input type="button" value="Submit" class="btn btn-primary" id="request-form-submit-button" name="submit_request" action="index.php" method="post">
                                                     <input type="button" value="Close" class="btn btn-primary" id="request-form-close-button">
 
                                                 </form>
