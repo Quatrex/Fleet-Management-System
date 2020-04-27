@@ -1,30 +1,29 @@
-<?php
-session_start();
-require 'config.php';
 
-if (isset($_POST['submit_request'])) {
+<?php
+require_once 'config.php';
+
+if (isset($_POST['submit-request'])) {
     $date = $_POST['date'];
     $time = $_POST['time'];
     $pickup = $_POST['pickup'];
     $dropoff = $_POST['dropoff'];
-    echo "IN";
+    $purpose = $_POST['purpose'];
+    $requesterID = 1;
 
-    //do the MySQL query here
-    /*
-        if($result->num_rows>0){
-            while($row=$result->fetch_assoc()){
-                $_SESSION['firstname']=$row["firstname"];
-                $_SESSION['lastname']=$row['lastname'];
-                $_SESSION['nic_num']=$row['nic_num'];
-                $_SESSION['password']=$row['password'];
-            }
-            header('location:home.php');
-        }else{
-            echo '<script type="text/javascript">';
-            echo 'alert("Invalid NIC num or password")';
-            echo '</script>';
+    if (empty($date)  || empty($time) || empty($pickup) || empty($dropoff)) {
+        
+    } else {
+
+        $sql = "INSERT INTO request(DateOfTrip,TimeOfTrip,DropLocation,PickLocation,RequesterID) VALUES(?,?,?,?,?)";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+        } else {
+            mysqli_stmt_bind_param($stmt, "ssssi", $date, $time, $dropoff, $pickup, $requesterID);
+            mysqli_stmt_execute($stmt);
         }
-        */
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
+    }
 }
 ?>
 
@@ -198,11 +197,11 @@ if (isset($_POST['submit_request'])) {
                                                 <form id="submit-form"  method="post" action="index.php">
 
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" name="date" placeholder="Date" autocomplete="off">
+                                                        <input type="date" class="form-control" name="date" placeholder="Date" autocomplete="off">
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" name="time" placeholder="Time" autocomplete="off">
+                                                        <input type="time" class="form-control" name="time" placeholder="Time" autocomplete="off">
                                                     </div>
 
                                                     <div class="form-group">
@@ -217,7 +216,7 @@ if (isset($_POST['submit_request'])) {
                                                         <input type="text" class="form-control" name="purpose" placeholder="Purpose" autocomplete="off">
                                                     </div>
 
-                                                    <input name="submit_request" type="button" value="Submit" class="btn btn-primary" id="request-form-submit-button"> <!-- add/override formaction for each of the buttons instead of action to the form-->
+                                                    <input name="submit-request" type="submit" value="Submit" class="btn btn-primary" id="request-form-submit-button"> <!-- add/override formaction for each of the buttons instead of action to the form-->
                                                     <input type="button" value="Close" class="btn btn-primary" id="request-form-close-button">
 
                                                 </form>

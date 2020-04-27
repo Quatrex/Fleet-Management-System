@@ -1,4 +1,12 @@
 <?php
-    $con=mysqli_connect('remotemysql.com','Kvs8AuC78e','bmMrp4oj2h') or die("Unable to connect");
-    mysqli_select_db($con,'Kvs8AuC78e');
+$servername = 'remotemysql.com';
+$dBUsername = 'Kvs8AuC78e';
+$dBPassword = 'bmMrp4oj2h';
+$dBName = 'Kvs8AuC78e';
+
+$conn = mysqli_connect($servername, $dBUsername, $dBPassword, $dBName);
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 ?>
