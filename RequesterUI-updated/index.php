@@ -1,4 +1,3 @@
-
 <?php
 require_once 'config.php';
 
@@ -9,9 +8,9 @@ if (isset($_POST['submit-request'])) {
     $dropoff = $_POST['dropoff'];
     $purpose = $_POST['purpose'];
     $requesterID = 1;
+    echo "IN";
 
     if (empty($date)  || empty($time) || empty($pickup) || empty($dropoff)) {
-        
     } else {
 
         $sql = "INSERT INTO request(DateOfTrip,TimeOfTrip,DropLocation,PickLocation,RequesterID) VALUES(?,?,?,?,?)";
@@ -191,10 +190,23 @@ if (isset($_POST['submit-request'])) {
 
                                             </div>
                                         </div>
+                                        <script>
+                                            function submitMe() {
+                                                jQuery(function($) {
+                                                    $.ajax({
+                                                        url: "index.php?action=getsession",
+                                                        type: "POST",
+                                                        success: function(data) {
+                                                            alert("works!"); //or use data string to show something else
+                                                        }
+                                                    });
+                                                });
+                                            }
+                                        </script>
                                         <div class="tab-pane fade" id="profile">
                                             <div class="p-t-15">
                                                 <h4>New Request</h4>
-                                                <form id="submit-form"  method="post" >
+                                                <form id="submit-form" method="post" onsubmit=" submitMe()">
 
                                                     <div class="form-group">
                                                         <input type="date" class="form-control" name="date" placeholder="Date" autocomplete="off">
@@ -216,7 +228,7 @@ if (isset($_POST['submit-request'])) {
                                                         <input type="text" class="form-control" name="purpose" placeholder="Purpose" autocomplete="off">
                                                     </div>
 
-                                                    <input name="submit-request" formaction="index.php" type="submit" value="Submit" class="btn btn-primary" id="request-form-submit-button"> <!-- add/override formaction for each of the buttons instead of action to the form-->
+                                                    <input name="submit-request" type="submit" value="Submit" class="btn btn-primary" id="request-form-submit-button"> <!-- add/override formaction for each of the buttons instead of action to the form-->
                                                     <input type="button" value="Close" class="btn btn-primary" id="request-form-close-button">
 
                                                 </form>
@@ -464,4 +476,5 @@ if (isset($_POST['submit-request'])) {
     ***********************************-->
     <script src="js/act.js"></script>
 </body>
+
 </html>
