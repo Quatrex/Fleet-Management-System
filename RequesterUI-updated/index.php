@@ -463,8 +463,5 @@ if (isset($_POST['submit-request'])) {
         Scripts
     ***********************************-->
     <script src="js/act.js"></script>
-    <script src="js/common.min.js"></script>
-    <script src="js/custom.min.js"></script>
 </body>
-
 </html>
