@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Fleet Mangement System</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x12" href="images/national-logo.png">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+    <link href="css/style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <!--**********************************
+        Main wrapper start without footer
+    ***********************************-->
+    <div id="main-wrapper">
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <img src="images/national-logo.png">
+
+                </div>
+                <div class="header-right">
+                    <ul>
+                        <li class="icons">
+                            <div class="user-img c-pointer position-relative">
+                                <span class="activity active"></span>
+                                <img src="images/default-user-image.png" height="40" width="40" alt="">
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--- End of Header-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Fleet Mangement System</h4>
+                                <!-- Nav tabs -->
+
+                                <div class="default-tab">
+                                    <ul class="nav nav-tabs mb-3" role="tablist">
+                                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Requests</a>
+                                        </li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#contact">Contact</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade active show" id="home" role="tabpanel">
+                                            <input type="button" value="New Request" class="btn btn-primary" id="request-vehicle-button">
+                                            <h4>Your Pending Requests</h4>
+                                            <table class="table table-hover" id="request-table">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>Pending</td>
+                                                        <td>2020/04/10</td>
+                                                        <td>18.10</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">2</th>
+                                                        <td>Pending</td>
+                                                        <td>2020/04/10</td>
+                                                        <td>08.10</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">3</th>
+                                                        <td>Pending</td>
+                                                        <td>2020/04/10</td>
+                                                        <td>13.10</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane fade" id="contact">
+                                            <!--Start of Cards-->
+                                            <div class="container-fluid">
+                                                <!-- End Row -->
+                                                <div class="row">
+                                                    <div class="col-12 m-b-30">
+                                                        <h4 class="d-inline">Officers In Charge</h4>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-lg-3">
+                                                                <div class="card">
+                                                                    <img class="img-fluid" src="images/default-user-image.png" alt="">
+                                                                    <div class="card-body">
+                                                                        <h5 class="card-title">Justifying Officer</h5>
+                                                                        <p class="card-text">Name:</p>
+                                                                        <p class="card-text">Contact No:</p>
+                                                                        <p class="card-text">Email:</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Col -->
+                                                            <div class="col-md-6 col-lg-3">
+                                                                <div class="card">
+                                                                    <img class="img-fluid" src="images/default-user-image.png" alt="">
+                                                                    <div class="card-body">
+                                                                        <h5 class="card-title">CAO</h5>
+                                                                        <p class="card-text">Name:</p>
+                                                                        <p class="card-text">Contact No:</p>
+                                                                        <p class="card-text">Email:</p>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Col -->
+                                                            <div class="col-md-6 col-lg-3">
+                                                                <div class="card">
+                                                                    <img class="img-fluid" src="images/default-user-image.png" alt="">
+                                                                    <div class="card-body">
+                                                                        <h5 class="card-title">DCAO</h5>
+                                                                        <p class="card-text">Name:</p>
+                                                                        <p class="card-text">Contact No:</p>
+                                                                        <p class="card-text">Email:</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Col -->
+                                                            <div class="col-md-6 col-lg-3">
+                                                                <div class="card">
+                                                                    <img class="img-fluid" src="images/default-user-image.png" alt="">
+                                                                    <div class="card-body">
+                                                                        <h5 class="card-title">Vehicle Pool Management Officer</h5>
+                                                                        <p class="card-text">Name:</p>
+                                                                        <p class="card-text">Contact No:</p>
+                                                                        <p class="card-text">Email:</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Col -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Row -->
+                                            </div>
+                                            <!---End Of Cards-->
+
+                                        </div>
+                                        <!--End of Contact-->>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--**********************************
+            Footer start
+            
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quatrex</a> 2020</p>
+            </div>
+        </div>
+
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+
+    <!---PopUps-->
+
+    <!---******************
+        REQUEST
+    *************************-->
+    <!--Popup request form-->
+    <div class="popup" id="vehicle-request-form">
+        <!-- Request Form content -->
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="vehicle-request-form-close">&times;</span>
+                <h2>Vehicle Request Form</h2>
+                <hr>
+            </div>
+            <div class="popup-body">
+                <div id="submit-form-wrapper">
+
+                    <form id="submit-form">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="date" placeholder="Date" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="time" placeholder="Time" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="pickup" placeholder="Pick-up Location" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="dropoff" placeholder="Drop-off Location" autocomplete="off">
+                        </div>
+
+                        <input type="button" value="Submit" class="btn btn-primary" id="request-form-submit-button">
+                        <input type="button" value="Close" class="btn btn-primary" id="request-form-close-button">
+
+                    </form>
+                </div>
+            </div>
+            <div class="popup-footer">
+
+            </div>
+        </div>
+    </div>
+
+    <!--Cancel Alert-->
+    <div class="popup" id="cancel-request-alert">
+        <!-- Confirm alert content -->
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="confirm-alert-close">&times;</span>
+                <h3>Cancle Request</h3>
+                <hr>
+            </div>
+            <div class="popup-body">
+
+                <p>Are you sure you want to cancle request</p>
+
+                <input type="button" value="No" class="btn btn-primary" id="confirm-alert-no-button">
+                <input type="button" value="Yes" class="btn btn-danger" id="confirm-alert-yes-button">
+
+            </div>
+            <div class="popup-footer">
+            </div>
+        </div>
+    </div>
+    <!--Pop Up Request Preview in a New Request-->
+    <div class="popup" id="request-preview-popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="request-preview-close">&times;</span>
+                <h3>Preview</h3>
+                <hr>
+            </div>
+            <div class="popup-body">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Date</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>DD-MM-YYYY</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Time</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>HH:MM: AM/PM</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Pick-up Location</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Text</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Drop-off Location</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Text</p>
+                    </div>
+                </div>
+                <input type="button" value="Confirm" class="btn btn-primary" id="request-preview-confirm-button">
+                <input type="button" value="Edit" class="btn btn-link" id="request-preview-edit-button">
+
+            </div>
+            <div class="popup-footer">
+            </div>
+        </div>
+    </div>
+    <!--request details content in a new Request-->
+    <div class="popup" id="request-details-popup">
+
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="request-details-close">&times;</span>
+                <h3>Request Details</h3>
+                <hr>
+            </div>
+            <div class="popup-body">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Date</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>DD-MM-YYYY</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Time</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>HH:MM: AM/PM</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Pick-up Location</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Text</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Drop-off Location</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Text</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Status</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Text</p>
+                    </div>
+                </div>
+
+                <input type="button" value="Exit" class="btn btn-link" id="request-details-exit-button">
+            </div>
+            <div class="popup-footer">
+            </div>
+        </div>
+    </div>
+    <!--Request Preview for a Table-->
+    <div class="popup" id="request-preview-popup_1">
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="request-preview-close_1">&times;</span>
+                <h3>Preview</h3>
+                <hr>
+            </div>
+            <div class="popup-body">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Date</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>DD-MM-YYYY</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Time</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>HH:MM: AM/PM</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Pick-up Location</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Text</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Drop-off Location</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Text</p>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-footer">
+            </div>
+        </div>
+    </div>
+    <!---****************
+        END OF REQUEST
+        ***************-->
+    <!--Pop up my profile-->
+    <div class="popup" id="my-profile">
+        <!-- My profile content -->
+        <div class="popup-content">
+
+            <div class="popup-header">
+                <span class="close" id="my-profile-close">&times;</span>
+                <h2>My Profile</h2>
+                <hr>
+            </div>
+
+            <div class="popup-body">
+
+                <div class="col" style="text-align: center;">
+                    <div>
+                        <img src="images/default-user-image.png" alt="" height="120px" width="120px" class="rounded-circle" style="cursor: pointer; vertical-align: middle; margin-bottom:20px ;">
+                    </div>
+
+                    <p>Name</p>
+                    <p>Occupation</p>
+                    <p>Email</p>
+                    <a href="">Change password</a>
+
+                </div>
+
+            </div>
+            <div class="popup-footer">
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="js/act.js"></script>
+</body>
+
+</html>
