@@ -1,15 +1,16 @@
 <?php
-    session_start();
-    require 'config.php';
+session_start();
+require 'config.php';
 
-    if (isset($_POST['submit_request'])){
-        $date=$_POST['date'];
-        $time=$_POST['time'];
-        $pickup=$_POST['pickup'];
-        $dropoff=$_POST['dropoff'];
+if (isset($_POST['submit_request'])) {
+    $date = $_POST['date'];
+    $time = $_POST['time'];
+    $pickup = $_POST['pickup'];
+    $dropoff = $_POST['dropoff'];
+    echo "IN";
 
-        //do the MySQL query here
-        /*
+    //do the MySQL query here
+    /*
         if($result->num_rows>0){
             while($row=$result->fetch_assoc()){
                 $_SESSION['firstname']=$row["firstname"];
@@ -24,7 +25,7 @@
             echo '</script>';
         }
         */
-    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -194,7 +195,7 @@
                                         <div class="tab-pane fade" id="profile">
                                             <div class="p-t-15">
                                                 <h4>New Request</h4>
-                                                <form id="submit-form" action="login.php" method="post">
+                                                <form id="submit-form"  method="post" action="index.php">
 
                                                     <div class="form-group">
                                                         <input type="text" class="form-control" name="date" placeholder="Date" autocomplete="off">
@@ -216,7 +217,7 @@
                                                         <input type="text" class="form-control" name="purpose" placeholder="Purpose" autocomplete="off">
                                                     </div>
 
-                                                    <input type="button" value="Submit" class="btn btn-primary" id="request-form-submit-button" name="submit_request" action="index.php" method="post">
+                                                    <input name="submit_request" type="button" value="Submit" class="btn btn-primary" id="request-form-submit-button"> <!-- add/override formaction for each of the buttons instead of action to the form-->
                                                     <input type="button" value="Close" class="btn btn-primary" id="request-form-close-button">
 
                                                 </form>
@@ -283,7 +284,7 @@
                                                 <!---End Of Cards-->
                                             </div>
                                         </div>
-                                        <!--End of Contact-->>
+                                        <!--End of Contact-->
                                     </div>
                                 </div>
                             </div>
