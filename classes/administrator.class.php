@@ -1,4 +1,4 @@
 <?php
-abstract class Employee
+class Administrator extends Employee implements IRequestable
 {
 }
