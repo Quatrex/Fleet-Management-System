@@ -8,7 +8,14 @@ class Requester extends Employee implements IRequestable
         //incluce required viewer and controller classes
     }
 
+    //IRequestable
     public function placeRequest($date,$time,$dropLocation,$pickLocation,$purpose){
-        //continue
+        //create request object
+        $request=new Request();//include parameters
+    }
+
+    //IRequestable
+    public function getRequests(){ //IRequestable
+        //check database for requests placed by the requester and return an array oof requests
     }
 }

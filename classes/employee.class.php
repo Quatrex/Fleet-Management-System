@@ -9,5 +9,15 @@ abstract class Employee
     protected string $username; //recheck way of keeping login info (for security purposes)
     protected string $password; //recheck way of keeping login info (for security purposes)
 
+    function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
+    {
+        $this->$empID=$empID;
+        $this->$firstName=$firstName;
+        $this->$lastName=$lastName;
+        $this->$position=$position;
+        $this->$email=$email;
+        $this->$username=$username;
+        $this->$password=$password;
+    }
     
 }
