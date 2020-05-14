@@ -4,13 +4,6 @@ class Model extends DBH{
     
     protected function addRecord($date,$time,$pickup,$dropoff,$purpose,$requesterID){
         $conn=$this->connect();
-        // if (isset($_POST['submit-request'])) { //remove POST from the func
-        //     $date = $_POST['date'];
-        //     $time = $_POST['time'];
-        //     $pickup = $_POST['pickup'];
-        //     $dropoff = $_POST['dropoff'];
-        //     $purpose = $_POST['purpose'];
-        //     $requesterID = 1;
         
         if (empty($date)  || empty($time) || empty($pickup) || empty($dropoff)) {
         } else {
@@ -25,6 +18,5 @@ class Model extends DBH{
             mysqli_stmt_close($stmt);
             mysqli_close($conn);
         }
-        // }
     }
 }

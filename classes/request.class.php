@@ -15,16 +15,31 @@ class Request
     private string $justifiedBy; //EmpID
     private string $approvedBy; //EmpID
 
-    function __construct() //include parameters
+    private $controller;
+
+    function __construct($date,$time,$dropLocation,$pickLocation,$purpose,$requesterID) //include parameters
     {
         //initialize state
+        $this->date=$date;
+        $this->time=$time;
+        $this->dropLocation=$dropLocation;
+        $this->pickLocation=$pickLocation;
+        $this->purpose=$purpose;
+        $this->requesterID=$requesterID;
+
+        $this->controller= new Controller();
 
         $this->saveToDatabase();
         $this->notifyJOs();
     }
 
     private function saveToDatabase(){
-        //save request to database
+        $this->controller->addRecord($this->date,
+                                    $this->time,
+                                    $this->dropLocation,
+                                    $this->pickLocation,
+                                    $this->purpose,
+                                    $this->requesterID);
     }
 
     private function notifyJOs(){

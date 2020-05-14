@@ -1,17 +1,19 @@
 <?php
 class Requester extends Employee implements IRequestable
 {
+    private $controller;
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {
         parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
 
         //incluce required viewer and controller classes
+        $this->controller= new Controller();
     }
 
     //IRequestable
     public function placeRequest($date,$time,$dropLocation,$pickLocation,$purpose){
         //create request object
-        $request=new Request();//include parameters
+        $request=new Request($date,$time,$dropLocation,$pickLocation,$purpose,$this->empID);//include parameters
     }
 
     //IRequestable
