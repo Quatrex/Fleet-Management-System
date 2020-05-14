@@ -7,7 +7,7 @@ class DBH {
     private $dBName = 'Kvs8AuC78e';
 
     protected function connect(){
-        $conn = mysqli_connect($this->$servername, $this->$dBUsername, $this->$dBPassword, $this->$dBName);
+        $conn = mysqli_connect($this->servername, $this->dBUsername, $this->dBPassword, $this->dBName);
 
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());

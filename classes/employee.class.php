@@ -11,13 +11,13 @@ abstract class Employee
 
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {
-        $this->$empID=$empID;
-        $this->$firstName=$firstName;
-        $this->$lastName=$lastName;
-        $this->$position=$position;
-        $this->$email=$email;
-        $this->$username=$username;
-        $this->$password=$password;
+        $this->empID=$empID;
+        $this->firstName=$firstName;
+        $this->lastName=$lastName;
+        $this->position=$position;
+        $this->email=$email;
+        $this->username=$username;
+        $this->password=$password;
     }
     
 }
