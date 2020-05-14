@@ -30,5 +30,8 @@ class Request
         //send emails to all JOs
     }
 
+    public function setJustified($officerID,$comment){
+        //update $justifiedBy
+    }
 
 }
