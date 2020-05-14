@@ -15,8 +15,22 @@ class Requester extends Employee implements IRequestable
     }
 
     //IRequestable
-    public function getRequests(){ //IRequestable
-        //check database for requests placed by the requester and return an array oof requests
-        
+    public function getPendingRequests(){
+        //check database for pending requests placed by the requester and return an array of requests
+    }
+
+    //IRequestable
+    public function getCancelledRequests(){
+        //check database for cancelled requests placed by the requester and return an array of requests
+    }
+
+    //IRequestable
+    public function getApprovedRequests(){
+        //check database for approved(but trip isn't completed) requests placed by the requester and return an array of requests
+    }
+
+    //IRequestable
+    public function getOldRequests(){
+        //check database for all old requests(all requests other than approved and pending requests) placed by the requester and return an array of requests
     }
 }
