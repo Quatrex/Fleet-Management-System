@@ -9,7 +9,8 @@ class Request
     private string $pickLocation;
     private string $purpose; 
     private string $requesterID; //EmpID
-    private string $comments; //recheck implementation of  "HashMap(String,Employee)"
+    private string $JOcomment; 
+    private string $CAOcomment;
     private int $state;
     private string $justifiedBy; //EmpID
     private string $approvedBy; //EmpID
@@ -27,11 +28,15 @@ class Request
     }
 
     private function notifyJOs(){
-        //send emails to all JOs
+        //send emails to all JOs using a SystemManager
     }
 
     public function setJustified($officerID,$comment){
         //update $justifiedBy
+    }
+
+    public function setApproved($officerID,$comment){
+        //update $approvedBy
     }
 
 }

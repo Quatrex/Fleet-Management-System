@@ -19,5 +19,9 @@ abstract class Employee
         $this->username=$username;
         $this->password=$password;
     }
+
+    public static function getAllEmployeeDetails(){
+        //return an array of employee details (implement separately for driver and other employees)
+    }
     
 }
