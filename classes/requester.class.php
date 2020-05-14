@@ -17,5 +17,6 @@ class Requester extends Employee implements IRequestable
     //IRequestable
     public function getRequests(){ //IRequestable
         //check database for requests placed by the requester and return an array oof requests
+        
     }
 }
