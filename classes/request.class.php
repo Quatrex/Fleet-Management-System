@@ -29,11 +29,10 @@ class Request
 
         $this->controller= new Controller();
 
-        $this->saveToDatabase();
         $this->notifyJOs();
     }
 
-    private function saveToDatabase(){
+    public function saveToDatabase(){
         $this->controller->addRecord($this->date,
                                     $this->time,
                                     $this->dropLocation,

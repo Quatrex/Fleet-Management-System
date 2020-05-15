@@ -18,6 +18,7 @@ private $viewer;
     public function placeRequest($date,$time,$dropLocation,$pickLocation,$purpose){
         //create request object
         $request=new Request($date,$time,$dropLocation,$pickLocation,$purpose,$this->empID);//include parameters
+        $request->saveToDatabase();
     }
 
     //IRequestable
