@@ -21,9 +21,21 @@ if(isset($_POST['submit-request'])) {
     $requester->placeRequest($date,$time,$pickup,$dropoff,$purpose);    
 }
 else {
+    //hard coded
+    $empID="1";
+    $firstName="Hirumal";
+    $lastName="Fernando";
+    $position="BatchTop";
+    $email="cse@mrt.ac.poorna.lk";
+    $username="abcd";
+    $password="1234";
+
+    //hard coded
+    $requesterID=1;
+    $status=1;
+
     $requester = new Requester($empID,$firstName,$lastName,$position,$email,$username,$password);
-    $requests = $requester->getPendingRequests($table,$requesterID,$status); //edit the parameter values accordingly
-    
+    $requests = $requester->getPendingRequests($requesterID,$status); //edit the parameter values accordingly
 }
 // require_once 'config.php';
 

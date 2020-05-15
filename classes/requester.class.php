@@ -21,8 +21,8 @@ private $viewer;
     }
 
     //IRequestable
-    public function getPendingRequests($table,$columnNValPairs,$varTypes){
-        return $this->viewer->getRecords($table,$columnNValPairs,$varTypes);
+    public function getPendingRequests($requesterID, $status){
+        return $this->viewer->getRecords($requesterID, $status);
     }
 
     //IRequestable
