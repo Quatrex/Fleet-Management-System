@@ -8,16 +8,17 @@ class Request
     private string $dropLocation;
     private string $pickLocation;
     private string $purpose; 
-    private string $requesterID; //EmpID
+    private Requester $requester;
     private string $JOcomment; 
     private string $CAOcomment;
     private int $state;
-    private string $justifiedBy; //EmpID
-    private string $approvedBy; //EmpID
+    private JO $justifiedBy; 
+    private CAO $approvedBy;
+    private EmailClient $emailClient;
 
     private $controller;
 
-    function __construct($date,$time,$dropLocation,$pickLocation,$purpose,$requesterID) //include parameters
+    function __construct($date,$time,$dropLocation,$pickLocation,$purpose,$requester) //include parameters
     {
         //initialize state
         $this->date=$date;
@@ -25,9 +26,10 @@ class Request
         $this->dropLocation=$dropLocation;
         $this->pickLocation=$pickLocation;
         $this->purpose=$purpose;
-        $this->requesterID=$requesterID;
+        $this->requester=$requester;
 
         $this->controller= new Controller();
+        $this ->emailClient = new EmailClient();
 
         $this->saveToDatabase();
         $this->notifyJOs();
@@ -43,7 +45,7 @@ class Request
     }
 
     private function notifyJOs(){
-        //send emails to all JOs using a SystemManager
+        $this ->emailClient ->notifyRequestSubmission($this);
     }
 
     public function setJustified($officerID,$comment){
@@ -54,4 +56,23 @@ class Request
         //update $approvedBy
     }
 
+    public function getRequesterFullName() {
+        return $this ->requester ->getFullName();
+    }
+
+    public function getJOFullName() {
+        return $this ->justifiedBy ->getFullName();
+    }
+
+    public function getCAOFullName() {
+        return $this ->approvedBy ->getFullName();
+    }
+
+    public function getRequesterEmail() {
+        return $this ->requester ->getEmail();
+    }
+
+    public function getJOEmail() {
+        return $this ->justifiedBy ->getEmail();
+    }
 }

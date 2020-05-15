@@ -5,11 +5,6 @@ class Email {
     private String $subject;
     private String $message;
 
-    function __construct()
-    {
-        
-    }
-
     public function setRecepient($receipent) {
         $this->receipent = $receipent;
     }

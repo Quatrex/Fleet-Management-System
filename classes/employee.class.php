@@ -23,5 +23,12 @@ abstract class Employee
     public static function getAllEmployeeDetails(){
         //return an array of employee details (implement separately for driver and other employees)
     }
-    
+
+    public function getFullName() {
+        return $this ->firstName . " " . $this ->lastName;
+    }
+
+    public function getEmail() {
+        return $this ->email;
+    }
 }
