@@ -2,6 +2,6 @@
 
 class Viewer extends Model{
     public function getRecords($requesterID,$status){
-        parent::getRecords($requesterID,$status);
+        return parent::getRecords($requesterID,$status);
     }
 }
