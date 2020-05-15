@@ -1,19 +1,19 @@
 <?php
 class Request
 {
-    private int $requestID; 
-    private $createdDate; //how to handle 'date' in php? 
-    private $date; //how to handle 'date' in php? 
-    private $time; //how to handle 'time' in php? 
-    private string $dropLocation;
-    private string $pickLocation;
-    private string $purpose; 
-    private string $requesterID; //EmpID
-    private string $JOcomment; 
-    private string $CAOcomment;
-    private int $state;
-    private string $justifiedBy; //EmpID
-    private string $approvedBy; //EmpID
+    public int $requestID; 
+    public $createdDate; //how to handle 'date' in php? 
+    public $date; //how to handle 'date' in php? 
+    public $time; //how to handle 'time' in php? 
+    public string $dropLocation;
+    public string $pickLocation;
+    public string $purpose; 
+    public string $requesterID; //EmpID
+    public string $JOcomment; 
+    public string $CAOcomment;
+    public int $state;
+    public string $justifiedBy; //EmpID
+    public string $approvedBy; //EmpID
 
     private $controller;
 

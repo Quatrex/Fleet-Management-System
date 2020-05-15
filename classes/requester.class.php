@@ -2,12 +2,16 @@
 class Requester extends Employee implements IRequestable
 {
     private $controller;
+private $viewer;
+
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {
         parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
 
         //incluce required viewer and controller classes
         $this->controller= new Controller();
+        $this->viewer= new Viewer();
+
     }
 
     //IRequestable
@@ -17,8 +21,8 @@ class Requester extends Employee implements IRequestable
     }
 
     //IRequestable
-    public function getPendingRequests(){
-        //check database for pending requests placed by the requester and return an array of requests
+    public function getPendingRequests($table,$columnNValPairs,$varTypes){
+        return $this->viewer->getRecords($table,$columnNValPairs,$varTypes);
     }
 
     //IRequestable

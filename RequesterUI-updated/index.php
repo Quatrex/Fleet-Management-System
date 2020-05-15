@@ -18,8 +18,11 @@ if(isset($_POST['submit-request'])) {
 
 
     $requester = new Requester($empID,$firstName,$lastName,$position,$email,$username,$password);
-    $requester->placeRequest($date,$time,$pickup,$dropoff,$purpose);
-
+    $requester->placeRequest($date,$time,$pickup,$dropoff,$purpose);    
+}
+else {
+    $requester = new Requester($empID,$firstName,$lastName,$position,$email,$username,$password);
+    $requests = $requester->getPendingRequests($table,$requesterID,$status); //edit the parameter values accordingly
     
 }
 // require_once 'config.php';
