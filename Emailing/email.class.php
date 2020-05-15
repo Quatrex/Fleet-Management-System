@@ -11,14 +11,26 @@ class Email {
     }
 
     public function setRecepient($receipent) {
-        $this->$receipent = $receipent;
+        $this->receipent = $receipent;
     }
 
     public function setSubject($subject) {
-        $this->$subject = $subject;
+        $this->subject = $subject;
     }
 
     public function setMessage($message) {
-        $this->$message = $message;
+        $this->message = $message;
+    }
+
+    public function getRecepient() {
+        return $this->receipent;
+    }
+
+    public function getSubject() {
+        return $this->subject;
+    }
+
+    public function getMessage() {
+        return $this->message;
     }
 }
