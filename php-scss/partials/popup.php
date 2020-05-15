@@ -66,59 +66,6 @@
         </div>
     </div>
 </div>
-<!--Pop Up Request Preview in a New Request-->
-<div class="popup" id="request-preview-popup">
-    <div class="popup-content">
-        <div class="popup-header">
-            <span class="close" id="request-preview-close">&times;</span>
-            <h3>Preview</h3>
-            <hr>
-        </div>
-        <div class="popup-body">
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Date</p>
-                </div>
-                <div class="col-sm-6">
-                    <p>DD-MM-YYYY</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Time</p>
-                </div>
-                <div class="col-sm-6">
-                    <p>HH:MM: AM/PM</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Pick-up Location</p>
-                </div>
-                <div class="col-sm-6">
-                    <p>Text</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Drop-off Location</p>
-                </div>
-                <div class="col-sm-6">
-                    <p>Text</p>
-                </div>
-            </div>
-            <input type="button" value="Confirm" class="btn btn-primary" id="request-preview-confirm-button">
-            <input type="button" value="Edit" class="btn btn-link" id="request-preview-edit-button">
-
-        </div>
-        <div class="popup-footer">
-        </div>
-    </div>
-</div>
 <!--request details content in a new Request-->
 <div class="popup" id="request-details-popup">
 
@@ -135,7 +82,7 @@
                     <p>Date</p>
                 </div>
                 <div class="col-sm-6">
-                    <p>DD-MM-YYYY</p>
+                    <p id="new-date" >DD-MM-YYYY</p>
                 </div>
             </div>
 
@@ -144,7 +91,7 @@
                     <p>Time</p>
                 </div>
                 <div class="col-sm-6">
-                    <p>HH:MM: AM/PM</p>
+                    <p id="new-time" >HH:MM: AM/PM</p>
                 </div>
             </div>
 
@@ -153,7 +100,7 @@
                     <p>Pick-up Location</p>
                 </div>
                 <div class="col-sm-6">
-                    <p>Text</p>
+                    <p id="new-pickup">Text</p>
                 </div>
             </div>
 
@@ -162,7 +109,7 @@
                     <p>Drop-off Location</p>
                 </div>
                 <div class="col-sm-6">
-                    <p>Text</p>
+                    <p id="new-dropoff">Text</p>
                 </div>
             </div>
 
@@ -171,7 +118,7 @@
                     <p>Status</p>
                 </div>
                 <div class="col-sm-6">
-                    <p>Text</p>
+                    <p>Pending</p>
                 </div>
             </div>
 
@@ -182,10 +129,10 @@
     </div>
 </div>
 <!--Request Preview for a Table-->
-<div class="popup" id="request-preview-popup_1">
+<div class="popup" id="request-preview-popup">
     <div class="popup-content">
         <div class="popup-header">
-            <span class="close" id="request-preview-close_1">&times;</span>
+            <span class="close" id="request-preview-close">&times;</span>
             <h3>Preview</h3>
             <hr>
         </div>
@@ -196,7 +143,7 @@
                     <p>Date</p>
                 </div>
                 <div class="col-sm-6">
-                    <p>DD-MM-YYYY</p>
+                    <p id="date-preview">DD-MM-YYYY</p>
                 </div>
             </div>
 
@@ -205,7 +152,7 @@
                     <p>Time</p>
                 </div>
                 <div class="col-sm-6">
-                    <p>HH:MM: AM/PM</p>
+                    <p id="time-preview" >HH:MM: AM/PM</p>
                 </div>
             </div>
 
@@ -214,7 +161,7 @@
                     <p>Pick-up Location</p>
                 </div>
                 <div class="col-sm-6">
-                    <p>Text</p>
+                    <p id="pickup-preview">Text</p>
                 </div>
             </div>
 
@@ -223,9 +170,61 @@
                     <p>Drop-off Location</p>
                 </div>
                 <div class="col-sm-6">
-                    <p>Text</p>
+                    <p id="drop-preview">Text</p>
                 </div>
             </div>
+        </div>
+        <div class="popup-footer">
+        </div>
+    </div>
+</div>
+<div class="popup" id="new-request-preview-popup">
+    <div class="popup-content">
+        <div class="popup-header">
+            <span class="close" id="new-request-preview-close">&times;</span>
+            <h3>Preview</h3>
+            <hr>
+        </div>
+        <div class="popup-body">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Date</p>
+                </div>
+                <div  class="col-sm-6">
+                    <p id="new-date" >DD-MM-YYYY</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Time</p>
+                </div>
+                <div  class="col-sm-6">
+                    <p id="new-time">HH:MM: AM/PM</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div  class="col-sm-6">
+                    <p>Pick-up Location</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="new-pickup">Text</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div  class="col-sm-6">
+                    <p>Drop-off Location</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="new-dropoff">Text</p>
+                </div>
+            </div>
+            <input type="button" value="Confirm" class="btn btn-primary" id="request-preview-confirm-button">
+            <input type="button" value="Edit" class="btn btn-link" id="request-preview-edit-button">
+
         </div>
         <div class="popup-footer">
         </div>
@@ -252,9 +251,9 @@
                     <img src="images/default-user-image.png" alt="" height="120px" width="120px" class="rounded-circle" style="cursor: pointer; vertical-align: middle; margin-bottom:20px ;">
                 </div>
 
-                <p>Name</p>
-                <p>Occupation</p>
-                <p>Email</p>
+                <p id="user-nam">Name</p>
+                <p id="user-occupation">Occupation</p>
+                <p id="user-email">Email</p>
                 <a href="">Change password</a>
 
             </div>
