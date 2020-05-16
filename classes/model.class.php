@@ -34,7 +34,6 @@ class Model extends DBH
             $stmt->execute();
             $result = $stmt->get_result();
             $num = $result->num_rows;
-            echo $num;
 
             $requests=array();
             for ($j = 0; $j < $num; ++$j) {
@@ -61,6 +60,7 @@ class Model extends DBH
                 $request->approvedBy=$approvedBy;
                 $request->JOcomment=$JOComment;
                 $request->CAOcomment=$CAOComment;
+                $request->state=$status;
 
                 array_push($requests,$request);
             }

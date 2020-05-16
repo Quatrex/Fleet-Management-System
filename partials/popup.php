@@ -18,11 +18,11 @@
                 <form id="submit-form">
 
                     <div class="form-group">
-                        <input type="text" class="form-control" name="date" placeholder="Date" autocomplete="off">
+                        <input type="date" class="form-control" name="date" placeholder="Date" autocomplete="off">
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" name="time" placeholder="Time" autocomplete="off">
+                        <input type="time" class="form-control" name="time" placeholder="Time" autocomplete="off">
                     </div>
 
                     <div class="form-group">

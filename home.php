@@ -2,7 +2,12 @@
 session_start();
 require 'func/data.php';
 include 'partials/header.php';
-$_SESSION['pendingTrips'] = getPendingTrips();
+require_once './includes/autoloader.inc.php';
+$status=1;
+$requester = new Requester($_SESSION['empid'], $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
+$requests = $requester->getPendingRequests($_SESSION['empid'],$status);
+// echo json_encode($requests);
+$_SESSION['pendingTrips'] =$requests;
 $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
 $_SESSION['user'] = json_encode(getUser());
 
@@ -35,7 +40,7 @@ $_SESSION['user'] = json_encode(getUser());
                                     <table class="table table-hover" id="request-table">
                                         <thead class="thead-dark">
                                             <tr>
-                                                <th class="request-id" scope="col">#</th>
+                                                <th class="request-id" scope="col"></th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Date</th>
                                                 <th scope="col">Time</th>
@@ -44,12 +49,12 @@ $_SESSION['user'] = json_encode(getUser());
                                         <tbody>
                                             <?php 
                                             $i =0;
-                                            foreach ($_SESSION['pendingTrips'] as $trips) : ?>
+                                            foreach ($requests as $request) : ?>
                                                 <tr>
-                                                    <th id ="request-<?php echo $i?>"><?php echo $trips['id'] ?></td>
-                                                    <td><?php echo $trips['status'] ?></td>
-                                                    <td><?php echo $trips['date'] ?></td>
-                                                    <td><?php echo $trips['time'] ?></td>
+                                                    <th id ="request-<?php echo $i?>"><?php echo $request->requestID ?></td>
+                                                    <td>Pending</td>
+                                                    <td><?php echo $request->date?></td>
+                                                    <td><?php echo $request->time?></td>
                                                 </tr>
                                             <?php $i++;
                                             endforeach;; ?>
