@@ -14,7 +14,7 @@
 	$dropoff=$_POST['dropoff'];
 	$pickup=$_POST['pickup'];
 	$empid=$_POST['empID'];
-	$purpose="athal ekta";
+	$purpose="text";
 
 		$sql = "INSERT INTO request(DateOfTrip,TimeOfTrip,DropLocation,PickLocation,RequesterID) VALUES(?,?,?,?,?)";
         $stmt = mysqli_stmt_init($conn);

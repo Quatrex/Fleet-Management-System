@@ -55,15 +55,15 @@ class Request
     }
 
     public function getRequesterFullName() {
-        return 'Moda Nagitha';//return $this ->requester ->getFullName();
+        return 'A requester';//return $this ->requester ->getFullName();
     }
 
     public function getJOFullName() {
-        return 'scooby doo1';//return $this ->justifiedBy ->getFullName();
+        return 'Justifying Officer';//return $this ->justifiedBy ->getFullName();
     }
 
     public function getCAOFullName() {
-        return 'scooby doo2';//return $this ->approvedBy ->getFullName();
+        return 'Chief Administrative Officer';//return $this ->approvedBy ->getFullName();
     }
 
     public function getRequesterEmail() {
@@ -71,6 +71,6 @@ class Request
     }
 
     public function getJOEmail() {
-        return 'scooby doo4';//return $this ->justifiedBy ->getEmail();
+        return 'Justifying Officer';//return $this ->justifiedBy ->getEmail();
     }
 }
