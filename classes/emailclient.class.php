@@ -112,9 +112,12 @@ class EmailClient {
         //establishing the conncetion with the mail server and sending the composed message
 
         //initialize settings
-        $this ->mail ->Hostname = 'localhost.localdomain';
+        //$this ->mail ->Hostname = 'localhost.localdomain';
         $this ->mail ->IsSmtp(true);
-        if (!$this->mail->isSMTP()) return; // smtp authentification failed  
+        if (!$this->mail->isSMTP()) {
+            //echo "SMTP auth failed";
+            //return; // smtp authentification failed  
+        }
         $this ->mail ->SMTPDebug = 0;
         $this ->mail ->SMTPAuth = true;
         $this ->mail ->SMTPSecure = 'tls';
@@ -130,10 +133,11 @@ class EmailClient {
         $this ->mail ->Subject = $email ->getRecepient();
         $this ->mail ->Body = $email ->getMessage();
         
+        //if ($this ->mail -> send()) echo "EMAIL SENTTT!";
         //sending the email
         try {
             $this ->mail->Send();
-            echo "Mail sent";
+            //echo "Mail sent";
         } catch (phpmailerException $e) {
             $e -> errorMessage();
             echo "Mail not sent";
