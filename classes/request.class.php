@@ -31,7 +31,6 @@ class Request
         $this->controller= new Controller();
         $this ->emailClient = new EmailClient();
 
-        $this->notifyJOs(); //awul awul awul
     }
 
     public function saveToDatabase(){
