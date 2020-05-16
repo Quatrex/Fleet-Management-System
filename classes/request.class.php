@@ -31,7 +31,7 @@ class Request
         $this->controller= new Controller();
         $this ->emailClient = new EmailClient();
 
-        $this->notifyJOs();
+        $this->notifyJOs(); //awul awul awul
     }
 
     public function saveToDatabase(){
@@ -56,22 +56,22 @@ class Request
     }
 
     public function getRequesterFullName() {
-        return $this ->requester ->getFullName();
+        return 'scooby doo5';//return $this ->requester ->getFullName();
     }
 
     public function getJOFullName() {
-        return $this ->justifiedBy ->getFullName();
+        return 'scooby doo1';//return $this ->justifiedBy ->getFullName();
     }
 
     public function getCAOFullName() {
-        return $this ->approvedBy ->getFullName();
+        return 'scooby doo2';//return $this ->approvedBy ->getFullName();
     }
 
     public function getRequesterEmail() {
-        return $this ->requester ->getEmail();
+        return 'nagitha98@gmail.com';//return $this ->requester ->getEmail();
     }
 
     public function getJOEmail() {
-        return $this ->justifiedBy ->getEmail();
+        return 'scooby doo4';//return $this ->justifiedBy ->getEmail();
     }
 }

@@ -23,7 +23,6 @@ class EmailClient {
 
     public function notifyRequestSubmission(Request $request) {
         //notifying all the JOs about the new vehicle request
-
         $emailTemplate = new Email();
         $emailTemplate ->setSubject("New Vehicle Request");
         $emailTemplate ->setMessage($request ->getRequesterFullName() . " has requested a vehicle");
@@ -31,7 +30,7 @@ class EmailClient {
         //sending emails to JOs
         foreach ($this ->jos as $jo) {
             $email = clone $emailTemplate;
-            $email ->setRecepient($jo ->getEmail());
+            $email ->setRecepient($jo);
             $this -> sendMail($email);
         }
     }
@@ -46,7 +45,7 @@ class EmailClient {
         //sending emails to CAOs
         foreach ($this ->caos as $cao) {
             $email = clone $emailTemplate;
-            $email ->setRecepient($cao ->getEmail());
+            $email ->setRecepient($cao );
             $this -> sendMail($email);
         }
 
@@ -76,7 +75,7 @@ class EmailClient {
         //sending emails to VPMOs
         foreach ($this ->vpmos as $vpmo) {
             $email = clone $emailTemplate;
-            $email ->setRecepient($vpmo ->getEmail());
+            $email ->setRecepient($vpmo);
             $this -> sendMail($email);
         }
 
