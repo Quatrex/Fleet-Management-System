@@ -4,22 +4,22 @@
     const requestPreview = document.getElementById('request-preview-popup');
     const newRequestBtn = document.querySelector('#request-vehicle-button');
     const requestForm = document.getElementById('vehicle-request-form');
-    const requestEntity = <?php echo $_SESSION['json'] ?>;
+    
      //request table entities array
     //const check =sessionStorage.getItem("lastname");
     //console.log(check);
-    const userDetails = JSON.parse(<?php echo $_SESSION['user'] ?>); // users details in an array
-    const firstname = <?php echo json_encode($_SESSION['firstname']) ?>; // users details in an array
-    const lastname = <?php echo json_encode($_SESSION['lastname']) ?>; // users details in an array
-    const position= <?php echo json_encode($_SESSION['position']) ?>; // users details in an array
-    const email = <?php echo json_encode($_SESSION['email']) ?>; // users details in an array
-    const empID = <?php echo json_encode($_SESSION['empid']) ?>; // users details in an array
-    const  username= <?php echo json_encode($_SESSION['username']) ?>; // users details in an array
+    
+    const firstname = <?php echo json_encode($_SESSION['firstname']) ?>;  
+    const lastname = <?php echo json_encode($_SESSION['lastname']) ?>;  
+    const position= <?php echo json_encode($_SESSION['position']) ?>;  
+    const email = <?php echo json_encode($_SESSION['email']) ?>;  
+    const empID = <?php echo json_encode($_SESSION['empid']) ?>;  
+    const  username= <?php echo json_encode($_SESSION['username']) ?>;  
     console.log(empID);
     console.log(typeof(empID));
     
     //jQuery with ajax 
-    initiateProfile();
+    // initiateProfile();
     
 
     $(document).ready(function() {
