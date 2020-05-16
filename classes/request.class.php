@@ -31,7 +31,6 @@ class Request
         $this->controller= new Controller();
         $this ->emailClient = new EmailClient();
 
-        $this->notifyJOs(); //awul awul awul
     }
 
     public function saveToDatabase(){
@@ -43,7 +42,7 @@ class Request
                                     $this->requesterID);
     }
 
-    private function notifyJOs(){
+    public function notifyJOs(){
         $this ->emailClient ->notifyRequestSubmission($this);
     }
 

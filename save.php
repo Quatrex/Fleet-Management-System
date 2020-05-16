@@ -27,6 +27,8 @@
 			if (!mysqli_stmt_execute($stmt)) {
 				die('Could not enter data: ' . mysqli_error($conn));
 			}
-        }
+		}
+		$request=new Request("","","","","","");
+		$request->notifyJOs();
         mysqli_close($conn);
 ?>
