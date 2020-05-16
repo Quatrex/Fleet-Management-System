@@ -43,7 +43,7 @@ class Request
                                     $this->requesterID);
     }
 
-    private function notifyJOs(){
+    public function notifyJOs(){
         $this ->emailClient ->notifyRequestSubmission($this);
     }
 
