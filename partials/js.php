@@ -4,6 +4,7 @@
     const requestPreview = document.getElementById('request-preview-popup');
     const newRequestBtn = document.querySelector('#request-vehicle-button');
     const requestForm = document.getElementById('vehicle-request-form');
+    const requestEntity=<?php echo json_encode($_SESSION['pendingTrips'])?>
     
      //request table entities array
     //const check =sessionStorage.getItem("lastname");
@@ -19,7 +20,7 @@
     console.log(typeof(empID));
     
     //jQuery with ajax 
-    // initiateProfile();
+     initiateProfile();
     
 
     $(document).ready(function() {
@@ -71,9 +72,9 @@
 
     function initiateProfile() {
         changeInnerHTML({
-            '#user-nam': userDetails[0].name,
-            '#user-occupation': userDetails[0].occupation,
-            '#user-email': userDetails[0].email
+            '#user-nam': username,
+            '#user-occupation': position,
+            '#user-email':email
         });
     }
 
@@ -102,8 +103,8 @@
         changeInnerHTML({
             '#date-preview': entity.date,
             '#time-preview': entity.time,
-            '#pickup-preview': entity.pickup,
-            '#drop-preview': entity.drop
+            '#pickup-preview': entity.pickLocation,
+            '#drop-preview': entity.dropLocation
         });
         requestPreview.style.display = 'block';
     }

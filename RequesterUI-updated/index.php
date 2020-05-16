@@ -1,26 +1,7 @@
 <?php
 require_once '../includes/autoloader.inc.php';
 
-if(isset($_POST['submit-request'])) {
-    $date = $_POST['date'];
-    $time = $_POST['time'];
-    $pickup = $_POST['pickup'];
-    $dropoff = $_POST['dropoff'];
-    $purpose = $_POST['purpose'];
 
-    $empID="1";
-    $firstName="Hirumal";
-    $lastName="Fernando";
-    $position="BatchTop";
-    $email="cse@mrt.ac.poorna.lk";
-    $username="abcd";
-    $password="1234";
-
-
-    $requester = new Requester($empID,$firstName,$lastName,$position,$email,$username,$password);
-    $requester->placeRequest($date,$time,$pickup,$dropoff,$purpose);    
-}
-else {
     //hard coded
     $empID="1";
     $firstName="Hirumal";
@@ -36,32 +17,8 @@ else {
 
     $requester = new Requester($empID,$firstName,$lastName,$position,$email,$username,$password);
     $requests = $requester->getPendingRequests($requesterID,$status); //edit the parameter values accordingly
-}
-// require_once 'config.php';
 
-// if (isset($_POST['submit-request'])) {
-//     $date = $_POST['date'];
-//     $time = $_POST['time'];
-//     $pickup = $_POST['pickup'];
-//     $dropoff = $_POST['dropoff'];
-//     $purpose = $_POST['purpose'];
-//     $requesterID = 1;
-//     echo "IN";
 
-//     if (empty($date)  || empty($time) || empty($pickup) || empty($dropoff)) {
-//     } else {
-
-//         $sql = "INSERT INTO request(DateOfTrip,TimeOfTrip,DropLocation,PickLocation,RequesterID) VALUES(?,?,?,?,?)";
-//         $stmt = mysqli_stmt_init($conn);
-//         if (!mysqli_stmt_prepare($stmt, $sql)) {
-//         } else {
-//             mysqli_stmt_bind_param($stmt, "ssssi", $date, $time, $dropoff, $pickup, $requesterID);
-//             mysqli_stmt_execute($stmt);
-//         }
-//         mysqli_stmt_close($stmt);
-//         mysqli_close($conn);
-//     }
-// }
 ?>
 
 <!DOCTYPE html>
