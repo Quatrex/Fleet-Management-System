@@ -142,5 +142,14 @@ class EmailClient {
             $e -> errorMessage();
             echo "Mail not sent";
         }
+        $this ->clearMail();
+    }
+
+    private function clearMail() {
+        //clear the details in the PHPMailer
+
+        $this ->mail ->clearAddresses();
+        $this ->mail ->Body = "";
+        $this ->mail ->Subject = "";
     }
 }
