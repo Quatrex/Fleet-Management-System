@@ -130,7 +130,7 @@ class EmailClient {
 
         //composing message
         $this ->mail ->AddAddress($email ->getRecepient());
-        $this ->mail ->Subject = $email ->getRecepient();
+        $this ->mail ->Subject = $email ->getSubject();
         $this ->mail ->Body = $email ->getMessage();
         
         //if ($this ->mail -> send()) echo "EMAIL SENTTT!";
