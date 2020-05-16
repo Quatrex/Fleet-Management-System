@@ -8,12 +8,17 @@ class EmailClient {
     private $jos;
     private $caos;
     private $vpmos;
+    private $viewer;
 
     function __construct() {
 
         $this->mail = new PHPMailer();
+        $this ->viewer = new Viewer();
 
         //initialize the arrays of JOs, CAOs, and VPMOs
+        $this ->jos = $this ->viewer ->getRecordsEmp('jo');
+        $this ->caos = $this ->viewer ->getRecordsEmp('cao');
+        $this ->vpmos = $this ->viewer ->getRecordsEmp('vpmo');
     }
 
     public function notifyRequestSubmission(Request $request) {
@@ -117,8 +122,8 @@ class EmailClient {
         $this ->mail ->Host = "smtp.gmail.com";
         $this ->mail ->Port = 587; 
         $this ->mail ->IsHTML(true);
-        $this ->mail ->Username = ""; //set email address
-        $this ->mail ->Password = ""; //set password
+        $this ->mail ->Username = "oopassign1@gmail.com"; //set email address
+        $this ->mail ->Password = "pleasedontremovenetwork"; //set password
         $this ->mail ->SetFrom("noreply@quatrex.lk");
 
         //composing message
