@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+    <script src="https://use.fontawesome.com/901c110531.js"></script>
 
     <link href="css/main.css" rel="stylesheet">
-    
+
 </head>
 
 <body>
@@ -32,6 +32,7 @@
                 </div>
                 <div class="header-right">
                     <ul>
+                        <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
                         <li class="icons">
                             <div class="user-img">
                                 <span class="activity active"></span>
@@ -39,7 +40,7 @@
                             </div>
 
                         </li>
-                        <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+
                     </ul>
                 </div>
             </div>

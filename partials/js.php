@@ -48,19 +48,20 @@
                         // email:email
                         // 
                         },
-                    cache: false,
-                    success: function(dataResult) {
-                        var dataResult = JSON.parse(dataResult);
-                         if (dataResult.statusCode == 200) {
-                             $('#submit-form').find('input:text').val('');
-                             //$("#success").show();
-                            $('#success').html('Data added successfully !');
-                         } else if (dataResult.statusCode == 201) {
-                             alert("Error occured !");
-                         }
+                    cache: false
+                    // ,
+                    // success: function(dataResult) {
+                    //     var dataResult = JSON.parse(dataResult);
+                    //      if (dataResult.statusCode == 200) {
+                    //         $('#success').html('Data added successfully !');
+                    //      } else if (dataResult.statusCode == 201) {
+                    //          alert("Error occured !");
+                    //      }
 
-                     }
+                    //  }
                 });
+                $('#submit-form').find('input:text').val('');
+
             } else {
                 alert('Please fill all the field !');
             }
