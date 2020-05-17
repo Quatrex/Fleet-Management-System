@@ -4,20 +4,14 @@
     const requestPreview = document.getElementById('request-preview-popup');
     const newRequestBtn = document.querySelector('#request-vehicle-button');
     const requestForm = document.getElementById('vehicle-request-form');
-    const requestEntity=<?php echo json_encode($_SESSION['pendingTrips'])?>
-    
-     //request table entities array
-    //const check =sessionStorage.getItem("lastname");
-    //console.log(check);
-    
+    const requestEntity=<?php echo json_encode($_SESSION['pendingTrips'])?>;
     const firstname = <?php echo json_encode($_SESSION['firstname']) ?>;  
     const lastname = <?php echo json_encode($_SESSION['lastname']) ?>;  
     const position= <?php echo json_encode($_SESSION['position']) ?>;  
     const email = <?php echo json_encode($_SESSION['email']) ?>;  
     const empID = <?php echo json_encode($_SESSION['empid']) ?>;  
     const  username= <?php echo json_encode($_SESSION['username']) ?>;  
-    console.log(empID);
-    console.log(typeof(empID));
+
     
     //jQuery with ajax 
      initiateProfile();
@@ -108,42 +102,6 @@
         });
         requestPreview.style.display = 'block';
     }
-
-    //*******************Justification Table *******************/
-    document.querySelector("#justify-request-table").onclick = (event) => {
-        let tableRow = event.target.parentElement;
-        let row_id = (tableRow.children[0].id).split("-");
-        let entity = requestEntity[row_id[1]]
-        changeInnerHTML({
-            '#date-preview': entity.date,
-            '#time-preview': entity.time,
-            '#pickup-preview': entity.pickLocation,
-            '#drop-preview': entity.dropLocation
-        });
-        document.getElementById('request-justify-preview-popup').style.display = 'block';
-
-    };
-
-
-    //************Denied Table ******************/
-    document.querySelector("#denied-table").onclick = (event) => {
-        let tableRow = event.target.parentElement;
-        let row_id = (tableRow.children[0].id).split("-");
-        let entity = requestEntity[row_id[1]]
-        changeInnerHTML({
-            '#date-preview': entity.date,
-            '#time-preview': entity.time,
-            '#pickup-preview': entity.pickLocation,
-            '#drop-preview': entity.dropLocation
-        });
-        document.getElementById('request-details-popup').style.display = 'block';
-};
-
-
-
-
-
-
     userImage.addEventListener('click', () => {
         document.getElementById('my-profile').style.display = 'block';
     });
@@ -213,64 +171,6 @@
             popup.style.display = 'none';
         });
     });
-     //***********************Justify Request ********************/
-    // Preview
-    document.querySelector('#request-details-approve-button').addEventListener('click', () => {
-        document.getElementById('request-justify-preview-popup').style.display = 'none';
-        document.getElementById('justify-request-alert').style.display = 'block';
-    });
-
-    document.querySelector('#request-details-decline-button').addEventListener('click', () => {
-        document.getElementById('request-justify-preview-popup').style.display = 'none';
-        document.getElementById('cancel-request-alert-justify').style.display = 'block';
-    });
-
-    document.querySelector('#request-justify-preview-close').addEventListener('click', () => {
-        document.getElementById('request-justify-preview-popup').style.display = 'none';
-    });
-
-    //Preview End
-
-    //Decline Poup
-    //Decline Button
-    document.querySelector('#decline-alert-decline-button').addEventListener('click', () => {
-        document.getElementById('cancel-request-alert-justify').style.display = 'none';
-    });
-    //Decline Cancel Button
-    document.querySelector('#decline-alert-cancel-button').addEventListener('click', () => {
-        document.getElementById('cancel-request-alert-justify').style.display = 'none';
-        document.getElementById('request-justify-preview-popup').style.display = 'block';
-    });
-    //Decline PopUp x button
-    document.querySelector('#confirm-alert-close-decline').addEventListener('click', () => {
-        document.getElementById('cancel-request-alert-justify').style.display = 'none';
-        document.getElementById('request-justify-preview-popup').style.display = 'block';
-    });
-    //Justify Popup
-    //Cancel Button
-    document.querySelector('#justify-alert-cancel-button').addEventListener('click', () => {
-        document.getElementById('justify-request-alert').style.display = 'none';
-        document.getElementById('request-justify-preview-popup').style.display = 'block';
-    });
-    //Justify button
-    document.querySelector('#justify-alert-justify-button').addEventListener('click', () => {
-        document.getElementById('justify-request-alert').style.display = 'none';
-
-    });
-    //Justify Pop Up x Button
-    document.querySelector('#confirm-alert-close-approve').addEventListener('click', () => {
-        document.getElementById('justify-request-alert').style.display = 'none';
-        document.getElementById('request-justify-preview-popup').style.display = 'block';
-    });
-
-    //***********************Justify Request End *******/
-
-
-
-    //***********************Request Denied Preview**************/
-    document.querySelector('#request-denied-preview-close').addEventListener('click', () => {
-        document.getElementById('request-denied-preview-popup').style.display = 'none';
-    });
-
+    
 
 </script>

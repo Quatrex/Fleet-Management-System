@@ -76,3 +76,10 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
 include '../partials/popup.php';
 include '../partials/footer.php';
 ?>
+</div>
+<?php include '../includes/js.php';
+?>
+
+</body>
+
+</html>
