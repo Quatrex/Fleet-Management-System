@@ -26,10 +26,10 @@ class Request
         $this->dropLocation=$dropLocation;
         $this->pickLocation=$pickLocation;
         $this->purpose=$purpose;
-        $this->requester=$requester;
+        $this->requesterID=$requester;
 
         $this->controller= new Controller();
-        $this ->emailClient = new EmailClient();
+        //$this ->emailClient = new EmailClient();
 
     }
 

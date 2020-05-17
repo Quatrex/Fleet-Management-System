@@ -12,7 +12,7 @@
     ***********************************-->
 
 </div>
-<?php include 'js.php';
+<?php include '../includes/js.php';
 ?>
 
 </body>

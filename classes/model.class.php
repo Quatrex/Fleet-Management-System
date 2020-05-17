@@ -5,7 +5,7 @@ class Model extends DBH
 
     protected function addRecord($date, $time, $pickup, $dropoff, $purpose, $requesterID)
     {
-        echo "in addRecord";
+        
         $conn = $this->connect();
 
         if (empty($date)  || empty($time) || empty($pickup) || empty($dropoff) || empty($purpose)) {

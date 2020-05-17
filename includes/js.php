@@ -33,20 +33,19 @@
             
             if (time != "" && date != "" && dropoff != "" && pickup != "") {
                 $.ajax({
-                    url: "save.php",
+                    url: "../func/save.php",
                     type: "POST",
                     data: {
                         time: time,
                         date: date,
                         dropoff: dropoff,
                         pickup: pickup,
-                        // firstname: firstname,
-                        // lastname: lastname,
+                        firstname: firstname,
+                        lastname: lastname,
                         empID: empID,
-                        // position:position,
-                        // username: username,
-                        // email:email
-                        // 
+                        position:position,
+                        username: username,
+                        email:email 
                         },
                     cache: false
                     // ,

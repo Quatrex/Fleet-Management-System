@@ -1,15 +1,13 @@
 <?php
 session_start();
-require 'func/data.php';
-include 'partials/header.php';
-require_once './includes/autoloader.inc.php';
+include '../partials/header.php';
+require_once '../includes/autoloader.inc.php';
 $status=1;
 $requester = new Requester($_SESSION['empid'], $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
 $requests = $requester->getPendingRequests($_SESSION['empid'],$status);
 // echo json_encode($requests);
 $_SESSION['pendingTrips'] =$requests;
 $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
-$_SESSION['user'] = json_encode(getUser());
 
 
 
@@ -62,7 +60,7 @@ $_SESSION['user'] = json_encode(getUser());
                                     </table>
                                 </div>
                                 <div class="tab-pane fade" id="contact">
-                                    <?php include 'partials/contact.php'
+                                    <?php include '../partials/contact.php'
                                     ?>
                                 </div>
                             </div>
@@ -75,6 +73,6 @@ $_SESSION['user'] = json_encode(getUser());
     </div>
 </div>
 <?php
-include 'partials/popup.php';
-include 'partials/footer.php';
+include '../partials/popup.php';
+include '../partials/footer.php';
 ?>

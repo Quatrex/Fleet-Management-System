@@ -33,7 +33,9 @@ if ($stmt = $conn->prepare('SELECT empid,firstname,lastname,position,email,passw
             $_SESSION['lastname'] = $lastname;
             $_SESSION['position'] = $position;
             $_SESSION['email'] = $email;
-            header('Location: ../home.php');
+            if ($_SESSION['position']=='requester') {
+                header('Location: ../Layout/requester.php');
+            }
         } else {
             echo 'Incorrect password!';
         }

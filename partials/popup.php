@@ -248,14 +248,14 @@
 
             <div class="col" style="text-align: center;">
                 <div>
-                    <img src="images/default-user-image.png" alt="" height="120px" width="120px" class="rounded-circle" style="cursor: pointer; vertical-align: middle; margin-bottom:20px ;">
+                    <img src="../images/default-user-image.png" alt="" height="120px" width="120px" class="rounded-circle" style="cursor: pointer; vertical-align: middle; margin-bottom:20px ;">
                 </div>
 
                 <p id="user-nam">Name</p>
                 <p id="user-occupation">Occupation</p>
                 <p id="user-email">Email</p>
                 <a href="">Change password</a>
-
+                
             </div>
 
         </div>

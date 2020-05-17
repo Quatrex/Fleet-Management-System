@@ -23,7 +23,7 @@
     <link rel="stylesheet" type="text/css"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     
-    <link href="css/style_authentication.css" rel="stylesheet">
+    <link href="../css/style_authentication.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
@@ -32,7 +32,7 @@
         <div class="row">
             <div class="col-sm-2">
                 <div class="bg-transparent">
-                    <img src="images/national-logo.png" class="mx-auto d-block" id="national-logo">
+                    <img src="../images/national-logo.png" class="mx-auto d-block" id="national-logo">
                 </div>
             </div>
             <div class="col-sm-10 mt-3 text-center">
@@ -51,7 +51,7 @@
                 <!--Login title-->
                 <h2 class="card-title">Sign in</h2>
 
-                <form action="func/authenticate.php" method="post">
+                <form action="authenticate.php" method="post">
                     <!--Form-Username-->
                     <div class="form-group">
                         <div class="form-row">
