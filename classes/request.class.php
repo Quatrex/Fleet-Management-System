@@ -14,7 +14,7 @@ class Request
     public int $state;
     public string $justifiedBy; //EmpID
     public string $approvedBy; //EmpID
-    private EmailClient $emailClient;
+    //private EmailClient $emailClient;
 
     private $controller;
 
@@ -29,7 +29,6 @@ class Request
         $this->requesterID=$requester;
 
         $this->controller= new Controller();
-        //$this ->emailClient = new EmailClient();
 
     }
 
@@ -43,7 +42,8 @@ class Request
     }
 
     public function notifyJOs(){
-        $this ->emailClient ->notifyRequestSubmission($this);
+        $emailClient = new EmailClient();
+        $emailClient ->notifyRequestSubmission($this);
     }
 
     public function setJustified($officerID,$comment){

@@ -2,8 +2,6 @@
 require_once 'PHPMailer/PHPMailerAutoload.php';
 
 class EmailClient {
-    private PHPMailer $mail;
-
     //referencing the arrays of JOs, CAOs, and VPMOs
     private $jos;
     private $caos;
@@ -11,8 +9,6 @@ class EmailClient {
     private $viewer;
 
     function __construct() {
-
-        $this->mail = new PHPMailer();
         $this ->viewer = new Viewer();
 
         //initialize the arrays of JOs, CAOs, and VPMOs
@@ -109,42 +105,47 @@ class EmailClient {
     }
 
     private function sendMail(Email $email) {
+        $mail = new PHPMailer();
         //establishing the conncetion with the mail server and sending the composed message
 
         //initialize settings
         //$this ->mail ->Hostname = 'localhost.localdomain';
-        $this ->mail ->IsSmtp(true);
-        if (!$this->mail->isSMTP()) {
-            //echo "SMTP auth failed";
+        $mail ->IsSmtp(true);
+
+        /*
+        if (!$mail->isSMTP()) {
+            echo "SMTP auth failed";
             //return; // smtp authentification failed  
         }
-        $this ->mail ->SMTPDebug = 0;
-        $this ->mail ->SMTPAuth = true;
-        $this ->mail ->SMTPSecure = 'tls';
-        $this ->mail ->Host = "smtp.gmail.com";
-        $this ->mail ->Port = 587; 
-        $this ->mail ->IsHTML(true);
-        $this ->mail ->Username = "oopassign1@gmail.com"; //set email address
-        $this ->mail ->Password = "pleasedontremovenetwork"; //set password
-        $this ->mail ->SetFrom("noreply@quatrex.lk");
+        */
+
+        $mail->SMTPDebug = 0;
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = 'tls';
+        $mail->Host = "smtp.gmail.com";
+        $mail->Port = 587;
+        $mail ->IsHTML(true);
+        $mail->Username = "oopassign1@gmail.com"; //set email address
+        $mail->Password = "pleasedontremovenetwork"; //set password
+        $mail->SetFrom("noreply@quatrex.lk");
 
         //composing message
-        $this ->mail ->AddAddress($email ->getRecepient());
-        $this ->mail ->Subject = $email ->getSubject();
-        $this ->mail ->Body = $email ->getMessage();
+        $mail ->AddAddress($email ->getRecepient());
+        $mail ->Subject = $email ->getSubject();
+        $mail ->Body = $email ->getMessage();
         
         //if ($this ->mail -> send()) echo "EMAIL SENTTT!";
         //sending the email
         try {
-            $this ->mail->Send();
+            $mail->Send();
             //echo "Mail sent";
         } catch (phpmailerException $e) {
             $e -> errorMessage();
             echo "Mail not sent";
         }
-        $this ->clearMail();
+        //$this ->clearMail();
     }
-
+    /*
     private function clearMail() {
         //clear the details in the PHPMailer
 
@@ -152,4 +153,5 @@ class EmailClient {
         $this ->mail ->Body = "";
         $this ->mail ->Subject = "";
     }
+    */
 }

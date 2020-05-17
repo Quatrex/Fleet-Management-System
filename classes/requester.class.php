@@ -20,6 +20,7 @@ private $viewer;
         //create request object
         $request=new Request($date,$time,$dropLocation,$pickLocation,$purpose,$this->empID);//include parameters
         $request->saveToDatabase();
+        $request->notifyJOs();
     }
 
     //IRequestable
