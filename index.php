@@ -8,10 +8,9 @@ else{
     if ($_SESSION['position']=='requester') {
         header('Location: ./Layout/requester.php');
     }
-    elseif ($_SESSION['position']=='JO') {
-        header('Location: ./Layout/requester.php');
+    elseif ($_SESSION['position']=='jo') {
+        header('Location: ./Layout/jo.php');
     }
-    
     exit;
 }
 ?>
