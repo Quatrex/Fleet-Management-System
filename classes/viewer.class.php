@@ -8,4 +8,8 @@ class Viewer extends Model{
     public function getRecordsEmp($position){
         return parent::getRecordsEmp($position);
     }
+
+    public function checkPassword($username, $pass){
+        return parent::checkPassword($username, $pass);
+    }
 }
