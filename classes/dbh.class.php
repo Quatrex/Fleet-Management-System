@@ -1,5 +1,5 @@
 <?php
-class DBH {
+abstract class DBH {
     //initialize in constructor
     private $servername = 'remotemysql.com';
     private $dBUsername = 'Kvs8AuC78e';
