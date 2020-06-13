@@ -3,8 +3,7 @@ class Requester extends Employee implements IRequestable,IObjectHandle
 {
     //private $controller;
     //private $viewer;
-
-    private function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
+    public function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {
         parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
 
@@ -17,7 +16,8 @@ class Requester extends Employee implements IRequestable,IObjectHandle
     }
 
     //IObjectHandle
-    public static function getObject($empID){
+    public static function getObject($ID){
+        $empID=$ID;
         //get values from database
         $employeeViewer=new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
         $values=$employeeViewer->getRecordByID($empID);
@@ -49,13 +49,14 @@ class Requester extends Employee implements IRequestable,IObjectHandle
     //IRequestable
     public function placeRequest($date,$time,$dropLocation,$pickLocation,$purpose){
         //create request object
-        $request= Request::constructObject($date,$time,$dropLocation,$pickLocation,$purpose,$this->empID);
-        $request->notifyJOs();
+        //$request= Request::constructObject($date,$time,$dropLocation,$pickLocation,$purpose,$this->empID);
+        //$request->notifyJOs();
     }
 
     //IRequestable
     public function getPendingRequests($requesterID, $status){
-        return $this->viewer->getRecords($requesterID, $status);
+        //return $this->viewer->getRecords($requesterID, $status);
+        return array();
     }
 
     //IRequestable

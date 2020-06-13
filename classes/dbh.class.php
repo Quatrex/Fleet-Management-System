@@ -10,7 +10,7 @@ abstract class DBH {
         $conn = mysqli_connect($this->servername, $this->dBUsername, $this->dBPassword, $this->dBName);
 
         if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
+            die("Connection failed: " . mysqli_connect_error()); //test 
         }
         else{
             return $conn;

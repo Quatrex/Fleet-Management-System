@@ -3,7 +3,7 @@ session_start();
 include '../partials/header.php';
 require_once '../includes/autoloader.inc.php';
 $status=1;
-$requester = new Requester($_SESSION['empid'], $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
+$requester = Requester::getObject($_SESSION['empid']);//, $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
 $requests = $requester->getPendingRequests($_SESSION['empid'],$status);
 // echo json_encode($requests);
 $_SESSION['pendingTrips'] =$requests;
