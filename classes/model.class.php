@@ -1,9 +1,11 @@
 <?php
 
-class Model extends DBH
+abstract class Model extends DBH
 {
+    protected $tableName;
 
-    protected function addRecord($date, $time, $pickup, $dropoff, $purpose, $requesterID)
+    //write a general code for addRecord. use a key(column name)-value(data value) pair array to get values
+    protected function addRecord($date, $time, $pickup, $dropoff, $purpose, $requesterID) // rework the function
     {
         
         $conn = $this->connect();
@@ -23,8 +25,50 @@ class Model extends DBH
         }
     }
 
+    protected function getRecords($tableName,$columnNames,$columnVals,$columnDataTypes){
+        $conn=$this->connect();
 
-    protected function getRecords($requesterID, $status)
+        $count=0;
+        $condition="";
+        foreach ($columnNames as $key => $value) {
+
+            $condition=$condition."'".$value."'"."=?";
+            if(sizeof($columnNames)>($count+1)){
+                $condition=$condition.$value." AND ";
+            }
+
+            $count+=1;
+        }
+
+        $preStatement="SELECT * FROM ".$tableName." WHERE ";
+
+        $sql = $preStatement.$condition; //"SELECT * FROM $table WHERE 'RequesterID'=? AND 'Status'=?";
+
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            //To be continued
+        } else {
+            switch (sizeof($columnVals)) {
+                case 1:
+                    mysqli_stmt_bind_param($stmt, $columnDataTypes, $columnVals[0]);
+                    break;
+                case 2:
+                    mysqli_stmt_bind_param($stmt, $columnDataTypes, $columnVals[0],$columnVals[1]);
+                    break;
+                case 3:
+                    mysqli_stmt_bind_param($stmt, $columnDataTypes, $columnVals[0],$columnVals[1],$columnVals[2]);
+                    break;
+                default:
+                  //code to be executed if n is different from all labels;
+              }
+            //mysqli_stmt_bind_param($stmt, "si", "1", 2 ); //need to put switch case to varying sizes
+            mysqli_stmt_execute($stmt);
+        }
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
+    }
+
+    protected function getRecords($requesterID, $status) //rework the function
     {
 
         $conn = $this->connect();
@@ -71,17 +115,6 @@ class Model extends DBH
         else{
             return false;
         }
-
-        // $sql = "SELECT * FROM $table WHERE 'RequesterID'=? AND 'Status'=?";
-
-        // $stmt = mysqli_stmt_init($conn);
-        // if (!mysqli_stmt_prepare($stmt, $sql)) {
-        // } else {
-        //     mysqli_stmt_bind_param($stmt, "si", $requesterID, $status);
-        //     mysqli_stmt_execute($stmt);
-        // }
-        // mysqli_stmt_close($stmt);
-        // mysqli_close($conn);
     }
 
     protected function getRecordsEmp($position)
