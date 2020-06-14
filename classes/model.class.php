@@ -39,13 +39,12 @@ abstract class Model extends DBH
 
         $preStatement="SELECT * FROM `".$tableName."` WHERE ";
         //"SELECT * FROM `request` WHERE `RequesterID`=? AND `Status`=?"
-        //$sql = $preStatement.$condition; //"SELECT * FROM $table WHERE 'RequesterID'=? AND 'Status'=?";
-        $sql="SELECT * FROM `employee` WHERE `EmpID`=?";
-        //echo $sql;
+        $sql = $preStatement.$condition; //"SELECT * FROM $table WHERE 'RequesterID'=? AND 'Status'=?";
+        //$sql="SELECT * FROM `employee` WHERE `EmpID`=?";
         $stmt = mysqli_stmt_init($conn);
         $result='false';
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            //To be continued
+            //TODO
         } else {
             switch (sizeof($columnVals)) {
                 case 1:
@@ -62,10 +61,7 @@ abstract class Model extends DBH
               }
             //mysqli_stmt_bind_param($stmt, "si", "1", 2 ); //need to put switch case to varying sizes
             mysqli_stmt_execute($stmt);
-            mysqli_stmt_store_result($stmt);
-            $result=mysqli_stmt_get_result($stmt); // need to test
-            echo $result;
-            
+            $result=mysqli_stmt_get_result($stmt);
         }
         mysqli_stmt_close($stmt);
         mysqli_close($conn);

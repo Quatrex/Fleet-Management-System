@@ -55,8 +55,8 @@ class Requester extends Employee implements IRequestable,IObjectHandle
 
     //IRequestable
     public function getPendingRequests($requesterID, $status){
-        //return $this->viewer->getRecords($requesterID, $status);
-        return array();
+        return $this->viewer->getRecords($requesterID, $status);
+        // return array();
     }
 
     //IRequestable

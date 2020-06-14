@@ -11,8 +11,13 @@ abstract class EmployeeModel extends Model{
         $columnVals= array($empID);
         $columnDataTypes= 's';
         $results = parent::getRecords($this->tableName,$columnNames,$columnVals,$columnDataTypes);
-        //echo gettype($results);
-        $values=array('1','1','1','1','1','1','1'); // convert the record into an array of values (test)
+        $values=array();
+        $neededVals=array('EmpID','FirstName','LastName','Position','Email','Username','Password');
+        while($row = mysqli_fetch_array($results)) {
+            foreach ($neededVals as $colVal){
+                array_push($values,$row[$colVal]);
+            }
+        }
         return $values;
     }
     protected function getRecordByUsername($username){
