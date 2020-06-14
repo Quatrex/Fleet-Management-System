@@ -4,7 +4,7 @@ include '../partials/header.php';
 require_once '../includes/autoloader.inc.php';
 $status=1;
 $requester = Requester::getObject($_SESSION['empid']);//, $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
-$requests = $requester->getPendingRequests($_SESSION['empid'],$status);
+$requests = $requester->getMyPendingRequests($_SESSION['empid']);
 // echo json_encode($requests);
 $_SESSION['pendingTrips'] =$requests;
 $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
@@ -51,8 +51,8 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
                                                 <tr>
                                                     <th id ="request-<?php echo $i?>"><?php echo $request->requestID ?></td>
                                                     <td>Pending</td>
-                                                    <td><?php echo $request->date?></td>
-                                                    <td><?php echo $request->time?></td>
+                                                    <td><?php echo $request->dateOfTrip?></td>
+                                                    <td><?php echo $request->timeOfTrip?></td>
                                                 </tr>
                                             <?php $i++;
                                             endforeach;; ?>

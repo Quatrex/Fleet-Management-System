@@ -1,18 +1,9 @@
 <?php
 class Requester extends Employee implements IRequestable,IObjectHandle
 {
-    //private $controller;
-    //private $viewer;
     public function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {
         parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
-
-        //incluce required viewer and controller classes
-        //$this->controller= new Controller();
-        //$this->viewer= new Viewer();
-        $this->employeeController= new EmployeeController();
-        $this->employeeViewer= new EmployeeViewer();
-
     }
 
     //IObjectHandle
@@ -54,9 +45,15 @@ class Requester extends Employee implements IRequestable,IObjectHandle
     }
 
     //IRequestable
-    public function getPendingRequests($requesterID, $status){
-        return $this->viewer->getRecords($requesterID, $status);
-        // return array();
+    public function getMyPendingRequests(){
+        $requestViewer = new RequestViewer();
+        $requestIDs= $requestViewer->getPendingRequestsByID($this->empID);
+        $requests=array();
+        foreach($requestIDs as $requestID){
+            $request=Request::getObject($requestID);
+            array_push($requests,$request);
+        }
+        return $requests;
     }
 
     //IRequestable
