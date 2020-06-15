@@ -50,7 +50,7 @@ class Request implements IObjectHandle
             $requestViewer=new requestViewer(); // method of obtaining the viewer/controller must be determined and changed
             $values=$requestViewer->getRecordByID($requestID);
 
-            $obj = new Request($values[0], $values[1], $values[2], $values[3], $values[4], $values[5], $values[6],$values[7], $values[8], $values[9], $values[10], $values[11], $values[12]);
+            $obj = new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
             
             return $obj;
         }

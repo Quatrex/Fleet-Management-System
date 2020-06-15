@@ -10,10 +10,10 @@ class Requester extends Employee implements IRequestable,IObjectHandle
     public static function getObject($ID){
         $empID=$ID;
         //get values from database
-        $employeeViewer=new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
+        $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
         $values=$employeeViewer->getRecordByID($empID);
 
-        $obj = new Requester($values[0], $values[1], $values[2], $values[3], $values[4], $values[5], $values[6]);
+        $obj = new Requester($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], $values['Password']);
         
         return $obj; //return false, if fail
     }
@@ -24,7 +24,7 @@ class Requester extends Employee implements IRequestable,IObjectHandle
 
         $obj->saveToDatabase(); //check for failure
 
-        return $obj; //return false, if fail
+       return $obj; //return false, if fail
     }
 
     private function saveToDatabase(){
@@ -49,9 +49,14 @@ class Requester extends Employee implements IRequestable,IObjectHandle
         $requestViewer = new RequestViewer();
         $requestIDs= $requestViewer->getPendingRequestsByID($this->empID);
         $requests=array();
-        foreach($requestIDs as $requestID){
-            $request=Request::getObject($requestID);
-            array_push($requests,$request);
+
+        foreach($requestIDs as $key => $requestID){
+            if (is_numeric($requestID['RequestID'])) {
+                $request=Request::getObject($requestID['RequestID']);
+                array_push($requests,$request);
+            } else {
+                break;
+            }
         }
 
         return $requests;
