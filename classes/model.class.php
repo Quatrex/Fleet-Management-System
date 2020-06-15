@@ -42,28 +42,6 @@ abstract class Model
 
     protected function getRecordsEmp($position)
     {
-/*
-        $conn =
-
-        if ($stmt = $conn->prepare("SELECT `Email` FROM `employee` WHERE `Position`=?")) {
-            $stmt->bind_param('s',$position);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $num = $result->num_rows;
-
-            $emails=array();
-            for ($j = 0; $j < $num; ++$j) {
-                $row = mysqli_fetch_assoc($result);
-                array_push($emails,$row['Email']);
-            }
-
-            $stmt->close();
-            return $emails;
-        }
-        else{
-            return false;
-        }
+        
     }
-    */
-}
 }
