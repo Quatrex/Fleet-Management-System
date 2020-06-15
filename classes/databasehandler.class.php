@@ -1,20 +1,16 @@
 <?php
 class DatabaseHandler {
     private static ?DatabaseHandler $instance = null;
-    //private $host = 'remotemysql.com';
-    //private $user = 'Kvs8AuC78e';
-    //private $pass = 'bmMrp4oj2h';
-    //private $dbname = 'Kvs8AuC78e';
-    //private $port = '3306';
-    private $host = 'localhost';
-    private $user = '';
-    private $pass = '';
-    private $dbname = 'misc';
+    private $host = 'remotemysql.com';
+    private $user = 'Kvs8AuC78e';
+    private $pass = 'bmMrp4oj2h';
+    private $dbname = 'Kvs8AuC78e';
     private $port = '3306';
     private PDO $pdo;
 
     private function __construct() {
-        $this->pdo = new PDO('mysql:host=remotemysql.com;port=3306;dbname=Kvs8AuC78e','Kvs8AuC78e','bmMrp4oj2h');
+        $this->pdo = new PDO('mysql:host='.$this->host.';port='.$this->port.';
+        dbname='.$this->dbname,$this->user,$this->pass);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     
