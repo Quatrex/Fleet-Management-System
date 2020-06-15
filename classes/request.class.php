@@ -20,7 +20,7 @@ class Request implements IObjectHandle
     //private $requestController;
     //private $requestViewer;
 
-    private function __construct($requestID,$createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose,$justifiedBy,$approvedBy,$JOComment,$CAOComment)
+    public function __construct($requestID,$createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose,$justifiedBy,$approvedBy,$JOComment,$CAOComment)
     {
         //initialize state
         $this->requestID=$requestID;

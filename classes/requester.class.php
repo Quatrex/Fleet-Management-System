@@ -50,13 +50,9 @@ class Requester extends Employee implements IRequestable,IObjectHandle
         $requestIDs= $requestViewer->getPendingRequestsByID($this->empID);
         $requests=array();
 
-        foreach($requestIDs as $key => $requestID){
-            if (is_numeric($requestID['RequestID'])) {
-                $request=Request::getObject($requestID['RequestID']);
-                array_push($requests,$request);
-            } else {
-                break;
-            }
+        foreach($requestIDs as $values){
+            $request= new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
+            array_push($requests,$request);
         }
 
         return $requests;
