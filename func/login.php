@@ -18,11 +18,9 @@
 
     <!-- CSS
     ================================================== -->
-    <link rel="stylesheet" type="text/css"
-        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
     <link href="../css/style_authentication.css" rel="stylesheet">
 </head>
 
@@ -51,23 +49,26 @@
                 <!--Login title-->
                 <h2 class="card-title">Sign in</h2>
 
-                <form action="authenticate.php" method="post">
+                <!-- <form action="authenticate.php" method="post" onsubmit="return validatelogin()" name="vform"> -->
+                <form method="post" name="vform">
+                    <div id="message"></div>
                     <!--Form-Username-->
                     <div class="form-group">
                         <div class="form-row">
-                            <div class="col-md">
+                            <div class="col-md" id="username_div">
                                 <label>Username</label>
-                                <input type="text" name="username" class="form-control" placeholder="Username..." required autocomplete="off">
+                                <input type="text" name="username" class="form-control" id="username-input" placeholder="Username..." required autocomplete="off">
+                                <div id="name-error" style="color:red"></div>
                             </div>
                         </div>
                     </div>
                     <!--Form-password-->
                     <div class="form-group">
                         <div class="form-row">
-                            <div class="col-md">
+                            <div class="col-md" id="password_div">
                                 <label>Password</label>
-                                <input type="password" name="password" class="form-control"
-                                    placeholder="Enter password..." required autocomplete="off">
+                                <input type="password" name="password" class="form-control" id="password-input" placeholder="Enter password..." required autocomplete="off">
+                                <div id="password-error" style="color:red"></div>
                                 <!--Forgot Password?-->
                                 <div class="float-right">
                                     <a class="d-block small mt-3" href="forgot-password.html">Forgot Password?</a>
@@ -85,7 +86,7 @@
                     </div>
                     <!--Log in button-->
                     <div style="text-align: right;">
-                        <button type="submit" class="btn btn-primary " name="login-submit">Log in</button>
+                        <button type="button" class="btn btn-primary " name="login-submit" id="login-button">Log in</button>
                     </div>
 
                 </form>
@@ -103,6 +104,9 @@
             </div>
         </div>
     </div>
+    <script src="validator.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

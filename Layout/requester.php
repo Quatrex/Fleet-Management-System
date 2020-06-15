@@ -4,7 +4,7 @@ include '../partials/header.php';
 require_once '../includes/autoloader.inc.php';
 $status=1;
 $requester = Requester::getObject($_SESSION['empid']);//, $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
-$requests = $requester->getMyPendingRequests($_SESSION['empid']);
+$requests = $requester->getMyPendingRequests();
 // echo json_encode($requests);
 $_SESSION['pendingTrips'] =$requests;
 $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);

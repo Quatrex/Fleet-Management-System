@@ -31,9 +31,8 @@ abstract class Model extends DBH
 
             $condition=$condition."`".$value."`"."=?";
             if(sizeof($columnNames)>($count+1)){
-                $condition=$condition.$value." AND ";
+                $condition=$condition." AND ";
             }
-
             $count+=1;
         }
 
@@ -42,7 +41,7 @@ abstract class Model extends DBH
         $sql = $preStatement.$condition; //"SELECT * FROM $table WHERE 'RequesterID'=? AND 'Status'=?";
         //$sql="SELECT * FROM `employee` WHERE `EmpID`=?";
         $stmt = mysqli_stmt_init($conn);
-        $result='false';
+        $result=false;
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             //TODO
         } else {
@@ -67,6 +66,33 @@ abstract class Model extends DBH
         mysqli_close($conn);
         return $result;
     }
+
+    protected function getRecordsEmp($position)
+    {
+
+        $conn = $this->connect();
+
+        if ($stmt = $conn->prepare("SELECT `Email` FROM `employee` WHERE `Position`=?")) {
+            $stmt->bind_param('s',$position);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $num = $result->num_rows;
+
+            $emails=array();
+            for ($j = 0; $j < $num; ++$j) {
+                $row = mysqli_fetch_assoc($result);
+                array_push($emails,$row['Email']);
+            }
+
+            $stmt->close();
+            return $emails;
+        }
+        else{
+            return false;
+        }
+    }
+}
+
 
     // protected function getRecords($requesterID, $status) //rework the function
     // {
@@ -116,29 +142,3 @@ abstract class Model extends DBH
     //         return false;
     //     }
     // }
-
-    protected function getRecordsEmp($position)
-    {
-
-        $conn = $this->connect();
-
-        if ($stmt = $conn->prepare("SELECT `Email` FROM `employee` WHERE `Position`=?")) {
-            $stmt->bind_param('s',$position);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $num = $result->num_rows;
-
-            $emails=array();
-            for ($j = 0; $j < $num; ++$j) {
-                $row = mysqli_fetch_assoc($result);
-                array_push($emails,$row['Email']);
-            }
-
-            $stmt->close();
-            return $emails;
-        }
-        else{
-            return false;
-        }
-    }
-}
