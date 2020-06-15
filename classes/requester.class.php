@@ -53,6 +53,7 @@ class Requester extends Employee implements IRequestable,IObjectHandle
             $request=Request::getObject($requestID);
             array_push($requests,$request);
         }
+
         return $requests;
     }
 

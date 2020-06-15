@@ -1,6 +1,7 @@
 <?php
 class Request implements IObjectHandle
 {
+    //ToDO: make attributes private and use get/set methods
     public int $requestID; 
     public string $createdDate; //how to handle 'date' in php? 
     public int $state;
@@ -12,29 +13,29 @@ class Request implements IObjectHandle
     public string $purpose; 
     public string $justifiedBy; //EmpID
     public string $approvedBy; //EmpID
-    public string $JOcomment; 
-    public string $CAOcomment;
+    public string $JOComment; 
+    public string $CAOComment;
     //private EmailClient $emailClient;
 
     //private $requestController;
     //private $requestViewer;
 
-    private function __construct($requestID,$createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose,$justifiedBy,$approvedBy,$JOcomment,$CAOcomment)
+    private function __construct($requestID,$createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose,$justifiedBy,$approvedBy,$JOComment,$CAOComment)
     {
         //initialize state
         $this->requestID=$requestID;
-        $this->createdDate=$createdDate;
-        $this->state=$state;
+        $this->createdDate=($createdDate!= null)?$createdDate:'';
+        $this->state=($state!= null)?$state:'';
         $this->dateOfTrip=$dateOfTrip;
         $this->timeOfTrip=$timeOfTrip;
         $this->dropLocation=$dropLocation;
         $this->pickLocation=$pickLocation;
         $this->requesterID=$requesterID;
-        $this->purpose=$purpose;
-        $this->justifiedBy=$justifiedBy;
-        $this->approvedBy=$approvedBy;
-        $this->JOcomment=$JOcomment;
-        $this->CAOcomment=$CAOcomment;
+        $this->purpose=($purpose!= null)?$purpose:'';
+        $this->justifiedBy=($justifiedBy!= null)?$justifiedBy:'';
+        $this->approvedBy=($approvedBy!= null)?$approvedBy:'';
+        $this->JOComment=($JOComment!= null)?$JOComment:'';
+        $this->CAOComment=($CAOComment!= null)?$CAOComment:'';
 
 
         //$this->requestController= new RequestController();
@@ -43,19 +44,20 @@ class Request implements IObjectHandle
     }
 
         //IObjectHandle
-        public static function getObject($requestID){
+        public static function getObject($ID){
+            $requestID=$ID;
             //get values from database
-            $requestViewer=new RequestViewer(); // method of obtaining the viewer/controller must be determined and changed
-            //$values=$requestViewer->getRecordByID($requestID); //continue implementing when needed
+            $requestViewer=new requestViewer(); // method of obtaining the viewer/controller must be determined and changed
+            $values=$requestViewer->getRecordByID($requestID);
 
-            //$obj = new Request($values[0],$values[1],$values[2],$values[3],$values[4],$values[5],$values[6],$values[7],$values[8],$values[9],$values[10],$values[11],$values[12]);
+            $obj = new Request($values[0], $values[1], $values[2], $values[3], $values[4], $values[5], $values[6],$values[7], $values[8], $values[9], $values[10], $values[11], $values[12]);
             
-            //return $obj; //return false of fail
+            return $obj;
         }
     
         //IObjectHandle
-        public static function constructObject($requestID,$createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose,$justifiedBy,$approvedBy,$JOcomment,$CAOcomment){
-            $obj = new Request($requestID,$createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose,$justifiedBy,$approvedBy,$JOcomment,$CAOcomment);
+        public static function constructObject($requestID,$createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose,$justifiedBy,$approvedBy,$JOComment,$CAOComment){
+            $obj = new Request($requestID,$createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose,$justifiedBy,$approvedBy,$JOComment,$CAOComment);
     
             $obj->saveToDatabase(); //check for failure
     

@@ -6,6 +6,21 @@ abstract class RequestModel extends Model{
         $this->tableName="request";
     }
 
+    protected function getRecordByID($requestID){
+        $columnNames= array('RequestID');
+        $columnVals= array($requestID);
+        $columnDataTypes= 'i';
+        $results = parent::getRecords($this->tableName,$columnNames,$columnVals,$columnDataTypes);
+        $values=array();
+        $neededVals=array('RequestID','CreatedDate','State','DateOfTrip','TimeOfTrip','DropLocation','PickLocation','RequesterID','Purpose','JustifiedBy','ApprovedBy','JOComment','CAOComment');
+        while($row = mysqli_fetch_array($results)) {
+            foreach ($neededVals as $colVal){
+                array_push($values,$row[$colVal]);
+            }
+        }
+        return $values;
+    }
+
     protected function getPendingRequestsByID($requesterID){
         $state=1; //implement an enum to get the state value
 
