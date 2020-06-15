@@ -101,8 +101,8 @@
         let row_id = (tableRow.children[0].id).split("-");
         let entity = requestEntity[row_id[1]]
         changeInnerHTML({
-            '#date-preview': entity.date,
-            '#time-preview': entity.time,
+            '#date-preview': entity.dateOfTrip,
+            '#time-preview': entity.timeOfTrip,
             '#pickup-preview': entity.pickLocation,
             '#drop-preview': entity.dropLocation
         });
