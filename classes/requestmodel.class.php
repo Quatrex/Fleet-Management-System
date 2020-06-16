@@ -20,4 +20,10 @@ abstract class RequestModel extends Model{
         $results = parent::getRecords($columnNames,$columnVals);
         return $results;
     }
+
+    protected function saveRecord($date,$time,$dropLocation,$pickLocation,$purpose,$requesterID) {
+        $columnNames = array('State','DateOfTrip','TimeOfTrip','DropLocation','PickLocation','Purpose','RequesterID');
+        $columnVals = array(1,$date,$time,$dropLocation,$pickLocation,$purpose,$requesterID);
+        parent::addRecord($columnNames,$columnVals);
+    }
 }

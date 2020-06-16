@@ -21,7 +21,7 @@ class DatabaseHandler {
         return DatabaseHandler::$instance;
     }
 
-    public function execute($sql,$columnVals) {
+    public function read($sql,$columnVals) {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($columnVals);
         $results = array();
@@ -29,6 +29,11 @@ class DatabaseHandler {
             array_push($results,$row);
         }
         return $results;
+    }
+
+    public function write($sql,$columnVals) {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($columnVals);
     }
 
 }

@@ -40,7 +40,8 @@ class Requester extends Employee implements IRequestable,IObjectHandle
     //IRequestable
     public function placeRequest($date,$time,$dropLocation,$pickLocation,$purpose){
         //create request object
-        //$request= Request::constructObject($date,$time,$dropLocation,$pickLocation,$purpose,$this->empID);
+        Request::saveRequest($date,$time,$dropLocation,$pickLocation,$purpose,$this->empID);
+        echo "Inside Requester";
         //$request->notifyJOs();
     }
 

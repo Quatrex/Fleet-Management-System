@@ -9,8 +9,27 @@ abstract class Model
         $this->dbh = DatabaseHandler::getInstance();
     }
     //write a general code for addRecord. use a key(column name)-value(data value) pair array to get values
-    protected function addRecord($tableName,$columnNames,$columnVals,$columnDataTypes)//$date, $time, $pickup, $dropoff, $purpose, $requesterID) // rework the function
+    protected function addRecord($columnNames,$columnVals)//$date, $time, $pickup, $dropoff, $purpose, $requesterID) // rework the function
     {
+        $condition = '';
+        $count = 0;
+        $tail = '';
+
+        foreach ($columnNames as $key => $value) {
+
+            $condition.="`".$value."`";
+            $tail.='?';
+            if(sizeof($columnNames)>($count+1)){
+                $condition.=" , ";
+                $tail.=',';
+            }
+            $count+=1;
+        }
+        $condition .= ') VALUES (' . $tail. ');';
+        $preStatement="INSERT INTO `".$this->tableName."` (";
+        $sql = $preStatement.$condition;
+
+        $this->dbh->write($sql,$columnVals);
     }
 
     protected function getRecords($columnNames,$columnVals){
@@ -18,9 +37,9 @@ abstract class Model
         $count = 0;
 
         foreach ($columnNames as $key => $value) {
-            $condition=$condition."`".$value."`"."=?";
+            $condition.="`".$value."`"."=?";
             if(sizeof($columnNames)>($count+1)){
-                $condition=$condition." AND ";
+                $condition.=" AND ";
             }
             $count+=1;
         }
@@ -29,7 +48,7 @@ abstract class Model
         //"SELECT * FROM `request` WHERE `RequesterID`=? AND `Status`=?"
         $sql = $preStatement.$condition; //"SELECT * FROM $table WHERE 'RequesterID'=? AND 'Status'=?";
         //$sql="SELECT * FROM `employee` WHERE `EmpID`=?";
-        $result = $this->dbh->execute($sql,$columnVals);
+        $result = $this->dbh->read($sql,$columnVals);
 
         if ($result == false ) {
             //there is no data for those values

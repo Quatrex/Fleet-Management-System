@@ -48,14 +48,16 @@
                         email:email 
                         },
                     cache: false
-                    // ,
-                    // success: function(dataResult) {
-                    //     var dataResult = JSON.parse(dataResult);
-                    //      if (dataResult.statusCode == 200) {
-                    //         $('#success').html('Data added successfully !');
-                    //      } else if (dataResult.statusCode == 201) {
-                    //          alert("Error occured !");
-                    //      }
+                     ,
+                    success: function(dataResult) {
+                        console.log('asdad');
+                        // var dataResult = JSON.parse(dataResult);
+                        //  if (dataResult.statusCode == 200) {
+                        //     $('#success').html('Data added successfully !');
+                        //  } else if (dataResult.statusCode == 201) {
+                        //      alert("Error occured !");
+                        //  }
+                        }
 
                     //  }
                 });
