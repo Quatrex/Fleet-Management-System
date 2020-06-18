@@ -9,7 +9,7 @@ class EmailClient {
     private $viewer;
 
     function __construct() {
-        $this ->viewer = new Viewer();
+        // $this ->viewer = new Viewer();
 
         //initialize the arrays of JOs, CAOs, and VPMOs
         $this ->jos = $this ->viewer ->getRecordsEmp('jo');
