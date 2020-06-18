@@ -56,8 +56,8 @@ abstract class Model extends DBH
                     mysqli_stmt_bind_param($stmt, $columnDataTypes, $columnVals[0],$columnVals[1],$columnVals[2]);
                     break;
                 default:
-                  //code to be executed if n is different from all labels;
-              }
+                    //code to be executed if n is different from all labels;
+            }
             //mysqli_stmt_bind_param($stmt, "si", "1", 2 ); //need to put switch case to varying sizes
             mysqli_stmt_execute($stmt);
             $result=mysqli_stmt_get_result($stmt);
