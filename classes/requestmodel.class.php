@@ -3,38 +3,27 @@ abstract class RequestModel extends Model{
 
     function __construct()
     {
-        $this->tableName="request";
+        parent::__construct('request');
     }
 
     protected function getRecordByID($requestID){
         $columnNames= array('RequestID');
         $columnVals= array($requestID);
-        $columnDataTypes= 'i';
-        $results = parent::getRecords($this->tableName,$columnNames,$columnVals,$columnDataTypes);
-        $values=array();
-        $neededVals=array('RequestID','CreatedDate','State','DateOfTrip','TimeOfTrip','DropLocation','PickLocation','RequesterID','Purpose','JustifiedBy','ApprovedBy','JOComment','CAOComment');
-        while($row = mysqli_fetch_array($results)) {
-            foreach ($neededVals as $colVal){
-                array_push($values,$row[$colVal]);
-            }
-        }
-        return $values;
+        $results = parent::getRecords($columnNames,$columnVals);
+        return $results[0];
     }
 
     protected function getPendingRequestsByID($requesterID){
         $state=1; //implement an enum to get the state value
-
         $columnNames= array('RequesterID','State');
         $columnVals= array($requesterID,$state);
-        $columnDataTypes= 'ii';
-        $results = parent::getRecords($this->tableName,$columnNames,$columnVals,$columnDataTypes);
-        $values=array();
-        $neededVals=array('RequestID');
-        while($row = mysqli_fetch_array($results)) {
-            foreach ($neededVals as $colVal){
-                array_push($values,$row[$colVal]);
-            }
-        }
-        return $values;
+        $results = parent::getRecords($columnNames,$columnVals);
+        return $results;
+    }
+
+    protected function saveRecord($date,$time,$dropLocation,$pickLocation,$purpose,$requesterID) {
+        $columnNames = array('State','DateOfTrip','TimeOfTrip','DropLocation','PickLocation','Purpose','RequesterID');
+        $columnVals = array(1,$date,$time,$dropLocation,$pickLocation,$purpose,$requesterID);
+        parent::addRecord($columnNames,$columnVals);
     }
 }

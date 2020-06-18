@@ -48,14 +48,16 @@
                         email:email 
                         },
                     cache: false
-                    // ,
-                    // success: function(dataResult) {
-                    //     var dataResult = JSON.parse(dataResult);
-                    //      if (dataResult.statusCode == 200) {
-                    //         $('#success').html('Data added successfully !');
-                    //      } else if (dataResult.statusCode == 201) {
-                    //          alert("Error occured !");
-                    //      }
+                     ,
+                    success: function(dataResult) {
+                        console.log('asdad');
+                        // var dataResult = JSON.parse(dataResult);
+                        //  if (dataResult.statusCode == 200) {
+                        //     $('#success').html('Data added successfully !');
+                        //  } else if (dataResult.statusCode == 201) {
+                        //      alert("Error occured !");
+                        //  }
+                        }
 
                     //  }
                 });
@@ -101,8 +103,8 @@
         let row_id = (tableRow.children[0].id).split("-");
         let entity = requestEntity[row_id[1]]
         changeInnerHTML({
-            '#date-preview': entity.date,
-            '#time-preview': entity.time,
+            '#date-preview': entity.dateOfTrip,
+            '#time-preview': entity.timeOfTrip,
             '#pickup-preview': entity.pickLocation,
             '#drop-preview': entity.dropLocation
         });

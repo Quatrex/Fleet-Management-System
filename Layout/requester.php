@@ -1,5 +1,6 @@
 <?php
 session_start();
+if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
 include '../partials/header.php';
 require_once '../includes/autoloader.inc.php';
 $status=1;
