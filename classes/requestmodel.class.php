@@ -21,9 +21,9 @@ abstract class RequestModel extends Model{
         return $results;
     }
 
-    protected function saveRecord($date,$time,$dropLocation,$pickLocation,$purpose,$requesterID) {
-        $columnNames = array('State','DateOfTrip','TimeOfTrip','DropLocation','PickLocation','Purpose','RequesterID');
-        $columnVals = array(1,$date,$time,$dropLocation,$pickLocation,$purpose,$requesterID);
+    protected function saveRecord($createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose) {
+        $columnNames = array('CreatedDate','State','DateOfTrip','TimeOfTrip','DropLocation','PickLocation','RequesterID','Purpose');
+        $columnVals = array($createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose);
         parent::addRecord($columnNames,$columnVals);
     }
 }

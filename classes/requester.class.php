@@ -40,7 +40,7 @@ class Requester extends Employee implements IRequestable,IObjectHandle
     //IRequestable
     public function placeRequest($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$purpose){
         $request= Request::constructObject($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$this->empID,$purpose);
-        $request->notifyJOs(); //change: notify JOs when the state change occurs
+        //$request->notifyJOs(); //change: notify JOs when the state change occurs
     }
 
     //IRequestable
