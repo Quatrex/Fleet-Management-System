@@ -1,4 +1,11 @@
 <?php
+namespace Request;
+
+use RequestViewer;
+use RequestController;
+use IObjectHandle;
+use Request\State\State;
+
 class Request implements IObjectHandle
 {
     //ToDO: make attributes private and use get/set methods
@@ -15,7 +22,8 @@ class Request implements IObjectHandle
     public string $approvedBy; //EmpID
     public string $JOComment; 
     public string $CAOComment;
-    public static $requestController; //just for testing
+
+    private State $stateObject;
     //private EmailClient $emailClient;
 
     //private $requestController;
@@ -37,6 +45,8 @@ class Request implements IObjectHandle
         $this->approvedBy=($approvedBy!= null)?$approvedBy:'';
         $this->JOComment=($JOComment!= null)?$JOComment:'';
         $this->CAOComment=($CAOComment!= null)?$CAOComment:'';
+        
+        //initializing the state object
 
 
         //$this->requestController= new RequestController();
@@ -82,16 +92,26 @@ class Request implements IObjectHandle
                                     $this->purpose);
     }
 
+    public function setState(State $stateObject) : void {
+        $this->stateObject = $stateObject;
+    }
+
     public function notifyJOs(){
-        $emailClient = new EmailClient();
-        $emailClient ->notifyRequestSubmission($this);
+        // $emailClient = new EmailClient();
+        // $emailClient ->notifyRequestSubmission($this);
     }
 
     public function setJustified($officerID,$comment){
+        //if condition
+        $this->stateObject->justify($this);
+        $this->stateObject->denyJustify($this);
         //update $justifiedBy
     }
 
     public function setApproved($officerID,$comment){
+        //if condition
+        $this->stateObject->approve($this);
+        $this->stateObject->denyApprove($this);
         //update $approvedBy
     }
 
