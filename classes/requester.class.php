@@ -1,4 +1,5 @@
 <?php
+// use Request as Request;
 class Requester extends Employee implements IRequestable,IObjectHandle
 {
     public function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
@@ -39,7 +40,7 @@ class Requester extends Employee implements IRequestable,IObjectHandle
 
     //IRequestable
     public function placeRequest($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$purpose){
-        $request= Request::constructObject($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$this->empID,$purpose);
+        $request= Request\Request::constructObject($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$this->empID,$purpose);
         //$request->notifyJOs(); //change: notify JOs when the state change occurs
     }
 
@@ -50,7 +51,7 @@ class Requester extends Employee implements IRequestable,IObjectHandle
         $requests=array();
 
         foreach($requestIDs as $values){
-            $request= new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
+            $request= new Request\Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
             array_push($requests,$request);
         }
 
