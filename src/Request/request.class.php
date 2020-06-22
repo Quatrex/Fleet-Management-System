@@ -1,8 +1,8 @@
 <?php
 namespace Request;
 
-use RequestViewer;
-use RequestController;
+use DB\Viewer\RequestViewer;
+use DB\Controller\RequestController;
 use DB\IObjectHandle;
 use Request\State\State;
 

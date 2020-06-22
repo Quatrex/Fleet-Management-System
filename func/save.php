@@ -1,4 +1,6 @@
 <?php
+	use Employee\Requester;
+
 	include_once '../includes/autoloader.inc.php';
 	$timeOfTrip=$_POST['time'];
 	$dateOfTrip=$_POST['date'];
