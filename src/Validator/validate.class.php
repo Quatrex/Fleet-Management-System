@@ -1,4 +1,6 @@
 <?php
+namespace Validator;
+
 class Validator
 {
     public function validatePureString($name)

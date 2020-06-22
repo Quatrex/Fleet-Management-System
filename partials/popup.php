@@ -82,7 +82,7 @@
                     <p>Date</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="new-date" >DD-MM-YYYY</p>
+                    <p id="new-date">DD-MM-YYYY</p>
                 </div>
             </div>
 
@@ -91,7 +91,7 @@
                     <p>Time</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="new-time" >HH:MM: AM/PM</p>
+                    <p id="new-time">HH:MM: AM/PM</p>
                 </div>
             </div>
 
@@ -152,7 +152,7 @@
                     <p>Time</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="time-preview" >HH:MM: AM/PM</p>
+                    <p id="time-preview">HH:MM: AM/PM</p>
                 </div>
             </div>
 
@@ -191,8 +191,8 @@
                 <div class="col-sm-6">
                     <p>Date</p>
                 </div>
-                <div  class="col-sm-6">
-                    <p id="new-date" >DD-MM-YYYY</p>
+                <div class="col-sm-6">
+                    <p id="new-date">DD-MM-YYYY</p>
                 </div>
             </div>
 
@@ -200,13 +200,13 @@
                 <div class="col-sm-6">
                     <p>Time</p>
                 </div>
-                <div  class="col-sm-6">
+                <div class="col-sm-6">
                     <p id="new-time">HH:MM: AM/PM</p>
                 </div>
             </div>
 
             <div class="row">
-                <div  class="col-sm-6">
+                <div class="col-sm-6">
                     <p>Pick-up Location</p>
                 </div>
                 <div class="col-sm-6">
@@ -215,7 +215,7 @@
             </div>
 
             <div class="row">
-                <div  class="col-sm-6">
+                <div class="col-sm-6">
                     <p>Drop-off Location</p>
                 </div>
                 <div class="col-sm-6">
@@ -254,8 +254,45 @@
                 <p id="user-nam">Name</p>
                 <p id="user-occupation">Occupation</p>
                 <p id="user-email">Email</p>
-                <a href="">Change password</a>
-                
+                <a id="change-password-button" style="cursor:pointer; color:royalblue">Change password</a>
+
+            </div>
+
+        </div>
+        <div class="popup-footer">
+
+        </div>
+    </div>
+</div>
+<!--Change my password popup-->
+<div class="popup" id="change-password">
+    <!-- change password content -->
+    <div class="popup-content">
+
+        <div class="popup-header">
+            <span class="close" id="change-password-close">&times;</span>
+            <h2 id="change-password-header">Enter Your Password</h2>
+            <hr>
+        </div>
+
+        <div class="popup-body" id="change-password-body">
+
+            <div class="col" style="text-align: center;">
+                <!--Form-password-->
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md">
+                            <div id="password-input">
+                                <input type="password" name="current-password" class="form-control" id="current-password-input" placeholder="Enter your current password..." required autocomplete="off">
+                            </div>
+                            <div id="password-error" style="color:red; text-align:left"></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <input type="button" value="Cancel" class="btn btn-link" id="change-password-cancel-button">
+                    <button type="button" class="btn btn-primary " name="password-submit" id="check-my-password-button">Next</button>
+                </div>
             </div>
 
         </div>

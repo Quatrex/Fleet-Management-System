@@ -1,15 +1,18 @@
 <script type="text/javascript">
+    const requester = <?php echo json_encode($_SESSION['requester']); ?>;
     const requestTable = document.querySelector("#request-table");
     const userImage = document.querySelector('.user-img');
+    const changePasswordBtn = document.querySelector('#change-password-button');
+    const checkMyPasswordBtn = document.querySelector('#check-my-password-button');
     const requestPreview = document.getElementById('request-preview-popup');
     const newRequestBtn = document.querySelector('#request-vehicle-button');
     const requestForm = document.getElementById('vehicle-request-form');
-    const requestEntity=<?php echo json_encode($_SESSION['pendingTrips'])?>
-    
-     //request table entities array
+    const requestEntity = <?php echo json_encode($_SESSION['pendingTrips']) ?>
+
+    //request table entities array
     //const check =sessionStorage.getItem("lastname");
     //console.log(check);
-    
+
     const firstname = <?php echo json_encode($_SESSION['firstname']) ?>;  
     const lastname = <?php echo json_encode($_SESSION['lastname']) ?>;  
     const position= <?php echo json_encode($_SESSION['position']) ?>;  
@@ -18,10 +21,10 @@
     const  username= <?php echo json_encode($_SESSION['username']) ?>;  
     console.log(empID);
     console.log(typeof(empID));
-    
+
     //jQuery with ajax 
-     initiateProfile();
-    
+    initiateProfile();
+
 
     $(document).ready(function() {
         $('#request-preview-confirm-button').on('click', function() {
@@ -30,7 +33,7 @@
             let dropoff = $('#new-dropoff').html();
             let pickup = $('#new-pickup').html();
             //console.log(typeof(pickup));
-            
+
             if (time != "" && date != "" && dropoff != "" && pickup != "") {
                 $.ajax({
                     url: "../func/save.php",
@@ -43,12 +46,11 @@
                         firstname: firstname,
                         lastname: lastname,
                         empID: empID,
-                        position:position,
+                        position: position,
                         username: username,
-                        email:email 
-                        },
-                    cache: false
-                     ,
+                        email: email
+                    },
+                    cache: false,
                     success: function(dataResult) {
                         console.log('asdad');
                         // var dataResult = JSON.parse(dataResult);
@@ -57,7 +59,7 @@
                         //  } else if (dataResult.statusCode == 201) {
                         //      alert("Error occured !");
                         //  }
-                        }
+                    }
 
                     //  }
                 });
@@ -70,13 +72,13 @@
     });
 
 
-    
+
 
     function initiateProfile() {
         changeInnerHTML({
             '#user-nam': username,
             '#user-occupation': position,
-            '#user-email':email
+            '#user-email': email
         });
     }
 
@@ -86,7 +88,6 @@
                 tag.innerHTML = arg[key];
             })
         }
-
     }
 
     function getValuesFromForm(name, values) {
@@ -96,6 +97,35 @@
             arr[key] = form.elements[key].value
         })
         return arr;
+    }
+
+    function checkMyPassword(password) {
+        if (password != "") {
+            $.ajax({
+                url: "../func/changePassword.php",
+                type: "POST",
+                data: {
+                    empID: empID,
+                    password: password
+                },
+                cache: false,
+                success: function(validity) {
+                    if (validity == true) {
+                        parent = document.getElementById('password-input');
+                        child = `<input type="password" name="new-password" class="form-control" id="new-password-input" placeholder="Enter new password..." required autocomplete="off">
+                            <input type="password" name="new-password-again" class="form-control" id="password-again-input" placeholder="Enter password again..." required autocomplete="off">
+                            `
+                        parent.innerHTML = child;
+                        document.getElementById('change-password-header').innerHTML = "Enter new password";
+                    } else {
+                        document.getElementById('password-error').innerHTML = "Password incorrect";
+                    }
+                }
+            });
+
+        } else {
+            document.getElementById('password-error').innerHTML = 'Please enter your password!';
+        }
     }
 
     requestTable.onclick = (event) => {
@@ -115,12 +145,27 @@
         document.getElementById('my-profile').style.display = 'block';
     });
 
+    changePasswordBtn.addEventListener('click', () => {
+        document.getElementById('change-password').style.display = 'block';
+    });
+    checkMyPasswordBtn.addEventListener('click', () => {
+        checkMyPassword(document.getElementById("current-password-input").value.trim());
+    });
+
     newRequestBtn.addEventListener('click', () => {
         requestForm.style.display = 'block';
     });
 
     document.querySelector('#my-profile-close').addEventListener('click', () => {
         document.getElementById('my-profile').style.display = 'none';
+    });
+    document.querySelector('#change-password-close').addEventListener('click', () => {
+        //TODO: are you sure popup not the one below,html needed for popup
+        document.getElementById('change-password').style.display = 'none';
+    });
+    document.querySelector('#change-password-cancel-button').addEventListener('click', () => {
+        //TODO: are you sure popup for confirm cancelation,html needed for popup
+        document.getElementById('change-password').style.display = 'none';
     });
     document.querySelector('#vehicle-request-form-close').addEventListener('click', () => {
         document.getElementById('cancel-request-alert').style.display = 'block';
