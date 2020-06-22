@@ -5,7 +5,7 @@ class DatabaseHandler {
     private $user = 'Kvs8AuC78e';
     private $pass = 'bmMrp4oj2h';
     private $dbname = 'Kvs8AuC78e';
-    private $port = '3306';
+    private $port = '3306';//Config::$port
     private PDO $pdo;
 
     private function __construct() {
@@ -16,7 +16,7 @@ class DatabaseHandler {
     
     public static function getInstance() {
         if (DatabaseHandler::$instance == null) {
-            DatabaseHandler::$instance = new DatabaseHandler();
+            DatabaseHandler::$instance = new self();
         }
         return DatabaseHandler::$instance;
     }

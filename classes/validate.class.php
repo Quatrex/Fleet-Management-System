@@ -1,5 +1,5 @@
 <?php
-class Validator
+class Validate
 {
     public function validatePureString($name)
     {

@@ -3,11 +3,12 @@ session_start();
 if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
 include '../partials/header.php';
 require_once '../includes/autoloader.inc.php';
-$status=1;
-$requester = Requester::getObject($_SESSION['empid']);//, $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
+$status = 1;
+$requester = Requester::getObject($_SESSION['empid']); //, $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
+$_SESSION['requester'] = $requester;
 $requests = $requester->getMyPendingRequests();
 // echo json_encode($requests);
-$_SESSION['pendingTrips'] =$requests;
+$_SESSION['pendingTrips'] = $requests;
 $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
 
 
@@ -46,14 +47,14 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php 
-                                            $i =0;
+                                            <?php
+                                            $i = 0;
                                             foreach ($requests as $request) : ?>
                                                 <tr>
-                                                    <th id ="request-<?php echo $i?>"><?php echo $request->requestID ?></td>
+                                                    <th id="request-<?php echo $i ?>"><?php echo $request->requestID ?></td>
                                                     <td>Pending</td>
-                                                    <td><?php echo $request->dateOfTrip?></td>
-                                                    <td><?php echo $request->timeOfTrip?></td>
+                                                    <td><?php echo $request->dateOfTrip ?></td>
+                                                    <td><?php echo $request->timeOfTrip ?></td>
                                                 </tr>
                                             <?php $i++;
                                             endforeach;; ?>
