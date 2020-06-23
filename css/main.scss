@@ -3,7 +3,10 @@
 @import 'footer';
 @import 'elements';
 @import 'popup';
-@import 'vehicle';
+@import 'config';
+@import 'responsive';
+@import 'datatable';
+@import 'form';
 body {
     display: block;
     margin: 0;

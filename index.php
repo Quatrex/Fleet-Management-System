@@ -5,10 +5,10 @@ if (!isset($_SESSION['loggedin'])) {
 	exit;
 }
 else{
-    if ($_SESSION['position']=='requester') {
-        header('Location: ./Layout/requester.php');
+    if ($_SESSION['position']=='jo') {
+        header('Location: ./Layout/jo.php');
     }
-    elseif ($_SESSION['position']=='JO') {
+    else {
         header('Location: ./Layout/requester.php');
     }
     

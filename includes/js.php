@@ -9,18 +9,13 @@
     const requestForm = document.getElementById('vehicle-request-form');
     const requestEntity = <?php echo json_encode($_SESSION['pendingTrips']) ?>
 
-    //request table entities array
-    //const check =sessionStorage.getItem("lastname");
-    //console.log(check);
+    const firstname = <?php echo json_encode($_SESSION['firstname']) ?>;
+    const lastname = <?php echo json_encode($_SESSION['lastname']) ?>;
+    const position = <?php echo json_encode($_SESSION['position']) ?>;
+    const email = <?php echo json_encode($_SESSION['email']) ?>;
+    const empID = <?php echo json_encode($_SESSION['empid']) ?>;
+    const username = <?php echo json_encode($_SESSION['username']) ?>;
 
-    const firstname = <?php echo json_encode($_SESSION['firstname']) ?>;  
-    const lastname = <?php echo json_encode($_SESSION['lastname']) ?>;  
-    const position= <?php echo json_encode($_SESSION['position']) ?>;  
-    const email = <?php echo json_encode($_SESSION['email']) ?>;  
-    const empID = <?php echo json_encode($_SESSION['empid']) ?>;  
-    const  username= <?php echo json_encode($_SESSION['username']) ?>;  
-    console.log(empID);
-    console.log(typeof(empID));
 
     //jQuery with ajax 
     initiateProfile();
@@ -32,6 +27,7 @@
             let date = $('#new-date').html();
             let dropoff = $('#new-dropoff').html();
             let pickup = $('#new-pickup').html();
+            let purpose = $('#new-purpose').html();
             //console.log(typeof(pickup));
 
             if (time != "" && date != "" && dropoff != "" && pickup != "") {
@@ -43,6 +39,7 @@
                         date: date,
                         dropoff: dropoff,
                         pickup: pickup,
+                        purpose: purpose,
                         firstname: firstname,
                         lastname: lastname,
                         empID: empID,
@@ -52,11 +49,16 @@
                     },
                     cache: false,
                     success: function(dataResult) {
-                        console.log('asdad');
-                        // var dataResult = JSON.parse(dataResult);
-                        //  if (dataResult.statusCode == 200) {
-                        //     $('#success').html('Data added successfully !');
-                        //  } else if (dataResult.statusCode == 201) {
+                        var dataResult = JSON.parse(dataResult);
+                        if (dataResult.statusCode == 200) {
+                            document.getElementById('new-request-status').innerHTML="Sent";
+                            var x = document.getElementById("request-added-success-snackbar");
+                            x.className = x.className+"-show";
+                            setTimeout(function() {
+                                x.className = "snackbar";
+                            }, 3000);
+                        }
+                        // else if (dataResult.statusCode == 201) {
                         //      alert("Error occured !");
                         //  }
                     }
@@ -136,7 +138,8 @@
             '#date-preview': entity.dateOfTrip,
             '#time-preview': entity.timeOfTrip,
             '#pickup-preview': entity.pickLocation,
-            '#drop-preview': entity.dropLocation
+            '#drop-preview': entity.dropLocation,
+            '#purpose-preview': entity.purpose
         });
         requestPreview.style.display = 'block';
     }
@@ -156,7 +159,7 @@
         requestForm.style.display = 'block';
     });
 
-    document.querySelector('#my-profile-close').addEventListener('click', () => {
+    document.querySelector('#user-profile-form-close').addEventListener('click', () => {
         document.getElementById('my-profile').style.display = 'none';
     });
     document.querySelector('#change-password-close').addEventListener('click', () => {
@@ -177,19 +180,20 @@
 
     document.querySelector('#request-form-submit-button').addEventListener('click', () => {
         document.getElementById('vehicle-request-form').style.display = 'none';
-        let details = getValuesFromForm('#submit-form', ['date', 'time', 'pickup', 'dropoff'])
+        let details = getValuesFromForm('#submit-form', ['date', 'time', 'pickup', 'dropoff', 'purpose'])
         changeInnerHTML({
             '#new-date': details.date,
             '#new-time': details.time,
             '#new-pickup': details.pickup,
-            '#new-dropoff': details.dropoff
+            '#new-dropoff': details.dropoff,
+            '#new-purpose': details.purpose
         });
         document.getElementById('new-request-preview-popup').style.display = 'block';
     });
 
 
-    document.querySelector('#request-preview-close').addEventListener('click', () => {
-        document.getElementById('cancel-request-alert').style.display = 'none';
+    document.querySelector('#new-request-preview-close').addEventListener('click', () => {
+        document.getElementById('cancel-request-alert').style.display = 'block';
     });
 
     document.querySelector('#request-preview-close').addEventListener('click', () => {
@@ -213,6 +217,7 @@
     document.querySelector('#request-details-exit-button').addEventListener('click', () => {
         document.getElementById('request-details-popup').style.display = 'none';
     });
+
 
     document.querySelector('#confirm-alert-close').addEventListener('click', () => {
         document.getElementById('cancel-request-alert').style.display = 'none';

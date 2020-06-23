@@ -33,7 +33,7 @@ if ($stmt = $conn->prepare('SELECT empid,firstname,lastname,position,email,passw
             $_SESSION['lastname'] = $lastname;
             $_SESSION['position'] = $position;
             $_SESSION['email'] = $email;
-            if ($position=='JO') {
+            if ($position=='jo' || $position=='JO') {
                 //header('Location: ../Layout/requester.php');
                 echo '../Layout/jo.php';
             }else{
