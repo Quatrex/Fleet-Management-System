@@ -9,19 +9,19 @@ use Request\State\State;
 class Request implements IObjectHandle
 {
     //ToDO: make attributes private and use get/set methods
-    public int $requestID; 
-    public string $createdDate; //how to handle 'date' in php? 
-    public int $state;
-    public string $dateOfTrip; //how to handle 'date' in php? 
-    public string $timeOfTrip; //how to handle 'time' in php? 
-    public string $dropLocation;
-    public string $pickLocation;
-    public string $requesterID; //EmpID
-    public string $purpose; 
-    public string $justifiedBy; //EmpID
-    public string $approvedBy; //EmpID
-    public string $JOComment; 
-    public string $CAOComment;
+    private int $requestID; 
+    private string $createdDate; //how to handle 'date' in php? 
+    private int $state;
+    private string $dateOfTrip; //how to handle 'date' in php? 
+    private string $timeOfTrip; //how to handle 'time' in php? 
+    private string $dropLocation;
+    private string $pickLocation;
+    private string $requesterID; //EmpID
+    private string $purpose; 
+    private string $justifiedBy; //EmpID
+    private string $approvedBy; //EmpID
+    private string $JOComment; 
+    private string $CAOComment;
 
     private State $stateObject;
     //private EmailClient $emailClient;
@@ -113,6 +113,13 @@ class Request implements IObjectHandle
         $this->stateObject->approve($this);
         $this->stateObject->denyApprove($this);
         //update $approvedBy
+    }
+
+    public function getField($field){
+        if(property_exists($this,$field)){
+            return $this->$field;
+        }
+        return null;
     }
 
     public function getRequesterFullName() {
