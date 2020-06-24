@@ -1,14 +1,18 @@
 <script>
     //*******************Justification Table *******************/
+    const requestsToJustify = <?php echo json_encode($_SESSION['requestsToJustify']) ?>;
     document.querySelector("#justify-request-table").onclick = (event) => {
         let tableRow = event.target.parentElement;
         let row_id = (tableRow.children[0].id).split("-");
-        let entity = requestEntity[row_id[1]]
+        let entity = requestsToJustify[row_id[1]]
         changeInnerHTML({
-            '#date-preview': entity.date,
-            '#time-preview': entity.time,
-            '#pickup-preview': entity.pickLocation,
-            '#drop-preview': entity.dropLocation
+            '#justify-preview-requester': entity.requesterID,
+            // '#justify-preview-designation':entity.designation,
+            '#justify-preview-date':entity.dateOfTrip,
+            '#justify-preview-time': entity.timeOfTrip,
+            '#justify-preview-pick': entity.pickLocation,
+            '#justify-preview-drop': entity.dropLocation,
+            '#justify-preview-purpose':entity.purpose
         });
         document.getElementById('request-justify-preview-popup').style.display = 'block';
 
@@ -45,7 +49,7 @@
 
     //Preview End
 
-    //Decline Poup
+    //Decline Popup
     //Decline Button
     document.querySelector('#decline-alert-decline-button').addEventListener('click', () => {
         document.getElementById('cancel-request-alert-justify').style.display = 'none';

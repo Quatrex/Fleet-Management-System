@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    const requester = <?php echo json_encode($_SESSION['requester']); ?>;
+    const employee = <?php echo json_encode($_SESSION['employee']); ?>;
     const requestTable = document.querySelector("#request-table");
     const userImage = document.querySelector('.user-img');
     const changePasswordBtn = document.querySelector('#change-password-button');
@@ -7,7 +7,8 @@
     const requestPreview = document.getElementById('request-preview-popup');
     const newRequestBtn = document.querySelector('#request-vehicle-button');
     const requestForm = document.getElementById('vehicle-request-form');
-    const requestEntity = <?php echo json_encode($_SESSION['pendingTrips']) ?>
+    const requestEntity = <?php echo json_encode($_SESSION['requestsByMe']) ?>;
+    
 
     const firstname = <?php echo json_encode($_SESSION['firstname']) ?>;
     const lastname = <?php echo json_encode($_SESSION['lastname']) ?>;
@@ -58,12 +59,7 @@
                                 x.className = "snackbar";
                             }, 3000);
                         }
-                        // else if (dataResult.statusCode == 201) {
-                        //      alert("Error occured !");
-                        //  }
                     }
-
-                    //  }
                 });
                 $('#submit-form').find('input:text').val('');
 

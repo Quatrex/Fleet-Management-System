@@ -28,4 +28,11 @@ abstract class RequestModel extends Model{
         $columnVals = array($createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose);
         parent::addRecord($columnNames,$columnVals);
     }
+
+    protected function getRequestsOfAState($state) {
+        $columnNames = array('State');
+        $columnVals = array($state);
+        $results=parent::getRecords($columnNames,$columnVals);
+        return $results;
+    }
 }

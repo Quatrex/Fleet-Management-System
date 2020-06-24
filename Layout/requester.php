@@ -8,7 +8,7 @@ if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
 require_once '../includes/autoloader.inc.php';
 $status = 1;
 $requester = Requester::getObject($_SESSION['empid']); //, $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
-$_SESSION['requester'] = $requester;
+$_SESSION['employee'] = $requester;
 $requests = $requester->getMyPendingRequests();
 // echo json_encode($requests);
 $_SESSION['pendingTrips'] = $requests;

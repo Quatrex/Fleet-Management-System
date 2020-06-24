@@ -86,7 +86,7 @@
     </div>
 
     <!--Justify Table Row click Preview-->
-    <div class="popup" id="request-justify-table-preview-popup">
+    <div class="popup" id="request-justify-preview-popup">
         <!-- Request details content -->
         <div class="popup-content">
             <div class="popup-header">
@@ -101,7 +101,7 @@
                         <p>Requester</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="justify-preview-requester">Text</p>
                     </div>
                 </div>
 
@@ -110,7 +110,7 @@
                         <p>Designation</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="justify-preview-designation">Hadanna ona meka</p>
                     </div>
                 </div>
 
@@ -119,7 +119,7 @@
                         <p>Date</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>DD-MM-YYYY</p>
+                        <p id="justify-preview-date">DD-MM-YYYY</p>
                     </div>
                 </div>
 
@@ -128,7 +128,7 @@
                         <p>Time</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>HH:MM: AM/PM</p>
+                        <p id="justify-preview-time">HH:MM: AM/PM</p>
                     </div>
                 </div>
 
@@ -137,7 +137,7 @@
                         <p>Pick-up Location</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="justify-preview-pick">Text</p>
                     </div>
                 </div>
 
@@ -146,16 +146,7 @@
                         <p>Drop-off Location</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>Status</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="justify-preview-drop">Text</p>
                     </div>
                 </div>
 
@@ -164,7 +155,7 @@
                         <p>Purpose</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="justify-preview-purpose">Text</p>
                     </div>
                 </div>
 
@@ -192,8 +183,8 @@
             </div>
             <div class="popup-footer">
 
-                <input type="button" value="Justify Request" class="btn btn-success" id="justify-alert-justify-button">
                 <input type="button" value="Cancel" class="btn btn-light" id="justify-alert-cancel-button">
+                <input type="button" value="Justify Request" class="btn btn-success" id="justify-alert-justify-button">
             </div>
         </div>
     </div>

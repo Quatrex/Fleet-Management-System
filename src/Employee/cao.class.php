@@ -1,6 +1,10 @@
 <?php
 namespace Employee;
 
+use Request\Request;
+use DB\IObjectHandle;
+use DB\Viewer\RequestViewer;
+use DB\Viewer\EmployeeViewer;
 class CAO extends Employee implements IRequestable
 {
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
@@ -9,8 +13,29 @@ class CAO extends Employee implements IRequestable
         //incluce required viewer and controller classes
     }
 
+    public static function getObject($ID){
+        $empID=$ID;
+        //get values from database
+        $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
+        $values=$employeeViewer->getRecordByID($empID);
+
+        $obj = new CAO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], $values['Password']);
+        
+        return $obj; //return false, if fail
+    }
+
     public function getRequestsToApprove(){
         //return an array of all pending requests
+        $requestViewer = new RequestViewer();
+        $requestIDs= $requestViewer->getRequestsOfAState(2);
+        $requests=array();
+
+        foreach($requestIDs as $values){
+            $request= new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
+            array_push($requests,$request);
+        }
+
+        return $requests;
     }
 
     public function getApprovals(){
@@ -22,13 +47,25 @@ class CAO extends Employee implements IRequestable
     }
 
     //IRequestable
-    public function placeRequest(){
+    public function placeRequest($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$purpose){
         //create new request
+        $request= Request::constructObject($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$this->empID,$purpose);
+        //$request->notifyJOs(); //change: notify JOs when the state change occurs
     }
 
     //IRequestable
-    public function getPendingRequests(){
+    public function getMyPendingRequests(){
         //check database for pending requests placed by the requester and return an array of requests
+        $requestViewer = new RequestViewer();
+        $requestIDs= $requestViewer->getPendingRequestsByID($this->empID);
+        $requests=array();
+
+        foreach($requestIDs as $values){
+            $request= new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
+            array_push($requests,$request);
+        }
+
+        return $requests;
     }
 
     //IRequestable

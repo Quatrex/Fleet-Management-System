@@ -1,5 +1,19 @@
 <html>
-<?php include '../partials/head.php'; ?>
+<?php include '../partials/head.php';
+
+use Employee\CAO;
+
+session_start();
+if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
+require_once '../includes/autoloader.inc.php';
+$cao = CAO::getObject($_SESSION['empid']);
+$_SESSION['employee'] = $cao;
+$requestsToApprove = $cao->getRequestsToApprove();
+$_SESSION['requestsToApprove'] = $requestsToApprove;
+
+$requestsByMe = $cao->getMyPendingRequests();
+$_SESSION['requestsByMe'] = $requestsByMe;
+?>
 
 <body>
     <div class="main-wrapper">
@@ -28,14 +42,25 @@
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th class="request-id" scope="col"></th>
-                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Requester Name</th>
+                                                        <th scope="col">Purpose</th>
                                                         <th scope="col">Date</th>
-                                                        <th scope="col">Time</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <!-- TODO: have to change requester id to name -->
+                                                    <?php
+                                                    $i = 0;
+                                                    foreach ($requestsToApprove as $request) : ?>
+                                                        <tr id="request-raw<?php echo $i ?>">
+                                                            <th id="request-<?php echo $i ?>"><?php echo $request->requestID ?></td>
+                                                            <td><?php echo $request->requesterID ?></td>
+                                                            <td><?php echo $request->purpose ?></td>
+                                                            <td><?php echo $request->dateOfTrip ?></td>
+                                                        </tr>
+                                                    <?php $i++;
+                                                    endforeach;; ?>
                                                 </tbody>
-
                                             </table>
                                         </div>
                                         <div class="tab-pane fade" id="profile" role="tabpanel">
@@ -45,12 +70,25 @@
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th class="request-id" scope="col"></th>
+                                                        <th scope="col">Purpose</th>
                                                         <th scope="col">Status</th>
                                                         <th scope="col">Date</th>
                                                         <th scope="col">Time</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <?php
+                                                    $i = 0;
+                                                    foreach ($requestsByMe as $request) : ?>
+                                                        <tr>
+                                                            <th id="request-<?php echo $i ?>"><?php echo $request->requestID ?></td>
+                                                            <td><?php echo $request->purpose ?></td>
+                                                            <td>Pending</td>
+                                                            <td><?php echo $request->dateOfTrip ?></td>
+                                                            <td><?php echo $request->timeOfTrip ?></td>
+                                                        </tr>
+                                                    <?php $i++;
+                                                    endforeach;; ?>
                                                 </tbody>
                                             </table>
 
@@ -70,8 +108,11 @@
         </div>
         <?php include '../partials/footer.php'; ?>
     </div>
-    <?php include '../includes/js.php';
-    include '../includes/jo_js.php';
+    <?php 
+    include '../partials/popups/common.php';
+    include '../partials/popups/cao_popup.php';
+    include '../includes/js.php';
+    include '../includes/cao_js.php';
     ?>
 
 </body>
