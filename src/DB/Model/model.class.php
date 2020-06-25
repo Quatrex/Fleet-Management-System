@@ -60,9 +60,4 @@ abstract class Model
             return $result;
         }
     }
-
-    protected function getRecordsEmp($position)
-    {
-        
-    }
 }
