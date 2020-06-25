@@ -39,5 +39,4 @@ class DatabaseHandler {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($columnVals);
     }
-
 }
