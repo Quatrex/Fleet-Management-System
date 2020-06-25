@@ -31,7 +31,7 @@ class JO extends Employee implements IRequestable
         $requests=array();
 
         foreach($requestIDs as $values){
-            $request= new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
+            $request= Request::getObjectByValues($values);
             array_push($requests,$request);
         }
 

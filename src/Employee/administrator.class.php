@@ -1,7 +1,7 @@
 <?php
 namespace Employee;
 
-class Administrator extends Employee implements IRequestable
+class Administrator extends Employee
 {
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {

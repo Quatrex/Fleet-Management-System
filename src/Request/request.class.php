@@ -55,7 +55,7 @@ class Request implements IObjectHandle
     }
 
         //IObjectHandle
-        public static function getObject($ID){
+        public static function getObject(int $ID){
             $requestID=$ID;
             //get values from database
             $requestViewer=new requestViewer(); // method of obtaining the viewer/controller must be determined and changed
@@ -64,6 +64,11 @@ class Request implements IObjectHandle
 
             $obj = new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
             
+            return $obj;
+        }
+
+        public static function getObjectByValues(array $values){
+            $obj = new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
             return $obj;
         }
     
