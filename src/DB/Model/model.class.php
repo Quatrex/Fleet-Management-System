@@ -65,4 +65,9 @@ abstract class Model
     {
         
     }
+    
+    protected function updateRecord($columnNames,$columnVals)
+    {
+        
+    }
 }
