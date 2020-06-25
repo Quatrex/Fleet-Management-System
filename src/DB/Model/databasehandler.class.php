@@ -5,11 +5,11 @@ use PDO;
 
 class DatabaseHandler {
     private static ?DatabaseHandler $instance = null;
-    private $host = 'remotemysql.com';
-    private $user = 'Kvs8AuC78e';
-    private $pass = 'bmMrp4oj2h';
-    private $dbname = 'Kvs8AuC78e';
-    private $port = '3306';//Config::$port
+    private string $host = 'remotemysql.com';
+    private string $user = 'Kvs8AuC78e';
+    private string $pass = 'bmMrp4oj2h';
+    private string $dbname = 'Kvs8AuC78e';
+    private string $port = '3306';//Config::$port
     private PDO $pdo;
 
     private function __construct() {
@@ -18,14 +18,20 @@ class DatabaseHandler {
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     
-    public static function getInstance() {
+    /**
+     * Returns the DataBaseHandler object
+     */
+    public static function getInstance() : DatabaseHandler {
         if (DatabaseHandler::$instance == null) {
             DatabaseHandler::$instance = new self();
         }
         return DatabaseHandler::$instance;
     }
 
-    public function read($sql,$columnVals) {
+    /**
+     * Reads records from the database by running a sql query
+     */
+    public function read(string $sql,array $columnVals) : array {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($columnVals);
         $results = array();
@@ -35,7 +41,10 @@ class DatabaseHandler {
         return $results;
     }
 
-    public function write($sql,$columnVals) {
+    /**
+     * Writes records to the database by running a sql query
+     */
+    public function write(string $sql,array $columnVals) {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($columnVals);
     }
