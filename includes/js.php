@@ -13,64 +13,44 @@
     //const check =sessionStorage.getItem("lastname");
     //console.log(check);
 
-    const firstname = <?php echo json_encode($_SESSION['firstname']) ?>;  
-    const lastname = <?php echo json_encode($_SESSION['lastname']) ?>;  
-    const position= <?php echo json_encode($_SESSION['position']) ?>;  
-    const email = <?php echo json_encode($_SESSION['email']) ?>;  
-    const empID = <?php echo json_encode($_SESSION['empid']) ?>;  
-    const  username= <?php echo json_encode($_SESSION['username']) ?>;  
+    const firstname = <?php echo json_encode($_SESSION['firstname']) ?>;
+    const lastname = <?php echo json_encode($_SESSION['lastname']) ?>;
+    const position = <?php echo json_encode($_SESSION['position']) ?>;
+    const email = <?php echo json_encode($_SESSION['email']) ?>;
+    const empID = <?php echo json_encode($_SESSION['empid']) ?>;
+    const username = <?php echo json_encode($_SESSION['username']) ?>;
     console.log(empID);
     console.log(typeof(empID));
 
     //jQuery with ajax 
     initiateProfile();
 
+    function addRecord(formID, addMethod, empID) {
+        let data = $(formID).serialize();
+        console.log(data);
+        
+        data += `&AddMethod=${addMethod}&empID=${empID}`;
+        $.ajax({
+            url: "../func/save2.php",
+            type: "POST",
+            data: data,
+            cache: false,
+            success: function(result) {
+                console.log(result);
+                
+                $(formID).find("input:text").val("");
+                //Display the popup of success access or unsucess
+            },
+        });
+    }
 
     $(document).ready(function() {
         $('#request-preview-confirm-button').on('click', function() {
-            let time = $('#new-time').html();
-            let date = $('#new-date').html();
-            let dropoff = $('#new-dropoff').html();
-            let pickup = $('#new-pickup').html();
-            //console.log(typeof(pickup));
-
-            if (time != "" && date != "" && dropoff != "" && pickup != "") {
-                $.ajax({
-                    url: "../func/save.php",
-                    type: "POST",
-                    data: {
-                        time: time,
-                        date: date,
-                        dropoff: dropoff,
-                        pickup: pickup,
-                        firstname: firstname,
-                        lastname: lastname,
-                        empID: empID,
-                        position: position,
-                        username: username,
-                        email: email
-                    },
-                    cache: false,
-                    success: function(dataResult) {
-                        console.log('asdad');
-                        // var dataResult = JSON.parse(dataResult);
-                        //  if (dataResult.statusCode == 200) {
-                        //     $('#success').html('Data added successfully !');
-                        //  } else if (dataResult.statusCode == 201) {
-                        //      alert("Error occured !");
-                        //  }
-                    }
-
-                    //  }
-                });
+                addRecord('#submit-form','RequestAdd',empID);
                 $('#submit-form').find('input:text').val('');
 
-            } else {
-                alert('Please fill all the field !');
-            }
         });
     });
-
 
 
 
