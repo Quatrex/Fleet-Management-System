@@ -1,9 +1,11 @@
 <?php
 namespace Employee;
 
+use DB\Controller\EmployeeController;
 use Request\Request;
 use DB\IObjectHandle;
 use DB\Viewer\RequestViewer;
+use DB\Controller\RequestController;
 use DB\Viewer\EmployeeViewer;
 
 class JO extends Employee implements IRequestable
@@ -25,9 +27,36 @@ class JO extends Employee implements IRequestable
         return $obj; //return false, if fail
     }
 
+    public static function getObjectByValues(array $values){
+        $obj = new JO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        return $obj;
+    }
+
+    //IObjectHandle
+    public static function constructObject($empID, $firstName, $lastName, $position, $email, $username, $password){
+
+        $obj = new JO($empID, $firstName, $lastName, $position, $email, $username, $password);
+
+        $obj->saveToDatabase(); //check for failure
+
+        return $obj; //return false, if fail
+    }
+
+    private function saveToDatabase(){
+        $employeeController= new EmployeeController();
+        $employeeController->saveRecord( 
+                                    $this->empID, //check for existing accounts of this empID
+                                    $this->firstName,
+                                    $this->lastName,
+                                    $this->position,
+                                    $this->email,
+                                    $this->username,
+                                    $this->password);
+    }
+
     public function getRequestsToJustify(){
         $requestViewer = new RequestViewer();
-        $requestIDs= $requestViewer->getRequestsOfAState(1);
+        $requestIDs= $requestViewer->getPendingRequests();
         $requests=array();
 
         foreach($requestIDs as $values){
@@ -38,7 +67,17 @@ class JO extends Employee implements IRequestable
         return $requests;
     }
 
-    public function getJustifiedRequests(){
+    public function justifyRequest($requestID,$JOComment){
+        $requestController = new RequestController();
+        $requestController->justifyRequest($requestID,$JOComment,$this->empID);
+    }
+
+    public function denyRequest($requestID,$JOComment){
+        $requestController = new RequestController();
+        $requestController->denyRequest($requestID,$JOComment,$this->empID,$this->position);
+    }
+
+    public function getMyJustifiedRequests(){
         //return an array of all requests, justified by this JO
     }
 

@@ -17,7 +17,11 @@ class RequestViewer extends RequestModel{
         return parent::getPendingRequestsByID($requesterID);
     }
 
-    public function getRequestsOfAState($state){
-        return parent::getRequestsOfAState($state);
+    public function getPendingRequests(){
+        return parent::getPendingRequests();
+    }
+
+    public function getJustifiedRequests(){
+        return parent::getJustifiedRequests();
     }
 }
