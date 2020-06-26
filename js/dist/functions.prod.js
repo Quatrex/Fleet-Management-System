@@ -1,0 +1,1 @@
+"use strict";function addRecord(c,a,t){var e=$(c).serialize();e+="&AddMethod=".concat(a,"&empID=").concat(t),$.ajax({url:"../func/save.php",type:"POST",data:e,cache:!1,success:function(){$(c).find("input:text").val("")}})}
