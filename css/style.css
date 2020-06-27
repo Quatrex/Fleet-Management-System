@@ -20,7 +20,6 @@ ul {
 html,
 body {
     height: 100%;
-    overflow: auto;
 }
 
 ol {
@@ -443,7 +442,7 @@ body {
     display: flex;
     flex-direction: column;
     min-width: 0;
-    overflow-wrap: break-word;
+    overflow-wrap: hidden;
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;

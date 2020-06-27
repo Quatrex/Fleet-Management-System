@@ -1,47 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="header">
+    <div class="header-content clearfix">
+        <div class="header-left">
+            <img src="../images/national-logo.png">
 
-<head>
-    <meta charset="utf-8">
-
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Fleet Mangement System</title>
-    <link rel="icon" type="../image/png" sizes="16x12" href="images/national-logo.png">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://use.fontawesome.com/901c110531.js"></script>
-
-    <link href="../css/main.css" rel="stylesheet">
-
-</head>
-
-<body>
-    <!--**********************************
-        Main wrapper start without footer
-    ***********************************-->
-    <div id="main-wrapper">
-        <!--**********************************
-            Header start
-        ***********************************-->
-        <div class="header">
-            <div class="header-content">
-                <div class="header-left">
-                    <img src="../images/national-logo.png">
-
-                </div>
-                <div class="header-right">
-                    <ul>
-                        
-                        <li class="icons">
-                            <div class="user-img">
-                                <span class="activity active"></span>
+        </div>
+        <div class="header-right">
+            <ul class="clearfix">
+                <li class="icons dropdown">
+                    <div class="dropdown">
+                        <div class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" data-toggle="dropdown">
+                            <div class="user-img c-pointer position-relative">
+                                <span class="activity"></span>
                                 <img src="../images/default-user-image.png" height="40" width="40" alt="">
                             </div>
-                        </li>
-                        <li class="icons"><a href="../func/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+                        </div>
+                        <div>
+                            <div class="dropdown-menu profile-dropdown" style="box-shadow: 0px 1px 17px 2px rgba(0,0,0,0.78);;">
+                                <div class="dropdown-content" style="text-align: center; margin: 20px 33px;">
+                                    <img src="../images/default-user-image.png" style="height:100px;width:100px;align-items: center;">
 
-                    </ul>
-                </div>
-            </div>
+                                    <br>
+                                    <p class="name-profile-dd" style="text-align: center;">Poorna Gunathilaka</p>
+                                    <p class="mail-profile-dd" style="text-align: center;">poorna2152@gmail.com</p>
+                                    <button class="edit-account-btn" id="view-profile">Edit account info</button>
+                                    <br>
+                                </div>
+                                <div class="footer-profile">
+                                    <button class="sign-out">Sign out</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="icons"><a href="../func/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                </li>
+            </ul>
         </div>
+    </div>
+</div>

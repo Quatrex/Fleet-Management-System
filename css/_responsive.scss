@@ -1,0 +1,82 @@
+@include media-sm {
+    .header {
+        height: 3.5rem;
+    }
+    .content-body {
+        margin-top: 2rem;
+        margin-bottom: 25px;
+        padding-bottom: 50px;
+    }
+    .content-body .container-fluid {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 15px 15px 0;
+    }
+    .card .card-body {
+        padding: 1.25rem;
+    }
+    .card .card-title {
+        font-size: 1rem;
+        line-height: 1rem;
+        margin-bottom: 0.75rem;
+        margin-top: 0.75rem;
+    }
+    #tabs-to-show {
+        overflow: hidden;
+    }
+    .card-name {
+        font-size: 0.9rem;
+        margin: 0.6rem 0rem;
+    }
+    body {
+        font-size: 0.7rem!important;
+        font-weight: 410 !important;
+    }
+    .nav-link {
+        padding: 0.5rem;
+    }
+    h5 {
+        font-size: 0.8rem!important;
+    }
+    h2,
+    h3 {
+        font-size: 1rem!important;
+    }
+    .btn {
+        height: 1.9rem;
+        width: 6rem;
+        font-size: 0.75rem;
+        padding: .3rem .6rem;
+    }
+    .card .img-fluid {
+        /* position: absolute; */
+        padding-left: 20px;
+        max-width: 50%;
+        height: 100px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-control {
+        min-height: 30px;
+        height: 25px;
+        font-size: 0.8rem;
+    }
+    .popup-content {
+        margin: 2rem 1rem;
+        width: auto;
+    }
+    p {
+        margin-bottom: .5rem;
+    }
+    hr {
+        margin-top: .5rem;
+        margin-bottom: .5rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, .1);
+    }
+}
+
+@include media-md {}
+
+@include media-lg {}

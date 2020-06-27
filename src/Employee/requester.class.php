@@ -24,6 +24,7 @@ class Requester extends Employee implements IRequestable,IObjectHandle
         
         return $obj; //return false, if fail
     }
+    
 
     //IObjectHandle
     public static function constructObject($empID, $firstName, $lastName, $position, $email, $username, $password){
@@ -57,7 +58,7 @@ class Requester extends Employee implements IRequestable,IObjectHandle
         $requests=array();
 
         foreach($requestIDs as $values){
-            $request= new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
+            $request= Request::getObjectByValues($values);
             array_push($requests,$request);
         }
 

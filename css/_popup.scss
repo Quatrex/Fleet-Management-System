@@ -13,17 +13,42 @@
 }
 
 .popup {
+    //visibility: hidden;
     position: fixed;
+    display: none;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1050;
-    display: none;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.7);
     overflow: hidden;
     outline: 0;
     overflow-y: auto;
     z-index: 10;
+    .show {
+        visibility: visible !important;
+        animation: fadeIn 1s;
+        -webkit-animation: fadeIn .5s;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .popup-content {
@@ -43,3 +68,133 @@
 #cancel-request-alert {
     z-index: 20;
 }
+
+//profile dropdown
+.sign-out {
+    background-color: #ffffff;
+    border: 1px solid #dadce0;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    display: inline-block;
+    font: 500 14px/16px Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    letter-spacing: .15px;
+    margin: 16px;
+    outline: 0;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    white-space: normal;
+    cursor: pointer;
+}
+
+.footer-profile {
+    border-bottom: 1px solid #e8eaed;
+    border-top: 1px solid #e8eaed;
+    padding: 0 17px;
+    text-align: center;
+}
+
+.t {
+    color: #3c4043;
+    font: 14px/18px Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    letter-spacing: .25px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.name-profile-dd {
+    color: #202124;
+    font: 16px/22px Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    letter-spacing: .29px;
+    font-weight: 200;
+    margin: 0;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.mail-profile-dd {
+    color: #5f6368;
+    font: 14px/19px Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    letter-spacing: normal;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.edit-account-btn {
+    background-color: #ffffff;
+    border: 1px solid #dadce0;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+    color: #3c4043;
+    display: inline-block;
+    font: 14px/16px Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    letter-spacing: .25px;
+    margin: 16px 0 0;
+    max-width: 254px;
+    outline: 0;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.profile-dropdown {
+    z-index: 9999;
+    width: 18rem;
+    top: 0rem !important;
+    position: absolute;
+    right: 0 !important;
+    left: auto !important;
+    transform: translate3d(0px, 75px, 0px) !important;
+    transition: all 0.4s ease-in-out;
+    border-top: 0;
+    background: #fff;
+    color: #000;
+}
+
+// snackbar
+.snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1051;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+  }
+  
+  .snackbar-show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+  
+  @-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+  }
+  
+  @keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }

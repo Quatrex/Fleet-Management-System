@@ -1,6 +1,13 @@
 <?php
 namespace Employee;
 
+use DB\Controller\EmployeeController;
+use Request\Request;
+use DB\IObjectHandle;
+use DB\Viewer\RequestViewer;
+use DB\Controller\RequestController;
+use DB\Viewer\EmployeeViewer;
+
 class JO extends Employee implements IRequestable
 {
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
@@ -9,11 +16,68 @@ class JO extends Employee implements IRequestable
         //incluce required viewer and controller classes
     }
 
-    public function getRequestsToJustify(){
-        //return an array of all pending requests
+    public static function getObject($ID){
+        $empID=$ID;
+        //get values from database
+        $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
+        $values=$employeeViewer->getRecordByID($empID);
+
+        $obj = new JO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], $values['Password']);
+        
+        return $obj; //return false, if fail
     }
 
-    public function getJustifiedRequests(){
+    public static function getObjectByValues(array $values){
+        $obj = new JO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        return $obj;
+    }
+
+    //IObjectHandle
+    public static function constructObject($empID, $firstName, $lastName, $position, $email, $username, $password){
+
+        $obj = new JO($empID, $firstName, $lastName, $position, $email, $username, $password);
+
+        $obj->saveToDatabase(); //check for failure
+
+        return $obj; //return false, if fail
+    }
+
+    private function saveToDatabase(){
+        $employeeController= new EmployeeController();
+        $employeeController->saveRecord( 
+                                    $this->empID, //check for existing accounts of this empID
+                                    $this->firstName,
+                                    $this->lastName,
+                                    $this->position,
+                                    $this->email,
+                                    $this->username,
+                                    $this->password);
+    }
+
+    public function getRequestsToJustify(){
+        $requestViewer = new RequestViewer();
+        $requestIDs= $requestViewer->getPendingRequests();
+        $requests=array();
+
+        foreach($requestIDs as $values){
+            $request= Request::getObjectByValues($values);
+            array_push($requests,$request);
+        }
+
+        return $requests;
+    }
+
+    public function justifyRequest($requestID,$JOComment){
+        $requestController = new RequestController();
+        $requestController->justifyRequest($requestID,$JOComment,$this->empID);
+    }
+
+    public function denyRequest($requestID,$JOComment){
+        $requestController = new RequestController();
+        $requestController->denyRequest($requestID,$JOComment,$this->empID,$this->position);
+    }
+
+    public function getMyJustifiedRequests(){
         //return an array of all requests, justified by this JO
     }
 
@@ -22,13 +86,24 @@ class JO extends Employee implements IRequestable
     }
 
     //IRequestable
-    public function placeRequest(){
-        //create new request
+    public function placeRequest($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$purpose){
+        $request= Request::constructObject($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$this->empID,$purpose);
+        //$request->notifyJOs(); //change: notify JOs when the state change occurs
     }
 
     //IRequestable
-    public function getPendingRequests(){
+    public function getMyPendingRequests(){
         //check database for pending requests placed by the requester and return an array of requests
+        $requestViewer = new RequestViewer();
+        $requestIDs= $requestViewer->getPendingRequestsByID($this->empID);
+        $requests=array();
+
+        foreach($requestIDs as $values){
+            $request= new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
+            array_push($requests,$request);
+        }
+
+        return $requests;
     }
 
     //IRequestable
