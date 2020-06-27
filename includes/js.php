@@ -88,7 +88,7 @@
                     }
                 });
                 $('#submit-form').find('input:text').val('');
-
+            }
         });
     });
 
