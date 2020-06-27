@@ -50,8 +50,8 @@
                     },
                     cache: false,
                     success: function(dataResult) {
-                        var dataResult = JSON.parse(dataResult);
-                        if (dataResult.statusCode == 200) {
+                        // var dataResult = JSON.parse(dataResult);
+                        if (dataResult == true) {
                             document.getElementById('new-request-status').innerHTML="Sent";
                             var x = document.getElementById("request-added-success-snackbar");
                             x.className = x.className+"-show";

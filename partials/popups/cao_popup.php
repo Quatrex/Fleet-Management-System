@@ -93,7 +93,7 @@
             <div class="popup-body">
 
                 <p>Are you sure you want to approve the request?</p>
-                <textarea placeholder="Comments" rows="4"></textarea>
+                <textarea class="styled-textarea" id="approve-comment" onfocus="setbg('#e5fff3');" onblur="setbg('white')" placeholder="Comments" rows="4"></textarea>
 
 
             </div>
@@ -117,7 +117,7 @@
             <div class="popup-body">
 
                 <p>Are you sure you want to decline the request?</p>
-                <textarea placeholder="Comments" rows="4"></textarea>
+                <textarea class="styled-textarea" onfocus="setbg('#e5fff3');" onblur="setbg('white')" placeholder="Comments" rows="4"></textarea>
 
             </div>
             <div class="popup-footer">

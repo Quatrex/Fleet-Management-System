@@ -1,6 +1,38 @@
 <script>
     //*******************Justification Table *******************/
     const requestsToapprove = <?php echo json_encode($_SESSION['requestsToApprove']) ?>;
+    
+    function update(requestID,comment,action){
+        {
+
+            if (time != "" && date != "" && dropoff != "" && pickup != "") {
+                $.ajax({
+                    url: "../func/"+action+".php",
+                    type: "POST",
+                    data: {
+                        requestID:requestID,
+                        empID: empID,
+                        comment: comment
+                    },
+                    cache: false,
+                    success: function(dataResult) {
+                        if (dataResult == true) {
+                            // document.getElementById('new-request-status').innerHTML="Sent";
+                            // var x = document.getElementById("request-added-success-snackbar");
+                            // x.className = x.className+"-show";
+                            // setTimeout(function() {
+                            //     x.className = "snackbar";
+                            // }, 3000);
+                        }
+                    }
+                });
+                $('#submit-form').find('input:text').val('');
+
+            } else {
+                alert('Please fill all the field !');
+            }
+        }
+    }
     document.querySelector("#approve-request-table").onclick = (event) => {
         let tableRow = event.target.parentElement;
         let row_id = (tableRow.children[0].id).split("-");
@@ -18,19 +50,6 @@
 
     };
 
-    //************Denied Table ******************/
-    document.querySelector("#denied-table").onclick = (event) => {
-        let tableRow = event.target.parentElement;
-        let row_id = (tableRow.children[0].id).split("-");
-        let entity = requestEntity[row_id[1]]
-        changeInnerHTML({
-            '#date-preview': entity.date,
-            '#time-preview': entity.time,
-            '#pickup-preview': entity.pickLocation,
-            '#drop-preview': entity.dropLocation
-        });
-        document.getElementById('request-details-popup').style.display = 'block';
-    };
     //***********************approve Request ********************/
     // Preview
     document.querySelector('#request-details-approve-button').addEventListener('click', () => {
@@ -64,6 +83,7 @@
         document.getElementById('cancel-request-alert-approve').style.display = 'none';
         document.getElementById('request-approve-preview-popup').style.display = 'block';
     });
+
     //approve Popup
     //Cancel Button
     document.querySelector('#approve-alert-cancel-button').addEventListener('click', () => {
@@ -73,7 +93,7 @@
     //approve button
     document.querySelector('#approve-alert-approve-button').addEventListener('click', () => {
         document.getElementById('approve-request-alert').style.display = 'none';
-
+        Update($.trim($("#approve-comment").val()));
     });
     //approve Pop Up x Button
     document.querySelector('#confirm-alert-close-approve').addEventListener('click', () => {

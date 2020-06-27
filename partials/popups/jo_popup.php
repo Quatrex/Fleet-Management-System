@@ -179,7 +179,9 @@
             <div class="popup-body">
 
                 <p>Are you sure you want to justify the request?</p>
-                <textarea placeholder="Comments" rows="4"></textarea>
+                <form id='justify-request'>
+                    <textarea class="styled-textarea" id="justify-comment" onfocus="setbg('#e5fff3');" onblur="setbg('white')" placeholder="Comments" rows="4"></textarea>
+                </form>
             </div>
             <div class="popup-footer">
 

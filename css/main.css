@@ -229,7 +229,7 @@ a {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1050;
+  z-index: 50;
   background-color: rgba(0, 0, 0, 0.7);
   overflow: hidden;
   outline: 0;
@@ -377,7 +377,7 @@ a {
   border-radius: 2px;
   padding: 16px;
   position: fixed;
-  z-index: 1000;
+  z-index: 1051;
   left: 50%;
   bottom: 30px;
   font-size: 17px;
@@ -661,5 +661,16 @@ a {
 
 .btn-primary {
   background-color: #7571f9;
+}
+
+textarea.styled {
+  width: 600px;
+  height: 120px;
+  border: 3px solid #cccccc;
+  padding: 5px;
+  font-family: Tahoma, sans-serif;
+  background-image: url(bg.gif);
+  background-position: bottom right;
+  background-repeat: no-repeat;
 }
 /*# sourceMappingURL=main.css.map */
