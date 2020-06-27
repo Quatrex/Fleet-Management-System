@@ -2,9 +2,14 @@
 
 namespace Employee;
 
+use Request\Request;
+
 use Vehicle\Vehicle;
 use DB\Viewer\VehicleViewer;
 use DB\Viewer\DriverViewer;
+use DB\Viewer\EmployeeViewer;
+use DB\Viewer\RequestViewer;
+
 
 class VPMO extends Employee implements IRequestable
 {
@@ -12,6 +17,18 @@ class VPMO extends Employee implements IRequestable
     {
         parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
         //incluce required viewer and controller classes
+    }
+
+    public static function getObject($ID)
+    {
+        $empID = $ID;
+        //get values from database
+        $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
+        $values = $employeeViewer->getRecordByID($empID);
+
+        $obj = new VPMO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], $values['Password']);
+
+        return $obj; //return false, if fail
     }
 
     /**
@@ -72,9 +89,9 @@ class VPMO extends Employee implements IRequestable
      * @return void
      *
      */
-    public function updateVehicle($registrationNo, $fields)
+    public function updateVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation)
     {
-        Vehicle::updateVehicle($registrationNo, $fields);
+        Vehicle::updateVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation);
     }
 
     /**
@@ -89,12 +106,28 @@ class VPMO extends Employee implements IRequestable
     {
         Vehicle::deleteVehicle($registrationNo);
     }
+    public function placeRequest($dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $purpose)
+    {
+        $request = Request::constructObject($dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $this->empID, $purpose);
+        //$request->notifyJOs(); //change: notify JOs when the state change occurs
+    }
 
     //IRequestable
-    public function placeRequest()
+    public function getMyPendingRequests()
     {
-        //create new request
+        $requestViewer = new RequestViewer();
+        $requestIDs = $requestViewer->getPendingRequestsByID($this->empID);
+        $requests = array();
+        if ($requestIDs) {
+            foreach ($requestIDs as $values) {
+                $request = new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'], $values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
+                array_push($requests, $request);
+            }
+        }
+
+        return $requests;
     }
+
 
     //IRequestable
     public function getPendingRequests()
