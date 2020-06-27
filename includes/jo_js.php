@@ -2,7 +2,7 @@
     //*******************Justification Table *******************/
     const requestsToJustify = <?php echo json_encode($_SESSION['requestsToJustify']) ?>;
     let selectedRequest;
-
+    
     function update(formID, action) {
         let data = $(formID).serialize();
         console.log(data);
