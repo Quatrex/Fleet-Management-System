@@ -17,16 +17,17 @@ abstract class VehicleModel extends Model{
     }
     
     protected function getAllRecords(){
-        $results = parent::getRecords(true,true);
+        $results = parent::getRecords([],[]);
         return $results;
     }
 
     //updateRecord
-    protected function updateRecord($registrationNo,$fields){
-        $columnNames = array_keys($fields);
-        $columnNames= array_unshift($columnNames,'RegistrationNo');
-        $columnVals= array_unshift($registrationNo,array_values($fields));
-        parent::updateRecord($columnNames,$columnVals);
+    protected function updateRecord($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$inRepair,$currentLocation){
+        $columnNames = array('RegistrationNo','Model','PurchasedYear','Value','FuelType','InsuranceValue','InsuranceCompany','InRepair','CurrentLocation');
+        $columnVals = array($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$inRepair,$currentLocation);
+        $conditionNames= array('RegistrationNo');
+        $conditionVals= array($registrationNo);
+        parent::updateRecord($columnNames,$columnVals,$conditionNames,$conditionVals);
         
     }
     //should contain a state of the vehicle

@@ -10,8 +10,11 @@ abstract class Model
         $this->tableName = $tableName;
         $this->dbh = DatabaseHandler::getInstance();
     }
-    //write a general code for addRecord. use a key(column name)-value(data value) pair array to get values
-    protected function addRecord($columnNames,$columnVals)//$date, $time, $pickup, $dropoff, $purpose, $requesterID) // rework the function
+
+    /**
+     * A general code to generate a SQL statement to add records to database.
+     */
+    protected function addRecord(array $columnNames, array $columnVals) : void
     {
         $condition = '';
         $count = 0;
@@ -34,7 +37,11 @@ abstract class Model
         $this->dbh->write($sql,$columnVals);
     }
 
-    protected function getRecords($columnNames,$columnVals){
+    /**
+     * A general code to generate SQL statement to get records from the database.
+     */
+    protected function getRecords(array $columnNames,array $columnVals) : array 
+    {
         $condition = '';
         $count = 0;
 
@@ -61,13 +68,38 @@ abstract class Model
         }
     }
 
-    protected function getRecordsEmp($position)
+    /**
+     * A general code to generate SQL statement to get update a record in the database.
+     */
+    public function updateRecord(array $columnNames, 
+                                    array $columnVals,
+                                    array $conditionNames,
+                                    array $conditionVals) : void
     {
-        
-    }
-    
-    protected function updateRecord($columnNames,$columnVals)
-    {
-        
+        //Generates "'Name1=?' 'Name2=?' ... " for setting
+        $preCondition = '';
+        $count = 0;
+        foreach ($columnNames as $key => $value) {
+            $preCondition.="`".$value."`"."=?";
+            if(sizeof($columnNames)>($count+1)){
+                $preCondition.=" , ";
+            }
+            $count+=1;
+        }
+
+        //Generates "'Name1=?' AND 'Name2=?' ... " for WHERE condition
+        $postCondition = '';
+        $count = 0;
+        foreach ($conditionNames as $key => $value) {
+            $postCondition.="`".$value."`"."=?";
+            if(sizeof($conditionNames)>($count+1)){
+                $postCondition.=" AND ";
+            }
+            $count+=1;
+        }
+
+        $preStatement = "UPDATE $this->tableName SET ";
+        $sql = $preStatement . $preCondition . " WHERE " . $postCondition;
+        $this->dbh->write($sql,array_merge($columnVals,$conditionVals));
     }
 }
