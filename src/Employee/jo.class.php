@@ -41,10 +41,6 @@ class JO extends Requester
         return $obj; //return false, if fail
     }
 
-    private function saveToDatabase(){
-        parent::saveToDatabase();
-    }
-
     public function getRequestsToJustify(){
         $requestViewer = new RequestViewer();
         $requestIDs= $requestViewer->getPendingRequests();

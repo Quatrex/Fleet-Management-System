@@ -41,10 +41,6 @@ class CAO extends Requester
         return $obj; //return false, if fail
     }
 
-    private function saveToDatabase(){
-        parent::saveToDatabase();
-    }
-
     public function getRequestsToApprove(){
         //return an array of all pending requests
         $requestViewer = new RequestViewer();

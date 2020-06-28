@@ -46,10 +46,6 @@ class VPMO extends Requester
         return $obj; //return false, if fail
     }
 
-    private function saveToDatabase(){
-        parent::saveToDatabase();
-    }
-
     /**
      *
      * Returns all the vehicles
