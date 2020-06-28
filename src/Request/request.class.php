@@ -11,7 +11,7 @@ class Request implements IObjectHandle
     //ToDO: make attributes private and use get/set methods
     private int $requestID; 
     private string $createdDate; //how to handle 'date' in php? 
-    private int $state;
+    private ?State $state;
     private string $dateOfTrip; //how to handle 'date' in php? 
     private string $timeOfTrip; //how to handle 'time' in php? 
     private string $dropLocation;
@@ -31,10 +31,11 @@ class Request implements IObjectHandle
 
     public function __construct($requestID,$createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose,$justifiedBy,$approvedBy,$JOComment,$CAOComment)
     {
+
         //initialize state
         $this->requestID=$requestID;
         $this->createdDate=($createdDate!= null)?$createdDate:'';
-        $this->state=($state!= null)?$state:''; //TODO: assign the real state object using State class
+        $this->state=State::getState($state);;
         $this->dateOfTrip=$dateOfTrip;
         $this->timeOfTrip=$timeOfTrip;
         $this->dropLocation=$dropLocation;

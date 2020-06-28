@@ -30,8 +30,46 @@ abstract class State {
     public function getID() : int{
         return $this->stateID;
     }
-    
-    public static function getStateID(string $stateName) : int{
+
+    /**
+     *
+     * Returns state
+     *
+     */
+    public static function getState(int $stateID) : ?State {
+        $state=null;
+        switch ($stateID) {
+            case 1:
+                $state=Pending::getInstance();
+                break;
+            case 2:
+                $state=Justified::getInstance();
+                break;
+            case 3:
+                $state=Approved::getInstance();
+                break;
+            case 4:
+                $state=Denied::getInstance();
+                break;
+            case 5:
+                $state=Cancelled::getInstance();
+                break;
+            case 6:
+                $state=Scheduled::getInstance();
+                break;
+            case 7:
+                $state=Completed::getInstance();
+                break;
+          }
+        return $state;
+    }
+
+    /**
+     *
+     * Returns stateID
+     *
+     */
+    public static function getStateID(string $stateName) : int {
         $stateID=false;
         $stateName=strtolower($stateName);
         switch ($stateName) {
