@@ -3,15 +3,13 @@
 namespace Employee;
 
 use Request\Request;
-
 use DB\Controller\EmployeeController;
 use DB\Viewer\EmployeeViewer;
-
 use DB\Viewer\RequestViewer;
-
 use Vehicle\Vehicle;
 use DB\Viewer\VehicleViewer;
 use DB\Viewer\DriverViewer;
+
 
 class VPMO extends Requester
 {
@@ -110,9 +108,9 @@ class VPMO extends Requester
      * @return void
      *
      */
-    public function updateVehicle($registrationNo, $fields)
+    public function updateVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation)
     {
-        Vehicle::updateVehicle($registrationNo, $fields);
+        Vehicle::updateVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation);
     }
 
     /**
@@ -127,10 +125,9 @@ class VPMO extends Requester
     {
         Vehicle::deleteVehicle($registrationNo);
     }
-
-    //IRequestable
-    public function placeRequest()
+    public function placeRequest($dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $purpose)
     {
-        //create new request
+        $request = Request::constructObject($dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $this->empID, $purpose);
+        //$request->notifyJOs(); //change: notify JOs when the state change occurs
     }
 }

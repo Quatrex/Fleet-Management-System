@@ -53,11 +53,11 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
                                                     $i = 0;
                                                     foreach ($requests as $request) : ?>
                                                         <tr>
-                                                            <th id="request-<?php echo $i ?>"><?php echo $request->requestID ?></td>
-                                                            <td><?php echo $request->purpose ?></td>
+                                                            <th id="request-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
+                                                            <td><?php echo $request->getField('purpose') ?></td>
                                                             <td>Pending</td>
-                                                            <td><?php echo $request->dateOfTrip ?></td>
-                                                            <td><?php echo $request->timeOfTrip ?></td>
+                                                            <td><?php echo $request->getField('dateOfTrip') ?></td>
+                                                            <td><?php echo $request->getField('timeOfTrip') ?></td>
                                                         </tr>
                                                     <?php $i++;
                                                     endforeach;; ?>

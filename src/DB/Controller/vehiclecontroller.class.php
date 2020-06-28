@@ -8,8 +8,8 @@ class VehicleController extends VehicleModel{
         parent::saveRecord($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$inRepair,$currentLocation);
     }
 
-    public function updateRecord($registrationNo,$fields){
-        parent::updateRecord($registrationNo,$fields);
+    public function updateRecord($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$inRepair,$currentLocation){
+        parent::updateRecord($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$inRepair,$currentLocation);
     }
     
 }

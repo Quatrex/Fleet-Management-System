@@ -146,4 +146,9 @@ class Request implements IObjectHandle
     public function getJOEmail() {
         return 'Justifying Officer';//return $this ->justifiedBy ->getEmail();
     }
+
+    public function getRequestID() : int
+    {
+        return $this->requestID;
+    }
 }

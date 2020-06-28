@@ -1,3 +1,21 @@
+<?php
+
+use Employee\VPMO;
+
+session_start();
+if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
+require_once '../includes/autoloader.inc.php';
+$status = 1;
+$vpmo = VPMO::getObject($_SESSION['empid']); //, $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
+$_SESSION['vpmo'] = $vpmo;
+$requests = $vpmo->getMyPendingRequests();
+// echo json_encode($requests);
+$_SESSION['pendingTrips'] = $requests;
+$_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
+// echo $_SESSION['empid'];
+
+
+?>
 <html>
 <?php include '../partials/head.php'; ?>
 
@@ -185,10 +203,10 @@
         </div>
         <?php include '../partials/footer.php'; ?>
     </div>
-    <?php 
-        include '../partials/popups/vpmo_popup.php';
-        include '../partials/popups/common.php';
-        include '../js/vpmo_js.php';
+    <?php
+    include '../partials/popups/vpmo_popup.php';
+    include '../partials/popups/common.php';
+    include '../js/vpmo_js.php';
     ?>
 
 </body>

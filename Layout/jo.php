@@ -55,10 +55,11 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                                     $i = 0;
                                                     foreach ($requestsToJustify as $request) : ?>
                                                         <tr id="request-raw<?php echo $i ?>">
-                                                            <th id="request-<?php echo $i ?>"><?php echo $request->requestID ?></td>
-                                                            <td><?php echo $request->requesterID ?></td>
-                                                            <td><?php echo $request->purpose ?></td>
-                                                            <td><?php echo $request->dateOfTrip ?></td>
+                                                            <th id="request-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
+                                                            <td><?php echo $request->getField('purpose') ?></td>
+                                                            <td>Pending</td>
+                                                            <td><?php echo $request->getField('dateOfTrip') ?></td>
+                                                            <td><?php echo $request->getField('timeOfTrip') ?></td>
                                                         </tr>
                                                     <?php $i++;
                                                     endforeach;; ?>
@@ -102,11 +103,11 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                                     $i = 0;
                                                     foreach ($requestsByMe as $request) : ?>
                                                         <tr>
-                                                            <th id="request-<?php echo $i ?>"><?php echo $request->requestID ?></td>
-                                                            <td><?php echo $request->purpose ?></td>
+                                                            <th id="request-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
+                                                            <td><?php echo $request->getField('purpose') ?></td>
                                                             <td>Pending</td>
-                                                            <td><?php echo $request->dateOfTrip ?></td>
-                                                            <td><?php echo $request->timeOfTrip ?></td>
+                                                            <td><?php echo $request->getField('dateOfTrip') ?></td>
+                                                            <td><?php echo $request->getField('timeOfTrip') ?></td>
                                                         </tr>
                                                     <?php $i++;
                                                     endforeach;; ?>

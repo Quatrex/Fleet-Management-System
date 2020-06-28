@@ -1,9 +1,45 @@
 <script>
+    const requestEntity = <?php echo json_encode($_SESSION['pendingTrips']); ?>;
+    const empID = <?php echo json_encode($_SESSION['empid']); ?>;
+    console.log(empID);
+
+    function addRecord(formID, addMethod, empID) {
+        let data = $(formID).serialize();
+        console.log(data);
+        data += `&AddMethod=${addMethod}&empID=${empID}`;
+        $.ajax({
+            url: "../func/save2.php",
+            type: "POST",
+            data: data,
+            cache: false,
+            success: function(result) {
+                console.log(result);
+                $(formID).find("input:text").val("");
+                //Display the popup of success access or unsucess
+            },
+        });
+    }
+
+    $(document).ready(function() {
+        $('#request-preview-confirm-button').on('click', function() {
+            console.log("In preview confirm");
+
+            addRecord('#submit-form', 'RequestAdd', empID);
+            $('#submit-form').find('input:text').val('');
+
+        });
+        $('#vehicle-add-form-submit').on('click', function() {
+
+            addRecord('#new-vehicle-form', 'AddVehicle', empID);
+            $('#new-vehicle-form').find('input:text').val('');
+
+        });
+    });
     //*******************Justification Table *******************/
     document.querySelector("#approve-request-table").onclick = (event) => {
         let tableRow = event.target.parentElement;
         console.log(tableRow);
-        
+
         document.getElementById('request-assign-preview-popup').style.display = 'block';
 
     };
@@ -12,9 +48,17 @@
     //**********************Request Table ***************/
     document.querySelector("#request-table").onclick = (event) => {
         let tableRow = event.target.parentElement;
+        let row_id = (tableRow.children[0].id).split("-");
+        let entity = requestEntity[row_id[1]]
+        changeInnerHTML({
+            '#date-preview': entity.dateOfTrip,
+            '#time-preview': entity.timeOfTrip,
+            '#pickup-preview': entity.pickLocation,
+            '#drop-preview': entity.dropLocation
+        });
         document.getElementById('request-preview-popup').style.display = 'block';
     };
-
+    
 
     //**********************Ongoing Table ***************/
     document.querySelector("#ongoing-table").onclick = (event) => {
@@ -27,21 +71,21 @@
     //**********************Vehicle Table ***************/
     document.querySelector("#all-vehicle-table").onclick = (event) => {
         let tableRow = event.target.parentElement;
-         document.getElementById('car-profile-form').style.display = 'block';
+        document.getElementById('car-profile-form').style.display = 'block';
 
     };
-    
+
     ///Vehicle profile close//
     document.querySelector('#car-profile-form-close').addEventListener('click', () => {
         document.getElementById('car-profile-form').style.display = 'none';
     });
-    
+
     document.querySelector('#confirm-vehicle-profile').addEventListener('click', () => {
         document.getElementById('car-profile-form').style.display = 'none';
     });
 
 
-   
+
     //**********************Ongoing  **********************/
     //X-button
     document.querySelector('#ongoing-preview-close').addEventListener('click', () => {
@@ -80,7 +124,7 @@
 
         document.getElementById('vehicle-add-form').style.display = 'block';
     });
-    
+
     document.querySelector('#vehicle-add-form-submit').addEventListener('click', () => {
 
         document.getElementById('vehicle-add-form').style.display = 'none';
@@ -88,10 +132,10 @@
     // //x button-click
     document.querySelector('#vehicle-add-form-close').addEventListener('click', () => {
         document.getElementById('cancel-request-alert').style.display = 'block';
-     });
+    });
 
 
-    
+
     //x button-click
     document.querySelector('#confirm-alert-close').addEventListener('click', () => {
         document.getElementById('cancel-request-alert').style.display = 'none';
@@ -225,16 +269,16 @@
     document.querySelector('#request-details-close').addEventListener('click', () => {
         document.getElementById('request-details-popup').style.display = 'none';
     });
-    
+
     document.querySelector('#request-details-exit-button').addEventListener('click', () => {
         document.getElementById('request-details-popup').style.display = 'none';
     });
-    
+
     //user-profile
     document.querySelector('#view-profile').addEventListener('click', () => {
         document.getElementById('user-profile').style.display = 'block';
     });
-    
+
     document.querySelector('#user-profile-form-close').addEventListener('click', () => {
         document.getElementById('user-profile').style.display = 'none';
     });
@@ -243,8 +287,8 @@
     });
 
 
-  
- 
+
+
     //common functions copied
     function changeInnerHTML(arg) {
         for (let key in arg) {

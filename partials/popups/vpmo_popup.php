@@ -101,43 +101,22 @@
             </div>
             <div class="popup-body">
                 <div id="submit-form-wrapper">
-                    <form id="contact" action="" method="post">
-                        <h4>Vehicle details</h4>
-                        <fieldset>
-                            <input placeholder="Vehicle model" type="text" tabindex="1" required autofocus>
-                        </fieldset>
-                        <fieldset>
-                            <input type="text" placeholder="Date of purchase" onfocus="(this.type='date')">
-                        </fieldset>
-                        <fieldset>
-                            <input placeholder="Price" type="number" tabindex="3" required>
-                        </fieldset>
-                        <fieldset>
-                            <input placeholder="Fuel type" type="text" tabindex="4" required>
-                        </fieldset>
-                        <fieldset>
-                            <h4>Insurance details</h4>
-                            <input placeholder="Monthly installment" type="number" tabindex="3" required>
-                        </fieldset>
-                        <fieldset>
-                            <input placeholder="Insurance company" type="text" tabindex="1" required>
-                        </fieldset>
-                        <fieldset>
-                            <h4>Leasing details (Fill in for a leased vehicle)</h4>
-                            <input placeholder="Leasing company" type="text" tabindex="1" required>
-                        </fieldset>
-                        <fieldset>
-                            <input type="text" placeholder="Lease period (from)" onfocus="(this.type='date')">
-                        </fieldset>
-                        <fieldset>
-                            <input type="text" placeholder="Lease period (to)" onfocus="(this.type='date')">
-                        </fieldset>
-                        <fieldset>
-                            <input placeholder="Monthly installment" type="number" tabindex="3" required>
-                        </fieldset>
-                        <fieldset>
-                            <button name="submit" type="submit" class="btn-success" id="vehicle-add-form-submit" data-submit="...Sending">Submit</button>
-                        </fieldset>
+                    <form id="new-vehicle-form">
+                        <input class="form-control my-3" placeholder="Vehicle model" type="text"  name="model" >
+                        <input class="form-control my-3" placeholder="Registration Number" type="text"  name="registrationNo" >
+                        <input type="date" name="purchasedYear" class="form-control my-3" placeholder="Date of purchase" >
+                        <input name="value" class="form-control my-3" placeholder="Price" type="number" >
+                        <input name="fuelType" class="form-control my-3" placeholder="Fuel type" type="text" >
+                        <input name="currentLocation" class="form-control my-3" placeholder="Current Location" type="text" >
+                        <h4>Insurance details</h4>
+                        <input name="insuranceValue" class="form-control my-3" placeholder="Monthly installment" type="number" >
+                        <input name="insuranceCompany" class="form-control my-3" placeholder="Insurance company" type="text" >
+                        <h4>Leasing details (Fill in for a leased vehicle)</h4>
+                        <input name="leasingCompany" class="form-control my-3" placeholder="Leasing company" type="text" >
+                        <input type="date" name="leasePeriod" class="form-control my-3" placeholder="Lease period (from)" >
+                        <input type="date" name="" class="form-control my-3" placeholder="Lease period (to)">
+                        <input name="monthlyInstallment" class="form-control my-3" placeholder="Monthly installment" type="number" >
+                        <input type="button" value="Submit" class="btn btn-success" id="vehicle-add-form-submit">
                     </form>
                 </div>
             </div>
@@ -250,7 +229,9 @@
             <div class="popup-body" style="max-height: 80vh;">
                 <div class="row" style="overflow:wrap;">
                     <div class="col-sm-12 col-md-4">
-                        <label>Show<select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-control form-control-sm" style=" margin-left: 10px;display:inline-block; border: 0 none; width:auto !important">
+                        <label>Show<select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
+                                class="form-control form-control-sm"
+                                style=" margin-left: 10px;display:inline-block; border: 0 none; width:auto !important">
                                 <option value="10">All Vehicles</option>
                                 <option value="25">Allocated Vehicles</option>
                                 <option value="50">Free Vehicles</option>
@@ -258,12 +239,15 @@
                     </div>
                     <div class="col-sm-12 col-md-4">
                         <div id="DataTables_Table_0_filter" style="display: inline-block;" class="dataTables_filter">
-                            <label style="margin: 10px 0px; padding-top: 2px;">Selected:<label id="vehicle-name" style="padding-left:10px"></label></label>
+                            <label style="margin: 10px 0px; padding-top: 2px;">Selected:<label id="vehicle-name"
+                                    style="padding-left:10px"></label></label>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-4">
                         <div id="DataTables_Table_0_filter" style="display: inline-block;" class="dataTables_filter">
-                            <label>Search:<input type="search" class="form-control form-control-sm" style="display:inline-block; margin-left: 15px; margin-bottom:0.5rem; width:auto!important" placeholder="" aria-controls="DataTables_Table_0"></label>
+                            <label>Search:<input type="search" class="form-control form-control-sm"
+                                    style="display:inline-block; margin-left: 15px; margin-bottom:0.5rem; width:auto!important"
+                                    placeholder="" aria-controls="DataTables_Table_0"></label>
                         </div>
                     </div>
                 </div>
@@ -441,7 +425,9 @@
             <div class="popup-body" style="max-height: 80vh;">
                 <div class="row" style="overflow:wrap;">
                     <div class="col-sm-12 col-md-4">
-                        <label>Show<select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-control form-control-sm" style=" margin-left: 10px;display:inline-block; border: 0 none; width:auto !important">
+                        <label>Show<select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
+                                class="form-control form-control-sm"
+                                style=" margin-left: 10px;display:inline-block; border: 0 none; width:auto !important">
                                 <option value="10">All drivers</option>
                                 <option value="25">Allocated drivers</option>
                                 <option value="50">Free drivers</option>
@@ -449,12 +435,15 @@
                     </div>
                     <div class="col-sm-12 col-md-4">
                         <div id="DataTables_Table_0_filter" style="display: inline-block;" class="dataTables_filter">
-                            <label style="margin: 10px 0px; padding-top: 2px;">Selected:<label id="driver-name" style="padding-left:10px"></label></label>
+                            <label style="margin: 10px 0px; padding-top: 2px;">Selected:<label id="driver-name"
+                                    style="padding-left:10px"></label></label>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-4">
                         <div id="DataTables_Table_0_filter" style="display: inline-block;" class="dataTables_filter">
-                            <label>Search:<input type="search" class="form-control form-control-sm" style="display:inline-block; margin-left: 15px; margin-bottom:0.5rem; width:auto!important" placeholder="" aria-controls="DataTables_Table_0"></label>
+                            <label>Search:<input type="search" class="form-control form-control-sm"
+                                    style="display:inline-block; margin-left: 15px; margin-bottom:0.5rem; width:auto!important"
+                                    placeholder="" aria-controls="DataTables_Table_0"></label>
                         </div>
                     </div>
                 </div>
@@ -681,7 +670,7 @@
                 <hr>
             </div>
             <div class="popup-body">
-                <img src="../../images/default-user-image.png" class="form-image">
+                <img src="../images/default-user-image.png" class="form-image">
                 <div id="submit-form-wrapper">
                     <div class="basic-form">
                         <form>
@@ -689,65 +678,65 @@
                                 <div class="form-group col-md-6">
                                     <label>Model</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border" type="text" value="Name" disabled>
+                                        <input class="form-control py-2 border-right-0 border" type="text" value="Name" id="example-search-input" disabled>
                                         <span class="input-group-append">
-                                            <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                                <i class="icon far fa-edit"></i>
-                                            </button>
-                                        </span>
+                                        <button class="btn btn-outline-secondary border-left-0 border" type="button">
+                                            <i class="icon far fa-edit"></i>
+                                        </button>
+                                    </span>
                                     </div>
 
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Registration Number</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border" type="text" value="email@email.com" disabled>
+                                        <input class="form-control py-2 border-right-0 border" type="text" value="email@email.com" id="example-search-input" disabled>
                                         <span class="input-group-append">
-                                            <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                                <i class="icon far fa-edit"></i>
-                                            </button>
-                                        </span>
+                                        <button class="btn btn-outline-secondary border-left-0 border" type="button">
+                                            <i class="icon far fa-edit"></i>
+                                        </button>
+                                    </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Address</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" type="text" value="Address" disabled>
+                                    <input class="form-control py-2 border-right-0 border" type="text" value="Address" id="example-search-input" disabled>
                                     <span class="input-group-append">
-                                        <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                            <i class="icon far fa-edit"></i>
-                                        </button>
-                                    </span>
+                                    <button class="btn btn-outline-secondary border-left-0 border" type="button">
+                                        <i class="icon far fa-edit"></i>
+                                    </button>
+                                </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Address 2</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" type="text" value="Name" disabled>
+                                    <input class="form-control py-2 border-right-0 border" type="text" value="Name" id="example-search-input" disabled>
                                     <span class="input-group-append">
-                                        <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                            <i class="icon far fa-edit"></i>
-                                        </button>
-                                    </span>
+                                    <button class="btn btn-outline-secondary border-left-0 border" type="button">
+                                        <i class="icon far fa-edit"></i>
+                                    </button>
+                                </span>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label>Contact Number</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border" type="text" value="Contacts Number" disabled>
+                                        <input class="form-control py-2 border-right-0 border" type="text" value="Contacts Number" id="example-search-input" disabled>
                                         <span class="input-group-append">
-                                            <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                                <i class="icon far fa-edit"></i>
-                                            </button>
-                                        </span>
+                                        <button class="btn btn-outline-secondary border-left-0 border" type="button">
+                                            <i class="icon far fa-edit"></i>
+                                        </button>
+                                    </span>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Position</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border" type="text" value="Position" disabled>
+                                        <input class="form-control py-2 border-right-0 border" type="text" value="Position" id="example-search-input" disabled>
                                     </div>
                                 </div>
 
@@ -769,3 +758,5 @@
         </div>
 
     </div>
+
+
