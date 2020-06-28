@@ -2,6 +2,7 @@
 <?php include '../partials/head.php';
 
 use Employee\CAO;
+use Request\State\State;
 
 session_start();
 if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
@@ -11,7 +12,7 @@ $_SESSION['employee'] = $cao;
 $requestsToApprove = $cao->getRequestsToApprove();
 $_SESSION['requestsToApprove'] = $requestsToApprove;
 
-$requestsByMe = $cao->getMyPendingRequests();
+$requestsByMe = $cao->getMyRequestsByState(State::getStateID("pending"));
 $_SESSION['requestsByMe'] = $requestsByMe;
 ?>
 

@@ -3,7 +3,7 @@ namespace Request\State;
 
 class Cancelled extends State {
 
-    private ?Cancelled $instance = null;
+    private static ?Cancelled $instance = null;
 
     private function __construct() {
         $this->stateID=parent::getStateID("cancelled");

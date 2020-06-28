@@ -5,7 +5,7 @@ use Request\Request;
 
 class Justified extends State {
 
-    private ?Justified $instance = null;
+    private static ?Justified $instance = null;
 
     private function __construct() {
         $this->stateID=parent::getStateID("justified");

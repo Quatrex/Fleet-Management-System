@@ -3,7 +3,7 @@ namespace Request\State;
 
 class Denied extends State {
 
-    private ?Denied $instance = null;
+    private static ?Denied $instance = null;
 
     private function __construct() {
         $this->stateID=parent::getStateID("denied");

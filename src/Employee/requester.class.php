@@ -28,7 +28,12 @@ class Requester extends PrivilegedEmployee implements IObjectHandle
         
         return $obj; //return false, if fail
     }
-    
+  
+    //IObjectHandle
+    public static function getObjectByValues(array $values){
+        $obj = new JO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        return $obj;
+    }
 
     //IObjectHandle
     public static function constructObject($empID, $firstName, $lastName, $position, $email, $username, $password){

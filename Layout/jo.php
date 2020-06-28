@@ -2,6 +2,7 @@
 <?php include '../partials/head.php';
 
 use Employee\JO;
+use Request\State\State;
 
 session_start();
 if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
@@ -11,7 +12,7 @@ $_SESSION['employee'] = $jo;
 $requestsToJustify = $jo->getRequestsToJustify();
 $_SESSION['requestsToJustify'] = $requestsToJustify;
 
-$requestsByMe = $jo->getMyPendingRequests();
+$requestsByMe = $jo->getMyRequestsByState(State::getStateID("pending"));
 $_SESSION['requestsByMe'] = $requestsByMe;
 ?>
 

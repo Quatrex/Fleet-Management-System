@@ -5,7 +5,7 @@ use Request\Request;
 
 class Pending extends State {
 
-    private ?Pending $instance = null;
+    private static ?Pending $instance = null;
 
     private function __construct() {
         $this->stateID=parent::getStateID("pending");
