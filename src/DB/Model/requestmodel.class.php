@@ -15,12 +15,26 @@ abstract class RequestModel extends Model{
         return $results[0];
     }
 
-    protected function getPendingRequestsByID($requesterID){
-        $state=1; //implement an enum to get the state value
+    // protected function getPendingRequestsByID($requesterID){
+    //     $state=1; //implement an enum to get the state value
+    //     $columnNames= array('RequesterID','State');
+    //     $columnVals= array($requesterID,$state);
+    //     $results = parent::getRecords($columnNames,$columnVals);
+    //     return $results;
+    // }
+    protected function getRequestsByIDNState(String $requesterID,int $state){
         $columnNames= array('RequesterID','State');
         $columnVals= array($requesterID,$state);
         $results = parent::getRecords($columnNames,$columnVals);
         return $results;
+    }
+
+    protected function getRequestsByJOIDNState(String $justifiedBy,int $state){
+        return "not implemented"; //TODO: implement
+    }
+
+    protected function getRequestsByCAOIDNState(String $approvedBy,int $state){
+        return "not implemented"; //TODO: implement
     }
 
     protected function saveRecord($createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose) {

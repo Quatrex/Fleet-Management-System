@@ -6,6 +6,7 @@ class Cancelled extends State {
     private ?Cancelled $instance = null;
 
     private function __construct() {
+        $this->stateID=parent::getStateID("cancelled");
     }
 
     public static function getInstance() : Cancelled {

@@ -2,16 +2,54 @@
 
 namespace Employee;
 
+use Request\Request;
+
+use DB\Controller\EmployeeController;
+use DB\Viewer\EmployeeViewer;
+
+use DB\Viewer\RequestViewer;
+
 use Vehicle\Vehicle;
 use DB\Viewer\VehicleViewer;
 use DB\Viewer\DriverViewer;
 
-class VPMO extends Employee implements IRequestable
+class VPMO extends Requester
 {
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {
         parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
-        //incluce required viewer and controller classes
+    }
+
+    //overide
+    public static function getObject($ID){
+        $empID=$ID;
+        //get values from database
+        $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
+        $values=$employeeViewer->getRecordByID($empID);
+
+        $obj = new VPMO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        
+        return $obj; //return false, if fail
+    }
+
+    //overide
+    public static function getObjectByValues(array $values){
+        $obj = new VPMO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        return $obj;
+    }
+
+    //overide
+    public static function constructObject($empID, $firstName, $lastName, $position, $email, $username, $password){
+
+        $obj = new VPMO($empID, $firstName, $lastName, $position, $email, $username, $password);
+
+        $obj->saveToDatabase(); //check for failure
+
+        return $obj; //return false, if fail
+    }
+
+    private function saveToDatabase(){
+        parent::saveToDatabase();
     }
 
     /**
@@ -94,29 +132,5 @@ class VPMO extends Employee implements IRequestable
     public function placeRequest()
     {
         //create new request
-    }
-
-    //IRequestable
-    public function getPendingRequests()
-    {
-        //check database for pending requests placed by the requester and return an array of requests
-    }
-
-    //IRequestable
-    public function getCancelledRequests()
-    {
-        //check database for cancelled requests placed by the requester and return an array of requests
-    }
-
-    //IRequestable
-    public function getApprovedRequests()
-    {
-        //check database for approved(but trip isn't completed) requests placed by the requester and return an array of requests
-    }
-
-    //IRequestable
-    public function getOldRequests()
-    {
-        //check database for all old requests(all requests other than approved and pending requests) placed by the requester and return an array of requests
     }
 }

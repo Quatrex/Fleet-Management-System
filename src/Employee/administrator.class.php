@@ -1,7 +1,7 @@
 <?php
 namespace Employee;
 
-class Administrator extends Employee
+class Administrator extends PrivilegedEmployee
 {
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {

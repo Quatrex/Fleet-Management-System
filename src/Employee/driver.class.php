@@ -3,6 +3,7 @@ namespace Employee;
 
 class Driver extends Employee
 {
+    //TODO: set attributes to private and implement a getter
     public int $driverId;
     public string $firstName;
     public string $lastName;

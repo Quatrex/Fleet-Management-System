@@ -34,7 +34,7 @@ class Request implements IObjectHandle
         //initialize state
         $this->requestID=$requestID;
         $this->createdDate=($createdDate!= null)?$createdDate:'';
-        $this->state=($state!= null)?$state:'';
+        $this->state=($state!= null)?$state:''; //TODO: assign the real state object using State class
         $this->dateOfTrip=$dateOfTrip;
         $this->timeOfTrip=$timeOfTrip;
         $this->dropLocation=$dropLocation;

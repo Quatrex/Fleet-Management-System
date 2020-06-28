@@ -3,12 +3,12 @@ namespace Request\State;
 
 use Request\Request;
 
-class Justified extends State {
+class Scheduled extends State {
 
     private ?Justified $instance = null;
 
     private function __construct() {
-        $this->stateID=parent::getStateID("justified");
+        $this->stateID=parent::getStateID("scheduled");
     }
 
     public static function getInstance() : Justified {
@@ -17,11 +17,4 @@ class Justified extends State {
         else return self::$instance;
     }
 
-    public function approve(Request $request) : void {
-        //approve request
-    }
-
-    public function denyApprove(Request $request) : void {
-        //deny approve
-    }
 }

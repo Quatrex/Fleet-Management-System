@@ -2,11 +2,8 @@
 namespace DB;
 
 interface IObjectHandle{
-    //make an object using an existing record in the table (by a unique ID)
     public static function getObject(int $ID);
-
-    //use this instead of the default constructor
-    //overload this function with required parameters
-    //public static function constructObject();
-
+    public static function getObjectByValues(array $values);
+    //public static function constructObject($values); //cannot declare since PHP doesn't support overloading
+    //protected static function saveToDatabase(); //"interface methods cannot be protected"?
 }
