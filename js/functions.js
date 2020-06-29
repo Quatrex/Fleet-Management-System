@@ -2,6 +2,13 @@ $(document).ready(function () {
   $("#request-preview-confirm-button").on("click", function () {
     writeToDatabase("#submit-form", "RequestAdd", empID);
   });
+  insertRow("request-table", [
+    "514",
+    "Nikan",
+    "Pending",
+    "2020-12-13",
+    "12:30:00",
+  ]);
 });
 
 function loadData() {
@@ -42,11 +49,26 @@ function writeToDatabase(formID, addMethod, empID) {
     cache: false,
     success: function (result) {
       console.log(result);
-
-      $(formID).find("input:text").val("");
+      $(formID).trigger("reset");
       //Display the popup of success access or unsucess
     },
   });
+}
+
+function insertRow(tableName, cellData, type) {
+  let newRow = document.getElementById(tableName).insertRow(1);
+  let i = 0;
+  if (type == "request") {
+    let th = document.createElement("th");
+    th.innerHTML = cellData[0];
+    newRow.appendChild(th);
+    i = 1;
+  }
+  let cellValue;
+  for (i; i < cellData.length; i++) {
+    cellValue = newRow.insertCell(i);
+    cellValue.innerHTML = cellData[i];
+  }
 }
 
 //initiate the user profile with details
@@ -65,6 +87,7 @@ function changeInnerHTML(arg) {
     });
   }
 }
+
 
 function getValuesFromForm(name, values) {
   let arr = {};
@@ -107,6 +130,7 @@ function checkMyPassword(password) {
 }
 
 //for making selected driver bold
+
 function toggleBack(table, tableRow, type) {
   const rows = table.querySelectorAll("tr");
   console.log(tableRow);
