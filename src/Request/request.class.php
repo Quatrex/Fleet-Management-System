@@ -4,10 +4,10 @@ namespace Request;
 use DB\Viewer\RequestViewer;
 use DB\Controller\RequestController;
 use DB\IObjectHandle;
+use JsonSerializable;
 use Request\State\State;
 
-class Request implements IObjectHandle
-{
+class Request implements IObjectHandle, JsonSerializable{
     //ToDO: make attributes private and use get/set methods
     private int $requestID; 
     private string $createdDate; //how to handle 'date' in php? 
@@ -53,6 +53,10 @@ class Request implements IObjectHandle
         //$this->requestController= new RequestController();
         //$this->requestViewer=new RequestViewer();
 
+    }
+    public function jsonSerialize()
+    {
+        return ['RequestId'=>$this->requestID,'DateOfTrip'=> $this->dateOfTrip,'TimeOfTrip'=> $this->timeOfTrip,'PickLocation'=>$this->pickLocation,'DropLocation'=> $this->dropLocation,'Purpose'=>$this->purpose];
     }
 
         //IObjectHandle

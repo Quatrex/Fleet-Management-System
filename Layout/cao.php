@@ -112,9 +112,16 @@ $_SESSION['requestsByMe'] = $requestsByMe;
     <?php 
     include '../partials/popups/common.php';
     include '../partials/popups/cao_popup.php';
-    include '../includes/js.php';
-    include '../includes/cao_js.php';
     ?>
+    <script>
+        const pendingRequests = <?php echo json_encode(($_SESSION['requestsByMe'])) ?>;
+        const requestsToApprove = <?php echo json_encode(($_SESSION['requestsToJustify'])) ?>;
+        sessionStorage.setItem('requestsToApprove',requestsToApprove);
+        sessionStorage.setItem('requestsByMe',pendingRequests);
+    </script>
+    <script src="../js/functions.js"></script>
+    <script src="../js/eventlisteners/common.js"></script>
+    <script src="../js/eventlisteners/cao.js"></script>
 
 </body>
 

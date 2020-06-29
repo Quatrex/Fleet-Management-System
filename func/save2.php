@@ -23,7 +23,7 @@ switch ($method) {
 
 	case 'RequestAdd':
 		$requester = Requester::getObject($_POST['empID']);
-		$requester->placeRequest($_POST['date'], $_POST['time'], $_POST['dropoff'], $_POST['pickup'], "");
+		$requester->placeRequest($_POST['date'], $_POST['time'], $_POST['dropoff'], $_POST['pickup'], $_POST['purpose']);
 		echo json_encode("Added");
 		break;
 

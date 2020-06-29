@@ -12,6 +12,7 @@ $_SESSION['vpmo'] = $vpmo;
 $requests = $vpmo->getMyRequestsByState(State::getStateID("pending"));
 // echo json_encode($requests);
 $_SESSION['pendingTrips'] = $requests;
+$_SESSION['requestsToAssign'] ="Nothing";
 $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
 // echo $_SESSION['empid'];
 
@@ -207,8 +208,16 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
     <?php
     include '../partials/popups/vpmo_popup.php';
     include '../partials/popups/common.php';
-    include '../js/vpmo_js.php';
     ?>
+    <script>
+        const pendingRequests = <?php echo json_encode(($_SESSION['pendingTrips'])) ?>;
+        const requestsToApprove = <?php echo json_encode(($_SESSION['requestsToAssign'])) ?>;
+        sessionStorage.setItem('requestsToApprove', requestsToApprove);
+        sessionStorage.setItem('requestsByMe', pendingRequests);
+    </script>
+    <script src="../js/functions.js"></script>
+    <script src="../js/eventlisteners/common.js"></script>
+    <script src="../js/eventlisteners/vpmo.js"></script>
 
 </body>
 

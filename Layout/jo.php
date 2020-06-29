@@ -11,7 +11,6 @@ $jo = JO::getObject($_SESSION['empid']);
 $_SESSION['employee'] = $jo;
 $requestsToJustify = $jo->getRequestsToJustify();
 $_SESSION['requestsToJustify'] = $requestsToJustify;
-
 $requestsByMe = $jo->getMyRequestsByState(State::getStateID("pending"));
 $_SESSION['requestsByMe'] = $requestsByMe;
 ?>
@@ -55,8 +54,8 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                                     <?php
                                                     $i = 0;
                                                     foreach ($requestsToJustify as $request) : ?>
-                                                        <tr id="request-raw<?php echo $i ?>">
-                                                            <th id="request-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
+                                                        <tr>
+                                                            <th id="requestraw-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
                                                             <td><?php echo $request->getField('purpose') ?></td>
                                                             <td>Pending</td>
                                                             <td><?php echo $request->getField('dateOfTrip') ?></td>
@@ -134,9 +133,17 @@ $_SESSION['requestsByMe'] = $requestsByMe;
     <?php
     include '../partials/popups/common.php';
     include '../partials/popups/jo_popup.php';
-    include '../includes/js.php';
-    include '../includes/jo_js.php';
     ?>
+    <script>
+        const requestsByMe = <?php echo json_encode(($_SESSION['requestsByMe'])) ?>;
+        const requestsToJustify = <?php echo json_encode(($_SESSION['requestsToJustify'])) ?>;
+        sessionStorage.setItem('requestToJustify',requestsToJustify);
+        sessionStorage.setItem('requestsByMe',pendingRequests);
+    </script>
+    <script src="../js/functions.js"></script>
+    <script src="../js/eventlisteners/common.js"></script>
+    <script src="../js/eventlisteners/jo.js"></script>
+    
 
 </body>
 

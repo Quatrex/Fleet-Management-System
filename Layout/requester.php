@@ -12,8 +12,7 @@ $requester = Requester::getObject($_SESSION['empid']); //, $_SESSION['firstname'
 $_SESSION['employee'] = $requester;
 $requests = $requester->getMyRequestsByState(State::getStateID("pending"));
 // echo json_encode($requests);
-$_SESSION['pendingTrips'] = $requests;
-$_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
+$_SESSION['requestsByMe'] = $requests;
 ?>
 
 <body>
@@ -84,9 +83,15 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
 
     <?php
     include '../partials/popups/common.php';
-    include '../includes/js.php';
     ?>
+    <script>
+        const requestsByMe = <?php echo json_encode(($_SESSION['requestsByMe'])) ?>;
+        const empID = <?php echo json_encode(($_SESSION['empid'])) ?>;
 
+        sessionStorage.setItem('requestsByMe',requestsByMe);
+    </script>
+    <script src="../js/functions.js"></script>
+    <script src="../js/eventlisteners/common.js"></script>
 </body>
 
 </html>
