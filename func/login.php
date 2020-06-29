@@ -9,7 +9,7 @@
     <meta property="og:site_name" content="Fleet Management System">
     <meta property="og:title" content="Fleet Management System">
     <meta property="og:description" content="Fleet Management System">
-    <!--<meta property="og:image" itemprop="image" content="/images/complex-logo.jpg">-->
+    <link rel="icon" type="image/png" sizes="16x12" href="../images/national-logo.png">
     <meta property="og:type" content="website">
 
     <!-- mobile specific metas

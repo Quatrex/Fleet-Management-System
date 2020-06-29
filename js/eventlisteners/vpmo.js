@@ -80,6 +80,7 @@ document.querySelector('#request-approve-preview-close').addEventListener('click
 
 });
 
+//***********************Add Vehicle ********************/
 //Vehicle add form
 document.querySelector('#add-vehicle-button').addEventListener('click', () => {
 

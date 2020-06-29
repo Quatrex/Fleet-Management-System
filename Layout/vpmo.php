@@ -12,7 +12,7 @@ $_SESSION['vpmo'] = $vpmo;
 $requests = $vpmo->getMyRequestsByState(State::getStateID("pending"));
 // echo json_encode($requests);
 $_SESSION['pendingTrips'] = $requests;
-$_SESSION['requestsToAssign'] ="Nothing";
+$_SESSION['requestsToAssign'] = "Nothing";
 $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
 // echo $_SESSION['empid'];
 
@@ -90,31 +90,13 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th scope="col">#</th>
+                                                        <th scope="col">Purpose</th>
                                                         <th scope="col">Status</th>
                                                         <th scope="col">Date</th>
                                                         <th scope="col">Time</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>18.10</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>08.10</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>13.10</td>
-                                                    </tr>
-
                                                 </tbody>
                                             </table>
                                         </div>
