@@ -11,7 +11,8 @@ abstract class EmployeeModel extends Model{
     protected function getRecordByID($empID){
         $columnNames= array('EmpID');
         $columnVals= array($empID);
-        $results = parent::getRecords($columnNames,$columnVals); //change getRecords() to not get password from database
+        $wantedColumns=array('EmpID','FirstName','LastName','Position','Email','Username');
+        $results = parent::getRecords($columnNames,$columnVals,$wantedColumns); //change getRecords() to not get password from database
         return $results[0];
     }
 
