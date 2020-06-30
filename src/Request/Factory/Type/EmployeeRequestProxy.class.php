@@ -18,7 +18,12 @@ abstract class EmployeeRequestProxy implements Request, JsonSerializable
 
     public function jsonSerialize()
     {
-        return ['RequestId'=>$this->requestID,'DateOfTrip'=> $this->dateOfTrip,'TimeOfTrip'=> $this->timeOfTrip,'PickLocation'=>$this->pickLocation,'DropLocation'=> $this->dropLocation,'Purpose'=>$this->purpose];
+        return ['RequestId'=>$this->getField('requestID'),
+                'DateOfTrip'=> $this->getField('dateOfTrip'),
+                'TimeOfTrip'=> $this->getField('timeOfTrip'),
+                'PickLocation'=>$this->getField('pickLocation'),
+                'DropLocation'=> $this->getField('dropLocation'),
+                'Purpose'=>$this->getField('purpose')];
     }
 
     /**
