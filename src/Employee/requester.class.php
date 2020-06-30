@@ -65,19 +65,6 @@ class Requester extends PrivilegedEmployee implements IObjectHandle
                                                         $purpose);
     }
 
-    // public function getMyPendingRequests(){//about to eb deleted
-    //     $requestViewer = new RequestViewer();
-    //     $requestIDs= $requestViewer->getPendingRequestsByID($this->empID);
-    //     $requests=array();
-
-    //     foreach($requestIDs as $values){
-    //         $request= Request::getObjectByValues($values);
-    //         array_push($requests,$request);
-    //     }
-
-    //     return $requests;
-    // }
-
     public function getMyRequestsByState(int $state) : array 
     {
         return RequesterRequestFactory::getRequests($this->empID,$state);

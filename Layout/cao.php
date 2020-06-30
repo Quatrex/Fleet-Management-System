@@ -9,7 +9,7 @@ if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
 require_once '../includes/autoloader.inc.php';
 $cao = CAO::getObject($_SESSION['empid']);
 $_SESSION['employee'] = $cao;
-$requestsToApprove = $cao->getRequestsToApprove();
+$requestsToApprove = $cao->getJustifiedRequests();
 $_SESSION['requestsToApprove'] = $requestsToApprove;
 
 $requestsByMe = $cao->getMyRequestsByState(State::getStateID("pending"));

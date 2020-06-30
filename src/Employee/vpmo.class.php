@@ -9,6 +9,7 @@ use DB\Viewer\RequestViewer;
 use Vehicle\Vehicle;
 use DB\Viewer\VehicleViewer;
 use DB\Viewer\DriverViewer;
+use Request\Factory\Type\RealRequest;
 
 
 class VPMO extends Requester
@@ -123,7 +124,7 @@ class VPMO extends Requester
     }
     public function placeRequest($dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $purpose)
     {
-        $request = Request::constructObject($dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $this->empID, $purpose);
+        $request = RealRequest::constructObject($dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $this->empID, $purpose);
         //$request->notifyJOs(); //change: notify JOs when the state change occurs
     }
 }

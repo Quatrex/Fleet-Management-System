@@ -27,7 +27,6 @@ class RealRequest implements IObjectHandle, Request, JsonSerializable
     private string $JOComment; 
     private string $CAOComment;
 
-    private State $stateObject;
     //private EmailClient $emailClient;
 
     //private $requestController;
@@ -100,8 +99,8 @@ class RealRequest implements IObjectHandle, Request, JsonSerializable
                                     $this->purpose);
     }
 
-    public function setState(State $stateObject) : void {
-        $this->stateObject = $stateObject;
+    public function setState(State $state) : void {
+        $this->state = $state;
     }
 
     public function notifyJOs(){
@@ -112,7 +111,7 @@ class RealRequest implements IObjectHandle, Request, JsonSerializable
     public function setJustified($justifiedBy,$JOComment){
         $this->justifiedBy=$justifiedBy;
         $this->JOComment=$JOComment;
-        $this->stateObject->justify($this);
+        $this->state->justify($this);
         
         $requestController=new RequestController();
         $requestController->justifyRequest($this->requestID,$this->JOComment,$this->justifiedBy);
@@ -121,7 +120,7 @@ class RealRequest implements IObjectHandle, Request, JsonSerializable
     public function setApproved($approvedBy,$CAOComment){
         $this->justifiedBy=$approvedBy;
         $this->JOComment=$CAOComment;
-        $this->stateObject->approve($this);
+        $this->state->approve($this);
         
         $requestController=new RequestController();
         $requestController->approveRequest($this->requestID,$this->CAOComment,$this->approvedBy);
@@ -130,17 +129,17 @@ class RealRequest implements IObjectHandle, Request, JsonSerializable
     public function setDenied($empID,$comment,$position){
         
         switch ($position) {
-            case "JO"://TODO: must be the same name as in employee table
+            case "jo"://TODO: must be the same name as in employee table
                 $this->justifiedBy=$empID;
                 $this->JOComment=$comment;
                 break;
-            case "CAO"://TODO: must be the same name as in employee table
+            case "cao"://TODO: must be the same name as in employee table
                 $this->approvedBy=$empID;
                 $this->CAOComment=$comment;
                 break;
         }
         
-        $this->stateObject->approve($this);
+        $this->state->approve($this);
         
         $requestController=new RequestController();
         $requestController->denyRequest($this->requestID,$comment,$empID,$position);

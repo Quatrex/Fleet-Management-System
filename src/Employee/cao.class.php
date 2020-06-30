@@ -6,6 +6,7 @@ use DB\Controller\EmployeeController;
 use DB\Viewer\EmployeeViewer;
 use DB\Controller\RequestController;
 use DB\Viewer\RequestViewer;
+use Request\Factory\Type\RealRequest;
 
 class CAO extends Requester
 {
@@ -48,7 +49,7 @@ class CAO extends Requester
         $requests=array();
 
         foreach($requestIDs as $values){
-            $request= Request::getObjectByValues($values);
+            $request= RealRequest::getObjectByValues($values);
             array_push($requests,$request);
         }
 
@@ -61,7 +62,7 @@ class CAO extends Requester
         $requests=array();
 
         foreach($requestIDs as $values){
-            $request= Request::getObjectByValues($values);
+            $request= RealRequest::getObjectByValues($values);
             array_push($requests,$request);
         }
 
@@ -69,12 +70,12 @@ class CAO extends Requester
     }
 
     public function approveRequest($requestID,$CAOComment){
-        $request=Request::getObject($requestID);
+        $request=RealRequest::getObject($requestID);
         $request->setApproved($this->empID,$CAOComment);
     }
 
     public function denyRequest($requestID,$CAOComment){
-        $request=Request::getObject($requestID);
+        $request=RealRequest::getObject($requestID);
         $request->setDenied($this->empID,$CAOComment,$this->position);
     }
 
