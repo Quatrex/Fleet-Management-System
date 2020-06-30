@@ -15,7 +15,7 @@
         <div class="popup-body">
             <div id="submit-form-wrapper">
 
-                <form id="submit-form">
+                <form id="RequestAdd_form">
 
                     <div class="form-group">
                         <input type="date" class="form-control" name="date" placeholder="Date" autocomplete="off">
@@ -152,7 +152,18 @@
             <hr>
         </div>
         <div class="popup-body">
-
+            <form>
+            <input type="hidden" name="requestID" id="request-preview-ID" />
+            </form>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Date</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="date-preview">DD-MM-YYYY</p>
+                </div>
+            </div>
+            
             <div class="row">
                 <div class="col-sm-6">
                     <p>Date</p>
@@ -199,6 +210,7 @@
             </div>
         </div>
         <div class="popup-footer">
+            <button class="btn btn-danger" id="request-cancel">Cancel Request</button>
         </div>
     </div>
 </div>

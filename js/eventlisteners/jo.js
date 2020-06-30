@@ -3,6 +3,7 @@ document.querySelector("#justify-request-table").onclick = (event) => {
   let tableRow = event.target.parentElement;
   let row_id = tableRow.children[0].id.split("-");
   let entity = requestsToJustify[row_id[1]];
+  lastClickedRow = entity.RequestID;
 
   changeInnerHTML({
     "#justify-preview-requester": entity.RequestId,
@@ -79,7 +80,7 @@ document
   .addEventListener("click", () => {
     document.getElementById("cancel-request-alert-justify").style.display =
       "none";
-    writeToDatabase('#decline-request', 'DenyJO', empID);
+    writeToDatabase('JODeny_form');
   });
 
 //Decline Cancel Button
@@ -116,7 +117,7 @@ document
   .querySelector("#justify-alert-justify-button")
   .addEventListener("click", () => {
     document.getElementById("justify-request-alert").style.display = "none";
-    writeToDatabase('#justify-request-comment-form', 'JustifyJO', empID);
+    writeToDatabase('JOJustify_form');
   });
 //Justify Pop Up x Button
 document

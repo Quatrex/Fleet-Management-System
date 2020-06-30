@@ -3,6 +3,9 @@ document.querySelector("#request-table").onclick = (event) => {
     let tableRow = event.target.parentElement;
     let row_id = (tableRow.children[0].id).split("-");
     let entity = requestsByMe[row_id[1]]
+    lastClickedRow = entity.RequestId;
+    console.log(lastClickedRow);
+    
     changeInnerHTML({
         '#date-preview': entity.DateOfTrip,
         '#time-preview': entity.TimeOfTrip,
@@ -44,7 +47,7 @@ document.querySelector('#request-form-close-button').addEventListener('click', (
 
 document.querySelector('#request-form-submit-button').addEventListener('click', () => {
     document.getElementById('vehicle-request-form').style.display = 'none';
-    let details = getValuesFromForm('#submit-form', ['date', 'time', 'pickup', 'dropoff', 'purpose'])
+    let details = getValuesFromForm('#RequestAdd_form', ['date', 'time', 'pickup', 'dropoff', 'purpose'])
     changeInnerHTML({
         '#new-date': details.date,
         '#new-time': details.time,

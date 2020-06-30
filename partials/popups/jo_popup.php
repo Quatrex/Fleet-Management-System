@@ -179,7 +179,7 @@
             <div class="popup-body">
 
                 <p>Are you sure you want to justify the request?</p>
-                <form id='justify-request-comment-form'>
+                <form id='JOJustify_form'>
                     <textarea class="form-control" name="justify-comment" placeholder="Comments" rows="4"></textarea>
                     <input type="hidden" name="justify-requestID" id="justify-request_ID" />
                 </form>
@@ -204,7 +204,7 @@
             <div class="popup-body">
 
                 <p>Are you sure you want to decline the request?</p>
-                <form id="decline-request">
+                <form id="JODeny_form">
                     <textarea class="form-control" name="decline-comment" placeholder="Comments" rows="4"></textarea>
                     <input type="hidden" name="request_ID" id="deny-request_ID" />
                 </form>

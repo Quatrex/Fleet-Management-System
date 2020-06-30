@@ -1,5 +1,6 @@
 <?php
 namespace Request\State;
+use Request\Factory\Type\RealRequest;
 
 class Approved extends State {
 
@@ -13,5 +14,9 @@ class Approved extends State {
         if (self::$instance == null)
             return new Approved();
         else return self::$instance;
+    }
+    
+    public function cancel(RealRequest $request) : void {
+        $request->setState(Cancelled::getInstance());
     }
 }

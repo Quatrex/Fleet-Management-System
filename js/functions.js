@@ -1,14 +1,13 @@
+let lastClickedRow = "";
 $(document).ready(function () {
   $("#request-preview-confirm-button").on("click", function () {
-    writeToDatabase("#submit-form", "RequestAdd", empID);
+    writeToDatabase("RequestAdd_form");
   });
-  insertRow("request-table", [
-    "514",
-    "Nikan",
-    "Pending",
-    "2020-12-13",
-    "12:30:00",
-  ]);
+  $("#request-cancel").on("click", function () {
+    writeToDatabase("CancelRequest_button_requestID");
+  });
+
+
 });
 
 function loadData() {
@@ -37,11 +36,21 @@ function loadData() {
 // });
 
 //Write to database
-function writeToDatabase(formID, addMethod, empID) {
-  let data = $(formID).serialize();
+//event is of methodName_button/form_RequestID/VehicleID
+function writeToDatabase(event) {
+  let trigger = event.split("_")[0];
+  let type = event.split("_")[1];
+  let data = `Method=${trigger}&empID=${empID}&`; 
+  
+  if(type === "form"){
+    data += $(`#${trigger}_form`).serialize();
+  }
+  else{
+    data += `${event.split("_")[2]}=${lastClickedRow}`
+  }
   console.log(data);
 
-  data += `&AddMethod=${addMethod}&empID=${empID}`;
+  data += 
   $.ajax({
     url: "../func/save2.php",
     type: "POST",
@@ -49,7 +58,10 @@ function writeToDatabase(formID, addMethod, empID) {
     cache: false,
     success: function (result) {
       console.log(result);
-      $(formID).trigger("reset");
+
+      if(type==="form"){
+        $(`#${trigger}_form`).trigger("reset");
+      }
       //Display the popup of success access or unsucess
     },
   });
@@ -92,8 +104,10 @@ function changeInnerHTML(arg) {
 function getValuesFromForm(name, values) {
   let arr = {};
   let form = document.querySelector(name);
+  
   values.forEach((key) => {
     arr[key] = form.elements[key].value;
+    
   });
   return arr;
 }
