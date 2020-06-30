@@ -12,6 +12,7 @@ $_SESSION['vpmo'] = $vpmo;
 $requests = $vpmo->getMyRequestsByState(State::getStateID("pending"));
 // echo json_encode($requests);
 $_SESSION['pendingTrips'] = $requests;
+$_SESSION['requestsToAssign'] = "Nothing";
 $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
 // echo $_SESSION['empid'];
 
@@ -89,31 +90,13 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th scope="col">#</th>
+                                                        <th scope="col">Purpose</th>
                                                         <th scope="col">Status</th>
                                                         <th scope="col">Date</th>
                                                         <th scope="col">Time</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>18.10</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>08.10</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>13.10</td>
-                                                    </tr>
-
                                                 </tbody>
                                             </table>
                                         </div>
@@ -207,8 +190,16 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
     <?php
     include '../partials/popups/vpmo_popup.php';
     include '../partials/popups/common.php';
-    include '../js/vpmo_js.php';
     ?>
+    <script>
+        const pendingRequests = <?php echo json_encode(($_SESSION['pendingTrips'])) ?>;
+        const requestsToApprove = <?php echo json_encode(($_SESSION['requestsToAssign'])) ?>;
+        sessionStorage.setItem('requestsToApprove', requestsToApprove);
+        sessionStorage.setItem('requestsByMe', pendingRequests);
+    </script>
+    <script src="../js/functions.js"></script>
+    <script src="../js/eventlisteners/common.js"></script>
+    <script src="../js/eventlisteners/vpmo.js"></script>
 
 </body>
 

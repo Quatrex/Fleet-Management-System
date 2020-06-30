@@ -446,10 +446,18 @@
         <?php include '../partials/footer.php'; ?>
     </div>
     <?php
-        include '../partials/popups/common.php';
-        include '../partials/popups/admin_popup.php';
-        include '../js/admin_js.php';
+    include '../partials/popups/common.php';
+    include '../partials/popups/admin_popup.php';
     ?>
+    <script>
+        const pendingRequests = <?php echo json_encode(($_SESSION['requestsByMe'])) ?>;
+        const requestsToApprove = <?php echo json_encode(($_SESSION['requestsToJustify'])) ?>;
+        sessionStorage.setItem('requestsToApprove', requestsToApprove);
+        sessionStorage.setItem('requestsByMe', pendingRequests);
+    </script>
+    <script src="../js/functions.js"></script>
+    <script src="../js/eventlisteners/common.js"></script>
+    <script src="../js/eventlisteners/cao.js"></script>
 
 </body>
 

@@ -1,13 +1,16 @@
 <?php
 
 use Employee\Requester;
+use Employee\JO;
 use Employee\VPMO;
 
 include_once '../includes/autoloader.inc.php';
 $method = $_POST['AddMethod'];
 switch ($method) {
 	case 'JustifyJO':
-		//code here
+		$jo = JO::getObject($_POST['empID']);
+		$jo->justifyRequest($_POST['justify-requestID'], $_POST['justify-comment']);
+		echo json_encode("Justified");
 		break;
 	case 'DenyJO':
 		//code here
@@ -23,7 +26,7 @@ switch ($method) {
 
 	case 'RequestAdd':
 		$requester = Requester::getObject($_POST['empID']);
-		$requester->placeRequest($_POST['date'], $_POST['time'], $_POST['dropoff'], $_POST['pickup'], "");
+		$requester->placeRequest($_POST['date'], $_POST['time'], $_POST['dropoff'], $_POST['pickup'], $_POST['purpose']);
 		echo json_encode("Added");
 		break;
 

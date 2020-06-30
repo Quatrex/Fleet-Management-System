@@ -1,4 +1,4 @@
-<script>
+
     //**********************Request Table ***************/
     document.querySelector("#request-table").onclick = (event) => {
         let tableRow = event.target.parentElement;
@@ -124,77 +124,6 @@
 
     });
 
-
-    function toggleBack(table, tableRow, type) {
-        const rows = table.querySelectorAll('tr');
-        console.log(tableRow);
-        const name = tableRow.querySelector('td').innerHTML;
-        console.log(name);
-        const vehicleName = document.querySelector(`#${type}`);
-        rows.forEach(element => {
-            if (element === tableRow) {
-                element.classList.toggle('selected');
-                if (element.classList.contains('selected')) {
-                    vehicleName.innerHTML = name;
-                } else {
-                    vehicleName.innerHTML = "";
-                }
-            } else {
-                if (element.classList.contains('selected')) {
-                    element.classList.remove('selected');
-                }
-            }
-        });
-    }
-    //Vehicle request procedure
-    document.querySelector('#request-vehicle-button').addEventListener('click', () => {
-        document.getElementById('vehicle-request-form').style.display = 'block';
-    });
-
-    document.querySelector('#request-form-close-button').addEventListener('click', () => {
-        document.getElementById('cancel-request-alert').style.display = 'block';
-    });
-
-
-    document.querySelector('#request-form-submit-button').addEventListener('click', () => {
-        document.getElementById('vehicle-request-form').style.display = 'none';
-        let details = getValuesFromForm('#submit-form', ['date', 'time', 'pickup', 'dropoff'])
-        changeInnerHTML({
-            '#new-date': details.date,
-            '#new-time': details.time,
-            '#new-pickup': details.pickup,
-            '#new-dropoff': details.dropoff
-        });
-        document.getElementById('new-request-preview-popup').style.display = 'block';
-    });
-
-
-    document.querySelector('#request-preview-close').addEventListener('click', () => {
-        document.getElementById('cancel-request-alert').style.display = 'none';
-    });
-
-    document.querySelector('#request-preview-close').addEventListener('click', () => {
-        document.getElementById('request-preview-popup').style.display = 'none';
-    });
-
-    document.querySelector('#request-preview-edit-button').addEventListener('click', () => {
-        document.getElementById('new-request-preview-popup').style.display = 'none';
-        document.getElementById('vehicle-request-form').style.display = 'block';
-    });
-
-    document.querySelector('#request-preview-confirm-button').addEventListener('click', () => {
-        document.getElementById('new-request-preview-popup').style.display = 'none';
-        document.getElementById('request-details-popup').style.display = 'block';
-    });
-
-
-    document.querySelector('#request-details-close').addEventListener('click', () => {
-        document.getElementById('request-details-popup').style.display = 'none';
-    });
-    document.querySelector('#request-details-exit-button').addEventListener('click', () => {
-        document.getElementById('request-details-popup').style.display = 'none';
-    });
-
     //profile
     document.querySelector('#view-profile').addEventListener('click', () => {
         document.getElementById('user-profile').style.display = 'block';
@@ -208,22 +137,4 @@
     });
 
 
-    //common functions copied
-    function changeInnerHTML(arg) {
-        for (let key in arg) {
-            document.querySelectorAll(key).forEach((tag) => {
-                tag.innerHTML = arg[key];
-            })
-        }
-
-    }
-
-    function getValuesFromForm(name, values) {
-        let arr = {}
-        let form = document.querySelector(name);
-        values.forEach((key) => {
-            arr[key] = form.elements[key].value
-        })
-        return arr;
-    }
-</script>
+    

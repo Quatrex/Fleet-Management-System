@@ -24,7 +24,7 @@ class Requester extends PrivilegedEmployee implements IObjectHandle
         $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
         $values=$employeeViewer->getRecordByID($empID);
 
-        $obj = new Requester($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], $values['Password']);
+        $obj = new Requester($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
         
         return $obj; //return false, if fail
     }
@@ -91,5 +91,5 @@ class Requester extends PrivilegedEmployee implements IObjectHandle
         // }
 
         // return $requests;
-    }
+        }
 }

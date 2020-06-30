@@ -4,6 +4,7 @@ namespace Employee;
 use Request\Request;
 use DB\Controller\EmployeeController;
 use DB\Viewer\EmployeeViewer;
+use DB\Controller\RequestController;
 use DB\Viewer\RequestViewer;
 
 class CAO extends Requester
@@ -41,8 +42,20 @@ class CAO extends Requester
         return $obj; //return false, if fail
     }
 
-    public function getRequestsToApprove(){
-        //return an array of all pending requests
+    public function getMyApprovedRequestsByState(int $state) : array {
+        $requestViewer = new RequestViewer();
+        $requestIDs= $requestViewer->getApprovedRequestsByIDNState($this->empID,$state);
+        $requests=array();
+
+        foreach($requestIDs as $values){
+            $request= Request::getObjectByValues($values);
+            array_push($requests,$request);
+        }
+
+        return $requests;
+    }
+
+    public function getJustifiedRequests(){
         $requestViewer = new RequestViewer();
         $requestIDs= $requestViewer->getJustifiedRequests();
         $requests=array();
@@ -56,27 +69,13 @@ class CAO extends Requester
     }
 
     public function approveRequest($requestID,$CAOComment){
-        //$requestController = new RequestController(); //wrong implementation
-        //$requestController->approveRequest($requestID,$CAOComment,$this->empID);
+        $request=Request::getObject($requestID);
+        $request->setApproved($this->empID,$CAOComment);
     }
 
     public function denyRequest($requestID,$CAOComment){
-        //$requestController = new RequestController(); //wrong implementation
-        //$requestController->denyRequest($requestID,$CAOComment,$this->empID,$this->position);
+        $request=Request::getObject($requestID);
+        $request->setDenied($this->empID,$CAOComment,$this->position);
     }
 
-    public function getApprovals(){
-        //return an array of all requests, approved by this CAO
-    }
-
-    public function getDeniedRequests(){
-        //return an array of all requests, denied by this CAO
-    }
-
-    //IRequestable
-    public function placeRequest($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$purpose){
-        //create new request
-        $request= Request::constructObject($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$this->empID,$purpose);
-        //$request->notifyJOs(); //change: notify JOs when the state change occurs
-    }
 }

@@ -1,5 +1,6 @@
 <?php
 namespace DB\Model;
+use Request\State\State;
 
 abstract class RequestModel extends Model{
 
@@ -15,13 +16,6 @@ abstract class RequestModel extends Model{
         return $results[0];
     }
 
-    // protected function getPendingRequestsByID($requesterID){
-    //     $state=1; //implement an enum to get the state value
-    //     $columnNames= array('RequesterID','State');
-    //     $columnVals= array($requesterID,$state);
-    //     $results = parent::getRecords($columnNames,$columnVals);
-    //     return $results;
-    // }
     protected function getRequestsByIDNState(String $requesterID,int $state){
         $columnNames= array('RequesterID','State');
         $columnVals= array($requesterID,$state);
@@ -29,12 +23,45 @@ abstract class RequestModel extends Model{
         return $results;
     }
 
-    protected function getRequestsByJOIDNState(String $justifiedBy,int $state){
-        return "not implemented"; //TODO: implement
+    protected function getJustifiedRequestsByIDNState(String $justifiedBy,int $state){
+        $columnNames= array('JustifiedBy','State');
+        $columnVals= array($justifiedBy,$state);
+        $results = parent::getRecords($columnNames,$columnVals);
+        return $results;
     }
 
-    protected function getRequestsByCAOIDNState(String $approvedBy,int $state){
-        return "not implemented"; //TODO: implement
+    protected function getApprovedRequestsByIDNState(String $approvedBy,int $state){
+        $columnNames= array('ApprovedBy','State');
+        $columnVals= array($approvedBy,$state);
+        $results = parent::getRecords($columnNames,$columnVals);
+        return $results;
+    }
+
+    //protected function getScheduledRequestsByIDNState(String $scheduledBy,int $state) //TODO: create columns in database
+
+    protected function getPendingRequests(){
+        $state=State::getStateID("pending");
+        $results= $this->getRequestsbyState($state);
+        return $results;
+    }
+
+    protected function getJustifiedRequests(){
+        $state=State::getStateID("justified");
+        $results= $this->getRequestsbyState($state);
+        return $results;
+    }
+
+    protected function getApprovedRequests(){
+        $state=State::getStateID("approved");
+        $results= $this->getRequestsbyState($state);
+        return $results;
+    }
+
+    private function getRequestsbyState($state) {
+        $columnNames = array('State');
+        $columnVals = array($state);
+        $results=parent::getRecords($columnNames,$columnVals);
+        return $results;
     }
 
     protected function saveRecord($createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose) {
@@ -43,20 +70,8 @@ abstract class RequestModel extends Model{
         parent::addRecord($columnNames,$columnVals);
     }
 
-    protected function getPendingRequests(){
-        $state=1;
-        $results= $this->getRequestsbyState($state);
-        return $results;
-    }
-
-    protected function getJustifiedRequests(){
-        $state=2;
-        $results= $this->getRequestsbyState($state);
-        return $results;
-    }
-
     protected function justifyRequest($requestID,$JOComment,$empID){
-        $state=2;
+        $state=State::getState("justified");
         $columnNames=array("State","JOComment","JustifiedBy");
         $columnVals=array($state,$JOComment,$empID);
         $conditionNames=array("RequestID");
@@ -65,7 +80,7 @@ abstract class RequestModel extends Model{
     }
 
     protected function approveRequest($requestID,$CAOComment,$empID){
-        $state=3;
+        $state=State::getState("approved");
         $columnNames=array("State","CAOComment","ApprovedBy");
         $columnVals=array($state,$CAOComment,$empID);
         $conditionNames=array("RequestID");
@@ -73,8 +88,8 @@ abstract class RequestModel extends Model{
         parent::updateRecord($columnNames, $columnVals,$conditionNames,$conditionVals);
     }
 
-    protected function denyRequest($requestID,$Comment,$empID,$position){
-        $state=4;
+    protected function denyRequest($requestID,$comment,$empID,$position){
+        $state=State::getState("denied");
         switch ($position) {
             case "JO"://TODO: must be the same name as in employee table
                 $columnNames=array("State","JOComment","JustifiedBy");;
@@ -84,16 +99,11 @@ abstract class RequestModel extends Model{
                 break;
         }
 
-        $columnVals=array($state,$Comment,$empID);
+        $columnVals=array($state,$comment,$empID);
         $conditionNames=array("RequestID");
         $conditionVals=array($requestID);
         parent::updateRecord($columnNames, $columnVals,$conditionNames,$conditionVals);
     }
 
-    private function getRequestsbyState($state) {
-        $columnNames = array('State');
-        $columnVals = array($state);
-        $results=parent::getRecords($columnNames,$columnVals);
-        return $results;
-    }
+    
 }
