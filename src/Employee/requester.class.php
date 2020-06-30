@@ -2,11 +2,11 @@
 namespace Employee;
 
 use DB\IObjectHandle;
-use Request\State\State;
 use Request\Request;
 use DB\Controller\EmployeeController;
 use DB\Viewer\EmployeeViewer;
 use DB\Viewer\RequestViewer;
+use Request\Factory\RequesterRequestFactory\RequesterRequestFactory;
 
 // use Request as Request;
 class Requester extends PrivilegedEmployee implements IObjectHandle
@@ -56,21 +56,40 @@ class Requester extends PrivilegedEmployee implements IObjectHandle
                                     $this->password);
     }
 
-    public function getMyRequestsByState(int $state) : array {
-        $requestViewer = new RequestViewer();
-        $requestIDs= $requestViewer->getRequestsByIDNState($this->empID,$state);
-        $requests=array();
-
-        foreach($requestIDs as $values){
-            $request= Request::getObjectByValues($values);
-            array_push($requests,$request);
-        }
-
-        return $requests;
-    }
-
     public function placeRequest($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$purpose){
-        Request::constructObject($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$this->empID,$purpose);
-        //$request->notifyJOs(); //change: notify JOs when the state change occurs
+        $request = RequesterRequestFactory::makeRequest($dateOfTrip,
+                                                        $timeOfTrip,
+                                                        $dropLocation,
+                                                        $pickLocation,
+                                                        $this->empID,
+                                                        $purpose);
     }
+
+    // public function getMyPendingRequests(){//about to eb deleted
+    //     $requestViewer = new RequestViewer();
+    //     $requestIDs= $requestViewer->getPendingRequestsByID($this->empID);
+    //     $requests=array();
+
+    //     foreach($requestIDs as $values){
+    //         $request= Request::getObjectByValues($values);
+    //         array_push($requests,$request);
+    //     }
+
+    //     return $requests;
+    // }
+
+    public function getMyRequestsByState(int $state) : array 
+    {
+        return RequesterRequestFactory::getRequests($this->empID,$state);
+        // $requestViewer = new RequestViewer();
+        // $requestIDs= $requestViewer->getRequestsByIDNState($this->empID,$state);
+        // $requests=array();
+
+        // foreach($requestIDs as $values){
+        //     $request= Request::getObjectByValues($values);
+        //     array_push($requests,$request);
+        // }
+
+        // return $requests;
+        }
 }

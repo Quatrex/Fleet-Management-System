@@ -72,14 +72,14 @@ abstract class Model
         if ($result == false) {
             //there is no data for those values
             echo "Error: No Data for given ID";
-            return false;
+            return [];
         } else {
             return $result;
         }
     }
 
     /**
-     * A general code to generate SQL statement to get update a record in the database.
+     * A general code to generate SQL statement to update a record in the database.
      */
     public function updateRecord(
         array $columnNames,
