@@ -1,29 +1,31 @@
 <?php 
 namespace Request\State;
 
+use Request\Factory\Type\RealRequest;
 use Request\Request;
 
 abstract class State {
+    //TODO: add all transitions and implement
 
     protected int $stateID;
 
-    public function cancel(Request $request) : void {
+    public function cancel(RealRequest $request) : void {
         echo "Invalid transition";
     }
 
-    public function justify(Request $request) : void {
+    public function justify(RealRequest $request) : void {
         echo "Invalid transition";
     }
 
-    public function denyJustify(Request $request) : void {
+    public function denyJustify(RealRequest $request) : void {
         echo "Invalid transition";
     }
 
-    public function approve(Request $request) : void {
+    public function approve(RealRequest $request) : void {
         echo "Invalid transition";
     }
 
-    public function disapprove(Request $request) : void {
+    public function disapprove(RealRequest $request) : void {
         echo "Invalid transition";
     }
 

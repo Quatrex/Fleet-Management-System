@@ -1,6 +1,7 @@
 <?php
 namespace Request\State;
 
+use Request\Factory\Type\RealRequest;
 use Request\Request;
 
 class Pending extends State {
@@ -17,11 +18,11 @@ class Pending extends State {
         else return self::$instance;
     }
 
-    public function justify(Request $request) : void {
-        //justify request
+    public function justify(RealRequest $request) : void {
+        $request->setState(Justified::getInstance());
     }
 
-    public function denyJustify(Request $request) : void {
-        //deny justify request
+    public function denyJustify(RealRequest $request) : void {
+        $request->setState(Denied::getInstance());
     }
 }

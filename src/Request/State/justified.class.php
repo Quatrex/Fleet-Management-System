@@ -1,6 +1,7 @@
 <?php
 namespace Request\State;
 
+use Request\Factory\Type\RealRequest;
 use Request\Request;
 
 class Justified extends State {
@@ -17,11 +18,11 @@ class Justified extends State {
         else return self::$instance;
     }
 
-    public function approve(Request $request) : void {
-        //approve request
+    public function approve(RealRequest $request) : void {
+        $request->setState(Approved::getInstance());
     }
 
-    public function denyApprove(Request $request) : void {
-        //deny approve
+    public function denyApprove(RealRequest $request) : void {
+        $request->setState(Denied::getInstance());
     }
 }
