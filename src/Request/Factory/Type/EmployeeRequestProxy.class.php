@@ -4,8 +4,9 @@ namespace Request\Factory\Type;
 use Vehicle\Vehicle;
 use Employee\Driver;
 use Request\Request;
+use JsonSerializable;
 
-abstract class EmployeeRequestProxy implements Request
+abstract class EmployeeRequestProxy implements Request, JsonSerializable
 {
 
     protected Request $realRequest;
@@ -13,6 +14,11 @@ abstract class EmployeeRequestProxy implements Request
     public function __construct(Request $realRequest)
     {
         $this->realRequest = $realRequest;
+    }
+
+    public function jsonSerialize()
+    {
+        return ['RequestId'=>$this->requestID,'DateOfTrip'=> $this->dateOfTrip,'TimeOfTrip'=> $this->timeOfTrip,'PickLocation'=>$this->pickLocation,'DropLocation'=> $this->dropLocation,'Purpose'=>$this->purpose];
     }
 
     /**

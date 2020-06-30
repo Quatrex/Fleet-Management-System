@@ -108,22 +108,36 @@ class RealRequest implements IObjectHandle, Request, JsonSerializable
         // $emailClient ->notifyRequestSubmission($this);
     }
 
-    public function setJustified($justifiedBy,$JOComment){
-        $this->justifiedBy=$justifiedBy;
-        $this->JOComment=$JOComment;
-        $this->state->justify($this);
-        
-        $requestController=new RequestController();
-        $requestController->justifyRequest($this->requestID,$this->JOComment,$this->justifiedBy);
+    public function setJustify(bool $justification, int $empID, string $comment) : void
+    {
+        $this->justifiedBy = $empID;
+        $this->JOComment = $comment;
+
+        if ($justification)
+        { 
+            $this->stateObject->justify($this);
+            $requestController=new RequestController();
+            $requestController->justifyRequest($this->requestID,$this->JOComment,$this->justifiedBy);
+        } else
+        {
+
+        }  
     }
 
-    public function setApproved($approvedBy,$CAOComment){
-        $this->justifiedBy=$approvedBy;
-        $this->JOComment=$CAOComment;
-        $this->state->approve($this);
+    public function setApprove(bool $approval, int $empID, string $comment) : void
+    {
+        $this->justifiedBy=$empID;
+        $this->JOComment=$comment;
+
+        if ($approval)
+        {
+            $this->stateObject->approve($this);
         
-        $requestController=new RequestController();
-        $requestController->approveRequest($this->requestID,$this->CAOComment,$this->approvedBy);
+            $requestController=new RequestController();
+            $requestController->approveRequest($this->requestID,$this->CAOComment,$this->approvedBy);
+        }
+        
+       
     }
 
     public function setDenied($empID,$comment,$position){
@@ -153,16 +167,6 @@ class RealRequest implements IObjectHandle, Request, JsonSerializable
     }
 
     public function cancel() : void
-    {
-
-    }
-
-    public function setJustify(bool $justification, int $empID, string $comment) : void
-    {
-
-    }
-
-    public function setApprove(bool $approval, int $empID, string $comment) : void
     {
 
     }

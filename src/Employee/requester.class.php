@@ -65,7 +65,7 @@ class Requester extends PrivilegedEmployee implements IObjectHandle
                                                         $purpose);
     }
 
-    public function getMyRequestsByState(int $state) : array 
+    public function getMyRequestsByState(string $state) : array 
     {
         return RequesterRequestFactory::getRequests($this->empID,$state);
         // $requestViewer = new RequestViewer();

@@ -19,7 +19,7 @@ class RequesterRequestFactory
     {
         $requestViewer = new RequestViewer();
         $stateID = State::getStateID($stateString);
-        $requestRecords = $requestViewer->getRequestsByIDNState($empID,1);
+        $requestRecords = $requestViewer->getRequestsByIDNState($empID,$stateID);
         $requests=array();
 
         foreach($requestRecords as $values){

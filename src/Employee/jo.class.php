@@ -6,7 +6,7 @@ use DB\Controller\EmployeeController;
 use DB\Controller\RequestController;
 use DB\Viewer\EmployeeViewer;
 use DB\Viewer\RequestViewer;
-use Request\Factory\Type\RealRequest;
+use Request\Factory\JORequestFactory\JORequestFactory;
 
 class JO extends Requester
 {
@@ -43,39 +43,21 @@ class JO extends Requester
         return $obj; //return false, if fail
     }
 
-    public function getMyJustifiedRequestsByState(int $state) : array {
-        $requestViewer = new RequestViewer();
-        $requestIDs= $requestViewer->getJustifiedRequestsByIDNState($this->empID,$state);
-        $requests=array();
-
-        foreach($requestIDs as $values){
-            $request= RealRequest::getObjectByValues($values);
-            array_push($requests,$request);
-        }
-
-        return $requests;
+    public function getMyJustifiedRequestsByState(string $state) : array {
+        return JORequestFactory::getJustifiedRequests($this->empID,$state);
     }
 
     public function getPendingRequests(){
-        $requestViewer = new RequestViewer();
-        $requestIDs= $requestViewer->getPendingRequests();
-        $requests=array();
-
-        foreach($requestIDs as $values){
-            $request= RealRequest::getObjectByValues($values);
-            array_push($requests,$request);
-        }
-
-        return $requests;
+        return JORequestFactory::getPendingRequests();
     }
 
     public function justifyRequest($requestID,$JOComment){
-        $request=RealRequest::getObject($requestID);
-        $request->setJustified($this->empID,$JOComment);
+        $request = JORequestFactory::getRequest($requestID);
+        $request->setJustify(true,$this->empID,$JOComment);
     }
 
     public function denyRequest($requestID,$JOComment){
-        $request=RealRequest::getObject($requestID);
-        $request->setDenied($this->empID,$JOComment,$this->position);
+        $request = JORequestFactory::getRequest($requestID);
+        $request->setJustify(false,$this->empID,$JOComment);
     }
 }
