@@ -69,12 +69,12 @@ class JO extends Requester
     }
 
     public function justifyRequest($requestID,$JOComment){
-        $requestController = new RequestController();
-        $requestController->justifyRequest($requestID,$JOComment,$this->empID);
+        $request=Request::getObject($requestID);
+        $request->setJustified($this->empID,$JOComment);
     }
 
     public function denyRequest($requestID,$JOComment){
-        $requestController = new RequestController();
-        $requestController->denyRequest($requestID,$JOComment,$this->empID,$this->position);
+        $request=Request::getObject($requestID);
+        $request->setDenied($this->empID,$JOComment,$this->position);
     }
 }

@@ -7,7 +7,9 @@ use DB\IObjectHandle;
 use JsonSerializable;
 use Request\State\State;
 
-class Request implements IObjectHandle, JsonSerializable{
+class Request implements IObjectHandle, JsonSerializable
+{
+
     //ToDO: make attributes private and use get/set methods
     private int $requestID; 
     private string $createdDate; //how to handle 'date' in php? 
@@ -46,47 +48,41 @@ class Request implements IObjectHandle, JsonSerializable{
         $this->approvedBy=($approvedBy!= null)?$approvedBy:'';
         $this->JOComment=($JOComment!= null)?$JOComment:'';
         $this->CAOComment=($CAOComment!= null)?$CAOComment:'';
-        
-        //initializing the state object
-
-
-        //$this->requestController= new RequestController();
-        //$this->requestViewer=new RequestViewer();
-
     }
     public function jsonSerialize()
     {
         return ['RequestId'=>$this->requestID,'DateOfTrip'=> $this->dateOfTrip,'TimeOfTrip'=> $this->timeOfTrip,'PickLocation'=>$this->pickLocation,'DropLocation'=> $this->dropLocation,'Purpose'=>$this->purpose];
     }
 
-        //IObjectHandle
-        public static function getObject(int $ID){
-            $requestID=$ID;
-            //get values from database
-            $requestViewer=new requestViewer(); // method of obtaining the viewer/controller must be determined and changed
-            $values=$requestViewer->getRecordByID($requestID);
+    //IObjectHandle
+    public static function getObject(int $ID){
+        $requestID=$ID;
+        //get values from database
+        $requestViewer=new requestViewer(); // method of obtaining the viewer/controller must be determined and changed
+        $values=$requestViewer->getRecordByID($requestID);
 
 
-            $obj = new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
-            
-            return $obj;
-        }
+        $obj = new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
+        
+        return $obj;
+    }
 
-        public static function getObjectByValues(array $values){
-            $obj = new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
-            return $obj;
-        }
-    
-        //IObjectHandle
-        public static function constructObject($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose){
-            $createdDate= date("Y-m-d");
-            $state=State::getStateID('pending');//get state using enum
-            $obj = new Request(-1,$createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose,-1,-1,"","");
-    
-            $obj->saveToDatabase(); //check for failure
-    
-            return $obj; //return false, if fail
-        }
+    //IObjectHandle 
+    public static function getObjectByValues(array $values){
+        $obj = new Request($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
+        return $obj;
+    }
+
+    //IObjectHandle
+    public static function constructObject($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose){
+        $createdDate= date("Y-m-d");
+        $state=1;//get state using enum
+        $obj = new Request(-1,$createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose,-1,-1,"","");
+
+        $obj->saveToDatabase(); //check for failure
+
+        return $obj; //return false, if fail
+    }
 
     private function saveToDatabase(){
         $requestController= new RequestController();
@@ -111,18 +107,41 @@ class Request implements IObjectHandle, JsonSerializable{
         // $emailClient ->notifyRequestSubmission($this);
     }
 
-    public function setJustified($officerID,$comment){
-        //if condition
+    public function setJustified($justifiedBy,$JOComment){
+        $this->justifiedBy=$justifiedBy;
+        $this->JOComment=$JOComment;
         $this->stateObject->justify($this);
-        $this->stateObject->denyJustify($this);
-        //update $justifiedBy
+        
+        $requestController=new RequestController();
+        $requestController->justifyRequest($this->requestID,$this->JOComment,$this->justifiedBy);
     }
 
-    public function setApproved($officerID,$comment){
-        //if condition
+    public function setApproved($approvedBy,$CAOComment){
+        $this->justifiedBy=$approvedBy;
+        $this->JOComment=$CAOComment;
         $this->stateObject->approve($this);
-        $this->stateObject->denyApprove($this);
-        //update $approvedBy
+        
+        $requestController=new RequestController();
+        $requestController->approveRequest($this->requestID,$this->CAOComment,$this->approvedBy);
+    }
+
+    public function setDenied($empID,$comment,$position){
+        
+        switch ($position) {
+            case "JO"://TODO: must be the same name as in employee table
+                $this->justifiedBy=$empID;
+                $this->JOComment=$comment;
+                break;
+            case "CAO"://TODO: must be the same name as in employee table
+                $this->approvedBy=$empID;
+                $this->CAOComment=$comment;
+                break;
+        }
+        
+        $this->stateObject->approve($this);
+        
+        $requestController=new RequestController();
+        $requestController->denyRequest($this->requestID,$comment,$empID,$position);
     }
 
     public function getField($field){
@@ -132,28 +151,4 @@ class Request implements IObjectHandle, JsonSerializable{
         return null;
     }
 
-    public function getRequesterFullName() {
-        return 'A requester';//return $this ->requester ->getFullName();
-    }
-
-    public function getJOFullName() {
-        return 'Justifying Officer';//return $this ->justifiedBy ->getFullName();
-    }
-
-    public function getCAOFullName() {
-        return 'Chief Administrative Officer';//return $this ->approvedBy ->getFullName();
-    }
-
-    public function getRequesterEmail() {
-        return 'nagitha98@gmail.com';//return $this ->requester ->getEmail();
-    }
-
-    public function getJOEmail() {
-        return 'Justifying Officer';//return $this ->justifiedBy ->getEmail();
-    }
-
-    public function getRequestID() : int
-    {
-        return $this->requestID;
-    }
 }

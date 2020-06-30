@@ -69,13 +69,13 @@ class CAO extends Requester
     }
 
     public function approveRequest($requestID,$CAOComment){
-        $requestController = new RequestController();
-        $requestController->approveRequest($requestID,$CAOComment,$this->empID);
+        $request=Request::getObject($requestID);
+        $request->setApproved($this->empID,$CAOComment);
     }
 
     public function denyRequest($requestID,$CAOComment){
-        $requestController = new RequestController(); 
-        $requestController->denyRequest($requestID,$CAOComment,$this->empID,$this->position);
+        $request=Request::getObject($requestID);
+        $request->setDenied($this->empID,$CAOComment,$this->position);
     }
-    
+
 }

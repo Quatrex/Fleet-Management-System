@@ -88,7 +88,7 @@ abstract class RequestModel extends Model{
         parent::updateRecord($columnNames, $columnVals,$conditionNames,$conditionVals);
     }
 
-    protected function denyRequest($requestID,$Comment,$empID,$position){
+    protected function denyRequest($requestID,$comment,$empID,$position){
         $state=State::getState("denied");
         switch ($position) {
             case "JO"://TODO: must be the same name as in employee table
@@ -99,7 +99,7 @@ abstract class RequestModel extends Model{
                 break;
         }
 
-        $columnVals=array($state,$Comment,$empID);
+        $columnVals=array($state,$comment,$empID);
         $conditionNames=array("RequestID");
         $conditionVals=array($requestID);
         parent::updateRecord($columnNames, $columnVals,$conditionNames,$conditionVals);
