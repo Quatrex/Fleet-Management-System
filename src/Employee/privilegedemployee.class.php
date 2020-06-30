@@ -21,4 +21,11 @@ abstract class PrivilegedEmployee extends Employee
         $this->username=$username;
         $this->password=$password;
     }
+
+    public function getField($field){
+        if(property_exists($this,$field)){
+            return $this->$field;
+        }
+        return null;
+    }
 }
