@@ -30,6 +30,11 @@ class RequesterRequestFactory
         return $requests;
     }
 
+    public static function getRequest(int $requestID) : Request
+    {
+        return RequesterRequestFactory::castToRequest(RequesterRequestProxy::getRequestByID($requestID));
+    }
+
 
     /**
      * Creates a new request
