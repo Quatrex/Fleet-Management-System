@@ -1,5 +1,6 @@
 <?php
 
+use Employee\CAO;
 use Employee\Requester;
 use Employee\JO;
 use Employee\VPMO;
@@ -14,16 +15,20 @@ switch ($method) {
 		break;
 	case 'JODeny':
 		$jo = JO::getObject($_POST['empID']);
-		$jo->denyRequest($_POST['request_ID'], $_POST['decline-comment']);
-		echo json_encode("Denied");
+		$jo->denyRequest($_POST['deny-requestID'], $_POST['decline-comment']);
+		echo json_encode("Denied By JO");
 		break;
 
 	case 'CAOApprove':
-		//code here
+		$cao = CAO::getObject($_POST['empID']);
+		$cao->approveRequest($_POST['approve-requestID'], $_POST['approve-comment']);
+		echo json_encode("Approved");
 		break;
 
 	case 'CAODeny':
-		//code here
+		$cao = CAO::getObject($_POST['empID']);
+		$cao->denyRequest($_POST['CAOdeny-requestID'], $_POST['CAO-deny-comment']);
+		echo json_encode("Denied By CAO");
 		break;
 
 	case 'RequestAdd':

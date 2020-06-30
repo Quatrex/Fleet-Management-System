@@ -45,6 +45,7 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                                         <th scope="col">Requester Name</th>
                                                         <th scope="col">Purpose</th>
                                                         <th scope="col">Date</th>
+                                                        <th scope="col">Time</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -54,8 +55,8 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                                     foreach ($requestsToApprove as $request) : ?>
                                                         <tr id="request-raw<?php echo $i ?>">
                                                             <th id="requestraw-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
+                                                            <td><?php echo $request->getField('requesterID') ?></td>
                                                             <td><?php echo $request->getField('purpose') ?></td>
-                                                            <td>Pending</td>
                                                             <td><?php echo $request->getField('dateOfTrip') ?></td>
                                                             <td><?php echo $request->getField('timeOfTrip') ?></td>
                                                         </tr>
@@ -115,7 +116,7 @@ $_SESSION['requestsByMe'] = $requestsByMe;
     ?>
     <script>
         const pendingRequests = <?php echo json_encode(($_SESSION['requestsByMe'])) ?>;
-        const requestsToApprove = <?php echo json_encode(($_SESSION['requestsToJustify'])) ?>;
+        const requestsToApprove = <?php echo json_encode(($_SESSION['requestsToApprove'])) ?>;
         sessionStorage.setItem('requestsToApprove',requestsToApprove);
         sessionStorage.setItem('requestsByMe',pendingRequests);
     </script>

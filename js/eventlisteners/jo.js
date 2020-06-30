@@ -16,8 +16,8 @@ document.querySelector("#justify-request-table").onclick = (event) => {
   });
   document.getElementById("request-justify-preview-popup").style.display =
     "block";
-  document.getElementById('justify-request_ID').value = entity.RequestId;
-  document.getElementById('deny-request_ID').value = entity.RequestId;
+  document.getElementById('justify-requestID').value = entity.RequestId;
+  document.getElementById('deny-requestID').value = entity.RequestId;
 };
 
 //************Denied Table ******************/
