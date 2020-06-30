@@ -2,7 +2,6 @@
 <?php include '../partials/head.php';
 
 use Employee\Requester;
-use Request\State\State;
 
 session_start();
 if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
@@ -10,7 +9,7 @@ require_once '../includes/autoloader.inc.php';
 $status = 1;
 $requester = Requester::getObject($_SESSION['empid']); //, $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
 $_SESSION['employee'] = $requester;
-$requests = $requester->getMyRequestsByState(State::getStateID("pending"));
+$requests = $requester->getMyRequestsByState('pending');
 // echo json_encode($requests);
 $_SESSION['requestsByMe'] = $requests;
 ?>

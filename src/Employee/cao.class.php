@@ -42,7 +42,7 @@ class CAO extends Requester
         return $obj; //return false, if fail
     }
 
-    public function getMyApprovedRequestsByState(int $state) : array {
+    public function getMyApprovedRequestsByState(string $state) : array {
         $requestViewer = new RequestViewer();
         $requestIDs= $requestViewer->getApprovedRequestsByIDNState($this->empID,$state);
         $requests=array();

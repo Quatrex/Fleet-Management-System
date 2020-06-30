@@ -6,5 +6,6 @@ function classAutoLoader($className){
     $extension=".class.php";
     $fullpath=$path.$className.$extension;
 
+    // echo $fullpath;
     include_once $fullpath;
 }
