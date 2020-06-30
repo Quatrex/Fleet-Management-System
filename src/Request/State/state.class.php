@@ -23,7 +23,7 @@ abstract class State {
         echo "Invalid transition";
     }
 
-    public function denyApprove(Request $request) : void {
+    public function disapprove(Request $request) : void {
         echo "Invalid transition";
     }
 
@@ -32,9 +32,9 @@ abstract class State {
     }
 
     /**
-     *
      * Returns state
-     *
+     * @param int $stateID
+     * @return null|State
      */
     public static function getState(int $stateID) : ?State {
         $state=null;
@@ -65,9 +65,9 @@ abstract class State {
     }
 
     /**
-     *
      * Returns stateID
-     *
+     * @param string $stateName
+     * @return int
      */
     public static function getStateID(string $stateName) : int {
         $stateID=false;
