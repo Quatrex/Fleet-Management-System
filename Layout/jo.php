@@ -135,15 +135,16 @@ $_SESSION['requestsByMe'] = $requestsByMe;
     include '../partials/popups/jo_popup.php';
     ?>
     <script>
+        const empID = <?php echo json_encode(($_SESSION['empid'])) ?>;
         const requestsByMe = <?php echo json_encode(($_SESSION['requestsByMe'])) ?>;
         const requestsToJustify = <?php echo json_encode(($_SESSION['requestsToJustify'])) ?>;
-        sessionStorage.setItem('requestToJustify',requestsToJustify);
-        sessionStorage.setItem('requestsByMe',pendingRequests);
+        sessionStorage.setItem('requestToJustify', requestsToJustify);
+        sessionStorage.setItem('requestsByMe', requestsByMe);
     </script>
     <script src="../js/functions.js"></script>
     <script src="../js/eventlisteners/common.js"></script>
     <script src="../js/eventlisteners/jo.js"></script>
-    
+
 
 </body>
 

@@ -1,11 +1,9 @@
 
-console.log(requestsToJustify);
 document.querySelector("#justify-request-table").onclick = (event) => {
   let tableRow = event.target.parentElement;
   let row_id = tableRow.children[0].id.split("-");
   let entity = requestsToJustify[row_id[1]];
-  console.log(entity);
-  
+
   changeInnerHTML({
     "#justify-preview-requester": entity.RequestId,
     // '#justify-preview-designation':entity.designation,
@@ -17,6 +15,8 @@ document.querySelector("#justify-request-table").onclick = (event) => {
   });
   document.getElementById("request-justify-preview-popup").style.display =
     "block";
+  document.getElementById('justify-request_ID').value = entity.RequestId;
+  document.getElementById('deny-request_ID').value = entity.RequestId;
 };
 
 //************Denied Table ******************/
@@ -42,7 +42,7 @@ document
       "none";
   });
 
-  //***********End of request Denied************/
+//***********End of request Denied************/
 
 //***********************Justify Request ********************/
 
@@ -79,6 +79,7 @@ document
   .addEventListener("click", () => {
     document.getElementById("cancel-request-alert-justify").style.display =
       "none";
+    writeToDatabase('#decline-request', 'DenyJO', empID);
   });
 
 //Decline Cancel Button
@@ -115,7 +116,7 @@ document
   .querySelector("#justify-alert-justify-button")
   .addEventListener("click", () => {
     document.getElementById("justify-request-alert").style.display = "none";
-    Update($.trim($("#justify-comment").val()));
+    writeToDatabase('#justify-request-comment-form', 'JustifyJO', empID);
   });
 //Justify Pop Up x Button
 document

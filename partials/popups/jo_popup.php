@@ -179,8 +179,9 @@
             <div class="popup-body">
 
                 <p>Are you sure you want to justify the request?</p>
-                <form id='justify-request'>
-                    <textarea class="form-control" id="justify-comment" onfocus="setbg('#e5fff3');" onblur="setbg('white')" placeholder="Comments" rows="4"></textarea>
+                <form id='justify-request-comment-form'>
+                    <textarea class="form-control" name="justify-comment" placeholder="Comments" rows="4"></textarea>
+                    <input type="hidden" name="justify-requestID" id="justify-request_ID" />
                 </form>
             </div>
             <div class="popup-footer">
@@ -203,7 +204,10 @@
             <div class="popup-body">
 
                 <p>Are you sure you want to decline the request?</p>
-                <textarea class="form-control" placeholder="Comments" rows="4"></textarea>
+                <form id="decline-request">
+                    <textarea class="form-control" name="decline-comment" placeholder="Comments" rows="4"></textarea>
+                    <input type="hidden" name="request_ID" id="deny-request_ID" />
+                </form>
             </div>
             <div class="popup-footer">
 

@@ -21,7 +21,7 @@ class JO extends Requester
         $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
         $values=$employeeViewer->getRecordByID($empID);
 
-        $obj = new JO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], $values['Password']);
+        $obj = new JO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
         
         return $obj; //return false, if fail
     }
@@ -45,6 +45,19 @@ class JO extends Requester
     public function getMyJustifiedRequestsByState(int $state) : array {
         $requestViewer = new RequestViewer();
         $requestIDs= $requestViewer->getJustifiedRequestsByIDNState($this->empID,$state);
+        $requests=array();
+
+        foreach($requestIDs as $values){
+            $request= Request::getObjectByValues($values);
+            array_push($requests,$request);
+        }
+
+        return $requests;
+    }
+
+    public function getRequestsToJustify(){
+        $requestViewer = new RequestViewer();
+        $requestIDs= $requestViewer->getPendingRequests();
         $requests=array();
 
         foreach($requestIDs as $values){
