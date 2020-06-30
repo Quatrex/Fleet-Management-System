@@ -4,6 +4,7 @@ namespace Employee;
 use DB\IObjectHandle;
 use Request\Request;
 use DB\Controller\EmployeeController;
+use DB\Controller\RequestController;
 use DB\Viewer\EmployeeViewer;
 use DB\Viewer\RequestViewer;
 use Request\Factory\RequesterRequestFactory\RequesterRequestFactory;
@@ -63,6 +64,11 @@ class Requester extends PrivilegedEmployee implements IObjectHandle
                                                         $pickLocation,
                                                         $this->empID,
                                                         $purpose);
+    }
+
+    public function cancelRequest($requestID){
+        $request = RequesterRequestFactory::getrequest($requestID);
+        $request->cancel();
     }
 
     public function getMyRequestsByState(string $state) : array 

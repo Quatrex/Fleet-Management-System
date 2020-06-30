@@ -178,7 +178,9 @@ class RealRequest implements IObjectHandle, Request, JsonSerializable
 
     public function cancel() : void
     {
-
+        $this->state->cancel($this);
+        $requestController=new RequestController();
+        $requestController->cancelRequest($this->requestID);
     }
     
     public function schedule(int $empID, Driver $driver, Vehicle $vehicle) : void

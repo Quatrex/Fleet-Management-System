@@ -61,8 +61,8 @@ class RequesterRequestProxy extends EmployeeRequestProxy
     /**
      * @inheritDoc
      */
-    public function close() : void 
+    public function cancel() : void 
     {
-
+        $this->realRequest->cancel();
     }   
 }

@@ -70,6 +70,15 @@ abstract class RequestModel extends Model{
         parent::addRecord($columnNames,$columnVals);
     }
 
+    protected function cancelRequest($requestID){
+        $state=State::getStateID("cancelled");
+        $columnNames=array("State");
+        $columnVals=array($state);
+        $conditionNames=array("RequestID");
+        $conditionVals=array($requestID);
+        parent::updateRecord($columnNames, $columnVals,$conditionNames,$conditionVals);
+    }
+
     protected function justifyRequest($requestID,$JOComment,$empID){
         $state=State::getStateID("justified");
         $columnNames=array("State","JOComment","JustifiedBy");

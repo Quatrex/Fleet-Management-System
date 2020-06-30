@@ -8,6 +8,10 @@ class RequestController extends RequestModel{
         parent::saveRecord($createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose);
     }
 
+    public function cancelRequest($requestID){
+        parent::cancelRequest($requestID);
+    }
+
     public function justifyRequest($requestID,$JOComment,$justifiedBy){
         parent::justifyRequest($requestID,$JOComment,$justifiedBy);
     }
@@ -19,4 +23,6 @@ class RequestController extends RequestModel{
     public function denyRequest($requestID,$Comment,$empID,$position){
         parent::denyRequest($requestID,$Comment,$empID,$position);
     }
+
+    
 }
