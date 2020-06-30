@@ -85,8 +85,8 @@ abstract class Model
         array $columnNames,
         array $columnVals,
         array $conditionNames,
-        array $conditionVals
-    ): void {
+        array $conditionVals): void 
+    {
         //Generates "'Name1=?' 'Name2=?' ... " for setting
         $preCondition = '';
         $count = 0;

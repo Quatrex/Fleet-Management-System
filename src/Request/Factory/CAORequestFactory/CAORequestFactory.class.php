@@ -13,7 +13,7 @@ class CAORequestFactory
      * 
      * @param int $empID
      * @param string $stateString
-     * @return array(CAORequestProxy)
+     * @return array(Request)
      */
     public static function makeApprovedRequests(int $empID, string $stateString) : array
     {
@@ -33,7 +33,7 @@ class CAORequestFactory
     /**
      * Returns all the justified requests
      * 
-     * @return array(CAORequestPorxy)
+     * @return array(Request)
      */
     public static function getJustifiedRequests() : array
     {
@@ -49,6 +49,12 @@ class CAORequestFactory
         return $requests;
     }
 
+    /**
+     * Returns a request for a given id
+     * 
+     * @param int $requestID
+     * @return Request
+     */
     public static function makeRequest(int $requestID) : Request
     {
         return CAORequestFactory::castToRequest(CAORequestProxy::getRequestByID($requestID));
