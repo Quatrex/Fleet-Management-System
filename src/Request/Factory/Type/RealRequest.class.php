@@ -108,7 +108,7 @@ class RealRequest implements IObjectHandle, Request, JsonSerializable
         // $emailClient ->notifyRequestSubmission($this);
     }
 
-    public function setJustify(bool $justification, int $empID, string $comment,$position) : void
+    public function setJustify(bool $justification, int $empID, string $comment,string $position) : void
     {
         $this->justifiedBy = $empID;
         $this->JOComment = $comment;
@@ -127,7 +127,7 @@ class RealRequest implements IObjectHandle, Request, JsonSerializable
         }  
     }
 
-    public function setApprove(bool $approval, int $empID, string $comment,$position) : void
+    public function setApprove(bool $approval, int $empID, string $comment,string $position) : void
     {
         $this->justifiedBy=$empID;
         $this->JOComment=$comment;

@@ -3,10 +3,9 @@ namespace Request\Factory\CAORequestFactory;
 
 use Request\State\State;
 use DB\Viewer\RequestViewer;
-use Request\Factory\RequesterRequestFactory\RequesterRequestFactory;
 use Request\Request;
 
-class CAORequestFactory extends RequesterRequestFactory
+class CAORequestFactory
 {
 
     /**
@@ -16,17 +15,17 @@ class CAORequestFactory extends RequesterRequestFactory
      * @param string $stateString
      * @return array(CAORequestProxy)
      */
-    public static function getApprovedRequests(int $empID, string $stateString) : array
+    public static function makeApprovedRequests(int $empID, string $stateString) : array
     {
         $requestViewer = new RequestViewer();
         $stateID = State::getStateID($stateString);
-        $requestIDs= $requestViewer->getRequestsByIDNState($empID,$stateID);
+        $requestIDs= $requestViewer->getApprovedRequestsByIDNState($empID,$stateID);
         $requests=array();
 
-        // foreach($requestIDs as $values){
-        //     $request= Request::getObjectByValues($values);
-        //     array_push($requests,$request);
-        // }
+        foreach($requestIDs as $values){
+            $request= CAORequestProxy::getRequestByValues($values);
+            array_push($requests,CAORequestFactory::castToRequest($request));
+        }
 
         return $requests;
     }
@@ -38,8 +37,21 @@ class CAORequestFactory extends RequesterRequestFactory
      */
     public static function getJustifiedRequests() : array
     {
-        $requests = array();
+        $requestViewer = new RequestViewer();
+        $requestRecords= $requestViewer->getJustifiedRequests();
+        $requests=array();
+
+        foreach($requestRecords as $values){
+            $request= CAORequestProxy::getRequestByValues($values);
+            array_push($requests,CAORequestFactory::castToRequest($request));
+        }
+
         return $requests;
+    }
+
+    public static function makeRequest(int $requestID) : Request
+    {
+        return CAORequestFactory::castToRequest(CAORequestProxy::getRequestByID($requestID));
     }
 
      /**
@@ -48,6 +60,7 @@ class CAORequestFactory extends RequesterRequestFactory
      * @param Request $requestProxy
      * @return Request
      */
+
     private static function castToRequest(Request $requestProxy) : Request
     {
         return $requestProxy;

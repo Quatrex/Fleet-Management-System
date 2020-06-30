@@ -4,10 +4,9 @@ namespace Request\Factory\JORequestFactory;
 use Request\State\State;
 use DB\Viewer\RequestViewer;
 use Request\Factory\JORequestFactory\JORequestProxy;
-use Request\Factory\RequesterRequestFactory\RequesterRequestFactory;
 use Request\Request;
 
-class JORequestFactory extends RequesterRequestFactory
+class JORequestFactory
 {
 
     /**
@@ -21,12 +20,12 @@ class JORequestFactory extends RequesterRequestFactory
     {
         $requestViewer = new RequestViewer();
         $stateID = State::getStateID($stateString);
-        $requestIDs= $requestViewer->getJustifiedRequestsByIDNState($empID,$stateID);
+        $requestRecords= $requestViewer->getJustifiedRequestsByIDNState($empID,$stateID);
         $requests=array();
 
-        foreach($requestIDs as $values){
-            $request= JORequestFactory::castToRequest(JORequestProxy::getRequestByValues($values));
-            array_push($requests,$request);
+        foreach($requestRecords as $values){
+            $request= JORequestProxy::getRequestByValues($values);
+            array_push($requests,JORequestFactory::castToRequest($request));
         }
 
         return $requests;
@@ -44,14 +43,14 @@ class JORequestFactory extends RequesterRequestFactory
         $requests=array();
 
         foreach($requestIDs as $values){
-            $request= JORequestFactory::castToRequest(JORequestProxy::getRequestByValues($values));
-            array_push($requests,$request);
+            $request= JORequestProxy::getRequestByValues($values);
+            array_push($requests,JORequestFactory::castToRequest($request));
         }
 
         return $requests;
     }
 
-    public static function getRequest(int $requestID) : Request
+    public static function makeRequest(int $requestID) : Request
     {
         return JORequestFactory::castToRequest(JORequestProxy::getRequestByID($requestID));
     }

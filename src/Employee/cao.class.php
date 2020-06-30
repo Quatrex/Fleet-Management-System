@@ -6,7 +6,7 @@ use DB\Controller\EmployeeController;
 use DB\Viewer\EmployeeViewer;
 use DB\Controller\RequestController;
 use DB\Viewer\RequestViewer;
-use Request\Factory\Type\RealRequest;
+use Request\Factory\CAORequestFactory\CAORequestFactory;
 
 class CAO extends Requester
 {
@@ -44,39 +44,21 @@ class CAO extends Requester
     }
 
     public function getMyApprovedRequestsByState(string $state) : array {
-        $requestViewer = new RequestViewer();
-        $requestIDs= $requestViewer->getApprovedRequestsByIDNState($this->empID,$state);
-        $requests=array();
-
-        foreach($requestIDs as $values){
-            $request= RealRequest::getObjectByValues($values);
-            array_push($requests,$request);
-        }
-
-        return $requests;
+        return CAORequestFactory::makeApprovedRequests($this->empID,$state);
     }
 
     public function getJustifiedRequests(){
-        $requestViewer = new RequestViewer();
-        $requestIDs= $requestViewer->getJustifiedRequests();
-        $requests=array();
-
-        foreach($requestIDs as $values){
-            $request= RealRequest::getObjectByValues($values);
-            array_push($requests,$request);
-        }
-
-        return $requests;
+        return CAORequestFactory::getJustifiedRequests();
     }
 
     public function approveRequest($requestID,$CAOComment){
-        $request=RealRequest::getObject($requestID);
+        $request = CAORequestFactory::makeRequest($requestID);
         $request->setApprove(true,$this->empID,$CAOComment,$this->position);
     }
 
     public function denyRequest($requestID,$CAOComment){
-        $request=RealRequest::getObject($requestID);
-        $request->setApprove($this->empID,$CAOComment,$this->position,$this->position);
+        $request = CAORequestFactory::makeRequest($requestID);
+        $request->setApprove(false,$this->empID,$CAOComment,$this->position);
     }
 
 }
