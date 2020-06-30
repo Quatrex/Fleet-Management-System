@@ -71,7 +71,7 @@ abstract class RequestModel extends Model{
     }
 
     protected function justifyRequest($requestID,$JOComment,$empID){
-        $state=State::getState("justified");
+        $state=State::getStateID("justified");
         $columnNames=array("State","JOComment","JustifiedBy");
         $columnVals=array($state,$JOComment,$empID);
         $conditionNames=array("RequestID");
@@ -80,7 +80,7 @@ abstract class RequestModel extends Model{
     }
 
     protected function approveRequest($requestID,$CAOComment,$empID){
-        $state=State::getState("approved");
+        $state=State::getStateID("approved");
         $columnNames=array("State","CAOComment","ApprovedBy");
         $columnVals=array($state,$CAOComment,$empID);
         $conditionNames=array("RequestID");
@@ -89,12 +89,12 @@ abstract class RequestModel extends Model{
     }
 
     protected function denyRequest($requestID,$comment,$empID,$position){
-        $state=State::getState("denied");
+        $state=State::getStateID("denied");
         switch ($position) {
-            case "JO"://TODO: must be the same name as in employee table
+            case "jo"://TODO: must be the same name as in employee table
                 $columnNames=array("State","JOComment","JustifiedBy");;
                 break;
-            case "CAO"://TODO: must be the same name as in employee table
+            case "cao"://TODO: must be the same name as in employee table
                 $columnNames=array("State","CAOComment","ApprovedBy");;
                 break;
         }

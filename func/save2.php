@@ -13,7 +13,9 @@ switch ($method) {
 		echo json_encode("Justified");
 		break;
 	case 'DenyJO':
-		//code here
+		$jo = JO::getObject($_POST['empID']);
+		$jo->denyRequest($_POST['request_ID'], $_POST['decline-comment']);
+		echo json_encode("Denied");
 		break;
 
 	case 'AcceptCAO':
