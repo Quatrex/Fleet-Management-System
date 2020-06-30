@@ -3,6 +3,7 @@ namespace Employee;
 
 use Request\Request;
 use DB\Controller\EmployeeController;
+use DB\Controller\RequestController;
 use DB\Viewer\EmployeeViewer;
 use DB\Viewer\RequestViewer;
 
@@ -41,7 +42,20 @@ class JO extends Requester
         return $obj; //return false, if fail
     }
 
-    public function getRequestsToJustify(){
+    public function getMyJustifiedRequestsByState(int $state) : array {
+        $requestViewer = new RequestViewer();
+        $requestIDs= $requestViewer->getJustifiedRequestsByIDNState($this->empID,$state);
+        $requests=array();
+
+        foreach($requestIDs as $values){
+            $request= Request::getObjectByValues($values);
+            array_push($requests,$request);
+        }
+
+        return $requests;
+    }
+
+    public function getPendingRequests(){
         $requestViewer = new RequestViewer();
         $requestIDs= $requestViewer->getPendingRequests();
         $requests=array();
@@ -55,20 +69,12 @@ class JO extends Requester
     }
 
     public function justifyRequest($requestID,$JOComment){
-        //$requestController = new RequestController(); //wrong implementation
-        //$requestController->justifyRequest($requestID,$JOComment,$this->empID);
+        $requestController = new RequestController();
+        $requestController->justifyRequest($requestID,$JOComment,$this->empID);
     }
 
     public function denyRequest($requestID,$JOComment){
-        //$requestController = new RequestController(); //wrong implementation
-        //$requestController->denyRequest($requestID,$JOComment,$this->empID,$this->position);
-    }
-
-    public function getMyJustifiedRequests(){
-        //return an array of all requests, justified by this JO
-    }
-
-    public function getDeniedRequests(){
-        //return an array of all requests, denied by this JO
+        $requestController = new RequestController();
+        $requestController->denyRequest($requestID,$JOComment,$this->empID,$this->position);
     }
 }

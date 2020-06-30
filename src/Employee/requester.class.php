@@ -56,24 +56,6 @@ class Requester extends PrivilegedEmployee implements IObjectHandle
                                     $this->password);
     }
 
-    public function placeRequest($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$purpose){
-        $request= Request::constructObject($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$this->empID,$purpose);
-        //$request->notifyJOs(); //change: notify JOs when the state change occurs
-    }
-
-    // public function getMyPendingRequests(){//about to eb deleted
-    //     $requestViewer = new RequestViewer();
-    //     $requestIDs= $requestViewer->getPendingRequestsByID($this->empID);
-    //     $requests=array();
-
-    //     foreach($requestIDs as $values){
-    //         $request= Request::getObjectByValues($values);
-    //         array_push($requests,$request);
-    //     }
-
-    //     return $requests;
-    // }
-
     public function getMyRequestsByState(int $state) : array {
         $requestViewer = new RequestViewer();
         $requestIDs= $requestViewer->getRequestsByIDNState($this->empID,$state);
@@ -85,5 +67,10 @@ class Requester extends PrivilegedEmployee implements IObjectHandle
         }
 
         return $requests;
+    }
+
+    public function placeRequest($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$purpose){
+        Request::constructObject($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$this->empID,$purpose);
+        //$request->notifyJOs(); //change: notify JOs when the state change occurs
     }
 }
