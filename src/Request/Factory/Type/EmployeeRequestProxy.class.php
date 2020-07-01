@@ -11,7 +11,7 @@ abstract class EmployeeRequestProxy implements Request, JsonSerializable
 
     protected Request $realRequest;
 
-    public function __construct(Request $realRequest)
+    protected function __construct(Request $realRequest)
     {
         $this->realRequest = $realRequest;
     }
