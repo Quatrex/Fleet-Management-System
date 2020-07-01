@@ -16,6 +16,11 @@ document.querySelector("#request-table").onclick = (event) => {
     document.getElementById('request-preview-popup').style.display = 'block';
 }
 
+document.querySelector('#request-cancel').addEventListener('click', () => {
+    document.getElementById('request-preview-popup').style.display = 'none';
+    writeToDatabase("CancelRequest_button_requestID");
+
+});
 document.querySelector('#change-password-button').addEventListener('click', () => {
     document.getElementById('change-password').style.display = 'block';
 });
@@ -73,6 +78,7 @@ document.querySelector('#request-preview-edit-button').addEventListener('click',
 });
 
 document.querySelector('#request-preview-confirm-button').addEventListener('click', () => {
+    writeToDatabase("RequestAdd_form");
     document.getElementById('new-request-preview-popup').style.display = 'none';
     document.getElementById('request-details-popup').style.display = 'block';
 });

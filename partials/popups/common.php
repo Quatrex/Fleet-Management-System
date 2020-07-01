@@ -153,7 +153,7 @@
         </div>
         <div class="popup-body">
             <form>
-            <input type="hidden" name="requestID" id="request-preview-ID" />
+                <input type="hidden" name="requestID" id="request-preview-ID" />
             </form>
             <div class="row">
                 <div class="col-sm-6">
@@ -163,7 +163,7 @@
                     <p id="date-preview">DD-MM-YYYY</p>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-sm-6">
                     <p>Date</p>
@@ -418,4 +418,15 @@
 
         </div>
     </div>
+</div>
+<div id="alert-ajax" style="display:none; width:100%; position:absolute; top:0; z-index:2000;">
+    <div id="alertdiv" class="alert  mx-auto mt-3 text-center" role="alert" style="width:60%; height:50px">
+        <p id="alert-message" style=" font-weight:500;font-size: initial;"></p>
+
+    </div>
+</div>
+
+
+<div>
+
 </div>
