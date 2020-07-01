@@ -6,7 +6,7 @@ class Denied extends State {
     private static ?Denied $instance = null;
 
     private function __construct() {
-        $this->stateID=parent::getStateID("denied");
+        $this->stateID=parent::getStateID('denied');
     }
 
     public static function getInstance() : Denied {

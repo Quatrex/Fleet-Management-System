@@ -1,7 +1,8 @@
 <?php
 namespace Request\Factory\VPMORequestFactory;
-use Request\Factory\Type\RealRequest;
+use Request\Factory\RealRequest;
 use Request\Factory\RequesterRequestFactory\RequesterRequestProxy;
+use Request\State\State;
 
 class VPMORequestProxy extends RequesterRequestProxy
 {
@@ -41,6 +42,10 @@ class VPMORequestProxy extends RequesterRequestProxy
 
     public function cancel() 
     {
-
+        $state = $this->realRequest->getField('state');
+        if ($state === State::getState(State::getStateID('approved')))
+            $this->realRequest->cancel();
+        else
+            echo "Access Denied";
     }
 }

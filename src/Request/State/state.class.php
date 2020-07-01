@@ -1,8 +1,7 @@
 <?php 
 namespace Request\State;
 
-use Request\Factory\Type\RealRequest;
-use Request\Request;
+use Request\Factory\RealRequest;
 
 abstract class State {
     //TODO: add all transitions and implement
@@ -26,6 +25,18 @@ abstract class State {
     }
 
     public function disapprove(RealRequest $request) : void {
+        echo "Invalid transition";
+    }
+
+    public function expire(RealRequest $request) : void {
+        echo "Invalid transition";
+    }
+
+    public function schedule(RealRequest $request) : void {
+        echo "Invalid transition";
+    }
+
+    public function close(RealRequest $request) : void {
         echo "Invalid transition";
     }
 

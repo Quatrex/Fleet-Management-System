@@ -1,14 +1,14 @@
 <?php
 namespace Request\State;
 
-use Request\Factory\Type\RealRequest;
+use Request\Factory\RealRequest;
 
 class Pending extends State {
 
     private static ?Pending $instance = null;
 
     private function __construct() {
-        $this->stateID=parent::getStateID("pending");
+        $this->stateID=parent::getStateID('pending');
     }
 
     public static function getInstance() : Pending {
@@ -27,5 +27,10 @@ class Pending extends State {
     
     public function cancel(RealRequest $request) : void {
         $request->setState(Cancelled::getInstance());
+    }
+
+    public function expire(RealRequest $request) : void 
+    {
+        $request->setState(Expired::getInstance());
     }
 }

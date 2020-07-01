@@ -1,5 +1,5 @@
 <?php
-namespace Request\Factory\Type;
+namespace Request\Factory;
 
 use Vehicle\Vehicle;
 use Employee\Driver;
