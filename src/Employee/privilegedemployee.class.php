@@ -1,31 +1,35 @@
 <?php
 namespace Employee;
 
+use DB\Controller\EmployeeController;
+
 abstract class PrivilegedEmployee extends Employee
 {
     protected string $empID;
-    protected string $firstName;
-    protected string $lastName;
-    protected string $position;
-    protected string $email;
-    protected string $username; //recheck way of keeping login info (for security purposes)
-    protected string $password; //recheck way of keeping login info (for security purposes)
+    protected string $position; 
+    protected string $username;
+    protected string $password; //TODO: might need a separate table for username and password
 
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {
+        parent::__construct($firstName,$lastName,$email);
         $this->empID=$empID;
-        $this->firstName=$firstName;
-        $this->lastName=$lastName;
         $this->position=$position;
-        $this->email=$email;
         $this->username=$username;
         $this->password=$password;
     }
 
-    public function getField($field){
-        if(property_exists($this,$field)){
-            return $this->$field;
-        }
-        return null;
+    //IObjectHandle
+    protected function saveToDatabase(){
+        $employeeController = new EmployeeController();
+        $employeeController->saveRecord($this->empID,
+                                    $this->firstName,
+                                    $this->lastName,
+                                    $this->position,
+                                    $this->email,
+                                    $this->username,
+                                    $this->password);
     }
+
+    
 }

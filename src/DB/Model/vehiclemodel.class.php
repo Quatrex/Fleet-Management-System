@@ -21,6 +21,20 @@ abstract class VehicleModel extends Model{
         return $results;
     }
 
+    protected function saveRecordToVehicle($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$state,$currentLocation){
+        $columnNames = array('RegistrationNo','Model','PurchasedYear', 'Value','FuelType','InsuranceValue','InsuranceCompany','State','CurrentLocation');
+        $columnVals = array($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$state,$currentLocation);
+        parent::setTableName('vehicle');
+        parent::addRecord($columnNames,$columnVals);
+    }
+
+    protected function saveRecordToLeasedVehicle($registrationNo,$leasedCompany,$leasedPeriodFrom,$leasedPeriodTo,$monthlyPayment){
+        $columnNames = array('RegistrationNo','LeasedCompany','LeasedPeriodFrom', 'LeasedPeriodTo','MonthlyPayment');
+        $columnVals = array($registrationNo,$leasedCompany,$leasedPeriodFrom, $leasedPeriodTo,$monthlyPayment);
+        parent::setTableName('leased_vehicle');
+        parent::addRecord($columnNames,$columnVals);
+    }
+
     //updateRecord
     protected function updateRecord($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$inRepair,$currentLocation){
         $columnNames = array('RegistrationNo','Model','PurchasedYear','Value','FuelType','InsuranceValue','InsuranceCompany','InRepair','CurrentLocation');
@@ -30,7 +44,7 @@ abstract class VehicleModel extends Model{
         parent::updateRecord($columnNames,$columnVals,$conditionNames,$conditionVals);
         
     }
-    //should contain a state of the vehicle
+
     protected function saveRecord($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$inRepair,$currentLocation) {
         $columnNames = array('RegistrationNo','Model','PurchasedYear', 'Value','FuelType','InsuranceValue','InsuranceCompany','InRepair','CurrentLocation');
         $columnVals = array($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$inRepair,$currentLocation);

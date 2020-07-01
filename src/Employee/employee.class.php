@@ -1,7 +1,25 @@
 <?php
 namespace Employee;
 
-abstract class Employee
+use IObjectHandle\IObjectHandle;
+
+abstract class Employee implements IObjectHandle
 {
-    //include attributes
+    protected string $firstName;
+    protected string $lastName;
+    protected string $email;
+
+    function __construct($firstName, $lastName, $email)
+    {
+        $this->firstName=$firstName;
+        $this->lastName=$lastName;
+        $this->email=$email;
+    }
+
+    public function getField($field){ //suitable location for the function?
+        if(property_exists($this,$field)){
+            return $this->$field;
+        }
+        return null;
+    }
 }

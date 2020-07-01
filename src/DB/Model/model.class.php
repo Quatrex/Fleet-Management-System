@@ -2,7 +2,7 @@
 
 namespace DB\Model;
 
-abstract class Model
+abstract class Model 
 {
     protected $tableName;
     protected DatabaseHandler $dbh;
@@ -11,6 +11,10 @@ abstract class Model
     {
         $this->tableName = $tableName;
         $this->dbh = DatabaseHandler::getInstance();
+    }
+
+    protected function setTableName($tableName){
+        $this->tableName=$tableName;
     }
 
     /**
@@ -81,7 +85,7 @@ abstract class Model
     /**
      * A general code to generate SQL statement to update a record in the database.
      */
-    public function updateRecord(
+    protected function updateRecord(
         array $columnNames,
         array $columnVals,
         array $conditionNames,

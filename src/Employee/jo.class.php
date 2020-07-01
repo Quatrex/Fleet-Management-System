@@ -15,7 +15,7 @@ class JO extends Requester
         parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
     }
 
-    //overide
+    //IObjectHandle
     public static function getObject($ID){
         $empID=$ID;
         //get values from database
@@ -27,13 +27,13 @@ class JO extends Requester
         return $obj; //return false, if fail
     }
 
-    //overide
+    //IObjectHandle
     public static function getObjectByValues(array $values){
         $obj = new JO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
         return $obj;
     }
 
-    //overide
+    //IObjectHandle
     public static function constructObject($empID, $firstName, $lastName, $position, $email, $username, $password){
 
         $obj = new JO($empID, $firstName, $lastName, $position, $email, $username, $password);

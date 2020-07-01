@@ -1,12 +1,41 @@
 <?php
 namespace Employee;
 
+use DB\Controller\EmployeeController;
+use DB\Viewer\EmployeeViewer;
+
 class Administrator extends PrivilegedEmployee
 {
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {
         parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
-        //incluce required viewer and controller classes
+    }
+
+    //IObjectHandle
+    public static function getObject($ID){
+        $empID=$ID;
+        //get values from database
+        $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
+        $values=$employeeViewer->getRecordByID($empID);
+
+        $obj = new Administrator($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        
+        return $obj; //return false, if fail
+    }
+  
+    //IObjectHandle
+    public static function getObjectByValues(array $values){
+        $obj = new Administrator($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        return $obj;
+    }
+
+    //IObjectHandle
+    public static function constructObject($empID, $firstName, $lastName, $position, $email, $username, $password){
+        $obj = new Administrator($empID, $firstName, $lastName, $position, $email, $username, $password);
+
+        $obj->saveToDatabase(); //check for failure
+
+       return $obj; //return false, if fail
     }
 
     public function getAllEmployees(){
@@ -23,30 +52,5 @@ class Administrator extends PrivilegedEmployee
 
     public function removeAccount(){
         //delete an employee account
-    }
-
-    //IRequestable
-    public function placeRequest(){
-        //create new request
-    }
-
-    //IRequestable
-    public function getPendingRequests(){
-        //check database for pending requests placed by the requester and return an array of requests
-    }
-
-    //IRequestable
-    public function getCancelledRequests(){
-        //check database for cancelled requests placed by the requester and return an array of requests
-    }
-
-    //IRequestable
-    public function getApprovedRequests(){
-        //check database for approved(but trip isn't completed) requests placed by the requester and return an array of requests
-    }
-
-    //IRequestable
-    public function getOldRequests(){
-        //check database for all old requests(all requests other than approved and pending requests) placed by the requester and return an array of requests
     }
 }

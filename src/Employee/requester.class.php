@@ -10,9 +10,8 @@ use DB\Viewer\RequestViewer;
 use Request\Factory\RequesterRequestFactory\RequesterRequestFactory;
 
 // use Request as Request;
-class Requester extends PrivilegedEmployee implements IObjectHandle
+class Requester extends PrivilegedEmployee
 {
-    //IObjectHandle
     public function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {
         parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
@@ -32,7 +31,7 @@ class Requester extends PrivilegedEmployee implements IObjectHandle
   
     //IObjectHandle
     public static function getObjectByValues(array $values){
-        $obj = new JO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        $obj = new Requester($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
         return $obj;
     }
 
@@ -45,17 +44,7 @@ class Requester extends PrivilegedEmployee implements IObjectHandle
        return $obj; //return false, if fail
     }
 
-    //IObjectHandle
-    protected function saveToDatabase(){
-        $employeeController = new EmployeeController();
-        $employeeController->saveRecord($this->empID,
-                                    $this->firstName,
-                                    $this->lastName,
-                                    $this->position,
-                                    $this->email,
-                                    $this->username,
-                                    $this->password);
-    }
+    
 
     public function placeRequest($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$purpose){
         $request = RequesterRequestFactory::makeRequest($dateOfTrip,

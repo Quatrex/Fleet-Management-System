@@ -10,6 +10,8 @@ use Vehicle\Vehicle;
 use DB\Viewer\VehicleViewer;
 use DB\Viewer\DriverViewer;
 use Request\Factory\Type\RealRequest;
+use Vehicle\LeasedVehicle;
+use Vehicle\PurchasedVehicle;
 
 
 class VPMO extends Requester
@@ -19,7 +21,7 @@ class VPMO extends Requester
         parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
     }
 
-    //overide
+    //IObjectHandle
     public static function getObject($ID){
         $empID=$ID;
         //get values from database
@@ -31,13 +33,13 @@ class VPMO extends Requester
         return $obj; //return false, if fail
     }
 
-    //overide
+    //IObjectHandle
     public static function getObjectByValues(array $values){
         $obj = new VPMO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
         return $obj;
     }
 
-    //overide
+    //IObjectHandle
     public static function constructObject($empID, $firstName, $lastName, $position, $email, $username, $password){
 
         $obj = new VPMO($empID, $firstName, $lastName, $position, $email, $username, $password);
@@ -79,22 +81,36 @@ class VPMO extends Requester
         $driverIDs = $driverViewer->getAllRecords();
         $drivers = array();
         foreach ($driverIDs as $values) {
-            $driver = new Driver($values['DriverID'], $values['FirstName'], $values['LastName'], $values['LicenseNumber'], $values['LicenseExpirationDay'], $values['DateOfAdmission'], $values['AssignedVehicleID'], $values['Email']);
+            $driver = Driver::getObjectByValues($values);
             array_push($drivers, $driver);
         }
         return $drivers;
     }
+
     /**
      *
-     * Adding a new vehicle to database
+     * Adding a new leased vehicle to database
      *
      * @param $registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation
      * @return void
      *
      */
-    public function addVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation)
+    public function addPurchasedVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany)
     {
-        $vehicle = Vehicle::constructObject($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation);
+        $vehicle = PurchasedVehicle::constructObject($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
+    }
+
+    /**
+     *
+     * Adding a new purchased vehicle to database
+     *
+     * @param $registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation
+     * @return void
+     *
+     */
+    public function addLeasedVehicle($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
+    {
+        $vehicle = LeasedVehicle::constructObject($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
     }
 
     /**
@@ -105,10 +121,10 @@ class VPMO extends Requester
      * @return void
      *
      */
-    public function updateVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation)
-    {
-        Vehicle::updateVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation);
-    }
+    // public function updateVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation)
+    // {
+    //     Vehicle::updateVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation);
+    // }
 
     /**
      *
@@ -118,10 +134,10 @@ class VPMO extends Requester
      * @return void
      *
      */
-    public function deleteVehicle($registrationNo)
-    {
-        Vehicle::deleteVehicle($registrationNo);
-    }
+    // public function deleteVehicle($registrationNo)
+    // {
+    //     Vehicle::deleteVehicle($registrationNo);
+    // }
     public function placeRequest($dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $purpose)
     {
         $request = RealRequest::constructObject($dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $this->empID, $purpose);

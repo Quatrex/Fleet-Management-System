@@ -1,5 +1,5 @@
 <?php
-namespace DB;
+namespace IObjectHandle;
 
 interface IObjectHandle{
     public static function getObject(int $ID);
