@@ -31,8 +31,7 @@ function writeToDatabase(event, callback = () => {}) {
     data += `${event.split("_")[2]}=${lastClickedRow.split("-")[1]}`;
   }
   console.log(data);
-
-  data += $.ajax({
+  $.ajax({
     url: "../func/save2.php",
     type: "POST",
     data: data,
@@ -65,6 +64,7 @@ function showAlert(type, message) {
     document.getElementById("alert-ajax").style.display = "none";
   }, 3000);
 }
+insertRow("request-table", [""], "request");
 //Insert a row to the table
 function insertRow(tableName, cellData, type) {
   let newRow = document.getElementById(tableName).insertRow(1);
