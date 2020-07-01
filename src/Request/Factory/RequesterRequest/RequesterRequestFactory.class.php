@@ -1,9 +1,8 @@
 <?php
-namespace Request\Factory\RequesterRequestFactory;
+namespace Request\Factory\RequesterRequest;
 
 use Request\State\State;
 use DB\Viewer\RequestViewer;
-use Request\Factory\Type\RealRequest;
 use Request\Request;
 
 class RequesterRequestFactory

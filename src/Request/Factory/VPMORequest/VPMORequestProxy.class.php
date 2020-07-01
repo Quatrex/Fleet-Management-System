@@ -1,7 +1,8 @@
 <?php
-namespace Request\Factory\VPMORequestFactory;
-use Request\Factory\RealRequest;
-use Request\Factory\RequesterRequestFactory\RequesterRequestProxy;
+namespace Request\Factory\VPMORequest;
+
+use Request\Factory\Base\RealRequest;
+use Request\Factory\RequesterRequest\RequesterRequestProxy;
 use Request\State\State;
 
 class VPMORequestProxy extends RequesterRequestProxy

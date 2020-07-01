@@ -6,7 +6,7 @@ use DB\Controller\EmployeeController;
 use DB\Controller\RequestController;
 use DB\Viewer\EmployeeViewer;
 use DB\Viewer\RequestViewer;
-use Request\Factory\JORequestFactory\JORequestFactory;
+use Request\Factory\JORequest\JORequestFactory;
 
 class JO extends Requester
 {

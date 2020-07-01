@@ -1,7 +1,7 @@
 <?php
 namespace Request\State;
 
-use Request\Factory\RealRequest;
+use Request\Factory\Base\RealRequest;
 
 class Scheduled extends State {
 
@@ -18,7 +18,7 @@ class Scheduled extends State {
     }
 
     public function close(RealRequest $request) : void {
-        echo "Invalid transition";
+        $request->setState(Completed::getInstance());
     }
 
     public function cancel(RealRequest $request) : void {

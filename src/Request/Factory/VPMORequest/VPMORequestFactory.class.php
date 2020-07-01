@@ -1,5 +1,5 @@
 <?php
-namespace Request\Factory\VPMORequestFactory;
+namespace Request\Factory\VPMORequest;
 
 use Request\State\State;
 use DB\Viewer\RequestViewer;

@@ -1,8 +1,8 @@
 <?php
-namespace Request\Factory\RequesterRequestFactory;
+namespace Request\Factory\RequesterRequest;
 
-use Request\Factory\EmployeeRequestProxy;
-use Request\Factory\RealRequest;
+use Request\Factory\Base\EmployeeRequestProxy;
+use Request\Factory\Base\RealRequest;
 
 class RequesterRequestProxy extends EmployeeRequestProxy
 {

@@ -1,7 +1,7 @@
 <?php 
 namespace Request\State;
 
-use Request\Factory\RealRequest;
+use Request\Factory\Base\RealRequest;
 
 abstract class State {
     //TODO: add all transitions and implement

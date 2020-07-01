@@ -1,9 +1,9 @@
 <?php
-namespace Request\Factory\JORequestFactory;
+namespace Request\Factory\JORequest;
 
 use Request\State\State;
 use DB\Viewer\RequestViewer;
-use Request\Factory\JORequestFactory\JORequestProxy;
+use Request\Factory\JORequest\JORequestProxy;
 use Request\Request;
 
 class JORequestFactory
@@ -14,7 +14,7 @@ class JORequestFactory
      * 
      * @param int $empID
      * @param string $stateString
-     * @return array(JORequestProxy)
+     * @return array(Request)
      */
     public static function getJustifiedRequests(int $empID, string $stateString) : array
     {
@@ -34,7 +34,7 @@ class JORequestFactory
     /**
      * Returns all the pending requests
      * 
-     * @return array(JORequestProxy)
+     * @return array(Request)
      */
     public static function getPendingRequests() : array
     {

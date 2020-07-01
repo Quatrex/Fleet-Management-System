@@ -9,7 +9,7 @@ use DB\Viewer\RequestViewer;
 use Vehicle\Vehicle;
 use DB\Viewer\VehicleViewer;
 use DB\Viewer\DriverViewer;
-use Request\Factory\Type\RealRequest;
+use Request\Factory\Base\RealRequest;
 use Vehicle\LeasedVehicle;
 use Vehicle\PurchasedVehicle;
 

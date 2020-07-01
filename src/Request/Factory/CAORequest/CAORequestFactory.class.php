@@ -1,5 +1,5 @@
 <?php
-namespace Request\Factory\CAORequestFactory;
+namespace Request\Factory\CAORequest;
 
 use Request\State\State;
 use DB\Viewer\RequestViewer;

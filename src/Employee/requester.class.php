@@ -7,7 +7,7 @@ use DB\Controller\EmployeeController;
 use DB\Controller\RequestController;
 use DB\Viewer\EmployeeViewer;
 use DB\Viewer\RequestViewer;
-use Request\Factory\RequesterRequestFactory\RequesterRequestFactory;
+use Request\Factory\RequesterRequest\RequesterRequestFactory;
 
 // use Request as Request;
 class Requester extends PrivilegedEmployee

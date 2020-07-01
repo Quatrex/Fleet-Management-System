@@ -1,8 +1,8 @@
 <?php
-namespace Request\Factory\CAORequestFactory;
+namespace Request\Factory\CAORequest;
 
-use Request\Factory\RequesterRequestFactory\RequesterRequestProxy;
-use Request\Factory\RealRequest;
+use Request\Factory\RequesterRequest\RequesterRequestProxy;
+use Request\Factory\Base\RealRequest;
 
 class CAORequestProxy extends RequesterRequestProxy
 {

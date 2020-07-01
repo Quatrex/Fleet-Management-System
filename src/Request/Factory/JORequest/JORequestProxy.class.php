@@ -1,8 +1,8 @@
 <?php
-namespace Request\Factory\JORequestFactory;
+namespace Request\Factory\JORequest;
 
-use Request\Factory\RequesterRequestFactory\RequesterRequestProxy;
-use Request\Factory\RealRequest;
+use Request\Factory\RequesterRequest\RequesterRequestProxy;
+use Request\Factory\Base\RealRequest;
 
 class JORequestProxy extends RequesterRequestProxy
 {
