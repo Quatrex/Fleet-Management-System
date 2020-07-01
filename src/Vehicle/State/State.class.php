@@ -1,27 +1,31 @@
 <?php 
 namespace Vehicle\State;
 
-use Vehicle\Vehicle;
+use Vehicle\Factory\Base\AbstractVehicle;
 
 abstract class State {
     //TODO: add all transitions and implement
 
     protected int $stateID;
 
-    public function allocate(Vehicle $vehicle) : void {
+    public function allocate(AbstractVehicle $vehicle) : void {
         echo "Invalid transition";
     }
 
-    public function deallocate(Vehicle $vehicle) : void {
+    public function deallocate(AbstractVehicle $vehicle) : void {
         echo "Invalid transition";
     }
 
-    public function repair(Vehicle $vehicle) : void {
+    public function repair(AbstractVehicle $vehicle) : void {
         echo "Invalid transition";
     }
 
-    public function finishRepair(Vehicle $vehicle) : void {
+    public function finishRepair(AbstractVehicle $vehicle) : void {
         echo "Invalid transition";
+    }
+
+    public function getID() : int{
+        return $this->stateID;
     }
 
     /**
@@ -33,10 +37,10 @@ abstract class State {
         $state=null;
         switch ($stateID) {
             case 1:
-                $state=Allocated::getInstance();
+                $state=Available::getInstance();
                 break;
             case 2:
-                $state=Available::getInstance();
+                $state=Allocated::getInstance();
                 break;
             case 3:
                 $state=Repairing::getInstance();
@@ -53,10 +57,10 @@ abstract class State {
         $stateString=null;
         switch ($stateID) {
             case 1:
-                $stateString="allocated";
+                $stateString="available";
                 break;
             case 2:
-                $stateString="available";
+                $stateString="allocated";
                 break;
             case 3:
                 $stateString="repairing";
@@ -74,10 +78,10 @@ abstract class State {
         $stateID=false;
         $stateName=strtolower($stateName);
         switch ($stateName) {
-            case "allocated":
+            case "available":
                 $stateID=1;
                 break;
-            case "available":
+            case "allocated":
                 $stateID=2;
                 break;
             case "repairing":

@@ -1,16 +1,19 @@
 <?php
-namespace Vehicle;
+namespace Vehicle\Factory\PurchasedVehicle;
+
 use db\Controller\VehicleController;
 use db\Viewer\VehicleViewer;
+use Vehicle\Factory\Base\AbstractVehicle;
+use Vehicle\State\State;
 
-class PurchasedVehicle extends Vehicle
+class PurchasedVehicle extends AbstractVehicle
 {
     public function __construct($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $state, $currentLocation)
     {
         parent::__construct($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $state, $currentLocation);
     }
 
-    public function getField($field){ 
+    public function getField(string $field){ 
         if(property_exists($this,$field)){
             return $this->$field;
         }
@@ -34,11 +37,11 @@ class PurchasedVehicle extends Vehicle
     }
 
     //IObjectHandle
-    public static function constructObject($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany)
+    public static function constructObject($vehicleInfo)
     {
-        $state=1;//set using an enum
+        $state=State::getState(State::getStateID('available'));//set using an enum
         $currentLocation=""; //attention!
-        $obj = new PurchasedVehicle($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$state,$currentLocation);
+        $obj = new PurchasedVehicle($vehicleInfo[0],$vehicleInfo[1],$vehicleInfo[2], $vehicleInfo[3],$vehicleInfo[4],$vehicleInfo[5],$vehicleInfo[6],$state,$currentLocation);
         $obj->saveToDatabase(); //check for failure
         return $obj; //return false, if fail
     }
@@ -53,7 +56,7 @@ class PurchasedVehicle extends Vehicle
                                     $this->fuelType,
                                     $this->insuranceValue,
                                     $this->insuranceCompany,
-                                    $this->state,
+                                    $this->state->getID(),
                                     $this->currentLocation);
     }
 }

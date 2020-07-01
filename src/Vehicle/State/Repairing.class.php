@@ -1,6 +1,8 @@
 <?php
 namespace Vehicle\State;
 
+use Vehicle\Factory\Base\AbstractVehicle;
+
 class Repairing extends State {
 
     private static ?Repairing $instance = null;
@@ -13,5 +15,9 @@ class Repairing extends State {
         if (self::$instance == null)
             return new Repairing();
         else return self::$instance;
+    }
+
+    public function finishRepair(AbstractVehicle $vehicle) : void {
+        $vehicle->setState(Available::getInstance());
     }
 }

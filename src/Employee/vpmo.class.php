@@ -10,12 +10,16 @@ use Vehicle\Vehicle;
 use DB\Viewer\VehicleViewer;
 use DB\Viewer\DriverViewer;
 use Request\Factory\Base\RealRequest;
-use Vehicle\LeasedVehicle;
-use Vehicle\PurchasedVehicle;
+use Vehicle\Factory\Base\AbstractVehicleFactory;
+use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
+use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
 
 
 class VPMO extends Requester
 {
+    private AbstractVehicleFactory $leasedVehicleFactory;
+    private AbstractVehicleFactory $purchasedVehicleFactory;
+
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {
         parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
@@ -97,7 +101,9 @@ class VPMO extends Requester
      */
     public function addPurchasedVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany)
     {
-        $vehicle = PurchasedVehicle::constructObject($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
+        $vehicleInfo = array($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
+        $purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
+        $vehicle = $purchasedVehicleFactory->makeNewVehicle($vehicleInfo);
     }
 
     /**
@@ -110,7 +116,9 @@ class VPMO extends Requester
      */
     public function addLeasedVehicle($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
     {
-        $vehicle = LeasedVehicle::constructObject($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
+        $vehicleInfo = array($registrationNo,$model,$purchasedYear,$value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
+        $leasedVehicleFactory = LeasedVehicleFactory::getInstance();
+        $vehicle = $leasedVehicleFactory->makeNewVehicle($vehicleInfo);
     }
 
     /**

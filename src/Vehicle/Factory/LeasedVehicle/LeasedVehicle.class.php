@@ -1,10 +1,12 @@
 <?php
-namespace Vehicle;
+namespace Vehicle\Factory\LeasedVehicle;
 
 use DB\Viewer\VehicleViewer;
 use DB\Controller\VehicleController;
+use Vehicle\Factory\Base\AbstractVehicle;
+use Vehicle\State\State;
 
-class LeasedVehicle extends Vehicle
+class LeasedVehicle extends AbstractVehicle
 {
     private string $leasedCompany;
     private string $leasedPeriodFrom;
@@ -20,7 +22,7 @@ class LeasedVehicle extends Vehicle
         $this->monthlyPayment=$monthlyPayment;
     }
 
-    public function getField($field){ 
+    public function getField(string $field){ 
         if(property_exists($this,$field)){
             return $this->$field;
         }
@@ -44,11 +46,11 @@ class LeasedVehicle extends Vehicle
     }
 
     //IObjectHandle
-    public static function constructObject($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
+    public static function constructObject($vehicleInfo)
     {
-        $state=1;//set using an enum
+        $state=State::getState(State::getStateID('available'));
         $currentLocation=""; //attention!
-        $obj = new LeasedVehicle($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$state,$currentLocation, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
+        $obj = new LeasedVehicle($vehicleInfo[0],$vehicleInfo[1],$vehicleInfo[2], $vehicleInfo[3],$vehicleInfo[4],$vehicleInfo[5],$vehicleInfo[6],$state,$currentLocation, $vehicleInfo[7], $vehicleInfo[8], $vehicleInfo[9], $vehicleInfo[10]);
         $obj->saveToDatabase(); //check for failure
         return $obj; //return false, if fail
     }
@@ -63,7 +65,7 @@ class LeasedVehicle extends Vehicle
                                     $this->fuelType,
                                     $this->insuranceValue,
                                     $this->insuranceCompany,
-                                    $this->state,
+                                    $this->state->getID(),
                                     $this->currentLocation,
                                     $this->leasedCompany,
                                     $this->leasedPeriodFrom,
