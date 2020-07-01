@@ -20,6 +20,13 @@ class LeasedVehicle extends Vehicle
         $this->monthlyPayment=$monthlyPayment;
     }
 
+    public function getField($field){ 
+        if(property_exists($this,$field)){
+            return $this->$field;
+        }
+        return null;
+    }
+
     //IObjectHandle
     public static function getObject($registrationNo)
     {
