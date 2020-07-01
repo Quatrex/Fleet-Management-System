@@ -39,7 +39,8 @@ class JORequestFactory
     public static function getPendingRequests() : array
     {
         $requestViewer = new RequestViewer();
-        $requestIDs= $requestViewer->getPendingRequests();
+        $state = State::getStateID('pending');
+        $requestIDs= $requestViewer->getRequestsbyState($state);
         $requests=array();
 
         foreach($requestIDs as $values){

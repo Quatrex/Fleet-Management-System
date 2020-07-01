@@ -8,7 +8,6 @@ use Request\State\State;
 use Request\Request;
 use Employee\Driver;
 use Vehicle\Vehicle;
-use JsonSerializable;
 
 class RealRequest implements IObjectHandle, Request
 {
@@ -104,7 +103,7 @@ class RealRequest implements IObjectHandle, Request
         // $emailClient ->notifyRequestSubmission($this);
     }
 
-    public function setJustify(bool $justification, int $empID, string $comment,string $position) : void
+    public function setJustify(bool $justification, int $empID, string $comment) : void
     {
         $this->justifiedBy = $empID;
         $this->JOComment = $comment;
@@ -113,52 +112,43 @@ class RealRequest implements IObjectHandle, Request
         { 
             $this->state->justify($this);
             $requestController=new RequestController();
-            $requestController->justifyRequest($this->requestID,$this->JOComment,$this->justifiedBy);
+            $stateID = State::getStateID('justified');
         } else
         {
             $this->state->denyJustify($this);   
             $requestController=new RequestController();
-            $requestController->denyRequest($this->requestID,$comment,$empID,$position);
-        }  
+            $stateID = State::getStateID('denied');
+        }
+
+        $requestController->justifyRequest($this->requestID,
+                                            $this->JOComment,
+                                            $this->justifiedBy,
+                                            $stateID);
     }
 
-    public function setApprove(bool $approval, int $empID, string $comment,string $position) : void
+    public function setApprove(bool $approval, int $empID, string $comment) : void
     {
-        $this->justifiedBy=$empID;
-        $this->JOComment=$comment;
+        $this->approvedBy=$empID;
+        $this->CAOComment=$comment;
 
         if ($approval)
         {
             $this->state->approve($this);
             $requestController=new RequestController();
-            $requestController->approveRequest($this->requestID,$this->CAOComment,$this->approvedBy);
+            $stateID = State::getStateID('approved');
         }
         else
         {
             $this->state->disapprove($this);
             $requestController=new RequestController();
-            $requestController->denyRequest($this->requestID,$comment,$empID,$position);
-        }  
-    }
+            $stateID = State::getStateID('denied');
+        }
 
-    // public function setDenied($empID,$comment,$position){
-        
-    //     switch ($position) {
-    //         case "jo"://TODO: must be the same name as in employee table
-    //             $this->justifiedBy=$empID;
-    //             $this->JOComment=$comment;
-    //             break;
-    //         case "cao"://TODO: must be the same name as in employee table
-    //             $this->approvedBy=$empID;
-    //             $this->CAOComment=$comment;
-    //             break;
-    //     }
-        
-    //     $this->state->approve($this);
-        
-    //     $requestController=new RequestController();
-    //     $requestController->denyRequest($this->requestID,$comment,$empID,$position);
-    // }
+        $requestController->approveRequest($this->requestID,
+                                            $this->CAOComment,
+                                            $this->approvedBy,
+                                            $stateID);  
+    }
 
     public function getField($field){
         if(property_exists($this,$field)){
@@ -171,7 +161,8 @@ class RealRequest implements IObjectHandle, Request
     {
         $this->state->cancel($this);
         $requestController=new RequestController();
-        $requestController->cancelRequest($this->requestID);
+        $stateID = State::getStateID('cancelled');
+        $requestController->updateState($this->requestID,$stateID);
     }
     
     public function schedule(int $empID, Driver $driver, Vehicle $vehicle) : void

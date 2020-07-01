@@ -30,8 +30,8 @@ class JORequestProxy extends RequesterRequestProxy
         return new JORequestProxy($realRequest);
     }
 
-    public function setJustify(bool $justification, int $empID, string $comment, string $position) : void 
+    public function setJustify(bool $justification, int $empID, string $comment) : void 
     {
-        $this->realRequest->setJustify($justification,$empID,$comment,$position);
+        $this->realRequest->setJustify($justification,$empID,$comment);
     }
 }

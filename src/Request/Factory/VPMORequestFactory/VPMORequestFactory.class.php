@@ -3,10 +3,9 @@ namespace Request\Factory\VPMORequestFactory;
 
 use Request\State\State;
 use DB\Viewer\RequestViewer;
-use Request\Factory\RequesterRequestFactory\RequesterRequestFactory;
 use Request\Request;
 
-class VPMORequestFactory extends RequesterRequestFactory
+class VPMORequestFactory
 {
 
     /**
@@ -39,7 +38,8 @@ class VPMORequestFactory extends RequesterRequestFactory
     public static function makeApprovedRequests() : array
     {
         $requestViewer = new RequestViewer();
-        $requestRecords = $requestViewer->getApprovedRequests();
+        $state = State::getStateID('justified');
+        $requestRecords = $requestViewer->getRequestsbyState($state);
         $requests=array();
 
         foreach($requestRecords as $values){

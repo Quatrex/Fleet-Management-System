@@ -38,7 +38,8 @@ class CAORequestFactory
     public static function getJustifiedRequests() : array
     {
         $requestViewer = new RequestViewer();
-        $requestRecords= $requestViewer->getJustifiedRequests();
+        $state = State::getStateID('justified');
+        $requestRecords= $requestViewer->getRequestsbyState($state);
         $requests=array();
 
         foreach($requestRecords as $values){

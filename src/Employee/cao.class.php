@@ -53,12 +53,12 @@ class CAO extends Requester
 
     public function approveRequest($requestID,$CAOComment){
         $request = CAORequestFactory::makeRequest($requestID);
-        $request->setApprove(true,$this->empID,$CAOComment,$this->position);
+        $request->setApprove(true,$this->empID,$CAOComment);
     }
 
     public function denyRequest($requestID,$CAOComment){
         $request = CAORequestFactory::makeRequest($requestID);
-        $request->setApprove(false,$this->empID,$CAOComment,$this->position);
+        $request->setApprove(false,$this->empID,$CAOComment);
     }
 
 }

@@ -76,6 +76,8 @@ abstract class Model
         if ($result == false) {
             //there is no data for those values
             echo "Error: No Data for given ID";
+            echo "<br>".$sql . "<br>";
+            print_r($columnVals);
             return [];
         } else {
             return $result;
@@ -85,11 +87,10 @@ abstract class Model
     /**
      * A general code to generate SQL statement to update a record in the database.
      */
-    protected function updateRecord(
-        array $columnNames,
-        array $columnVals,
-        array $conditionNames,
-        array $conditionVals): void 
+    protected function updateRecord(array $columnNames,
+                                    array $columnVals,
+                                    array $conditionNames,
+                                    array $conditionVals): void 
     {
         //Generates "'Name1=?' 'Name2=?' ... " for setting
         $preCondition = '';

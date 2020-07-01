@@ -30,8 +30,8 @@ class CAORequestProxy extends RequesterRequestProxy
         return new CAORequestProxy($realRequest);
     }
 
-    public function setApprove(bool $approval, int $empID, string $comment, string $position) : void
+    public function setApprove(bool $approval, int $empID, string $comment) : void
     {
-        $this->realRequest->setApprove($approval,$empID,$comment, $position);
+        $this->realRequest->setApprove($approval,$empID,$comment);
     }
 }

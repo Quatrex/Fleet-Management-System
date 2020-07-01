@@ -39,25 +39,7 @@ abstract class RequestModel extends Model{
 
     //protected function getScheduledRequestsByIDNState(String $scheduledBy,int $state) //TODO: create columns in database
 
-    protected function getPendingRequests(){
-        $state=State::getStateID("pending");
-        $results= $this->getRequestsbyState($state);
-        return $results;
-    }
-
-    protected function getJustifiedRequests(){
-        $state=State::getStateID("justified");
-        $results= $this->getRequestsbyState($state);
-        return $results;
-    }
-
-    protected function getApprovedRequests(){
-        $state=State::getStateID("approved");
-        $results= $this->getRequestsbyState($state);
-        return $results;
-    }
-
-    private function getRequestsbyState($state) {
+    public function getRequestsbyState(string $state) {
         $columnNames = array('State');
         $columnVals = array($state);
         $results=parent::getRecords($columnNames,$columnVals);
@@ -70,8 +52,7 @@ abstract class RequestModel extends Model{
         parent::addRecord($columnNames,$columnVals);
     }
 
-    protected function cancelRequest($requestID){
-        $state=State::getStateID("cancelled");
+    protected function updateState($requestID,$state){
         $columnNames=array("State");
         $columnVals=array($state);
         $conditionNames=array("RequestID");
@@ -79,8 +60,7 @@ abstract class RequestModel extends Model{
         parent::updateRecord($columnNames, $columnVals,$conditionNames,$conditionVals);
     }
 
-    protected function justifyRequest($requestID,$JOComment,$empID){
-        $state=State::getStateID("justified");
+    protected function justifyRequest($requestID,$JOComment,$empID,$state){
         $columnNames=array("State","JOComment","JustifiedBy");
         $columnVals=array($state,$JOComment,$empID);
         $conditionNames=array("RequestID");
@@ -88,31 +68,11 @@ abstract class RequestModel extends Model{
         parent::updateRecord($columnNames, $columnVals,$conditionNames,$conditionVals);
     }
 
-    protected function approveRequest($requestID,$CAOComment,$empID){
-        $state=State::getStateID("approved");
+    protected function approveRequest($requestID,$CAOComment,$empID,$state){
         $columnNames=array("State","CAOComment","ApprovedBy");
         $columnVals=array($state,$CAOComment,$empID);
         $conditionNames=array("RequestID");
         $conditionVals=array($requestID);
         parent::updateRecord($columnNames, $columnVals,$conditionNames,$conditionVals);
-    }
-
-    protected function denyRequest($requestID,$comment,$empID,$position){
-        $state=State::getStateID("denied");
-        switch ($position) {
-            case "jo"://TODO: must be the same name as in employee table
-                $columnNames=array("State","JOComment","JustifiedBy");;
-                break;
-            case "cao"://TODO: must be the same name as in employee table
-                $columnNames=array("State","CAOComment","ApprovedBy");;
-                break;
-        }
-
-        $columnVals=array($state,$comment,$empID);
-        $conditionNames=array("RequestID");
-        $conditionVals=array($requestID);
-        parent::updateRecord($columnNames, $columnVals,$conditionNames,$conditionVals);
-    }
-
-    
+    }    
 }
