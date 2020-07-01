@@ -40,7 +40,7 @@ document.querySelector('#request-approve-preview-close').addEventListener('click
 //Decline Button
 document.querySelector('#decline-alert-decline-button').addEventListener('click', () => {
     document.getElementById('cancel-request-alert-approve').style.display = 'none';
-    writeToDatabase('CAODeny_form');
+    writeToDatabase('CAODeny_form',()=>{deleteRow(lastClickedRow)});
 });
 //Decline Cancel Button
 document.querySelector('#decline-alert-cancel-button').addEventListener('click', () => {
@@ -62,7 +62,7 @@ document.querySelector('#approve-alert-cancel-button').addEventListener('click',
 //approve button
 document.querySelector('#approve-alert-approve-button').addEventListener('click', () => {
     document.getElementById('approve-request-alert').style.display = 'none';
-    writeToDatabase('CAOApprove_form');
+    writeToDatabase('CAOApprove_form',()=>{deleteRow(lastClickedRow)});
 });
 //approve Pop Up x Button
 document.querySelector('#confirm-alert-close-approve').addEventListener('click', () => {

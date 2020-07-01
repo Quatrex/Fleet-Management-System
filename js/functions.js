@@ -20,7 +20,7 @@ function loadData() {
 
 //Write to database
 //event is of methodName_button/form_RequestID/VehicleID
-function writeToDatabase(event) {
+function writeToDatabase(event, callback = () => {}) {
   let trigger = event.split("_")[0];
   let type = event.split("_")[1];
   let data = `Method=${trigger}&empID=${empID}&`;
@@ -28,7 +28,7 @@ function writeToDatabase(event) {
   if (type === "form") {
     data += $(`#${trigger}_form`).serialize();
   } else {
-    data += `${event.split("_")[2]}=${lastClickedRow}`;
+    data += `${event.split("_")[2]}=${lastClickedRow.split("-")[1]}`;
   }
   console.log(data);
 
@@ -42,6 +42,9 @@ function writeToDatabase(event) {
       if (type === "form") {
         $(`#${trigger}_form`).trigger("reset");
       }
+      if (callback !== undefined) {
+        callback();
+      }
       showAlert(returnArr.split("_")[0], returnArr.split("_")[1]);
       //Display the popup of success access or unsucess
     },
@@ -50,14 +53,18 @@ function writeToDatabase(event) {
 
 //Show the success or error alert after ajax query
 function showAlert(type, message) {
-  document.getElementById("alert-message").innerHTML = message.substring(0, message.length - 1);
-  document.getElementById("alertdiv").classList.add("alert-".concat(type.substring(1)));
+  document.getElementById("alert-message").innerHTML = message.substring(
+    0,
+    message.length - 1
+  );
+  document
+    .getElementById("alertdiv")
+    .classList.add("alert-".concat(type.substring(1)));
   document.getElementById("alert-ajax").style.display = "block";
   setTimeout(() => {
     document.getElementById("alert-ajax").style.display = "none";
   }, 3000);
 }
-
 //Insert a row to the table
 function insertRow(tableName, cellData, type) {
   let newRow = document.getElementById(tableName).insertRow(1);
@@ -73,6 +80,12 @@ function insertRow(tableName, cellData, type) {
     cellValue = newRow.insertCell(i);
     cellValue.innerHTML = cellData[i];
   }
+}
+
+//delete Row
+function deleteRow(rowid) {
+  var row = document.getElementById(rowid);
+  row.parentNode.removeChild(row);
 }
 
 //initiate the user profile with details
