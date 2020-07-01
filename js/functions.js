@@ -24,7 +24,7 @@ function writeToDatabase(event, callback = () => {}) {
   let trigger = event.split("_")[0];
   let type = event.split("_")[1];
   let data = `Method=${trigger}&empID=${empID}&`;
-
+  
   if (type === "form") {
     data += $(`#${trigger}_form`).serialize();
   } else {

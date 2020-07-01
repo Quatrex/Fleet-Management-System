@@ -191,6 +191,7 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
     include '../partials/popups/common.php';
     ?>
     <script>
+        const empID = <?php echo json_encode(($_SESSION['empid'])) ?>;
         const pendingRequests = <?php echo json_encode(($_SESSION['pendingTrips'])) ?>;
         const requestsToApprove = <?php echo json_encode(($_SESSION['requestsToAssign'])) ?>;
         sessionStorage.setItem('requestsToApprove', requestsToApprove);

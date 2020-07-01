@@ -124,10 +124,10 @@
                         </div>
                         <div id="leasing-details">
                             <h4>Leasing details</h4>
-                            <input name="leasingCompany" class="form-control my-3" placeholder="Leasing company" type="text">
-                            <input type="date" name="leasePeriod" class="form-control my-3" placeholder="Lease period (from)">
-                            <input type="date" name="" class="form-control my-3" placeholder="Lease period (to)">
-                            <input name="monthlyInstallment" class="form-control my-3" placeholder="Monthly installment" type="number">
+                            <input name="leasedCompany" class="form-control my-3" placeholder="Leasing company" type="text">
+                            <input type="date" name="leasedPeriodFrom" class="form-control my-3" placeholder="Lease period (from)">
+                            <input type="date" name="leasedPeriodTo" class="form-control my-3" placeholder="Lease period (to)">
+                            <input name="monthlyPayment" class="form-control my-3" placeholder="Monthly installment" type="number">
                         </div>
                         <input type="button" value="Submit" class="btn btn-success" id="vehicle-add-form-submit">
                     </form>

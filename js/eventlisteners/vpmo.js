@@ -90,6 +90,7 @@ document.querySelector('#add-vehicle-button').addEventListener('click', () => {
 document.querySelector('#vehicle-add-form-submit').addEventListener('click', () => {
 
     document.getElementById('vehicle-add-form').style.display = 'none';
+    writeToDatabase('AddVehicle_form');
 });
 // //x button-click
 document.querySelector('#vehicle-add-form-close').addEventListener('click', () => {

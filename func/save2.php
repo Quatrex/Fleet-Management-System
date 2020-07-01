@@ -40,13 +40,19 @@ switch ($method) {
 	case 'AddVehicle':
 		$vpmo = VPMO::getObject($_POST['empID']);
 		//echo $_POST['model'];
-		$vpmo->addVehicle($_POST['registrationNo'], $_POST['model'], $_POST['purchasedYear'], $_POST['value'], $_POST['fuelType'], $_POST['insuranceValue'], $_POST['insuranceCompany'], 1, $_POST['currentLocation']);
+		if($_POST['isLeased']=="Yes"){
+			$vpmo->addLeasedVehicle($_POST['registrationNo'], $_POST['model'], $_POST['purchasedYear'], $_POST['value'], $_POST['fuelType'], $_POST['insuranceValue'], $_POST['insuranceCompany'], $_POST['leasedCompany'], $_POST['leasedPeriodFrom'], $_POST['leasedPeriodTo'], $_POST['monthlyPayment']);
+		}
+		else{
+			$vpmo->addPurchasedVehicle($_POST['registrationNo'], $_POST['model'], $_POST['purchasedYear'], $_POST['value'], $_POST['fuelType'], $_POST['insuranceValue'], $_POST['insuranceCompany']);
+		}
+		
 		echo json_encode("success_Vehicle ".$_POST['registrationNo']." successfully added");
 		break;
 
 	case 'UpdateVehicle':
 		$vpmo = VPMO::getObject($_POST['empID']);
-		$vpmo->updateVehicle($POST['registrationNo'], $POST['model'], $POST['purchasedYear'], $POST['value'], $POST['fuelresult'], $POST['insuranceValue'], $POST['insuranceCompany'], $POST['inRepair'], $POST['currentLocation']);
+		//$vpmo->updateVehicle($POST['registrationNo'], $POST['model'], $POST['purchasedYear'], $POST['value'], $POST['fuelresult'], $POST['insuranceValue'], $POST['insuranceCompany'], $POST['inRepair'], $POST['currentLocation']);
 		echo json_encode("success_Vehicle ".$_POST['registrationNo']." successfully updated");
 		break;
 	case 'CancelRequest':
