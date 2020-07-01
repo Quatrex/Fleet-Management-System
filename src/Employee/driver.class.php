@@ -27,6 +27,13 @@ class Driver extends Employee
         $this->state=$state; //assign real state object instead
     }
 
+    public function getField($field){ 
+        if(property_exists($this,$field)){
+            return $this->$field;
+        }
+        return null;
+    }
+
     //IObjectHandle
     public static function getObject($ID){
         $empID=$ID;

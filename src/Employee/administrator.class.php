@@ -11,6 +11,13 @@ class Administrator extends PrivilegedEmployee
         parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
     }
 
+    public function getField($field){
+        if(property_exists($this,$field)){
+            return $this->$field;
+        }
+        return null;
+    }
+
     //IObjectHandle
     public static function getObject($ID){
         $empID=$ID;

@@ -16,10 +16,5 @@ abstract class Employee implements IObjectHandle
         $this->email=$email;
     }
 
-    public function getField($field){ //suitable location for the function?
-        if(property_exists($this,$field)){
-            return $this->$field;
-        }
-        return null;
-    }
+    abstract public function getField($field);
 }
