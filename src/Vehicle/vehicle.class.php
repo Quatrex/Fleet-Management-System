@@ -4,7 +4,8 @@ namespace Vehicle;
 
 use DB\Viewer\VehicleViewer;
 use DB\Controller\VehicleController;
-use IObjectHandle\IObjectHandle;
+use DB\IObjectHandle;
+
 
 abstract class Vehicle implements IObjectHandle
 {

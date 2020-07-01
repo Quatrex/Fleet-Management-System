@@ -1,7 +1,7 @@
 <?php
 namespace Employee;
 
-use IObjectHandle\IObjectHandle;
+use DB\IObjectHandle;
 
 abstract class Employee implements IObjectHandle
 {

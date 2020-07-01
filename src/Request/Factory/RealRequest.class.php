@@ -3,7 +3,7 @@ namespace Request\Factory;
 
 use DB\Viewer\RequestViewer;
 use DB\Controller\RequestController;
-use IObjectHandle\IObjectHandle;
+use DB\IObjectHandle;
 use Request\State\State;
 use Request\Request;
 use Employee\Driver;
