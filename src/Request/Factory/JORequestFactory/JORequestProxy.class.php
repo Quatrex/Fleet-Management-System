@@ -2,7 +2,7 @@
 namespace Request\Factory\JORequestFactory;
 
 use Request\Factory\RequesterRequestFactory\RequesterRequestProxy;
-use Request\Factory\Type\RealRequest;
+use Request\Factory\RealRequest;
 
 class JORequestProxy extends RequesterRequestProxy
 {

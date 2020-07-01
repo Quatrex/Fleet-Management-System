@@ -1,17 +1,20 @@
 document.querySelector("#approve-request-table").onclick = (event) => {
     let tableRow = event.target.parentElement;
     let row_id = (tableRow.children[0].id).split("-");
-    let entity = requestsToapprove[row_id[1]]
+    console.log(1);
+    let entity = requestsToApprove[row_id[1]]
     changeInnerHTML({
         '#approve-preview-requester': entity.requesterID,
         // '#approve-preview-designation':entity.designation,
-        '#approve-preview-date':entity.dateOfTrip,
+        '#approve-preview-date': entity.dateOfTrip,
         '#approve-preview-time': entity.timeOfTrip,
         '#approve-preview-pick': entity.pickLocation,
         '#approve-preview-drop': entity.dropLocation,
-        '#approve-preview-purpose':entity.purpose
+        '#approve-preview-purpose': entity.purpose
     });
     document.getElementById('request-approve-preview-popup').style.display = 'block';
+    document.getElementById('approve-requestID').value = entity.RequestId;
+    document.getElementById('CAOdeny-requestID').value = entity.RequestId;
 
 };
 
@@ -37,6 +40,7 @@ document.querySelector('#request-approve-preview-close').addEventListener('click
 //Decline Button
 document.querySelector('#decline-alert-decline-button').addEventListener('click', () => {
     document.getElementById('cancel-request-alert-approve').style.display = 'none';
+    writeToDatabase('CAODeny_form',()=>{deleteRow(lastClickedRow)});
 });
 //Decline Cancel Button
 document.querySelector('#decline-alert-cancel-button').addEventListener('click', () => {
@@ -58,7 +62,7 @@ document.querySelector('#approve-alert-cancel-button').addEventListener('click',
 //approve button
 document.querySelector('#approve-alert-approve-button').addEventListener('click', () => {
     document.getElementById('approve-request-alert').style.display = 'none';
-    Update($.trim($("#approve-comment").val()));
+    writeToDatabase('CAOApprove_form',()=>{deleteRow(lastClickedRow)});
 });
 //approve Pop Up x Button
 document.querySelector('#confirm-alert-close-approve').addEventListener('click', () => {
@@ -71,6 +75,6 @@ document.querySelector('#confirm-alert-close-approve').addEventListener('click',
 
 
 //***********************Request Denied Preview**************/
-document.querySelector('#request-denied-preview-close').addEventListener('click', () => {
-    document.getElementById('request-denied-preview-popup').style.display = 'none';
-});
+// document.querySelector('#request-denied-preview-close').addEventListener('click', () => {
+//     document.getElementById('request-denied-preview-popup').style.display = 'none';
+// });

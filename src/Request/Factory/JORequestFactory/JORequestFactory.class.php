@@ -50,6 +50,12 @@ class JORequestFactory
         return $requests;
     }
 
+    /**
+     * Returns a request for a given id
+     * 
+     * @param int $requestID
+     * @return Request
+     */
     public static function makeRequest(int $requestID) : Request
     {
         return JORequestFactory::castToRequest(JORequestProxy::getRequestByID($requestID));

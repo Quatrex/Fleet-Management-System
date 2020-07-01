@@ -101,7 +101,7 @@
             </div>
             <div class="popup-body">
                 <div id="submit-form-wrapper">
-                    <form id="new-vehicle-form">
+                    <form id="AddVehicle_form">
                         <input class="form-control my-3" placeholder="Vehicle model" type="text" name="model">
                         <input class="form-control my-3" placeholder="Registration Number" type="text" name="registrationNo">
                         <input type="date" name="purchasedYear" class="form-control my-3" placeholder="Date of purchase">
@@ -663,7 +663,7 @@
         </div>
     </div>
 
-    <!--Employee Form-->
+    <!--Vehicle Form-->
     <div class="popup" id="car-profile-form">
         <!-- Request Form content -->
         <div class="popup-content">

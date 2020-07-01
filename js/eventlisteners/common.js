@@ -1,18 +1,31 @@
+let formDetails = "";
 //*************Request Table on click */
 document.querySelector("#request-table").onclick = (event) => {
     let tableRow = event.target.parentElement;
     let row_id = (tableRow.children[0].id).split("-");
     let entity = requestsByMe[row_id[1]]
+    lastClickedRow = tableRow.id;
+    console.log(lastClickedRow);
+     
     changeInnerHTML({
-        '#date-preview': entity.DateOfTrip,
+        '#requestID-preview': entity.RequestId,
+        '#reques-status-preview': entity.State,
         '#time-preview': entity.TimeOfTrip,
         '#pickup-preview': entity.PickLocation,
         '#drop-preview': entity.DropLocation,
         '#purpose-preview': entity.Purpose
     });
+    if(entity.State==="Scheduled"){
+        document.querySelector('#request-cancel').disabled= true;
+    }
     document.getElementById('request-preview-popup').style.display = 'block';
 }
 
+document.querySelector('#request-cancel').addEventListener('click', () => {
+    document.getElementById('request-preview-popup').style.display = 'none';
+    writeToDatabase("CancelRequest_button_requestID",()=>{deleteRow(lastClickedRow)});
+
+});
 document.querySelector('#change-password-button').addEventListener('click', () => {
     document.getElementById('change-password').style.display = 'block';
 });
@@ -44,13 +57,13 @@ document.querySelector('#request-form-close-button').addEventListener('click', (
 
 document.querySelector('#request-form-submit-button').addEventListener('click', () => {
     document.getElementById('vehicle-request-form').style.display = 'none';
-    let details = getValuesFromForm('#submit-form', ['date', 'time', 'pickup', 'dropoff', 'purpose'])
+    formDetails = getValuesFromForm('#RequestAdd_form', ['date', 'time', 'pickup', 'dropoff', 'purpose'])
     changeInnerHTML({
-        '#new-date': details.date,
-        '#new-time': details.time,
-        '#new-pickup': details.pickup,
-        '#new-dropoff': details.dropoff,
-        '#new-purpose': details.purpose
+        '#new-date': formDetails.date,
+        '#new-time': formDetails.time,
+        '#new-pickup': formDetails.pickup,
+        '#new-dropoff': formDetails.dropoff,
+        '#new-purpose': formDetails.purpose
     });
     document.getElementById('new-request-preview-popup').style.display = 'block';
 });
@@ -70,6 +83,8 @@ document.querySelector('#request-preview-edit-button').addEventListener('click',
 });
 
 document.querySelector('#request-preview-confirm-button').addEventListener('click', () => {
+    writeToDatabase("RequestAdd_form",()=>{insertRow("request-table", ["-",formDetails.purpose,"Pending",formDetails.date, formDetails.time], "request")
+});
     document.getElementById('new-request-preview-popup').style.display = 'none';
     document.getElementById('request-details-popup').style.display = 'block';
 });

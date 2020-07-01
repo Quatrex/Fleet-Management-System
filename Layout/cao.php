@@ -45,6 +45,7 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                                         <th scope="col">Requester Name</th>
                                                         <th scope="col">Purpose</th>
                                                         <th scope="col">Date</th>
+                                                        <th scope="col">Time</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -52,10 +53,10 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                                     <?php
                                                     $i = 0;
                                                     foreach ($requestsToApprove as $request) : ?>
-                                                        <tr id="request-raw<?php echo $i ?>">
+                                                        <tr id="approve-request-table-<?php echo $request->getField('requestID') ?>">
                                                             <th id="requestraw-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
+                                                            <td><?php echo $request->getField('requesterID') ?></td>
                                                             <td><?php echo $request->getField('purpose') ?></td>
-                                                            <td>Pending</td>
                                                             <td><?php echo $request->getField('dateOfTrip') ?></td>
                                                             <td><?php echo $request->getField('timeOfTrip') ?></td>
                                                         </tr>
@@ -81,7 +82,7 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                                     <?php
                                                     $i = 0;
                                                     foreach ($requestsByMe as $request) : ?>
-                                                        <tr>
+                                                        <tr id="requestTable-<?php echo $request->getField('requestID') ?>">
                                                             <th id="request-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
                                                             <td><?php echo $request->getField('purpose') ?></td>
                                                             <td>Pending</td>
@@ -109,15 +110,15 @@ $_SESSION['requestsByMe'] = $requestsByMe;
         </div>
         <?php include '../partials/footer.php'; ?>
     </div>
-    <?php 
+    <?php
     include '../partials/popups/common.php';
     include '../partials/popups/cao_popup.php';
     ?>
     <script>
         const pendingRequests = <?php echo json_encode(($_SESSION['requestsByMe'])) ?>;
-        const requestsToApprove = <?php echo json_encode(($_SESSION['requestsToJustify'])) ?>;
-        sessionStorage.setItem('requestsToApprove',requestsToApprove);
-        sessionStorage.setItem('requestsByMe',pendingRequests);
+        const requestsToApprove = <?php echo json_encode(($_SESSION['requestsToApprove'])) ?>;
+        sessionStorage.setItem('requestsToApprove', requestsToApprove);
+        sessionStorage.setItem('requestsByMe', pendingRequests);
     </script>
     <script src="../js/functions.js"></script>
     <script src="../js/eventlisteners/common.js"></script>

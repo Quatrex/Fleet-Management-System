@@ -1,15 +1,14 @@
 <?php
 namespace Request\State;
 
-use Request\Factory\Type\RealRequest;
-use Request\Request;
+use Request\Factory\RealRequest;
 
 class Justified extends State {
 
     private static ?Justified $instance = null;
 
     private function __construct() {
-        $this->stateID=parent::getStateID("justified");
+        $this->stateID=parent::getStateID('justified');
     }
 
     public static function getInstance() : Justified {
@@ -22,7 +21,16 @@ class Justified extends State {
         $request->setState(Approved::getInstance());
     }
 
-    public function denyApprove(RealRequest $request) : void {
+    public function disapprove(RealRequest $request) : void {
         $request->setState(Denied::getInstance());
+    }
+    
+    public function cancel(RealRequest $request) : void {
+        $request->setState(Cancelled::getInstance());
+    }
+
+    public function expire(RealRequest $request) : void 
+    {
+        $request->setState(Expired::getInstance());
     }
 }

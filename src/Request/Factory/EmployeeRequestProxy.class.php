@@ -1,5 +1,5 @@
 <?php
-namespace Request\Factory\Type;
+namespace Request\Factory;
 
 use Vehicle\Vehicle;
 use Employee\Driver;
@@ -11,7 +11,7 @@ abstract class EmployeeRequestProxy implements Request, JsonSerializable
 
     protected Request $realRequest;
 
-    public function __construct(Request $realRequest)
+    protected function __construct(Request $realRequest)
     {
         $this->realRequest = $realRequest;
     }

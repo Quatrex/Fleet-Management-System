@@ -1,8 +1,7 @@
 <?php 
 namespace Request\State;
 
-use Request\Factory\Type\RealRequest;
-use Request\Request;
+use Request\Factory\RealRequest;
 
 abstract class State {
     //TODO: add all transitions and implement
@@ -26,6 +25,18 @@ abstract class State {
     }
 
     public function disapprove(RealRequest $request) : void {
+        echo "Invalid transition";
+    }
+
+    public function expire(RealRequest $request) : void {
+        echo "Invalid transition";
+    }
+
+    public function schedule(RealRequest $request) : void {
+        echo "Invalid transition";
+    }
+
+    public function close(RealRequest $request) : void {
         echo "Invalid transition";
     }
 
@@ -64,6 +75,38 @@ abstract class State {
                 break;
           }
         return $state;
+    }
+    /**
+     * Returns state
+     * @param int $stateID
+     * @return null|String
+     */
+    public static function getStateString(int $stateID) : ?State {
+        $stateString=null;
+        switch ($stateID) {
+            case 1:
+                $stateString="Pending";
+                break;
+            case 2:
+                $stateString="Justified";
+                break;
+            case 3:
+                $stateString="Approved";
+                break;
+            case 4:
+                $stateString="Denied";
+                break;
+            case 5:
+                $stateString="Cancelled";
+                break;
+            case 6:
+                $stateString="Scheduled";
+                break;
+            case 7:
+                $stateString="Completed";
+                break;
+          }
+        return $stateString;
     }
 
     /**

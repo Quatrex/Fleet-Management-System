@@ -41,7 +41,7 @@
                         <p>Time</p>
                     </div>
                     <div class="col-sm-6">
-                        <p  id="approve-preview-time">HH:MM: AM/PM</p>
+                        <p id="approve-preview-time">HH:MM: AM/PM</p>
                     </div>
                 </div>
 
@@ -68,7 +68,7 @@
                         <p>Purpose</p>
                     </div>
                     <div class="col-sm-6">
-                        <p  id="approve-preview-purpose">Text</p>
+                        <p id="approve-preview-purpose">Text</p>
                     </div>
                 </div>
 
@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-    
+
     <!--Approve Confirm alert-->
     <div class="popup" id="approve-request-alert">
         <!-- Approve alert content -->
@@ -93,7 +93,10 @@
             <div class="popup-body">
 
                 <p>Are you sure you want to approve the request?</p>
-                <textarea class="styled-textarea" id="approve-comment" onfocus="setbg('#e5fff3');" onblur="setbg('white')" placeholder="Comments" rows="4"></textarea>
+                <form id='CAOApprove_form'>
+                    <textarea class="styled-textarea" id="approve-comment" placeholder="Comments" rows="4"></textarea>
+                    <input type="hidden" name="approve-requestID" id="approve-requestID" />
+                </form>
 
 
             </div>
@@ -117,7 +120,11 @@
             <div class="popup-body">
 
                 <p>Are you sure you want to decline the request?</p>
-                <textarea class="styled-textarea" onfocus="setbg('#e5fff3');" onblur="setbg('white')" placeholder="Comments" rows="4"></textarea>
+                <form id='CAODeny_form'>
+                    <textarea class="styled-textarea" name="CAO-deny-comment" placeholder="Comments" rows="4"></textarea>
+                    <input type="hidden" name="CAOdeny-requestID" id="CAOdeny-requestID" />
+                </form>
+
 
             </div>
             <div class="popup-footer">
@@ -127,4 +134,3 @@
             </div>
         </div>
     </div>
-

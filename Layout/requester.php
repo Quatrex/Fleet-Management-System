@@ -51,7 +51,7 @@ $_SESSION['requestsByMe'] = $requests;
                                                     <?php
                                                     $i = 0;
                                                     foreach ($requests as $request) : ?>
-                                                        <tr>
+                                                        <tr id="requestTable-<?php echo $request->getField('requestID') ?>">
                                                             <th id="request-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
                                                             <td><?php echo $request->getField('purpose') ?></td>
                                                             <td>Pending</td>

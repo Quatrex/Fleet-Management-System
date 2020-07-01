@@ -1,48 +1,58 @@
 <?php
 
+use Employee\CAO;
 use Employee\Requester;
 use Employee\JO;
 use Employee\VPMO;
 
 include_once '../includes/autoloader.inc.php';
-$method = $_POST['AddMethod'];
+$method = $_POST['Method'];
 switch ($method) {
-	case 'JustifyJO':
+	case 'JOJustify':
 		$jo = JO::getObject($_POST['empID']);
 		$jo->justifyRequest($_POST['justify-requestID'], $_POST['justify-comment']);
-		echo json_encode("Justified");
+		echo json_encode("success_Request ".$_POST['justify-requestID']." successfully justified");
 		break;
-	case 'DenyJO':
+	case 'JODeny':
 		$jo = JO::getObject($_POST['empID']);
-		$jo->denyRequest($_POST['request_ID'], $_POST['decline-comment']);
-		echo json_encode("Denied");
+		$jo->denyRequest($_POST['deny-requestID'], $_POST['decline-comment']);
+		echo json_encode("success_Request ".$_POST['deny-requestID']." successfully denied");
 		break;
 
-	case 'AcceptCAO':
-		//code here
+	case 'CAOApprove':
+		$cao = CAO::getObject($_POST['empID']);
+		$cao->approveRequest($_POST['approve-requestID'], $_POST['approve-comment']);
+		echo json_encode("success_Request ".$_POST['approve-requestID']." successfully approved");
 		break;
 
-	case 'DenyCAO':
-		//code here
+	case 'CAODeny':
+		$cao = CAO::getObject($_POST['empID']);
+		$cao->denyRequest($_POST['CAOdeny-requestID'], $_POST['CAO-deny-comment']);
+		echo json_encode("success_Request ".$_POST['CAOdeny-requestID']." successfully denied");
 		break;
 
 	case 'RequestAdd':
 		$requester = Requester::getObject($_POST['empID']);
 		$requester->placeRequest($_POST['date'], $_POST['time'], $_POST['dropoff'], $_POST['pickup'], $_POST['purpose']);
-		echo json_encode("Added");
+		echo json_encode("success_Request successfully added");
 		break;
 
 	case 'AddVehicle':
 		$vpmo = VPMO::getObject($_POST['empID']);
 		//echo $_POST['model'];
 		$vpmo->addVehicle($_POST['registrationNo'], $_POST['model'], $_POST['purchasedYear'], $_POST['value'], $_POST['fuelType'], $_POST['insuranceValue'], $_POST['insuranceCompany'], 1, $_POST['currentLocation']);
-		echo json_encode("Added Vehicle");
+		echo json_encode("success_Vehicle ".$_POST['registrationNo']." successfully added");
 		break;
 
 	case 'UpdateVehicle':
 		$vpmo = VPMO::getObject($_POST['empID']);
-		$vpmo->updateVehicle($POST['registrationNo'], $POST['model'], $POST['purchasedYear'], $POST['value'], $POST['fuelType'], $POST['insuranceValue'], $POST['insuranceCompany'], $POST['inRepair'], $POST['currentLocation']);
-		echo json_encode("Updated Vehicle");
+		$vpmo->updateVehicle($POST['registrationNo'], $POST['model'], $POST['purchasedYear'], $POST['value'], $POST['fuelresult'], $POST['insuranceValue'], $POST['insuranceCompany'], $POST['inRepair'], $POST['currentLocation']);
+		echo json_encode("success_Vehicle ".$_POST['registrationNo']." successfully updated");
+		break;
+	case 'CancelRequest':
+		$requester = Requester::getObject($_POST['empID']);
+		$requester->cancelRequest($_POST['requestID']);
+		echo json_encode("success_Request ".$_POST['requestID']." successfully cancelled");
 		break;
 
 	default:

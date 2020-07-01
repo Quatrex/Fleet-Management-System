@@ -1,5 +1,5 @@
 <?php
-namespace Request\Factory\Type;
+namespace Request\Factory;
 
 use DB\Viewer\RequestViewer;
 use DB\Controller\RequestController;
@@ -10,7 +10,7 @@ use Employee\Driver;
 use Vehicle\Vehicle;
 use JsonSerializable;
 
-class RealRequest implements IObjectHandle, Request, JsonSerializable
+class RealRequest implements IObjectHandle, Request
 {
     //ToDO: make attributes private and use get/set methods
     private int $requestID; 
@@ -49,10 +49,6 @@ class RealRequest implements IObjectHandle, Request, JsonSerializable
         $this->approvedBy=($approvedBy!= null)?$approvedBy:'';
         $this->JOComment=($JOComment!= null)?$JOComment:'';
         $this->CAOComment=($CAOComment!= null)?$CAOComment:'';
-    }
-    public function jsonSerialize()
-    {
-        return ['RequestId'=>$this->requestID,'DateOfTrip'=> $this->dateOfTrip,'TimeOfTrip'=> $this->timeOfTrip,'PickLocation'=>$this->pickLocation,'DropLocation'=> $this->dropLocation,'Purpose'=>$this->purpose];
     }
 
     //IObjectHandle
@@ -120,8 +116,7 @@ class RealRequest implements IObjectHandle, Request, JsonSerializable
             $requestController->justifyRequest($this->requestID,$this->JOComment,$this->justifiedBy);
         } else
         {
-            $this->state->denyJustify($this);
-        
+            $this->state->denyJustify($this);   
             $requestController=new RequestController();
             $requestController->denyRequest($this->requestID,$comment,$empID,$position);
         }  
@@ -135,19 +130,15 @@ class RealRequest implements IObjectHandle, Request, JsonSerializable
         if ($approval)
         {
             $this->state->approve($this);
-        
             $requestController=new RequestController();
             $requestController->approveRequest($this->requestID,$this->CAOComment,$this->approvedBy);
         }
         else
         {
             $this->state->disapprove($this);
-        
             $requestController=new RequestController();
             $requestController->denyRequest($this->requestID,$comment,$empID,$position);
-        }
-        
-       
+        }  
     }
 
     // public function setDenied($empID,$comment,$position){
