@@ -52,7 +52,7 @@ class RealRequest implements IObjectHandle, Request, JsonSerializable
     }
     public function jsonSerialize()
     {
-        return ['RequestId'=>$this->requestID,'DateOfTrip'=> $this->dateOfTrip,'TimeOfTrip'=> $this->timeOfTrip,'PickLocation'=>$this->pickLocation,'DropLocation'=> $this->dropLocation,'Purpose'=>$this->purpose];
+        return ['RequestId'=>$this->requestID,'State'=>$this->state->getStateString($this->state->getID()),'DateOfTrip'=> $this->dateOfTrip,'TimeOfTrip'=> $this->timeOfTrip,'PickLocation'=>$this->pickLocation,'DropLocation'=> $this->dropLocation,'Purpose'=>$this->purpose];
     }
 
     //IObjectHandle

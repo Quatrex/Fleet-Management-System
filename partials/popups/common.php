@@ -157,10 +157,19 @@
             </form>
             <div class="row">
                 <div class="col-sm-6">
-                    <p>Date</p>
+                    <p>RequestID</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="date-preview">DD-MM-YYYY</p>
+                    <p id="requestID-preview">DD-MM-YYYY</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Status</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="request-status-preview">Pending</p>
                 </div>
             </div>
 

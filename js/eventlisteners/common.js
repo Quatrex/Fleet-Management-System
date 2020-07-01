@@ -7,12 +7,16 @@ document.querySelector("#request-table").onclick = (event) => {
     console.log(lastClickedRow);
     
     changeInnerHTML({
-        '#date-preview': entity.DateOfTrip,
+        '#requestID-preview': entity.RequestId,
+        '#reques-status-preview': entity.State,
         '#time-preview': entity.TimeOfTrip,
         '#pickup-preview': entity.PickLocation,
         '#drop-preview': entity.DropLocation,
         '#purpose-preview': entity.Purpose
     });
+    if(entity.State==="Scheduled"){
+        document.querySelector('#request-cancel').disabled= true;
+    }
     document.getElementById('request-preview-popup').style.display = 'block';
 }
 
