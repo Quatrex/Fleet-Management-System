@@ -2,7 +2,6 @@
 namespace Request\State;
 
 use Request\Factory\Type\RealRequest;
-use Request\Request;
 
 class Pending extends State {
 
@@ -24,5 +23,9 @@ class Pending extends State {
 
     public function denyJustify(RealRequest $request) : void {
         $request->setState(Denied::getInstance());
+    }
+    
+    public function cancel(RealRequest $request) : void {
+        $request->setState(Cancelled::getInstance());
     }
 }

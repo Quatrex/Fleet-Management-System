@@ -15,7 +15,7 @@
         <div class="popup-body">
             <div id="submit-form-wrapper">
 
-                <form id="submit-form">
+                <form id="RequestAdd_form">
 
                     <div class="form-group">
                         <input type="date" class="form-control" name="date" placeholder="Date" autocomplete="off">
@@ -152,6 +152,26 @@
             <hr>
         </div>
         <div class="popup-body">
+            <form>
+                <input type="hidden" name="requestID" id="request-preview-ID" />
+            </form>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>RequestID</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="requestID-preview">DD-MM-YYYY</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Status</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="request-status-preview">Pending</p>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-sm-6">
@@ -199,6 +219,7 @@
             </div>
         </div>
         <div class="popup-footer">
+            <button class="btn btn-danger" id="request-cancel">Cancel Request</button>
         </div>
     </div>
 </div>
@@ -406,4 +427,15 @@
 
         </div>
     </div>
+</div>
+<div id="alert-ajax" style="display:none; width:100%; position:absolute; top:0; z-index:2000;">
+    <div id="alertdiv" class="alert  mx-auto mt-3 text-center" role="alert" style="width:60%; height:50px">
+        <p id="alert-message" style=" font-weight:500;font-size: initial;"></p>
+
+    </div>
+</div>
+
+
+<div>
+
 </div>

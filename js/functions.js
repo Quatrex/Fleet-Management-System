@@ -1,16 +1,4 @@
-$(document).ready(function () {
-  $("#request-preview-confirm-button").on("click", function () {
-    writeToDatabase("#submit-form", "RequestAdd", empID);
-  });
-  insertRow("request-table", [
-    "514",
-    "Nikan",
-    "Pending",
-    "2020-12-13",
-    "12:30:00",
-  ]);
-});
-
+let lastClickedRow = "";
 function loadData() {
   $.ajax({
     url: "fetch.php",
@@ -19,13 +7,7 @@ function loadData() {
       view: view,
     },
     dataType: "json",
-    success: function (data) {
-      $(".dropdown-menu").html(data.notification);
-
-      if (data.unseen_notification > 0) {
-        $(".count").html(data.unseen_notification);
-      }
-    },
+    success: function (data) {},
   });
 }
 
@@ -37,24 +19,46 @@ function loadData() {
 // });
 
 //Write to database
-function writeToDatabase(formID, addMethod, empID) {
-  let data = $(formID).serialize();
+//event is of methodName_button/form_RequestID/VehicleID
+function writeToDatabase(event) {
+  let trigger = event.split("_")[0];
+  let type = event.split("_")[1];
+  let data = `Method=${trigger}&empID=${empID}&`;
+
+  if (type === "form") {
+    data += $(`#${trigger}_form`).serialize();
+  } else {
+    data += `${event.split("_")[2]}=${lastClickedRow}`;
+  }
   console.log(data);
 
-  data += `&AddMethod=${addMethod}&empID=${empID}`;
-  $.ajax({
+  data += $.ajax({
     url: "../func/save2.php",
     type: "POST",
     data: data,
     cache: false,
-    success: function (result) {
-      console.log(result);
-      $(formID).trigger("reset");
+    success: function (returnArr) {
+      console.log(returnArr);
+      if (type === "form") {
+        $(`#${trigger}_form`).trigger("reset");
+      }
+      showAlert(returnArr.split("_")[0], returnArr.split("_")[1]);
       //Display the popup of success access or unsucess
     },
   });
 }
 
+//Show the success or error alert after ajax query
+function showAlert(type, message) {
+  document.getElementById("alert-message").innerHTML = message.substring(0, message.length - 1);
+  document.getElementById("alertdiv").classList.add("alert-".concat(type.substring(1)));
+  document.getElementById("alert-ajax").style.display = "block";
+  setTimeout(() => {
+    document.getElementById("alert-ajax").style.display = "none";
+  }, 3000);
+}
+
+//Insert a row to the table
 function insertRow(tableName, cellData, type) {
   let newRow = document.getElementById(tableName).insertRow(1);
   let i = 0;
@@ -88,10 +92,10 @@ function changeInnerHTML(arg) {
   }
 }
 
-
 function getValuesFromForm(name, values) {
   let arr = {};
   let form = document.querySelector(name);
+
   values.forEach((key) => {
     arr[key] = form.elements[key].value;
   });
