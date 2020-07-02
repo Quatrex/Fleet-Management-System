@@ -1,29 +1,18 @@
 //*******************Assign Table *******************/
 document.querySelector("#approve-request-table").onclick = (event) => {
     let tableRow = event.target.parentElement;
+    lastClickedRow = tableRow.id;
+
     document.getElementById('request-assign-preview-popup').style.display = 'block';
 
-};
-
-
-//**********************Request Table ***************/
-document.querySelector("#request-table").onclick = (event) => {
-    let tableRow = event.target.parentElement;
-    let row_id = (tableRow.children[0].id).split("-");
-    let entity = requestEntity[row_id[1]]
-    changeInnerHTML({
-        '#date-preview': entity.dateOfTrip,
-        '#time-preview': entity.timeOfTrip,
-        '#pickup-preview': entity.pickLocation,
-        '#drop-preview': entity.dropLocation
-    });
-    document.getElementById('request-preview-popup').style.display = 'block';
 };
 
 
 //**********************Ongoing Table ***************/
 document.querySelector("#ongoing-table").onclick = (event) => {
     let tableRow = event.target.parentElement;
+    lastClickedRow = tableRow.id;
+
     document.getElementById('ongoing-table-details-popup').style.display = 'block';
 
 };
@@ -32,6 +21,20 @@ document.querySelector("#ongoing-table").onclick = (event) => {
 //**********************Vehicle Table ***************/
 document.querySelector("#all-vehicle-table").onclick = (event) => {
     let tableRow = event.target.parentElement;
+    lastClickedRow = tableRow.id;
+    let row_id = (tableRow.children[0].id).split("-");
+    let entity = vehicles[row_id[1]]
+    lastClickedRow = tableRow.id;
+    changeValue({
+        '#vehicle-regsitartionNo': entity.regsitartionNo,
+        '#vehicle-model': entity.model,
+        '#vehicle-purchasedYear': entity.purchasedYear,
+        '#vehicle-price': entity.price,
+        '#vehicle-fuelType': entity.fuelType,
+        '#vehicle-currentLocation': entity.currentLocation,
+        '#vehicle-insuranceCompany': entity.insuranceCompany,
+        '#vehicle-insuranceValue': entity.insuranceValue,
+    });
     document.getElementById('car-profile-form').style.display = 'block';
 
 };
@@ -43,6 +46,17 @@ document.querySelector('#car-profile-form-close').addEventListener('click', () =
 
 document.querySelector('#confirm-vehicle-profile').addEventListener('click', () => {
     document.getElementById('car-profile-form').style.display = 'none';
+    writeToDatabase("UpdateVehicle_form")
+});
+
+document.querySelector('#confirm-vehicle-delete').addEventListener('click', () => {
+    document.getElementById('car-profile-form').style.display = 'none';
+    writeToDatabase("DeleteVehicle_button_VehicleID")
+});
+document.querySelector('#vehicle-profile-edit-button').addEventListener('click', () => {
+    document.querySelectorAll('.vehicle-profile-input').forEach((field) => {
+        field.disabled =false;
+    });
 });
 
 

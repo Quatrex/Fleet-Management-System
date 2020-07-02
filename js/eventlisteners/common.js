@@ -1,4 +1,3 @@
-let formDetails = "";
 //*************Request Table on click */
 document.querySelector("#request-table").onclick = (event) => {
     let tableRow = event.target.parentElement;
@@ -57,13 +56,13 @@ document.querySelector('#request-form-close-button').addEventListener('click', (
 
 document.querySelector('#request-form-submit-button').addEventListener('click', () => {
     document.getElementById('vehicle-request-form').style.display = 'none';
-    formDetails = getValuesFromForm('#RequestAdd_form', ['date', 'time', 'pickup', 'dropoff', 'purpose'])
+    let details = getValuesFromForm('#RequestAdd_form', ['date', 'time', 'pickup', 'dropoff', 'purpose'])
     changeInnerHTML({
-        '#new-date': formDetails.date,
-        '#new-time': formDetails.time,
-        '#new-pickup': formDetails.pickup,
-        '#new-dropoff': formDetails.dropoff,
-        '#new-purpose': formDetails.purpose
+        '#new-date': details.date,
+        '#new-time': details.time,
+        '#new-pickup': details.pickup,
+        '#new-dropoff': details.dropoff,
+        '#new-purpose': details.purpose
     });
     document.getElementById('new-request-preview-popup').style.display = 'block';
 });
@@ -83,8 +82,6 @@ document.querySelector('#request-preview-edit-button').addEventListener('click',
 });
 
 document.querySelector('#request-preview-confirm-button').addEventListener('click', () => {
-    writeToDatabase("RequestAdd_form",()=>{insertRow("request-table", ["-",formDetails.purpose,"Pending",formDetails.date, formDetails.time], "request")
-});
     document.getElementById('new-request-preview-popup').style.display = 'none';
     document.getElementById('request-details-popup').style.display = 'block';
 });
