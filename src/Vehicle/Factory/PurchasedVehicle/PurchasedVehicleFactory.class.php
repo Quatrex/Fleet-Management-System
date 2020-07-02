@@ -40,6 +40,22 @@ class PurchasedVehicleFactory extends AbstractVehicleFactory
      */
     public function getVehicles() : array
     {
+        $vehicleViewer = new VehicleViewer();
+        $vehicleIDs = $vehicleViewer->getAllRecords('purchased');
+        $vehicles = array();
+        foreach ($vehicleIDs as $values) {
+            $vehicle = new PurchasedVehicle($values['RegistrationNo'], 
+                                            $values['Model'], 
+                                            $values['PurchasedYear'], 
+                                            $values['Value'], 
+                                            $values['FuelType'], 
+                                            $values['InsuranceValue'], 
+                                            $values['InsuranceCompany'], 
+                                            $values['State'],
+                                            $values['CurrentLocation']);
+            array_push($vehicles, $this->castToVehicle($vehicle));
+        }
+        return $vehicles;
     }
 
 }

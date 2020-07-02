@@ -34,7 +34,7 @@ abstract class AbstractVehicle implements IObjectHandle, Vehicle
         $this->fuelType = $fuelType;
         $this->insuranceValue = $insuranceValue;
         $this->insuranceCompany = $insuranceCompany;
-        $this->state = $state;
+        $this->state = State::getState($state);
         $this->currentLocation = ($currentLocation != null) ? $currentLocation : '';
     }
 

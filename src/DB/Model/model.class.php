@@ -49,7 +49,18 @@ abstract class Model
      */
     protected function getRecords(array $columnNames, array $columnVals, array $wantedCols = array('*')): array
     {
-        $condition = '';
+        $wantedColumns = '';
+        if (sizeof($wantedCols) > 1) {
+            $wantedColumns = join(",", $wantedCols);
+        } else {
+            $wantedColumns = $wantedCols[0];
+        }
+        
+        $preStatement = "SELECT $wantedColumns FROM `" . $this->tableName . "`";
+
+        if($columnNames != [])
+        {
+        $condition = " WHERE ";
         $count = 0;
 
         foreach ($columnNames as $key => $value) {
@@ -59,18 +70,14 @@ abstract class Model
             }
             $count += 1;
         }
-
-        $wantedColumns = '';
-        if (sizeof($wantedCols) > 1) {
-            $wantedColumns = join(",", $wantedCols);
-        } else {
-            $wantedColumns = $wantedCols[0];
-        }
-
-        $preStatement = "SELECT $wantedColumns FROM `" . $this->tableName . "` WHERE ";
+        
         //"SELECT * FROM `request` WHERE `RequesterID`=? AND `Status`=?"
         $sql = $preStatement . $condition; //"SELECT * FROM $table WHERE 'RequesterID'=? AND 'Status'=?";
         //$sql="SELECT * FROM `employee` WHERE `EmpID`=?";
+        } else
+        {
+            $sql = $preStatement;
+        }
         $result = $this->dbh->read($sql, $columnVals);
 
         if ($result == false) {
@@ -145,28 +152,29 @@ abstract class Model
             $wantedColumns = $wantedCols[0];
         }
 
-        $joinTables = $this->tableName . ' INNER JOIN ' . $secondTable;
+        $joinTables = $this->tableName . " INNER JOIN " . $secondTable;
         // if (sizeof($tableNames) >= 1) {
         //     $joinTables .= join(" INNER JOIN ", $tableNames);
         // } else {
         //     $joinTables = $this->tableName;
         // }
 
-        $preStatement = "SELECT $wantedColumns FROM `" . $joinTables . "` ON ";
+        $preStatement = "SELECT $wantedColumns FROM " . $joinTables;
 
-        $condition = '';
+        $condition = ' ON (';
         $count = 0;
 
         foreach ($conditionCols as $col) {
-            $condition .= "`" . $this->tableName . $col . "`" . " = " . $secondTable . $col;
+            $condition .= $this->tableName . '.' . $col . " = " . $secondTable . '.' . $col;
             if (sizeof($conditionCols) > ($count + 1)) {
                 $condition .= " AND ";
             }
             $count += 1;
         }
 
-        $sql = $preStatement . $condition;
-        $result = $this->dbh->read($sql);
+        $sql = $preStatement . $condition . ')';
+        echo $sql;
+        $result = $this->dbh->read($sql,[]);
 
         if ($result == false) {
             //there is no data 
