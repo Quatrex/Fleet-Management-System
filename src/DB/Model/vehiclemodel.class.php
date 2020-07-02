@@ -21,9 +21,9 @@ abstract class VehicleModel extends Model{
         return $results;
     }
 
-    protected function saveRecordToVehicle($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$state,$currentLocation){
-        $columnNames = array('RegistrationNo','Model','PurchasedYear', 'Value','FuelType','InsuranceValue','InsuranceCompany','State','CurrentLocation');
-        $columnVals = array($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$state,$currentLocation);
+    protected function saveRecordToVehicle($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$state,$currentLocation,$isLeasedVehicle){
+        $columnNames = array('RegistrationNo','Model','PurchasedYear', 'Value','FuelType','InsuranceValue','InsuranceCompany','State','CurrentLocation','IsLeasedVehicle');
+        $columnVals = array($registrationNo,$model, $purchasedYear, $value,$fuelType, $insuranceValue, $insuranceCompany, $state, $currentLocation, $isLeasedVehicle);
         parent::setTableName('vehicle');
         parent::addRecord($columnNames,$columnVals);
     }
