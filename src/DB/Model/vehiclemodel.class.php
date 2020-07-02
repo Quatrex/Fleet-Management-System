@@ -43,19 +43,21 @@ abstract class VehicleModel extends Model{
         parent::addRecord($columnNames,$columnVals);
     }
 
-    //updateRecord
-    protected function updateRow($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$inRepair,$currentLocation){
-        $columnNames = array('RegistrationNo','Model','PurchasedYear','Value','FuelType','InsuranceValue','InsuranceCompany','InRepair','CurrentLocation');
-        $columnVals = array($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$inRepair,$currentLocation);
+    protected function updateVehicleRow($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany){
+        $columnNames = array('Model','PurchasedYear','Value','FuelType','InsuranceValue','InsuranceCompany');
+        $columnVals = array($model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
         $conditionNames= array('RegistrationNo');
         $conditionVals= array($registrationNo);
-        parent::updateRecord($columnNames,$columnVals,$conditionNames,$conditionVals);
-        
+        parent::setTableName('vehicle');
+        parent::updateRecord($columnNames,$columnVals,$conditionNames,$conditionVals);  
     }
 
-    protected function saveRecord($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$inRepair,$currentLocation) {
-        $columnNames = array('RegistrationNo','Model','PurchasedYear', 'Value','FuelType','InsuranceValue','InsuranceCompany','InRepair','CurrentLocation');
-        $columnVals = array($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany,$inRepair,$currentLocation);
-        parent::addRecord($columnNames,$columnVals);
+    protected function updateLeasedVehicleRow($registrationNo, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment){
+        $columnNames = array('leasedCompany','leasedPeriodFrom','leasedPeriodTo','monthlyPayment');
+        $columnVals = array($leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
+        $conditionNames= array('RegistrationNo');
+        $conditionVals= array($registrationNo);
+        parent::setTableName('leased_vehicle');
+        parent::updateRecord($columnNames,$columnVals,$conditionNames,$conditionVals);  
     }
 }

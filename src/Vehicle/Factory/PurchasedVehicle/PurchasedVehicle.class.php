@@ -59,4 +59,11 @@ class PurchasedVehicle extends AbstractVehicle
                                     $this->state->getID(),
                                     $this->currentLocation);
     }
+
+    public function updateInfo($model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany){
+        //changed vehicle attributes can be analysed here
+
+        $vehicleController = new VehicleController();
+        $vehicleController->updatePurchasedVehicleInfo($this->registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
+    }
 }
