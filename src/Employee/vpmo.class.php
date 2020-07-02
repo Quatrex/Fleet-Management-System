@@ -11,7 +11,9 @@ use DB\Viewer\VehicleViewer;
 use DB\Viewer\DriverViewer;
 use Request\Factory\Base\RealRequest;
 use Vehicle\Factory\Base\AbstractVehicleFactory;
+use Vehicle\Factory\LeasedVehicle\LeasedVehicle;
 use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
+use Vehicle\Factory\PurchasedVehicle\PurchasedVehicle;
 use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
 
 
@@ -95,7 +97,7 @@ class VPMO extends Requester
      *
      * Adding a new leased vehicle to database
      *
-     * @param $registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation
+     * @param $registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany
      * @return void
      *
      */
@@ -110,7 +112,7 @@ class VPMO extends Requester
      *
      * Adding a new purchased vehicle to database
      *
-     * @param $registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation
+     * @param $registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment
      * @return void
      *
      */
@@ -129,10 +131,25 @@ class VPMO extends Requester
      * @return void
      *
      */
-    // public function updateVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation)
-    // {
-    //     Vehicle::updateVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $inRepair, $currentLocation);
-    // }
+    public function updatePurchasedVehicleInfo($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany)
+    {
+        $vehicle = PurchasedVehicle::getObject($registrationNo);
+        $vehicle->updateInfo($model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
+    }
+
+    /**
+     *
+     * Update vehicle data.
+     *
+     * @param registrationNo, fields
+     * @return void
+     *
+     */
+    public function updateLeasedVehicleInfo($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
+    {
+        $vehicle = LeasedVehicle::getObject($registrationNo);
+        $vehicle->updateInfo($model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
+    }
 
     /**
      *

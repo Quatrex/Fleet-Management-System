@@ -37,8 +37,8 @@ class LeasedVehicleFactory extends AbstractVehicleFactory
     /**
      * @inheritDoc
      */
-    public function getVehicles() : array
-    {
-    }
+    // public function getVehicles() : array
+    // {
+    // }
 
 }
