@@ -145,9 +145,9 @@ abstract class Model
             $wantedColumns = $wantedCols[0];
         }
 
-        $joinTables = $this->tableName . ' NATURAL JOIN ' . $secondTable;
+        $joinTables = $this->tableName . ' INNER JOIN ' . $secondTable;
         // if (sizeof($tableNames) >= 1) {
-        //     $joinTables .= join(" NATURAL JOIN ", $tableNames);
+        //     $joinTables .= join(" INNER JOIN ", $tableNames);
         // } else {
         //     $joinTables = $this->tableName;
         // }
