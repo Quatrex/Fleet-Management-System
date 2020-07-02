@@ -2,7 +2,7 @@
 
 namespace DB\Model;
 
-abstract class Model 
+abstract class Model
 {
     protected $tableName;
     protected DatabaseHandler $dbh;
@@ -13,8 +13,9 @@ abstract class Model
         $this->dbh = DatabaseHandler::getInstance();
     }
 
-    protected function setTableName($tableName){
-        $this->tableName=$tableName;
+    protected function setTableName($tableName)
+    {
+        $this->tableName = $tableName;
     }
 
     /**
@@ -46,7 +47,7 @@ abstract class Model
     /**
      * A general code to generate SQL statement to get records from the database.
      */
-    protected function getRecords(array $columnNames, array $columnVals, array $wantedCols=array('*')): array
+    protected function getRecords(array $columnNames, array $columnVals, array $wantedCols = array('*')): array
     {
         $condition = '';
         $count = 0;
@@ -59,12 +60,11 @@ abstract class Model
             $count += 1;
         }
 
-        $wantedColumns='';
+        $wantedColumns = '';
         if (sizeof($wantedCols) > 1) {
-            $wantedColumns=join(",",$wantedCols);
-        }
-        else{
-            $wantedColumns=$wantedCols[0];
+            $wantedColumns = join(",", $wantedCols);
+        } else {
+            $wantedColumns = $wantedCols[0];
         }
 
         $preStatement = "SELECT $wantedColumns FROM `" . $this->tableName . "` WHERE ";
@@ -76,7 +76,7 @@ abstract class Model
         if ($result == false) {
             //there is no data for those values
             echo "Error: No Data for given ID";
-            echo "<br>".$sql . "<br>";
+            echo "<br>" . $sql . "<br>";
             print_r($columnVals);
             return [];
         } else {
@@ -87,11 +87,12 @@ abstract class Model
     /**
      * A general code to generate SQL statement to update a record in the database.
      */
-    protected function updateRecord(array $columnNames,
-                                    array $columnVals,
-                                    array $conditionNames,
-                                    array $conditionVals): void 
-    {
+    protected function updateRecord(
+        array $columnNames,
+        array $columnVals,
+        array $conditionNames,
+        array $conditionVals
+    ): void {
         //Generates "'Name1=?' 'Name2=?' ... " for setting
         $preCondition = '';
         $count = 0;
@@ -122,20 +123,56 @@ abstract class Model
     /**
      * A general code to generate SQL statement to get records from multiple tables in the database.
      */
-    public function getRecordsFromMultiple(
-        array $columnNames,
-        array $columnVals,
-        array $conditionNames,
-        array $conditionVals
-    ): void {
-        //         SELECT t1.SubjectCode
-        //      , t2.SubjectName
-        //      , t1.Internals
-        //      , t1.Externals
-        //      , t1.Total
-        //   FROM Table1 t1
-        //   JOIN Table2 t2
-        //     ON t2.SubjectCode = t1.SubjectCode
-        //  WHERE t1.htno = :id
+    public function getRecordsFromTwo(
+        string $secondTable,
+        array $conditionCols,
+        array $wantedCols = array('*')
+    ): array {
+        // SELECT table1.column_name1 , table2.column_name2
+        // FROM table1 INNER JOIN table2 
+        // ON table1.column_name = table2.column_name;
+
+        $wantedColumns = '';
+        $wantedArray = array();
+        if (sizeof($wantedCols) > 1) {
+            foreach ($wantedCols as $table => $cols) {
+                foreach ($cols as $col) {
+                    array_push($wantedArray, $table."." . $col);
+                }
+            }
+            $wantedColumns = join(",", $wantedArray);
+        } else {
+            $wantedColumns = $wantedCols[0];
+        }
+
+        $joinTables = $this->tableName . ' INNER JOIN ' . $secondTable;
+        // if (sizeof($tableNames) >= 1) {
+        //     $joinTables .= join(" INNER JOIN ", $tableNames);
+        // } else {
+        //     $joinTables = $this->tableName;
+        // }
+
+        $preStatement = "SELECT $wantedColumns FROM `" . $joinTables . "` ON ";
+
+        $condition = '';
+        $count = 0;
+
+        foreach ($conditionCols as $col) {
+            $condition .= "`" . $this->tableName . $col . "`" . " = " . $secondTable . $col;
+            if (sizeof($conditionCols) > ($count + 1)) {
+                $condition .= " AND ";
+            }
+            $count += 1;
+        }
+
+        $sql = $preStatement . $condition;
+        $result = $this->dbh->read($sql);
+
+        if ($result == false) {
+            //there is no data 
+            return [];
+        } else {
+            return $result;
+        }
     }
 }
