@@ -73,11 +73,21 @@ class LeasedVehicle extends AbstractVehicle
                                     $this->monthlyPayment);
     }
 
-    public function updateInfo($model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
+    public function updateInfo(array $vehicleInfo) : void
     {
         //changed vehicle attributes can be analysed here
 
         $vehicleController = new VehicleController();    
-        $vehicleController->updateLeasedVehicleInfo($this->registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
+        $vehicleController->updateLeasedVehicleInfo($this->registrationNo, 
+                                                    $vehicleInfo[0], 
+                                                    $vehicleInfo[1], 
+                                                    $vehicleInfo[2], 
+                                                    $vehicleInfo[3], 
+                                                    $vehicleInfo[4], 
+                                                    $vehicleInfo[5], 
+                                                    $vehicleInfo[6], 
+                                                    $vehicleInfo[7], 
+                                                    $vehicleInfo[8], 
+                                                    $vehicleInfo[9]);
     }
 }

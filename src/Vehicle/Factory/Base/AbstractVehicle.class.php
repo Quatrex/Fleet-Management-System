@@ -58,6 +58,8 @@ abstract class AbstractVehicle implements IObjectHandle, Vehicle
 
     abstract public static function getObjectByValues(array $values);
 
+    abstract public function updateInfo(array $vehicleInfo) : void;
+
     public function setState(State $state) 
     {
         $this->state = $state;

@@ -11,9 +11,7 @@ use DB\Viewer\VehicleViewer;
 use DB\Viewer\DriverViewer;
 use Request\Factory\Base\RealRequest;
 use Vehicle\Factory\Base\AbstractVehicleFactory;
-use Vehicle\Factory\LeasedVehicle\LeasedVehicle;
 use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
-use Vehicle\Factory\PurchasedVehicle\PurchasedVehicle;
 use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
 
 
@@ -25,6 +23,8 @@ class VPMO extends Requester
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {
         parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
+        $this->leasedVehicleFactory = LeasedVehicleFactory::getInstance();
+        $this->purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
     }
 
     //IObjectHandle
@@ -64,10 +64,8 @@ class VPMO extends Requester
      */
     public function getVehicles()
     {
-        $leasedVehicleFactory = LeasedVehicleFactory::getInstance();
-        $leasedVehicles = $leasedVehicleFactory->getVehicles();
-        $purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
-        $purchasedVehicles = $purchasedVehicleFactory->getVehicles();
+        $leasedVehicles = $this->leasedVehicleFactory->getVehicles();
+        $purchasedVehicles = $this->purchasedVehicleFactory->getVehicles();
         return array_merge($purchasedVehicles,$leasedVehicles);
     }
 
@@ -101,8 +99,7 @@ class VPMO extends Requester
     public function addPurchasedVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany)
     {
         $vehicleInfo = array($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
-        $purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
-        $vehicle = $purchasedVehicleFactory->makeNewVehicle($vehicleInfo);
+        $vehicle = $this->purchasedVehicleFactory->makeNewVehicle($vehicleInfo);
     }
 
     /**
@@ -116,8 +113,7 @@ class VPMO extends Requester
     public function addLeasedVehicle($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
     {
         $vehicleInfo = array($registrationNo,$model,$purchasedYear,$value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
-        $leasedVehicleFactory = LeasedVehicleFactory::getInstance();
-        $vehicle = $leasedVehicleFactory->makeNewVehicle($vehicleInfo);
+        $vehicle = $this->leasedVehicleFactory->makeNewVehicle($vehicleInfo);
     }
 
     /**
@@ -130,8 +126,9 @@ class VPMO extends Requester
      */
     public function updatePurchasedVehicleInfo($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany)
     {
-        $vehicle = PurchasedVehicle::getObject($registrationNo);
-        $vehicle->updateInfo($model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
+        $vehicle = $this->purchasedVehicleFactory->makeVehicle($registrationNo);
+        $vehicleInfo = array($model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
+        $vehicle->updateInfo($vehicleInfo);
     }
 
     /**
@@ -144,8 +141,9 @@ class VPMO extends Requester
      */
     public function updateLeasedVehicleInfo($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
     {
-        $vehicle = LeasedVehicle::getObject($registrationNo);
-        $vehicle->updateInfo($model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
+        $vehicle = $this->purchasedVehicleFactory->makeVehicle($registrationNo);
+        $vehicleInfo = array($model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
+        $vehicle->updateInfo($vehicleInfo);
     }
 
     /**
