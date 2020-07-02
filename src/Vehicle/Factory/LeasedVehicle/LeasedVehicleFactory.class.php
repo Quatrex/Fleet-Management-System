@@ -56,7 +56,7 @@ class LeasedVehicleFactory extends AbstractVehicleFactory
                                         $values['LeasedPeriodFrom'], 
                                         $values['LeasedPeriodTo'],
                                         $values['MonthlyPayment'],);
-            array_push($vehicles, $vehicle);
+            array_push($vehicles, $this->castToVehicle($vehicle));
         }
         return $vehicles;
     }

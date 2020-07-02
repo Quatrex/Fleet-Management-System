@@ -173,7 +173,6 @@ abstract class Model
         }
 
         $sql = $preStatement . $condition . ')';
-        echo $sql;
         $result = $this->dbh->read($sql,[]);
 
         if ($result == false) {

@@ -10,7 +10,6 @@ $_SESSION['vpmo'] = $vpmo;
 $requests = $vpmo->getMyRequestsByState('pending');
 $_SESSION['pendingTrips'] = $requests;
 $vehicles = $vpmo->getVehicles();
-print_r(sizeof($vehicles));
 //$requestsToAssign = //code to get the requestsToAssign
 //$_SESSION['requestsToAssign'] = $requestsToAssign;
 //$vehicles = //code to get all the vehicles;

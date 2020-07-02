@@ -66,10 +66,8 @@ class VPMO extends Requester
     {
         $leasedVehicleFactory = LeasedVehicleFactory::getInstance();
         $leasedVehicles = $leasedVehicleFactory->getVehicles();
-        print_r(sizeof($leasedVehicles));
         $purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
         $purchasedVehicles = $purchasedVehicleFactory->getVehicles();
-        print_r(sizeof($purchasedVehicles));
         return array_merge($purchasedVehicles,$leasedVehicles);
     }
 

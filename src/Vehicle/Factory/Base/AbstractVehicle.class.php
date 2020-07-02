@@ -18,6 +18,7 @@ abstract class AbstractVehicle implements IObjectHandle, Vehicle
     protected string $insuranceCompany;
     protected State $state;
     protected string $currentLocation;
+    protected string $status;
 
     //  getTrips(String): array
     //  allocate()
@@ -34,6 +35,7 @@ abstract class AbstractVehicle implements IObjectHandle, Vehicle
         $this->fuelType = $fuelType;
         $this->insuranceValue = $insuranceValue;
         $this->insuranceCompany = $insuranceCompany;
+        $this->status = State::getStateString($state);
         $this->state = State::getState($state);
         $this->currentLocation = ($currentLocation != null) ? $currentLocation : '';
     }
