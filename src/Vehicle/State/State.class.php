@@ -57,13 +57,13 @@ abstract class State {
         $stateString=null;
         switch ($stateID) {
             case 1:
-                $stateString="available";
+                $stateString="Available";
                 break;
             case 2:
-                $stateString="allocated";
+                $stateString="Allocated";
                 break;
             case 3:
-                $stateString="repairing";
+                $stateString="Repairing";
                 break;
           }
         return $stateString;
@@ -78,13 +78,13 @@ abstract class State {
         $stateID=false;
         $stateName=strtolower($stateName);
         switch ($stateName) {
-            case "available":
+            case "Available":
                 $stateID=1;
                 break;
-            case "allocated":
+            case "Allocated":
                 $stateID=2;
                 break;
-            case "repairing":
+            case "Repairing":
                 $stateID=3;
                 break;
             default:

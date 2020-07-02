@@ -48,7 +48,7 @@ class LeasedVehicle extends AbstractVehicle
     //IObjectHandle
     public static function constructObject($vehicleInfo)
     {
-        $state=State::getState(State::getStateID('available'));
+        $state=State::getState(State::getStateID('Available'));
         $currentLocation=""; //attention!
         $obj = new LeasedVehicle($vehicleInfo[0],$vehicleInfo[1],$vehicleInfo[2], $vehicleInfo[3],$vehicleInfo[4],$vehicleInfo[5],$vehicleInfo[6],$state,$currentLocation, $vehicleInfo[7], $vehicleInfo[8], $vehicleInfo[9], $vehicleInfo[10]);
         $obj->saveToDatabase(); //check for failure

@@ -39,7 +39,7 @@ class PurchasedVehicle extends AbstractVehicle
     //IObjectHandle
     public static function constructObject($vehicleInfo)
     {
-        $state=State::getState(State::getStateID('available'));//set using an enum
+        $state=State::getState(State::getStateID('Available'));//set using an enum
         $currentLocation=""; //attention!
         $obj = new PurchasedVehicle($vehicleInfo[0],$vehicleInfo[1],$vehicleInfo[2], $vehicleInfo[3],$vehicleInfo[4],$vehicleInfo[5],$vehicleInfo[6],$state,$currentLocation);
         $obj->saveToDatabase(); //check for failure
