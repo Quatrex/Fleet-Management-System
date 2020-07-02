@@ -64,14 +64,13 @@ class VPMO extends Requester
      */
     public function getVehicles()
     {
-        $vehicleViewer = new VehicleViewer();
-        $vehicleIDs = $vehicleViewer->getAllRecords();
-        $vehicles = array();
-        foreach ($vehicleIDs as $values) {
-            $vehicle = new Vehicle($values['RegistrationNo'], $values['Model'], $values['PurchasedYear'], $values['Value'], $values['FuelType'], $values['InsuranceValue'], $values['InsuranceCompany'], $values['InRepair'], $values['CurrentLocation']);
-            array_push($vehicles, $vehicle);
-        }
-        return $vehicles;
+        $leasedVehicleFactory = LeasedVehicleFactory::getInstance();
+        $leasedVehicles = $leasedVehicleFactory->getVehicles();
+        print_r(sizeof($leasedVehicles));
+        $purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
+        $purchasedVehicles = $purchasedVehicleFactory->getVehicles();
+        print_r(sizeof($purchasedVehicles));
+        return array_merge($purchasedVehicles,$leasedVehicles);
     }
 
     /**

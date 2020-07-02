@@ -37,8 +37,28 @@ class LeasedVehicleFactory extends AbstractVehicleFactory
     /**
      * @inheritDoc
      */
-    // public function getVehicles() : array
-    // {
-    // }
+    public function getVehicles() : array
+    {
+        $vehicleViewer = new VehicleViewer();
+        $vehicleIDs = $vehicleViewer->getAllRecords('leased');
+        $vehicles = array();
+        foreach ($vehicleIDs as $values) {
+            $vehicle = new LeasedVehicle($values['RegistrationNo'], 
+                                        $values['Model'], 
+                                        $values['PurchasedYear'], 
+                                        $values['Value'], 
+                                        $values['FuelType'], 
+                                        $values['InsuranceValue'], 
+                                        $values['InsuranceCompany'], 
+                                        $values['State'],
+                                        $values['CurrentLocation'],
+                                        $values['LeasedCompany'], 
+                                        $values['LeasedPeriodFrom'], 
+                                        $values['LeasedPeriodTo'],
+                                        $values['MonthlyPayment'],);
+            array_push($vehicles, $vehicle);
+        }
+        return $vehicles;
+    }
 
 }

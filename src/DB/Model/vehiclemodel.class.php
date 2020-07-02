@@ -16,8 +16,16 @@ abstract class VehicleModel extends Model{
         return $results[0];
     }
     
-    protected function getAllRecords(){
-        $results = parent::getRecords([],[]);
+    protected function getAllRecords(string $vehicleType){
+        switch ($vehicleType)
+        {
+            case 'leased':
+                $results = parent::getRecordsFromTwo('leased_vehicle',['RegistrationNo']);
+                break;
+            case 'purchased':
+                $results = parent::getRecords([],[]);
+                break;
+        }
         return $results;
     }
 

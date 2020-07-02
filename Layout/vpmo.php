@@ -9,6 +9,8 @@ $vpmo = VPMO::getObject($_SESSION['empid']);
 $_SESSION['vpmo'] = $vpmo;
 $requests = $vpmo->getMyRequestsByState('pending');
 $_SESSION['pendingTrips'] = $requests;
+$vehicles = $vpmo->getVehicles();
+print_r(sizeof($vehicles));
 //$requestsToAssign = //code to get the requestsToAssign
 //$_SESSION['requestsToAssign'] = $requestsToAssign;
 //$vehicles = //code to get all the vehicles;
@@ -106,11 +108,11 @@ $_SESSION['pendingTrips'] = $requests;
                                                     <?php
                                                     $i = 0;
                                                     foreach ($vehicles as $vehicle) : ?>
-                                                        <tr id="vehicleTable-<?php echo $request->getField('registrationNo') ?>">
-                                                            <th id="vehicle-<?php echo $i ?>"><?php echo $request->getField('registrationNo') ?></td>
-                                                            <td><?php echo $request->getField('model') ?></td>
-                                                            <td><?php echo $request->getField('status') ?></td>
-                                                            <td><?php echo $request->getField('assignedTo') ?></td>
+                                                        <tr id="vehicleTable-<?php echo $vehicle->getField('registrationNo') ?>">
+                                                            <th id="vehicle-<?php echo $i ?>"><?php echo $vehicle->getField('registrationNo') ?></td>
+                                                            <td><?php echo $vehicle->getField('model') ?></td>
+                                                            <td><?php echo $vehicle->getField('status') ?></td>
+                                                            <td><?php echo $vehicle->getField('assignedTo') ?></td>
                                                         </tr>
                                                     <?php $i++;
                                                     endforeach;; ?>

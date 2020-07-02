@@ -13,9 +13,8 @@ class VehicleViewer extends VehicleModel{
         return parent::getRecordByID($registrationNo);
     }
 
-    public function getAllRecords(){
-        $results = parent::getAllRecords();
-        return $results;
+    public function getAllRecords(string $vehicleType){
+        return parent::getAllRecords($vehicleType);
     }
 
 }

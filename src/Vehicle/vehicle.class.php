@@ -1,5 +1,6 @@
 <?php
 namespace Vehicle;
+
 interface Vehicle
 {
     public function getField(string $field);
