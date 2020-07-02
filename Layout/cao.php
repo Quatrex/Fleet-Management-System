@@ -115,6 +115,7 @@ $_SESSION['requestsByMe'] = $requestsByMe;
     include '../partials/popups/cao_popup.php';
     ?>
     <script>
+        const empID = <?php echo json_encode(($_SESSION['empid'])) ?>;
         const pendingRequests = <?php echo json_encode(($_SESSION['requestsByMe'])) ?>;
         const requestsToApprove = <?php echo json_encode(($_SESSION['requestsToApprove'])) ?>;
         sessionStorage.setItem('requestsToApprove', requestsToApprove);
