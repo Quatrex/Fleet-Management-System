@@ -31,7 +31,7 @@ class DatabaseHandler {
     /**
      * Reads records from the database by running a sql query
      */
-    public function read(string $sql,array $columnVals) : array {
+    public function read(string $sql,array $columnVals=null) : array {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($columnVals);
         $results = array();
