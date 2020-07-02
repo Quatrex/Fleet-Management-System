@@ -5,16 +5,14 @@ use Employee\VPMO;
 session_start();
 if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
 require_once '../includes/autoloader.inc.php';
-$status = 1;
-$vpmo = VPMO::getObject($_SESSION['empid']); //, $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
+$vpmo = VPMO::getObject($_SESSION['empid']); 
 $_SESSION['vpmo'] = $vpmo;
 $requests = $vpmo->getMyRequestsByState('pending');
-// echo json_encode($requests);
 $_SESSION['pendingTrips'] = $requests;
-$_SESSION['requestsToAssign'] = "Nothing";
-$_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
-// echo $_SESSION['empid'];
-
+//$requestsToAssign = //code to get the requestsToAssign
+//$_SESSION['requestsToAssign'] = $requestsToAssign;
+//$vehicles = //code to get all the vehicles;
+//$_SESSION['vehicles'] =$vehicles; 
 
 ?>
 <html>
@@ -58,32 +56,12 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr data-pop="1">
-                                                        <th scope="row">1</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>18.10</td>
-                                                    </tr>
-
-                                                    <tr data-pop="2">
-                                                        <th scope="row">2</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>08.10</td>
-                                                    </tr>
-                                                    <tr data-pop="3">
-                                                        <th scope="row">3</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>13.10</td>
-                                                    </tr>
 
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div class="tab-pane fade" id="profile" role="tabpanel">
                                             <input type="button" value="New Request" class="btn btn-primary" id="request-vehicle-button">
-
                                             <h4 class="card-name">Your Pending Requests</h4>
                                             <table class="table table-hover" id="request-table">
                                                 <thead class="thead-dark">
@@ -96,6 +74,18 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <?php
+                                                    $i = 0;
+                                                    foreach ($requests as $request) : ?>
+                                                        <tr id="requestTable-<?php echo $request->getField('requestID') ?>">
+                                                            <th id="request-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
+                                                            <td><?php echo $request->getField('purpose') ?></td>
+                                                            <td>Pending</td>
+                                                            <td><?php echo $request->getField('dateOfTrip') ?></td>
+                                                            <td><?php echo $request->getField('timeOfTrip') ?></td>
+                                                        </tr>
+                                                    <?php $i++;
+                                                    endforeach;; ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -113,25 +103,17 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>18.10</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>08.10</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>13.10</td>
-                                                    </tr>
-
+                                                    <?php
+                                                    $i = 0;
+                                                    foreach ($vehicles as $vehicle) : ?>
+                                                        <tr id="vehicleTable-<?php echo $request->getField('registrationNo') ?>">
+                                                            <th id="vehicle-<?php echo $i ?>"><?php echo $request->getField('registrationNo') ?></td>
+                                                            <td><?php echo $request->getField('model') ?></td>
+                                                            <td><?php echo $request->getField('status') ?></td>
+                                                            <td><?php echo $request->getField('assignedTo') ?></td>
+                                                        </tr>
+                                                    <?php $i++;
+                                                    endforeach;; ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -148,25 +130,18 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>18.10</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>08.10</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Pending</td>
-                                                        <td>2020/04/10</td>
-                                                        <td>13.10</td>
-                                                    </tr>
-
+                                                    <?php
+                                                    $i = 0;
+                                                    foreach ($trips as $trip) : ?>
+                                                        <tr id="ongoingTable-<?php echo $request->getField('requestID') ?>">
+                                                            <th id="trip-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
+                                                            <td><?php echo $request->getField('purpose') ?></td>
+                                                            <td>Scheduled</td>
+                                                            <td><?php echo $request->getField('dateOfTrip') ?></td>
+                                                            <td><?php echo $request->getField('timeOfTrip') ?></td>
+                                                        </tr>
+                                                    <?php $i++;
+                                                    endforeach;; ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -194,6 +169,7 @@ $_SESSION['json'] = json_encode($_SESSION['pendingTrips']);
         const empID = <?php echo json_encode(($_SESSION['empid'])) ?>;
         const pendingRequests = <?php echo json_encode(($_SESSION['pendingTrips'])) ?>;
         const requestsToApprove = <?php echo json_encode(($_SESSION['requestsToAssign'])) ?>;
+        //const vehicles = <?php echo json_encode(($_SESSION['vehicles'])) ?>;
         sessionStorage.setItem('requestsToApprove', requestsToApprove);
         sessionStorage.setItem('requestsByMe', pendingRequests);
     </script>

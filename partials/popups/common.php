@@ -60,7 +60,7 @@
         </div>
         <div class="popup-body">
 
-            <p>Are you sure you want to cancle request</p>
+            <p>Are you sure you want to cancel request</p>
 
             <input type="button" value="No" class="btn btn-primary" id="confirm-alert-no-button">
             <input type="button" value="Yes" class="btn btn-danger" id="confirm-alert-yes-button">
@@ -433,9 +433,4 @@
         <p id="alert-message" style=" font-weight:500;font-size: initial;"></p>
 
     </div>
-</div>
-
-
-<div>
-
 </div>

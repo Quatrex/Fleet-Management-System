@@ -64,7 +64,7 @@ function showAlert(type, message) {
     document.getElementById("alert-ajax").style.display = "none";
   }, 3000);
 }
-insertRow("request-table", [""], "request");
+
 //Insert a row to the table
 function insertRow(tableName, cellData, type) {
   let newRow = document.getElementById(tableName).insertRow(1);
@@ -101,6 +101,14 @@ function changeInnerHTML(arg) {
   for (let key in arg) {
     document.querySelectorAll(key).forEach((tag) => {
       tag.innerHTML = arg[key];
+    });
+  }
+}
+
+function changeValue(arg) {
+  for (let key in arg) {
+    document.querySelectorAll(key).forEach((tag) => {
+      tag.value = arg[key];
     });
   }
 }

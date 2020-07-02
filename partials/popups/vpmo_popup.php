@@ -676,82 +676,98 @@
                 <img src="../images/default-user-image.png" class="form-image">
                 <div id="submit-form-wrapper">
                     <div class="basic-form">
-                        <form>
-                            <div class="form-row">
+                        <form id="UpdateVehicle_form">
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label>Registration Number</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="RegistrationNo" id ="vehicle-regsitartionNo" disabled>
+                                    </div>
+                                </div>
                                 <div class="form-group col-md-6">
                                     <label>Model</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border" type="text" value="Name" disabled>
-                                        <span class="input-group-append">
-                                            <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                                <i class="icon far fa-edit"></i>
-                                            </button>
-                                        </span>
-                                    </div>
-
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Registration Number</label>
-                                    <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border" type="text" value="email@email.com" disabled>
-                                        <span class="input-group-append">
-                                            <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                                <i class="icon far fa-edit"></i>
-                                            </button>
-                                        </span>
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Model" id ="vehicle-model" disabled>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label>Address</label>
-                                <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" type="text" value="Address" disabled>
-                                    <span class="input-group-append">
-                                        <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                            <i class="icon far fa-edit"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Address 2</label>
-                                <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" type="text" value="Name" disabled>
-                                    <span class="input-group-append">
-                                        <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                            <i class="icon far fa-edit"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="form-row">
+                            <div class="form-group row">
                                 <div class="form-group col-md-6">
-                                    <label>Contact Number</label>
+                                    <label>Purchased Year</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border" type="text" value="Contacts Number" disabled>
-                                        <span class="input-group-append">
-                                            <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                                <i class="icon far fa-edit"></i>
-                                            </button>
-                                        </span>
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Purchased Year" id ="vehicle-purchasedYear" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label>Position</label>
+                                    <label>Price</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border" type="text" value="Position" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Price" id ="vehicle-price" disabled>
                                     </div>
                                 </div>
-
                             </div>
-                            <div class="row justify-content-center">
-                                <div class="col-auto">
-                                    <a href="">Change password</a>
+                            <div class="form-group row">
+                                <div class="form-group col-md-6">
+                                    <label>Fuel Type</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Fuel Type" id ="vehicle-fuelType" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Current Location</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Current Location" id ="vehicle-currentLocation" disabled>
+
+                                    </div>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <div class="form-group col-md-6">
+                                    <label>Insurance Company</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Insurance Company" id ="vehicle-insuranceCompany" disabled>
 
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Insurance Value</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Insurance Value" id ="vehicle-insuranceValue" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row leasedVehicleData">
+                                <div class="form-group col-md-6">
+                                    <label>Leased Company</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Leased Company" id ="vehicle-leasedCompany" disabled>
 
-                            <button type="submit" class="btn btn-dark" id="confirm-vehicle-profile">Confirm</button>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Leased Value</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Leased Value" id ="vehicle-leasedValue" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row leasedVehicleData">
+                                <div class="form-group col-md-6">
+                                    <label>Leased From</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Leased From" id ="vehicle-leasedFrom" disabled>
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Leased To</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Leased To" id ="vehicle-leasedTo" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="button" value="Edit" class="btn btn-primary" id="vehicle-profile-edit-button">
+                            <input type="button" class="btn btn-success" value="Confirm" id="confirm-vehicle-profile">
+                            <input type="button" class="btn btn-danger" value="Delete" id="confirm-vehicle-delete">
                         </form>
                     </div>
 
