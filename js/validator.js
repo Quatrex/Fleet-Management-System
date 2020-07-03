@@ -2,9 +2,6 @@ class LogInValidator {
     constructor(username,password,name_error,password_error) {
         this.username = username;
         this.password = password;
-
-        // username.addEventListener('blur', nameVerify, true);
-        // password.addEventListener('blur', passwordVerify, true);
     }
 
 

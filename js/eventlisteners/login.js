@@ -19,7 +19,7 @@ $(document).ready(function () {
         }
         if (!((userValidation != true) || (passwordValidation != true))) {
             $.ajax({
-                url: "authenticate.php",
+                url: "../func/authenticate.php",
                 type: 'POST',
                 data: {
                     username: username.value.trim(),
@@ -43,5 +43,11 @@ $(document).ready(function () {
             });
         }
         return false;
+    });
+    $('#username-input').keyup(function () {
+        $('#name-error').innerHTML='';
+    });
+    $('#password-input').keyup(function () {
+        $('#password-error').innerHTML='';
     });
 });

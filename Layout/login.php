@@ -104,9 +104,9 @@
             </div>
         </div>
     </div>
-    <script src="validator.js"></script>
+    <script src="../js/validator.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="script.js"></script>
+    <script src="../js/eventlisteners/login.js"></script>
 </body>
 
 </html>

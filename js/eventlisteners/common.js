@@ -36,7 +36,7 @@ document.querySelector('#check-my-password-button').addEventListener('click', ()
 document.querySelector('#request-vehicle-button').addEventListener('click', () => {
     document.getElementById('vehicle-request-form').style.display = 'block';
 });
-
+//Change password
 document.querySelector('#change-password-close').addEventListener('click', () => {
     //TODO: are you sure popup not the one below,html needed for popup
     document.getElementById('change-password').style.display = 'none';

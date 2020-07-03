@@ -80,7 +80,7 @@ document
   .addEventListener("click", () => {
     document.getElementById("cancel-request-alert-justify").style.display =
       "none";
-    writeToDatabase('JODeny_form',()=>{deleteRow(lastClickedRow)});
+    writeToDatabase('JODeny_form', () => { deleteRow(lastClickedRow) });
   });
 
 //Decline Cancel Button
@@ -117,7 +117,7 @@ document
   .querySelector("#justify-alert-justify-button")
   .addEventListener("click", () => {
     document.getElementById("justify-request-alert").style.display = "none";
-    writeToDatabase('JOJustify_form',()=>{deleteRow(lastClickedRow)});
+    writeToDatabase('JOJustify_form', () => { deleteRow(lastClickedRow) });
   });
 //Justify Pop Up x Button
 document
