@@ -19,8 +19,12 @@ class EmployeeViewer extends EmployeeModel{
         return parent::getRecordByID($empID);
     }
 
-    public function getRecordByUsername($empID){
-        return parent::getRecordByUsername($empID);
+    public function getRecordByUsername($userName){
+        return parent::getRecordByUsername($userName);
+    }
+
+    public function checkPassword($userName,$password){
+        return parent::checkPassword($userName,$password);
     }
     
 }

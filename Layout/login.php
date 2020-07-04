@@ -1,3 +1,7 @@
+<?php
+require_once '../includes/autoloader.inc.php';
+use Validator\Token;
+?>
 <!DOCTYPE html>
 <html>
 
@@ -58,7 +62,7 @@
                             <div class="col-md" id="username_div">
                                 <label>Username</label>
                                 <input type="text" name="username" class="form-control" id="username-input" placeholder="Username..." required autocomplete="off">
-                                <div id="name-error" style="color:red"></div>
+                                <div id="name-error" class="text-danger"></div>
                             </div>
                         </div>
                     </div>
@@ -68,7 +72,7 @@
                             <div class="col-md" id="password_div">
                                 <label>Password</label>
                                 <input type="password" name="password" class="form-control" id="password-input" placeholder="Enter password..." required autocomplete="off">
-                                <div id="password-error" style="color:red"></div>
+                                <div id="password-error" class="text-danger"></div>
                                 <!--Forgot Password?-->
                                 <div class="float-right">
                                     <a class="d-block small mt-3" href="forgot-password.html">Forgot Password?</a>
@@ -80,7 +84,7 @@
                     <div class="form-group">
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" name="remember-pasword"> Remember
+                                <input class="form-check-input" type="checkbox" name="remember"> Remember
                                 Password</label>
                         </div>
                     </div>
@@ -97,6 +101,7 @@
                         <a class="d-block small mt-3" href="signup.html">Doesn't have an account?</a>
                     </div>
                 </div>
+                <input type="hidden" name="token" value="<?php //echo Token::generate(); ?>">
                 <!--<div class="text-center">
                     <a class="d-block small mt-3" href="signup.html">Doesn't have an account?</a>
                     <a class="d-block small" href="forgot-password.html">Forgot Password?</a>

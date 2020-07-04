@@ -55,36 +55,34 @@ abstract class Model
         } else {
             $wantedColumns = $wantedCols[0];
         }
-        
+
         $preStatement = "SELECT $wantedColumns FROM `" . $this->tableName . "`";
 
-        if($columnNames != [])
-        {
-        $condition = " WHERE ";
-        $count = 0;
+        if ($columnNames != []) {
+            $condition = " WHERE ";
+            $count = 0;
 
-        foreach ($columnNames as $key => $value) {
-            $condition .= "`" . $value . "`" . "=?";
-            if (sizeof($columnNames) > ($count + 1)) {
-                $condition .= " AND ";
+            foreach ($columnNames as $key => $value) {
+                $condition .= "`" . $value . "`" . "=?";
+                if (sizeof($columnNames) > ($count + 1)) {
+                    $condition .= " AND ";
+                }
+                $count += 1;
             }
-            $count += 1;
-        }
-        
-        //"SELECT * FROM `request` WHERE `RequesterID`=? AND `Status`=?"
-        $sql = $preStatement . $condition; //"SELECT * FROM $table WHERE 'RequesterID'=? AND 'Status'=?";
-        //$sql="SELECT * FROM `employee` WHERE `EmpID`=?";
-        } else
-        {
+
+            //"SELECT * FROM `request` WHERE `RequesterID`=? AND `Status`=?"
+            $sql = $preStatement . $condition; //"SELECT * FROM $table WHERE 'RequesterID'=? AND 'Status'=?";
+            //$sql="SELECT * FROM `employee` WHERE `EmpID`=?";
+        } else {
             $sql = $preStatement;
         }
         $result = $this->dbh->read($sql, $columnVals);
 
         if ($result == false) {
             //there is no data for those values
-            echo "Error: No Data for given ID";
-            echo "<br>" . $sql . "<br>";
-            print_r($columnVals);
+            // echo "Error: No Data for given columns";
+            // echo "<br>" . $sql . "<br>";
+            // print_r($columnVals);
             return [];
         } else {
             return $result;
@@ -144,7 +142,7 @@ abstract class Model
         if (sizeof($wantedCols) > 1) {
             foreach ($wantedCols as $table => $cols) {
                 foreach ($cols as $col) {
-                    array_push($wantedArray, $table."." . $col);
+                    array_push($wantedArray, $table . "." . $col);
                 }
             }
             $wantedColumns = join(",", $wantedArray);
@@ -173,7 +171,7 @@ abstract class Model
         }
 
         $sql = $preStatement . $condition . ')';
-        $result = $this->dbh->read($sql,[]);
+        $result = $this->dbh->read($sql, []);
 
         if ($result == false) {
             //there is no data 

@@ -19,12 +19,20 @@ abstract class EmployeeModel extends Model{
     protected function getRecordByUsername($username){
         $columnNames= array('Username');
         $columnVals= array($username);
-        return parent::getRecords($columnNames,$columnVals);
+        $wantedColumns=array('EmpID','FirstName','LastName','Position','Email','Username');
+        return parent::getRecords($columnNames,$columnVals,$wantedColumns);
     }
 
     protected function saveRecord($empID, $firstName, $lastName, $position, $email, $username, $password) {
         $columnNames = array('EmpID','FirstName','LastName','Position','Email','Username','Password');
         $columnVals = array($empID, $firstName, $lastName, $position, $email, $username, $password);
         parent::addRecord($columnNames,$columnVals);
+    }
+
+    protected function checkPassword($username,$password){
+        $columnNames= array('Username');
+        $columnVals= array($username);
+        $wantedColumns=array('Username','Password');
+        return (parent::getRecords($columnNames,$columnVals,$wantedColumns)[0]['Password']==$password)? true:false;
     }
 }

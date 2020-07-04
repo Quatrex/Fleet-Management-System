@@ -8,14 +8,17 @@ $(document).ready(function () {
         name_error = document.getElementById('name-error');
         password_error = document.getElementById('password-error');
         if (userValidation != true) {
-            username.style.boxShadow = "0 0 10px red";
+            document.querySelector('#username-input').className+=' is-invalid';
             name_error.textContent = userValidation;
             username.focus();
         }
+        else{
+            // document.querySelector('#username-input').className+=' is-valid';
+        }
         if (passwordValidation != true) {
-            password.style.boxShadow = "0 0 10px red";
+            document.querySelector('#password-input').className+=' is-invalid';
             password_error.textContent = passwordValidation;
-            password.focus();
+            // password.focus();
         }
         if (!((userValidation != true) || (passwordValidation != true))) {
             $.ajax({
@@ -26,18 +29,20 @@ $(document).ready(function () {
                     password: password.value.trim()
                 },
                 success: function (response) {
-                    console.log(response);
                     if (response.startsWith("../")) {
+                        console.log(response);
                         window.location = response;
                     } else if (response.endsWith("username!")) {
-                        username.style.boxShadow = "0 0 10px red";
+                        document.querySelector('#username-input').className+=' is-invalid';
                         name_error.textContent = response;
+                        document.querySelector('#password-input').className='form-control';
                         username.focus();
                     }
                     else if (response.endsWith("password!")) {
-                        password.style.boxShadow = "0 0 10px red";
+                        document.querySelector('#password-input').className+=' is-invalid';
                         password_error.textContent = response;
-                        password.focus();
+                        document.querySelector('#username-input').className='form-control';
+                        // password.focus();
                     }
                 }
             });
@@ -45,9 +50,17 @@ $(document).ready(function () {
         return false;
     });
     $('#username-input').keyup(function () {
-        $('#name-error').innerHTML='';
+        if (document.forms['vform']['username'].value.trim().length>=3){
+            document.querySelector('#name-error').innerHTML=null;
+            document.querySelector('#username-input').className='form-control is-valid';
+        }
+        else{
+            document.querySelector('#name-error').innerHTML="Username must be at least 3 characters";
+            document.querySelector('#username-input').className='form-control';
+        }
     });
     $('#password-input').keyup(function () {
-        $('#password-error').innerHTML='';
+        document.querySelector('#password-error').innerHTML=null;
+        document.querySelector('#password-input').className='form-control';
     });
 });
