@@ -3,16 +3,13 @@
 namespace Employee;
 
 use Request\Request;
-use DB\Controller\EmployeeController;
 use DB\Viewer\EmployeeViewer;
-use DB\Viewer\RequestViewer;
 use Vehicle\Vehicle;
-use DB\Viewer\VehicleViewer;
-use DB\Viewer\DriverViewer;
 use Request\Factory\Base\RealRequest;
 use Vehicle\Factory\Base\AbstractVehicleFactory;
 use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
 use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
+use Employee\Driver\Factory\DriverFactory;
 
 
 class VPMO extends Requester
@@ -78,14 +75,7 @@ class VPMO extends Requester
      */
     public function getDrivers()
     {
-        $driverViewer = new DriverViewer();
-        $driverIDs = $driverViewer->getAllRecords();
-        $drivers = array();
-        foreach ($driverIDs as $values) {
-            $driver = Driver::getObjectByValues($values);
-            array_push($drivers, $driver);
-        }
-        return $drivers;
+        return DriverFactory::makeDrivers();
     }
 
     /**

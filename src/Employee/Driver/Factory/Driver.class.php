@@ -1,8 +1,10 @@
 <?php
-namespace Employee;
+namespace Employee\Driver\Factory;
 
 use DB\Controller\DriverController;
 use DB\Viewer\DriverViewer;
+use Employee\Employee;
+use Employee\Driver\State\State;
 
 class Driver extends Employee
 {
@@ -13,7 +15,7 @@ class Driver extends Employee
     private string $licenseExpirationDay;
     private string $dateOfAdmission;
     private int $assignedVehicleId;
-    private int $state; //change type to State
+    private State $state;
     
     public function __construct($driverId, $firstName, $lastName, $licenseNumber,$licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicleId, $email, $state)
     {
@@ -24,7 +26,7 @@ class Driver extends Employee
         $this->licenseExpirationDay = $licenseExpirationDay;
         $this->dateOfAdmission = $dateOfAdmission;
         $this->assignedVehicleId = $assignedVehicleId;
-        $this->state=$state; //assign real state object instead
+        $this->state = State::getState($state);
     }
 
     public function getField($field){ 
@@ -53,9 +55,18 @@ class Driver extends Employee
     }
 
     //IObjectHandle
-    public static function constructObject($driverId, $firstName, $lastName, $licenseNumber,$licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicleId, $email){
-        $state=1; //set using enum
-        $obj = new Driver($driverId, $firstName, $lastName, $licenseNumber,$licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicleId, $email, $state);
+    public static function constructObject(array $driverInfo){
+        $state=State::getStateID('available'); //set using enum
+        $obj = new Driver($driverInfo[0],
+                        $driverInfo[1], 
+                        $driverInfo[2], 
+                        $driverInfo[3],
+                        $driverInfo[4], 
+                        $driverInfo[5], 
+                        $driverInfo[6], 
+                        $driverInfo[7],
+                        $driverInfo[8], 
+                        $state);
 
         $obj->saveToDatabase(); //check for failure
 
@@ -75,5 +86,10 @@ class Driver extends Employee
                                     $this->assignedVehicleId,
                                     $this->email,
                                     $this->state); //use $this->state->getID; instead
+    }
+
+    public function setState(State $state) 
+    {
+        $this->state = $state;
     }
 }
