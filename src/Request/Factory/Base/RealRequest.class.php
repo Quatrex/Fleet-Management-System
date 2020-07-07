@@ -23,7 +23,7 @@ class RealRequest implements IObjectHandle, Request
     private string $purpose; 
     private string $justifiedBy; //EmpID
     private string $approvedBy; //EmpID
-    private string $JOComment; 
+    private string $JOComment;
     private string $CAOComment;
 
     //private EmailClient $emailClient;

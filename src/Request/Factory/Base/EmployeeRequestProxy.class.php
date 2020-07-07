@@ -2,7 +2,7 @@
 namespace Request\Factory\Base;
 
 use Vehicle\Vehicle;
-use Employee\Driver;
+use Employee\Driver\Factory\Driver;
 use Request\Request;
 use JsonSerializable;
 

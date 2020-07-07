@@ -129,7 +129,7 @@ abstract class Model
      * A general code to generate SQL statement to get records from multiple tables in the database.
      */
     public function getRecordsFromTwo(
-        string $secondTable,
+        string $secondTable, 
         array $conditionCols,
         array $wantedCols = array('*')
     ): array {
