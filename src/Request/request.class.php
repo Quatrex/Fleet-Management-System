@@ -1,7 +1,7 @@
 <?php
 namespace Request;
 
-use Employee\Driver;
+use Employee\Driver\Factory\Driver;
 use Vehicle\Vehicle;
 
 interface Request {
