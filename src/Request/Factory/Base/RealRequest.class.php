@@ -15,24 +15,27 @@ use Employee\Requester;
 use Vehicle\Vehicle;
 use EmailClient\EmailClient;
 use EmailClient\INotifiableRequest;
+use Employee\Driver\Factory\DriverFactory;
+use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
+use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
 
 class RealRequest implements IObjectHandle, Request, INotifiableRequest
 {
     //ToDO: make attributes private and use get/set methods
     private int $requestID;
-    private string $createdDate; //how to handle 'date' in php? 
+    private ?string $createdDate; //how to handle 'date' in php? 
     private ?State $state;
     private string $dateOfTrip; //how to handle 'date' in php? 
     private string $timeOfTrip; //how to handle 'time' in php? 
     private string $dropLocation;
     private string $pickLocation;
     private array $requester; //EmpID
-    private string $purpose;
+    private ?string $purpose;
     private array $justifiedBy; //EmpID
     private array $approvedBy; //EmpID
     private array $scehduledBy; //EmpID
-    private string $JOComment;
-    private string $CAOComment;
+    private ?string $JOComment;
+    private ?string $CAOComment;
     private array $driver;
     private array $vehicle;
 
@@ -47,19 +50,19 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
         //initialize state
         //TODO: vehicle,drive,scheduledby initialization
         $this->requestID = $requestID;
-        $this->createdDate = ($createdDate != null) ? $createdDate : '';
+        $this->createdDate = $createdDate;
         $this->state = State::getState($state);;
         $this->dateOfTrip = $dateOfTrip;
         $this->timeOfTrip = $timeOfTrip;
         $this->dropLocation = $dropLocation;
         $this->pickLocation = $pickLocation;
         $this->requester = array('ID' => $requesterID, 'object' => null);
-        $this->purpose = ($purpose != null) ? $purpose : '';
+        $this->purpose = $purpose;
         $this->justifiedBy = ($justifiedBy != null) ? array("ID" => $justifiedBy, "object" => null) : array();
         $this->approvedBy = ($approvedBy != null) ? array("ID" => $approvedBy, "object" => null) : array();
         $this->scehduledBy = ($scehduledBy != null) ? array("ID" => $scehduledBy, "object" => null) : array();
-        $this->JOComment = ($JOComment != null) ? $JOComment : '';
-        $this->CAOComment = ($CAOComment != null) ? $CAOComment : '';
+        $this->JOComment = $JOComment;
+        $this->CAOComment = $CAOComment;
         $this->driver = ($driver != null) ? array("ID" => $driver, "object" => null) : array();
         $this->vehicle = ($vehicle != null) ? array("ID" => $vehicle, "object" => null) : array();
     }
@@ -179,6 +182,8 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
         if (property_exists($this, $field)) {
             $objectFields = ['requester', 'justifiedBy', 'approvedBy', 'scehduledBy', 'driver', 'vehicle'];
             if (in_array($field, $objectFields)) {
+                if ($this->$field['object'] === null)
+                    $this->loadObject($field);
                 return $this->$field['object'];
             } else {
                 return $this->$field;
@@ -206,55 +211,85 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
     {
     }
 
+    /**
+     * Loads a specified object
+     * 
+     * @param string $objectName
+     * @param bool $byValue default => false
+     * @param array $values default => [ ]
+     */
     public function loadObject(string $objectName, bool $byValue = false, array $values = array())
     {
         $objectName = strtolower($objectName);
         switch ($objectName) {
             case "requester":
-                if ($byValue) {
-                    $requester = Requester::getObjectByValues($values);
-                    $this->requester["object"] = $requester;
-                } else {
-                    $requester = Requester::getObject($this->requester["ID"]);
-                    $this->requester["object"] = $requester;
-                }
-                break;
+                $this->requester['object'] = $byValue ? Requester::getObjectByValues($values) 
+                                                : Requester::getObject($this->requester["ID"]);
+            break;
+
             case "jo":
-                if ($byValue) {
-                    $JO = JO::getObjectByValues($values);
-                    $this->justifiedBy["object"] = $JO;
-                } else {
-                    $JO = JO::getObject($this->requester["ID"]);
-                    $this->justifiedBy["object"] = $JO;
-                }
-                break;
+                $this->justifiedBy['object'] = $byValue ? JO::getObjectByValues($values)
+                                                : JO::getObject($this->requester["ID"]);
+            break;
+
             case "cao":
-                if ($byValue) {
-                    $CAO = CAO::getObjectByValues($values);
-                    $this->approvedBy["object"] = $CAO;
-                } else {
-                    $CAO = CAO::getObject($this->requester["ID"]);
-                    $this->approvedBy["object"] = $CAO;
-                }
-                break;
+                $this->approvedBy['object'] = $byValue ? CAO::getObjectByValues($values)
+                                                : CAO::getObject($this->requester["ID"]);
+            break;
+
             case "vpmo":
-                if ($byValue) {
-                    $VPMO = VPMO::getObjectByValues($values);
-                    $this->scehduledBy["object"] = $VPMO;
-                } else {
-                    $VPMO = VPMO::getObject($this->requester["ID"]);
-                    $this->scehduledBy["object"] = $VPMO;
-                }
-                break;
-                // case "vehicle": //TODO: implement for vehicle and driver
-                // if ($byValue) {
-                //     $vehicle = VPMO::getObjectByValues($values);
-                //     $this->scehduledBy["object"] = $VPMO;
-                // } else {
-                //     $vehicle = VPMO::getObject($this->requester["ID"]);
-                //     $this->scehduledBy["object"] = $VPMO;
-                // }
-                // break;
+                $this->scehduledBy['object'] = $byValue ? VPMO::getObjectByValues($values)
+                                                : VPMO::getObject($this->requester["ID"]);
+            break;
+
+            case "vehicle":
+                $this->vehicle['object'] = $byValue ? $this->constructVehicleObject($values,true)
+                                                : $this->constructVehicleObject($values,false);
+            break;
+
+            case 'driver':
+                $this->driver['object'] = $byValue ? DriverFactory::makeDriverByValues($values) 
+                                                : DriverFactory::makeDriver($this->driver['ID']);
         }
+    }
+
+    /**
+     * Creates a vehice object by either values or ID
+     * 
+     * @param array $values
+     * @param bool $byValue
+     * 
+     * @return Vehicle
+     */
+    private function constructVehicleObject(array $values, bool $byValue) : Vehicle
+    {
+        if ($byValue)
+        {
+            if ($values['isLeased'])
+            {
+                $leasedVehicleFactory = LeasedVehicleFactory::getInstance();
+                $vehicle = $leasedVehicleFactory->makeVehicleByValues($values);
+            } 
+            else 
+            {
+                $purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
+                $vehicle = $purchasedVehicleFactory->makeVehicleByValues($values);
+            }
+            
+        }
+        else
+        {
+            if ($values['isLeased'])
+            {
+                $leasedVehicleFactory = LeasedVehicleFactory::getInstance();
+                $vehicle = $leasedVehicleFactory->makeVehicle($this->vehicle['ID']);
+            } 
+            else 
+            {
+                $purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
+                $vehicle = $purchasedVehicleFactory->makeVehicle($this->vehicle['ID']);
+            }
+        }
+        return $vehicle;
     }
 }

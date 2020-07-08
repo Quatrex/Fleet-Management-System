@@ -3,7 +3,7 @@ namespace Vehicle\Factory\Base;
 
 use Vehicle\Vehicle;
 
-abstract class AbstractVehicleFactory
+abstract class VehicleFactory
 {
     /**
      * Creates a new vehicle
@@ -27,6 +27,14 @@ abstract class AbstractVehicleFactory
      * @return array(Vehicle)
      */
     abstract public function getVehicles() : array;
+
+    /**
+     * Create a vehicle object for given values
+     * 
+     * @param array $vehicleInfo
+     * @return Vehicle
+     */
+    abstract public function makeVehicleByValues(array $vehicleInfo) : Vehicle;
 
     /**
      * Casts a vehicle object to vehicle interface

@@ -1,11 +1,11 @@
 <?php
 namespace Vehicle\Factory\PurchasedVehicle;
 
-use Vehicle\Factory\Base\AbstractVehicleFactory;
+use Vehicle\Factory\Base\VehicleFactory;
 use Vehicle\Vehicle;
 use DB\Viewer\VehicleViewer;
 
-class PurchasedVehicleFactory extends AbstractVehicleFactory 
+class PurchasedVehicleFactory extends VehicleFactory 
 {
 
     private static ?PurchasedVehicleFactory $instance = null;
@@ -58,4 +58,11 @@ class PurchasedVehicleFactory extends AbstractVehicleFactory
         return $vehicles;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function makeVehicleByValues(array $vehicleInfo) : Vehicle
+    {
+        return $this->castToVehicle(PurchasedVehicle::getObjectByValues($vehicleInfo));
+    }
 }
