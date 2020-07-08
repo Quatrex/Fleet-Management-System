@@ -84,6 +84,8 @@ document.querySelector('#request-preview-edit-button').addEventListener('click',
 document.querySelector('#request-preview-confirm-button').addEventListener('click', () => {
     document.getElementById('new-request-preview-popup').style.display = 'none';
     document.getElementById('request-details-popup').style.display = 'block';
+    writeToDatabase("RequestAdd_form");
+
 });
 
 
