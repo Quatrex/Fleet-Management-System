@@ -12,9 +12,6 @@ $(document).ready(function () {
             name_error.textContent = userValidation;
             username.focus();
         }
-        else{
-            // document.querySelector('#username-input').className+=' is-valid';
-        }
         if (passwordValidation != true) {
             document.querySelector('#password-input').className+=' is-invalid';
             password_error.textContent = passwordValidation;
@@ -42,7 +39,7 @@ $(document).ready(function () {
                         document.querySelector('#password-input').className+=' is-invalid';
                         password_error.textContent = response;
                         document.querySelector('#username-input').className='form-control';
-                        // password.focus();
+                        password.focus();
                     }
                 }
             });
@@ -52,7 +49,6 @@ $(document).ready(function () {
     $('#username-input').keyup(function () {
         if (document.forms['vform']['username'].value.trim().length>=3){
             document.querySelector('#name-error').innerHTML=null;
-            document.querySelector('#username-input').className='form-control is-valid';
         }
         else{
             document.querySelector('#name-error').innerHTML="Username must be at least 3 characters";

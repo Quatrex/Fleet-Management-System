@@ -1,5 +1,6 @@
 <?php
 require_once '../includes/autoloader.inc.php';
+
 use Validator\Token;
 ?>
 <!DOCTYPE html>
@@ -60,8 +61,11 @@ use Validator\Token;
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md" id="username_div">
-                                <label>Username</label>
-                                <input type="text" name="username" class="form-control" id="username-input" placeholder="Username..." required autocomplete="off">
+                                <label for="username" class="sr-only">Username</label>
+                                <div class="input-group input-group-username">
+                                    <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
+                                    <input type="text" name="username" class="form-control" id="username-input" placeholder="Username..." required autocomplete="off">
+                                </div>
                                 <div id="name-error" class="text-danger"></div>
                             </div>
                         </div>
@@ -70,7 +74,7 @@ use Validator\Token;
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md" id="password_div">
-                                <label>Password</label>
+                                <label for="password" class="sr-only">Password</label>
                                 <input type="password" name="password" class="form-control" id="password-input" placeholder="Enter password..." required autocomplete="off">
                                 <div id="password-error" class="text-danger"></div>
                                 <!--Forgot Password?-->
@@ -79,6 +83,11 @@ use Validator\Token;
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <label for="password" class="sr-only">Password</label>
+                    <div class="input-group input-group-password">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                        <input type="password" name="password" id="password" value="" class="form-control" placeholder="Password">
                     </div>
                     <!--Remember password-->
                     <div class="form-group">
@@ -101,7 +110,8 @@ use Validator\Token;
                         <a class="d-block small mt-3" href="signup.html">Doesn't have an account?</a>
                     </div>
                 </div>
-                <input type="hidden" name="token" value="<?php //echo Token::generate(); ?>">
+                <input type="hidden" name="token" value="<?php //echo Token::generate(); 
+                                                            ?>">
                 <!--<div class="text-center">
                     <a class="d-block small mt-3" href="signup.html">Doesn't have an account?</a>
                     <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
@@ -109,7 +119,7 @@ use Validator\Token;
             </div>
         </div>
     </div>
-    <script src="../js/validator.js"></script>
+    <script src="../js/loginValidator.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="../js/eventlisteners/login.js"></script>
 </body>

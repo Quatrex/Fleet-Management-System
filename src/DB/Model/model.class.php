@@ -129,8 +129,9 @@ abstract class Model
      * A general code to generate SQL statement to get records from multiple tables in the database.
      */
     public function getRecordsFromTwo(
-        string $secondTable, 
+        string $secondTable,
         array $conditionCols,
+        array $whereColumnNamesAndValues = [],
         array $wantedCols = array('*')
     ): array {
         // SELECT table1.column_name1 , table2.column_name2
@@ -171,6 +172,21 @@ abstract class Model
         }
 
         $sql = $preStatement . $condition . ')';
+
+        if ($whereColumnNamesAndValues != []) {
+            $condition = " WHERE  (";
+            $count = 0;
+
+            foreach ($whereColumnNamesAndValues as $col => $value) {
+                $condition .= "`" . $this->tableName . $col . "`" . "=" . $value;
+                if (sizeof($whereColumnNamesAndValues) > ($count + 1)) {
+                    $condition .= " AND ";
+                }
+                $count += 1;
+            }
+            $sql = $sql . $condition . ')';
+        }
+
         $result = $this->dbh->read($sql, []);
 
         if ($result == false) {
