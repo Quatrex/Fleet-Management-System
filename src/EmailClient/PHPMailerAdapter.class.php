@@ -42,10 +42,8 @@ class PHPMailerAdapter implements Mailer
     public function send(Email $email) : void
     {
         $recipients = $email->getRecepient();
-        echo sizeof($recipients);
         foreach ($recipients as $recipient)
         {
-            echo $recipient;
             $this->mail->addAddress($recipient);
         }
         $this->mail->Subject = $email->getSubject();

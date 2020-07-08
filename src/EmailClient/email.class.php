@@ -18,7 +18,7 @@ class Email {
      */
     public function addRecepient(string $recipient) : void
     {
-        array_push($this->receipents, $recipient);
+        array_push($this->recipients, $recipient);
     }
 
     /**

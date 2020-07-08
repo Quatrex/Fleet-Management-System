@@ -1,10 +1,13 @@
 <?php
 namespace Request\State;
+
+use EmailClient\EmailClient;
 use Request\Factory\Base\RealRequest;
 
 class Approved extends State {
 
     private static ?Approved $instance = null;
+    private EmailClient $emailClient;
 
     private function __construct() {
         $this->stateID=parent::getStateID('approved');

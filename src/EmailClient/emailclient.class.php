@@ -2,6 +2,7 @@
 namespace EmailClient;
 
 use DB\Viewer\EmployeeViewer;
+use DB\Viewer\RequestViewer;
 
 class EmailClient {
     private static ?EmailClient $instance = null;
@@ -30,10 +31,11 @@ class EmailClient {
      */
     public function notifyRequestSubmission(INotifiableRequest $request) : void
     {
+        //email to the JOs
         $this->initializeEmails('jo');
 
         $email = new Email();
-        $email->setSubject('New Vehicle Request');
+        $email->setSubject('Vehicle Request Awaiting Justification');
         $email->setMessage("New vehicle request is made.");
         $email->addRecepients($this->joEmails);
 
@@ -42,33 +44,85 @@ class EmailClient {
 
     public function notifyJustificationApprove(INotifiableRequest $request) : void
     {
+        //email to the Requester
         $email = new Email();
         $email->setSubject('Vehicle Request Justification');
         $email->setMessage('One of your vehicle request has been justified.');
 
-        $employeeViewer = new EmployeeViewer();
-        // $email->addRecepient($employeeViewer->getEmail('requester'));
+        $requestViewer = new RequestViewer();
+        $email->addRecepient($requestViewer->getEmail($request->getField('requestID'),'requester'));
 
+        $this->mailer->send($email);
+
+        //email to the CAOs
+        $this->initializeEmails('cao');
+
+        $email = new Email();
+        $email->setSubject('Vehicle Request Awaiting Approval');
+        $email->setMessage("New vehicle request has been justified.");
+        $email->addRecepients($this->caoEmails);
+
+        $this->mailer->send($email);
     }
 
     public function notifyJustificationDeny(INotifiableRequest $request) : void
     {
+        //email to the Requester
         $email = new Email();
         $email->setSubject('Vehicle Request Justification');
+        $email->setMessage('Justification for a one of your request has been denied.');
+
+        $requestViewer = new RequestViewer();
+        $email->addRecepient($requestViewer->getEmail($request->getField('requestID'),'requester'));
+
+        $this->mailer->send($email);
 
     }
 
     public function notifyApprovalApprove(INotifiableRequest $request) : void
     {
+        //email to the requester
         $email = new Email();
         $email->setSubject('Vehicle Request Approval');
+        $email->setMessage('One of your vehicle request has been approved.');
 
+        $requestViewer = new RequestViewer();
+        $email->addRecepient($requestViewer->getEmail($request->getField('requestID'),'requester'));
+
+        $this->mailer->send($email);
+
+        //email to the VPMOs
+        $this->initializeEmails('vpmo');
+
+        $email = new Email();
+        $email->setSubject('Vehicle Request Awaiting Scheduling');
+        $email->setMessage("New vehicle request has been approved.");
+        $email->addRecepients($this->vpmoEmails);
+
+        $this->mailer->send($email);
     }
 
     public function notifyApprovalDeny(INotifiableRequest $request) : void
     {
+        //email to the Requester
         $email = new Email();
         $email->setSubject('Vehicle Request Approval');
+        $email->setMessage('Approval for a one of your request has been denied.');
+
+        $requestViewer = new RequestViewer();
+        $email->addRecepient($requestViewer->getEmail($request->getField('requestID'),'requester'));
+
+        $this->mailer->send($email);
+
+        //email to the JO
+        $email = new Email();
+        $email->setSubject('Vehicle Request Approval');
+        $email->setMessage('Approval for a one of your justified request has been denied.');
+
+        $requestViewer = new RequestViewer();
+        $email->addRecepient($requestViewer->getEmail($request->getField('justifiedBY'),'jo'));
+
+        $this->mailer->send($email);
     }
 
     /**

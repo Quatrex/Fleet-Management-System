@@ -2,13 +2,16 @@
 namespace Request\State;
 
 use Request\Factory\Base\RealRequest;
+use EmailClient\EmailClient;
 
 class Pending extends State {
 
     private static ?Pending $instance = null;
+    private EmailClient $emailClient;
 
     private function __construct() {
         $this->stateID=parent::getStateID('pending');
+        $this->emailClient = EmailClient::getInstance();
     }
 
     public static function getInstance() : Pending {
@@ -17,12 +20,16 @@ class Pending extends State {
         else return self::$instance;
     }
 
-    public function justify(RealRequest $request) : void {
+    public function justify(RealRequest $request) : void 
+    {
         $request->setState(Justified::getInstance());
+        $this->emailClient->notifyJustificationApprove($request);
     }
 
-    public function denyJustify(RealRequest $request) : void {
+    public function denyJustify(RealRequest $request) : void 
+    {
         $request->setState(Denied::getInstance());
+        $this->emailClient->notifyJustificationDeny($request);
     }
     
     public function cancel(RealRequest $request) : void {
