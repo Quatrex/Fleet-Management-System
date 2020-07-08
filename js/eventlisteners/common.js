@@ -1,5 +1,5 @@
 //*************Request Table on click */
-document.querySelector("#request-table").onclick = (event) => {
+document.querySelector("#requestTable").onclick = (event) => {
     let tableRow = event.target.parentElement;
     let row_id = (tableRow.children[0].id).split("-");
     let entity = requestsByMe[row_id[1]]

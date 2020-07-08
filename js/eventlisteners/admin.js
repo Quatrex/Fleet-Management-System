@@ -1,17 +1,17 @@
 
     //**********************Request Table ***************/
-    document.querySelector("#request-table").onclick = (event) => {
+    document.querySelector("#requestTable").onclick = (event) => {
         let tableRow = event.target.parentElement;
         document.getElementById('request-details-popup').style.display = 'block';
     };
 
-    document.querySelector("#all-driver-table").onclick = (event) => {
+    document.querySelector("#allDriverTable").onclick = (event) => {
         let tableRow = event.target.parentElement;
         console.log("here");
 
         document.getElementById('driver-profile-form').style.display = 'block';
     };
-    document.querySelector("#employee-table").onclick = (event) => {
+    document.querySelector("#employeeTable").onclick = (event) => {
         let tableRow = event.target.parentElement;
         document.getElementById('employee-profile-form').style.display = 'block';
     };
@@ -37,7 +37,7 @@
 
 
     //**********************Ongoing Table ***************/
-    document.querySelector("#ongoing-table").onclick = (event) => {
+    document.querySelector("#ongoingTable").onclick = (event) => {
         let tableRow = event.target.parentElement;
         document.getElementById('ongoing-details-popup').style.display = 'block';
 

@@ -28,7 +28,7 @@ function writeToDatabase(event, callback = () => {}) {
   if (type === "form") {
     data += $(`#${trigger}_form`).serialize();
   } else {
-    data += `${event.split("_")[2]}=${lastClickedRow.split("-")[1]}`;
+    data += `${event.split("_")[2]}=${lastClickedRow.split("_")[1]}`;
   }
   console.log(data);
   $.ajax({

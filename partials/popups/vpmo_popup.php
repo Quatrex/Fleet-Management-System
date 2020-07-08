@@ -677,17 +677,18 @@
                 <div id="submit-form-wrapper">
                     <div class="basic-form">
                         <form id="UpdateVehicle_form">
-                            <div class="form-group row">
+                            <input class="form-control py-2 border-right-0 border" type="hidden" name="registrationNo" id="vehicle-registrationNoCopy">
+`                           <div class="form-group row">
                                 <div class="col-md-6">
                                     <label>Registration Number</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="RegistrationNo" id ="vehicle-regsitartionNo" disabled>
+                                        <input class="form-control py-2 border-right-0 border" type="text" name="registrationNoDisplay" id="vehicle-registrationNo" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Model</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Model" id ="vehicle-model" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="model" id="vehicle-model" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -695,13 +696,13 @@
                                 <div class="form-group col-md-6">
                                     <label>Purchased Year</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Purchased Year" id ="vehicle-purchasedYear" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="purchasedYear" id="vehicle-purchasedYear" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Price</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Price" id ="vehicle-price" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="value" id="vehicle-price" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -709,13 +710,13 @@
                                 <div class="form-group col-md-6">
                                     <label>Fuel Type</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Fuel Type" id ="vehicle-fuelType" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="fuelType" id="vehicle-fuelType" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Current Location</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Current Location" id ="vehicle-currentLocation" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="currentLocation" id="vehicle-currentLocation" disabled>
 
                                     </div>
                                 </div>
@@ -724,14 +725,14 @@
                                 <div class="form-group col-md-6">
                                     <label>Insurance Company</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Insurance Company" id ="vehicle-insuranceCompany" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="insuranceCompany" id="vehicle-insuranceCompany" disabled>
 
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Insurance Value</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Insurance Value" id ="vehicle-insuranceValue" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="insuranceValue" id="vehicle-insuranceValue" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -739,14 +740,14 @@
                                 <div class="form-group col-md-6">
                                     <label>Leased Company</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Leased Company" id ="vehicle-leasedCompany" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="leasedCompany" id="vehicle-leasedCompany" disabled>
 
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Leased Value</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Leased Value" id ="vehicle-leasedValue" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="monthlyPayment" id="vehicle-leasedValue" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -754,14 +755,14 @@
                                 <div class="form-group col-md-6">
                                     <label>Leased From</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Leased From" id ="vehicle-leasedFrom" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="leasedPeriodFrom" id="vehicle-leasedFrom" disabled>
 
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Leased To</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" value="Leased To" id ="vehicle-leasedTo" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="leasedPeriodTo" id="vehicle-leasedTo" disabled>
                                     </div>
                                 </div>
                             </div>

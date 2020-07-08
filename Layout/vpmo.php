@@ -5,7 +5,7 @@ use Employee\VPMO;
 session_start();
 if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
 require_once '../includes/autoloader.inc.php';
-$vpmo = VPMO::getObject($_SESSION['empid']); 
+$vpmo = VPMO::getObject($_SESSION['empid']);
 $_SESSION['vpmo'] = $vpmo;
 $requests = $vpmo->getMyRequestsByState('pending');
 $_SESSION['pendingTrips'] = $requests;
@@ -13,7 +13,7 @@ $vehicles = $vpmo->getVehicles();
 //$requestsToAssign = //code to get the requestsToAssign
 //$_SESSION['requestsToAssign'] = $requestsToAssign;
 //$vehicles = //code to get all the vehicles;
-//$_SESSION['vehicles'] =$vehicles; 
+$_SESSION['vehicles'] = $vehicles;
 
 ?>
 <html>
@@ -47,7 +47,7 @@ $vehicles = $vpmo->getVehicles();
                                     <div class="tab-content">
                                         <div class="tab-pane fade active show" id="home" role="tabpanel">
                                             <h4 class="card-name">Assign a Vehicle</h4>
-                                            <table class="table table-hover" id="approve-request-table">
+                                            <table class="table table-hover" id="approveRequestTable">
                                                 <thead class="thead-dark">
                                                     <tr data-toggle="popup" id="header-table" data-id="my-profile" data-target="#my-profile">
                                                         <th scope="col">#</th>
@@ -64,7 +64,7 @@ $vehicles = $vpmo->getVehicles();
                                         <div class="tab-pane fade" id="profile" role="tabpanel">
                                             <input type="button" value="New Request" class="btn btn-primary" id="request-vehicle-button">
                                             <h4 class="card-name">Your Pending Requests</h4>
-                                            <table class="table table-hover" id="request-table">
+                                            <table class="table table-hover" id="requestTable">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th scope="col">#</th>
@@ -78,7 +78,7 @@ $vehicles = $vpmo->getVehicles();
                                                     <?php
                                                     $i = 0;
                                                     foreach ($requests as $request) : ?>
-                                                        <tr id="requestTable-<?php echo $request->getField('requestID') ?>">
+                                                        <tr id="requestTable_<?php echo $request->getField('requestID') ?>">
                                                             <th id="request-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
                                                             <td><?php echo $request->getField('purpose') ?></td>
                                                             <td>Pending</td>
@@ -94,7 +94,7 @@ $vehicles = $vpmo->getVehicles();
                                         <div class="tab-pane fade" id="vehicleManagement" role="tabpanel">
                                             <input type="button" value="Add Vehicle" class="btn btn-primary" id="add-vehicle-button">
                                             <h4 class="card-name">Vehicles</h4>
-                                            <table class="table table-hover" id="all-vehicle-table">
+                                            <table class="table table-hover" id="VehicleTable">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th scope="col">#</th>
@@ -107,11 +107,11 @@ $vehicles = $vpmo->getVehicles();
                                                     <?php
                                                     $i = 0;
                                                     foreach ($vehicles as $vehicle) : ?>
-                                                        <tr id="vehicleTable-<?php echo $vehicle->getField('registrationNo') ?>">
+                                                        <tr id="vehicleTable_<?php echo $vehicle->getField('registrationNo') ?>">
                                                             <th id="vehicle-<?php echo $i ?>"><?php echo $vehicle->getField('registrationNo') ?></td>
                                                             <td><?php echo $vehicle->getField('model') ?></td>
-                                                            <td><?php echo $vehicle->getField('status') ?></td>
-                                                            <td><?php echo $vehicle->getField('assignedTo') ?></td>
+                                                            <td><?php echo $vehicle->getField('purchasedYear') ?></td>
+                                                            <td>Nothing</td>
                                                         </tr>
                                                     <?php $i++;
                                                     endforeach;; ?>
@@ -121,7 +121,7 @@ $vehicles = $vpmo->getVehicles();
 
                                         <div class="tab-pane fade" id="tripEnd" role="tabpanel">
                                             <h4 class="card-name">Ongoing Trips</h4>
-                                            <table class="table table-hover" id="ongoing-table">
+                                            <table class="table table-hover" id="ongoingTable">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th scope="col">#</th>
@@ -134,7 +134,7 @@ $vehicles = $vpmo->getVehicles();
                                                     <?php
                                                     $i = 0;
                                                     foreach ($trips as $trip) : ?>
-                                                        <tr id="ongoingTable-<?php echo $request->getField('requestID') ?>">
+                                                        <tr id="ongoingTable_<?php echo $request->getField('requestID') ?>">
                                                             <th id="trip-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
                                                             <td><?php echo $request->getField('purpose') ?></td>
                                                             <td>Scheduled</td>
@@ -169,9 +169,10 @@ $vehicles = $vpmo->getVehicles();
     <script>
         const empID = <?php echo json_encode(($_SESSION['empid'])) ?>;
         const pendingRequests = <?php echo json_encode(($_SESSION['pendingTrips'])) ?>;
-        const requestsToApprove = <?php echo json_encode(($_SESSION['requestsToAssign'])) ?>;
-        //const vehicles = <?php echo json_encode(($_SESSION['vehicles'])) ?>;
-        sessionStorage.setItem('requestsToApprove', requestsToApprove);
+        const vehicles = <?php echo json_encode(($_SESSION['vehicles'])) ?>;
+        console.log(vehicles);
+
+        //sessionStorage.setItem('requestsToApprove', requestsToApprove);
         sessionStorage.setItem('requestsByMe', pendingRequests);
     </script>
     <script src="../js/functions.js"></script>

@@ -52,7 +52,12 @@ switch ($method) {
 
 	case 'UpdateVehicle':
 		$vpmo = VPMO::getObject($_POST['empID']);
-		//$vpmo->updateVehicle($POST['registrationNo'], $POST['model'], $POST['purchasedYear'], $POST['value'], $POST['fuelresult'], $POST['insuranceValue'], $POST['insuranceCompany'], $POST['inRepair'], $POST['currentLocation']);
+		if($_POST['leasedCompany']!==""){
+			$vpmo->updateLeasedVehicleInfo($_POST['registrationNo'], $_POST['model'], $_POST['purchasedYear'], $_POST['value'], $_POST['fuelType'], $_POST['insuranceValue'], $_POST['insuranceCompany'], $_POST['leasedCompany'], $_POST['leasedPeriodFrom'], $_POST['leasedPeriodTo'], $_POST['monthlyPayment']);
+		}
+		else{
+			$vpmo->updatePurchasedVehicleInfo($_POST['registrationNo'], $_POST['model'], $_POST['purchasedYear'], $_POST['value'], $_POST['fuelType'], $_POST['insuranceValue'], $_POST['insuranceCompany']);
+		}
 		echo json_encode("success_Vehicle ".$_POST['registrationNo']." successfully updated");
 		break;
 	case 'CancelRequest':

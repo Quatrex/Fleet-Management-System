@@ -39,7 +39,7 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                     <div class="tab-content">
                                         <div class="tab-pane fade active show" id="home" role="tabpanel">
                                             <h4>Requests To Justify</h4>
-                                            <table class="table table-hover" id="justify-request-table">
+                                            <table class="table table-hover" id="justifyRequesTable">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th class="request-id" scope="col"></th>
@@ -53,7 +53,7 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                                     <?php
                                                     $i = 0;
                                                     foreach ($requestsToJustify as $request) : ?>
-                                                        <tr id="justify-request-table-<?php echo $request->getField('requestID') ?>">
+                                                        <tr id="justifyRequestTable_<?php echo $request->getField('requestID') ?>">
                                                             <th id="requestraw-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
                                                             <td><?php echo $request->getField('purpose') ?></td>
                                                             <td>Pending</td>
@@ -69,7 +69,7 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                         </div>
                                         <div class="tab-pane fade" id="denied">
                                             <h4>Requests Denied By CAO</h4>
-                                            <table class="table table-hover" id="denied-table">
+                                            <table class="table table-hover" id="deniedTable">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th class="request-id" scope="col"></th>
@@ -87,7 +87,7 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                         <div class="tab-pane fade" id="profile" role="tabpanel">
                                             <input type="button" value="New Request" class="btn btn-primary" id="request-vehicle-button">
                                             <h4>Your Pending Requests</h4>
-                                            <table class="table table-hover" id="request-table">
+                                            <table class="table table-hover" id="requestTable">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th class="request-id" scope="col"></th>
@@ -101,7 +101,7 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                                     <?php
                                                     $i = 0;
                                                     foreach ($requestsByMe as $request) : ?>
-                                                        <tr id="requestTable-<?php echo $request->getField('requestID') ?>">
+                                                        <tr id="requestTable_<?php echo $request->getField('requestID') ?>">
                                                             <th id="request-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
                                                             <td><?php echo $request->getField('purpose') ?></td>
                                                             <td>Pending</td>

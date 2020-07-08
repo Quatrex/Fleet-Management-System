@@ -19,7 +19,7 @@ abstract class AbstractVehicleFactory
      * @param int $vehicleID
      * @return Vehicle
      */
-    abstract public function makeVehicle(int $vehicleID) : Vehicle;
+    abstract public function makeVehicle(string $vehicleID) : Vehicle;
 
     /**
      * Get all the vehicles

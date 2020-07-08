@@ -1,4 +1,4 @@
-document.querySelector("#approve-request-table").onclick = (event) => {
+document.querySelector("#approveRequestTable").onclick = (event) => {
     let tableRow = event.target.parentElement;
     let row_id = (tableRow.children[0].id).split("-");
     let entity = requestsToApprove[row_id[1]]

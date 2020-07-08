@@ -1,5 +1,5 @@
 
-document.querySelector("#justify-request-table").onclick = (event) => {
+document.querySelector("#justifyRequestTable").onclick = (event) => {
   let tableRow = event.target.parentElement;
   let row_id = tableRow.children[0].id.split("-");
   let entity = requestsToJustify[row_id[1]];
@@ -21,7 +21,7 @@ document.querySelector("#justify-request-table").onclick = (event) => {
 };
 
 //************Denied Table ******************/
-document.querySelector("#denied-table").onclick = (event) => {
+document.querySelector("#deniedTable").onclick = (event) => {
   let tableRow = event.target.parentElement;
   let row_id = tableRow.children[0].id.split("-");
   request_ID = row_id;

@@ -30,7 +30,7 @@
                                         <div class="tab-pane fade" id="requests" role="tabpanel">
                                             <input type="button" value="New Request" class="btn btn-primary" id="request-vehicle-button">
                                             <h4>Your Pending Requests</h4>
-                                            <table class="table table-hover" id="request-table">
+                                            <table class="table table-hover" id="requestTable">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th scope="col">#</th>
@@ -65,7 +65,7 @@
                                         <div class="tab-pane fade" id="employees" role="tabpanel">
                                             <input type="button" value="Add Employee" class="btn btn-primary" id="add-employee-button">
                                             <h4>Employees</h4>
-                                            <table id="employee-table" class="table table-hover table-bordered" style="width:100%">
+                                            <table id="employeeTable" class="table table-hover table-bordered" style="width:100%">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th>Name</th>
@@ -232,7 +232,7 @@
                                         <div class="tab-pane fade" id="drivers" role="tabpanel">
                                             <input type="button" value="Add Driver" class="btn btn-primary" id="add-driver-button">
                                             <h4>Drivers</h4>
-                                            <table id="all-driver-table" class="table table-hover table-bordered" style="width:100%">
+                                            <table id="allDriverTable" class="table table-hover table-bordered" style="width:100%">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th>Name</th>
@@ -397,7 +397,7 @@
                                         </div>
                                         <div class="tab-pane fade" id="trip" role="tabpanel">
                                             <h4>Ongoing Trips</h4>
-                                            <table class="table table-hover" id="ongoing-table">
+                                            <table class="table table-hover" id="ongoingTable">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th scope="col">#</th>

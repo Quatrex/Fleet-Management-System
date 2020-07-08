@@ -29,7 +29,7 @@ class LeasedVehicleFactory extends AbstractVehicleFactory
     /**
      * @inheritDoc
      */
-    public function makeVehicle(int $vehicleID) : Vehicle
+    public function makeVehicle(string $vehicleID) : Vehicle
     {
         return $this->castToVehicle(LeasedVehicle::getObject($vehicleID));
     }

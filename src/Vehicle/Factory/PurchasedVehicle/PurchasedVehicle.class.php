@@ -3,10 +3,11 @@ namespace Vehicle\Factory\PurchasedVehicle;
 
 use db\Controller\VehicleController;
 use db\Viewer\VehicleViewer;
+use JsonSerializable;
 use Vehicle\Factory\Base\AbstractVehicle;
 use Vehicle\State\State;
 
-class PurchasedVehicle extends AbstractVehicle
+class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
 {
     public function __construct($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $state, $currentLocation)
     {
@@ -20,6 +21,20 @@ class PurchasedVehicle extends AbstractVehicle
         return null;
     }
 
+    public function jsonSerialize()
+    {
+        return ['registration'=>$this->getField('registrationNo'),
+                'model'=> $this->getField('model'),
+                'purchasedYear'=> $this->getField('purchasedYear'),
+                'value'=>$this->getField('value'),
+                'fuelType'=> $this->getField('fuelType'),
+                'insuranceValue'=>$this->getField('insuranceValue'),
+                'insuranceCompany'=>$this->getField('insuranceCompany'),
+                'state'=>$this->getField('state'),
+                'currentLocation'=>$this->getField('currentLocation')
+            
+            ];
+    }
     //IObjectHandle
     public static function getObject($registrationNo)
     {
@@ -66,10 +81,10 @@ class PurchasedVehicle extends AbstractVehicle
         $vehicleController = new VehicleController();
         $vehicleController->updatePurchasedVehicleInfo($this->registrationNo, 
                                                         $vehicleInfo[0], 
-                                                        $vehicleInfo[0], 
-                                                        $vehicleInfo[0], 
-                                                        $vehicleInfo[0], 
-                                                        $vehicleInfo[0], 
-                                                        $vehicleInfo[0]);
+                                                        $vehicleInfo[1], 
+                                                        $vehicleInfo[2], 
+                                                        $vehicleInfo[3], 
+                                                        $vehicleInfo[4], 
+                                                        $vehicleInfo[5]);
     }
 }
