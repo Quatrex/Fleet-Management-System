@@ -2,7 +2,6 @@
 namespace EmailClient;
 
 use DB\Viewer\EmployeeViewer;
-use DB\Viewer\RequestViewer;
 
 class EmailClient {
     private static ?EmailClient $instance = null;
@@ -25,7 +24,7 @@ class EmailClient {
     }
 
     /**
-     * Notify JOs about the new request
+     * Generate email to JOs about the request submission
      * 
      * @param INotifiableRequest $request
      */
@@ -36,21 +35,45 @@ class EmailClient {
 
         $email = new Email();
         $email->setSubject('Vehicle Request Awaiting Justification');
-        $email->setMessage("New vehicle request is made.");
+
+        $dateTime = $request->getField('dateOfTrip') . ' ' . $request->getField('timeOfTrip');
+        $requesterName = $request->getField('requester')->getField('firstName') . ' '. 
+                         $request->getField('requester')->getField('lastName');
+        $purpose = $request->getField('purpose');
+
+        $email->setMessage(
+            "<p> New vehicle request is made by $requesterName.
+            This request must be justified before $dateTime. </p>
+            <p> Purpose of the request : \"$purpose\"");
         $email->addRecepients($this->joEmails);
 
         $this->mailer->send($email);
     }
 
+    /**
+     * Generate email to requester and CAOs about the justification approve
+     * 
+     * @param INotifiableRequest $request
+     */
     public function notifyJustificationApprove(INotifiableRequest $request) : void
     {
         //email to the Requester
         $email = new Email();
         $email->setSubject('Vehicle Request Justification');
-        $email->setMessage('One of your vehicle request has been justified.');
 
-        $requestViewer = new RequestViewer();
-        $email->addRecepient($requestViewer->getEmail($request->getField('requestID'),'requester'));
+        $dateTime = $request->getField('dateOfTrip') . ' ' . $request->getField('timeOfTrip');
+        $pickLocation = $request->getField('pickLocation');
+        $dropLocation = $request->getField('dropLocation');
+        $purpose = $request->getField('purpose');
+        $message = "<p> Justification is <b>approved</b> for the vehicle request you made for $dateTime from $pickLocation to $dropLocation.</p>
+                    <p> Purpose of the request : \"$purpose\" </p>";
+
+        $JOComment = $request->getField('JOComment');
+        if ($JOComment !== '')
+            $message .= "<p>Justifying Officer comments, \"$JOComment\"";
+        $email->setMessage($message);
+
+        $email->addRecepient($request->getField('requester')->getField('email'));
 
         $this->mailer->send($email);
 
@@ -59,35 +82,76 @@ class EmailClient {
 
         $email = new Email();
         $email->setSubject('Vehicle Request Awaiting Approval');
-        $email->setMessage("New vehicle request has been justified.");
+
+        $requesterName = $request->getField('requester')->getField('firstName') . ' '. 
+                         $request->getField('requester')->getField('lastName');
+
+        $message = "<p> Justification is approved for a request made by $requesterName.
+                    This request must be approved before $dateTime. </p>
+                    <p> Purpose of the request : \"$purpose\" </p>";
+
+        if (strlen($JOComment) > 0)
+            $message .= "<p>Justifying Officer comments, \"$JOComment\"";
+
+        $email->setMessage($message);
         $email->addRecepients($this->caoEmails);
 
         $this->mailer->send($email);
     }
 
+    /**
+     * Generate email to requester about the justification deny
+     * 
+     * @param INotifiableRequest $request
+     */
     public function notifyJustificationDeny(INotifiableRequest $request) : void
     {
         //email to the Requester
         $email = new Email();
         $email->setSubject('Vehicle Request Justification');
-        $email->setMessage('Justification for a one of your request has been denied.');
 
-        $requestViewer = new RequestViewer();
-        $email->addRecepient($requestViewer->getEmail($request->getField('requestID'),'requester'));
+        $dateTime = $request->getField('dateOfTrip') . ' ' . $request->getField('timeOfTrip');
+        $pickLocation = $request->getField('pickLocation');
+        $dropLocation = $request->getField('dropLocation');
+        $purpose = $request->getField('purpose');
+        $message = "<p> Justification is <b>denied</b> for the vehicle request you made for $dateTime from $pickLocation to $dropLocation.</p>
+                    <p> Purpose of the request : \"$purpose\" </p>";
+
+        $JOComment = $request->getField('JOComment');
+        if (strlen($JOComment) > 0)
+            $message .= "<p>Justifying Officer comments, \"$JOComment\"";
+        $email->setMessage($message);
+
+        $email->addRecepient($request->getField('requester')->getField('email'));
 
         $this->mailer->send($email);
 
     }
 
+    /**
+     * Generate email to requester and VPMOs about the approval approve
+     * 
+     * @param INotifiableRequest $request
+     */
     public function notifyApprovalApprove(INotifiableRequest $request) : void
     {
         //email to the requester
         $email = new Email();
         $email->setSubject('Vehicle Request Approval');
-        $email->setMessage('One of your vehicle request has been approved.');
+          
+        $dateTime = $request->getField('dateOfTrip') . ' ' . $request->getField('timeOfTrip');
+        $pickLocation = $request->getField('pickLocation');
+        $dropLocation = $request->getField('dropLocation');
+        $purpose = $request->getField('purpose');
+        $message = "<p> Chief Administrative Officer has <b>approved</b> your vehicle request made for $dateTime from $pickLocation to $dropLocation.</p>
+                    <p> Purpose of the request : \"$purpose\" </p>";
 
-        $requestViewer = new RequestViewer();
-        $email->addRecepient($requestViewer->getEmail($request->getField('requestID'),'requester'));
+        $CAOComment = $request->getField('CAOComment');
+        if (strlen($CAOComment) > 0)
+            $message .= "<p>Chief Administrative Officer comments, \"$CAOComment\"";
+        $email->setMessage($message);
+
+        $email->addRecepient($request->getField('requester')->getField('email'));
 
         $this->mailer->send($email);
 
@@ -96,31 +160,67 @@ class EmailClient {
 
         $email = new Email();
         $email->setSubject('Vehicle Request Awaiting Scheduling');
-        $email->setMessage("New vehicle request has been approved.");
+        $requesterName = $request->getField('requester')->getField('firstName') . ' '. 
+                         $request->getField('requester')->getField('lastName');
+
+        $message = "<p> Chief Administrative Officer has approved a request made by $requesterName.
+                    This request must be scheduled before $dateTime. </p>
+                    <p> Purpose of the request : \"$purpose\" </p>";
+
+        $JOComment = $request->getField('JOComment');
+        if (strlen($JOComment) > 0)
+            $message .= "<p>Justifying Officer comments, \"$JOComment\"";
+
+        $CAOComment = $request->getField('CAOComment');
+        if (strlen($CAOComment) > 0)
+            $message .= "<p>Chief Administrative Officer comments, \"$CAOComment\"";
+
+        $email->setMessage($message);
+
         $email->addRecepients($this->vpmoEmails);
 
         $this->mailer->send($email);
     }
 
+    /**
+     * Generate email to requester and JO about the approval deny
+     * 
+     * @param INotifiableRequest $request
+     */
     public function notifyApprovalDeny(INotifiableRequest $request) : void
     {
         //email to the Requester
         $email = new Email();
         $email->setSubject('Vehicle Request Approval');
-        $email->setMessage('Approval for a one of your request has been denied.');
 
-        $requestViewer = new RequestViewer();
-        $email->addRecepient($requestViewer->getEmail($request->getField('requestID'),'requester'));
+        $dateTime = $request->getField('dateOfTrip') . ' ' . $request->getField('timeOfTrip');
+        $pickLocation = $request->getField('pickLocation');
+        $dropLocation = $request->getField('dropLocation');
+        $purpose = $request->getField('purpose');
+        $message = "<p> Chief Administrative Officer has <b>disapproved</b> your vehicle request made for $dateTime from $pickLocation to $dropLocation.</p>
+                    <p> Purpose of the request : \"$purpose\" </p>";
+
+        $CAOComment = $request->getField('CAOComment');
+        if (strlen($CAOComment) > 0)
+            $message .= "<p>Chief Administrative Officer comments, \"$CAOComment\"";
+        $email->setMessage($message);
+
+        $email->addRecepient($request->getField('requester')->getField('email'));
 
         $this->mailer->send($email);
 
         //email to the JO
         $email = new Email();
         $email->setSubject('Vehicle Request Approval');
-        $email->setMessage('Approval for a one of your justified request has been denied.');
+        $message = "<p> Chief Administrative Officer has <b>disapproved</b> a vehicle you justified for $dateTime from $pickLocation to $dropLocation. </p>
+                    <p> Purpose of the request : \"$purpose\" </p>";
 
-        $requestViewer = new RequestViewer();
-        $email->addRecepient($requestViewer->getEmail($request->getField('justifiedBY'),'jo'));
+        $CAOComment = $request->getField('CAOComment');
+        if (strlen($CAOComment) > 0)
+            $message .= "<p>Chief Administrative Officer comments, \"$CAOComment\"";
+        $email->setMessage($message);
+
+        $email->addRecepient($request->getField('justifiedBy')->getField('email'));
 
         $this->mailer->send($email);
     }
