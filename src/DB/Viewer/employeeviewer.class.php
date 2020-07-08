@@ -26,5 +26,9 @@ class EmployeeViewer extends EmployeeModel{
     public function checkPassword($userName,$password){
         return parent::checkPassword($userName,$password);
     }
-    
+
+    public function getEmails(string $position)
+    {
+        return parent::getEmails($position);
+    }
 }
