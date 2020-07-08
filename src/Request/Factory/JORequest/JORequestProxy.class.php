@@ -34,4 +34,9 @@ class JORequestProxy extends RequesterRequestProxy
     {
         $this->realRequest->setJustify($justification,$empID,$comment);
     }
+
+    public function loadObject(string $objectName, bool $byValue = false, array $values = array())
+    {
+        $this->realRequest->loadObject($objectName, $byValue, $values);
+    }
 }

@@ -34,4 +34,9 @@ class CAORequestProxy extends RequesterRequestProxy
     {
         $this->realRequest->setApprove($approval,$empID,$comment);
     }
+
+    public function loadObject(string $objectName, bool $byValue = false, array $values = array())
+    {
+        $this->realRequest->loadObject($objectName, $byValue, $values);
+    }
 }

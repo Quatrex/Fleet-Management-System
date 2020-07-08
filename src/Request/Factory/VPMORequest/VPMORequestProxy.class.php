@@ -49,4 +49,9 @@ class VPMORequestProxy extends RequesterRequestProxy
         else
             echo "Access Denied";
     }
+
+    public function loadObject(string $objectName, bool $byValue = false, array $values = array())
+    {
+        $this->realRequest->loadObject($objectName, $byValue, $values);
+    }
 }

@@ -24,6 +24,7 @@ class VPMORequestFactory
 
         foreach($requestRecords as $values){
             $request = VPMORequestProxy::getRequestByValues($values);
+            $request->loadObject('requester',true,$values);
             array_push($requests,VPMORequestFactory::castToRequest($request));
         }
 

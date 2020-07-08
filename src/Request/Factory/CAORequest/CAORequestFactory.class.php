@@ -24,6 +24,7 @@ class CAORequestFactory
 
         foreach($requestIDs as $values){
             $request= CAORequestProxy::getRequestByValues($values);
+            $request->loadObject('requester',true,$values);
             array_push($requests,CAORequestFactory::castToRequest($request));
         }
 

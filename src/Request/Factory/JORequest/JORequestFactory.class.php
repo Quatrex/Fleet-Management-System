@@ -3,6 +3,7 @@ namespace Request\Factory\JORequest;
 
 use Request\State\State;
 use DB\Viewer\RequestViewer;
+use Employee\Requester;
 use Request\Factory\JORequest\JORequestProxy;
 use Request\Request;
 
@@ -45,6 +46,7 @@ class JORequestFactory
 
         foreach($requestIDs as $values){
             $request= JORequestProxy::getRequestByValues($values);
+            $request->loadObject('requester',true,$values);
             array_push($requests,JORequestFactory::castToRequest($request));
         }
 

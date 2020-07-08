@@ -1,4 +1,5 @@
 <?php
+
 namespace Request\Factory\Base;
 
 use DB\Viewer\RequestViewer;
@@ -7,171 +8,251 @@ use DB\IObjectHandle;
 use Request\State\State;
 use Request\Request;
 use Employee\Driver\Factory\Driver;
+use Employee\JO;
+use Employee\CAO;
+use employee\VPMO;
+use Employee\Requester;
 use Vehicle\Vehicle;
+use EmailClient\EmailClient;
+use EmailClient\INotifiableRequest;
 
-class RealRequest implements IObjectHandle, Request
+class RealRequest implements IObjectHandle, Request, INotifiableRequest
 {
     //ToDO: make attributes private and use get/set methods
-    private int $requestID; 
+    private int $requestID;
     private string $createdDate; //how to handle 'date' in php? 
     private ?State $state;
     private string $dateOfTrip; //how to handle 'date' in php? 
     private string $timeOfTrip; //how to handle 'time' in php? 
     private string $dropLocation;
     private string $pickLocation;
-    private string $requesterID; //EmpID
-    private string $purpose; 
-    private string $justifiedBy; //EmpID
-    private string $approvedBy; //EmpID
+    private array $requester; //EmpID
+    private string $purpose;
+    private array $justifiedBy; //EmpID
+    private array $approvedBy; //EmpID
+    private array $scehduledBy; //EmpID
     private string $JOComment;
     private string $CAOComment;
+    private array $driver;
+    private array $vehicle;
 
     //private EmailClient $emailClient;
 
     //private $requestController;
     //private $requestViewer;
 
-    public function __construct($requestID,$createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose,$justifiedBy,$approvedBy,$JOComment,$CAOComment)
+    public function __construct($requestID, $createdDate, $state, $dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $requesterID, $purpose, $justifiedBy, $approvedBy, $scehduledBy, $JOComment, $CAOComment, $driver, $vehicle)
     {
 
         //initialize state
-        $this->requestID=$requestID;
-        $this->createdDate=($createdDate!= null)?$createdDate:'';
-        $this->state=State::getState($state);;
-        $this->dateOfTrip=$dateOfTrip;
-        $this->timeOfTrip=$timeOfTrip;
-        $this->dropLocation=$dropLocation;
-        $this->pickLocation=$pickLocation;
-        $this->requesterID=$requesterID;
-        $this->purpose=($purpose!= null)?$purpose:'';
-        $this->justifiedBy=($justifiedBy!= null)?$justifiedBy:'';
-        $this->approvedBy=($approvedBy!= null)?$approvedBy:'';
-        $this->JOComment=($JOComment!= null)?$JOComment:'';
-        $this->CAOComment=($CAOComment!= null)?$CAOComment:'';
+        //TODO: vehicle,drive,scheduledby initialization
+        $this->requestID = $requestID;
+        $this->createdDate = ($createdDate != null) ? $createdDate : '';
+        $this->state = State::getState($state);;
+        $this->dateOfTrip = $dateOfTrip;
+        $this->timeOfTrip = $timeOfTrip;
+        $this->dropLocation = $dropLocation;
+        $this->pickLocation = $pickLocation;
+        $this->requester = array('ID' => $requesterID, 'object' => null);
+        $this->purpose = ($purpose != null) ? $purpose : '';
+        $this->justifiedBy = ($justifiedBy != null) ? array("ID" => $justifiedBy, "object" => null) : array();
+        $this->approvedBy = ($approvedBy != null) ? array("ID" => $approvedBy, "object" => null) : array();
+        $this->scehduledBy = ($scehduledBy != null) ? array("ID" => $scehduledBy, "object" => null) : array();
+        $this->JOComment = ($JOComment != null) ? $JOComment : '';
+        $this->CAOComment = ($CAOComment != null) ? $CAOComment : '';
+        $this->driver = ($driver != null) ? array("ID" => $driver, "object" => null) : array();
+        $this->vehicle = ($vehicle != null) ? array("ID" => $vehicle, "object" => null) : array();
     }
 
     //IObjectHandle
-    public static function getObject(int $ID){
-        $requestID=$ID;
+    public static function getObject(int $ID)
+    {
+        $requestID = $ID;
         //get values from database
-        $requestViewer=new requestViewer(); // method of obtaining the viewer/controller must be determined and changed
-        $values=$requestViewer->getRecordByID($requestID);
+        $requestViewer = new requestViewer(); // method of obtaining the viewer/controller must be determined and changed
+        $values = $requestViewer->getRecordByID($requestID);
 
 
-        $obj = new RealRequest($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
-        
+        $obj = new RealRequest($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'], $values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['ScheduledBy'], $values['JOComment'], $values['CAOComment'], $values['Driver'], $values['Vehicle']);
+
         return $obj;
     }
 
     //IObjectHandle 
-    public static function getObjectByValues(array $values){
-        $obj = new RealRequest($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'],$values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['JOComment'], $values['CAOComment']);
+    public static function getObjectByValues(array $values)
+    {
+        $obj = new RealRequest($values['RequestID'], $values['CreatedDate'], $values['State'], $values['DateOfTrip'], $values['TimeOfTrip'], $values['DropLocation'], $values['PickLocation'], $values['RequesterID'], $values['Purpose'], $values['JustifiedBy'], $values['ApprovedBy'], $values['ScheduledBy'], $values['JOComment'], $values['CAOComment'], $values['Driver'], $values['Vehicle']);
         return $obj;
     }
 
     //IObjectHandle
-    public static function constructObject($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose){
-        $createdDate= date("Y-m-d");
-        $state=1;//get state using enum
-        $obj = new RealRequest(-1,$createdDate,$state,$dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$requesterID,$purpose,-1,-1,"","");
+    public static function constructObject($dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $requesterID, $purpose)
+    {
+        $createdDate = date("Y-m-d");
+        $state = State::getStateID('pending');
+        $obj = new RealRequest(-1, $createdDate, $state, $dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $requesterID, $purpose, null, null, null, "", "", null, null);
 
         $obj->saveToDatabase(); //check for failure
+        $emailClient = EmailClient::getInstance();
+        $emailClient->notifyRequestSubmission($obj);
 
         return $obj; //return false, if fail
     }
 
-    private function saveToDatabase(){
-        $requestController= new RequestController();
-        $requestController->saveRecord( 
-                                    //requestID is auto generated by the database
-                                    $this->createdDate,
-                                    $this->state->getID(),
-                                    $this->dateOfTrip,
-                                    $this->timeOfTrip,
-                                    $this->dropLocation,
-                                    $this->pickLocation,
-                                    $this->requesterID,
-                                    $this->purpose);
+    private function saveToDatabase()
+    {
+        $requestController = new RequestController();
+        $requestController->saveRecord(
+            //requestID is auto generated by the database
+            $this->createdDate,
+            $this->state->getID(),
+            $this->dateOfTrip,
+            $this->timeOfTrip,
+            $this->dropLocation,
+            $this->pickLocation,
+            $this->requester['ID'],
+            $this->purpose
+        );
     }
 
-    public function setState(State $state) : void {
+    public function setState(State $state): void
+    {
         $this->state = $state;
     }
 
-    public function notifyJOs(){
+    public function notifyJOs()
+    {
         // $emailClient = new EmailClient();
         // $emailClient ->notifyRequestSubmission($this);
     }
 
-    public function setJustify(bool $justification, int $empID, string $comment) : void
+    public function setJustify(bool $justification, int $empID, string $comment): void
     {
         $this->justifiedBy = $empID;
         $this->JOComment = $comment;
 
-        if ($justification)
-        { 
+        if ($justification) {
             $this->state->justify($this);
-            $requestController=new RequestController();
+            $requestController = new RequestController();
             $stateID = State::getStateID('justified');
-        } else
-        {
-            $this->state->denyJustify($this);   
-            $requestController=new RequestController();
+        } else {
+            $this->state->denyJustify($this);
+            $requestController = new RequestController();
             $stateID = State::getStateID('denied');
         }
 
-        $requestController->justifyRequest($this->requestID,
-                                            $this->JOComment,
-                                            $this->justifiedBy,
-                                            $stateID);
+        $requestController->justifyRequest(
+            $this->requestID,
+            $this->JOComment,
+            $this->justifiedBy,
+            $stateID
+        );
     }
 
-    public function setApprove(bool $approval, int $empID, string $comment) : void
+    public function setApprove(bool $approval, int $empID, string $comment): void
     {
-        $this->approvedBy=$empID;
-        $this->CAOComment=$comment;
+        $this->approvedBy = $empID;
+        $this->CAOComment = $comment;
 
-        if ($approval)
-        {
+        if ($approval) {
             $this->state->approve($this);
-            $requestController=new RequestController();
+            $requestController = new RequestController();
             $stateID = State::getStateID('approved');
-        }
-        else
-        {
+        } else {
             $this->state->disapprove($this);
-            $requestController=new RequestController();
+            $requestController = new RequestController();
             $stateID = State::getStateID('denied');
         }
 
-        $requestController->approveRequest($this->requestID,
-                                            $this->CAOComment,
-                                            $this->approvedBy,
-                                            $stateID);  
+        $requestController->approveRequest(
+            $this->requestID,
+            $this->CAOComment,
+            $this->approvedBy,
+            $stateID
+        );
     }
 
-    public function getField($field){
-        if(property_exists($this,$field)){
-            return $this->$field;
+    public function getField($field)
+    {
+        if (property_exists($this, $field)) {
+            $objectFields = ['requester', 'justifiedBy', 'approvedBy', 'scehduledBy', 'driver', 'vehicle'];
+            if (in_array($field, $objectFields)) {
+                return $this->$field['object'];
+            } else {
+                return $this->$field;
+            }
         }
         return null;
     }
 
-    public function cancel() : void
+
+
+
+    public function cancel(): void
     {
         $this->state->cancel($this);
-        $requestController=new RequestController();
+        $requestController = new RequestController();
         $stateID = State::getStateID('cancelled');
-        $requestController->updateState($this->requestID,$stateID);
+        $requestController->updateState($this->requestID, $stateID);
     }
-    
-    public function schedule(int $empID, Driver $driver, Vehicle $vehicle) : void
-    {
 
+    public function schedule(int $empID, Driver $driver, Vehicle $vehicle): void
+    {
     }
-    
-    public function close() : void
-    {
 
+    public function close(): void
+    {
+    }
+
+    public function loadObject(string $objectName, bool $byValue = false, array $values = array())
+    {
+        $objectName = strtolower($objectName);
+        switch ($objectName) {
+            case "requester":
+                if ($byValue) {
+                    $requester = Requester::getObjectByValues($values);
+                    $this->requester["object"] = $requester;
+                } else {
+                    $requester = Requester::getObject($this->requester["ID"]);
+                    $this->requester["object"] = $requester;
+                }
+                break;
+            case "jo":
+                if ($byValue) {
+                    $JO = JO::getObjectByValues($values);
+                    $this->justifiedBy["object"] = $JO;
+                } else {
+                    $JO = JO::getObject($this->requester["ID"]);
+                    $this->justifiedBy["object"] = $JO;
+                }
+                break;
+            case "cao":
+                if ($byValue) {
+                    $CAO = CAO::getObjectByValues($values);
+                    $this->approvedBy["object"] = $CAO;
+                } else {
+                    $CAO = CAO::getObject($this->requester["ID"]);
+                    $this->approvedBy["object"] = $CAO;
+                }
+                break;
+            case "vpmo":
+                if ($byValue) {
+                    $VPMO = VPMO::getObjectByValues($values);
+                    $this->scehduledBy["object"] = $VPMO;
+                } else {
+                    $VPMO = VPMO::getObject($this->requester["ID"]);
+                    $this->scehduledBy["object"] = $VPMO;
+                }
+                break;
+                // case "vehicle": //TODO: implement for vehicle and driver
+                // if ($byValue) {
+                //     $vehicle = VPMO::getObjectByValues($values);
+                //     $this->scehduledBy["object"] = $VPMO;
+                // } else {
+                //     $vehicle = VPMO::getObject($this->requester["ID"]);
+                //     $this->scehduledBy["object"] = $VPMO;
+                // }
+                // break;
+        }
     }
 }

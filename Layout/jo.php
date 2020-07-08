@@ -39,7 +39,7 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                     <div class="tab-content">
                                         <div class="tab-pane fade active show" id="home" role="tabpanel">
                                             <h4>Requests To Justify</h4>
-                                            <table class="table table-hover" id="justifyRequesTable">
+                                            <table class="table table-hover" id="justifyRequestTable">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th class="request-id" scope="col"></th>

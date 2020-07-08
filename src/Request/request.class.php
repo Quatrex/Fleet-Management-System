@@ -11,4 +11,5 @@ interface Request {
     public function schedule(int $empID, Driver $driver, Vehicle $vehicle) : void;
     public function close() : void;
     public function getField(string $field);
+    public function loadObject(string $objectName, bool $byValue = false, array $values = array());
 }

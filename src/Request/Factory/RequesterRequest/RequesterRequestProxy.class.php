@@ -63,5 +63,10 @@ class RequesterRequestProxy extends EmployeeRequestProxy
     public function cancel() : void 
     {
         $this->realRequest->cancel();
-    }   
+    } 
+    
+    public function loadObject(string $objectName, bool $byValue = false, array $values = array())
+    {
+        $this->realRequest->loadObject($objectName, $byValue, $values);
+    }
 }
