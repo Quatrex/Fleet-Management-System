@@ -152,7 +152,7 @@ class EmailClient {
                 if ($this->vpmoEmails === null)
                 {
                     $employeeViewer = new EmployeeViewer();
-                    $this->vpmoEmails = $employeeViewer->getEmails('jo');
+                    $this->vpmoEmails = $employeeViewer->getEmails('vpmo');
                 }
                 break;
         }
