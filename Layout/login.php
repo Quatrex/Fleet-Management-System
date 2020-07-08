@@ -62,10 +62,7 @@ use Validator\Token;
                         <div class="form-row">
                             <div class="col-md" id="username_div">
                                 <label for="username" class="sr-only">Username</label>
-                                <div class="input-group input-group-username">
-                                    <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
-                                    <input type="text" name="username" class="form-control" id="username-input" placeholder="Username..." required autocomplete="off">
-                                </div>
+                                <input type="text" name="username" class="form-control" id="username-input" placeholder="Username..." required autocomplete="off">
                                 <div id="name-error" class="text-danger"></div>
                             </div>
                         </div>
@@ -83,11 +80,6 @@ use Validator\Token;
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <label for="password" class="sr-only">Password</label>
-                    <div class="input-group input-group-password">
-                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                        <input type="password" name="password" id="password" value="" class="form-control" placeholder="Password">
                     </div>
                     <!--Remember password-->
                     <div class="form-group">
