@@ -20,7 +20,7 @@ abstract class VehicleModel extends Model{
         switch ($vehicleType)
         {
             case 'leased':
-                $results = parent::getRecordsFromTwo('leased_vehicle',['RegistrationNo']);
+                $results = parent::getRecordsFromTwo('leased_vehicle',[['RegistrationNo','RegistrationNo']]);
                 break;
             case 'purchased':
                 $results = parent::getRecords(['isLeased'],[0]);

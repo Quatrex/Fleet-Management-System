@@ -163,7 +163,7 @@ abstract class Model
         $count = 0;
 
         foreach ($conditionCols as $col) {
-            $condition .= $this->tableName . '.' . $col . " = " . $secondTable . '.' . $col;
+            $condition .= $this->tableName . '.' . $col[0] . " = " . $secondTable . '.' . $col[1];
             if (sizeof($conditionCols) > ($count + 1)) {
                 $condition .= " AND ";
             }
