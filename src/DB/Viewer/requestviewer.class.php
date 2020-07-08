@@ -30,5 +30,10 @@ class RequestViewer extends RequestModel{
         return parent::getRequestsbyState($state);
     }
 
+    public function getEmail(int $requestID, string $position)
+    {
+        return parent::getEmail($requestID,$position);
+    }
+
     //public function getScheduledRequestsByIDNState(String $scheduledBy,int $state)
 }

@@ -36,7 +36,7 @@ abstract class EmployeeModel extends Model{
         return (parent::getRecords($columnNames,$columnVals,$wantedColumns)[0]['Password']==$password)? true:false;
     }
 
-    public function getEmails(string $position)
+    protected function getEmails(string $position)
     {
         $colmunNames = array('Position');
         $columnVals = array($position);
@@ -49,17 +49,5 @@ abstract class EmployeeModel extends Model{
              array_push($emails,$email['Email']);
         }
         return $emails;
-    }
-
-    public function getEmail(string $position)
-    {
-        switch ($position)
-        {
-            case 'requester':
-
-            case 'jo':
-
-            case 'cao';
-        }
     }
 }
