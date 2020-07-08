@@ -5,7 +5,7 @@ document.querySelector("#requestTable").onclick = (event) => {
     let entity = requestsByMe[row_id[1]]
     lastClickedRow = tableRow.id;
     console.log(lastClickedRow);
-     
+
     changeInnerHTML({
         '#requestID-preview': entity.RequestId,
         '#reques-status-preview': entity.State,
@@ -14,15 +14,15 @@ document.querySelector("#requestTable").onclick = (event) => {
         '#drop-preview': entity.DropLocation,
         '#purpose-preview': entity.Purpose
     });
-    if(entity.State==="Scheduled"){
-        document.querySelector('#request-cancel').disabled= true;
+    if (entity.State === "Scheduled") {
+        document.querySelector('#request-cancel').disabled = true;
     }
     document.getElementById('request-preview-popup').style.display = 'block';
 }
 
 document.querySelector('#request-cancel').addEventListener('click', () => {
     document.getElementById('request-preview-popup').style.display = 'none';
-    writeToDatabase("CancelRequest_button_requestID",()=>{deleteRow(lastClickedRow)});
+    writeToDatabase("CancelRequest_button_requestID", () => { deleteRow(lastClickedRow) });
 
 });
 document.querySelector('#change-password-button').addEventListener('click', () => {
@@ -35,15 +35,6 @@ document.querySelector('#check-my-password-button').addEventListener('click', ()
 //New Request Button click
 document.querySelector('#request-vehicle-button').addEventListener('click', () => {
     document.getElementById('vehicle-request-form').style.display = 'block';
-});
-//Change password
-document.querySelector('#change-password-close').addEventListener('click', () => {
-    //TODO: are you sure popup not the one below,html needed for popup
-    document.getElementById('change-password').style.display = 'none';
-});
-document.querySelector('#change-password-cancel-button').addEventListener('click', () => {
-    //TODO: are you sure popup for confirm cancelation,html needed for popup
-    document.getElementById('change-password').style.display = 'none';
 });
 
 document.querySelector('#vehicle-request-form-close').addEventListener('click', () => {
@@ -107,4 +98,57 @@ document.querySelector('#confirm-alert-yes-button').addEventListener('click', ()
     document.querySelectorAll('.popup').forEach((popup) => {
         popup.style.display = 'none';
     });
+});
+
+
+//Edit my profile
+document.querySelector('#edit-account-info-btn').addEventListener('click', () => {
+    document.getElementById('user-profile').style.display = 'block';
+});
+
+document.querySelector('#user-profile-form-close').addEventListener('click', () => {
+    document.getElementById('user-profile').style.display = 'none';
+});
+
+document.querySelector('#change-profile-picture-button').addEventListener('click', () => {
+    document.getElementById('change-profile-picture-popup').style.display = 'block';
+});
+
+// Change profile picture popup
+document.querySelector('#change-profile-picture-popup-close').addEventListener('click', () => {
+    document.getElementById('change-profile-picture-popup').style.display = 'none';
+});
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#preview-profile-pic').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#imgInp").change(function(){
+    console.log(this);
+    readURL(this);
+});
+
+$('#profile-pic').on('change', function () {
+    $("#while-uploading").html('');
+    $("#while-uploading").html('Uploading....');
+    readURL(this);
+    $("#while-uploading").html('');
+});
+
+//Change password
+document.querySelector('#change-password-close').addEventListener('click', () => {
+    //TODO: are you sure popup not the one below,html needed for popup
+    document.getElementById('change-password').style.display = 'none';
+});
+document.querySelector('#change-password-cancel-button').addEventListener('click', () => {
+    //TODO: are you sure popup for confirm cancelation,html needed for popup
+    document.getElementById('change-password').style.display = 'none';
 });

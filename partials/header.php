@@ -19,14 +19,17 @@
                                 <div class="dropdown-content" style="text-align: center; margin: 20px 33px;">
                                     <img src="../images/default-user-image.png" style="height:100px;width:100px;align-items: center;">
 
-                                    <br>
-                                    <p class="name-profile-dd" style="text-align: center;">Poorna Gunathilaka</p>
-                                    <p class="mail-profile-dd" style="text-align: center;">poorna2152@gmail.com</p>
-                                    <button class="edit-account-btn" id="view-profile">Edit account info</button>
-                                    <br>
+                                    <div class="container">
+                                        <p></p>
+                                        <p class="name-profile-dd" style="text-align: center;"><?php echo $employee->getfield('firstName') . ' ' . $employee->getfield('lastName'); ?> </p>
+                                        <p class="name-profile-dd" style="text-align: center;"><?php echo $employee->getfield('position'); ?></p>
+                                        <p class="mail-profile-dd" style="text-align: center;"><?php echo $employee->getfield('email'); ?></p>
+                                        <p></p>
+                                        <button class="edit-account-btn" id="edit-account-info-btn">Edit account info</button>
+                                    </div>
                                 </div>
                                 <div class="footer-profile">
-                                    <button class="sign-out">Sign out</button>
+                                    <button class="sign-out"><a href="../func/logout.php">Sign out</a></button>
                                 </div>
                             </div>
                         </div>

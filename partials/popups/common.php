@@ -163,7 +163,7 @@
                     <p id="requestID-preview">DD-MM-YYYY</p>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-sm-6">
                     <p>Status</p>
@@ -294,15 +294,24 @@
 
 
 <div class="popup" id="user-profile">
-    <!-- Request Form content -->
+    <!-- User Profile content -->
     <div class="popup-content">
         <div class="popup-header">
             <span class="close" id="user-profile-form-close">&times;</span>
-            <h2>User</h2>
+            <h2>My Profile</h2>
             <hr>
         </div>
         <div class="popup-body">
-            <img src="../images/default-user-image.png" class="form-image">
+            <div class="c-pointer" style="text-align: center; cursor:pointer" type='button' id="change-profile-picture-button">
+                <div class="center">
+                    <img src="../images/default-user-image.png" class="form-image" style="padding:5px; width:600p">
+                </div>
+                <!-- <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <button class="btn btn-link" id="change-profile-picture-button">Change Profile Picture</button>
+                    </div>
+                </div> -->
+            </div>
             <div id="submit-form-wrapper">
                 <div class="basic-form">
                     <form>
@@ -310,7 +319,7 @@
                             <div class="form-group col-md-6">
                                 <label>Name</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" type="text" value="Name" disabled>
+                                    <input class="form-control py-2 border-right-0 border" type="text" value='<?php echo $employee->getfield('firstName') . ' ' . $employee->getfield('lastName'); ?>' disabled>
                                     <span class="input-group-append">
                                         <button class="btn btn-outline-secondary border-left-0 border" type="button">
                                             <i class="icon far fa-edit"></i>
@@ -322,7 +331,7 @@
                             <div class="form-group col-md-6">
                                 <label>Email</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" type="text" value="email@email.com" disabled>
+                                    <input class="form-control py-2 border-right-0 border" type="text" value="<?php echo $employee->getfield('email'); ?>" disabled>
                                     <span class="input-group-append">
                                         <button class="btn btn-outline-secondary border-left-0 border" type="button">
                                             <i class="icon far fa-edit"></i>
@@ -368,7 +377,7 @@
                             <div class="form-group col-md-6">
                                 <label>Position</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" type="text" value="Position" disabled>
+                                    <input class="form-control py-2 border-right-0 border" type="text" value="<?php echo $employee->getfield('position'); ?>" disabled>
                                 </div>
                             </div>
 
@@ -388,7 +397,42 @@
             </div>
         </div>
     </div>
+</div>
 
+<div id="change-profile-picture-popup" class="popup">
+    <div class="popup-content">
+        <div class="popup-header">
+            <span class="close" id="change-profile-picture-popup-close">&times;</span>
+            <h2>Change Profile Picture</h2>
+            <hr>
+        </div>
+        <div class="popup-body">
+            <div class="modal-body">
+                <form id="crop-image" method="post" enctype="multipart/form-data" action="change_pic.php">
+                    <strong>Upload Image:</strong> <br><br>
+                    <input type="file" name="profile-pic" id="profile-pic" />
+                    <!-- <input type="hidden" name="hdn-profile-id" id="hdn-profile-id" value="1" />
+                    <input type="hidden" name="hdn-x1-axis" id="hdn-x1-axis" value="" />
+                    <input type="hidden" name="hdn-y1-axis" id="hdn-y1-axis" value="" />
+                    <input type="hidden" name="hdn-x2-axis" value="" id="hdn-x2-axis" />
+                    <input type="hidden" name="hdn-y2-axis" value="" id="hdn-y2-axis" />
+                    <input type="hidden" name="hdn-thumb-width" id="hdn-thumb-width" value="" />
+                    <input type="hidden" name="hdn-thumb-height" id="hdn-thumb-height" value="" />
+                    <input type="hidden" name="action" value="" id="action" />
+                    <input type="hidden" name="image-name" value="" id="image-name" /> -->
+                    <div id="while-uploading"></div>
+                    <div class="col" style="text-align: center;">
+                        <img id='preview-profile-pic' class="form-image" src="../images/default-user-image.png" style="padding:5px; width:50%;"></img>
+                    </div>
+                    <div id="thumbs" style="padding:5px; width:600p"></div>
+                </form>
+            </div>
+        </div>
+        <div class="popup-footer">
+            <button type="button" class="btn btn-default" id="change-profile-picture-popup-close-button">Close</button>
+            <button type="button" id="save-crop" class="btn btn-primary">Save</button>
+        </div>
+    </div>
 </div>
 
 <!--Change my password popup-->
@@ -428,6 +472,8 @@
         </div>
     </div>
 </div>
+
+<!-- Alert after ajax call -->
 <div id="alert-ajax" style="display:none; width:100%; position:absolute; top:0; z-index:2000;">
     <div id="alertdiv" class="alert  mx-auto mt-3 text-center" role="alert" style="width:60%; height:50px">
         <p id="alert-message" style=" font-weight:500;font-size: initial;"></p>

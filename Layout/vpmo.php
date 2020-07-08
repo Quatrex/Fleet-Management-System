@@ -5,11 +5,11 @@ use Employee\VPMO;
 session_start();
 if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
 require_once '../includes/autoloader.inc.php';
-$vpmo = VPMO::getObject($_SESSION['empid']);
-$_SESSION['vpmo'] = $vpmo;
-$requests = $vpmo->getMyRequestsByState('pending');
+$employee = VPMO::getObject($_SESSION['empid']);
+$_SESSION['employee'] = $employee;
+$requests = $employee->getMyRequestsByState('pending');
 $_SESSION['pendingTrips'] = $requests;
-$vehicles = $vpmo->getVehicles();
+$vehicles = $employee->getVehicles();
 //$requestsToAssign = //code to get the requestsToAssign
 //$_SESSION['requestsToAssign'] = $requestsToAssign;
 //$vehicles = //code to get all the vehicles;
@@ -168,12 +168,12 @@ $_SESSION['vehicles'] = $vehicles;
     ?>
     <script>
         const empID = <?php echo json_encode(($_SESSION['empid'])) ?>;
-        const pendingRequests = <?php echo json_encode(($_SESSION['pendingTrips'])) ?>;
+        const requestsByMe = <?php echo json_encode(($_SESSION['pendingTrips'])) ?>;
         const vehicles = <?php echo json_encode(($_SESSION['vehicles'])) ?>;
         console.log(vehicles);
 
         //sessionStorage.setItem('requestsToApprove', requestsToApprove);
-        sessionStorage.setItem('requestsByMe', pendingRequests);
+        sessionStorage.setItem('requestsByMe', requestsByMe);
     </script>
     <script src="../js/functions.js"></script>
     <script src="../js/eventlisteners/common.js"></script>

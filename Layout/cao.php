@@ -1,17 +1,18 @@
 <html>
-<?php include '../partials/head.php';
+<?php 
 
 use Employee\CAO;
 
 session_start();
 if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
+include '../partials/head.php';
 require_once '../includes/autoloader.inc.php';
-$cao = CAO::getObject($_SESSION['empid']);
-$_SESSION['employee'] = $cao;
-$requestsToApprove = $cao->getJustifiedRequests();
+$employee = CAO::getObject($_SESSION['empid']);
+$_SESSION['employee'] = $employee;
+$requestsToApprove = $employee->getJustifiedRequests();
 $_SESSION['requestsToApprove'] = $requestsToApprove;
 
-$requestsByMe = $cao->getMyRequestsByState('pending');
+$requestsByMe = $employee->getMyRequestsByState('pending');
 $_SESSION['requestsByMe'] = $requestsByMe;
 ?>
 

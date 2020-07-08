@@ -6,11 +6,11 @@ use Employee\JO;
 session_start();
 if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
 require_once '../includes/autoloader.inc.php';
-$jo = JO::getObject($_SESSION['empid']);
-$_SESSION['employee'] = $jo;
-$requestsToJustify = $jo->getPendingRequests();
+$employee = JO::getObject($_SESSION['empid']);
+$_SESSION['employee'] = $employee;
+$requestsToJustify = $employee->getPendingRequests();
 $_SESSION['requestsToJustify'] = $requestsToJustify;
-$requestsByMe = $jo->getMyRequestsByState('pending');
+$requestsByMe = $employee->getMyRequestsByState('pending');
 $_SESSION['requestsByMe'] = $requestsByMe;
 ?>
 
