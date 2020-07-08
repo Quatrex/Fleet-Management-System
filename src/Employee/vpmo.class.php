@@ -6,7 +6,7 @@ use Request\Request;
 use DB\Viewer\EmployeeViewer;
 use Vehicle\Vehicle;
 use Request\Factory\Base\RealRequest;
-use Vehicle\Factory\Base\AbstractVehicleFactory;
+use Vehicle\Factory\Base\VehicleFactory;
 use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
 use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
 use Employee\Driver\Factory\DriverFactory;
@@ -14,8 +14,8 @@ use Employee\Driver\Factory\DriverFactory;
 
 class VPMO extends Requester
 {
-    private AbstractVehicleFactory $leasedVehicleFactory;
-    private AbstractVehicleFactory $purchasedVehicleFactory;
+    private VehicleFactory $leasedVehicleFactory;
+    private VehicleFactory $purchasedVehicleFactory;
 
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {

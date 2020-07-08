@@ -43,4 +43,15 @@ class DriverFactory
         }
         return $drivers;
     }
+
+    /**
+     * Create a vehicle object for given values
+     * 
+     * @param array $driverInfo
+     * @return Driver
+     */
+    public static function makeDriverByValues(array $driverInfo) : Driver
+    {
+        return Driver::getObjectByValues($driverInfo);
+    }
 }
