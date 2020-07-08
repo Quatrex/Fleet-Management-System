@@ -74,5 +74,31 @@ abstract class RequestModel extends Model{
         $conditionNames=array("RequestID");
         $conditionVals=array($requestID);
         parent::updateRecord($columnNames, $columnVals,$conditionNames,$conditionVals);
-    }    
+    }
+    
+    public function getEmail(int $requestID, string $position)
+    {
+        $wantedCols = array('Email');
+        $whereCols = ['RequestID' => $requestID];
+        switch ($position)
+        {
+            case 'requester':
+                $conditionCols = [['RequesterID','EmpID']];
+                break;
+                
+            case 'jo':
+                $conditionCols = [['JustifiedBy','EmpID']];
+                break;
+
+            case 'cao':
+                $conditionCols = [['ApprovedBy','EmpID']];
+                break;
+
+            case 'vpmo':
+                $conditionCols = [['ScheduledBy','EmpID']];
+                break;
+        }
+        $emailRecord = parent::getRecordsFromTwo('employee',$conditionCols,$whereCols,$wantedCols);
+        return $emailRecord[0]['Email'];
+    }
 }

@@ -178,7 +178,7 @@ abstract class Model
             $count = 0;
 
             foreach ($whereColumnNamesAndValues as $col => $value) {
-                $condition .= "`" . $this->tableName . $col . "`" . "=" . $value;
+                $condition .= $this->tableName . '.' . $col  . "=" . $value;
                 if (sizeof($whereColumnNamesAndValues) > ($count + 1)) {
                     $condition .= " AND ";
                 }
