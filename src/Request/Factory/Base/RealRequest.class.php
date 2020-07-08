@@ -128,8 +128,9 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
 
     public function setJustify(bool $justification, int $empID, string $comment): void
     {
-        $this->justifiedBy = $empID;
+        $this->justifiedBy['ID'] = $empID;
         $this->JOComment = $comment;
+        $stateID=null;
 
         if ($justification) {
             $this->state->justify($this);
@@ -144,15 +145,16 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
         $requestController->justifyRequest(
             $this->requestID,
             $this->JOComment,
-            $this->justifiedBy,
+            $this->justifiedBy['ID'],
             $stateID
         );
     }
 
     public function setApprove(bool $approval, int $empID, string $comment): void
     {
-        $this->approvedBy = $empID;
+        $this->approvedBy['ID'] = $empID;
         $this->CAOComment = $comment;
+        $stateID=null;
 
         if ($approval) {
             $this->state->approve($this);
@@ -167,7 +169,7 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
         $requestController->approveRequest(
             $this->requestID,
             $this->CAOComment,
-            $this->approvedBy,
+            $this->approvedBy['ID'],
             $stateID
         );
     }
