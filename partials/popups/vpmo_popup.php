@@ -170,7 +170,7 @@
                         <p>Date</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="vpmo-assign-date">DD-MM-YYYY</p>
+                        <p class="vpmo-assign-date">DD-MM-YYYY</p>
                     </div>
                 </div>
 
@@ -179,7 +179,7 @@
                         <p>Time</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="vpmo-assign-time">HH:MM: AM/PM</p>
+                        <p class="vpmo-assign-time">HH:MM: AM/PM</p>
                     </div>
                 </div>
 
@@ -188,7 +188,7 @@
                         <p>Pick-up Location</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="vpmo-assign-pickUpLocation">Text</p>
+                        <p class="vpmo-assign-pickUpLocation">Text</p>
                     </div>
                 </div>
 
@@ -197,7 +197,7 @@
                         <p>Drop-off Location</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="vpmo-assign-dropOffLocation">Text</p>
+                        <p class="vpmo-assign-dropOffLocation">Text</p>
                     </div>
                 </div>
 
@@ -258,7 +258,6 @@
                                 <th class="th-sm" scope="col">Vehicle</th>
                                 <th class="th-sm" scope="col">Assigned Driver</th>
                                 <th class="th-sm" scope="col">Passengers</th>
-                                <th class="th-sm" scope="col">Details</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -370,7 +369,7 @@
                         <p>Date</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>DD-MM-YYYY</p>
+                        <p class="vpmo-assign-date">DD-MM-YYYY</p>
                     </div>
                 </div>
 
@@ -379,16 +378,16 @@
                         <p>Time</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>HH:MM: AM/PM</p>
+                        <p class="vpmo-assign-time">HH:MM: AM/PM</p>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <p>Pick-up Location</p>
+                        <p >Pick-up Location</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p class="vpmo-assign-pickUpLocation">Text</p>
                     </div>
                 </div>
 
@@ -397,7 +396,7 @@
                         <p>Drop-off Location</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p class="vpmo-assign-dropOffLocation">Text</p>
                     </div>
                 </div>
 
@@ -422,7 +421,7 @@
                 <form id="Schedule_form">
                     <input type="hidden" id="requestId-input">
                     <input type="hidden" id="final-vehicle-input">
-                    <input type="hidden" id="final-vehicle-input">
+                    <input type="hidden" id="final-driver-input">
                 </form>
             </div>
             <div class="popup-footer">
