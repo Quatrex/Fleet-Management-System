@@ -36,7 +36,7 @@ class VPMORequestFactory
      * 
      * @return array(VPMORequestPorxy)
      */
-    public static function makeApprovedRequests() : array
+    public static function getApprovedRequests() : array
     {
         $requestViewer = new RequestViewer();
         $state = State::getStateID('justified');
