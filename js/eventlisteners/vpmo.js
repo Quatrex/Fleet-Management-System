@@ -18,11 +18,14 @@ document.querySelector('#ongoingTable').onclick = (event) => {
 document.querySelector('#vehicleTable').onclick = (event) => {
 	let tableRow = event.target.parentElement;
 	lastClickedRow = tableRow.id;
-	console.log(lastClickedRow);
-
 	let row_id = tableRow.children[0].id.split('-');
 	let entity = vehicles[row_id[1]];
 	lastClickedRow = tableRow.id;
+	document.querySelectorAll('.leasedVehicleData').forEach((element) => {
+		if (!element.classList.contains('d-none')) {
+			element.classList.add('d-none');
+		}
+	});
 	changeValue({
 		'.vehicle-registrationNo': entity.registration,
 		'.vehicle-registrationNoCopy': entity.registration,
@@ -35,9 +38,7 @@ document.querySelector('#vehicleTable').onclick = (event) => {
 		'.vehicle-insuranceValue': entity.insuranceValue,
 	});
 	if ('leasedCompany' in entity) {
-		document.querySelectorAll('.leasedVehicleData').forEach((element) => {
-			element.classList.remove = 'leasedVehicleData';
-		});
+		document.querySelectorAll('.leasedVehicleData').forEach((element) => element.classList.remove('d-none'));
 		changeValue({
 			'.vehicle-leasedCompany': entity.leasedCompany,
 			'.vehicle-leasedValue': entity.monthlyPayment,
@@ -76,14 +77,12 @@ document.querySelector('#vehicle-delete').addEventListener('click', () => {
 
 document.querySelectorAll('.vehicle-edit').forEach((element) =>
 	element.addEventListener('keyup', () => {
-		if(compareValues('UpdateVehicle_form', 'VehicleProfile_form')){
-			document.querySelector('#edit-confirm-tooltip').title ="";
+		if (compareValues('UpdateVehicle_form', 'VehicleProfile_form')) {
+			document.querySelector('#edit-confirm-tooltip').title = '';
 			document.getElementById('confirm-vehicle-profile').disabled = false;
-		}
-		else{
-			document.querySelector('#edit-confirm-tooltip').title ="Make changes to enable";
+		} else {
+			document.querySelector('#edit-confirm-tooltip').title = 'Make changes to enable';
 			document.getElementById('confirm-vehicle-profile').disabled = true;
-
 		}
 	})
 );
@@ -102,7 +101,7 @@ document.querySelector('#vehicle-delete-cancel-button').addEventListener('click'
 document.querySelector('#vehicle-profile-edit-button').addEventListener('click', () => {
 	document.getElementById('vehicle-profile-form').style.display = 'none';
 	document.getElementById('confirm-vehicle-profile').disabled = true;
-	document.querySelector('#edit-confirm-tooltip').title ="Make changes to enable";
+	document.querySelector('#edit-confirm-tooltip').title = 'Make changes to enable';
 	document.getElementById('vehicle-profile-edit-form').style.display = 'block';
 });
 document.querySelector('#vehicle-profile-edit-cancel-button').addEventListener('click', () => {

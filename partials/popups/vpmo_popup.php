@@ -483,33 +483,35 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row leasedVehicleData">
-                                <div class="form-group col-md-6">
-                                    <label>Leased Company</label>
-                                    <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-leasedCompany" type="text" name="leasedCompany" disabled>
+                            <div class="d-none leasedVehicleData">
+                                <div class="form-group row ">
+                                    <div class="form-group col-md-6">
+                                        <label>Leased Company</label>
+                                        <div class="input-group">
+                                            <input class="form-control py-2 border-right-0 border vehicle-leasedCompany" type="text" name="leasedCompany" disabled>
 
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Leased Value</label>
+                                        <div class="input-group">
+                                            <input class="form-control py-2 border-right-0 border vehicle-leasedValue" type="text" name="monthlyPayment" disabled>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label>Leased Value</label>
-                                    <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-leasedValue" type="text" name="monthlyPayment" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row leasedVehicleData">
-                                <div class="form-group col-md-6">
-                                    <label>Leased From</label>
-                                    <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-leasedFrom" type="text" name="leasedPeriodFrom" disabled>
+                                <div class="form-group row">
+                                    <div class="form-group col-md-6">
+                                        <label>Leased From</label>
+                                        <div class="input-group">
+                                            <input class="form-control py-2 border-right-0 border vehicle-leasedFrom" type="text" name="leasedPeriodFrom" disabled>
 
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Leased To</label>
-                                    <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-leasedTo" type="text" name="leasedPeriodTo" disabled>
+                                    <div class="form-group col-md-6">
+                                        <label>Leased To</label>
+                                        <div class="input-group">
+                                            <input class="form-control py-2 border-right-0 border vehicle-leasedTo" type="text" name="leasedPeriodTo" disabled>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -599,33 +601,35 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row leasedVehicleData">
-                                <div class="form-group col-md-6">
-                                    <label>Leased Company</label>
-                                    <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-leasedCompany" type="text" name="leasedCompany">
+                            <div class="d-none leasedVehicleData">
+                                <div class="form-group row ">
+                                    <div class="form-group col-md-6">
+                                        <label>Leased Company</label>
+                                        <div class="input-group">
+                                            <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-leasedCompany" type="text" name="leasedCompany">
 
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 ">
+                                        <label>Leased Value</label>
+                                        <div class="input-group">
+                                            <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-leasedValue" type="text" name="monthlyPayment">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label>Leased Value</label>
-                                    <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-leasedValue" type="text" name="monthlyPayment">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row leasedVehicleData">
-                                <div class="form-group col-md-6">
-                                    <label>Leased From</label>
-                                    <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-leasedFrom" type="text" name="leasedPeriodFrom">
+                                <div class="form-group row ">
+                                    <div class="form-group col-md-6">
+                                        <label>Leased From</label>
+                                        <div class="input-group">
+                                            <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-leasedFrom" type="text" name="leasedPeriodFrom">
 
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Leased To</label>
-                                    <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-leasedTo" type="text" name="leasedPeriodTo">
+                                    <div class="form-group col-md-6 ">
+                                        <label>Leased To</label>
+                                        <div class="input-group">
+                                            <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-leasedTo" type="text" name="leasedPeriodTo">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
