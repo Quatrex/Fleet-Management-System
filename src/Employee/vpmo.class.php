@@ -5,8 +5,7 @@ namespace Employee;
 use Request\Request;
 use DB\Viewer\EmployeeViewer;
 use Vehicle\Vehicle;
-use Request\Factory\Base\RealRequest;
-use Vehicle\Factory\Base\AbstractVehicleFactory;
+use Vehicle\Factory\Base\VehicleFactory;
 use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
 use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
 use Employee\Driver\Factory\DriverFactory;
@@ -15,8 +14,8 @@ use Request\Factory\VPMORequest\VPMORequestFactory;
 
 class VPMO extends Requester
 {
-    private AbstractVehicleFactory $leasedVehicleFactory;
-    private AbstractVehicleFactory $purchasedVehicleFactory;
+    private VehicleFactory $leasedVehicleFactory;
+    private VehicleFactory $purchasedVehicleFactory;
 
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {
@@ -54,6 +53,18 @@ class VPMO extends Requester
         $obj->saveToDatabase(); //check for failure
 
         return $obj; //return false, if fail
+    }
+
+    /**
+     *
+     * Returns all approved requests
+     *
+     * @return array(Request)
+     *
+     */
+    public function getApprovedRequests()
+    {
+        return VPMORequestFactory::getApprovedRequests();
     }
 
     /**
@@ -163,7 +174,7 @@ class VPMO extends Requester
      */
     public function updateLeasedVehicleInfo($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
     {
-        $vehicle = $this->leasedVehicleFactory->makeVehicle($registrationNo); //changed from purchasedVehicleFactory to leasedVehicleFactory
+        $vehicle = $this->leasedVehicleFactory->makeVehicle($registrationNo); 
         $vehicleInfo = array($model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
         $vehicle->updateInfo($vehicleInfo);
     }

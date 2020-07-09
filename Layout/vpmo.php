@@ -10,8 +10,8 @@ $_SESSION['employee'] = $employee;
 $requests = $employee->getMyRequestsByState('pending');
 $_SESSION['pendingTrips'] = $requests;
 $vehicles = $employee->getVehicles();
-//$requestsToAssign = //code to get the requestsToAssign
-//$_SESSION['requestsToAssign'] = $requestsToAssign;
+$requestsToAssign = $employee->getApprovedRequests();
+$_SESSION['requestsToAssign'] = $requestsToAssign;
 $_SESSION['vehicles'] = $vehicles;
 
 ?>
@@ -56,7 +56,18 @@ $_SESSION['vehicles'] = $vehicles;
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
+                                                <?php
+                                                    $i = 0;
+                                                    foreach ($requestsToAssign as $request) : ?>
+                                                        <tr id="requestTable_<?php echo $request->getField('requestID') ?>">
+                                                            <th id="request-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
+                                                            <td><?php echo $request->getField('purpose') ?></td>
+                                                            <td>Pending</td>
+                                                            <td><?php echo $request->getField('dateOfTrip') ?></td>
+                                                            <td><?php echo $request->getField('timeOfTrip') ?></td>
+                                                        </tr>
+                                                    <?php $i++;
+                                                    endforeach;; ?>
                                                 </tbody>
                                             </table>
                                         </div>

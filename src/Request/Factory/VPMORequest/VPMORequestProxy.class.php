@@ -4,6 +4,8 @@ namespace Request\Factory\VPMORequest;
 use Request\Factory\Base\RealRequest;
 use Request\Factory\RequesterRequest\RequesterRequestProxy;
 use Request\State\State;
+use Employee\Driver\Factory\Driver;
+use Vehicle\Vehicle;
 
 class VPMORequestProxy extends RequesterRequestProxy
 {
@@ -31,17 +33,17 @@ class VPMORequestProxy extends RequesterRequestProxy
         return new VPMORequestProxy($realRequest);
     }
 
-    public function schedule()
+    public function schedule(int $empID, Driver $driver, Vehicle $vehicle) : void 
     {
-
+        $this->realRequest->schedule($empID,$driver,$vehicle);
     }
 
-    public function close() 
+    public function close() : void 
     {
-
+        $this->realRequest->close();
     }
 
-    public function cancel() 
+    public function cancel() : void 
     {
         $state = $this->realRequest->getField('state');
         if ($state === State::getState(State::getStateID('approved')))
