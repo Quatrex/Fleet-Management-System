@@ -14,9 +14,9 @@ use JsonSerializable;
 // use Request as Request;
 class Requester extends PrivilegedEmployee implements JsonSerializable
 {
-    public function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
+    public function __construct($empID, $firstName, $lastName, $position, $designation, $email, $username, $password)
     {
-        parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
+        parent::__construct($empID, $firstName, $lastName, $position, $designation,  $email, $username, $password);
     }
 
     public function jsonSerialize()
@@ -34,20 +34,20 @@ class Requester extends PrivilegedEmployee implements JsonSerializable
         $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
         $values=$employeeViewer->getRecordByID($empID);
 
-        $obj = new Requester($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        $obj = new Requester($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Designation'], $values['Email'], $values['Username'], "");
         
         return $obj; //return false, if fail
     }
   
     //IObjectHandle
     public static function getObjectByValues(array $values){
-        $obj = new Requester($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        $obj = new Requester($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Designation'], $values['Email'], $values['Username'], "");
         return $obj;
     }
 
     //IObjectHandle
-    public static function constructObject($empID, $firstName, $lastName, $position, $email, $username, $password){
-        $obj = new Requester($empID, $firstName, $lastName, $position, $email, $username, $password);
+    public static function constructObject($empID, $firstName, $lastName, $position, $designation, $email, $username, $password){
+        $obj = new Requester($empID, $firstName, $lastName, $position, $designation, $email, $username, $password);
 
         $obj->saveToDatabase(); //check for failure
 

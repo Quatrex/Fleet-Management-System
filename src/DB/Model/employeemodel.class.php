@@ -11,7 +11,7 @@ abstract class EmployeeModel extends Model{
     protected function getRecordByID($empID){
         $columnNames= array('EmpID');
         $columnVals= array($empID);
-        $wantedColumns=array('EmpID','FirstName','LastName','Position','Email','Username');
+        $wantedColumns=array('EmpID','FirstName','LastName','Position','Designation','Email','Username');
         $results = parent::getRecords($columnNames,$columnVals,$wantedColumns); //change getRecords() to not get password from database
         return $results[0];
     }
@@ -19,12 +19,12 @@ abstract class EmployeeModel extends Model{
     protected function getRecordByUsername($username){
         $columnNames= array('Username');
         $columnVals= array($username);
-        $wantedColumns=array('EmpID','FirstName','LastName','Position','Email','Username');
+        $wantedColumns=array('EmpID','FirstName','LastName','Position','Designation','Email','Username');
         return parent::getRecords($columnNames,$columnVals,$wantedColumns);
     }
 
     protected function saveRecord($empID, $firstName, $lastName, $position, $email, $username, $password) {
-        $columnNames = array('EmpID','FirstName','LastName','Position','Email','Username','Password');
+        $columnNames = array('EmpID','FirstName','LastName','Position','Designation','Email','Username','Password');
         $columnVals = array($empID, $firstName, $lastName, $position, $email, $username, $password);
         parent::addRecord($columnNames,$columnVals);
     }

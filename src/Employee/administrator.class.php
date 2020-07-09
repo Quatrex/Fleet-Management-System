@@ -6,9 +6,9 @@ use DB\Viewer\EmployeeViewer;
 
 class Administrator extends PrivilegedEmployee
 {
-    function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
+    function __construct($empID, $firstName, $lastName, $position, $designation, $email, $username, $password)
     {
-        parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
+        parent::__construct($empID, $firstName, $lastName, $position, $designation, $email, $username, $password);
     }
 
     public function getField($field){
@@ -25,20 +25,20 @@ class Administrator extends PrivilegedEmployee
         $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
         $values=$employeeViewer->getRecordByID($empID);
 
-        $obj = new Administrator($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        $obj = new Administrator($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Designation'], $values['Email'], $values['Username'], "");
         
         return $obj; //return false, if fail
     }
   
     //IObjectHandle
     public static function getObjectByValues(array $values){
-        $obj = new Administrator($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        $obj = new Administrator($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Designation'], $values['Email'], $values['Username'], "");
         return $obj;
     }
 
     //IObjectHandle
-    public static function constructObject($empID, $firstName, $lastName, $position, $email, $username, $password){
-        $obj = new Administrator($empID, $firstName, $lastName, $position, $email, $username, $password);
+    public static function constructObject($empID, $firstName, $lastName, $position, $designation, $email, $username, $password){
+        $obj = new Administrator($empID, $firstName, $lastName, $position, $designation, $email, $username, $password);
 
         $obj->saveToDatabase(); //check for failure
 

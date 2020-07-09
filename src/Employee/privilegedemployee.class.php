@@ -9,14 +9,16 @@ abstract class PrivilegedEmployee extends Employee
     protected string $position; 
     protected string $username;
     protected string $password; //TODO: might need a separate table for username and password
+    protected ?string $designation;
 
-    function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
+    function __construct($empID, $firstName, $lastName, $position, $designation, $email, $username, $password)
     {
         parent::__construct($firstName,$lastName,$email);
         $this->empID=$empID;
         $this->position=$position;
         $this->username=$username;
         $this->password=$password;
+        $this->designation = $designation;
     }
 
     public function getField($field){ 

@@ -39,10 +39,11 @@ class EmailClient {
         $dateTime = $request->getField('dateOfTrip') . ' ' . $request->getField('timeOfTrip');
         $requesterName = $request->getField('requester')->getField('firstName') . ' '. 
                          $request->getField('requester')->getField('lastName');
+        $designation = $request->getField('requester')->getField('designation');
         $purpose = $request->getField('purpose');
 
         $email->setMessage(
-            "<p> New vehicle request is made by $requesterName.
+            "<p> New vehicle request is made by $requesterName, $designation.
             This request must be justified before $dateTime. </p>
             <p> Purpose of the request : \"$purpose\"");
         $email->addRecepients($this->joEmails);
@@ -85,8 +86,9 @@ class EmailClient {
 
         $requesterName = $request->getField('requester')->getField('firstName') . ' '. 
                          $request->getField('requester')->getField('lastName');
+        $designation = $request->getField('requester')->getField('designation');
 
-        $message = "<p> Justification is approved for a request made by $requesterName.
+        $message = "<p> Justification is approved for a request made by $requesterName, $designation.
                     This request must be approved before $dateTime. </p>
                     <p> Purpose of the request : \"$purpose\" </p>";
 
@@ -162,8 +164,9 @@ class EmailClient {
         $email->setSubject('Vehicle Request Awaiting Scheduling');
         $requesterName = $request->getField('requester')->getField('firstName') . ' '. 
                          $request->getField('requester')->getField('lastName');
+        $designation = $request->getField('requester')->getField('designation');
 
-        $message = "<p> Chief Administrative Officer has approved a request made by $requesterName.
+        $message = "<p> Chief Administrative Officer has approved a request made by $requesterName, $designation.
                     This request must be scheduled before $dateTime. </p>
                     <p> Purpose of the request : \"$purpose\" </p>";
 

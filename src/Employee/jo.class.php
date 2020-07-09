@@ -10,9 +10,9 @@ use Request\Factory\JORequest\JORequestFactory;
 
 class JO extends Requester
 {
-    function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
+    function __construct($empID, $firstName, $lastName, $position, $designation, $email, $username, $password)
     {
-        parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
+        parent::__construct($empID, $firstName, $lastName, $position, $designation, $email, $username, $password);
     }
 
     //IObjectHandle
@@ -22,21 +22,21 @@ class JO extends Requester
         $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
         $values=$employeeViewer->getRecordByID($empID);
 
-        $obj = new JO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        $obj = new JO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Designation'], $values['Email'], $values['Username'], "");
         
         return $obj; //return false, if fail
     }
 
     //IObjectHandle
     public static function getObjectByValues(array $values){
-        $obj = new JO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        $obj = new JO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Designation'], $values['Email'], $values['Username'], "");
         return $obj;
     }
 
     //IObjectHandle
-    public static function constructObject($empID, $firstName, $lastName, $position, $email, $username, $password){
+    public static function constructObject($empID, $firstName, $lastName, $position, $designation, $email, $username, $password){
 
-        $obj = new JO($empID, $firstName, $lastName, $position, $email, $username, $password);
+        $obj = new JO($empID, $firstName, $lastName, $position, $designation, $email, $username, $password);
 
         $obj->saveToDatabase(); //check for failure
 

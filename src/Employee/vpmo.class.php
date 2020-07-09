@@ -17,9 +17,9 @@ class VPMO extends Requester
     private VehicleFactory $leasedVehicleFactory;
     private VehicleFactory $purchasedVehicleFactory;
 
-    function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
+    function __construct($empID, $firstName, $lastName, $position, $designation, $email, $username, $password)
     {
-        parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
+        parent::__construct($empID, $firstName, $lastName, $position, $designation, $email, $username, $password);
         $this->leasedVehicleFactory = LeasedVehicleFactory::getInstance();
         $this->purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
     }
@@ -32,7 +32,7 @@ class VPMO extends Requester
         $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
         $values = $employeeViewer->getRecordByID($empID);
 
-        $obj = new VPMO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        $obj = new VPMO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Designation'], $values['Email'], $values['Username'], "");
 
         return $obj; //return false, if fail
     }
@@ -40,15 +40,15 @@ class VPMO extends Requester
     //IObjectHandle
     public static function getObjectByValues(array $values)
     {
-        $obj = new VPMO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
+        $obj = new VPMO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Designation'], $values['Email'], $values['Username'], "");
         return $obj;
     }
 
     //IObjectHandle
-    public static function constructObject($empID, $firstName, $lastName, $position, $email, $username, $password)
+    public static function constructObject($empID, $firstName, $lastName, $position, $designation, $email, $username, $password)
     {
 
-        $obj = new VPMO($empID, $firstName, $lastName, $position, $email, $username, $password);
+        $obj = new VPMO($empID, $firstName, $lastName, $position, $designation, $email, $username, $password);
 
         $obj->saveToDatabase(); //check for failure
 
