@@ -25,17 +25,15 @@
                                         <p class="name-profile-dd" style="text-align: center;"><?php echo $employee->getfield('position'); ?></p>
                                         <p class="mail-profile-dd" style="text-align: center;"><?php echo $employee->getfield('email'); ?></p>
                                         <p></p>
-                                        <button class="edit-account-btn" id="edit-account-info-btn">Edit account info</button>
+                                        <button type="button" class="btn btn-light" id="edit-account-info-btn">Edit account info</button>
                                     </div>
                                 </div>
                                 <div class="footer-profile">
-                                    <button class="sign-out"><a href="../func/logout.php">Sign out</a></button>
+                                    <a type="button" class="btn btn-light" href="../func/logout.php">Sign out</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </li>
-                <li class="icons"><a href="../func/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
                 </li>
             </ul>
         </div>
