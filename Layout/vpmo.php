@@ -48,24 +48,25 @@ $_SESSION['drivers'] = $drivers;
                                         <div class="tab-pane fade active show" id="home" role="tabpanel">
                                             <h4 class="card-name">Assign a Vehicle</h4>
                                             <table class="table table-hover" id="approveRequestTable">
+                                                </tbody>
                                                 <thead class="thead-dark">
-                                                    <tr data-toggle="popup" id="header-table" data-id="my-profile" data-target="#my-profile">
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">Request Id</th>
+                                                    <tr>
+                                                        <th class="request-id" scope="col"></th>
+                                                        <th scope="col">Requester Name</th>
+                                                        <th scope="col">Purpose</th>
                                                         <th scope="col">Date</th>
-                                                        <th scope="col">Time</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                <?php
+                                                    <!-- TODO: have to change requester id to name -->
+                                                    <?php
                                                     $i = 0;
                                                     foreach ($requestsToAssign as $request) : ?>
-                                                        <tr id="requestTable_<?php echo $request->getField('requestID') ?>">
-                                                            <th id="request-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
+                                                        <tr id="approveRequestTable_<?php echo $request->getField('requestID') ?>">
+                                                            <th id="requestraw-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
+                                                            <td><?php echo ($request->getField('requester'))->getField('firstName').' '.($request->getField('requester'))->getField('lastName') ?></td>
                                                             <td><?php echo $request->getField('purpose') ?></td>
-                                                            <td>Pending</td>
                                                             <td><?php echo $request->getField('dateOfTrip') ?></td>
-                                                            <td><?php echo $request->getField('timeOfTrip') ?></td>
                                                         </tr>
                                                     <?php $i++;
                                                     endforeach;; ?>
@@ -182,8 +183,6 @@ $_SESSION['drivers'] = $drivers;
         const requestsByMe = <?php echo json_encode(($_SESSION['pendingTrips'])) ?>;
         const vehicles = <?php echo json_encode(($_SESSION['vehicles'])) ?>;
         const requestsToAssign = <?php echo json_encode(($_SESSION['requestsToAssign'])) ?>;
-        console.log("here");
-        console.log(requestsToAssign);
         //sessionStorage.setItem('requestsToApprove', requestsToApprove);
         sessionStorage.setItem('requestsByMe', requestsByMe);
     </script>
