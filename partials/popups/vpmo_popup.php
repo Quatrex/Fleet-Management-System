@@ -260,7 +260,7 @@
                     </div>
                 </div>
                 <div style="height:300px; overflow:auto;">
-                    <table class="table table-hover w-auto" style="overflow-y: scroll;" id="vehicle-table">
+                    <table class="table table-hover w-auto" style="overflow-y: scroll;" id="selectionVehicleTable">
                         <thead class="thead-dark " style="position:relative">
                             <tr data-toggle="popup" data-id="my-profile" data-target="#my-profile">
                                 <th class="" scope="col">#</th>
@@ -271,6 +271,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+                            $i = 0;
+                            foreach ($vehicles as $vehicle) : ?>
+                                <tr id="selectionVehicleTable_<?php echo $vehicle->getField('registrationNo') ?>">
+                                    <th id="vehicle-<?php echo $i ?>"><?php echo $vehicle->getField('registrationNo') ?></td>
+                                    <td><?php echo $vehicle->getField('model') ?></td>
+                                    <td><?php echo $vehicle->getField('purchasedYear') ?></td>
+                                    <td>Nothing</td>
+                                </tr>
+                            <?php $i++;
+                            endforeach;; ?>
                         </tbody>
                     </table>
 
@@ -393,7 +404,7 @@
                         <p>Driver</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="final-driver">Text</p>
+                        <p id="final-driver-p">Text</p>
                     </div>
                 </div>
                 <div class="row">
@@ -401,9 +412,16 @@
                         <p>Vehicle</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="final-vehicle">Text</p>
+                        <p id="final-vehicle-p">Text</p>
                     </div>
                 </div>
+            </div>
+            <div class="d-none">
+                <form id="Schedule_form">
+                    <input type="hidden" id="requestId-input">
+                    <input type="hidden" id="final-vehicle-input">
+                    <input type="hidden" id="final-vehicle-input">
+                </form>
             </div>
             <div class="popup-footer">
             </div>

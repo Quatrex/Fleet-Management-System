@@ -55,10 +55,9 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                                     foreach ($requestsToJustify as $request) : ?>
                                                         <tr id="justifyRequestTable_<?php echo $request->getField('requestID') ?>">
                                                             <th id="requestraw-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
+                                                            <td><?php echo ($request->getField('requester'))->getField('firstName').' '.($request->getField('requester'))->getField('lastName') ?></td>
                                                             <td><?php echo $request->getField('purpose') ?></td>
-                                                            <td>Pending</td>
                                                             <td><?php echo $request->getField('dateOfTrip') ?></td>
-                                                            <td><?php echo $request->getField('timeOfTrip') ?></td>
                                                         </tr>
                                                     <?php $i++;
                                                     endforeach;; ?>

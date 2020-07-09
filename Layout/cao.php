@@ -56,7 +56,7 @@ $_SESSION['requestsByMe'] = $requestsByMe;
                                                     foreach ($requestsToApprove as $request) : ?>
                                                         <tr id="approveRequestTable_<?php echo $request->getField('requestID') ?>">
                                                             <th id="requestraw-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
-                                                            <td><?php echo $request->getField('requesterID') ?></td>
+                                                            <td><?php echo ($request->getField('requester'))->getField('firstName').' '.($request->getField('requester'))->getField('lastName') ?></td>
                                                             <td><?php echo $request->getField('purpose') ?></td>
                                                             <td><?php echo $request->getField('dateOfTrip') ?></td>
                                                             <td><?php echo $request->getField('timeOfTrip') ?></td>

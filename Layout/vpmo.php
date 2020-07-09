@@ -12,7 +12,6 @@ $_SESSION['pendingTrips'] = $requests;
 $vehicles = $employee->getVehicles();
 //$requestsToAssign = //code to get the requestsToAssign
 //$_SESSION['requestsToAssign'] = $requestsToAssign;
-//$vehicles = //code to get all the vehicles;
 $_SESSION['vehicles'] = $vehicles;
 
 ?>
