@@ -66,7 +66,7 @@ class EmailClient {
         $pickLocation = $request->getField('pickLocation');
         $dropLocation = $request->getField('dropLocation');
         $purpose = $request->getField('purpose');
-        $message = "<p> Justification is <b>approved</b> for the vehicle request you made for $dateTime from $pickLocation to $dropLocation.</p>
+        $message = "<p> Justification is <b>approved</b> for the vehicle request you made for $dateTime from <i>$pickLocation</i> to <i>$dropLocation</i>.</p>
                     <p> Purpose of the request : \"$purpose\" </p>";
 
         $JOComment = $request->getField('JOComment');
@@ -116,7 +116,7 @@ class EmailClient {
         $pickLocation = $request->getField('pickLocation');
         $dropLocation = $request->getField('dropLocation');
         $purpose = $request->getField('purpose');
-        $message = "<p> Justification is <b>denied</b> for the vehicle request you made for $dateTime from $pickLocation to $dropLocation.</p>
+        $message = "<p> Justification is <b>denied</b> for the vehicle request you made for $dateTime from <i>$pickLocation</i> to <i>$dropLocation</i>.</p>
                     <p> Purpose of the request : \"$purpose\" </p>";
 
         $JOComment = $request->getField('JOComment');
@@ -145,7 +145,7 @@ class EmailClient {
         $pickLocation = $request->getField('pickLocation');
         $dropLocation = $request->getField('dropLocation');
         $purpose = $request->getField('purpose');
-        $message = "<p> Chief Administrative Officer has <b>approved</b> your vehicle request made for $dateTime from $pickLocation to $dropLocation.</p>
+        $message = "<p> Chief Administrative Officer has <b>approved</b> your vehicle request made for $dateTime from <i>$pickLocation</i> to <i>$dropLocation</i>.</p>
                     <p> Purpose of the request : \"$purpose\" </p>";
 
         $CAOComment = $request->getField('CAOComment');
@@ -200,7 +200,7 @@ class EmailClient {
         $pickLocation = $request->getField('pickLocation');
         $dropLocation = $request->getField('dropLocation');
         $purpose = $request->getField('purpose');
-        $message = "<p> Chief Administrative Officer has <b>disapproved</b> your vehicle request made for $dateTime from $pickLocation to $dropLocation.</p>
+        $message = "<p> Chief Administrative Officer has <b>disapproved</b> your vehicle request made for $dateTime from <i>$pickLocation</i> to <i>$dropLocation</i>.</p>
                     <p> Purpose of the request : \"$purpose\" </p>";
 
         $CAOComment = $request->getField('CAOComment');
@@ -215,7 +215,7 @@ class EmailClient {
         //email to the JO
         $email = new Email();
         $email->setSubject('Vehicle Request Approval');
-        $message = "<p> Chief Administrative Officer has <b>disapproved</b> a vehicle you justified for $dateTime from $pickLocation to $dropLocation. </p>
+        $message = "<p> Chief Administrative Officer has <b>disapproved</b> a vehicle you justified for $dateTime from <i>$pickLocation</i> to <i>$dropLocation</i>. </p>
                     <p> Purpose of the request : \"$purpose\" </p>";
 
         $CAOComment = $request->getField('CAOComment');
