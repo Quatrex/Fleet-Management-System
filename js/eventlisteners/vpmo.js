@@ -24,25 +24,25 @@ document.querySelector('#vehicleTable').onclick = (event) => {
 	let entity = vehicles[row_id[1]];
 	lastClickedRow = tableRow.id;
 	changeValue({
-		'#vehicle-registrationNo': entity.registration,
-		'#vehicle-registrationNoCopy': entity.registration,
-		'#vehicle-model': entity.model,
-		'#vehicle-purchasedYear': entity.purchasedYear,
-		'#vehicle-price': entity.value,
-		'#vehicle-fuelType': entity.fuelType,
-		'#vehicle-currentLocation': entity.currentLocation,
-		'#vehicle-insuranceCompany': entity.insuranceCompany,
-		'#vehicle-insuranceValue': entity.insuranceValue,
+		'.vehicle-registrationNo': entity.registration,
+		'.vehicle-registrationNoCopy': entity.registration,
+		'.vehicle-model': entity.model,
+		'.vehicle-purchasedYear': entity.purchasedYear,
+		'.vehicle-price': entity.value,
+		'.vehicle-fuelType': entity.fuelType,
+		'.vehicle-currentLocation': entity.currentLocation,
+		'.vehicle-insuranceCompany': entity.insuranceCompany,
+		'.vehicle-insuranceValue': entity.insuranceValue,
 	});
 	if ('leasedCompany' in entity) {
 		document.querySelectorAll('.leasedVehicleData').forEach((element) => {
 			element.classList.remove = 'leasedVehicleData';
 		});
 		changeValue({
-			'#vehicle-leasedCompany': entity.leasedCompany,
-			'#vehicle-leasedValue': entity.monthlyPayment,
-			'#vehicle-leasedFrom': entity.leasedPeriodFrom,
-			'#vehicle-leasedTo': entity.leasedPeriodTo,
+			'.vehicle-leasedCompany': entity.leasedCompany,
+			'.vehicle-leasedValue': entity.monthlyPayment,
+			'.vehicle-leasedFrom': entity.leasedPeriodFrom,
+			'.vehicle-leasedTo': entity.leasedPeriodTo,
 		});
 	}
 	document.getElementById('vehicle-profile-form').style.display = 'block';
@@ -63,13 +63,30 @@ document.querySelector('#vehicle-profile-edit-form-close').addEventListener('cli
 });
 
 document.querySelector('#confirm-vehicle-profile').addEventListener('click', () => {
-	writeToDatabase('UpdateVehicle_form');
+	if (compareValues('UpdateVehicle_form', 'VehicleProfile_form')) {
+		writeToDatabase('UpdateVehicle_form');
+	}
+	// else{}
 	document.getElementById('vehicle-profile-edit-form').style.display = 'none';
 });
 
 document.querySelector('#vehicle-delete').addEventListener('click', () => {
 	document.getElementById('delete-vehicle-alert').style.display = 'block';
 });
+
+document.querySelectorAll('.vehicle-edit').forEach((element) =>
+	element.addEventListener('keyup', () => {
+		if(compareValues('UpdateVehicle_form', 'VehicleProfile_form')){
+			document.querySelector('#edit-confirm-tooltip').title ="";
+			document.getElementById('confirm-vehicle-profile').disabled = false;
+		}
+		else{
+			document.querySelector('#edit-confirm-tooltip').title ="Make changes to enable";
+			document.getElementById('confirm-vehicle-profile').disabled = true;
+
+		}
+	})
+);
 
 document.querySelector('#confirm-vehicle-delete-button').addEventListener('click', () => {
 	document.getElementById('delete-vehicle-alert').style.display = 'none';
@@ -84,6 +101,8 @@ document.querySelector('#vehicle-delete-cancel-button').addEventListener('click'
 
 document.querySelector('#vehicle-profile-edit-button').addEventListener('click', () => {
 	document.getElementById('vehicle-profile-form').style.display = 'none';
+	document.getElementById('confirm-vehicle-profile').disabled = true;
+	document.querySelector('#edit-confirm-tooltip').title ="Make changes to enable";
 	document.getElementById('vehicle-profile-edit-form').style.display = 'block';
 });
 document.querySelector('#vehicle-profile-edit-cancel-button').addEventListener('click', () => {
@@ -135,7 +154,7 @@ document.querySelector('#vehicle-add-form-submit').addEventListener('click', () 
 document.querySelector('#vehicle-add-form-close').addEventListener('click', () => {
 	changeInnerHTML({
 		'#cancel-alert-header': 'Cancel Adding',
-		'#cancel-alert-message': 'Are you sure you stop?',
+		'#cancel-alert-message': 'Are you sure you to cancel?',
 	});
 	document.getElementById('cancel-request-alert').style.display = 'block';
 });

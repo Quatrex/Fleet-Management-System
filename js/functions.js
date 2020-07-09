@@ -177,3 +177,26 @@ function toggleBack(table, tableRow, type) {
     }
   });
 }
+
+function convertToKeyValue(form){
+  let elements =Array.from(form.elements)
+  let arr =[]  
+  elements.forEach(element =>{
+		arr[element.name] =element.value;
+  })
+  return arr;
+}
+
+function compareValues(form1,form2){
+  let form1Arr = convertToKeyValue(document.getElementById(form1))
+  let form2Arr = convertToKeyValue(document.getElementById(form2))
+  for(let key in form2Arr){
+    if(form1Arr[key]!==form2Arr[key]){
+      console.log("Values changed")
+      return true
+    }
+  }
+  console.log("No changes made")
+  return false;
+
+}

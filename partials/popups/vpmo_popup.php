@@ -424,17 +424,18 @@
                 <div id="submit-form-wrapper">
                     <div class="basic-form">
                         <form id="VehicleProfile_form">
+                            <input class="form-control py-2 border-right-0 border vehicle-registrationNoCopy" type="hidden" name="registrationNo">
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label>Registration Number</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border" type="text" name="registrationNoDisplay" id="vehicle-registrationNo" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-registrationNo" type="text" name="registrationNoDisplay" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Model</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="model" id="vehicle-model" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-model" type="text" name="model" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -442,13 +443,13 @@
                                 <div class="form-group col-md-6">
                                     <label>Purchased Year</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="purchasedYear" id="vehicle-purchasedYear" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-purchasedYear" type="text" name="purchasedYear" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Price</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="value" id="vehicle-price" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-price" type="text" name="value" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -456,13 +457,13 @@
                                 <div class="form-group col-md-6">
                                     <label>Fuel Type</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="fuelType" id="vehicle-fuelType" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-fuelType" type="text" name="fuelType" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Current Location</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="currentLocation" id="vehicle-currentLocation" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-currentLocation" type="text" name="currentLocation" disabled>
 
                                     </div>
                                 </div>
@@ -471,14 +472,14 @@
                                 <div class="form-group col-md-6">
                                     <label>Insurance Company</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="insuranceCompany" id="vehicle-insuranceCompany" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-insuranceCompany" type="text" name="insuranceCompany" disabled>
 
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Insurance Value</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="insuranceValue" id="vehicle-insuranceValue" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-insuranceValue" type="text" name="insuranceValue" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -486,14 +487,14 @@
                                 <div class="form-group col-md-6">
                                     <label>Leased Company</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="leasedCompany" id="vehicle-leasedCompany" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-leasedCompany" type="text" name="leasedCompany" disabled>
 
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Leased Value</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="monthlyPayment" id="vehicle-leasedValue" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-leasedValue" type="text" name="monthlyPayment" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -501,20 +502,21 @@
                                 <div class="form-group col-md-6">
                                     <label>Leased From</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="leasedPeriodFrom" id="vehicle-leasedFrom" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-leasedFrom" type="text" name="leasedPeriodFrom" disabled>
 
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Leased To</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="leasedPeriodTo" id="vehicle-leasedTo" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-leasedTo" type="text" name="leasedPeriodTo" disabled>
                                     </div>
                                 </div>
                             </div>
-                            <input type="button" value="Edit" class="btn btn-primary" id="vehicle-profile-edit-button">
-                            <input type="button" class="btn btn-danger" value="Delete" id="vehicle-delete">
                         </form>
+                        <input type="button" value="Edit" class="btn btn-primary" id="vehicle-profile-edit-button">
+                        <input type="button" class="btn btn-danger" value="Delete" id="vehicle-delete">
+
                     </div>
 
 
@@ -538,18 +540,18 @@
                 <div id="submit-form-wrapper">
                     <div class="basic-form">
                         <form id="UpdateVehicle_form">
-                            <input class="form-control py-2 border-right-0 border" type="hidden" name="registrationNo" id="vehicle-registrationNoCopy">
+                            <input class="form-control py-2 border-right-0 border  vehicle-edit vehicle-registrationNoCopy" type="hidden" name="registrationNo">
                             ` <div class="form-group row">
                                 <div class="col-md-6">
                                     <label>Registration Number</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border" type="text" name="registrationNoDisplay" id="vehicle-registrationNo" disabled>
+                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-registrationNo" type="text" name="registrationNoDisplay" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Model</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="model" id="vehicle-model">
+                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-model" type="text" name="model">
                                     </div>
                                 </div>
                             </div>
@@ -557,13 +559,13 @@
                                 <div class="form-group col-md-6">
                                     <label>Purchased Year</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="purchasedYear" id="vehicle-purchasedYear">
+                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-purchasedYear" type="text" name="purchasedYear">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Price</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="value" id="vehicle-price">
+                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-price" type="text" name="value">
                                     </div>
                                 </div>
                             </div>
@@ -571,13 +573,13 @@
                                 <div class="form-group col-md-6">
                                     <label>Fuel Type</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="fuelType" id="vehicle-fuelType">
+                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-fuelType" type="text" name="fuelType">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Current Location</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="currentLocation" id="vehicle-currentLocation">
+                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-currentLocation" type="text" name="currentLocation">
 
                                     </div>
                                 </div>
@@ -586,14 +588,14 @@
                                 <div class="form-group col-md-6">
                                     <label>Insurance Company</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="insuranceCompany" id="vehicle-insuranceCompany">
+                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-insuranceCompany" type="text" name="insuranceCompany">
 
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Insurance Value</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="insuranceValue" id="vehicle-insuranceValue">
+                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-insuranceValue" type="text" name="insuranceValue">
                                     </div>
                                 </div>
                             </div>
@@ -601,14 +603,14 @@
                                 <div class="form-group col-md-6">
                                     <label>Leased Company</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="leasedCompany" id="vehicle-leasedCompany">
+                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-leasedCompany" type="text" name="leasedCompany">
 
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Leased Value</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="monthlyPayment" id="vehicle-leasedValue">
+                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-leasedValue" type="text" name="monthlyPayment">
                                     </div>
                                 </div>
                             </div>
@@ -616,42 +618,39 @@
                                 <div class="form-group col-md-6">
                                     <label>Leased From</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="leasedPeriodFrom" id="vehicle-leasedFrom">
+                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-leasedFrom" type="text" name="leasedPeriodFrom">
 
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Leased To</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="leasedPeriodTo" id="vehicle-leasedTo">
+                                        <input class="form-control py-2 border-right-0 border vehicle-edit vehicle-leasedTo" type="text" name="leasedPeriodTo">
                                     </div>
                                 </div>
                             </div>
-                            <input type="button" class="btn btn-success" value="Confirm" id="confirm-vehicle-profile">
-                            <input type="button" value="Cancel" class="btn btn-primary" id="vehicle-profile-edit-cancel-button">
                         </form>
+                        <span class="d-inline-block" id="edit-confirm-tooltip" data-toggle="tooltip" title="Make changes to enable"><input type="button" class="btn btn-success" value="Confirm" id="confirm-vehicle-profile" disabled></span>
+                        <input type="button" value="Cancel" class="btn btn-primary" id="vehicle-profile-edit-cancel-button">
                     </div>
-
-
                 </div>
             </div>
         </div>
-
     </div>
 
-<!--Delete Vehicle Alert-->
-<div class="popup" id="delete-vehicle-alert">
-    <!-- Confirm alert content -->
-    <div class="popup-content">
-        <div class="popup-header">
-            <span class="close" id="confirm-alert-close">&times;</span>
-            <h3>Delete Vehicle</h3>
-            <hr>
-        </div>
-        <div class="popup-body">
-            <p>Are you sure you want to delete vehicle?</p>
-            <input type="button" value="Yes" class="btn btn-danger" id="confirm-vehicle-delete-button">
-            <input type="button" value="No" class="btn btn-primary" id="vehicle-delete-cancel-button">
+    <!--Delete Vehicle Alert-->
+    <div class="popup" id="delete-vehicle-alert">
+        <!-- Confirm alert content -->
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="confirm-alert-close">&times;</span>
+                <h3>Delete Vehicle</h3>
+                <hr>
+            </div>
+            <div class="popup-body">
+                <p>Are you sure you want to delete vehicle?</p>
+                <input type="button" value="Yes" class="btn btn-danger" id="confirm-vehicle-delete-button">
+                <input type="button" value="No" class="btn btn-primary" id="vehicle-delete-cancel-button">
+            </div>
         </div>
     </div>
-</div>
