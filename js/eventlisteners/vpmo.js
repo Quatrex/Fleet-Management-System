@@ -45,30 +45,50 @@ document.querySelector('#vehicleTable').onclick = (event) => {
 			'#vehicle-leasedTo': entity.leasedPeriodTo,
 		});
 	}
-	document.getElementById('car-profile-form').style.display = 'block';
+	document.getElementById('vehicle-profile-form').style.display = 'block';
 };
 
+//Vehicle Profile
 ///Vehicle profile close//
-document.querySelector('#car-profile-form-close').addEventListener('click', () => {
-	document.getElementById('car-profile-form').style.display = 'none';
+document.querySelector('#vehicle-profile-form-close').addEventListener('click', () => {
+	document.getElementById('vehicle-profile-form').style.display = 'none';
+});
+
+document.querySelector('#vehicle-profile-edit-form-close').addEventListener('click', () => {
+	changeInnerHTML({
+		'#cancel-alert-header': 'Cancel Update',
+		'#cancel-alert-message': 'Are you sure you want cancel updates?',
+	});
+	document.getElementById('cancel-request-alert').style.display = 'block';
 });
 
 document.querySelector('#confirm-vehicle-profile').addEventListener('click', () => {
 	writeToDatabase('UpdateVehicle_form');
-	document.getElementById('car-profile-form').style.display = 'none';
-	document.querySelectorAll('.vehicle-profile-input').forEach((field) => {
-		field.disabled = true;
-	});
+	document.getElementById('vehicle-profile-edit-form').style.display = 'none';
 });
 
-document.querySelector('#confirm-vehicle-delete').addEventListener('click', () => {
-	document.getElementById('car-profile-form').style.display = 'none';
+document.querySelector('#vehicle-delete').addEventListener('click', () => {
+	document.getElementById('delete-vehicle-alert').style.display = 'block';
+});
+
+document.querySelector('#confirm-vehicle-delete-button').addEventListener('click', () => {
+	document.getElementById('delete-vehicle-alert').style.display = 'none';
+	document.getElementById('vehicle-profile-form').style.display = 'none';
 	writeToDatabase('DeleteVehicle_button_VehicleID');
 });
+
+document.querySelector('#vehicle-delete-cancel-button').addEventListener('click', () => {
+	document.getElementById('delete-vehicle-alert').style.display = 'none';
+	document.getElementById('vehicle-profile-form').style.display = 'block';
+});
+
 document.querySelector('#vehicle-profile-edit-button').addEventListener('click', () => {
-	document.querySelectorAll('.vehicle-profile-input').forEach((field) => {
-		field.disabled = false;
-	});
+	document.getElementById('vehicle-profile-form').style.display = 'none';
+	document.getElementById('vehicle-profile-edit-form').style.display = 'block';
+});
+document.querySelector('#vehicle-profile-edit-cancel-button').addEventListener('click', () => {
+	document.getElementById('vehicle-profile-edit-form').style.display = 'none';
+	document.getElementById('vehicle-profile-form').style.display = 'block';
 });
 
 //**********************Ongoing  **********************/
@@ -113,6 +133,10 @@ document.querySelector('#vehicle-add-form-submit').addEventListener('click', () 
 });
 // //x button-click
 document.querySelector('#vehicle-add-form-close').addEventListener('click', () => {
+	changeInnerHTML({
+		'#cancel-alert-header': 'Cancel Adding',
+		'#cancel-alert-message': 'Are you sure you stop?',
+	});
 	document.getElementById('cancel-request-alert').style.display = 'block';
 });
 

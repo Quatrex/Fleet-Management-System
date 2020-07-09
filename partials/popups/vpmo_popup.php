@@ -271,140 +271,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td><i class="fa fa-info" aria-hidden="true"></i></td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Correct</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                                <td>18.10</td>
-                            </tr>
-
                         </tbody>
                     </table>
 
@@ -461,125 +327,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-                            <tr data-pop="1">
-                                <th scope="row">1</th>
-                                <td>Pending</td>
-                                <td>2020/04/10</td>
-                                <td>18.10</td>
-                            </tr>
-
                         </tbody>
                     </table>
 
@@ -663,12 +410,12 @@
         </div>
     </div>
 
-    <!--Vehicle Form-->
-    <div class="popup" id="car-profile-form">
+    <!--Vehicle Profile Form-->
+    <div class="popup" id="vehicle-profile-form">
         <!-- Request Form content -->
         <div class="popup-content">
             <div class="popup-header">
-                <span class="close" id="car-profile-form-close">&times;</span>
+                <span class="close" id="vehicle-profile-form-close">&times;</span>
                 <h2>Vehicle</h2>
                 <hr>
             </div>
@@ -676,9 +423,8 @@
                 <img src="../images/default-user-image.png" class="form-image">
                 <div id="submit-form-wrapper">
                     <div class="basic-form">
-                        <form id="UpdateVehicle_form">
-                            <input class="form-control py-2 border-right-0 border" type="hidden" name="registrationNo" id="vehicle-registrationNoCopy">
-`                           <div class="form-group row">
+                        <form id="VehicleProfile_form">
+                            <div class="form-group row">
                                 <div class="col-md-6">
                                     <label>Registration Number</label>
                                     <div class="input-group">
@@ -767,8 +513,7 @@
                                 </div>
                             </div>
                             <input type="button" value="Edit" class="btn btn-primary" id="vehicle-profile-edit-button">
-                            <input type="button" class="btn btn-success" value="Confirm" id="confirm-vehicle-profile">
-                            <input type="button" class="btn btn-danger" value="Delete" id="confirm-vehicle-delete">
+                            <input type="button" class="btn btn-danger" value="Delete" id="vehicle-delete">
                         </form>
                     </div>
 
@@ -778,3 +523,135 @@
         </div>
 
     </div>
+
+    <!--Vehicle Profile Form-->
+    <div class="popup" id="vehicle-profile-edit-form">
+        <!-- Request Form content -->
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="vehicle-profile-edit-form-close">&times;</span>
+                <h2>Edit Vehicle</h2>
+                <hr>
+            </div>
+            <div class="popup-body">
+                <img src="../images/default-user-image.png" class="form-image">
+                <div id="submit-form-wrapper">
+                    <div class="basic-form">
+                        <form id="UpdateVehicle_form">
+                            <input class="form-control py-2 border-right-0 border" type="hidden" name="registrationNo" id="vehicle-registrationNoCopy">
+                            ` <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label>Registration Number</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border" type="text" name="registrationNoDisplay" id="vehicle-registrationNo" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Model</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="model" id="vehicle-model">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="form-group col-md-6">
+                                    <label>Purchased Year</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="purchasedYear" id="vehicle-purchasedYear">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Price</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="value" id="vehicle-price">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="form-group col-md-6">
+                                    <label>Fuel Type</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="fuelType" id="vehicle-fuelType">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Current Location</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="currentLocation" id="vehicle-currentLocation">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="form-group col-md-6">
+                                    <label>Insurance Company</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="insuranceCompany" id="vehicle-insuranceCompany">
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Insurance Value</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="insuranceValue" id="vehicle-insuranceValue">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row leasedVehicleData">
+                                <div class="form-group col-md-6">
+                                    <label>Leased Company</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="leasedCompany" id="vehicle-leasedCompany">
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Leased Value</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="monthlyPayment" id="vehicle-leasedValue">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row leasedVehicleData">
+                                <div class="form-group col-md-6">
+                                    <label>Leased From</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="leasedPeriodFrom" id="vehicle-leasedFrom">
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Leased To</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border vehicle-profile-input" type="text" name="leasedPeriodTo" id="vehicle-leasedTo">
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="button" class="btn btn-success" value="Confirm" id="confirm-vehicle-profile">
+                            <input type="button" value="Cancel" class="btn btn-primary" id="vehicle-profile-edit-cancel-button">
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<!--Delete Vehicle Alert-->
+<div class="popup" id="delete-vehicle-alert">
+    <!-- Confirm alert content -->
+    <div class="popup-content">
+        <div class="popup-header">
+            <span class="close" id="confirm-alert-close">&times;</span>
+            <h3>Delete Vehicle</h3>
+            <hr>
+        </div>
+        <div class="popup-body">
+            <p>Are you sure you want to delete vehicle?</p>
+            <input type="button" value="Yes" class="btn btn-danger" id="confirm-vehicle-delete-button">
+            <input type="button" value="No" class="btn btn-primary" id="vehicle-delete-cancel-button">
+        </div>
+    </div>
+</div>

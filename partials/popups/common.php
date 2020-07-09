@@ -55,16 +55,14 @@
     <div class="popup-content">
         <div class="popup-header">
             <span class="close" id="confirm-alert-close">&times;</span>
-            <h3>Cancel Request</h3>
+            <h3 id="cancel-alert-header">Cancel Request</h3>
             <hr>
         </div>
         <div class="popup-body">
 
-            <p>Are you sure you want to cancel request</p>
-
-            <input type="button" value="No" class="btn btn-primary" id="confirm-alert-no-button">
+            <p id="cancel-alert-message">Are you sure you want to cancel request</p>
             <input type="button" value="Yes" class="btn btn-danger" id="confirm-alert-yes-button">
-
+            <input type="button" value="No" class="btn btn-primary" id="confirm-alert-no-button">
         </div>
         <div class="popup-footer">
         </div>
