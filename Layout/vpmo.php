@@ -180,8 +180,9 @@ $_SESSION['vehicles'] = $vehicles;
         const empID = <?php echo json_encode(($_SESSION['empid'])) ?>;
         const requestsByMe = <?php echo json_encode(($_SESSION['pendingTrips'])) ?>;
         const vehicles = <?php echo json_encode(($_SESSION['vehicles'])) ?>;
-        console.log(vehicles);
-
+        const requestsToAssign = <?php echo json_encode(($_SESSION['requestsToAssign'])) ?>;
+        console.log("here");
+        console.log(requestsToAssign);
         //sessionStorage.setItem('requestsToApprove', requestsToApprove);
         sessionStorage.setItem('requestsByMe', requestsByMe);
     </script>

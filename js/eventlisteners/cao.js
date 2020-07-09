@@ -4,8 +4,8 @@ document.querySelector("#approveRequestTable").onclick = (event) => {
     let entity = requestsToApprove[row_id[1]]
     lastClickedRow = tableRow.id;
     changeInnerHTML({
-        '#approve-preview-requester': entity.requesterID,
-        // '#approve-preview-designation':entity.designation,
+        '#approve-preview-requester':  `${entity.Requester.FirstName} ${entity.Requester.LastName}`,
+        '#approve-preview-designation':entity.Requester.Position,
         '#approve-preview-date': entity.dateOfTrip,
         '#approve-preview-time': entity.timeOfTrip,
         '#approve-preview-pick': entity.pickLocation,

@@ -152,7 +152,7 @@
                         <p>Requester</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="vpmo-assign-requester">Text</p>
                     </div>
                 </div>
 
@@ -161,7 +161,7 @@
                         <p>Designation</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="vpmo-assign-designation">Text</p>
                     </div>
                 </div>
 
@@ -170,7 +170,7 @@
                         <p>Date</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>DD-MM-YYYY</p>
+                        <p id="vpmo-assign-date">DD-MM-YYYY</p>
                     </div>
                 </div>
 
@@ -179,7 +179,7 @@
                         <p>Time</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>HH:MM: AM/PM</p>
+                        <p id="vpmo-assign-time">HH:MM: AM/PM</p>
                     </div>
                 </div>
 
@@ -188,7 +188,7 @@
                         <p>Pick-up Location</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="vpmo-assign-pickUpLocation">Text</p>
                     </div>
                 </div>
 
@@ -197,16 +197,7 @@
                         <p>Drop-off Location</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>Status</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="vpmo-assign-dropOffLocation">Text</p>
                     </div>
                 </div>
 
@@ -215,7 +206,7 @@
                         <p>Purpose</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="vpmo-assign-purpose">Text</p>
                     </div>
                 </div>
 

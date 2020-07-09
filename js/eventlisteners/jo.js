@@ -6,8 +6,8 @@ document.querySelector("#justifyRequestTable").onclick = (event) => {
   lastClickedRow = entity.RequestID;
 
   changeInnerHTML({
-    "#justify-preview-requester": entity.RequestId,
-    // '#justify-preview-designation':entity.designation,
+    "#justify-preview-requester": `${entity.Requester.FirstName} ${entity.Requester.LastName}`,
+    '#justify-preview-designation':entity.Requester.Position,
     "#justify-preview-date": entity.DateOfTrip,
     "#justify-preview-time": entity.TimeOfTrip,
     "#justify-preview-pick": entity.PickLocation,

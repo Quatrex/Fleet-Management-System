@@ -2,7 +2,23 @@
 document.querySelector('#approveRequestTable').onclick = (event) => {
 	let tableRow = event.target.parentElement;
 	lastClickedRow = tableRow.id;
-
+	let row_id = tableRow.children[0].id.split('-');
+	let entity = requestsToAssign[row_id[1]];
+	lastClickedRow = tableRow.id;
+	document.querySelectorAll('.leasedVehicleData').forEach((element) => {
+		if (!element.classList.contains('d-none')) {
+			element.classList.add('d-none');
+		}
+	});
+	changeInnerHTML({
+		'#vpmo-assign-requester': `${entity.Requester.FirstName} ${entity.Requester.LastName}`,
+		'#vpmo-assign-designation': entity.Requester.Position,
+		'#vpmo-assign-date': entity.DateOfTrip,
+		'#vpmo-assign-time': entity.TimeOfTrip,
+		'#vpmo-assign-pickUpLocation': entity.PickLocation,
+		'#vpmo-assign-dropOffLocation': entity.DropLocation,
+		'#vpmo-assign-purpose': entity.Purpose,
+	});
 	document.getElementById('request-assign-preview-popup').style.display = 'block';
 };
 
@@ -204,14 +220,14 @@ document.querySelector('#request-final-details-close').onclick = (event) => {
 //     document.getElementById('select-vehicle-alert').style.display = 'none';
 // }
 
-document.querySelector('#vehicle-table').onclick = (event) => {
-	let tableRow = event.target.parentElement;
-	console.log(tableRow);
+// document.querySelector('#vehicle-table').onclick = (event) => {
+// 	let tableRow = event.target.parentElement;
+// 	console.log(tableRow);
 
-	const table = document.querySelector('#vehicle-table');
-	toggleBack(table, tableRow, 'vehicle-name');
-};
-document.querySelector('#driver-table').onclick = (event) => {
-	let tableRow = event.target.parentElement;
-	toggleBack(tableRow.parentElement, tableRow, 'driver-name');
-};
+// 	const table = document.querySelector('#vehicle-table');
+// 	toggleBack(table, tableRow, 'vehicle-name');
+// };
+// document.querySelector('#driver-table').onclick = (event) => {
+// 	let tableRow = event.target.parentElement;
+// 	toggleBack(tableRow.parentElement, tableRow, 'driver-name');
+// };

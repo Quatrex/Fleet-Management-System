@@ -8,15 +8,25 @@ use DB\Controller\RequestController;
 use DB\Viewer\EmployeeViewer;
 use DB\Viewer\RequestViewer;
 use Request\Factory\RequesterRequest\RequesterRequestFactory;
+use JsonSerializable;
+
 
 // use Request as Request;
-class Requester extends PrivilegedEmployee
+class Requester extends PrivilegedEmployee implements JsonSerializable
 {
     public function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {
         parent::__construct($empID, $firstName, $lastName, $position, $email, $username, $password);
     }
 
+    public function jsonSerialize()
+    {
+        return ['empID'=>$this->getField('empID'),
+                'FirstName'=> $this->getField('firstName'),
+                'LastName'=> $this->getField('lastName'),
+                'Position'=>$this->getField('position'),
+            ];
+    }
     //IObjectHandle
     public static function getObject($ID){
         $empID=$ID;
