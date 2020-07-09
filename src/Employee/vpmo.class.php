@@ -69,6 +69,18 @@ class VPMO extends Requester
 
     /**
      *
+     * Returns all scheduled requests
+     *
+     * @return array(Request)
+     *
+     */
+    public function getScheduledRequests()
+    {
+        return VPMORequestFactory::getScheduledRequests();
+    }
+
+    /**
+     *
      * Returns all the vehicles
      *
      * @return array(Vehicle)

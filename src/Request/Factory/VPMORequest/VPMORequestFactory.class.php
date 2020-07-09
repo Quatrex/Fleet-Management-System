@@ -9,26 +9,15 @@ class VPMORequestFactory
 {
 
     /**
-     * Returns the requests scheduled by the VPMO
+     * Returns all the scheduled requests
      * 
      * @param int $empID
      * @param string $stateString
      * @return array(VPMORequestProxy)
      */
-    public static function makeScheduledRequests(int $empID, string $stateString) : array
+    public static function getScheduledRequests() : array
     {
-        $requestViewer = new RequestViewer();
-        $stateID = State::getStateID($stateString);
-        $requestRecords = $requestViewer->getRequestsByIDNState($empID,$stateID);
-        $requests=array();
-
-        foreach($requestRecords as $values){
-            $request = VPMORequestProxy::getRequestByValues($values);
-            $request->loadObject('requester',true,$values);
-            array_push($requests,VPMORequestFactory::castToRequest($request));
-        }
-
-        return $requests;
+        return VPMORequestFactory::getRequests('scheduled');
     }
 
     /**
@@ -38,17 +27,7 @@ class VPMORequestFactory
      */
     public static function getApprovedRequests() : array
     {
-        $requestViewer = new RequestViewer();
-        $state = State::getStateID('justified');
-        $requestRecords = $requestViewer->getRequestsbyState($state);
-        $requests=array();
-
-        foreach($requestRecords as $values){
-            $request = VPMORequestProxy::getRequestByValues($values);
-            array_push($requests,VPMORequestFactory::castToRequest($request));
-        }
-
-        return $requests;
+        return VPMORequestFactory::getRequests('approved');
     }
 
     /**
@@ -63,7 +42,7 @@ class VPMORequestFactory
     }
 
      /**
-     * casts a request proxy to a request interface type
+     * Casts a request proxy to a request interface type
      * 
      * @param Request $requestProxy
      * @return Request
@@ -71,5 +50,27 @@ class VPMORequestFactory
     private static function castToRequest(Request $requestProxy) : Request
     {
         return $requestProxy;
+    }
+
+    /**
+     * Returns all requests for a given state
+     * 
+     * @param string $state
+     * 
+     * @return array(Request)
+     */
+    private static function getRequests(string $state) : array
+    {
+        $requestViewer = new RequestViewer();
+        $state = State::getStateID($state);
+        $requestRecords = $requestViewer->getRequestsbyState($state);
+        $requests=array();
+
+        foreach($requestRecords as $values){
+            $request = VPMORequestProxy::getRequestByValues($values);
+            array_push($requests,VPMORequestFactory::castToRequest($request));
+        }
+
+        return $requests;
     }
 }

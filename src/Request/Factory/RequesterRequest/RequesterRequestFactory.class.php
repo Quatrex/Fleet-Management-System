@@ -57,7 +57,7 @@ class RequesterRequestFactory
 
 
     /**
-     * casts a request proxy to a request interface type
+     * Casts a request proxy to a request interface type
      * 
      * @param Request $requestProxy
      * @return Request

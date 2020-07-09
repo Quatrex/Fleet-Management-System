@@ -65,12 +65,12 @@ class JORequestFactory
     }
 
      /**
-     * casts a request proxy to a request interface type
+     * Casts a request proxy to a request interface type
      * 
      * @param Request $requestProxy
      * @return Request
      */
-    private static function castToRequest(Request $requestProxy) : Request
+    protected static function castToRequest(Request $requestProxy) : Request
     {
         return $requestProxy;
     }
