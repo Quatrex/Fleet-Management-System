@@ -9,4 +9,5 @@ interface Vehicle
     public function deallocate() : void;
     public function repair() : void;
     public function finishRepair() : void;
+    public function delete() : void;
 }

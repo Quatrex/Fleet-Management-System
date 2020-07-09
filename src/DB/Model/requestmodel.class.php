@@ -89,6 +89,24 @@ abstract class RequestModel extends Model
         parent::updateRecord($columnNames, $columnVals, $conditionNames, $conditionVals);
     }
 
+    protected function scheduleRequest($requestID, $scehduledBy, $driver, $vehicle, $state)
+    {
+        $columnNames = array("State", "ScheduledBy", "Driver", "Vehicle");
+        $columnVals = array($state, $scehduledBy, $driver, $vehicle);
+        $conditionNames = array("RequestID");
+        $conditionVals = array($requestID);
+        parent::updateRecord($columnNames, $columnVals, $conditionNames, $conditionVals);
+    }
+
+    protected function closeRequest($requestID, $state)
+    {
+        $columnNames = array("State");
+        $columnVals = array($state);
+        $conditionNames = array("RequestID");
+        $conditionVals = array($requestID);
+        parent::updateRecord($columnNames, $columnVals, $conditionNames, $conditionVals);
+    }
+
     public function getEmail(int $requestID, string $position)
     {
         $wantedCols = array('Email');

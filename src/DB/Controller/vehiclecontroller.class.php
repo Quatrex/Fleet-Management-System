@@ -21,6 +21,10 @@ class VehicleController extends VehicleModel{
         parent::updateVehicleRow($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
         parent::updateLeasedVehicleRow($registrationNo, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
     } 
+
+    public function deleteVehicle($registrationNo){
+        parent::deleteVehicle($registrationNo);
+    }
 }
 
     

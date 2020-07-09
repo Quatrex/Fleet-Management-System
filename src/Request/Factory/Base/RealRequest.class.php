@@ -177,6 +177,44 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
         );
     }
 
+    public function schedule(int $empID, Driver $driver, Vehicle $vehicle) : void{
+        $this->scehduledBy['ID'] = $empID;
+        $this->driver['ID']=$driver;
+        $this->vehicle['ID']=$vehicle;
+
+        $this->state->schedule($this);
+        $requestController = new RequestController();
+        $stateID = State::getStateID('scheduled');
+
+        $requestController->scheduleRequest(
+            $this->requestID,
+            $this->scehduledBy['ID'],
+            $this->driver['ID'],
+            $this->vehicle['ID'],
+            $stateID
+        );
+    }
+
+    public function close(): void
+    {
+        $this->state->close($this);
+        $requestController = new RequestController();
+        $stateID = State::getStateID('completed');
+
+        $requestController->closeRequest(
+            $this->requestID,
+            $stateID
+        );
+    }
+
+    public function cancel(): void
+    {
+        $this->state->cancel($this);
+        $requestController = new RequestController();
+        $stateID = State::getStateID('cancelled');
+        $requestController->updateState($this->requestID, $stateID);
+    }
+
     public function getField($field)
     {
         if (property_exists($this, $field)) {
@@ -195,21 +233,8 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
 
 
 
-    public function cancel(): void
-    {
-        $this->state->cancel($this);
-        $requestController = new RequestController();
-        $stateID = State::getStateID('cancelled');
-        $requestController->updateState($this->requestID, $stateID);
-    }
+    
 
-    public function schedule(int $empID, Driver $driver, Vehicle $vehicle): void
-    {
-    }
-
-    public function close(): void
-    {
-    }
 
     /**
      * Loads a specified object

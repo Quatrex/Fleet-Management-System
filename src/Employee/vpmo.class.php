@@ -6,16 +6,17 @@ use Request\Request;
 use DB\Viewer\EmployeeViewer;
 use Vehicle\Vehicle;
 use Request\Factory\Base\RealRequest;
-use Vehicle\Factory\Base\VehicleFactory;
+use Vehicle\Factory\Base\AbstractVehicleFactory;
 use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
 use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
 use Employee\Driver\Factory\DriverFactory;
+use Request\Factory\VPMORequest\VPMORequestFactory;
 
 
 class VPMO extends Requester
 {
-    private VehicleFactory $leasedVehicleFactory;
-    private VehicleFactory $purchasedVehicleFactory;
+    private AbstractVehicleFactory $leasedVehicleFactory;
+    private AbstractVehicleFactory $purchasedVehicleFactory;
 
     function __construct($empID, $firstName, $lastName, $position, $email, $username, $password)
     {
@@ -25,25 +26,28 @@ class VPMO extends Requester
     }
 
     //IObjectHandle
-    public static function getObject($ID){
-        $empID=$ID;
+    public static function getObject($ID)
+    {
+        $empID = $ID;
         //get values from database
         $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
-        $values=$employeeViewer->getRecordByID($empID);
+        $values = $employeeViewer->getRecordByID($empID);
 
         $obj = new VPMO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
-        
+
         return $obj; //return false, if fail
     }
 
     //IObjectHandle
-    public static function getObjectByValues(array $values){
+    public static function getObjectByValues(array $values)
+    {
         $obj = new VPMO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Email'], $values['Username'], "");
         return $obj;
     }
 
     //IObjectHandle
-    public static function constructObject($empID, $firstName, $lastName, $position, $email, $username, $password){
+    public static function constructObject($empID, $firstName, $lastName, $position, $email, $username, $password)
+    {
 
         $obj = new VPMO($empID, $firstName, $lastName, $position, $email, $username, $password);
 
@@ -63,7 +67,7 @@ class VPMO extends Requester
     {
         $leasedVehicles = $this->leasedVehicleFactory->getVehicles();
         $purchasedVehicles = $this->purchasedVehicleFactory->getVehicles();
-        return array_merge($purchasedVehicles,$leasedVehicles);
+        return array_merge($purchasedVehicles, $leasedVehicles);
     }
 
     /**
@@ -76,6 +80,34 @@ class VPMO extends Requester
     public function getDrivers()
     {
         return DriverFactory::makeDrivers();
+    }
+
+    /**
+     *
+     * change a request's state from approved to schedule
+     *
+     * @param $requestID,$driver,$vehicle
+     * @return void
+     *
+     */
+    public function scheduleRequest($requestID, $driver, $vehicle)
+    {
+        $request = VPMORequestFactory::makeRequest($requestID);
+        $request->schedule($this->empID, $driver, $vehicle);
+    }
+
+    /**
+     *
+     * change a request's state from scheduled to completed
+     *
+     * @param $requestID,$driver,$vehicle
+     * @return void
+     *
+     */
+    public function closeRequest($requestID)
+    {
+        $request = VPMORequestFactory::makeRequest($requestID);
+        $request->close();
     }
 
     /**
@@ -100,9 +132,9 @@ class VPMO extends Requester
      * @return void
      *
      */
-    public function addLeasedVehicle($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
+    public function addLeasedVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
     {
-        $vehicleInfo = array($registrationNo,$model,$purchasedYear,$value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
+        $vehicleInfo = array($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
         $vehicle = $this->leasedVehicleFactory->makeNewVehicle($vehicleInfo);
     }
 
@@ -129,28 +161,41 @@ class VPMO extends Requester
      * @return void
      *
      */
-    public function updateLeasedVehicleInfo($registrationNo,$model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
+    public function updateLeasedVehicleInfo($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
     {
-        $vehicle = $this->purchasedVehicleFactory->makeVehicle($registrationNo);
-        $vehicleInfo = array($model,$purchasedYear, $value,$fuelType,$insuranceValue,$insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
+        $vehicle = $this->leasedVehicleFactory->makeVehicle($registrationNo); //changed from purchasedVehicleFactory to leasedVehicleFactory
+        $vehicleInfo = array($model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
         $vehicle->updateInfo($vehicleInfo);
     }
 
     /**
      *
-     * Delete vehicle data.
+     * Delete purchased vehicle data.
      *
      * @param registrationNo
      * @return void
      *
      */
-    // public function deleteVehicle($registrationNo)
-    // {
-    //     Vehicle::deleteVehicle($registrationNo);
-    // }
-    public function placeRequest($dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $purpose)
+    public function deletePurchasedVehicle($registrationNo)
     {
-        $request = RealRequest::constructObject($dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $this->empID, $purpose);
-        //$request->notifyJOs(); //change: notify JOs when the state change occurs
+        $vehicle = $this->purchasedVehicleFactory->makeVehicle($registrationNo);
+        $vehicle->delete();
     }
+
+    /**
+     *
+     * Delete leased vehicle data.
+     *
+     * @param registrationNo
+     * @return void
+     *
+     */
+    public function deleteLeasedVehicle($registrationNo)
+    {
+        $vehicle = $this->leasedVehicleFactory->makeVehicle($registrationNo);
+        $vehicle->delete();
+    }
+
+
+
 }

@@ -17,6 +17,8 @@ abstract class VehicleModel extends Model{
     }
     
     protected function getAllRecords(string $vehicleType){
+
+        //TODO: must discard IsDeleted vehicles when retreiving vehicle records
         switch ($vehicleType)
         {
             case 'leased':
@@ -58,6 +60,15 @@ abstract class VehicleModel extends Model{
         $conditionNames= array('RegistrationNo');
         $conditionVals= array($registrationNo);
         parent::setTableName('leased_vehicle');
+        parent::updateRecord($columnNames,$columnVals,$conditionNames,$conditionVals);  
+    }
+
+    protected function deleteVehicle($registrationNo){
+        $isDeleted=true;
+        $columnNames = array('IsDeleted');
+        $columnVals = array($isDeleted);
+        $conditionNames= array('RegistrationNo');
+        $conditionVals= array($registrationNo);
         parent::updateRecord($columnNames,$columnVals,$conditionNames,$conditionVals);  
     }
 }

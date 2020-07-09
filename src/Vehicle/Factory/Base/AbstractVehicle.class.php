@@ -5,6 +5,7 @@ namespace Vehicle\Factory\Base;
 use DB\IObjectHandle;
 use Vehicle\State\State;
 use Vehicle\Vehicle;
+use db\Controller\VehicleController;
 
 
 abstract class AbstractVehicle implements IObjectHandle, Vehicle
@@ -59,6 +60,11 @@ abstract class AbstractVehicle implements IObjectHandle, Vehicle
     abstract public static function getObjectByValues(array $values);
 
     abstract public function updateInfo(array $vehicleInfo) : void;
+
+    public function delete(): void{
+        $vehicleController = new VehicleController();
+        $vehicleController->deleteVehicle($this->registrationNo);
+    }
 
     public function setState(State $state) 
     {
