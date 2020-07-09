@@ -9,8 +9,8 @@ class VehicleViewer extends VehicleModel{
         parent::__construct();
     }
 
-    public function getRecordByID($registrationNo){
-        return parent::getRecordByID($registrationNo);
+    public function getRecordByID($registrationNo, $isLeased = false){
+        return parent::getRecordByID($registrationNo, $isLeased);
     }
 
     public function getAllRecords(string $vehicleType){

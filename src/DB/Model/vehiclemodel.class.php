@@ -9,10 +9,11 @@ abstract class VehicleModel extends Model{
         parent::__construct('vehicle');
     }
 
-    protected function getRecordByID($registrationNo){
+    protected function getRecordByID($registrationNo, $isLeased){
         $columnNames= array('RegistrationNo');
         $columnVals= array($registrationNo);
-        $results = parent::getRecords($columnNames,$columnVals);
+        $results = $isLeased ? parent::getRecordsFromTwo('leased_vehicle',[['RegistrationNo','RegistrationNo']],['RegistrationNo' => $registrationNo])
+                            :parent::getRecords($columnNames,$columnVals);
         return $results[0];
     }
     
