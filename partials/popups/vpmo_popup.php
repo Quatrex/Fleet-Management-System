@@ -319,7 +319,7 @@
                     </div>
                 </div>
                 <div style="height:300px; overflow:auto;">
-                    <table class="table table-hover w-auto" style="overflow-y: scroll;" id="driver-table">
+                    <table class="table table-hover w-auto" style="overflow-y: scroll;" id="selectionDriverTable">
                         <thead class="thead-dark " style="position:relative">
                             <tr data-toggle="popup" data-id="my-profile" data-target="#my-profile">
                                 <th class="" scope="col">#</th>
@@ -329,6 +329,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+                            $i = 0;
+                            foreach ($drivers as $driver) : ?>
+                                <tr id="selectionDriverTable_<?php echo $driver->getField('driverId') ?>">
+                                    <th id="driver-<?php echo $i ?>"><?php echo $driver->getField('registrationNo') ?></td>
+                                    <td><?php echo $driver->getField('firstName').' '.$driver->getField('lastName') ?></td>
+                                    <td><?php echo $driver->getField('purchasedYear') ?></td>
+                                    <td>Nothing</td>
+                                </tr>
+                            <?php $i++;
+                            endforeach;; ?>
                         </tbody>
                     </table>
 

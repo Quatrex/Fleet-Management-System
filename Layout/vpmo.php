@@ -6,14 +6,15 @@ session_start();
 if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
 require_once '../includes/autoloader.inc.php';
 $employee = VPMO::getObject($_SESSION['empid']);
-$_SESSION['employee'] = $employee;
 $requests = $employee->getMyRequestsByState('pending');
-$_SESSION['pendingTrips'] = $requests;
 $vehicles = $employee->getVehicles();
 $requestsToAssign = $employee->getApprovedRequests();
+$drivers = $employee->getDrivers();
+$_SESSION['employee'] = $employee;
+$_SESSION['pendingTrips'] = $requests;
 $_SESSION['requestsToAssign'] = $requestsToAssign;
 $_SESSION['vehicles'] = $vehicles;
-
+$_SESSION['drivers'] = $drivers;
 ?>
 <html>
 <?php include '../partials/head.php'; ?>

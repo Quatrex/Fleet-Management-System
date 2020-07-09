@@ -14,7 +14,7 @@ class Driver extends Employee
     private string $licenseNumber;
     private string $licenseExpirationDay;
     private string $dateOfAdmission;
-    private int $assignedVehicleId;
+    private ?int $assignedVehicleId;
     private State $state;
     
     public function __construct($driverId, $firstName, $lastName, $licenseNumber,$licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicleId, $email, $state)

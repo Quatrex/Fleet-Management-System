@@ -14,10 +14,10 @@ abstract class DriverModel extends Model{
         return $results[0];
     }
     
-    // protected function getAllRecords(){
-    //     $results = parent::getRecords(true,true);
-    //     return $results;
-    // }
+    protected function getAllRecords(){
+        $results =parent::getRecords([],[]);
+        return $results;
+    }
 
     //updateRecord
     // protected function updateRecord($driverId,$fields){
