@@ -74,6 +74,11 @@ switch ($method) {
 		$vpmo->deleteLeasedVehicle($_POST['VehicleID']);
 		echo json_encode("success_Vehicle " . $_POST['VehicleID'] . " successfully deleted");
 		break;
+	case 'Schedule':
+		$vpmo = VPMO::getObject($_POST['empID']);
+		$vpmo->scheduleRequest($_POST['RequestId'],$_POST['VehicleId'],$_POST['DriverId']);
+		echo json_encode("success_Request " . $_POST['RequestId'] . " successfully Assigned");
+		break;
 	default:
 		echo "Invalid method";
 }

@@ -231,56 +231,40 @@
             </div>
 
             <div class="popup-body" style="max-height: 80vh;">
-                <div class="row" style="overflow:wrap;">
-                    <div class="col-sm-12 col-md-4">
-                        <label>Show<select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-control form-control-sm" style=" margin-left: 10px;display:inline-block; border: 0 none; width:auto !important">
-                                <option value="10">All Vehicles</option>
-                                <option value="25">Allocated Vehicles</option>
-                                <option value="50">Free Vehicles</option>
-                            </select></label>
-                    </div>
-                    <div class="col-sm-12 col-md-4">
-                        <div id="DataTables_Table_0_filter" style="display: inline-block;" class="dataTables_filter">
-                            <label style="margin: 10px 0px; padding-top: 2px;">Selected:<label id="vehicle-name" style="padding-left:10px"></label></label>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-4">
-                        <div id="DataTables_Table_0_filter" style="display: inline-block;" class="dataTables_filter">
-                            <label>Search:<input type="search" class="form-control form-control-sm" style="display:inline-block; margin-left: 15px; margin-bottom:0.5rem; width:auto!important" placeholder="" aria-controls="DataTables_Table_0"></label>
-                        </div>
-                    </div>
+                <div class="row mx-auto">
+                    <label class="mr-2">Selected Vehicle:</label> <span>
+                        <p id="vehicle-name"></p>
+                    </span>
                 </div>
-                <div style="height:300px; overflow:auto;">
-                    <table class="table table-hover w-auto" style="overflow-y: scroll;" id="selectionVehicleTable">
-                        <thead class="thead-dark " style="position:relative">
-                            <tr data-toggle="popup" data-id="my-profile" data-target="#my-profile">
-                                <th class="" scope="col">#</th>
-                                <th class="th-sm" scope="col">Vehicle</th>
-                                <th class="th-sm" scope="col">Assigned Driver</th>
-                                <th class="th-sm" scope="col">Passengers</th>
+                <table class="table table-hover w-auto" style="overflow-y: scroll;" id="selectionVehicleTable">
+                    <thead class="thead-dark " style="position:relative">
+                        <tr>
+                            <th class="" scope="col">#</th>
+                            <th class="th-sm" scope="col">Vehicle</th>
+                            <th class="th-sm" scope="col">Assigned Driver</th>
+                            <th class="th-sm" scope="col">Passengers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $i = 0;
+                        foreach ($vehicles as $vehicle) : ?>
+                            <tr id="selectionVehicleTable_<?php echo $vehicle->getField('registrationNo') ?>">
+                                <th id="vehicle-<?php echo $i ?>"><?php echo $vehicle->getField('registrationNo') ?></td>
+                                <td><?php echo $vehicle->getField('model') ?></td>
+                                <td><?php echo $vehicle->getField('purchasedYear') ?></td>
+                                <td>Nothing</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $i = 0;
-                            foreach ($vehicles as $vehicle) : ?>
-                                <tr id="selectionVehicleTable_<?php echo $vehicle->getField('registrationNo') ?>">
-                                    <th id="vehicle-<?php echo $i ?>"><?php echo $vehicle->getField('registrationNo') ?></td>
-                                    <td><?php echo $vehicle->getField('model') ?></td>
-                                    <td><?php echo $vehicle->getField('purchasedYear') ?></td>
-                                    <td>Nothing</td>
-                                </tr>
-                            <?php $i++;
-                            endforeach;; ?>
-                        </tbody>
-                    </table>
-
-                </div>
+                        <?php $i++;
+                        endforeach;; ?>
+                    </tbody>
+                </table>
             </div>
+
             <div class="popup-footer">
                 <hr style="margin-bottom: 0.5rem;">
                 <input type="button" value="Go Back" class="btn btn-primary" style="margin-right:10px " id="nothing">
-                <input type="button" value="Confirm" class="btn btn-success" id="confirm-vehicle">
+                <span class="d-inline-block" id="select-vehicle-tooltip" data-toggle="tooltip" title="Select a vehicle to enable"><input type="button" value="Confirm" class="btn btn-success" id="confirm-vehicle" disabled></span>
 
             </div>
         </div>
@@ -296,59 +280,40 @@
                 <h2>Select driver</h2>
                 <hr>
             </div>
-
             <div class="popup-body" style="max-height: 80vh;">
-                <div class="row" style="overflow:wrap;">
-                    <div class="col-sm-12 col-md-4">
-                        <label>Show<select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-control form-control-sm" style=" margin-left: 10px;display:inline-block; border: 0 none; width:auto !important">
-                                <option value="10">All drivers</option>
-                                <option value="25">Allocated drivers</option>
-                                <option value="50">Free drivers</option>
-                            </select></label>
-                    </div>
-                    <div class="col-sm-12 col-md-4">
-                        <div id="DataTables_Table_0_filter" style="display: inline-block;" class="dataTables_filter">
-                            <label style="margin: 10px 0px; padding-top: 2px;">Selected:<label id="driver-name" style="padding-left:10px"></label></label>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-4">
-                        <div id="DataTables_Table_0_filter" style="display: inline-block;" class="dataTables_filter">
-                            <label>Search:<input type="search" class="form-control form-control-sm" style="display:inline-block; margin-left: 15px; margin-bottom:0.5rem; width:auto!important" placeholder="" aria-controls="DataTables_Table_0"></label>
-                        </div>
-                    </div>
+                <div class="row mx-auto">
+                    <label class="mr-2">Selected Driver:</label> <span>
+                        <p id="driver-name"></p>
+                    </span>
                 </div>
-                <div style="height:300px; overflow:auto;">
-                    <table class="table table-hover w-auto" style="overflow-y: scroll;" id="selectionDriverTable">
-                        <thead class="thead-dark " style="position:relative">
-                            <tr data-toggle="popup" data-id="my-profile" data-target="#my-profile">
-                                <th class="" scope="col">#</th>
-                                <th class="th-sm" scope="col">Driver</th>
-                                <th class="th-sm" scope="col">Location</th>
-                                <th class="th-sm" scope="col">Details</th>
+                <table id="selectionDriverTable" class="table table-hover table-bordered" style="width:100%">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="" scope="col">#</th>
+                            <th class="th-sm" scope="col">Driver</th>
+                            <th class="th-sm" scope="col">Location</th>
+                            <th class="th-sm" scope="col">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $i = 0;
+                        foreach ($drivers as $driver) : ?>
+                            <tr id="selectionDriverTable_<?php echo $driver->getField('driverId') ?>">
+                                <th id="driver-<?php echo $i ?>"><?php echo $driver->getField('driverId') ?></td>
+                                <td><?php echo $driver->getField('firstName') . ' ' . $driver->getField('lastName') ?></td>
+                                <td><?php echo $driver->getField('purchasedYear') ?></td>
+                                <td>Nothing</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $i = 0;
-                            foreach ($drivers as $driver) : ?>
-                                <tr id="selectionDriverTable_<?php echo $driver->getField('driverId') ?>">
-                                    <th id="driver-<?php echo $i ?>"><?php echo $driver->getField('registrationNo') ?></td>
-                                    <td><?php echo $driver->getField('firstName').' '.$driver->getField('lastName') ?></td>
-                                    <td><?php echo $driver->getField('purchasedYear') ?></td>
-                                    <td>Nothing</td>
-                                </tr>
-                            <?php $i++;
-                            endforeach;; ?>
-                        </tbody>
-                    </table>
-
-                </div>
+                        <?php $i++;
+                        endforeach;; ?>
+                    </tbody>
+                </table>
             </div>
             <div class="popup-footer">
                 <hr style="margin-bottom: 0.5rem;">
                 <input type="button" value="Go back" class="btn btn-primary" style="margin-right:10px " id="go-back-driver">
-                <input type="button" value="Confirm" class="btn btn-success" id="confirm-driver">
-
+                <span class="d-inline-block" id="select-driver-tooltip" data-toggle="tooltip" title="Select a driver to enable"><input type="button" value="Confirm" class="btn btn-success" id="confirm-driver" disabled></span>
             </div>
         </div>
     </div>
@@ -384,7 +349,7 @@
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <p >Pick-up Location</p>
+                        <p>Pick-up Location</p>
                     </div>
                     <div class="col-sm-6">
                         <p class="vpmo-assign-pickUpLocation">Text</p>
@@ -419,9 +384,9 @@
             </div>
             <div class="d-none">
                 <form id="Schedule_form">
-                    <input type="hidden" id="requestId-input">
-                    <input type="hidden" id="final-vehicle-input">
-                    <input type="hidden" id="final-driver-input">
+                    <input type="hidden" name="RequestId" id="requestId-input">
+                    <input type="hidden" name="VehicleId" id="final-vehicle-input">
+                    <input type="hidden" name= "DriverId" id="final-driver-input">
                 </form>
             </div>
             <div class="popup-footer">

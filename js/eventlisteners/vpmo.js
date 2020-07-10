@@ -19,7 +19,16 @@ document.querySelector('#approveRequestTable').onclick = (event) => {
 		'.vpmo-assign-dropOffLocation': entity.DropLocation,
 		'#vpmo-assign-purpose': entity.Purpose,
 	});
+	removeClass(document.querySelector('#selectionDriverTable').querySelectorAll('tbody > tr'), 'selected');
+	removeClass(document.querySelector('#selectionVehicleTable').querySelectorAll('tbody > tr'), 'selected');
+	changeInnerHTML({ '#driver-name': '', '#vehicle-name': '' });
+	changeValue({ '#requestId-input': entity.RequestId });
 	document.getElementById('request-assign-preview-popup').style.display = 'block';
+	document.querySelector('#confirm-vehicle').disabled = true;
+	document.querySelector('#confirm-driver').disabled = true;
+	document.querySelector('#select-driver-tooltip').title = 'Select a driver to enable';
+	document.querySelector('#select-vehicle-tooltip').title = 'Select a vehicle to enable';
+
 };
 
 //**********************Ongoing Table ***************/
@@ -54,7 +63,7 @@ document.querySelector('#vehicleTable').onclick = (event) => {
 		'.vehicle-insuranceValue': entity.insuranceValue,
 	});
 	if ('leasedCompany' in entity) {
-		document.querySelectorAll('.leasedVehicleData').forEach((element) => element.classList.remove('d-none'));
+		removeClass(document.querySelectorAll('.leasedVehicleData'), 'd-none');
 		changeValue({
 			'.vehicle-leasedCompany': entity.leasedCompany,
 			'.vehicle-leasedValue': entity.monthlyPayment,
@@ -106,12 +115,10 @@ document.querySelectorAll('.vehicle-edit').forEach((element) =>
 document.querySelector('#confirm-vehicle-delete-button').addEventListener('click', () => {
 	document.getElementById('delete-vehicle-alert').style.display = 'none';
 	document.getElementById('vehicle-profile-form').style.display = 'none';
-	if(document.querySelector('.leasedVehicleData').classList.contains('d-none')) {
+	if (document.querySelector('.leasedVehicleData').classList.contains('d-none')) {
 		writeToDatabase('DeletePurchasedVehicle_button_VehicleID');
-	}
-	else{
+	} else {
 		writeToDatabase('DeleteLeasedVehicle_button_VehicleID');
-
 	}
 });
 
@@ -203,6 +210,15 @@ document.querySelector('#vehicle-close').onclick = (event) => {
 
 document.querySelector('#confirm-vehicle').onclick = (event) => {
 	document.getElementById('select-vehicle-alert').style.display = 'none';
+	document
+		.querySelector('#selectionDriverTable')
+		.querySelectorAll('tbody > tr')
+		.forEach((element) => {
+			if (element.classList.contains('selected')) {
+				document.querySelector('#confirm-driver').disabled = false;
+				document.querySelector('#select-driver-tooltip').title = '';
+			}
+		});
 	document.getElementById('select-driver-alert').style.display = 'block';
 };
 document.querySelector('#go-back-driver').onclick = (event) => {
@@ -217,21 +233,37 @@ document.querySelector('#confirm-driver').onclick = (event) => {
 	document.querySelector('#final-vehicle-p').innerHTML = vehicle;
 	document.getElementById('select-driver-alert').style.display = 'none';
 	document.getElementById('request-final-details-popup').style.display = 'block';
+	writeToDatabase('Schedule_form');
 };
 document.querySelector('#request-final-details-close').onclick = (event) => {
 	document.getElementById('request-final-details-popup').style.display = 'none';
 };
 
-document.querySelector("#vehicle-close").onclick = (event) => {
-    document.getElementById('select-vehicle-alert').style.display = 'none';
-}
+document.querySelector('#vehicle-close').onclick = (event) => {
+	document.getElementById('select-vehicle-alert').style.display = 'none';
+};
 
 document.querySelector('#selectionVehicleTable').onclick = (event) => {
 	let tableRow = event.target.parentElement;
-	const table = document.querySelector('#selectionVehicleTable');
-	toggleBack(table, tableRow, 'vehicle-name');
+	changeValue({ '#final-vehicle-input': tableRow.children[0].innerHTML.trim() });
+	toggleBack(tableRow.parentElement, tableRow, 'vehicle-name');
+	if (document.querySelector('#vehicle-name').innerHTML!=='') {
+		document.querySelector('#confirm-vehicle').disabled = false;
+		document.querySelector('#select-vehicle-tooltip').title = '';
+	}else{
+		document.querySelector('#confirm-vehicle').disabled = true;
+		document.querySelector('#select-vehicle-tooltip').title = 'Select a vehicle to enable';
+	}
 };
 document.querySelector('#selectionDriverTable').onclick = (event) => {
 	let tableRow = event.target.parentElement;
+	changeValue({ '#final-driver-input': tableRow.children[0].innerHTML.trim() });
 	toggleBack(tableRow.parentElement, tableRow, 'driver-name');
+	if (document.querySelector('#driver-name').innerHTML!=='') {
+		document.querySelector('#confirm-driver').disabled = false;
+		document.querySelector('#select-driver-tooltip').title = '';
+	}else{
+		document.querySelector('#confirm-driver').disabled = true;
+		document.querySelector('#select-driver-tooltip').title = 'Select a driver to enable';
+	}
 };

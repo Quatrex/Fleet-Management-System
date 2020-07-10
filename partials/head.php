@@ -23,5 +23,11 @@
         $(document).ready(function() {
             $('#employee-table').DataTable();
         });
+        $(document).ready(function() {
+            $('#selectionDriverTable').DataTable();
+        });
+        $(document).ready(function() {
+            $('#selectionVehicleTable').DataTable();
+        });
     </script>
 </head>
