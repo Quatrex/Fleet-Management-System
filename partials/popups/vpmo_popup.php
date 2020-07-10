@@ -68,7 +68,7 @@
                         <p>Purpose</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="ongoing-purpose">Text</p>
+                        <p id="ongoing-purpose"></p>
                     </div>
                 </div>
                 
@@ -288,7 +288,7 @@
 
             <div class="popup-footer">
                 <hr style="margin-bottom: 0.5rem;">
-                <input type="button" value="Go Back" class="btn btn-primary" style="margin-right:10px " id="nothing">
+                <input type="button" value="Go Back" class="btn btn-primary" style="margin-right:10px " id="goback-select-vehicle">
                 <span class="d-inline-block" id="select-vehicle-tooltip" data-toggle="tooltip" title="Select a vehicle to enable"><input type="button" value="Confirm" class="btn btn-success" id="confirm-vehicle" disabled></span>
 
             </div>
@@ -311,7 +311,7 @@
                         <p id="driver-name"></p>
                     </span>
                 </div>
-                <table id="selectionDriverTable" class="table table-hover table-bordered" style="width:100%">
+                <table id="selectionDriverTable" class="table table-hover" style="width:100%">
                     <thead class="thead-dark">
                         <tr>
                             <th class="" scope="col">#</th>
@@ -354,6 +354,14 @@
             </div>
             <div class="popup-body">
 
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Requester</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="vpmo-assign-requester">DD-MM-YYYY</p>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm-6">
                         <p>Date</p>
@@ -680,7 +688,7 @@
 
             <p id="cancel-alert-message">Are you sure you want to end the trip?</p>
             <input type="button" value="Yes" class="btn btn-danger" id="confirm-endtrip-yes-button">
-            <input type="button" value="No" class="btn btn-primary" id="confirm-endttrip-no-button">
+            <input type="button" value="No" class="btn btn-primary" id="confirm-endtrip-no-button">
         </div>
         <div class="popup-footer">
         </div>

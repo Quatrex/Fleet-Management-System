@@ -81,7 +81,7 @@ switch ($method) {
 		break;
 	case 'EndTrip':
 		$vpmo = VPMO::getObject($_POST['empID']);
-		// $vpmo->scheduleRequest($_POST['RequestId'],$_POST['VehicleId'],$_POST['DriverId']);
+		$vpmo->closeRequest($_POST['RequestId']);
 		echo json_encode("success_Trip " . $_POST['RequestId'] . " successfully ended");
 		break;
 	default:
