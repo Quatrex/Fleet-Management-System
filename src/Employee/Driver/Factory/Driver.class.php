@@ -5,8 +5,9 @@ use DB\Controller\DriverController;
 use DB\Viewer\DriverViewer;
 use Employee\Employee;
 use Employee\Driver\State\State;
+use JsonSerializable;
 
-class Driver extends Employee
+class Driver extends Employee implements JsonSerializable
 {
     //TODO: set attributes to private and implement a getter
     private string $driverId;
@@ -35,7 +36,15 @@ class Driver extends Employee
         }
         return null;
     }
-
+    
+    public function jsonSerialize()
+    {
+        return ['DriverId'=>$this->getField('driverId'),
+                'FirstName'=> $this->getField('firstName'),
+                'LastName'=>$this->getField('lastName')
+            
+            ];
+    }
     //IObjectHandle
     public static function getObject($ID){
         $empID=$ID;
