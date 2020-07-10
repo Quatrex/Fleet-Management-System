@@ -177,7 +177,7 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
         );
     }
 
-    public function schedule(int $empID, Driver $driver, Vehicle $vehicle) : void{
+    public function schedule(string $empID, string $driver, string $vehicle) : void{
         $this->scehduledBy['ID'] = $empID;
         $this->driver['ID']=$driver;
         $this->vehicle['ID']=$vehicle;
