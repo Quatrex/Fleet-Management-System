@@ -33,7 +33,7 @@ class VPMORequestProxy extends RequesterRequestProxy
         return new VPMORequestProxy($realRequest);
     }
 
-    public function schedule(int $empID, Driver $driver, Vehicle $vehicle) : void 
+    public function schedule(string $empID, string $driver, string $vehicle) : void 
     {
         $this->realRequest->schedule($empID,$driver,$vehicle);
     }

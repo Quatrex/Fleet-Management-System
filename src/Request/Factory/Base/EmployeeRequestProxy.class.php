@@ -68,7 +68,7 @@ abstract class EmployeeRequestProxy implements Request, JsonSerializable
      * @param Driver $driver
      * @param Vehicle $vehicle
      */
-    public function schedule(int $empID, Driver $driver, Vehicle $vehicle) : void 
+    public function schedule(string $empID, string $driver, string $vehicle) : void 
     {
         echo "Access Denied";
     }

@@ -5,15 +5,15 @@ use Request\Factory\Base\RealRequest;
 
 class Scheduled extends State {
 
-    private static ?Justified $instance = null;
+    private static ?Scheduled $instance = null;
 
     private function __construct() {
         $this->stateID=parent::getStateID("scheduled");
     }
 
-    public static function getInstance() : Justified {
+    public static function getInstance() : Scheduled {
         if (self::$instance == null)
-            return new Justified();
+            return new Scheduled();
         else return self::$instance;
     }
 
