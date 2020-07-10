@@ -6,11 +6,12 @@ document.querySelector("#approveRequestTable").onclick = (event) => {
     changeInnerHTML({
         '#approve-preview-requester':  `${entity.Requester.FirstName} ${entity.Requester.LastName}`,
         '#approve-preview-designation':entity.Requester.Position,
-        '#approve-preview-date': entity.dateOfTrip,
-        '#approve-preview-time': entity.timeOfTrip,
-        '#approve-preview-pick': entity.pickLocation,
-        '#approve-preview-drop': entity.dropLocation,
-        '#approve-preview-purpose': entity.purpose
+        '#approve-preview-date': entity.DateOfTrip,
+        '#approve-preview-time': entity.TimeOfTrip,
+        '#approve-preview-pick': entity.PickLocation,
+        '#approve-preview-drop': entity.DropLocation,
+        '#approve-preview-purpose': entity.Purpose,
+        '#approve-preview-joComment': entity.JOComment
     });
     document.getElementById('request-approve-preview-popup').style.display = 'block';
     document.getElementById('approve-requestID').value = entity.RequestId;

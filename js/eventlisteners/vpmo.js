@@ -11,13 +11,15 @@ document.querySelector('#approveRequestTable').onclick = (event) => {
 		}
 	});
 	changeInnerHTML({
-		'#vpmo-assign-requester': `${entity.Requester.FirstName} ${entity.Requester.LastName}`,
+		'.vpmo-assign-requester': `${entity.Requester.FirstName} ${entity.Requester.LastName}`,
 		'#vpmo-assign-designation': entity.Requester.Position,
 		'.vpmo-assign-date': entity.DateOfTrip,
 		'.vpmo-assign-time': entity.TimeOfTrip,
 		'.vpmo-assign-pickUpLocation': entity.PickLocation,
 		'.vpmo-assign-dropOffLocation': entity.DropLocation,
 		'#vpmo-assign-purpose': entity.Purpose,
+		'#vpmo-assign-joComment': entity.JOComment,
+		'#vpmo-assign-caoComment': entity.CAOComment,
 	});
 	removeClass(document.querySelector('#selectionDriverTable').querySelectorAll('tbody > tr'), 'selected');
 	removeClass(document.querySelector('#selectionVehicleTable').querySelectorAll('tbody > tr'), 'selected');
@@ -35,7 +37,18 @@ document.querySelector('#approveRequestTable').onclick = (event) => {
 document.querySelector('#ongoingTable').onclick = (event) => {
 	let tableRow = event.target.parentElement;
 	lastClickedRow = tableRow.id;
-
+	let row_id = tableRow.children[0].id.split('-');
+	let entity = requestsToAssign[row_id[1]];
+	lastClickedRow = tableRow.id;
+	changeInnerHTML({
+		'#ongoing-requester': `${entity.Requester.FirstName} ${entity.Requester.LastName}`,
+		'#ongoing-designation': entity.Requester.Position,
+		'#ongoing-date': entity.DateOfTrip,
+		'#ongoing-time': entity.TimeOfTrip,
+		'#ongoing-pickUpLocation': entity.PickLocation,
+		'#ongoing-dropOffLocation': entity.DropLocation,
+		'#ongoing-purpose': entity.Purpose,
+	});
 	document.getElementById('ongoing-table-details-popup').style.display = 'block';
 };
 
@@ -116,9 +129,9 @@ document.querySelector('#confirm-vehicle-delete-button').addEventListener('click
 	document.getElementById('delete-vehicle-alert').style.display = 'none';
 	document.getElementById('vehicle-profile-form').style.display = 'none';
 	if (document.querySelector('.leasedVehicleData').classList.contains('d-none')) {
-		writeToDatabase('DeletePurchasedVehicle_button_VehicleID');
+		writeToDatabase('DeletePurchasedVehicle_button_VehicleID',() => { deleteRow(lastClickedRow) });
 	} else {
-		writeToDatabase('DeleteLeasedVehicle_button_VehicleID');
+		writeToDatabase('DeleteLeasedVehicle_button_VehicleID',() => { deleteRow(lastClickedRow) });
 	}
 });
 
@@ -150,7 +163,21 @@ document.querySelector('#ongoing-close-button').addEventListener('click', () => 
 });
 //End button
 document.querySelector('#ongoing-end-button').addEventListener('click', () => {
-	document.getElementById('cancel-request-alert').style.display = 'block';
+	document.getElementById('end-trip-confirm').style.display = 'block';
+});
+document.querySelector('#confirm-endtrip-yes-button').addEventListener('click', () => {
+	document.getElementById('end-trip-confirm').style.display = 'none';
+	document.getElementById('ongoing-table-details-popup').style.display = 'none';
+	writeToDatabase("EndTrip_button_RequestId",() => { deleteRow(lastClickedRow) })
+
+});
+document.querySelector('#confirm-endtrip-no-button').addEventListener('click', () => {
+	document.getElementById('end-trip-confirm').style.display = 'none';
+	
+});
+document.querySelector('#confirm-endtrip-close').addEventListener('click', () => {
+	document.getElementById('end-trip-confirm').style.display = 'none';
+	
 });
 
 //***********************Approve Request ********************/
@@ -226,6 +253,11 @@ document.querySelector('#go-back-driver').onclick = (event) => {
 	document.getElementById('select-driver-alert').style.display = 'none';
 };
 
+document.querySelector('#goback-select-vehicle').onclick = (event) => {
+	document.getElementById('select-vehicle-alert').style.display = 'none';
+	document.getElementById('request-assign-preview-popup').style.display = 'block';
+};
+
 document.querySelector('#confirm-driver').onclick = (event) => {
 	const driver = document.querySelector('#driver-name').innerHTML;
 	const vehicle = document.querySelector('#vehicle-name').innerHTML;
@@ -233,7 +265,7 @@ document.querySelector('#confirm-driver').onclick = (event) => {
 	document.querySelector('#final-vehicle-p').innerHTML = vehicle;
 	document.getElementById('select-driver-alert').style.display = 'none';
 	document.getElementById('request-final-details-popup').style.display = 'block';
-	writeToDatabase('Schedule_form');
+	writeToDatabase('Schedule_form',() => { deleteRow(lastClickedRow) });
 };
 document.querySelector('#request-final-details-close').onclick = (event) => {
 	document.getElementById('request-final-details-popup').style.display = 'none';

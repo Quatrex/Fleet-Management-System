@@ -14,16 +14,16 @@
                         <p>Requester</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="ongoing-requester">Text</p>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <p>Designation</p>
+                        <p >Designation</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="ongoing-designation">Text</p>
                     </div>
                 </div>
 
@@ -32,7 +32,7 @@
                         <p>Date</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>DD-MM-YYYY</p>
+                        <p id="ongoing-date">DD-MM-YYYY</p>
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
                         <p>Time</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>HH:MM: AM/PM</p>
+                        <p id="ongoing-time">HH:MM: AM/PM</p>
                     </div>
                 </div>
 
@@ -50,7 +50,7 @@
                         <p>Pick-up Location</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="ongoing-pickUpLocation">Text</p>
                     </div>
                 </div>
 
@@ -59,22 +59,31 @@
                         <p>Drop-off Location</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>Status</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="ongoing-dropOffLocation">Text</p>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-6">
                         <p>Purpose</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p id="ongoing-purpose"></p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Driver</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Text</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Vehicle</p>
                     </div>
                     <div class="col-sm-6">
                         <p>Text</p>
@@ -209,6 +218,22 @@
                         <p id="vpmo-assign-purpose">Text</p>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>JO Comment</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p id="vpmo-assign-joComment">Text</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>CAO Comment</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p id="vpmo-assign-caoComment">Text</p>
+                    </div>
+                </div>
 
                 <input type="button" value="Assign Vehicle" class="btn btn-primary" id="request-details-approve-button">
                 <input type="button" value="Close" class="btn btn-danger" id="request-details-decline-button">
@@ -263,7 +288,7 @@
 
             <div class="popup-footer">
                 <hr style="margin-bottom: 0.5rem;">
-                <input type="button" value="Go Back" class="btn btn-primary" style="margin-right:10px " id="nothing">
+                <input type="button" value="Go Back" class="btn btn-primary" style="margin-right:10px " id="goback-select-vehicle">
                 <span class="d-inline-block" id="select-vehicle-tooltip" data-toggle="tooltip" title="Select a vehicle to enable"><input type="button" value="Confirm" class="btn btn-success" id="confirm-vehicle" disabled></span>
 
             </div>
@@ -286,7 +311,7 @@
                         <p id="driver-name"></p>
                     </span>
                 </div>
-                <table id="selectionDriverTable" class="table table-hover table-bordered" style="width:100%">
+                <table id="selectionDriverTable" class="table table-hover" style="width:100%">
                     <thead class="thead-dark">
                         <tr>
                             <th class="" scope="col">#</th>
@@ -329,6 +354,14 @@
             </div>
             <div class="popup-body">
 
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Requester</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="vpmo-assign-requester">DD-MM-YYYY</p>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm-6">
                         <p>Date</p>
@@ -642,3 +675,22 @@
             </div>
         </div>
     </div>
+    <!--End Trip Confirm-->
+    <div class="popup" id="end-trip-confirm">
+    <!-- Confirm alert content -->
+    <div class="popup-content">
+        <div class="popup-header">
+            <span class="close" id="confirm-endtrip-close">&times;</span>
+            <h3 id="cancel-alert-header">End Trip</h3>
+            <hr>
+        </div>
+        <div class="popup-body">
+
+            <p id="cancel-alert-message">Are you sure you want to end the trip?</p>
+            <input type="button" value="Yes" class="btn btn-danger" id="confirm-endtrip-yes-button">
+            <input type="button" value="No" class="btn btn-primary" id="confirm-endtrip-no-button">
+        </div>
+        <div class="popup-footer">
+        </div>
+    </div>
+</div>

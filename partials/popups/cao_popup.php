@@ -71,6 +71,14 @@
                         <p id="approve-preview-purpose">Text</p>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>JO Comment</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p id="approve-preview-joComment">Text</p>
+                    </div>
+                </div>
 
                 <input type="button" value="Approve Request" class="btn btn-primary" id="request-details-approve-button">
                 <input type="button" value="Decline" class="btn btn-danger" id="request-details-decline-button">

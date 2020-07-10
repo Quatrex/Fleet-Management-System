@@ -25,6 +25,10 @@ abstract class EmployeeRequestProxy implements Request, JsonSerializable
                 'DropLocation'=> $this->getField('dropLocation'),
                 'Purpose'=>$this->getField('purpose'),
                 'Requester'=>$this->getField('requester'),
+                'JOComment'=>$this->getField('JOComment'),
+                'CAOComment'=>$this->getField('CAOComment'),
+                // 'Driver'=>$this->getField('driver'),
+                //  'Vehicle'=>$this->getField('vehicle'),
             ];
     }
 

@@ -10,11 +10,13 @@ $requests = $employee->getMyRequestsByState('pending');
 $vehicles = $employee->getVehicles();
 $requestsToAssign = $employee->getApprovedRequests();
 $drivers = $employee->getDrivers();
+$scheduledRequests = $employee->getScheduledRequests();
 $_SESSION['employee'] = $employee;
 $_SESSION['pendingTrips'] = $requests;
 $_SESSION['requestsToAssign'] = $requestsToAssign;
 $_SESSION['vehicles'] = $vehicles;
 $_SESSION['drivers'] = $drivers;
+$_SESSION['scheduledRequests'] = $scheduledRequests;
 ?>
 <html>
 <?php include '../partials/head.php'; ?>
@@ -137,7 +139,7 @@ $_SESSION['drivers'] = $drivers;
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th scope="col">#</th>
-                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Requester</th>
                                                         <th scope="col">Date</th>
                                                         <th scope="col">Time</th>
                                                     </tr>
@@ -145,13 +147,12 @@ $_SESSION['drivers'] = $drivers;
                                                 <tbody>
                                                     <?php
                                                     $i = 0;
-                                                    foreach ($trips as $trip) : ?>
-                                                        <tr id="ongoingTable_<?php echo $request->getField('requestID') ?>">
-                                                            <th id="trip-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
-                                                            <td><?php echo $request->getField('purpose') ?></td>
-                                                            <td>Scheduled</td>
-                                                            <td><?php echo $request->getField('dateOfTrip') ?></td>
-                                                            <td><?php echo $request->getField('timeOfTrip') ?></td>
+                                                    foreach ($scheduledRequests as $scheduledRequest) : ?>
+                                                        <tr id="ongoingTable_<?php echo $scheduledRequest->getField('requestID') ?>">
+                                                            <th id="trip-<?php echo $i ?>"><?php echo $scheduledRequest->getField('requestID') ?></td>
+                                                            <td><?php echo ($scheduledRequest->getField('requester'))->getField('firstName').' '.($scheduledRequest->getField('requester'))->getField('lastName') ?></td>
+                                                            <td><?php echo $scheduledRequest->getField('dateOfTrip') ?></td>
+                                                            <td><?php echo $scheduledRequest->getField('timeOfTrip') ?></td>
                                                         </tr>
                                                     <?php $i++;
                                                     endforeach;; ?>
@@ -184,6 +185,8 @@ $_SESSION['drivers'] = $drivers;
         const vehicles = <?php echo json_encode(($_SESSION['vehicles'])) ?>;
         const requestsToAssign = <?php echo json_encode(($_SESSION['requestsToAssign'])) ?>;
         //sessionStorage.setItem('requestsToApprove', requestsToApprove);
+        console.log(requestsToAssign);
+        
         sessionStorage.setItem('requestsByMe', requestsByMe);
     </script>
     <script src="../js/functions.js"></script>

@@ -79,6 +79,11 @@ switch ($method) {
 		$vpmo->scheduleRequest($_POST['RequestId'],$_POST['VehicleId'],$_POST['DriverId']);
 		echo json_encode("success_Request " . $_POST['RequestId'] . " successfully Assigned");
 		break;
+	case 'EndTrip':
+		$vpmo = VPMO::getObject($_POST['empID']);
+		$vpmo->closeRequest($_POST['RequestId']);
+		echo json_encode("success_Trip " . $_POST['RequestId'] . " successfully ended");
+		break;
 	default:
 		echo "Invalid method";
 }
