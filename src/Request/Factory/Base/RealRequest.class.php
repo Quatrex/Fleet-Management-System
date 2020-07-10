@@ -254,17 +254,17 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
 
             case "jo":
                 $this->justifiedBy['object'] = $byValue ? JO::getObjectByValues($values)
-                                                : JO::getObject($this->requester["ID"]);
+                                                : JO::getObject($this->justifiedBy["ID"]);
             break;
 
             case "cao":
                 $this->approvedBy['object'] = $byValue ? CAO::getObjectByValues($values)
-                                                : CAO::getObject($this->requester["ID"]);
+                                                : CAO::getObject($this->approvedBy["ID"]);
             break;
 
             case "vpmo":
                 $this->scehduledBy['object'] = $byValue ? VPMO::getObjectByValues($values)
-                                                : VPMO::getObject($this->requester["ID"]);
+                                                : VPMO::getObject($this->scehduledBy["ID"]);
             break;
 
             case "vehicle":
@@ -275,6 +275,8 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
             case 'driver':
                 $this->driver['object'] = $byValue ? DriverFactory::makeDriverByValues($values) 
                                                 : DriverFactory::makeDriver($this->driver['ID']);
+            break;
+
         }
     }
 
