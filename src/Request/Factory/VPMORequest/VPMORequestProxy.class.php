@@ -46,10 +46,12 @@ class VPMORequestProxy extends RequesterRequestProxy
     public function cancel() : void 
     {
         $state = $this->realRequest->getField('state');
-        if ($state === State::getState(State::getStateID('approved')))
+        $conditions = array(State::getState(State::getStateID('scheduled')));
+        
+        if (in_array($state,$conditions))
             $this->realRequest->cancel();
         else
-            echo "Access Denied";
+            echo "Access Denied"; //throw an exception instead
     }
 
     public function loadObject(string $objectName, bool $byValue = false, array $values = array())

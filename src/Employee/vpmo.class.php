@@ -135,12 +135,27 @@ class VPMO extends Requester
 
     /**
      *
+     * change a request's state from scheduled to completed
+     *
+     * @param $requestID,$driver,$vehicle
+     * @return void
+     *
+     */
+    public function cancelRequest($requestID)
+    {
+        $request = VPMORequestFactory::makeRequest($requestID);
+        $request->cancel();
+    }
+
+    /**
+     *
      * Adding a new leased vehicle to database
      *
      * @param $registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany
      * @return void
      *
      */
+    
     public function addPurchasedVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany)
     {
         $vehicleInfo = array($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
