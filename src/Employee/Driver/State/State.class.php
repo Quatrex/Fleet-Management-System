@@ -16,14 +16,6 @@ abstract class State {
         echo "Invalid transition";
     }
 
-    public function repair(Driver $driver) : void {
-        echo "Invalid transition";
-    }
-
-    public function finishRepair(Driver $driver) : void {
-        echo "Invalid transition";
-    }
-
     public function getID() : int{
         return $this->stateID;
     }
@@ -54,10 +46,10 @@ abstract class State {
         $stateString=null;
         switch ($stateID) {
             case 1:
-                $stateString="Available";
+                $stateString="available";
                 break;
             case 2:
-                $stateString="Allocated";
+                $stateString="allocated";
                 break;
           }
         return $stateString;
@@ -72,10 +64,10 @@ abstract class State {
         $stateID=false;
         $stateName=strtolower($stateName);
         switch ($stateName) {
-            case "Available":
+            case "available":
                 $stateID=1;
                 break;
-            case "Allocated":
+            case "allocated":
                 $stateID=2;
                 break;
             default:

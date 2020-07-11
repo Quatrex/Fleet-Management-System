@@ -11,6 +11,7 @@ class Approved extends State {
 
     private function __construct() {
         $this->stateID=parent::getStateID('approved');
+        $this->emailClient = EmailClient::getInstance();
     }
 
     public static function getInstance() : Approved {
@@ -26,7 +27,10 @@ class Approved extends State {
 
     public function schedule(RealRequest $request) : void 
     {
+        $request->getField('vehicle')->allocate();
+        $request->getField('driver')->allocate();
         $request->setState(Scheduled::getInstance());
+        $this->emailClient->notifySchedule($request);
     }
 
     public function expire(RealRequest $request) : void 

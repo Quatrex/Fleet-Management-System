@@ -109,7 +109,9 @@ class VPMO extends Requester
      *
      * change a request's state from approved to schedule
      *
-     * @param $requestID,$driver,$vehicle
+     * @param $requestID,
+     * @param $driver,
+     * @param $vehicle
      * @return void
      *
      */

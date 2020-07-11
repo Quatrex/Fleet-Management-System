@@ -101,4 +101,14 @@ class Driver extends Employee implements JsonSerializable
     {
         $this->state = $state;
     }
+
+    public function allocate() : void
+    {
+        $this->state->allocate($this);
+    }
+
+    public function deallocate() : void
+    {
+        $this->state->deallocate($this);
+    }
 }

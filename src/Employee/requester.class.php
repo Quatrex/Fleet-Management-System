@@ -1,12 +1,7 @@
 <?php
 namespace Employee;
 
-use DB\IObjectHandle;
-use Request\Request;
-use DB\Controller\EmployeeController;
-use DB\Controller\RequestController;
 use DB\Viewer\EmployeeViewer;
-use DB\Viewer\RequestViewer;
 use Request\Factory\RequesterRequest\RequesterRequestFactory;
 use JsonSerializable;
 

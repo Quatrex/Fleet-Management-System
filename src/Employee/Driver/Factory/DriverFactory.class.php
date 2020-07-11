@@ -22,7 +22,7 @@ class DriverFactory
      * @param int $driverID
      * @return Driver
      */
-    public static function makeDriver(int $driverID) : Driver
+    public static function makeDriver(string $driverID) : Driver
     {
         return Driver::getObject($driverID);
     }

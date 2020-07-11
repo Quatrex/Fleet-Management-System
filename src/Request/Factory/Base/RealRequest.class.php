@@ -180,8 +180,8 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
 
     public function schedule(string $empID, string $driver, string $vehicle) : void{
         $this->scehduledBy['ID'] = $empID;
-        $this->driver['ID']=$driver;
-        $this->vehicle['ID']=$vehicle;
+        $this->driver['ID'] = $driver;
+        $this->vehicle['ID'] = $vehicle;
 
         $this->state->schedule($this);
         $requestController = new RequestController();
@@ -303,6 +303,7 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
         }
         else
         {
+            // print_r($this->vehicle['ID']);
             $vehicle = VehicleFactory::getVehicle($this->vehicle['ID']);
         }
         return $vehicle;
