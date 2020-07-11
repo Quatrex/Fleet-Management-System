@@ -1,11 +1,8 @@
 <?php
 namespace Employee;
 
-use Request\Request;
-use DB\Controller\EmployeeController;
+
 use DB\Viewer\EmployeeViewer;
-use DB\Controller\RequestController;
-use DB\Viewer\RequestViewer;
 use Request\Factory\CAORequest\CAORequestFactory;
 
 class CAO extends Requester

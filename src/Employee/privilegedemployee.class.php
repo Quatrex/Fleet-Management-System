@@ -9,7 +9,7 @@ abstract class PrivilegedEmployee extends Employee
     protected string $position; 
     protected string $username;
     protected string $password; //TODO: might need a separate table for username and password
-    protected ?string $designation;
+    protected string $designation;
 
     function __construct($empID, $firstName, $lastName, $position, $designation, $email, $username, $password)
     {

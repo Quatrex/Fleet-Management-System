@@ -1,11 +1,7 @@
 <?php
 namespace Employee;
 
-use Request\Request;
-use DB\Controller\EmployeeController;
-use DB\Controller\RequestController;
 use DB\Viewer\EmployeeViewer;
-use DB\Viewer\RequestViewer;
 use Request\Factory\JORequest\JORequestFactory;
 
 class JO extends Requester
