@@ -15,7 +15,7 @@ else{
         header('Location: ./Layout/vpmo.php');
     }
     else {
-        header('Location: ./Layout/administrator.php');
+        header('Location: ./Layout/requester.php');
     }
     
     exit;

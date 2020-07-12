@@ -1,48 +1,30 @@
 <?php
 namespace Request\Factory\VPMORequest;
 
-use Request\Factory\Base\RealRequest;
-use Request\Factory\RequesterRequest\RequesterRequestProxy;
 use Request\State\State;
-use Employee\Driver\Factory\Driver;
-use Vehicle\Vehicle;
+use Request\Factory\Base\EmployeeRequestProxy;
 
-class VPMORequestProxy extends RequesterRequestProxy
+class VPMORequestProxy extends EmployeeRequestProxy
 {
     /**
-     * Retruns a request object
-     * 
-     * @param int $id
-     * @return JORequestProxy
+     * @inheritDoc
      */
-    public static function getRequestByID(int $id) : VPMORequestProxy
-    {
-        $realRequest = RealRequest::getObject($id);
-        return new VPMORequestProxy($realRequest);
-    }
-
-    /**
-     * Returns a request object
-     * 
-     * @param array(String) $values
-     * @return JORequestProxy
-     */
-    public static function getRequestByValues(array $values) : VPMORequestProxy
-    {
-        $realRequest = RealRequest::getObjectByValues($values);
-        return new VPMORequestProxy($realRequest);
-    }
-
     public function schedule(string $empID, string $driver, string $vehicle) : void 
     {
         $this->realRequest->schedule($empID,$driver,$vehicle);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function close() : void 
     {
         $this->realRequest->close();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function cancel() : void 
     {
         $state = $this->realRequest->getField('state');
@@ -52,10 +34,5 @@ class VPMORequestProxy extends RequesterRequestProxy
             $this->realRequest->cancel();
         else
             echo "Access Denied"; //throw an exception instead
-    }
-
-    public function loadObject(string $objectName, bool $byValue = false, array $values = array())
-    {
-        $this->realRequest->loadObject($objectName, $byValue, $values);
     }
 }

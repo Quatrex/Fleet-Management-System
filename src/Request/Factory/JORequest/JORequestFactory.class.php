@@ -3,7 +3,6 @@ namespace Request\Factory\JORequest;
 
 use Request\State\State;
 use DB\Viewer\RequestViewer;
-use Employee\Requester;
 use Request\Factory\JORequest\JORequestProxy;
 use Request\Request;
 
@@ -25,7 +24,7 @@ class JORequestFactory
         $requests=array();
 
         foreach($requestRecords as $values){
-            $request= JORequestProxy::getRequestByValues($values);
+            $request= new JORequestProxy($values);
             array_push($requests,JORequestFactory::castToRequest($request));
         }
 
@@ -45,7 +44,7 @@ class JORequestFactory
         $requests=array();
 
         foreach($requestIDs as $values){
-            $request= JORequestProxy::getRequestByValues($values);
+            $request= new JORequestProxy($values);
             $request->loadObject('requester',true,$values);
             array_push($requests,JORequestFactory::castToRequest($request));
         }
@@ -61,7 +60,10 @@ class JORequestFactory
      */
     public static function makeRequest(int $requestID) : Request
     {
-        return JORequestFactory::castToRequest(JORequestProxy::getRequestByID($requestID));
+        $requestViewer = new requestViewer(); // method of obtaining the viewer/controller must be determined and changed
+        $values = $requestViewer->getRecordByID($requestID);
+
+        return JORequestFactory::castToRequest(new JORequestProxy($values));
     }
 
      /**

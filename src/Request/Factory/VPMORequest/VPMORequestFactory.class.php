@@ -8,26 +8,19 @@ use Request\Request;
 class VPMORequestFactory
 {
 
-    /**
-     * Returns all the scheduled requests
-     * 
-     * @param int $empID
-     * @param string $stateString
-     * @return array(VPMORequestProxy)
-     */
-    public static function getScheduledRequests() : array
+    public static function makeRequests(string $state) : array
     {
-        return VPMORequestFactory::getRequests('scheduled');
-    }
+        $requestViewer = new RequestViewer();
+        $state = State::getStateID($state);
+        $requestRecords = $requestViewer->getRequestsbyState($state);
+        $requests=array();
 
-    /**
-     * Returns all the approved requests
-     * 
-     * @return array(VPMORequestPorxy)
-     */
-    public static function getApprovedRequests() : array
-    {
-        return VPMORequestFactory::getRequests('approved');
+        foreach($requestRecords as $values){
+            $request = new VPMORequestProxy($values);
+            array_push($requests,VPMORequestFactory::castToRequest($request));
+        }
+
+        return $requests;
     }
 
     /**
@@ -38,7 +31,10 @@ class VPMORequestFactory
      */
     public static function makeRequest(int $requestID) : Request
     {
-        return VPMORequestFactory::castToRequest(VPMORequestProxy::getRequestByID($requestID));
+        $requestViewer = new requestViewer(); // method of obtaining the viewer/controller must be determined and changed
+        $values = $requestViewer->getRecordByID($requestID);
+
+        return VPMORequestFactory::castToRequest(new VPMORequestProxy($values));
     }
 
      /**
@@ -59,18 +55,4 @@ class VPMORequestFactory
      * 
      * @return array(Request)
      */
-    private static function getRequests(string $state) : array
-    {
-        $requestViewer = new RequestViewer();
-        $state = State::getStateID($state);
-        $requestRecords = $requestViewer->getRequestsbyState($state);
-        $requests=array();
-
-        foreach($requestRecords as $values){
-            $request = VPMORequestProxy::getRequestByValues($values);
-            array_push($requests,VPMORequestFactory::castToRequest($request));
-        }
-
-        return $requests;
-    }
 }

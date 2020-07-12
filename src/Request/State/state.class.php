@@ -2,6 +2,7 @@
 namespace Request\State;
 
 use Request\Factory\Base\RealRequest;
+use EmailClient\EmailClient;
 
 abstract class State {
     //TODO: add all transitions and implement

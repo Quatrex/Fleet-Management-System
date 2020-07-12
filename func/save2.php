@@ -33,7 +33,11 @@ switch ($method) {
 
 	case 'RequestAdd':
 		$requester = Requester::getObject($_POST['empID']);
-		$requester->placeRequest($_POST['date'], $_POST['time'], $_POST['dropoff'], $_POST['pickup'], $_POST['purpose']);
+		$requester->placeRequest(['DateOfTrip' => $_POST['date'],
+								'TimeOfTrip' => $_POST['time'],
+								'DropLocation' => $_POST['dropoff'],
+								'PickLocation' => $_POST['pickup'],
+								'Purpose' => $_POST['purpose']]);
 		echo json_encode("success_Request successfully added");
 		break;
 

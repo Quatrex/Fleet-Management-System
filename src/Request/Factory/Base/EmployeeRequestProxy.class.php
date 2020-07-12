@@ -8,12 +8,11 @@ use JsonSerializable;
 
 abstract class EmployeeRequestProxy implements Request, JsonSerializable
 {
+    protected RealRequest $realRequest;
 
-    protected Request $realRequest;
-
-    protected function __construct(Request $realRequest)
+    public function __construct(array $values)
     {
-        $this->realRequest = $realRequest;
+        $this->realRequest = new RealRequest($values);
     }
 
     public function jsonSerialize()
@@ -82,6 +81,11 @@ abstract class EmployeeRequestProxy implements Request, JsonSerializable
     public function close() : void 
     {
         echo "Access Denied";
+    }
+
+    public function loadObject(string $objectName, bool $byValue = false, array $values = array())
+    {
+        $this->realRequest->loadObject($objectName, $byValue, $values);
     }
 
     public function getField(string $field) 

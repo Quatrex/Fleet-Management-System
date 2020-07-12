@@ -51,22 +51,18 @@ class Requester extends PrivilegedEmployee implements JsonSerializable
 
     
 
-    public function placeRequest($dateOfTrip,$timeOfTrip,$dropLocation,$pickLocation,$purpose){
-        $request = RequesterRequestFactory::makeRequest($dateOfTrip,
-                                                        $timeOfTrip,
-                                                        $dropLocation,
-                                                        $pickLocation,
-                                                        $this->empID,
-                                                        $purpose);
+    public function placeRequest(array $values){
+        $values ['RequesterID'] = $this->empID;
+        $request = RequesterRequestFactory::makeNewRequest($values);
     }
 
     public function cancelRequest($requestID){
-        $request = RequesterRequestFactory::getrequest($requestID);
+        $request = RequesterRequestFactory::makeRequest($requestID);
         $request->cancel();
     }
 
     public function getMyRequestsByState(string $state) : array 
     {
-        return RequesterRequestFactory::getRequests($this->empID,$state);
+        return RequesterRequestFactory::makeRequests($this->empID,$state);
     }
 }

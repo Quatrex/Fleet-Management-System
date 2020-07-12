@@ -23,7 +23,7 @@ class CAORequestFactory
         $requests=array();
 
         foreach($requestIDs as $values){
-            $request= CAORequestProxy::getRequestByValues($values);
+            $request = new CAORequestProxy($values);
             $request->loadObject('requester',true,$values);
             array_push($requests,CAORequestFactory::castToRequest($request));
         }
@@ -44,7 +44,7 @@ class CAORequestFactory
         $requests=array();
 
         foreach($requestRecords as $values){
-            $request= CAORequestProxy::getRequestByValues($values);
+            $request= new CAORequestProxy($values);
             array_push($requests,CAORequestFactory::castToRequest($request));
         }
 
@@ -57,9 +57,13 @@ class CAORequestFactory
      * @param int $requestID
      * @return Request
      */
-    public static function makeRequest(int $requestID) : Request
+    public static function makeRequestByID(int $requestID) : Request
     {
-        return CAORequestFactory::castToRequest(CAORequestProxy::getRequestByID($requestID));
+        //get values from database
+        $requestViewer = new requestViewer(); // method of obtaining the viewer/controller must be determined and changed
+        $values = $requestViewer->getRecordByID($requestID);
+
+        return CAORequestFactory::castToRequest(new CAORequestProxy($values));
     }
 
      /**
