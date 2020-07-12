@@ -76,7 +76,7 @@ switch ($method) {
 		break;
 	case 'Schedule':
 		$vpmo = VPMO::getObject($_POST['empID']);
-		$vpmo->scheduleRequest($_POST['RequestId'],$_POST['VehicleId'],$_POST['DriverId']);
+		$vpmo->scheduleRequest($_POST['RequestId'],$_POST['DriverId'],$_POST['VehicleId']);
 		echo json_encode("success_Request " . $_POST['RequestId'] . " successfully Assigned");
 		break;
 	case 'EndTrip':

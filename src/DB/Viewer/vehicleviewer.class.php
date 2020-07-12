@@ -17,4 +17,9 @@ class VehicleViewer extends VehicleModel{
         return parent::getAllRecords($vehicleType);
     }
 
+    public function isLeasedVehicle($registrationNo) : bool 
+    {
+        return parent::isLeasedVehicle($registrationNo);
+    }
+
 }

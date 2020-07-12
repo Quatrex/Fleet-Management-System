@@ -1,12 +1,7 @@
 <?php
 namespace Employee;
 
-use DB\IObjectHandle;
-use Request\Request;
-use DB\Controller\EmployeeController;
-use DB\Controller\RequestController;
 use DB\Viewer\EmployeeViewer;
-use DB\Viewer\RequestViewer;
 use Request\Factory\RequesterRequest\RequesterRequestFactory;
 use JsonSerializable;
 
@@ -73,15 +68,5 @@ class Requester extends PrivilegedEmployee implements JsonSerializable
     public function getMyRequestsByState(string $state) : array 
     {
         return RequesterRequestFactory::getRequests($this->empID,$state);
-        // $requestViewer = new RequestViewer();
-        // $requestIDs= $requestViewer->getRequestsByIDNState($this->empID,$state);
-        // $requests=array();
-
-        // foreach($requestIDs as $values){
-        //     $request= Request::getObjectByValues($values);
-        //     array_push($requests,$request);
-        // }
-
-        // return $requests;
-        }
+    }
 }

@@ -229,6 +229,36 @@ class EmailClient {
     }
 
     /**
+     * Generate an email to the requester about the schedule 
+     * 
+     * @param INotifiableRequest $request
+     */
+    public function notifySchedule(INotifiableRequest $request) : void
+    {
+        //email to the Requester
+        $email = new Email();
+        $email->setSubject('Vehicle Request Approval');
+
+        $dateTime = $request->getField('dateOfTrip') . ' ' . $request->getField('timeOfTrip');
+        $pickLocation = $request->getField('pickLocation');
+        $dropLocation = $request->getField('dropLocation');
+        $purpose = $request->getField('purpose');
+        $driver= $request->getField('driver');
+        $driverName = $driver->getField('firstName') . ' ' . $driver->getField('lastName'); 
+        $vehicleModel = $request->getField('vehicle')->getField('model');
+        $message = "<p> Vehicle Pool Management Officer has <b>scheduled</b> your vehicle request made for $dateTime from <i>$pickLocation</i> to <i>$dropLocation</i>.</p>
+                    <p> Purpose of the request : \"$purpose\" </p>
+                    <p> Name of the Driver : $driverName </p>
+                    <p> Vehicle model : $vehicleModel </p>";
+                    
+        $email->setMessage($message);
+
+        $email->addRecepient($request->getField('requester')->getField('email'));
+
+        $this->mailer->send($email);
+    }
+
+    /**
      * Initialize emails of the respective authorities if they are null
      * 
      * @param string $position

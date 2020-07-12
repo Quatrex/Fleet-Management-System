@@ -4,7 +4,7 @@ namespace EmailClient;
 interface Mailer
 {
     /**
-     * Set up the connection with the mail server
+     * Setup the connection with the mail server
      */
     public function config() : void;
 

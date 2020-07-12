@@ -18,6 +18,7 @@ use EmailClient\INotifiableRequest;
 use Employee\Driver\Factory\DriverFactory;
 use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
 use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
+use Vehicle\Factory\Base\VehicleFactory;
 
 class RealRequest implements IObjectHandle, Request, INotifiableRequest
 {
@@ -58,13 +59,13 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
         $this->pickLocation = $pickLocation;
         $this->requester = array('ID' => $requesterID, 'object' => null);
         $this->purpose = $purpose;
-        $this->justifiedBy = ($justifiedBy != null) ? array("ID" => $justifiedBy, "object" => null) : array();
-        $this->approvedBy = ($approvedBy != null) ? array("ID" => $approvedBy, "object" => null) : array();
-        $this->scehduledBy = ($scehduledBy != null) ? array("ID" => $scehduledBy, "object" => null) : array();
+        $this->justifiedBy = array("ID" => $justifiedBy, "object" => null);
+        $this->approvedBy = array("ID" => $approvedBy, "object" => null);
+        $this->scehduledBy = array("ID" => $scehduledBy, "object" => null);
         $this->JOComment = $JOComment;
         $this->CAOComment = $CAOComment;
-        $this->driver = ($driver != null) ? array("ID" => $driver, "object" => null) : array();
-        $this->vehicle = ($vehicle != null) ? array("ID" => $vehicle, "object" => null) : array();
+        $this->driver = array("ID" => $driver, "object" => null);
+        $this->vehicle = array("ID" => $vehicle, "object" => null);
     }
 
     //IObjectHandle
@@ -179,8 +180,8 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
 
     public function schedule(string $empID, string $driver, string $vehicle) : void{
         $this->scehduledBy['ID'] = $empID;
-        $this->driver['ID']=$driver;
-        $this->vehicle['ID']=$vehicle;
+        $this->driver['ID'] = $driver;
+        $this->vehicle['ID'] = $vehicle;
 
         $this->state->schedule($this);
         $requestController = new RequestController();
@@ -220,6 +221,8 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
         if (property_exists($this, $field)) {
             $objectFields = ['requester', 'justifiedBy', 'approvedBy', 'scehduledBy', 'driver', 'vehicle'];
             if (in_array($field, $objectFields)) {
+                if ($this->$field['ID'] === null)
+                    return null;
                 if ($this->$field['object'] === null)
                     $this->loadObject($field);
                 return $this->$field['object'];
@@ -229,12 +232,6 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
         }
         return null;
     }
-
-
-
-
-    
-
 
     /**
      * Loads a specified object
@@ -254,27 +251,29 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
 
             case "jo":
                 $this->justifiedBy['object'] = $byValue ? JO::getObjectByValues($values)
-                                                : JO::getObject($this->requester["ID"]);
+                                                : JO::getObject($this->justifiedBy["ID"]);
             break;
 
             case "cao":
                 $this->approvedBy['object'] = $byValue ? CAO::getObjectByValues($values)
-                                                : CAO::getObject($this->requester["ID"]);
+                                                : CAO::getObject($this->approvedBy["ID"]);
             break;
 
             case "vpmo":
                 $this->scehduledBy['object'] = $byValue ? VPMO::getObjectByValues($values)
-                                                : VPMO::getObject($this->requester["ID"]);
+                                                : VPMO::getObject($this->scehduledBy["ID"]);
             break;
 
             case "vehicle":
-                $this->vehicle['object'] = $byValue ? $this->constructVehicleObject($values,true)
-                                                : $this->constructVehicleObject($values,false);
+                $this->vehicle['object'] = $byValue ? $this->constructVehicleObject(true,$values)
+                                                : $this->constructVehicleObject(false);
             break;
 
             case 'driver':
                 $this->driver['object'] = $byValue ? DriverFactory::makeDriverByValues($values) 
                                                 : DriverFactory::makeDriver($this->driver['ID']);
+            break;
+
         }
     }
 
@@ -286,7 +285,7 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
      * 
      * @return Vehicle
      */
-    private function constructVehicleObject(array $values, bool $byValue) : Vehicle
+    private function constructVehicleObject(bool $byValue,array $values = []) : Vehicle
     {
         if ($byValue)
         {
@@ -304,16 +303,8 @@ class RealRequest implements IObjectHandle, Request, INotifiableRequest
         }
         else
         {
-            if ($values['isLeased'])
-            {
-                $leasedVehicleFactory = LeasedVehicleFactory::getInstance();
-                $vehicle = $leasedVehicleFactory->makeVehicle($this->vehicle['ID']);
-            } 
-            else 
-            {
-                $purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
-                $vehicle = $purchasedVehicleFactory->makeVehicle($this->vehicle['ID']);
-            }
+            // print_r($this->vehicle['ID']);
+            $vehicle = VehicleFactory::getVehicle($this->vehicle['ID']);
         }
         return $vehicle;
     }

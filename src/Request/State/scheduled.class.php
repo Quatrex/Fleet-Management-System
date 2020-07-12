@@ -18,10 +18,14 @@ class Scheduled extends State {
     }
 
     public function close(RealRequest $request) : void {
+        $request->getField('vehicle')->deallocate();
+        $request->getField('driver')->deallocate();
         $request->setState(Completed::getInstance());
     }
 
     public function cancel(RealRequest $request) : void {
+        $request->getField('vehicle')->deallocate();
+        $request->getField('driver')->deallocate();
         $request->setState(Cancelled::getInstance());
     }
 }

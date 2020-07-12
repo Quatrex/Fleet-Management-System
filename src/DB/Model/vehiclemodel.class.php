@@ -72,4 +72,12 @@ abstract class VehicleModel extends Model{
         $conditionVals= array($registrationNo);
         parent::updateRecord($columnNames,$columnVals,$conditionNames,$conditionVals);  
     }
+
+    protected function isLeasedVehicle($registrationNo) : bool
+    {
+        $columnNames= array('RegistrationNo');
+        $columnVals= array($registrationNo);
+        $record  = parent::getRecords($columnNames,$columnVals,['IsLeased']);
+        return ($record[0]['IsLeased']) ? true : false;
+    }
 }

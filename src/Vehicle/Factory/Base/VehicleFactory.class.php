@@ -2,6 +2,9 @@
 namespace Vehicle\Factory\Base;
 
 use Vehicle\Vehicle;
+use DB\Viewer\VehicleViewer;
+use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
+use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
 
 abstract class VehicleFactory
 {
@@ -45,5 +48,28 @@ abstract class VehicleFactory
     protected function castToVehicle(Vehicle $vehicle) : Vehicle 
     {
         return $vehicle;
+    }
+
+    /**
+     * Get either purchased or leased vehicle object for a given registration number.
+     * 
+     * @param string $registrationNo
+     * 
+     * @return Vehicle
+     */
+    public static function getVehicle(string $registrationNo) : Vehicle 
+    {
+        $vehicleViewer = new VehicleViewer();
+        $isLeased = $vehicleViewer->isLeasedVehicle($registrationNo);
+        if ($isLeased)
+        {
+            $leasedVehicleFactory = LeasedVehicleFactory::getInstance();
+            return $leasedVehicleFactory->makeVehicle($registrationNo);
+        }
+        else
+        {
+            $purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
+            return $purchasedVehicleFactory->makeVehicle($registrationNo);
+        }
     }
 }
