@@ -35,6 +35,7 @@ abstract class PrivilegedEmployee extends Employee
                                     $this->firstName,
                                     $this->lastName,
                                     $this->position,
+                                    $this->designation,
                                     $this->email,
                                     $this->username,
                                     $this->password);

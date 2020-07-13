@@ -9,37 +9,44 @@ abstract class EmployeeModel extends Model{
     }
 
     protected function getRecordByID($empID){
-        $columnNames= array('EmpID');
-        $columnVals= array($empID);
+        $isDeleted=0;
+        $columnNames= array('EmpID','IsDeleted'); 
+        $columnVals= array($empID,$isDeleted);
+        
         $wantedColumns=array('EmpID','FirstName','LastName','Position','Designation','Email','Username');
-        $results = parent::getRecords($columnNames,$columnVals,$wantedColumns); //change getRecords() to not get password from database
+        $results = parent::getRecords($columnNames,$columnVals,$wantedColumns,$isDeleted); //change getRecords() to not get password from database
         return $results[0];
     }
 
     protected function getRecordByUsername($username){
-        $columnNames= array('Username');
-        $columnVals= array($username);
+        $isDeleted=0;
+        $columnNames= array('Username','IsDeleted');
+        $columnVals= array($username,$isDeleted);
+        $isDeleted=0;
         $wantedColumns=array('EmpID','FirstName','LastName','Position','Designation','Email','Username');
-        return parent::getRecords($columnNames,$columnVals,$wantedColumns);
+        return parent::getRecords($columnNames,$columnVals,$wantedColumns,$isDeleted);
     }
 
-    protected function saveRecord($empID, $firstName, $lastName, $position, $email, $username, $password) {
+    protected function saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $username, $password) {
         $columnNames = array('EmpID','FirstName','LastName','Position','Designation','Email','Username','Password');
-        $columnVals = array($empID, $firstName, $lastName, $position, $email, $username, $password);
+        $columnVals = array($empID, $firstName, $lastName, $position, $designation, $email, $username, $password);
         parent::addRecord($columnNames,$columnVals);
     }
 
     protected function checkPassword($username,$password){
-        $columnNames= array('Username');
-        $columnVals= array($username);
+        $isDeleted=0;
+        $columnNames= array('Username','IsDeleted');
+        $columnVals= array($username,$isDeleted);
+        $isDeleted=0;
         $wantedColumns=array('Username','Password');
         return (parent::getRecords($columnNames,$columnVals,$wantedColumns)[0]['Password']==$password)? true:false;
     }
 
     protected function getEmails(string $position)
     {
-        $colmunNames = array('Position');
-        $columnVals = array($position);
+        $isDeleted=0;
+        $colmunNames = array('Position','IsDeleted');
+        $columnVals = array($position,$isDeleted);
         $wantedCols = array('Email');
         $emailRecords = parent::getRecords($colmunNames,$columnVals,$wantedCols);
 

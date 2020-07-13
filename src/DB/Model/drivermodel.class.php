@@ -8,14 +8,15 @@ abstract class DriverModel extends Model{
     }
 
     protected function getRecordByID($driverId){
-        $columnNames= array('DriverID');
-        $columnVals= array($driverId);
+        $isDeleted=0;
+        $columnNames= array('DriverID','IsDeleted');
+        $columnVals= array($driverId,$isDeleted);
         $results = parent::getRecords($columnNames,$columnVals); 
         return $results[0];
     }
     
     protected function getAllRecords(){
-        $results =parent::getRecords([],[]);
+        $results =parent::getRecords([],[]); //check for IsDeleted
         return $results;
     }
 

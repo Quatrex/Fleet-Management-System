@@ -10,8 +10,9 @@ abstract class VehicleModel extends Model{
     }
 
     protected function getRecordByID($registrationNo, $isLeased){
-        $columnNames= array('RegistrationNo');
-        $columnVals= array($registrationNo);
+        $isDeleted=0;
+        $columnNames= array('RegistrationNo','IsDeleted');
+        $columnVals= array($registrationNo,$isDeleted);
         $results = $isLeased ? parent::getRecordsFromTwo('leased_vehicle',[['RegistrationNo','RegistrationNo']],['RegistrationNo' => $registrationNo])
                             :parent::getRecords($columnNames,$columnVals);
         return $results[0];
@@ -19,14 +20,14 @@ abstract class VehicleModel extends Model{
     
     protected function getAllRecords(string $vehicleType){
 
-        //TODO: must discard IsDeleted vehicles when retreiving vehicle records
+        $isDeleted=0;
         switch ($vehicleType)
         {
             case 'leased':
-                $results = parent::getRecordsFromTwo('leased_vehicle',[['RegistrationNo','RegistrationNo']],['IsDeleted'=>0]);
+                $results = parent::getRecordsFromTwo('leased_vehicle',[['RegistrationNo','RegistrationNo']],['IsDeleted'=>$isDeleted]);
                 break;
             case 'purchased':
-                $results = parent::getRecords(['IsLeased','IsDeleted'],[0,0]);
+                $results = parent::getRecords(['IsLeased','IsDeleted'],[0,$isDeleted]);
                 break;
         }
         return $results;
@@ -75,8 +76,9 @@ abstract class VehicleModel extends Model{
 
     protected function isLeasedVehicle($registrationNo) : bool
     {
-        $columnNames= array('RegistrationNo');
-        $columnVals= array($registrationNo);
+        $isDeleted=0;
+        $columnNames= array('RegistrationNo','IsDeleted');
+        $columnVals= array($registrationNo,$isDeleted);
         $record  = parent::getRecords($columnNames,$columnVals,['IsLeased']);
         return ($record[0]['IsLeased']) ? true : false;
     }

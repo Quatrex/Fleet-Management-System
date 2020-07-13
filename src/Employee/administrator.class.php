@@ -45,19 +45,7 @@ class Administrator extends PrivilegedEmployee
        return $obj; //return false, if fail
     }
 
-    public function getAllEmployees(){
-        //return an array of all employees (implement sperately for drivers)
-    }
-
-    public function createNewAccount(){
-        //create a new employee account
-    }
-
-    public function updateAccount(){
-        //update an existing employee account's details
-    }
-
-    public function removeAccount(){
-        //delete an employee account
-    }
+    // public function addEmployee(array $values){
+    //     $employee = EmployeeFactory::makeNewEmployee($values);
+    // }
 }
