@@ -25,6 +25,8 @@ abstract class Model
 
     /**
      * A general code to generate a SQL statement to add records to database.
+     * 
+     * @param array $values ['Field' => 'Value']
      */
     protected function addRecord(array $values): void
     {
@@ -36,6 +38,11 @@ abstract class Model
 
     /**
      * A general code to generate SQL statement to get records from the database.
+     * 
+     * @param array $conditions ['Field' => 'Value']
+     * @param array $wantedFields @default = all
+     * 
+     * @return array
      */
     protected function getRecords(array $conditions = [], array $wantedFields = ['*']): array
     {
@@ -50,8 +57,12 @@ abstract class Model
 
     /**
      * A general code to generate SQL statement to update a record in the database.
+     * 
+     * @param array $values ['Field' => 'Value']
+     * @param array $conditions ['Field' => 'Value']
      */
-    protected function updateRecord(array $values, array $conditions): void {
+    protected function updateRecord(array $values, array $conditions): void 
+    {
         $query = $this->queryBuilder->update($this->tableName,$values)
                                     ->where($conditions)
                                     ->getSQLQuery();
@@ -61,9 +72,15 @@ abstract class Model
 
     /**
      * A general code to generate SQL statement to get records from multiple tables in the database.
+     * 
+     * @param array $joinConditions [['Table1' => 'Field1', 'Table2' => 'Field2']]
+     * @param array $conditions ['Field' => 'Value']
+     * @param array $wantedFields @default = all
+     * 
+     * @return array
      */
-    public function getRecordsFromTwo(array $joinConditions, array $conditions = [], array $wantedFields = ['*']): array {
-
+    public function getRecordsFromTwo(array $joinConditions, array $conditions = [], array $wantedFields = ['*']): array 
+    {
         $query = $this->queryBuilder->select($this->tableName,$wantedFields)
                                     ->join($this->tableName,$joinConditions)
                                     ->where($conditions)
