@@ -14,7 +14,7 @@ abstract class VehicleFactory
      * @param array $vehicleInfo
      * @return Vehicle
      */
-    abstract public function makeNewVehicle(array $vehicleInfo) : Vehicle;
+    abstract public function makeNewVehicle(array $values) : Vehicle;
 
     /**
      * Creates a vehicle object for a given ID
@@ -37,7 +37,7 @@ abstract class VehicleFactory
      * @param array $vehicleInfo
      * @return Vehicle
      */
-    abstract public function makeVehicleByValues(array $vehicleInfo) : Vehicle;
+    abstract public function makeVehicleByValues(array $values) : Vehicle;
 
     /**
      * Casts a vehicle object to vehicle interface

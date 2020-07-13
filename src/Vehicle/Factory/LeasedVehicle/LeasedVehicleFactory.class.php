@@ -22,7 +22,7 @@ class LeasedVehicleFactory extends VehicleFactory
     /**
      * @inheritDoc
      */
-    public function makeNewVehicle(array $vehicleInfo) : Vehicle
+    public function makeNewVehicle(array $values) : Vehicle
     {
         $values['State'] = State::getStateID('available');
         $values['CurrentLocation'] = '';

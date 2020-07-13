@@ -1,7 +1,7 @@
 <?php 
-namespace Employee\Driver\State;
+namespace Employee\State\Driver;
 
-use Employee\Driver\Factory\Driver;
+use Employee\Factory\Driver\Driver;
 
 abstract class State {
     //TODO: add all transitions and implement

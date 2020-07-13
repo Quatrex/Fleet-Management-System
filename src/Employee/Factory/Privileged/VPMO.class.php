@@ -1,14 +1,13 @@
 <?php
 
-namespace Employee;
+namespace Employee\Factory\Privileged;
 
 use Request\Request;
-use DB\Viewer\EmployeeViewer;
 use Vehicle\Vehicle;
 use Vehicle\Factory\Base\VehicleFactory;
 use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
 use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
-use Employee\Driver\Factory\DriverFactory;
+use Employee\Factory\Driver\DriverFactory;
 use Request\Factory\VPMORequest\VPMORequestFactory;
 
 
@@ -17,42 +16,11 @@ class VPMO extends Requester
     private VehicleFactory $leasedVehicleFactory;
     private VehicleFactory $purchasedVehicleFactory;
 
-    function __construct($empID, $firstName, $lastName, $position, $designation, $email, $username, $password)
+    function __construct($values)
     {
-        parent::__construct($empID, $firstName, $lastName, $position, $designation, $email, $username, $password);
+        parent::__construct($values);
         $this->leasedVehicleFactory = LeasedVehicleFactory::getInstance();
         $this->purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
-    }
-
-    //IObjectHandle
-    public static function getObject($ID)
-    {
-        $empID = $ID;
-        //get values from database
-        $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
-        $values = $employeeViewer->getRecordByID($empID);
-
-        $obj = new VPMO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Designation'], $values['Email'], $values['Username'], "");
-
-        return $obj; //return false, if fail
-    }
-
-    //IObjectHandle
-    public static function getObjectByValues(array $values)
-    {
-        $obj = new VPMO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Designation'], $values['Email'], $values['Username'], "");
-        return $obj;
-    }
-
-    //IObjectHandle
-    public static function constructObject($empID, $firstName, $lastName, $position, $designation, $email, $username, $password)
-    {
-
-        $obj = new VPMO($empID, $firstName, $lastName, $position, $designation, $email, $username, $password);
-
-        $obj->saveToDatabase(); //check for failure
-
-        return $obj; //return false, if fail
     }
 
     /**
@@ -231,7 +199,4 @@ class VPMO extends Requester
         $vehicle = $this->leasedVehicleFactory->makeVehicle($registrationNo);
         $vehicle->delete();
     }
-
-
-
 }

@@ -1,12 +1,12 @@
 <html>
 <?php include '../partials/head.php';
 
-use Employee\JO;
+use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
 
 session_start();
 if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
 require_once '../includes/autoloader.inc.php';
-$employee = JO::getObject($_SESSION['empid']);
+$employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
 $_SESSION['employee'] = $employee;
 $requestsToJustify = $employee->getPendingRequests();
 $_SESSION['requestsToJustify'] = $requestsToJustify;

@@ -14,7 +14,7 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
     private string $leasedPeriodTo;
     private string $monthlyPayment;
 
-    public function __construct($values)
+    public function __construct(array $values)
     {
         parent::__construct($values);
         $this->leasedCompany = $values['LeasedCompany'];

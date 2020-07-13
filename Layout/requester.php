@@ -1,12 +1,12 @@
 <html>
 <?php include '../partials/head.php';
 
-use Employee\Requester;
+use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
 
 session_start();
 if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
 require_once '../includes/autoloader.inc.php';
-$employee = Requester::getObject($_SESSION['empid']); //, $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
+$employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']); //, $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
 $_SESSION['employee'] = $employee;
 $requests = $employee->getMyRequestsByState('pending');
 // echo json_encode($requests);

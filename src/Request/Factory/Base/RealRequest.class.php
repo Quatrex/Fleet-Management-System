@@ -5,13 +5,10 @@ namespace Request\Factory\Base;
 use DB\Controller\RequestController;
 use Request\State\State;
 use Request\Request;
-use Employee\JO;
-use Employee\CAO;
-use employee\VPMO;
-use Employee\Requester;
 use Vehicle\Vehicle;
 use EmailClient\INotifiableRequest;
-use Employee\Driver\Factory\DriverFactory;
+use Employee\Factory\Driver\DriverFactory;
+use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
 use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
 use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
 use Vehicle\Factory\Base\VehicleFactory;
@@ -177,23 +174,23 @@ class RealRequest implements Request, INotifiableRequest
         $objectName = strtolower($objectName);
         switch ($objectName) {
             case "requester":
-                $this->requester['object'] = $byValue ? Requester::getObjectByValues($values) 
-                                                : Requester::getObject($this->requester["ID"]);
+                $this->requester['object'] = $byValue ? PrivilegedEmployeeFactory::makeEmployeeByValues($values)
+                                                : PrivilegedEmployeeFactory::makeEmployee($this->requester["ID"]);
             break;
 
             case "jo":
-                $this->justifiedBy['object'] = $byValue ? JO::getObjectByValues($values)
-                                                : JO::getObject($this->justifiedBy["ID"]);
+                $this->justifiedBy['object'] = $byValue ? PrivilegedEmployeeFactory::makeEmployeeByValues($values)
+                                                : PrivilegedEmployeeFactory::makeEmployee($this->justifiedBy["ID"]);
             break;
 
             case "cao":
-                $this->approvedBy['object'] = $byValue ? CAO::getObjectByValues($values)
-                                                : CAO::getObject($this->approvedBy["ID"]);
+                $this->approvedBy['object'] = $byValue ? PrivilegedEmployeeFactory::makeEmployeeByValues($values)
+                                                : PrivilegedEmployeeFactory::makeEmployee($this->approvedBy["ID"]);
             break;
 
             case "vpmo":
-                $this->scehduledBy['object'] = $byValue ? VPMO::getObjectByValues($values)
-                                                : VPMO::getObject($this->scehduledBy["ID"]);
+                $this->scehduledBy['object'] = $byValue ? PrivilegedEmployeeFactory::makeEmployeeByValues($values)
+                                                : PrivilegedEmployeeFactory::makeEmployee($this->scehduledBy["ID"]);
             break;
 
             case "vehicle":
