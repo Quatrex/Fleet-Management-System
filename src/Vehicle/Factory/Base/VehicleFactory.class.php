@@ -29,7 +29,7 @@ abstract class VehicleFactory
      * 
      * @return array(Vehicle)
      */
-    abstract public function getVehicles() : array;
+    abstract public function makeVehicles() : array;
 
     /**
      * Create a vehicle object for given values

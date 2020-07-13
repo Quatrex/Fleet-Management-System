@@ -88,8 +88,8 @@ class VPMO extends Requester
      */
     public function getVehicles()
     {
-        $leasedVehicles = $this->leasedVehicleFactory->getVehicles();
-        $purchasedVehicles = $this->purchasedVehicleFactory->getVehicles();
+        $leasedVehicles = $this->leasedVehicleFactory->makeVehicles();
+        $purchasedVehicles = $this->purchasedVehicleFactory->makeVehicles();
         return array_merge($purchasedVehicles, $leasedVehicles);
     }
 

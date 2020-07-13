@@ -2,7 +2,6 @@
 
 namespace Vehicle\Factory\LeasedVehicle;
 
-use DB\Viewer\VehicleViewer;
 use DB\Controller\VehicleController;
 use JsonSerializable;
 use Vehicle\Factory\Base\AbstractVehicle;
@@ -15,13 +14,13 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
     private string $leasedPeriodTo;
     private string $monthlyPayment;
 
-    public function __construct($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $state, $currentLocation, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
+    public function __construct($values)
     {
-        parent::__construct($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $state, $currentLocation);
-        $this->leasedCompany = $leasedCompany;
-        $this->leasedPeriodFrom = $leasedPeriodFrom;
-        $this->leasedPeriodTo = $leasedPeriodTo;
-        $this->monthlyPayment = $monthlyPayment;
+        parent::__construct($values);
+        $this->leasedCompany = $values['LeasedCompany'];
+        $this->leasedPeriodFrom = $values['LeasedPeriodFrom'];
+        $this->leasedPeriodTo = $values['LeasedPeriodTo'];
+        $this->monthlyPayment = $values['MonthlyPayment'];
     }
 
     public function getField(string $field)
@@ -36,53 +35,23 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'registration' => $this->getField('registrationNo'),
-            'model' => $this->getField('model'),
-            'purchasedYear' => $this->getField('purchasedYear'),
-            'value' => $this->getField('value'),
-            'fuelType' => $this->getField('fuelType'),
-            'insuranceValue' => $this->getField('insuranceValue'),
-            'insuranceCompany'=>$this->getField('insuranceCompany'),
-            'state' => $this->getField('state'),
-            'currentLocation' => $this->getField('currentLocation'),
-            'leasedCompany' => $this->getField('leasedCompany'),
-            'leasedPeriodFrom' => $this->getField('leasedPeriodFrom'),
-            'leasedPeriodTo' => $this->getField('leasedPeriodTo'),
-            'monthlyPayment' => $this->getField('monthlyPayment')
-
-        ];
-    }
-
-
-    //IObjectHandle
-    public static function getObject($registrationNo)
-    {
-        //get values from database
-        $vehicleViewer = new VehicleViewer(); // method of obtaining the viewer/controller must be determined and changed
-        $values = $vehicleViewer->getRecordByID($registrationNo, true);
-        $obj = new LeasedVehicle($values['RegistrationNo'], $values['Model'], $values['PurchasedYear'], $values['Value'], $values['FuelType'], $values['InsuranceValue'], $values['InsuranceCompany'], $values['State'], $values['CurrentLocation'], $values['LeasedCompany'], $values['LeasedPeriodFrom'], $values['LeasedPeriodTo'], $values['MonthlyPayment']);
-        return $obj;
+            'registration' => $this->registrationNo,
+            'model' => $this->model,
+            'purchasedYear' => $this->purchasedYear,
+            'value' => $this->value,
+            'fuelType' => $this->fuelType,
+            'insuranceValue' => $this->insuranceValue,
+            'insuranceCompany'=>$this->insuranceCompany,
+            'state' => State::getStateString($this->state->getID()),
+            'currentLocation' => $this->currentLocation,
+            'leasedCompany' => $this->leasedCompany,
+            'leasedPeriodFrom' => $this->leasedPeriodFrom,
+            'leasedPeriodTo' => $this->leasedPeriodTo,
+            'monthlyPayment' => $this->monthlyPayment];
     }
 
     //IObjectHandle
-    public static function getObjectByValues(array $values)
-    {
-        $obj = new LeasedVehicle($values['RegistrationNo'], $values['Model'], $values['PurchasedYear'], $values['Value'], $values['FuelType'], $values['InsuranceValue'], $values['InsuranceCompany'], $values['State'], $values['CurrentLocation'], $values['LeasedCompany'], $values['LeasedPeriodFrom'], $values['LeasedPeriodTo'], $values['MonthlyPayment']);
-        return $obj;
-    }
-
-    //IObjectHandle
-    public static function constructObject($vehicleInfo)
-    {
-        $state = State::getStateID('Available');
-        $currentLocation = ""; //attention!
-        $obj = new LeasedVehicle($vehicleInfo[0], $vehicleInfo[1], $vehicleInfo[2], $vehicleInfo[3], $vehicleInfo[4], $vehicleInfo[5], $vehicleInfo[6], $state, $currentLocation, $vehicleInfo[7], $vehicleInfo[8], $vehicleInfo[9], $vehicleInfo[10]);
-        $obj->saveToDatabase(); //check for failure
-        return $obj; //return false, if fail
-    }
-
-    //IObjectHandle
-    private function saveToDatabase()
+    public function saveToDatabase() : void
     {
         $vehicleController = new VehicleController();
         $vehicleController->saveLeasedVehicleRecord(

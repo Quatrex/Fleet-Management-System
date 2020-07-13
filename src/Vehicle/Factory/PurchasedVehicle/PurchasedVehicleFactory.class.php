@@ -4,6 +4,7 @@ namespace Vehicle\Factory\PurchasedVehicle;
 use Vehicle\Factory\Base\VehicleFactory;
 use Vehicle\Vehicle;
 use DB\Viewer\VehicleViewer;
+use Vehicle\State\State;
 
 class PurchasedVehicleFactory extends VehicleFactory 
 {
@@ -22,37 +23,35 @@ class PurchasedVehicleFactory extends VehicleFactory
     /**
      * @inheritDoc
      */
-    public function makeNewVehicle(array $vehicleInfo) : Vehicle
+    public function makeNewVehicle(array $values) : Vehicle
     {
-        return $this->castToVehicle(PurchasedVehicle::constructObject($vehicleInfo));
+        $values['State'] = State::getStateID('available');
+        $values['CurrentLocation'] = '';
+        $vehicle = new PurchasedVehicle($values);
+        $vehicle->saveToDatabase(); //check for failure
+        return $this->castToVehicle($vehicle);
     }
 
     /**
      * @inheritDoc
      */
-    public function makeVehicle(string $vehicleID) : Vehicle
+    public function makeVehicle(string $registrationNo) : Vehicle
     {
-        return $this->castToVehicle(PurchasedVehicle::getObject($vehicleID));
+        $vehicleViewer = new VehicleViewer(); // method of obtaining the viewer/controller must be determined and changed
+        $values = $vehicleViewer->getRecordByID($registrationNo); 
+        return $this->castToVehicle(new PurchasedVehicle($values));
     }
 
     /**
      * @inheritDoc
      */
-    public function getVehicles() : array
+    public function makeVehicles() : array
     {
         $vehicleViewer = new VehicleViewer();
         $vehicleIDs = $vehicleViewer->getAllRecords('purchased');
         $vehicles = array();
         foreach ($vehicleIDs as $values) {
-            $vehicle = new PurchasedVehicle($values['RegistrationNo'], 
-                                            $values['Model'], 
-                                            $values['PurchasedYear'], 
-                                            $values['Value'], 
-                                            $values['FuelType'], 
-                                            $values['InsuranceValue'], 
-                                            $values['InsuranceCompany'], 
-                                            $values['State'],
-                                            $values['CurrentLocation']);
+            $vehicle = new PurchasedVehicle($values);
             array_push($vehicles, $this->castToVehicle($vehicle));
         }
         return $vehicles;
@@ -61,8 +60,8 @@ class PurchasedVehicleFactory extends VehicleFactory
     /**
      * @inheritDoc
      */
-    public function makeVehicleByValues(array $vehicleInfo) : Vehicle
+    public function makeVehicleByValues(array $values) : Vehicle
     {
-        return $this->castToVehicle(PurchasedVehicle::getObjectByValues($vehicleInfo));
+        return $this->castToVehicle(new PurchasedVehicle($values));
     }
 }
