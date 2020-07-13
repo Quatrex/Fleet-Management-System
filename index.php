@@ -14,6 +14,9 @@ else{
     elseif ($_SESSION['position']=='vpmo') {
         header('Location: ./Layout/vpmo.php');
     }
+    elseif(($_SESSION['position']=='admin')){
+        header('Location: ./Layout/administrator.php');
+    }
     else {
         header('Location: ./Layout/requester.php');
     }

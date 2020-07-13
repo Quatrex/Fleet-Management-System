@@ -300,9 +300,9 @@
             <hr>
         </div>
         <div class="popup-body">
-            <div class="c-pointer" style="text-align: center; cursor:pointer" type='button' id="change-profile-picture-button">
-                <div class="center">
-                    <img src="../images/default-user-image.png" class="form-image" style="padding:5px; width:600p">
+            <div >
+                <div class="center" style="text-align: center; ">
+                    <img src="../images/default-user-image.png" class="form-image" style="padding:5px; width:600p;text-align: center; cursor:pointer" id="change-profile-picture-button">
                 </div>
                 <!-- <div class="row justify-content-center">
                     <div class="col-auto">
