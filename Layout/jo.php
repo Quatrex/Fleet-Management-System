@@ -4,7 +4,10 @@
 use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
 
 session_start();
-if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
+if (!isset($_SESSION['empid']) or !isset($_SESSION['position']) or $_SESSION['position'] != 'jo') {
+    header("Location: login.php");
+    exit();
+}
 require_once '../includes/autoloader.inc.php';
 $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
 $_SESSION['employee'] = $employee;

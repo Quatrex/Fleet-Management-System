@@ -8,11 +8,11 @@ class Authenticate
     {
         if (!empty($_POST)) {
 
-            // if (Token::check($_POST['token'])){
+
 
             $validate = new Validate();
             $validation = $validate->check($_POST, array(
-                'username' => array('required' => true),
+                'username' => array('required' => true, 'min' => 3),
                 'password' => array('required' => true),
             ));
 
@@ -22,9 +22,8 @@ class Authenticate
                 $remember = (isset($_POST['remember']) ? "on" : "off" === 'on') ? true : false;
                 $result = $user->login(filter_var($_POST['username'], FILTER_SANITIZE_STRING), filter_var($_POST['password'], FILTER_SANITIZE_STRING), $remember);
                 if ($user->isLoggedIn()) {
-                    echo '../index.php';
+                    header('Location: ../index.php');
                 } else {
-
                     return $result;
                 }
             } else {
@@ -32,7 +31,6 @@ class Authenticate
                     echo $error, '<br>';
                 }
             }
-            // }
         }
     }
 }
