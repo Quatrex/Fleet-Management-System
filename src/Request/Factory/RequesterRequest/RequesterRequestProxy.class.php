@@ -27,4 +27,9 @@ class RequesterRequestProxy extends EmployeeRequestProxy
         $emailClient = EmailClient::getInstance();
         $emailClient->notifyRequestSubmission($this->realRequest);
     }
+
+    public function saveToDatabase()
+    {
+        $this->realRequest->saveToDatabase();
+    }
 }
