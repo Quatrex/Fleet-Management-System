@@ -64,7 +64,7 @@ class VPMO extends Requester
      */
     public function getApprovedRequests()
     {
-        return VPMORequestFactory::getApprovedRequests();
+        return VPMORequestFactory::makeRequests('scheduled');
     }
 
     /**
@@ -76,7 +76,7 @@ class VPMO extends Requester
      */
     public function getScheduledRequests()
     {
-        return VPMORequestFactory::getScheduledRequests();
+        return VPMORequestFactory::makerequests('approved');
     }
 
     /**

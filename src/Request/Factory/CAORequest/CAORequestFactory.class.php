@@ -36,7 +36,7 @@ class CAORequestFactory
      * 
      * @return array(Request)
      */
-    public static function getJustifiedRequests() : array
+    public static function makeJustifiedRequests() : array
     {
         $requestViewer = new RequestViewer();
         $state = State::getStateID('justified');
@@ -57,7 +57,7 @@ class CAORequestFactory
      * @param int $requestID
      * @return Request
      */
-    public static function makeRequestByID(int $requestID) : Request
+    public static function makeRequest(int $requestID) : Request
     {
         //get values from database
         $requestViewer = new requestViewer(); // method of obtaining the viewer/controller must be determined and changed

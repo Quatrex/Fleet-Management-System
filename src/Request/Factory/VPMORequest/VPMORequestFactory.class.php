@@ -7,9 +7,22 @@ use Request\Request;
 
 class VPMORequestFactory
 {
-
+    /**
+     * Returns all requests for a given state
+     * 
+     * @param string $state
+     * 
+     * @return array(Request)
+     */
     public static function makeRequests(string $state) : array
     {
+        $acceptedStates = ['scheduled', 'approved', 'completed'];
+        if (!in_array($state, $acceptedStates))
+        {
+            echo "Access Denied";
+            return null;
+        }
+
         $requestViewer = new RequestViewer();
         $state = State::getStateID($state);
         $requestRecords = $requestViewer->getRequestsbyState($state);
@@ -47,12 +60,4 @@ class VPMORequestFactory
     {
         return $requestProxy;
     }
-
-    /**
-     * Returns all requests for a given state
-     * 
-     * @param string $state
-     * 
-     * @return array(Request)
-     */
 }

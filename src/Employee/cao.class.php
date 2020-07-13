@@ -45,7 +45,7 @@ class CAO extends Requester
     }
 
     public function getJustifiedRequests(){
-        return CAORequestFactory::getJustifiedRequests();
+        return CAORequestFactory::makeJustifiedRequests();
     }
 
     public function approveRequest($requestID,$CAOComment){

@@ -16,7 +16,7 @@ class JORequestFactory
      * @param string $stateString
      * @return array(Request)
      */
-    public static function getJustifiedRequests(int $empID, string $stateString) : array
+    public static function makeJustifiedRequests(int $empID, string $stateString) : array
     {
         $requestViewer = new RequestViewer();
         $stateID = State::getStateID($stateString);
@@ -36,7 +36,7 @@ class JORequestFactory
      * 
      * @return array(Request)
      */
-    public static function getPendingRequests() : array
+    public static function makePendingRequests() : array
     {
         $requestViewer = new RequestViewer();
         $state = State::getStateID('pending');

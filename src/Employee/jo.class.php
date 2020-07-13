@@ -40,11 +40,11 @@ class JO extends Requester
     }
 
     public function getMyJustifiedRequestsByState(string $state) : array {
-        return JORequestFactory::getJustifiedRequests($this->empID,$state);
+        return JORequestFactory::makeJustifiedRequests($this->empID,$state);
     }
 
     public function getPendingRequests(){
-        return JORequestFactory::getPendingRequests();
+        return JORequestFactory::makePendingRequests();
     }
 
     public function justifyRequest($requestID,$JOComment){
