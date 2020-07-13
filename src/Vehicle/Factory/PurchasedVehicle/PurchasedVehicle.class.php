@@ -48,16 +48,23 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
                                     $this->currentLocation);
     }
 
-    public function updateInfo(array $vehicleInfo) : void{
+    public function updateInfo(array $values) : void{
         //changed vehicle attributes can be analysed here
+        $this->model = $values['Model'];
+        $this->purchasedYear = $values['PurchasedYear'];
+        $this->value = $values['Value'];
+        $this->fuelType = $values['FuelType'];
+        $this->insuranceValue = $values['InsuranceValue'];
+        $this->insuranceCompany = $values['InsuranceCompany'];
+        $this->currentLocation = $values['CurrentLocation'];
 
         $vehicleController = new VehicleController();
         $vehicleController->updatePurchasedVehicleInfo($this->registrationNo, 
-                                                        $vehicleInfo[0], 
-                                                        $vehicleInfo[1], 
-                                                        $vehicleInfo[2], 
-                                                        $vehicleInfo[3], 
-                                                        $vehicleInfo[4], 
-                                                        $vehicleInfo[5]);
+                                                    $this->model, 
+                                                    $this->purchasedYear, 
+                                                    $this->value, 
+                                                    $this->fuelType, 
+                                                    $this->insuranceValue, 
+                                                    $this->insuranceCompany);
     }
 }

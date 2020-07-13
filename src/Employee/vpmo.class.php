@@ -158,10 +158,9 @@ class VPMO extends Requester
      *
      */
     
-    public function addPurchasedVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany)
+    public function addPurchasedVehicle($values)
     {
-        $vehicleInfo = array($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
-        $vehicle = $this->purchasedVehicleFactory->makeNewVehicle($vehicleInfo);
+        $vehicle = $this->purchasedVehicleFactory->makeNewVehicle($values);
     }
 
     /**
@@ -172,10 +171,9 @@ class VPMO extends Requester
      * @return void
      *
      */
-    public function addLeasedVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
+    public function addLeasedVehicle($values)
     {
-        $vehicleInfo = array($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
-        $vehicle = $this->leasedVehicleFactory->makeNewVehicle($vehicleInfo);
+        $vehicle = $this->leasedVehicleFactory->makeNewVehicle($values);
     }
 
     /**
@@ -186,11 +184,10 @@ class VPMO extends Requester
      * @return void
      *
      */
-    public function updatePurchasedVehicleInfo($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany)
+    public function updatePurchasedVehicleInfo($values)
     {
-        $vehicle = $this->purchasedVehicleFactory->makeVehicle($registrationNo);
-        $vehicleInfo = array($model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
-        $vehicle->updateInfo($vehicleInfo);
+        $vehicle = $this->purchasedVehicleFactory->makeVehicle($values['RegistrationNo']);
+        $vehicle->updateInfo($values);
     }
 
     /**
@@ -201,11 +198,10 @@ class VPMO extends Requester
      * @return void
      *
      */
-    public function updateLeasedVehicleInfo($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
+    public function updateLeasedVehicleInfo($values)
     {
-        $vehicle = $this->leasedVehicleFactory->makeVehicle($registrationNo); 
-        $vehicleInfo = array($model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
-        $vehicle->updateInfo($vehicleInfo);
+        $vehicle = $this->leasedVehicleFactory->makeVehicle($values['RegistrationNo']); 
+        $vehicle->updateInfo($values);
     }
 
     /**

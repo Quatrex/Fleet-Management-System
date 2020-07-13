@@ -45,9 +45,25 @@ switch ($method) {
 		$vpmo = VPMO::getObject($_POST['empID']);
 		//echo $_POST['model'];
 		if ($_POST['isLeased'] == "Yes") {
-			$vpmo->addLeasedVehicle($_POST['registrationNo'], $_POST['model'], $_POST['purchasedYear'], $_POST['value'], $_POST['fuelType'], $_POST['insuranceValue'], $_POST['insuranceCompany'], $_POST['leasedCompany'], $_POST['leasedPeriodFrom'], $_POST['leasedPeriodTo'], $_POST['monthlyPayment']);
+			$vpmo->addLeasedVehicle(['RegistrationNo' => $_POST['registrationNo'],
+									'Model' => $_POST['model'],
+									'PurchasedYear' => $_POST['purchasedYear'],
+									'Value' => $_POST['value'],
+									'FuelType' => $_POST['fuelType'],
+									'InsuranceValue' => $_POST['insuranceValue'],
+									'InsuranceCompany' => $_POST['insuranceCompany'],
+									'LeasedCompany' => $_POST['leasedCompany'],
+									'LeasedPeriodFrom' => $_POST['leasedPeriodFrom'],
+									'LeasedPeriodTo' => $_POST['leasedPeriodTo'],
+									'MonthlyPayment' => $_POST['monthlyPayment']]);
 		} else {
-			$vpmo->addPurchasedVehicle($_POST['registrationNo'], $_POST['model'], $_POST['purchasedYear'], $_POST['value'], $_POST['fuelType'], $_POST['insuranceValue'], $_POST['insuranceCompany']);
+			$vpmo->addPurchasedVehicle(['RegistrationNo' => $_POST['registrationNo'],
+										'Model' => $_POST['model'],
+										'PurchasedYear' => $_POST['purchasedYear'],
+										'Value' => $_POST['value'],
+										'FuelType' => $_POST['fuelType'],
+										'InsuranceValue' => $_POST['insuranceValue'],
+										'InsuranceCompany' => $_POST['insuranceCompany']]);
 		}
 
 		echo json_encode("success_Vehicle " . $_POST['registrationNo'] . " successfully added");
@@ -56,9 +72,25 @@ switch ($method) {
 	case 'UpdateVehicle':
 		$vpmo = VPMO::getObject($_POST['empID']);
 		if ($_POST['leasedCompany'] !== "") {
-			$vpmo->updateLeasedVehicleInfo($_POST['registrationNo'], $_POST['model'], $_POST['purchasedYear'], $_POST['value'], $_POST['fuelType'], $_POST['insuranceValue'], $_POST['insuranceCompany'], $_POST['leasedCompany'], $_POST['leasedPeriodFrom'], $_POST['leasedPeriodTo'], $_POST['monthlyPayment']);
+			$vpmo->updateLeasedVehicleInfo(['RegistrationNo' => $_POST['registrationNo'],
+									'Model' => $_POST['model'],
+									'PurchasedYear' => $_POST['purchasedYear'],
+									'Value' => $_POST['value'],
+									'FuelType' => $_POST['fuelType'],
+									'InsuranceValue' => $_POST['insuranceValue'],
+									'InsuranceCompany' => $_POST['insuranceCompany'],
+									'LeasedCompany' => $_POST['leasedCompany'],
+									'LeasedPeriodFrom' => $_POST['leasedPeriodFrom'],
+									'LeasedPeriodTo' => $_POST['leasedPeriodTo'],
+									'MonthlyPayment' => $_POST['monthlyPayment']]);
 		} else {
-			$vpmo->updatePurchasedVehicleInfo($_POST['registrationNo'], $_POST['model'], $_POST['purchasedYear'], $_POST['value'], $_POST['fuelType'], $_POST['insuranceValue'], $_POST['insuranceCompany']);
+			$vpmo->updatePurchasedVehicleInfo(['RegistrationNo' => $_POST['registrationNo'],
+										'Model' => $_POST['model'],
+										'PurchasedYear' => $_POST['purchasedYear'],
+										'Value' => $_POST['value'],
+										'FuelType' => $_POST['fuelType'],
+										'InsuranceValue' => $_POST['insuranceValue'],
+										'InsuranceCompany' => $_POST['insuranceCompany']]);
 		}
 		echo json_encode("success_Vehicle " . $_POST['registrationNo'] . " successfully updated");
 		break;
