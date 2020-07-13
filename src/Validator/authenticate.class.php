@@ -8,6 +8,8 @@ class Authenticate
     {
         if (!empty($_POST)) {
 
+            // if (Token::check($_POST['token'])){
+
             $validate = new Validate();
             $validation = $validate->check($_POST, array(
                 'username' => array('required' => true),
@@ -18,18 +20,9 @@ class Authenticate
                 $user = new User();
 
                 $remember = (isset($_POST['remember']) ? "on" : "off" === 'on') ? true : false;
-                $result = $user->login($_POST['username'], $_POST['password'], $remember);
+                $result = $user->login(filter_var($_POST['username'], FILTER_SANITIZE_STRING), filter_var($_POST['password'], FILTER_SANITIZE_STRING), $remember);
                 if ($user->isLoggedIn()) {
-                    $position=$result;
-                    if ($position == 'jo' || $position == 'JO') {
-                        echo '../Layout/jo.php';
-                    } elseif (($position == 'cao' || $position == 'CAO')) {
-                        echo '../Layout/cao.php';
-                    } elseif (($position == 'vpmo' || $position == 'VPMO')) {
-                        echo '../Layout/vpmo.php';
-                    } else {
-                        echo '../index.php';
-                    }
+                    echo '../index.php';
                 } else {
 
                     return $result;
@@ -39,6 +32,7 @@ class Authenticate
                     echo $error, '<br>';
                 }
             }
+            // }
         }
     }
 }
