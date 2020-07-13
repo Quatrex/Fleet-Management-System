@@ -1,19 +1,17 @@
 <?php
 namespace Employee;
 
-use DB\IObjectHandle;
-
-abstract class Employee implements IObjectHandle
+abstract class Employee
 {
     protected string $firstName;
     protected string $lastName;
     protected string $email;
 
-    function __construct($firstName, $lastName, $email)
+    public function __construct($values)
     {
-        $this->firstName=$firstName;
-        $this->lastName=$lastName;
-        $this->email=$email;
+        $this->firstName = $values['FirstName'];
+        $this->lastName = $values['LastName'];
+        $this->email = $values['Email'];
     }
 
     abstract public function getField($field);

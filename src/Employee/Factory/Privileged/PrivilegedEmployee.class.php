@@ -1,6 +1,7 @@
 <?php
-namespace Employee;
+namespace Employee\Factory\Privileged;
 
+use Employee\Employee;
 use DB\Controller\EmployeeController;
 
 abstract class PrivilegedEmployee extends Employee
@@ -8,17 +9,17 @@ abstract class PrivilegedEmployee extends Employee
     protected string $empID;
     protected string $position; 
     protected string $username;
-    protected string $password; //TODO: might need a separate table for username and password
+    protected ?string $password; //TODO: might need a separate table for username and password
     protected string $designation;
 
-    function __construct($empID, $firstName, $lastName, $position, $designation, $email, $username, $password)
+    function __construct($values)
     {
-        parent::__construct($firstName,$lastName,$email);
-        $this->empID=$empID;
-        $this->position=$position;
-        $this->username=$username;
-        $this->password=$password;
-        $this->designation = $designation;
+        parent::__construct($values);
+        $this->empID = $values['EmpID'];
+        $this->position = $values['Position'];
+        $this->username = $values['Username'];
+        $this->password = $values['Password'];
+        $this->designation = $values['Designation'];
     }
 
     public function getField($field){ 
@@ -29,7 +30,7 @@ abstract class PrivilegedEmployee extends Employee
     }
 
     //IObjectHandle
-    protected function saveToDatabase(){
+    public function saveToDatabase(){
         $employeeController = new EmployeeController();
         $employeeController->saveRecord($this->empID,
                                     $this->firstName,
@@ -39,7 +40,5 @@ abstract class PrivilegedEmployee extends Employee
                                     $this->email,
                                     $this->username,
                                     $this->password);
-    }
-
-    
+    }    
 }

@@ -1,11 +1,11 @@
 <?php
 
-use Employee\VPMO;
+use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
 
 session_start();
 if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
 require_once '../includes/autoloader.inc.php';
-$employee = VPMO::getObject($_SESSION['empid']);
+$employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
 $requests = $employee->getMyRequestsByState('pending');
 $vehicles = $employee->getVehicles();
 $requestsToAssign = $employee->getApprovedRequests();

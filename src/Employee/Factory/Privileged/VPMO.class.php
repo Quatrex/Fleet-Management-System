@@ -1,14 +1,13 @@
 <?php
 
-namespace Employee;
+namespace Employee\Factory\Privileged;
 
 use Request\Request;
-use DB\Viewer\EmployeeViewer;
 use Vehicle\Vehicle;
 use Vehicle\Factory\Base\VehicleFactory;
 use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
 use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
-use Employee\Driver\Factory\DriverFactory;
+use Employee\Factory\Driver\DriverFactory;
 use Request\Factory\VPMORequest\VPMORequestFactory;
 
 
@@ -17,42 +16,11 @@ class VPMO extends Requester
     private VehicleFactory $leasedVehicleFactory;
     private VehicleFactory $purchasedVehicleFactory;
 
-    function __construct($empID, $firstName, $lastName, $position, $designation, $email, $username, $password)
+    function __construct($values)
     {
-        parent::__construct($empID, $firstName, $lastName, $position, $designation, $email, $username, $password);
+        parent::__construct($values);
         $this->leasedVehicleFactory = LeasedVehicleFactory::getInstance();
         $this->purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
-    }
-
-    //IObjectHandle
-    public static function getObject($ID)
-    {
-        $empID = $ID;
-        //get values from database
-        $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
-        $values = $employeeViewer->getRecordByID($empID);
-
-        $obj = new VPMO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Designation'], $values['Email'], $values['Username'], "");
-
-        return $obj; //return false, if fail
-    }
-
-    //IObjectHandle
-    public static function getObjectByValues(array $values)
-    {
-        $obj = new VPMO($values['EmpID'], $values['FirstName'], $values['LastName'], $values['Position'], $values['Designation'], $values['Email'], $values['Username'], "");
-        return $obj;
-    }
-
-    //IObjectHandle
-    public static function constructObject($empID, $firstName, $lastName, $position, $designation, $email, $username, $password)
-    {
-
-        $obj = new VPMO($empID, $firstName, $lastName, $position, $designation, $email, $username, $password);
-
-        $obj->saveToDatabase(); //check for failure
-
-        return $obj; //return false, if fail
     }
 
     /**
@@ -88,8 +56,8 @@ class VPMO extends Requester
      */
     public function getVehicles()
     {
-        $leasedVehicles = $this->leasedVehicleFactory->getVehicles();
-        $purchasedVehicles = $this->purchasedVehicleFactory->getVehicles();
+        $leasedVehicles = $this->leasedVehicleFactory->makeVehicles();
+        $purchasedVehicles = $this->purchasedVehicleFactory->makeVehicles();
         return array_merge($purchasedVehicles, $leasedVehicles);
     }
 
@@ -158,10 +126,9 @@ class VPMO extends Requester
      *
      */
     
-    public function addPurchasedVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany)
+    public function addPurchasedVehicle($values)
     {
-        $vehicleInfo = array($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
-        $vehicle = $this->purchasedVehicleFactory->makeNewVehicle($vehicleInfo);
+        $vehicle = $this->purchasedVehicleFactory->makeNewVehicle($values);
     }
 
     /**
@@ -172,10 +139,9 @@ class VPMO extends Requester
      * @return void
      *
      */
-    public function addLeasedVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
+    public function addLeasedVehicle($values)
     {
-        $vehicleInfo = array($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
-        $vehicle = $this->leasedVehicleFactory->makeNewVehicle($vehicleInfo);
+        $vehicle = $this->leasedVehicleFactory->makeNewVehicle($values);
     }
 
     /**
@@ -186,11 +152,10 @@ class VPMO extends Requester
      * @return void
      *
      */
-    public function updatePurchasedVehicleInfo($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany)
+    public function updatePurchasedVehicleInfo($values)
     {
-        $vehicle = $this->purchasedVehicleFactory->makeVehicle($registrationNo);
-        $vehicleInfo = array($model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany);
-        $vehicle->updateInfo($vehicleInfo);
+        $vehicle = $this->purchasedVehicleFactory->makeVehicle($values['RegistrationNo']);
+        $vehicle->updateInfo($values);
     }
 
     /**
@@ -201,11 +166,10 @@ class VPMO extends Requester
      * @return void
      *
      */
-    public function updateLeasedVehicleInfo($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
+    public function updateLeasedVehicleInfo($values)
     {
-        $vehicle = $this->leasedVehicleFactory->makeVehicle($registrationNo); 
-        $vehicleInfo = array($model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
-        $vehicle->updateInfo($vehicleInfo);
+        $vehicle = $this->leasedVehicleFactory->makeVehicle($values['RegistrationNo']); 
+        $vehicle->updateInfo($values);
     }
 
     /**
@@ -235,7 +199,4 @@ class VPMO extends Requester
         $vehicle = $this->leasedVehicleFactory->makeVehicle($registrationNo);
         $vehicle->delete();
     }
-
-
-
 }

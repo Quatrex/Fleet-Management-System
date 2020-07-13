@@ -57,4 +57,16 @@ abstract class EmployeeModel extends Model{
         }
         return $emails;
     }
+
+    public function getAllRecords()
+    {
+        return parent::getRecords([],[]);
+    }
+
+    public function getEmployeesByPosition(string $position)
+    {
+        $columnNames = ['Position'];
+        $columnVals = [$position];
+        return parent::getRecords($columnNames,$columnVals);
+    }
 }

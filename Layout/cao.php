@@ -1,13 +1,13 @@
 <html>
 <?php 
 
-use Employee\CAO;
+use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
 
 session_start();
 if (!isset($_SESSION['empid'])) die('ACCESS DENIED');
 include '../partials/head.php';
 require_once '../includes/autoloader.inc.php';
-$employee = CAO::getObject($_SESSION['empid']);
+$employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
 $_SESSION['employee'] = $employee;
 $requestsToApprove = $employee->getJustifiedRequests();
 $_SESSION['requestsToApprove'] = $requestsToApprove;

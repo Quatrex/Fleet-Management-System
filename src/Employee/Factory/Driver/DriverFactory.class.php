@@ -1,7 +1,8 @@
 <?php
-namespace Employee\Driver\Factory;
+namespace Employee\Factory\Driver;
 
 use DB\Viewer\DriverViewer;
+use Employee\State\Driver\State;
 
 class DriverFactory 
 {
@@ -11,9 +12,13 @@ class DriverFactory
      * @param array $driverInfo
      * @return Driver
      */
-    public static function makeNewDriver(array $driverInfo): Driver
+    public static function makeNewDriver(array $values): Driver
     {
-        return Driver::constructObject($driverInfo);
+        $values['State'] = State::getStateID('available');
+        $driver = new Driver($values);
+        $driver->saveToDatabase();
+
+        return $driver;
     }
     
     /**
@@ -22,9 +27,11 @@ class DriverFactory
      * @param int $driverID
      * @return Driver
      */
-    public static function makeDriver(string $driverID) : Driver
+    public static function makeDriver(string $empID) : Driver
     {
-        return Driver::getObject($driverID);
+        $employeeViewer = new DriverViewer(); // method of obtaining the viewer/controller must be determined and changed
+        $values = $employeeViewer->getRecordByID($empID);
+        return new Driver($values);
     }
 
     /**
@@ -38,7 +45,7 @@ class DriverFactory
         $driverIDs = $driverViewer->getAllRecords();
         $drivers = array();
         foreach ($driverIDs as $values) {
-            $driver = Driver::getObjectByValues($values);
+            $driver = new Driver($values);
             array_push($drivers, $driver);
         }
         return $drivers;
@@ -50,8 +57,8 @@ class DriverFactory
      * @param array $driverInfo
      * @return Driver
      */
-    public static function makeDriverByValues(array $driverInfo) : Driver
+    public static function makeDriverByValues(array $values) : Driver
     {
-        return Driver::getObjectByValues($driverInfo);
+        return new Driver($values);
     }
 }

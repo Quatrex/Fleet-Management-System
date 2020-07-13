@@ -12,8 +12,6 @@ class EmployeeViewer extends EmployeeModel{
 
     /**
      * Get employee details from the database.
-     * @param EmployeeID
-     * @return Employee
      */
     public function getRecordByID($empID){
         return parent::getRecordByID($empID);
@@ -30,5 +28,15 @@ class EmployeeViewer extends EmployeeModel{
     public function getEmails(string $position)
     {
         return parent::getEmails($position);
+    }
+
+    public function getAllRecords()
+    {
+        return parent::getAllRecords();
+    }
+    
+    public function getEmployeesByPosition(string $position)
+    {
+        parent::getEmployeesByPosition($position);
     }
 }

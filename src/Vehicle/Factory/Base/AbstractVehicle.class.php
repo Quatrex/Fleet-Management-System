@@ -2,13 +2,12 @@
 
 namespace Vehicle\Factory\Base;
 
-use DB\IObjectHandle;
 use Vehicle\State\State;
 use Vehicle\Vehicle;
 use db\Controller\VehicleController;
 
 
-abstract class AbstractVehicle implements IObjectHandle, Vehicle
+abstract class AbstractVehicle implements Vehicle
 {
     protected string $registrationNo;
     protected string $model;
@@ -21,45 +20,25 @@ abstract class AbstractVehicle implements IObjectHandle, Vehicle
     protected string $currentLocation;
     protected string $status;
 
-    //  getTrips(String): array
-    //  allocate()
-    //  deallocate()
-    
-    
-
-    public function __construct($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $state, $currentLocation)
+    public function __construct($values)
     {
-        $this->registrationNo = $registrationNo;
-        $this->model = $model;
-        $this->purchasedYear = $purchasedYear;
-        $this->value = $value;
-        $this->fuelType = $fuelType;
-        $this->insuranceValue = $insuranceValue;
-        $this->insuranceCompany = $insuranceCompany;
-        $this->status = State::getStateString($state);
-        $this->state = State::getState($state);
-        $this->currentLocation = ($currentLocation != null) ? $currentLocation : '';
+        $this->registrationNo = $values['RegistrationNo'];
+        $this->model = $values['Model'];
+        $this->purchasedYear = $values['PurchasedYear'];
+        $this->value = $values['Value'];
+        $this->fuelType = $values['FuelType'];
+        $this->insuranceValue = $values['InsuranceValue'];
+        $this->insuranceCompany = $values['InsuranceCompany'];
+        $this->status = State::getStateString($values['State']);
+        $this->state = State::getState($values['State']);
+        $this->currentLocation = ($values['CurrentLocation'] != null) ? $values['CurrentLocation'] : '';
     }
 
-    
-
-    // public static function deleteVehicle($registrationNo){
-    //     $vehicleController = new VehicleController();
-    //     $vehicleController->updateRecord($registrationNo,array("Status"=>"Delete"));
-    // }
-
-    // public static function updateVehicle($registrationNo,$fields){
-    //     $vehicleController = new VehicleController();
-    //     $vehicleController->updateRecord($registrationNo,$fields);
-    // }
-    
     abstract public function getField(string $field);
 
-    abstract public static function getObject(int $ID);
-
-    abstract public static function getObjectByValues(array $values);
-
     abstract public function updateInfo(array $vehicleInfo) : void;
+
+    abstract public function saveToDatabase() : void;
 
     public function delete(): void{
         $vehicleController = new VehicleController();

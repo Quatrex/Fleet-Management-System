@@ -1,9 +1,6 @@
 <?php
 namespace Request;
 
-use Employee\Driver\Factory\Driver;
-use Vehicle\Vehicle;
-
 interface Request {
     public function cancel() : void;
     public function setJustify(bool $justification, int $empID, string $comment) : void;
