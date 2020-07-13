@@ -8,15 +8,13 @@ abstract class DriverModel extends Model{
     }
 
     protected function getRecordByID($driverId){
-        $isDeleted=0;
-        $columnNames= array('DriverID','IsDeleted');
-        $columnVals= array($driverId,$isDeleted);
-        $results = parent::getRecords($columnNames,$columnVals); 
+        $conditions = ['DriverID' => $driverId, 'IsDeleted' => 0];
+        $results = parent::getRecords($conditions); 
         return $results[0];
     }
     
     protected function getAllRecords(){
-        $results =parent::getRecords([],[]); //check for IsDeleted
+        $results =parent::getRecords(); //check for IsDeleted
         return $results;
     }
 

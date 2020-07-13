@@ -15,7 +15,7 @@ class Driver extends Employee implements JsonSerializable
     private string $licenseNumber;
     private string $licenseExpirationDay;
     private string $dateOfAdmission;
-    private ?int $assignedVehicleId;
+    private ?string $assignedVehicleId;
     private State $state;
     
     public function __construct($values)
