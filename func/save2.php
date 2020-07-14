@@ -143,16 +143,19 @@ switch ($method) {
 		echo json_encode("success_Employee " . $_POST['employeeID'] . " successfully deleted");
 	case 'AddDriver':
 		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
-		$admin->createNewDriver(['DriverID' => $_POST['driverId'],'FirstName' => $_POST['firstName'],'LastName' => $_POST['lastName'],'Email'=>$_POST['email'], 'Address' => $_POST['address'], 'ContactNo' => $_POST['contactNo'],'LicenseNumber'=>$_POST['licenseNo'],'LicenseType'=>$_POST['licenseType'],'LicenseExpirationDay'=>$_POST['licenseExpireDate'],'DateOfAdmission'=>$_POST['employedDate'],'AssignedVehicleID'=>""]);
+		$admin->createNewDriver(['DriverID' => $_POST['driverId'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Email' => $_POST['email'], 'Address' => $_POST['address'], 'ContactNo' => $_POST['contactNo'], 'LicenseNumber' => $_POST['licenseNo'], 'LicenseType' => $_POST['licenseType'], 'LicenseExpirationDay' => $_POST['licenseExpireDate'], 'DateOfAdmission' => $_POST['employedDate'], 'AssignedVehicleID' => ""]);
 		echo json_encode("success_Driver " . $_POST['driverId'] . " successfully added");
+		break;
 	case 'DeleteDriver':
 		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
 		//code to delete
-		echo json_encode("success_Driver " . $_POST['employeeID'] . " successfully deleted");
+		echo json_encode("success_Driver " . $_POST['driverId'] . " successfully deleted");
+		break;
 	case 'UpdateDriver':
 		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
 		//code to update
 		echo json_encode("success_Driver " . $_POST['employeeID'] . " successfully updated");
+		break;
 	default:
 		echo "Invalid method";
 }

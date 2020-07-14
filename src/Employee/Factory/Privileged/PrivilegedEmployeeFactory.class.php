@@ -2,6 +2,8 @@
 namespace Employee\Factory\Privileged;
 
 use DB\Viewer\EmployeeViewer;
+use Exception;
+use Request\Factory\Base\RealRequest;
 
 class PrivilegedEmployeeFactory
 {
@@ -33,11 +35,7 @@ class PrivilegedEmployeeFactory
      */
     public static function makeNewEmployee(array $values) : PrivilegedEmployee
     {
-        // if(!self::checkAccess())
-        // {
-        //     echo 'Illegal Access'; // TODO: throw exception
-        //     return null;
-        // }
+        if(!self::checkAccess()) throw new Exception('Illegel Access');
 
         $employee = self::createConcreteEmployee($values);
         $employee->saveToDatabase();
@@ -53,11 +51,8 @@ class PrivilegedEmployeeFactory
      */
     public static function makeEmployeeByValues(array $values) : PrivilegedEmployee
     {
-        // if(!self::checkAccess())
-        // {
-        //     echo 'Illegal Access'; // TODO: throw exception
-        //     return null;
-        // }
+        if(!self::checkAccess()) throw new Exception('Illegel Access');
+
         $values['Password'] = null;
 
         $employee = self::createConcreteEmployee($values);
@@ -75,11 +70,7 @@ class PrivilegedEmployeeFactory
      */
     public static function makeEmployees(string $position = '') : array
     {
-        // if(!self::checkAccess())
-        // {
-        //     echo 'Illegal Access'; // TODO: throw exception
-        //     return null;
-        // }
+        if(!self::checkAccess()) throw new Exception('Illegel Access');
 
         $position=strtolower($position);
         $validPositonNames = ['', 'requester','jo','cao','vpmo','admin'];
@@ -117,9 +108,7 @@ class PrivilegedEmployeeFactory
 
     private static function checkAccess() : bool
     {
-        $accessibleClasses = ['Employee\Privileged\Administrator',
-                            'Employee\Privileged\PrivilegedEmployeeFactory',
-                            'Request\Factory\Base\RealRequest'];
+        $accessibleClasses = [Administrator::class, RealRequest::class];
         $trace1 = debug_backtrace();
         if (array_key_exists(2,$trace1))
         {
@@ -129,16 +118,8 @@ class PrivilegedEmployeeFactory
                 $class = $trace2['class'];
                 return in_array($class,$accessibleClasses);
             }
-            else
-            {
-                return false;
-            }
         }
-        else {
-            return false;
-        }
-                            
-        
+        return false;
     }
 
     private static function createConcreteEmployee(array $values)

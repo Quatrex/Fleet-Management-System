@@ -64,20 +64,21 @@ abstract class EmployeeModel extends Model{
         return $emails;
     }
 
-    protected function updateEmployeeInfo($empID, $newEmpID, $firstName, $lastName, $position, $designation, $email, $username){
-        $columnNames = array('EmpID','FirstName','LastName','Position','Designation','Email','Username');
-        $columnVals = array($newEmpID, $firstName, $lastName, $position, $designation, $email, $username);
-        $conditionNames= array('EmpID');
-        $conditionVals= array($empID);
-        parent::updateRecord($columnNames,$columnVals,$conditionNames,$conditionVals);  
+    protected function updateEmployeeInfo($prevEmpID, $empID, $firstName, $lastName, $position, $designation, $email, $username){
+        $values = ['EmpID' => $empID,
+                'FirstName' => $firstName,
+                'LastName' => $lastName,
+                'Position' => $position,
+                'Designation' => $designation,
+                'Email' => $email,
+                'Username' => $username];
+        $conditions = ['EmpID' => $prevEmpID];
+        parent::updateRecord($values,$conditions);
     }
 
     protected function deleteEmployee($empID){
-        $isDeleted=true;
-        $columnNames = array('IsDeleted');
-        $columnVals = array($isDeleted);
-        $conditionNames= array('EmpID');
-        $conditionVals= array($empID);
-        parent::updateRecord($columnNames,$columnVals,$conditionNames,$conditionVals);  
+        $values = ['IsDeleted' => 0];
+        $conditions = ['EmpID' => $empID];
+        parent::updateRecord($values,$conditions);  
     }
 }

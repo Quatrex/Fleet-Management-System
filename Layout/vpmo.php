@@ -9,7 +9,7 @@ if (!isset($_SESSION['empid']) or !isset($_SESSION['position']) or $_SESSION['po
 }
 require_once '../includes/autoloader.inc.php';
 $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
-$requests = $employee->getMyRequestsByState('pending');
+$requests = $employee->getMyRequests('pending');
 $vehicles = $employee->getVehicles();
 $requestsToAssign = $employee->getApprovedRequests();
 $drivers = $employee->getDrivers();

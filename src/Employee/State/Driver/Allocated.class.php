@@ -1,7 +1,7 @@
 <?php
 namespace Employee\State\Driver;
 
-use Employee\Factory\Driver\Driver;
+use Employee\Factory\Driver\RealDriver;
 
 class Allocated extends State {
 
@@ -17,7 +17,7 @@ class Allocated extends State {
         return self::$instance;
     }
 
-    public function deallocate(Driver $driver) : void {
+    public function deallocate(RealDriver $driver) : void {
         $driver->setState(Available::getInstance());
     }
 }

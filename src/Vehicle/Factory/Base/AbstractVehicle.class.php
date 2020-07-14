@@ -16,7 +16,7 @@ abstract class AbstractVehicle implements Vehicle
     protected string $fuelType;
     protected int $insuranceValue;
     protected string $insuranceCompany;
-    protected string $assignedOfficer;
+    protected ?string $assignedOfficer;
     protected State $state;
     protected string $currentLocation;
     protected string $status;
