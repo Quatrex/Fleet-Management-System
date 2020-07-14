@@ -46,7 +46,6 @@ abstract class PrivilegedEmployee extends Employee implements JsonSerializable
         $this->position = $values['Position'];
         $this->designation = $values['Designation'];
         $this->email = $values['Email'];
-        $this->username = $values['Username'];
 
         $employeeController = new EmployeeController();
         $employeeController->updateEmployeeInfo(
@@ -56,8 +55,7 @@ abstract class PrivilegedEmployee extends Employee implements JsonSerializable
             $this->lastName,
             $this->position,
             $this->designation,
-            $this->email,
-            $this->username
+            $this->email
         );
     }
 
