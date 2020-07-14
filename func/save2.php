@@ -129,17 +129,30 @@ switch ($method) {
 		break;
 	case 'AddEmployee':
 		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
-		$admin->createNewAccount(['EmpID' => $_POST['newEmployeeId'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Username' => "", 'Designation' => $_POST['designation'],'Position' => $_POST['position'], 'Email' => $_POST['email'], 'Password' => $_POST['password'],'ContactNo' => $_POST['contactNo']]);
+		$admin->createNewAccount(['EmpID' => $_POST['newEmployeeId'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Username' => "", 'Designation' => $_POST['designation'], 'Position' => $_POST['position'], 'Email' => $_POST['email'], 'Password' => $_POST['password'], 'ContactNo' => $_POST['contactNo']]);
 		echo json_encode("success_Employee " . $_POST['newEmployeeId'] . " successfully added");
 		break;
 	case 'UpdateEmployee':
 		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
-		$admin->updateAccount(['EmpID' => $_POST['employeeID'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Username' => "", 'Designation' => $_POST['designation'],'Position' => $_POST['position'], 'Email' => $_POST['email'], 'ContactNo' => $_POST['contactNo']]);
+		$admin->updateAccount(['EmpID' => $_POST['employeeID'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Username' => "", 'Designation' => $_POST['designation'], 'Position' => $_POST['position'], 'Email' => $_POST['email'], 'ContactNo' => $_POST['contactNo']]);
 		echo json_encode("success_Employee " . $_POST['employeeID'] . " successfully updated");
 		break;
 	case 'DeleteEmployee':
 		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
 		$admin->removeAccount($_POST['employeeID']);
+		echo json_encode("success_Employee " . $_POST['employeeID'] . " successfully deleted");
+	case 'AddDriver':
+		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
+		$admin->createNewDriver(['DriverID' => $_POST['driverId'],'FirstName' => $_POST['firstName'],'LastName' => $_POST['lastName'],'Email'=>$_POST['email'], 'Address' => $_POST['address'], 'ContactNo' => $_POST['contactNo'],'LicenseNumber'=>$_POST['licenseNo'],'LicenseType'=>$_POST['licenseType'],'LicenseExpirationDay'=>$_POST['licenseExpireDate'],'DateOfAdmission'=>$_POST['employedDate'],'AssignedVehicleID'=>""]);
+		echo json_encode("success_Driver " . $_POST['driverId'] . " successfully added");
+	case 'DeleteDriver':
+		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
+		//code to delete
+		echo json_encode("success_Driver " . $_POST['employeeID'] . " successfully deleted");
+	case 'UpdateDriver':
+		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
+		//code to update
+		echo json_encode("success_Driver " . $_POST['employeeID'] . " successfully updated");
 	default:
 		echo "Invalid method";
 }

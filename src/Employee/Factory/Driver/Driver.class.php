@@ -39,9 +39,17 @@ class Driver extends Employee implements JsonSerializable
     
     public function jsonSerialize()
     {
-        return ['DriverId'=>$this->getField('driverId'),
-                'FirstName'=> $this->getField('firstName'),
-                'LastName'=>$this->getField('lastName')];
+        return ['driverId'=>$this->getField('driverId'),
+                'firstName'=> $this->getField('firstName'),
+                'employedDate'=> $this->getField('employedDate'),
+                'firstName'=> $this->getField('firstName'),
+                'address'=> $this->getField('address'),
+                'assignedVehicleID'=> $this->getField('assignedVehicleID'),
+                'contactNo'=> $this->getField('contactNo'),
+                'licenseID'=> $this->getField('licenseID'),
+                'licenseExpDate'=> $this->getField('licenseExpDate'),
+                'email'=> $this->getField('email'),
+                'licenseType'=>$this->getField('licenseType')];
     }
 
     public function saveToDatabase(){
