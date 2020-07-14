@@ -7,12 +7,13 @@ class SQLQuery
 {
     private string $sqlStatement;
     private array $placeholderVals;
-    private string $type;
+    private ?string $type;
 
     public function __construct()
     {
         $this->sqlStatement = '';
         $this->placeholderVals = [];
+        $this->type = null;
     }
 
     public function getField(string $field){ 
@@ -55,6 +56,6 @@ class SQLQuery
     {
         $this->sqlStatement = '';
         $this->placeholderVals = [];
-        $this->type = '';
+        $this->type = null;
     }
 }

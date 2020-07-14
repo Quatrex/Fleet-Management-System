@@ -44,6 +44,7 @@ class DatabaseHandler
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             array_push($results, $row);
         }
+        $query->reset();
         return $results;
     }
 
@@ -54,5 +55,6 @@ class DatabaseHandler
     {
         $stmt = $this->pdo->prepare($query->getField('sqlStatement'));
         $stmt->execute($query->getField('placeholderVals'));
+        $query->reset();
     }
 }
