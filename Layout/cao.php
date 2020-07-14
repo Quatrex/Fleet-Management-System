@@ -15,7 +15,7 @@ $_SESSION['employee'] = $employee;
 $requestsToApprove = $employee->getJustifiedRequests();
 $_SESSION['requestsToApprove'] = $requestsToApprove;
 
-$requestsByMe = $employee->getMyRequestsByState('pending');
+$requestsByMe = $employee->getMyRequests('pending');
 $_SESSION['requestsByMe'] = $requestsByMe;
 ?>
 

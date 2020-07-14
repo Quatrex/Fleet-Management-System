@@ -10,8 +10,8 @@ class Expired extends State {
     }
 
     public static function getInstance() : Expired {
-        if (self::$instance == null)
-            return new Expired();
-        else return self::$instance;
+        if (self::$instance === null)
+            self::$instance = new self();
+        return self::$instance;
     }
 }

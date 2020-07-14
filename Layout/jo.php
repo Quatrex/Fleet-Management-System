@@ -13,7 +13,7 @@ $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
 $_SESSION['employee'] = $employee;
 $requestsToJustify = $employee->getPendingRequests();
 $_SESSION['requestsToJustify'] = $requestsToJustify;
-$requestsByMe = $employee->getMyRequestsByState('pending');
+$requestsByMe = $employee->getMyRequests('pending');
 $_SESSION['requestsByMe'] = $requestsByMe;
 ?>
 

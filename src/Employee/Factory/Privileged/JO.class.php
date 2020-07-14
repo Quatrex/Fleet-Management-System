@@ -5,7 +5,7 @@ use Request\Factory\JORequest\JORequestFactory;
 
 class JO extends Requester
 {
-    public function getMyJustifiedRequestsByState(string $state) : array {
+    public function getMyJustifiedRequests(string $state) : array {
         return JORequestFactory::makeJustifiedRequests($this->empID,$state);
     }
 

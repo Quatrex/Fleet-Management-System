@@ -15,9 +15,9 @@ class Pending extends State {
     }
 
     public static function getInstance() : Pending {
-        if (self::$instance == null)
-            return new Pending();
-        else return self::$instance;
+        if (self::$instance === null)
+            self::$instance = new self();
+        return self::$instance;
     }
 
     public function justify(RealRequest $request) : void 

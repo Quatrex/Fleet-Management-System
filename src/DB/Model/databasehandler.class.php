@@ -27,10 +27,10 @@ class DatabaseHandler
      */
     public static function getInstance(): DatabaseHandler
     {
-        if (DatabaseHandler::$instance == null) {
-            DatabaseHandler::$instance = new self();
+        if (self::$instance == null) {
+            self::$instance = new self();
         }
-        return DatabaseHandler::$instance;
+        return self::$instance;
     }
 
     /**
@@ -38,12 +38,13 @@ class DatabaseHandler
      */
     public function read(SQLQuery $query): array
     {
-        $stmt = $this->pdo->prepare($query->getField('sqlStatement'));
-        $stmt->execute($query->getField('placeholderVals'));
+        $stmt = $this->pdo->prepare($query->getField('statement'));
+        $stmt->execute($query->getField('values'));
         $results = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             array_push($results, $row);
         }
+        $query->reset();
         return $results;
     }
 
@@ -52,7 +53,8 @@ class DatabaseHandler
      */
     public function write(SQLQuery $query)
     {
-        $stmt = $this->pdo->prepare($query->getField('sqlStatement'));
-        $stmt->execute($query->getField('placeholderVals'));
+        $stmt = $this->pdo->prepare($query->getField('statement'));
+        $stmt->execute($query->getField('values'));
+        $query->reset();
     }
 }

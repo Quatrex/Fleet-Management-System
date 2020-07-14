@@ -10,8 +10,8 @@ class Cancelled extends State {
     }
 
     public static function getInstance() : Cancelled {
-        if (self::$instance == null)
-            return new Cancelled();
-        else return self::$instance;
+        if (self::$instance === null)
+            self::$instance = new self();
+        return self::$instance;
     }
 }

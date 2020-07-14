@@ -10,9 +10,9 @@ class Completed extends State {
     }
 
     public static function getInstance() : Completed {
-        if (self::$instance == null)
-            return new Completed();
-        else return self::$instance;
+        if (self::$instance === null)
+            self::$instance = new self();
+        return self::$instance;
     }
 
 }

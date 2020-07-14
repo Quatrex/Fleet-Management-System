@@ -12,9 +12,9 @@ class Allocated extends State {
     }
 
     public static function getInstance() : Allocated {
-        if (self::$instance == null)
-            return new Allocated();
-        else return self::$instance;
+        if (self::$instance === null)
+            self::$instance = new self();
+        return self::$instance;
     }
 
     public function deallocate(Driver $driver) : void {

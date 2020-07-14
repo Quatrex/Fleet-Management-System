@@ -15,9 +15,9 @@ class PurchasedVehicleFactory extends VehicleFactory
 
     public static function getInstance() : PurchasedVehicleFactory 
     {
-        if (PurchasedVehicleFactory::$instance == null)
-            PurchasedVehicleFactory::$instance = new PurchasedVehicleFactory();
-        return PurchasedVehicleFactory::$instance;
+        if (self::$instance === null)
+            self::$instance = new self();
+        return self::$instance;
     }
     
     /**
@@ -38,7 +38,7 @@ class PurchasedVehicleFactory extends VehicleFactory
     public function makeVehicle(string $registrationNo) : Vehicle
     {
         $vehicleViewer = new VehicleViewer(); // method of obtaining the viewer/controller must be determined and changed
-        $values = $vehicleViewer->getRecordByID($registrationNo); 
+        $values = $vehicleViewer->getRecordByID($registrationNo,false); 
         return $this->castToVehicle(new PurchasedVehicle($values));
     }
 
