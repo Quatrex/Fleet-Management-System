@@ -129,6 +129,7 @@ class VPMO extends Requester
     public function addPurchasedVehicle($values)
     {
         $vehicle = $this->purchasedVehicleFactory->makeNewVehicle($values);
+        return $vehicle;
     }
 
     /**
@@ -142,6 +143,7 @@ class VPMO extends Requester
     public function addLeasedVehicle($values)
     {
         $vehicle = $this->leasedVehicleFactory->makeNewVehicle($values);
+        return $vehicle;
     }
 
     /**
@@ -156,6 +158,7 @@ class VPMO extends Requester
     {
         $vehicle = $this->purchasedVehicleFactory->makeVehicle($values['RegistrationNo']);
         $vehicle->updateInfo($values);
+        return $vehicle;
     }
 
     /**
@@ -170,6 +173,7 @@ class VPMO extends Requester
     {
         $vehicle = $this->leasedVehicleFactory->makeVehicle($values['RegistrationNo']); 
         $vehicle->updateInfo($values);
+        return $vehicle;
     }
 
     /**

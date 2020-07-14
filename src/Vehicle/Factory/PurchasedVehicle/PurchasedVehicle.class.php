@@ -50,6 +50,7 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
 
     public function updateInfo(array $values) : void{
         //changed vehicle attributes can be analysed here
+        
         $this->model = $values['Model'];
         $this->purchasedYear = $values['PurchasedYear'];
         $this->value = $values['Value'];
