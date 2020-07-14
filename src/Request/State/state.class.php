@@ -82,7 +82,7 @@ abstract class State {
      * @param int $stateID
      * @return null|String
      */
-    public static function getStateString(int $stateID) : ?State {
+    public static function getStateString(int $stateID) : string {
         $stateString=null;
         switch ($stateID) {
             case 1:

@@ -155,9 +155,9 @@ class RealRequest implements Request, INotifiableRequest
                 if ($this->$field['object'] === null)
                     $this->loadObject($field);
                 return $this->$field['object'];
-            } else {
-                return $this->$field;
             }
+            if ($field === 'state') return State::getStateString($this->state->getID());
+            return $this->$field;
         }
         return null;
     }

@@ -14,8 +14,8 @@ class RequestViewer extends RequestModel{
         return parent::getRecordByID($requestID);
     }
     
-    public function getRequestsByIDNState(string $requesterID,int $state){
-        return parent::getRequestsByIDNState($requesterID,$state);
+    public function getRequestsByIDNState(string $requesterID,array $states){
+        return parent::getRequestsByIDNState($requesterID,$states);
     }
 
     public function getJustifiedRequestsByIDNState(string $justifiedBy,int $state){
@@ -29,11 +29,5 @@ class RequestViewer extends RequestModel{
     public function getRequestsbyState(string $state) {
         return parent::getRequestsbyState($state);
     }
-
-    public function getEmail(int $requestID, string $position)
-    {
-        return parent::getEmail($requestID,$position);
-    }
-
     //public function getScheduledRequestsByIDNState(String $scheduledBy,int $state)
 }

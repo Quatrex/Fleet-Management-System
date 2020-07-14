@@ -36,12 +36,9 @@ interface SQLQueryBuilder
     /**
      * Builds WHERE statement
      * 
-     * @param array $conditions ['Field' => 'Value']
-     * @param string $operator @default AND | OR
-     * 
-     * @return SQLQueryBuilder
+     * @return WhereBuilder
      */
-    public function where(array $conditions = [], string $operator = "AND") : SQLQueryBuilder;
+    public function where() : WhereBuilder;
 
     /**
      * Builds LIMIT statement

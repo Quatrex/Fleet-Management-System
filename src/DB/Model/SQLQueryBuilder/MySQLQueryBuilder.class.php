@@ -10,13 +10,13 @@ class MySQLQueryBuilder implements SQLQueryBuilder
 
     private function __construct()
     {
-        $this->query = new SQLQuery();
     }
 
-    public static function getInstance() : MySQLQueryBuilder
+    public static function getInstance(SQLQuery $query) : MySQLQueryBuilder
     {
         if (self::$instance == null)
-            self::$instance = new MySQLQueryBuilder();
+            self::$instance = new self;
+        self::$instance->query = $query;
         return self::$instance;
     }
 
@@ -71,23 +71,12 @@ class MySQLQueryBuilder implements SQLQueryBuilder
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function where(array $conditions = [], string $operator = "AND") : SQLQueryBuilder
+    public function where(): WhereBuilder
     {
-        if (empty($conditions)) return $this;
-
         if ($this->query->getField('type') === null)
             throw new Exception('WHERE can be only be added to SELECT, INSERT or WHERE');
-
-        $fields = array_keys($conditions);
-        $fields = array_map(function($val) { return $val . "=?"; }, $fields);
-        $sql = " WHERE " . implode(" $operator ", $fields);
-
-        $this->query->appendStatement($sql);
-        $this->query->appendValues(array_values($conditions));
-        return $this;
+            
+        return WhereBuilder::getInstance($this->query);
     }
 
     /**
