@@ -1,7 +1,7 @@
 <?php
 namespace DB\Model\SQLQueryBuilder;
 
-use FFI\Exception;
+use Exception;
 
 class SQLQuery
 {
