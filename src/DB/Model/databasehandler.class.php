@@ -38,8 +38,8 @@ class DatabaseHandler
      */
     public function read(SQLQuery $query): array
     {
-        $stmt = $this->pdo->prepare($query->getField('sqlStatement'));
-        $stmt->execute($query->getField('placeholderVals'));
+        $stmt = $this->pdo->prepare($query->getField('statement'));
+        $stmt->execute($query->getField('values'));
         $results = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             array_push($results, $row);
@@ -53,8 +53,8 @@ class DatabaseHandler
      */
     public function write(SQLQuery $query)
     {
-        $stmt = $this->pdo->prepare($query->getField('sqlStatement'));
-        $stmt->execute($query->getField('placeholderVals'));
+        $stmt = $this->pdo->prepare($query->getField('statement'));
+        $stmt->execute($query->getField('values'));
         $query->reset();
     }
 }

@@ -5,14 +5,14 @@ use FFI\Exception;
 
 class SQLQuery
 {
-    private string $sqlStatement;
-    private array $placeholderVals;
+    private string $statement;
+    private array $values;
     private ?string $type;
 
     public function __construct()
     {
-        $this->sqlStatement = '';
-        $this->placeholderVals = [];
+        $this->statement = '';
+        $this->values = [];
         $this->type = null;
     }
 
@@ -31,7 +31,7 @@ class SQLQuery
      */
     public function appendStatement(string $statement) : void
     {
-        $this->sqlStatement .= $statement;
+        $this->statement .= $statement;
     }
 
     /**
@@ -39,12 +39,12 @@ class SQLQuery
      * 
      * @param array $values
      */
-    public function appendValues(array $values)
+    public function appendValues(array $values) : void
     {
-        $this->placeholderVals = array_merge($this->placeholderVals,$values);
+        $this->values = array_merge($this->values,$values);
     }
 
-    public function setType(string $type)
+    public function setType(string $type) : void
     {
         $this->type = $type;
     }
@@ -54,8 +54,8 @@ class SQLQuery
      */
     public function reset() : void
     {
-        $this->sqlStatement = '';
-        $this->placeholderVals = [];
+        $this->statement = '';
+        $this->values = [];
         $this->type = null;
     }
 }
