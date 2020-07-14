@@ -24,7 +24,7 @@ class Requester extends PrivilegedEmployee implements JsonSerializable
         $request->cancel();
     }
 
-    public function getMyRequestsByState(string $state) : array 
+    public function getMyRequests(string $state) : array 
     {
         return RequesterRequestFactory::makeRequests($this->empID,$state);
     }

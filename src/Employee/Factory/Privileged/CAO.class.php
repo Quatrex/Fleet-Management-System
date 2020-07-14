@@ -7,7 +7,7 @@ use Request\Factory\CAORequest\CAORequestFactory;
 
 class CAO extends Requester
 {
-    public function getMyApprovedRequestsByState(string $state) : array {
+    public function getMyApprovedRequests(string $state) : array {
         return CAORequestFactory::makeApprovedRequests($this->empID,$state);
     }
 
