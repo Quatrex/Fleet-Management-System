@@ -10,8 +10,8 @@ class Denied extends State {
     }
 
     public static function getInstance() : Denied {
-        if (self::$instance == null)
-            return new Denied();
-        else return self::$instance;
+        if (self::$instance === null)
+            self::$instance = new self();
+        return self::$instance;
     }
 }

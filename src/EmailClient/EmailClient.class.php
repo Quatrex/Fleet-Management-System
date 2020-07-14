@@ -18,9 +18,9 @@ class EmailClient {
 
     public static function getInstance() : EmailClient 
     {
-        if (EmailClient::$instance == null)
-            EmailClient::$instance = new EmailClient();
-        return EmailClient::$instance;
+        if (self::$instance === null)
+            self::$instance = new self();
+        return self::$instance;
     }
 
     /**

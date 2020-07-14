@@ -14,9 +14,9 @@ class LeasedVehicleFactory extends VehicleFactory
 
     public static function getInstance() : LeasedVehicleFactory 
     {
-        if (LeasedVehicleFactory::$instance == null)
-            LeasedVehicleFactory::$instance = new LeasedVehicleFactory();
-        return LeasedVehicleFactory::$instance;
+        if (self::$instance === null)
+            self::$instance = new self();
+        return self::$instance;
     }
 
     /**

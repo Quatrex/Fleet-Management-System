@@ -12,9 +12,9 @@ class Scheduled extends State {
     }
 
     public static function getInstance() : Scheduled {
-        if (self::$instance == null)
-            return new Scheduled();
-        else return self::$instance;
+        if (self::$instance === null)
+            self::$instance = new self();
+        return self::$instance;
     }
 
     public function close(RealRequest $request) : void {
