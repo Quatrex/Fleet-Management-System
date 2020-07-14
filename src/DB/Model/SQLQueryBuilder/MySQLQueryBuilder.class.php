@@ -74,7 +74,7 @@ class MySQLQueryBuilder implements SQLQueryBuilder
     public function where(): WhereBuilder
     {
         if ($this->query->getField('type') === null)
-            throw new Exception('WHERE can be only be added to SELECT, INSERT or WHERE');
+            throw new Exception('SQL Query must start with SELECT, INSERT or UPDATE');
             
         return WhereBuilder::getInstance($this->query);
     }
@@ -84,6 +84,9 @@ class MySQLQueryBuilder implements SQLQueryBuilder
      */
     public function limit(int $count, int $offset = 0) : SQLQueryBuilder
     {
+        if ($this->query->getField('type') === null)
+            throw new Exception('SQL Query must start with SELECT, INSERT or UPDATE');
+
         if ($this->query->getField('type') !== 'select')
             throw new Exception('LIMIT can only be added to SELECT');
 
@@ -98,6 +101,9 @@ class MySQLQueryBuilder implements SQLQueryBuilder
      */
     public function orderBy(array $fields) : SQLQueryBuilder
     {
+        if ($this->query->getField('type') === null)
+            throw new Exception('SQL Query must start with SELECT, INSERT or UPDATE');
+
         if ($this->query->getField('type') !== 'select')
             throw new Exception('ORDER BY can only be added to SELECT');
 
@@ -114,6 +120,9 @@ class MySQLQueryBuilder implements SQLQueryBuilder
      */
     public function join(string $table, array $conditions) : SQLQueryBuilder
     {
+        if ($this->query->getField('type') === null)
+            throw new Exception('SQL Query must start with SELECT, INSERT or UPDATE');
+            
         if ($this->query->getField('type') === 'insert')
             throw new Exception('JOIN can only be added to SELECT or UPDATE');
 

@@ -8,7 +8,7 @@ class WhereBuilder
     private static ?WhereBuilder $instance = null;
     private bool $start;
     private SQLQuery $query;
-    private int $activeParenthesis;
+    private int $activeParentheses;
 
     private function __construct() {}
 
@@ -18,19 +18,19 @@ class WhereBuilder
             self::$instance = new self($query);
         self::$instance->query = $query;
         self::$instance->start = false;
-        self::$instance->activeParenthesis = 0;
+        self::$instance->activeParentheses = 0;
         return self::$instance;
     }
 
     /**
-     * Builds WHERE statement
+     * Builds the conditions for WHERE statement
      * 
      * @param array $conditions ['Field' => 'Value'] or ['Field' => [Values]]
      * @param string $operator @default AND | OR
      * 
      * @return WhereBuilder
      */
-    function conditions(array $conditions, string $operator = "AND")
+    function conditions(array $conditions, string $operator = "AND") : WhereBuilder
     {
         if (empty($conditions)) return $this;
 
@@ -67,7 +67,12 @@ class WhereBuilder
         return $this;
     }
 
-    function open(string $operation = "AND")
+    /**
+     * Opens a brackets for multiple conditions
+     * 
+     * @param string $operation - join with previous condition
+     */
+    function open(string $operation = "AND") : WhereBuilder
     {
         if ($this->start)
             $this->query->appendStatement(" $operation (");
@@ -76,27 +81,31 @@ class WhereBuilder
             $this->query->appendStatement(" WHERE (");
             $this->start = true;
         }
-        $this->activeParenthesis++;
+        $this->activeParentheses++;
         return $this;
     }
 
-    function close()
+    /**
+     * Closes the parenthesis
+     * 
+     */
+    function close() : WhereBuilder
     {
-        if ($this->activeParenthesis < 1) 
-            throw new Exception('Cannot close as no parentheses are opened');
+        if ($this->activeParentheses < 1) 
+            throw new Exception('There are no open parentheses to close');
 
         if (!$this->start) 
             throw new Exception('Cannot start WHERE condition with a closing parenthesis');
 
         $this->query->appendStatement(')');
-        $this->activeParenthesis--;
+        $this->activeParentheses--;
 
         return $this;
     }
 
     public function getWhere()
     {
-        if ($this->activeParenthesis !== 0)
+        if ($this->activeParentheses !== 0)
             throw new Exception('Parentheses are not close');
 
         $this->query;
