@@ -27,10 +27,10 @@ class DatabaseHandler
      */
     public static function getInstance(): DatabaseHandler
     {
-        if (DatabaseHandler::$instance == null) {
-            DatabaseHandler::$instance = new self();
+        if (self::$instance == null) {
+            self::$instance = new self();
         }
-        return DatabaseHandler::$instance;
+        return self::$instance;
     }
 
     /**

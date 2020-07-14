@@ -15,9 +15,9 @@ class Approved extends State {
     }
 
     public static function getInstance() : Approved {
-        if (self::$instance == null)
-            return new Approved();
-        else return self::$instance;
+        if (self::$instance === null)
+            self::$instance = new self();
+        return self::$instance;
     }
     
     public function cancel(RealRequest $request) : void 

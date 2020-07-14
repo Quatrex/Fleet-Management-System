@@ -15,9 +15,9 @@ class Justified extends State {
     }
 
     public static function getInstance() : Justified {
-        if (self::$instance == null)
-            return new Justified();
-        else return self::$instance;
+        if (self::$instance === null)
+            self::$instance = new self();
+        return self::$instance;
     }
 
     public function approve(RealRequest $request) : void 
