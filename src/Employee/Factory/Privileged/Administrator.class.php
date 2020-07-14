@@ -33,7 +33,7 @@ class Administrator extends PrivilegedEmployee
 
     public function updateAccount(array $values): PrivilegedEmployee
     {
-        $employee = PrivilegedEmployeeFactory::makeEmployee($values['EmpID']);
+        $employee = PrivilegedEmployeeFactory::makeEmployee($values['NewEmpID']);
         $employee->updateInfo($values);
         return $employee;
     }

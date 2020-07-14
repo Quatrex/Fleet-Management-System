@@ -77,7 +77,7 @@ abstract class EmployeeModel extends Model{
     }
 
     protected function deleteEmployee($empID){
-        $values = ['IsDeleted' => 0];
+        $values = ['IsDeleted' => 1];
         $conditions = ['EmpID' => $empID];
         parent::updateRecord($values,$conditions);  
     }

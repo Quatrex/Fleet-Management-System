@@ -48,6 +48,7 @@
                 <div class="basic-form">
                     <form id="EmployeeProfile_form">
                         <input class="form-control py-2 border-right-0 border employee-employeeIDCopy" type="hidden" name="empoyeeIDCopy">
+                        <input class="form-control py-2 border-right-0  border employee-position" type="hidden" name="position">
                         <div class="form-group-row mb-4">
                             <label>Employee ID</label>
                             <div class="input-group">
@@ -112,6 +113,7 @@
                 <div class="basic-form">
                     <form id="UpdateEmployee_form">
                         <input class="form-control py-2 border-right-0  border employee-employeeIDCopy" type="hidden" name="employeeIDCopy">
+                        <input class="form-control py-2 border-right-0  border employee-position" type="hidden" name="position">
                         <div class="form-group-row mb-4">
                             <label>Employee ID</label>
                             <div class="input-group">

@@ -134,13 +134,14 @@ switch ($method) {
 		break;
 	case 'UpdateEmployee':
 		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
-		$admin->updateAccount(['EmpID' => $_POST['employeeID'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Username' => "", 'Designation' => $_POST['designation'], 'Position' => $_POST['position'], 'Email' => $_POST['email'], 'ContactNo' => $_POST['contactNo']]);
+		$admin->updateAccount(['NewEmpID' => $_POST['employeeID'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Username' => "", 'Designation' => $_POST['designation'],'Position' => $_POST['position'], 'Email' => $_POST['email'], 'ContactNo' => $_POST['contactNo']]);
 		echo json_encode("success_Employee " . $_POST['employeeID'] . " successfully updated");
 		break;
 	case 'DeleteEmployee':
 		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
 		$admin->removeAccount($_POST['employeeID']);
 		echo json_encode("success_Employee " . $_POST['employeeID'] . " successfully deleted");
+		break;
 	case 'AddDriver':
 		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
 		$admin->createNewDriver(['DriverID' => $_POST['driverId'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Email' => $_POST['email'], 'Address' => $_POST['address'], 'ContactNo' => $_POST['contactNo'], 'LicenseNumber' => $_POST['licenseNo'], 'LicenseType' => $_POST['licenseType'], 'LicenseExpirationDay' => $_POST['licenseExpireDate'], 'DateOfAdmission' => $_POST['employedDate'], 'AssignedVehicleID' => ""]);

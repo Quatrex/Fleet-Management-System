@@ -5,6 +5,7 @@ document.querySelector('#employeeTable').onclick = (event) => {
 	lastClickedRow = tableRow.id;
 	changeValue({
 		'.employee-employeeIDCopy': entity.empID,
+		'.employee-position': entity.Position,
 		'.employee-employeeID': entity.empID,
 		'.employee-firstName': entity.FirstName,
 		'.employee-lastName': entity.LastName,
