@@ -37,7 +37,7 @@ abstract class DriverModel extends Model{
                 'DateOfAdmission' => $dateOfAdmission,
                 'AssignedVehicleID' => $assignedVehicleId,
                 'Email' => $email,
-                'State' => $state ];
+                'State' => $state];
         parent::addRecord($values);
     }
 }

@@ -64,15 +64,15 @@ abstract class EmployeeModel extends Model{
         return $emails;
     }
 
-    protected function updateEmployeeInfo($prevEmpID, $empID, $firstName, $lastName, $position, $designation, $email, $username){
-        $values = ['EmpID' => $empID,
+    protected function updateEmployeeInfo($newEmpID, $empID, $firstName, $lastName, $position, $designation, $email, $username){
+        $values = ['EmpID' => $newEmpID,
                 'FirstName' => $firstName,
                 'LastName' => $lastName,
                 'Position' => $position,
                 'Designation' => $designation,
                 'Email' => $email,
                 'Username' => $username];
-        $conditions = ['EmpID' => $prevEmpID];
+        $conditions = ['EmpID' => $empID];
         parent::updateRecord($values,$conditions);
     }
 

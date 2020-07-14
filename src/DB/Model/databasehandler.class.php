@@ -23,7 +23,7 @@ class DatabaseHandler
     }
 
     /**
-     * Returns the DataBaseHandler object
+     * Returns the DatabaseHandler object
      */
     public static function getInstance(): DatabaseHandler
     {
@@ -34,7 +34,11 @@ class DatabaseHandler
     }
 
     /**
-     * Reads records from the database by running a sql query
+     * Read records from the database by running a sql query
+     * 
+     * @param SQLQuery $query
+     * 
+     * @return array
      */
     public function read(SQLQuery $query): array
     {
@@ -49,7 +53,9 @@ class DatabaseHandler
     }
 
     /**
-     * Writes records to the database by running a sql query
+     * Write records to the database by running a sql query
+     * 
+     * @param SQLQuery $query
      */
     public function write(SQLQuery $query)
     {
