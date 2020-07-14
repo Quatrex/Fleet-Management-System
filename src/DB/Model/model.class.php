@@ -2,15 +2,20 @@
 
 namespace DB\Model;
 
+use DB\Model\SQLQueryBuilder\MySQLQueryBuilder;
+use DB\Model\SQLQueryBuilder\SQLQueryBuilder;
+
 abstract class Model
 {
     protected $tableName;
     protected DatabaseHandler $dbh;
+    private SQLQueryBuilder $queryBuilder;
 
     public function __construct(String $tableName)
     {
         $this->tableName = $tableName;
         $this->dbh = DatabaseHandler::getInstance();
+        $this->queryBuilder = MySQLQueryBuilder::getInstance();
     }
 
     protected function setTableName($tableName)
@@ -20,180 +25,69 @@ abstract class Model
 
     /**
      * A general code to generate a SQL statement to add records to database.
+     * 
+     * @param array $values ['Field' => 'Value']
      */
-    protected function addRecord(array $columnNames, array $columnVals): void
+    protected function addRecord(array $values): void
     {
-        $condition = '';
-        $count = 0;
-        $tail = '';
-
-        foreach ($columnNames as $key => $value) {
-
-            $condition .= "`" . $value . "`";
-            $tail .= '?';
-            if (sizeof($columnNames) > ($count + 1)) {
-                $condition .= " , ";
-                $tail .= ',';
-            }
-            $count += 1;
-        }
-        $condition .= ') VALUES (' . $tail . ');';
-        $preStatement = "INSERT INTO `" . $this->tableName . "` (";
-        $sql = $preStatement . $condition;
-
-        $this->dbh->write($sql, $columnVals);
+        $query = $this->queryBuilder->insert($this->tableName,$values)
+                                    ->getSQLQuery();
+        
+        $this->dbh->write($query);
     }
 
     /**
      * A general code to generate SQL statement to get records from the database.
+     * 
+     * @param array $conditions ['Field' => 'Value']
+     * @param array $wantedFields @default = all
+     * 
+     * @return array
      */
-    protected function getRecords(array $columnNames, array $columnVals, array $wantedCols = array('*')): array
+    protected function getRecords(array $conditions = [], array $wantedFields = ['*']): array
     {
-        $wantedColumns = '';
-        if (sizeof($wantedCols) > 1) {
-            $wantedColumns = join(",", $wantedCols);
-        } else {
-            $wantedColumns = $wantedCols[0];
-        }
+        $query = $this->queryBuilder->select($this->tableName,$wantedFields)
+                                    ->where($conditions)
+                                    ->getSQLQuery();
 
-        $preStatement = "SELECT $wantedColumns FROM `" . $this->tableName . "`";
+        $result = $this->dbh->read($query);
 
-        if ($columnNames != []) {
-            $condition = " WHERE ";
-            $count = 0;
-
-            foreach ($columnNames as $key => $value) {
-                $condition .= "`" . $value . "`" . "=?";
-                if (sizeof($columnNames) > ($count + 1)) {
-                    $condition .= " AND ";
-                }
-                $count += 1;
-            }
-
-            //"SELECT * FROM `request` WHERE `RequesterID`=? AND `Status`=?"
-            $sql = $preStatement . $condition; //"SELECT * FROM $table WHERE 'RequesterID'=? AND 'Status'=?";
-            //$sql="SELECT * FROM `employee` WHERE `EmpID`=?";
-        } else {
-            $sql = $preStatement;
-        }
-        $result = $this->dbh->read($sql, $columnVals);
-
-        if ($result == false) {
-            //there is no data for those values
-            // echo "Error: No Data for given columns";
-            // echo "<br>" . $sql . "<br>";
-            // print_r($columnVals);
-            return [];
-        } else {
-            return $result;
-        }
+        return $result ? $result : [];
     }
 
     /**
      * A general code to generate SQL statement to update a record in the database.
+     * 
+     * @param array $values ['Field' => 'Value']
+     * @param array $conditions ['Field' => 'Value']
      */
-    protected function updateRecord(
-        array $columnNames,
-        array $columnVals,
-        array $conditionNames,
-        array $conditionVals
-    ): void {
-        //Generates "'Name1=?' 'Name2=?' ... " for setting
-        $preCondition = '';
-        $count = 0;
-        foreach ($columnNames as $key => $value) {
-            $preCondition .= "`" . $value . "`" . "=?";
-            if (sizeof($columnNames) > ($count + 1)) {
-                $preCondition .= " , ";
-            }
-            $count += 1;
-        }
+    protected function updateRecord(array $values, array $conditions): void 
+    {
+        $query = $this->queryBuilder->update($this->tableName,$values)
+                                    ->where($conditions)
+                                    ->getSQLQuery();
 
-        //Generates "'Name1=?' AND 'Name2=?' ... " for WHERE condition
-        $postCondition = '';
-        $count = 0;
-        foreach ($conditionNames as $key => $value) {
-            $postCondition .= "`" . $value . "`" . "=?";
-            if (sizeof($conditionNames) > ($count + 1)) {
-                $postCondition .= " AND ";
-            }
-            $count += 1;
-        }
-
-        $preStatement = "UPDATE $this->tableName SET ";
-        $sql = $preStatement . $preCondition . " WHERE " . $postCondition;
-        $this->dbh->write($sql, array_merge($columnVals, $conditionVals));
+        $this->dbh->write($query);
     }
 
     /**
      * A general code to generate SQL statement to get records from multiple tables in the database.
+     * 
+     * @param array $joinConditions [['Table1' => 'Field1', 'Table2' => 'Field2']]
+     * @param array $conditions ['Field' => 'Value']
+     * @param array $wantedFields @default = all
+     * 
+     * @return array
      */
-    public function getRecordsFromTwo(
-        string $secondTable,
-        array $conditionCols,
-        array $whereColumnNamesAndValues = [],
-        array $wantedCols = array('*')
-    ): array {
-        // SELECT table1.column_name1 , table2.column_name2
-        // FROM table1 INNER JOIN table2 
-        // ON table1.column_name = table2.column_name;
+    public function getRecordsFromTwo(array $joinConditions, array $conditions = [], array $wantedFields = ['*']): array 
+    {
+        $query = $this->queryBuilder->select($this->tableName,$wantedFields)
+                                    ->join($this->tableName,$joinConditions)
+                                    ->where($conditions)
+                                    ->getSQLQuery();
 
-        $wantedColumns = '';
-        $wantedArray = array();
-        if (sizeof($wantedCols) > 1) {
-            foreach ($wantedCols as $table => $cols) {
-                foreach ($cols as $col) {
-                    array_push($wantedArray, $table . "." . $col);
-                }
-            }
-            $wantedColumns = join(",", $wantedArray);
-        } else {
-            $wantedColumns = $wantedCols[0];
-        }
+        $result = $this->dbh->read($query);
 
-        $joinTables = $this->tableName . " INNER JOIN " . $secondTable;
-        // if (sizeof($tableNames) >= 1) {
-        //     $joinTables .= join(" INNER JOIN ", $tableNames);
-        // } else {
-        //     $joinTables = $this->tableName;
-        // }
-
-        $preStatement = "SELECT $wantedColumns FROM " . $joinTables;
-
-        $condition = ' ON (';
-        $count = 0;
-
-        foreach ($conditionCols as $col) {
-            $condition .= $this->tableName . '.' . $col[0] . " = " . $secondTable . '.' . $col[1];
-            if (sizeof($conditionCols) > ($count + 1)) {
-                $condition .= " AND ";
-            }
-            $count += 1;
-        }
-
-        $sql = $preStatement . $condition . ')';
-
-        if ($whereColumnNamesAndValues != []) {
-            $condition = " WHERE  (";
-            $count = 0;
-
-            foreach ($whereColumnNamesAndValues as $col => $value) {
-                $condition .= $this->tableName . '.' . $col  . "=" . $value;
-                if (sizeof($whereColumnNamesAndValues) > ($count + 1)) {
-                    $condition .= " AND ";
-                }
-                $count += 1;
-            }
-            $sql = $sql . $condition . ')';
-        }
-
-        $result = $this->dbh->read($sql, []);
-
-        if ($result == false) {
-            //there is no data 
-            return [];
-        } else {
-            return $result;
-        }
+        return $result ? $result : [];
     }
 }

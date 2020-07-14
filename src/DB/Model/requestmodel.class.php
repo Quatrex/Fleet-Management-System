@@ -14,121 +14,85 @@ abstract class RequestModel extends Model
 
     protected function getRecordByID($requestID)
     {
-        $columnNames = array('RequestID');
-        $columnVals = array($requestID);
-        $results = parent::getRecords($columnNames, $columnVals);
+        $conditions = ['RequestID' => $requestID];
+        $results = parent::getRecords($conditions);
         return $results[0];
     }
 
     protected function getRequestsByIDNState(String $requesterID, int $state)
     {
-        $columnNames = array('RequesterID', 'State');
-        $columnVals = array($requesterID, $state);
-        $results = parent::getRecords($columnNames, $columnVals);
+        $conditions = ['RequesterID' => $requesterID, 'State' => $state];
+        $results = parent::getRecords($conditions);
         return $results;
     }
 
     protected function getJustifiedRequestsByIDNState(String $justifiedBy, int $state)
     {
-        $columnNames = array('JustifiedBy', 'State');
-        $columnVals = array($justifiedBy, $state);
-        $results = parent::getRecords($columnNames, $columnVals);
+        $conditions = ['JustifiedBy' => $justifiedBy, 'State' => $state];;
+        $results = parent::getRecords($conditions);
         return $results;
     }
 
     protected function getApprovedRequestsByIDNState(String $approvedBy, int $state)
     {
-        $columnNames = array('ApprovedBy', 'State');
-        $columnVals = array($approvedBy, $state);
-        $results = parent::getRecords($columnNames, $columnVals);
+        $conditions = ['ApprovedBy' => $approvedBy, 'State' => $state];;
+        $results = parent::getRecords($conditions);
         return $results;
     }
 
-    //protected function getScheduledRequestsByIDNState(String $scheduledBy,int $state) //TODO: create columns in database
-
     public function getRequestsbyState(string $state)
     {
-        $secondTable = 'employee';
-        $conditionCols = [['RequesterID', 'EmpID']];
-        $whereColumnNamesAndValues = ['State' => $state];
-        $results = parent::getRecordsFromTwo($secondTable, $conditionCols, $whereColumnNamesAndValues);
+        $joinConditions = [['request' => 'RequesterID', 'employee' => 'EmpID']];
+        $conditions = ['State' => $state];
+        $results = parent::getRecordsFromTwo($joinConditions, $conditions);
         return $results;
     }
 
     protected function saveRecord($createdDate, $state, $dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $requesterID, $purpose)
     {
-        $columnNames = array('CreatedDate', 'State', 'DateOfTrip', 'TimeOfTrip', 'DropLocation', 'PickLocation', 'RequesterID', 'Purpose');
-        $columnVals = array($createdDate, $state, $dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $requesterID, $purpose);
-        parent::addRecord($columnNames, $columnVals);
+        $values = ['CreatedDate' => $createdDate,
+                'State' => $state,
+                'DateOfTrip' => $dateOfTrip,
+                'TimeOfTrip' => $timeOfTrip,
+                'DropLocation' => $dropLocation,
+                'PickLocation' => $pickLocation,
+                'RequesterID' => $requesterID,
+                'Purpose' => $purpose];
+        parent::addRecord($values);
     }
 
     protected function updateState($requestID, $state)
     {
-        $columnNames = array("State");
-        $columnVals = array($state);
-        $conditionNames = array("RequestID");
-        $conditionVals = array($requestID);
-        parent::updateRecord($columnNames, $columnVals, $conditionNames, $conditionVals);
+        $values = ['State' => $state];
+        $conditions = ['RequestID' => $requestID];
+        parent::updateRecord($values, $conditions);
     }
 
     protected function justifyRequest($requestID, $JOComment, $empID, $state)
     {
-        $columnNames = array("State", "JOComment", "JustifiedBy");
-        $columnVals = array($state, $JOComment, $empID);
-        $conditionNames = array("RequestID");
-        $conditionVals = array($requestID);
-        parent::updateRecord($columnNames, $columnVals, $conditionNames, $conditionVals);
+        $values = ['State' => $state, 'JOComment' => $JOComment, 'JustifiedBy' => $empID];
+        $conditions = ['RequestID' => $requestID];
+        parent::updateRecord($values, $conditions);
     }
 
     protected function approveRequest($requestID, $CAOComment, $empID, $state)
     {
-        $columnNames = array("State", "CAOComment", "ApprovedBy");
-        $columnVals = array($state, $CAOComment, $empID);
-        $conditionNames = array("RequestID");
-        $conditionVals = array($requestID);
-        parent::updateRecord($columnNames, $columnVals, $conditionNames, $conditionVals);
+        $values = ['State' => $state, 'JOComment' => $CAOComment, 'JustifiedBy' => $empID];
+        $conditions = ['RequestID' => $requestID];
+        parent::updateRecord($values, $conditions);
     }
 
     protected function scheduleRequest($requestID, $scehduledBy, $driver, $vehicle, $state)
     {
-        $columnNames = array("State", "ScheduledBy", "Driver", "Vehicle");
-        $columnVals = array($state, $scehduledBy, $driver, $vehicle);
-        $conditionNames = array("RequestID");
-        $conditionVals = array($requestID);
-        parent::updateRecord($columnNames, $columnVals, $conditionNames, $conditionVals);
+        $values = ['State' => $state, 'ScheduledBy' => $scehduledBy, 'Driver' => $driver, 'Vehicle' => $vehicle];
+        $conditions = ['RequestID' => $requestID];
+        parent::updateRecord($values, $conditions);
     }
 
     protected function closeRequest($requestID, $state)
     {
-        $columnNames = array("State");
-        $columnVals = array($state);
-        $conditionNames = array("RequestID");
-        $conditionVals = array($requestID);
-        parent::updateRecord($columnNames, $columnVals, $conditionNames, $conditionVals);
-    }
-
-    public function getEmail(int $requestID, string $position)
-    {
-        $wantedCols = array('Email');
-        $whereCols = ['RequestID' => $requestID];
-        switch ($position) {
-            case 'requester':
-                $conditionCols = [['RequesterID', 'EmpID']];
-                break;
-
-            case 'jo':
-                $conditionCols = [['JustifiedBy', 'EmpID']];
-                break;
-
-            case 'cao':
-                $conditionCols = [['ApprovedBy', 'EmpID']];
-                break;
-
-            case 'vpmo':
-                $conditionCols = [['ScheduledBy', 'EmpID']];
-                break;
-        }
-        $emailRecord = parent::getRecordsFromTwo('employee', $conditionCols, $whereCols, $wantedCols);
-        return $emailRecord[0]['Email'];
+        $values = ['State' => $state];
+        $conditions = ['RequestID' => $requestID];
+        parent::updateRecord($values, $conditions);
     }
 }

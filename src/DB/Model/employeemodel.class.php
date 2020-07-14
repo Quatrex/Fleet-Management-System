@@ -9,65 +9,57 @@ abstract class EmployeeModel extends Model{
     }
 
     protected function getRecordByID($empID){
-        $isDeleted=0;
-        $columnNames= array('EmpID','IsDeleted'); 
-        $columnVals= array($empID,$isDeleted);
-        
-        $wantedColumns=array('EmpID','FirstName','LastName','Position','Designation','Email','Username');
-        $results = parent::getRecords($columnNames,$columnVals,$wantedColumns,$isDeleted); //change getRecords() to not get password from database
+        $conditions = ['EmpID' => $empID, 'IsDeleted' => 0];
+        $wantedFields = ['EmpID','FirstName','LastName','Position','Designation','Email','Username'];
+        $results = parent::getRecords($conditions, $wantedFields); //change getRecords() to not get password from database
         return $results[0];
     }
 
     protected function getRecordByUsername($username){
-        $isDeleted=0;
-        $columnNames= array('Username','IsDeleted');
-        $columnVals= array($username,$isDeleted);
-        $isDeleted=0;
-        $wantedColumns=array('EmpID','FirstName','LastName','Position','Designation','Email','Username');
-        return parent::getRecords($columnNames,$columnVals,$wantedColumns,$isDeleted);
+        $conditions = ['Username' => $username, 'IsDeleted' => 0];
+        $wantedFields = array('EmpID','FirstName','LastName','Position','Designation','Email','Username');
+        return parent::getRecords($conditions,$wantedFields);
     }
 
     protected function saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $username, $password) {
-        $columnNames = array('EmpID','FirstName','LastName','Position','Designation','Email','Username','Password');
-        $columnVals = array($empID, $firstName, $lastName, $position, $designation, $email, $username, $password);
-        parent::addRecord($columnNames,$columnVals);
+        $values = ['EmpID' => $empID,
+                'FirstName' => $firstName,
+                'LastName' => $lastName,
+                'Position' => $position,
+                'Designation' => $designation,
+                'Email' => $email,
+                'Username' => $username,
+                'Password' => $password];
+        parent::addRecord($values);
     }
 
     protected function checkPassword($username,$password){
-        $isDeleted=0;
-        $columnNames= array('Username','IsDeleted');
-        $columnVals= array($username,$isDeleted);
-        $isDeleted=0;
-        $wantedColumns=array('Username','Password');
-        return (parent::getRecords($columnNames,$columnVals,$wantedColumns)[0]['Password']==$password)? true:false;
-    }
-
-    protected function getEmails(string $position)
-    {
-        $isDeleted=0;
-        $colmunNames = array('Position','IsDeleted');
-        $columnVals = array($position,$isDeleted);
-        $wantedCols = array('Email');
-        $emailRecords = parent::getRecords($colmunNames,$columnVals,$wantedCols);
-
-        $emails = array();
-        foreach ($emailRecords as $email)
-        {
-             array_push($emails,$email['Email']);
-        }
-        return $emails;
+        $conditions = ['Username' => $username, 'IsDeleted' => 0];
+        $wantedFields = ['Username','Password'];
+        return (parent::getRecords($conditions,$wantedFields)[0]['Password']==$password)? true:false;
     }
 
     public function getAllRecords()
     {
-        return parent::getRecords([],[]);
+        return parent::getRecords();
     }
 
     public function getEmployeesByPosition(string $position)
     {
-        $columnNames = ['Position'];
-        $columnVals = [$position];
-        return parent::getRecords($columnNames,$columnVals);
+        $conditions = ['Position' => $position];
+        return parent::getRecords($conditions);
+    }
+
+    protected function getEmails(string $position)
+    {
+        $conditions = ['Position' => $position, 'IsDeleted' => 0];
+        $wantedFields = ['Email'];
+        $emailRecords = parent::getRecords($conditions,$wantedFields);
+
+        $emails = [];
+        foreach ($emailRecords as $email)
+             array_push($emails,$email['Email']);
+        return $emails;
     }
 
     protected function updateEmployeeInfo($prevEmpID, $empID, $firstName, $lastName, $position, $designation, $email, $username){

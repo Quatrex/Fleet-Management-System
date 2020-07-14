@@ -1,7 +1,12 @@
 <?php
 require_once '../includes/autoloader.inc.php';
 
-use Validator\Token;
+use Validator\Authenticate;
+
+session_start();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    Authenticate::authenticateMe();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -55,14 +60,14 @@ use Validator\Token;
                 <h2 class="card-title">Sign in</h2>
 
                 <!-- <form action="authenticate.php" method="post" onsubmit="return validatelogin()" name="vform"> -->
-                <form method="post" name="vform">
+                <form method="post" name="vform" action="login.php">
                     <div id="message"></div>
                     <!--Form-Username-->
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md" id="username_div">
                                 <label for="username" class="sr-only">Username</label>
-                                <input type="text" name="username" class="form-control" id="username-input" placeholder="Username..." required autocomplete="off">
+                                <input type="text" name="username" class="form-control" id="username-input" placeholder="Username..." required autocomplete="off" value="<?php if (isset($_POST['username'])) echo $_POST['username']; ?>">
                                 <div id="name-error" class="text-danger"></div>
                             </div>
                         </div>
@@ -72,7 +77,7 @@ use Validator\Token;
                         <div class="form-row">
                             <div class="col-md" id="password_div">
                                 <label for="password" class="sr-only">Password</label>
-                                <input type="password" name="password" class="form-control" id="password-input" placeholder="Enter password..." required autocomplete="off">
+                                <input type="password" name="password" class="form-control" id="password-input" placeholder="Enter password..." required autocomplete="off" value="<?php if (isset($_POST['password'])) echo $_POST['password']; ?>">
                                 <div id="password-error" class="text-danger"></div>
                                 <!--Forgot Password?-->
                                 <div class="float-right">
@@ -91,7 +96,7 @@ use Validator\Token;
                     </div>
                     <!--Log in button-->
                     <div style="text-align: right;">
-                        <button type="button" class="btn btn-primary " name="login-submit" id="login-button">Log in</button>
+                        <button type="submit" class="btn btn-primary " name="login-submit" id="login-button">Log in</button>
                     </div>
 
                 </form>

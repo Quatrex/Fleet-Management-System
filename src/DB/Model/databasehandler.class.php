@@ -3,6 +3,7 @@
 namespace DB\Model;
 
 use PDO;
+use DB\Model\SQLQueryBuilder\SQLQuery;
 
 class DatabaseHandler
 {
@@ -35,10 +36,10 @@ class DatabaseHandler
     /**
      * Reads records from the database by running a sql query
      */
-    public function read(string $sql, array $columnVals = null): array
+    public function read(SQLQuery $query): array
     {
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($columnVals);
+        $stmt = $this->pdo->prepare($query->getField('sqlStatement'));
+        $stmt->execute($query->getField('placeholderVals'));
         $results = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             array_push($results, $row);
@@ -49,9 +50,9 @@ class DatabaseHandler
     /**
      * Writes records to the database by running a sql query
      */
-    public function write(string $sql, array $columnVals)
+    public function write(SQLQuery $query)
     {
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($columnVals);
+        $stmt = $this->pdo->prepare($query->getField('sqlStatement'));
+        $stmt->execute($query->getField('placeholderVals'));
     }
 }
