@@ -30,11 +30,13 @@ switch ($method) {
 
 	case 'RequestAdd':
 		$requester = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
-		$requester->placeRequest(['DateOfTrip' => $_POST['date'],
-								'TimeOfTrip' => $_POST['time'],
-								'DropLocation' => $_POST['dropoff'],
-								'PickLocation' => $_POST['pickup'],
-								'Purpose' => $_POST['purpose']]);
+		$requester->placeRequest([
+			'DateOfTrip' => $_POST['date'],
+			'TimeOfTrip' => $_POST['time'],
+			'DropLocation' => $_POST['dropoff'],
+			'PickLocation' => $_POST['pickup'],
+			'Purpose' => $_POST['purpose']
+		]);
 		echo json_encode("success_Request successfully added");
 		break;
 
@@ -42,25 +44,29 @@ switch ($method) {
 		$vpmo = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
 		//echo $_POST['model'];
 		if ($_POST['isLeased'] == "Yes") {
-			$vpmo->addLeasedVehicle(['RegistrationNo' => $_POST['registrationNo'],
-									'Model' => $_POST['model'],
-									'PurchasedYear' => $_POST['purchasedYear'],
-									'Value' => $_POST['value'],
-									'FuelType' => $_POST['fuelType'],
-									'InsuranceValue' => $_POST['insuranceValue'],
-									'InsuranceCompany' => $_POST['insuranceCompany'],
-									'LeasedCompany' => $_POST['leasedCompany'],
-									'LeasedPeriodFrom' => $_POST['leasedPeriodFrom'],
-									'LeasedPeriodTo' => $_POST['leasedPeriodTo'],
-									'MonthlyPayment' => $_POST['monthlyPayment']]);
+			$vpmo->addLeasedVehicle([
+				'RegistrationNo' => $_POST['registrationNo'],
+				'Model' => $_POST['model'],
+				'PurchasedYear' => $_POST['purchasedYear'],
+				'Value' => $_POST['value'],
+				'FuelType' => $_POST['fuelType'],
+				'InsuranceValue' => $_POST['insuranceValue'],
+				'InsuranceCompany' => $_POST['insuranceCompany'],
+				'LeasedCompany' => $_POST['leasedCompany'],
+				'LeasedPeriodFrom' => $_POST['leasedPeriodFrom'],
+				'LeasedPeriodTo' => $_POST['leasedPeriodTo'],
+				'MonthlyPayment' => $_POST['monthlyPayment']
+			]);
 		} else {
-			$vpmo->addPurchasedVehicle(['RegistrationNo' => $_POST['registrationNo'],
-										'Model' => $_POST['model'],
-										'PurchasedYear' => $_POST['purchasedYear'],
-										'Value' => $_POST['value'],
-										'FuelType' => $_POST['fuelType'],
-										'InsuranceValue' => $_POST['insuranceValue'],
-										'InsuranceCompany' => $_POST['insuranceCompany']]);
+			$vpmo->addPurchasedVehicle([
+				'RegistrationNo' => $_POST['registrationNo'],
+				'Model' => $_POST['model'],
+				'PurchasedYear' => $_POST['purchasedYear'],
+				'Value' => $_POST['value'],
+				'FuelType' => $_POST['fuelType'],
+				'InsuranceValue' => $_POST['insuranceValue'],
+				'InsuranceCompany' => $_POST['insuranceCompany']
+			]);
 		}
 
 		echo json_encode("success_Vehicle " . $_POST['registrationNo'] . " successfully added");
@@ -69,25 +75,29 @@ switch ($method) {
 	case 'UpdateVehicle':
 		$vpmo = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
 		if ($_POST['leasedCompany'] !== "") {
-			$vpmo->updateLeasedVehicleInfo(['RegistrationNo' => $_POST['registrationNo'],
-									'Model' => $_POST['model'],
-									'PurchasedYear' => $_POST['purchasedYear'],
-									'Value' => $_POST['value'],
-									'FuelType' => $_POST['fuelType'],
-									'InsuranceValue' => $_POST['insuranceValue'],
-									'InsuranceCompany' => $_POST['insuranceCompany'],
-									'LeasedCompany' => $_POST['leasedCompany'],
-									'LeasedPeriodFrom' => $_POST['leasedPeriodFrom'],
-									'LeasedPeriodTo' => $_POST['leasedPeriodTo'],
-									'MonthlyPayment' => $_POST['monthlyPayment']]);
+			$vpmo->updateLeasedVehicleInfo([
+				'RegistrationNo' => $_POST['registrationNo'],
+				'Model' => $_POST['model'],
+				'PurchasedYear' => $_POST['purchasedYear'],
+				'Value' => $_POST['value'],
+				'FuelType' => $_POST['fuelType'],
+				'InsuranceValue' => $_POST['insuranceValue'],
+				'InsuranceCompany' => $_POST['insuranceCompany'],
+				'LeasedCompany' => $_POST['leasedCompany'],
+				'LeasedPeriodFrom' => $_POST['leasedPeriodFrom'],
+				'LeasedPeriodTo' => $_POST['leasedPeriodTo'],
+				'MonthlyPayment' => $_POST['monthlyPayment']
+			]);
 		} else {
-			$vpmo->updatePurchasedVehicleInfo(['RegistrationNo' => $_POST['registrationNo'],
-										'Model' => $_POST['model'],
-										'PurchasedYear' => $_POST['purchasedYear'],
-										'Value' => $_POST['value'],
-										'FuelType' => $_POST['fuelType'],
-										'InsuranceValue' => $_POST['insuranceValue'],
-										'InsuranceCompany' => $_POST['insuranceCompany']]);
+			$vpmo->updatePurchasedVehicleInfo([
+				'RegistrationNo' => $_POST['registrationNo'],
+				'Model' => $_POST['model'],
+				'PurchasedYear' => $_POST['purchasedYear'],
+				'Value' => $_POST['value'],
+				'FuelType' => $_POST['fuelType'],
+				'InsuranceValue' => $_POST['insuranceValue'],
+				'InsuranceCompany' => $_POST['insuranceCompany']
+			]);
 		}
 		echo json_encode("success_Vehicle " . $_POST['registrationNo'] . " successfully updated");
 		break;
@@ -109,7 +119,7 @@ switch ($method) {
 		break;
 	case 'Schedule':
 		$vpmo = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
-		$vpmo->scheduleRequest($_POST['RequestId'],$_POST['DriverId'],$_POST['VehicleId']);
+		$vpmo->scheduleRequest($_POST['RequestId'], $_POST['DriverId'], $_POST['VehicleId']);
 		echo json_encode("success_Request " . $_POST['RequestId'] . " successfully Assigned");
 		break;
 	case 'EndTrip':
@@ -117,6 +127,19 @@ switch ($method) {
 		$vpmo->closeRequest($_POST['RequestId']);
 		echo json_encode("success_Trip " . $_POST['RequestId'] . " successfully ended");
 		break;
+	case 'AddEmployee':
+		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
+		$admin->createNewAccount(['EmpID' => $_POST['newEmployeeId'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Username' => "", 'Designation' => $_POST['designation'],'Position' => $_POST['position'], 'Email' => $_POST['email'], 'Password' => $_POST['password'],'ContactNo' => $_POST['contactNo']]);
+		echo json_encode("success_Employee " . $_POST['newEmployeeId'] . " successfully added");
+		break;
+	case 'UpdateEmployee':
+		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
+		$admin->updateAccount(['EmpID' => $_POST['employeeID'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Username' => "", 'Designation' => $_POST['designation'],'Position' => $_POST['position'], 'Email' => $_POST['email'], 'ContactNo' => $_POST['contactNo']]);
+		echo json_encode("success_Employee " . $_POST['employeeID'] . " successfully updated");
+		break;
+	case 'DeleteEmployee':
+		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
+		$admin->removeAccount($_POST['employeeID']);
 	default:
 		echo "Invalid method";
 }

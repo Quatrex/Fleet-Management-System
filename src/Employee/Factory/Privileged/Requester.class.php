@@ -2,17 +2,10 @@
 namespace Employee\Factory\Privileged;
 
 use Request\Factory\RequesterRequest\RequesterRequestFactory;
-use JsonSerializable;
 
-class Requester extends PrivilegedEmployee implements JsonSerializable
+class Requester extends PrivilegedEmployee 
 {
-    public function jsonSerialize()
-    {
-        return ['empID'=>$this->empID,
-                'FirstName'=> $this->firstName,
-                'LastName'=> $this->lastName,
-                'Position'=>$this->position];
-    }    
+    
 
     public function placeRequest(array $values){
         $values ['RequesterID'] = $this->empID;

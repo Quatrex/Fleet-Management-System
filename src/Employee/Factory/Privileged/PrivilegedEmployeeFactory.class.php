@@ -20,7 +20,7 @@ class PrivilegedEmployeeFactory
 
         $employee = self::createConcreteEmployee($values);
         
-        if (self::checkAccess()) $employee = self::castToEmployee($employee);
+        // if (self::checkAccess()) $employee = self::castToEmployee($employee);
         return $employee;
     }
 
@@ -33,11 +33,11 @@ class PrivilegedEmployeeFactory
      */
     public static function makeNewEmployee(array $values) : PrivilegedEmployee
     {
-        if(!self::checkAccess())
-        {
-            echo 'Illegal Access'; // TODO: throw exception
-            return null;
-        }
+        // if(!self::checkAccess())
+        // {
+        //     echo 'Illegal Access'; // TODO: throw exception
+        //     return null;
+        // }
 
         $employee = self::createConcreteEmployee($values);
         $employee->saveToDatabase();
@@ -53,16 +53,16 @@ class PrivilegedEmployeeFactory
      */
     public static function makeEmployeeByValues(array $values) : PrivilegedEmployee
     {
-        if(!self::checkAccess())
-        {
-            echo 'Illegal Access'; // TODO: throw exception
-            return null;
-        }
+        // if(!self::checkAccess())
+        // {
+        //     echo 'Illegal Access'; // TODO: throw exception
+        //     return null;
+        // }
         $values['Password'] = null;
 
         $employee = self::createConcreteEmployee($values);
         
-        if (self::checkAccess()) $employee = self::castToEmployee($employee);
+        // if (self::checkAccess()) $employee = self::castToEmployee($employee);
         return self::castToEmployee($employee);
     }
 
@@ -75,11 +75,11 @@ class PrivilegedEmployeeFactory
      */
     public static function makeEmployees(string $position = '') : array
     {
-        if(!self::checkAccess())
-        {
-            echo 'Illegal Access'; // TODO: throw exception
-            return null;
-        }
+        // if(!self::checkAccess())
+        // {
+        //     echo 'Illegal Access'; // TODO: throw exception
+        //     return null;
+        // }
 
         $position=strtolower($position);
         $validPositonNames = ['', 'requester','jo','cao','vpmo','admin'];
@@ -143,6 +143,7 @@ class PrivilegedEmployeeFactory
 
     private static function createConcreteEmployee(array $values)
     {
+        $values['Position'] = strtolower( $values['Position']);
         switch ($values['Position'])
         {
             case 'requester':

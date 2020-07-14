@@ -20,7 +20,7 @@
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <p >Designation</p>
+                        <p>Designation</p>
                     </div>
                     <div class="col-sm-6">
                         <p id="ongoing-designation">Text</p>
@@ -71,7 +71,7 @@
                         <p id="ongoing-purpose"></p>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-sm-6">
                         <p>Driver</p>
@@ -80,7 +80,7 @@
                         <p>Text</p>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-sm-6">
                         <p>Vehicle</p>
@@ -419,7 +419,7 @@
                 <form id="Schedule_form">
                     <input type="hidden" name="RequestId" id="requestId-input">
                     <input type="hidden" name="VehicleId" id="final-vehicle-input">
-                    <input type="hidden" name= "DriverId" id="final-driver-input">
+                    <input type="hidden" name="DriverId" id="final-driver-input">
                 </form>
             </div>
             <div class="popup-footer">
@@ -545,7 +545,7 @@
 
     </div>
 
-    <!--Vehicle Profile Form-->
+    <!--Vehicle Edit Profile Form-->
     <div class="popup" id="vehicle-profile-edit-form">
         <!-- Request Form content -->
         <div class="popup-content">
@@ -677,20 +677,20 @@
     </div>
     <!--End Trip Confirm-->
     <div class="popup" id="end-trip-confirm">
-    <!-- Confirm alert content -->
-    <div class="popup-content">
-        <div class="popup-header">
-            <span class="close" id="confirm-endtrip-close">&times;</span>
-            <h3 id="cancel-alert-header">End Trip</h3>
-            <hr>
-        </div>
-        <div class="popup-body">
+        <!-- Confirm alert content -->
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="confirm-endtrip-close">&times;</span>
+                <h3 id="cancel-alert-header">End Trip</h3>
+                <hr>
+            </div>
+            <div class="popup-body">
 
-            <p id="cancel-alert-message">Are you sure you want to end the trip?</p>
-            <input type="button" value="Yes" class="btn btn-danger" id="confirm-endtrip-yes-button">
-            <input type="button" value="No" class="btn btn-primary" id="confirm-endtrip-no-button">
-        </div>
-        <div class="popup-footer">
+                <p id="cancel-alert-message">Are you sure you want to end the trip?</p>
+                <input type="button" value="Yes" class="btn btn-danger" id="confirm-endtrip-yes-button">
+                <input type="button" value="No" class="btn btn-primary" id="confirm-endtrip-no-button">
+            </div>
+            <div class="popup-footer">
+            </div>
         </div>
     </div>
-</div>
