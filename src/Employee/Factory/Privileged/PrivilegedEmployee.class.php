@@ -26,7 +26,7 @@ abstract class PrivilegedEmployee extends Employee
     {
         //changed employee attributes can be analysed here
 
-        $this->empID = $values['EmpID'];
+        $this->empID = $values['NewEmpID'];
         $this->firstName = $values['FirstName'];
         $this->lastName = $values['LastName'];
         $this->position = $values['Position'];
@@ -35,7 +35,7 @@ abstract class PrivilegedEmployee extends Employee
         $this->username = $values['Username'];
 
         $employeeController = new EmployeeController();
-        $employeeController->updateEmployeeInfo(    $values['PrevEmpID'],
+        $employeeController->updateEmployeeInfo(    $values['EmpID'],
                                                     $this->empID, 
                                                     $this->firstName, 
                                                     $this->lastName, 

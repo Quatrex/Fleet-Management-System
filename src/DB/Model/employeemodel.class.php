@@ -8,6 +8,12 @@ abstract class EmployeeModel extends Model{
         parent::__construct('employee');
     }
 
+    protected function getAllRecords(){
+        $conditions = ['IsDeleted' => 0];
+        $results = parent::getRecords($conditions); 
+        return $results;
+    }
+
     protected function getRecordByID($empID){
         $conditions = ['EmpID' => $empID, 'IsDeleted' => 0];
         $wantedFields = ['EmpID','FirstName','LastName','Position','Designation','Email','Username'];
@@ -39,10 +45,6 @@ abstract class EmployeeModel extends Model{
         return (parent::getRecords($conditions,$wantedFields)[0]['Password']==$password)? true:false;
     }
 
-    public function getAllRecords()
-    {
-        return parent::getRecords();
-    }
 
     public function getEmployeesByPosition(string $position)
     {
@@ -62,11 +64,11 @@ abstract class EmployeeModel extends Model{
         return $emails;
     }
 
-    protected function updateEmployeeInfo($prevEmpID, $empID, $firstName, $lastName, $position, $designation, $email, $username){
-        $columnNames = array('empID','firstName','lastName','position','designation','email','username');
-        $columnVals = array($empID, $firstName, $lastName, $position, $designation, $email, $username);
-        $conditionNames= array('PrevEmpID');
-        $conditionVals= array($prevEmpID);
+    protected function updateEmployeeInfo($empID, $newEmpID, $firstName, $lastName, $position, $designation, $email, $username){
+        $columnNames = array('EmpID','FirstName','LastName','Position','Designation','Email','Username');
+        $columnVals = array($newEmpID, $firstName, $lastName, $position, $designation, $email, $username);
+        $conditionNames= array('EmpID');
+        $conditionVals= array($empID);
         parent::updateRecord($columnNames,$columnVals,$conditionNames,$conditionVals);  
     }
 

@@ -81,6 +81,7 @@ class PrivilegedEmployeeFactory
             return null;
         }
 
+        $position=strtolower($position);
         $validPositonNames = ['', 'requester','jo','cao','vpmo','admin'];
         $position = strtolower($position);
         if (!in_array($position,$validPositonNames))

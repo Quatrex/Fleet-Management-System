@@ -45,6 +45,7 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
                                     $this->fuelType,
                                     $this->insuranceValue,
                                     $this->insuranceCompany,
+                                    $this->assignedOfficer,
                                     $this->state->getID(),
                                     $this->currentLocation);
     }
@@ -67,6 +68,7 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
                                                     $this->value, 
                                                     $this->fuelType, 
                                                     $this->insuranceValue, 
-                                                    $this->insuranceCompany);
+                                                    $this->insuranceCompany,
+                                                    $this->assignedOfficer);
     }
 }
