@@ -17,7 +17,6 @@ class WhereBuilder
         if (self::$instance == null)
             self::$instance = new self($query);
         self::$instance->query = $query;
-        self::$instance->query->appendStatement(" WHERE ");
         self::$instance->start = false;
         self::$instance->activeParenthesis = 0;
         return self::$instance;
@@ -33,9 +32,13 @@ class WhereBuilder
      */
     function conditions(array $conditions, string $operator = "AND")
     {
-        $this->start = true;
-
         if (empty($conditions)) return $this;
+
+        if (!$this->start)
+        {
+            $this->query->appendStatement(" WHERE ");
+            $this->start = true;
+        }
 
         $values = array_values($conditions);
         $fields = array_keys($conditions);
@@ -70,7 +73,7 @@ class WhereBuilder
             $this->query->appendStatement(" $operation (");
         else
         {
-            $this->query->appendStatement("(");
+            $this->query->appendStatement(" WHERE (");
             $this->start = true;
         }
         $this->activeParenthesis++;
@@ -81,6 +84,9 @@ class WhereBuilder
     {
         if ($this->activeParenthesis < 1) 
             throw new Exception('Cannot close as no parentheses are opened');
+
+        if (!$this->start) 
+            throw new Exception('Cannot start WHERE condition with a closing parenthesis');
 
         $this->query->appendStatement(')');
         $this->activeParenthesis--;

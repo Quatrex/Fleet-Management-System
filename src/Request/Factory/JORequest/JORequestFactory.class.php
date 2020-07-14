@@ -16,16 +16,16 @@ class JORequestFactory
      * @param string $stateString
      * @return array(Request)
      */
-    public static function makeJustifiedRequests(int $empID, string $stateString) : array
+    public static function makeJustifiedRequests(int $empID, array $states) : array
     {
         $requestViewer = new RequestViewer();
-        $stateID = State::getStateID($stateString);
-        $requestRecords= $requestViewer->getJustifiedRequestsByIDNState($empID,$stateID);
+        $stateIDs =  array_map(function($state) { return State::getStateID($state); }, $states);
+        $requestRecords= $requestViewer->getJustifiedRequestsByIDNState($empID,$stateIDs);
         $requests=array();
 
         foreach($requestRecords as $values){
             $request= new JORequestProxy($values);
-            array_push($requests,JORequestFactory::castToRequest($request));
+            array_push($requests,self::castToRequest($request));
         }
 
         return $requests;
@@ -46,7 +46,7 @@ class JORequestFactory
         foreach($requestIDs as $values){
             $request= new JORequestProxy($values);
             $request->loadObject('requester',true,$values);
-            array_push($requests,JORequestFactory::castToRequest($request));
+            array_push($requests,self::castToRequest($request));
         }
 
         return $requests;
@@ -63,7 +63,7 @@ class JORequestFactory
         $requestViewer = new requestViewer(); // method of obtaining the viewer/controller must be determined and changed
         $values = $requestViewer->getRecordByID($requestID);
 
-        return JORequestFactory::castToRequest(new JORequestProxy($values));
+        return self::castToRequest(new JORequestProxy($values));
     }
 
      /**

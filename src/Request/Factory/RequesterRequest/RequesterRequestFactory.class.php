@@ -24,7 +24,7 @@ class RequesterRequestFactory
 
         foreach($requestRecords as $values){
             $request = new RequesterRequestProxy($values);
-            array_push($requests,RequesterRequestFactory::castToRequest($request));
+            array_push($requests,self::castToRequest($request));
         }
 
         return $requests;
@@ -36,7 +36,7 @@ class RequesterRequestFactory
         $requestViewer = new requestViewer(); // method of obtaining the viewer/controller must be determined and changed
         $values = $requestViewer->getRecordByID($requestID);
 
-        return RequesterRequestFactory::castToRequest(new RequesterRequestProxy($values));
+        return self::castToRequest(new RequesterRequestProxy($values));
     }
 
 
@@ -62,7 +62,7 @@ class RequesterRequestFactory
         $request->saveToDatabase(); //check for failure
         $request->noitfyNewRequest();
 
-        return RequesterRequestFactory::castToRequest($request); //return false, if fail
+        return self::castToRequest($request); //return false, if fail
     }
 
 

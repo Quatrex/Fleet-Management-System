@@ -54,7 +54,6 @@ abstract class Model
                                         ->conditions($conditions)
                                         ->getWhere()
                                     ->getSQLQuery();
-
         $result = $this->dbh->read($query);
 
         return $result ? $result : [];

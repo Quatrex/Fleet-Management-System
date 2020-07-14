@@ -18,12 +18,12 @@ class RequestViewer extends RequestModel{
         return parent::getRequestsByIDNState($requesterID,$states);
     }
 
-    public function getJustifiedRequestsByIDNState(string $justifiedBy,int $state){
-        return parent::getJustifiedRequestsByIDNState($justifiedBy,$state);
+    public function getJustifiedRequestsByIDNState(string $justifiedBy,array $states){
+        return parent::getJustifiedRequestsByIDNState($justifiedBy,$states);
     }
 
-    public function getApprovedRequestsByIDNState(string $approvedBy,int $state){
-        return parent::getApprovedRequestsByIDNState($approvedBy,$state);
+    public function getApprovedRequestsByIDNState(string $approvedBy,array $states){
+        return parent::getApprovedRequestsByIDNState($approvedBy,$states);
     }
 
     public function getRequestsbyState(string $state) {

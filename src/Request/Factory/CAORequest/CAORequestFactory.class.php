@@ -15,11 +15,11 @@ class CAORequestFactory
      * @param string $stateString
      * @return array(Request)
      */
-    public static function makeApprovedRequests(int $empID, string $stateString) : array
+    public static function makeApprovedRequests(int $empID, array $states) : array
     {
         $requestViewer = new RequestViewer();
-        $stateID = State::getStateID($stateString);
-        $requestIDs= $requestViewer->getApprovedRequestsByIDNState($empID,$stateID);
+        $stateIDs =  array_map(function($state) { return State::getStateID($state); }, $states);
+        $requestIDs= $requestViewer->getApprovedRequestsByIDNState($empID,$stateIDs);
         $requests=array();
 
         foreach($requestIDs as $values){
