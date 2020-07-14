@@ -22,7 +22,7 @@ class PrivilegedEmployeeFactory
 
         $employee = self::createConcreteEmployee($values);
         
-        if (self::checkAccess()) $employee = self::castToEmployee($employee);
+        // if (self::checkAccess()) $employee = self::castToEmployee($employee);
         return $employee;
     }
 
@@ -57,7 +57,7 @@ class PrivilegedEmployeeFactory
 
         $employee = self::createConcreteEmployee($values);
         
-        if (self::checkAccess()) $employee = self::castToEmployee($employee);
+        // if (self::checkAccess()) $employee = self::castToEmployee($employee);
         return self::castToEmployee($employee);
     }
 
@@ -72,6 +72,7 @@ class PrivilegedEmployeeFactory
     {
         if(!self::checkAccess()) throw new Exception('Illegel Access');
 
+        $position=strtolower($position);
         $validPositonNames = ['', 'requester','jo','cao','vpmo','admin'];
         $position = strtolower($position);
         if (!in_array($position,$validPositonNames))
@@ -123,6 +124,7 @@ class PrivilegedEmployeeFactory
 
     private static function createConcreteEmployee(array $values)
     {
+        $values['Position'] = strtolower( $values['Position']);
         switch ($values['Position'])
         {
             case 'requester':

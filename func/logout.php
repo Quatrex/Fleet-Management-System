@@ -1,6 +1,12 @@
 <?php
 session_start();
-session_destroy();
-// Redirect to the login page:
-header('Location: ../Layout/login.php');
-?>
+if (!isset($_SESSION['empid'])) { 
+    header("location: ../index.php");
+    exit();
+} else {
+    $_SESSION = array();
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        session_destroy();
+    }
+    header("location: ../index.php");
+}

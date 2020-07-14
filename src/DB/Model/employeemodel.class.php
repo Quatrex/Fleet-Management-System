@@ -8,6 +8,12 @@ abstract class EmployeeModel extends Model{
         parent::__construct('employee');
     }
 
+    protected function getAllRecords(){
+        $conditions = ['IsDeleted' => 0];
+        $results = parent::getRecords($conditions); 
+        return $results;
+    }
+
     protected function getRecordByID($empID){
         $conditions = ['EmpID' => $empID, 'IsDeleted' => 0];
         $wantedFields = ['EmpID','FirstName','LastName','Position','Designation','Email','Username'];
@@ -39,10 +45,6 @@ abstract class EmployeeModel extends Model{
         return (parent::getRecords($conditions,$wantedFields)[0]['Password']==$password)? true:false;
     }
 
-    public function getAllRecords()
-    {
-        return parent::getRecords();
-    }
 
     public function getEmployeesByPosition(string $position)
     {

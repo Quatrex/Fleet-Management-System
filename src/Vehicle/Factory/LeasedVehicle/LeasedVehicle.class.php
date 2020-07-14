@@ -62,6 +62,7 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
             $this->fuelType,
             $this->insuranceValue,
             $this->insuranceCompany,
+            $this->assignedOfficer,
             $this->state->getID(),
             $this->currentLocation,
             $this->leasedCompany,
@@ -74,7 +75,7 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
     public function updateInfo(array $values): void
     {
         //changed vehicle attributes can be analysed here
-        
+
         $this->model = $values['Model'];
         $this->purchasedYear = $values['PurchasedYear'];
         $this->value = $values['Value'];
@@ -94,7 +95,8 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
                                                     $this->value, 
                                                     $this->fuelType, 
                                                     $this->insuranceValue, 
-                                                    $this->insuranceCompany, 
+                                                    $this->insuranceCompany,
+                                                    $this->assignedOfficer, 
                                                     $this->leasedCompany, 
                                                     $this->leasedPeriodFrom, 
                                                     $this->leasedPeriodTo, 

@@ -4,12 +4,19 @@ namespace Employee\Factory\Privileged;
 
 use DB\Controller\EmployeeController;
 use DB\Viewer\EmployeeViewer;
+use Employee\Factory\Driver\DriverFactory;
 
 class Administrator extends PrivilegedEmployee
 {
-    public function getAllEmployees()
+    public function getAllPriviledgedEmployees()
     {
-        //return an array of all employees (implement sperately for drivers)
+        $employees=PrivilegedEmployeeFactory::makeEmployees();
+        return $employees;
+    }
+
+    public function getAllDrivers()
+    {
+        return DriverFactory::makeDrivers();
     }
 
     public function createNewAccount(array $values): PrivilegedEmployee
@@ -18,9 +25,15 @@ class Administrator extends PrivilegedEmployee
         return $employee;
     }
 
+    public function createNewDriver(array $values)
+    {
+        $driver = DriverFactory::makeNewDriver($values);
+        return $driver;
+    }
+
     public function updateAccount(array $values): PrivilegedEmployee
     {
-        $employee = PrivilegedEmployeeFactory::makeEmployee($values['PrevEmpID']);
+        $employee = PrivilegedEmployeeFactory::makeEmployee($values['EmpID']);
         $employee->updateInfo($values);
         return $employee;
     }
