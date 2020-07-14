@@ -11,7 +11,7 @@ if (!isset($_SESSION['empid']) or !isset($_SESSION['position'])) {
 require_once '../includes/autoloader.inc.php';
 $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']); //, $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
 $_SESSION['employee'] = $employee;
-$requests = $employee->getMyRequestsByState('pending');
+$requests = $employee->getMyRequests('pending');
 // echo json_encode($requests);
 $_SESSION['requestsByMe'] = $requests;
 ?>

@@ -30,6 +30,7 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
             'fuelType' => $this->fuelType,
             'insuranceValue' => $this->insuranceValue,
             'insuranceCompany'=>$this->insuranceCompany,
+            'assignedOfficer'=>$this->assignedOfficer,
             'state' => State::getStateString($this->state->getID()),
             'currentLocation' => $this->currentLocation];
     }
@@ -50,7 +51,7 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
 
     public function updateInfo(array $values) : void{
         //changed vehicle attributes can be analysed here
-        
+
         $this->model = $values['Model'];
         $this->purchasedYear = $values['PurchasedYear'];
         $this->value = $values['Value'];
