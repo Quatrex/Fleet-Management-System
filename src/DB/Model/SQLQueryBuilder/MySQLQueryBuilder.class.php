@@ -1,8 +1,6 @@
 <?php
 namespace DB\Model\SQLQueryBuilder;
 
-use Exception;
-
 class MySQLQueryBuilder implements SQLQueryBuilder
 {
     private static ?MySQLQueryBuilder $instance = null;
@@ -26,7 +24,7 @@ class MySQLQueryBuilder implements SQLQueryBuilder
     public function select(string $table, array $fields = ['*']) : SQLQueryBuilder
     {
         if ($this->query->getField('type') !== null) 
-            throw new Exception('SELECT, UPDATE or INSERT can only be used once in a query');
+            throw new SQLException('SELECT', 1);
         
         $sql = "SELECT " . implode(", ", $fields) . " FROM " . $table;
 
@@ -41,7 +39,7 @@ class MySQLQueryBuilder implements SQLQueryBuilder
     public function insert(string $table, array $values) : SQLQueryBuilder
     {
         if ($this->query->getField('type') !== null) 
-            throw new Exception('SELECT, UPDATE or INSERT can only be used once in a query');
+            throw new SQLException('INSERT', 1);
 
         $fields = array_keys($values);
         $sql = "INSERT INTO " . $table . " (" . implode(", ",$fields) . ") VALUES (". 
@@ -59,7 +57,7 @@ class MySQLQueryBuilder implements SQLQueryBuilder
     public function update(string $table, array $values) : SQLQueryBuilder
     {
         if ($this->query->getField('type') !== null) 
-            throw new Exception('SELECT, UPDATE or INSERT can only be used once in a query');
+            throw new SQLException('UPDATE', 1);
 
         $fields = array_keys($values);
         $fields = array_map(function($val) { return $val . "=?"; }, $fields);
@@ -74,7 +72,7 @@ class MySQLQueryBuilder implements SQLQueryBuilder
     public function where(): WhereBuilder
     {
         if ($this->query->getField('type') === null)
-            throw new Exception('SQL Query must start with SELECT, INSERT or UPDATE');
+            throw new SQLException('WHERE', 3);
             
         return WhereBuilder::getInstance($this->query);
     }
@@ -85,10 +83,10 @@ class MySQLQueryBuilder implements SQLQueryBuilder
     public function limit(int $count, int $offset = 0) : SQLQueryBuilder
     {
         if ($this->query->getField('type') === null)
-            throw new Exception('SQL Query must start with SELECT, INSERT or UPDATE');
+            throw new SQLException('LIMIT', 3);
 
         if ($this->query->getField('type') !== 'select')
-            throw new Exception('LIMIT can only be added to SELECT');
+            throw new SQLException('LIMIT can only be added to SELECT');
 
         $sql = " LIMIT " . $offset . ", " . $count;
 
@@ -102,10 +100,10 @@ class MySQLQueryBuilder implements SQLQueryBuilder
     public function orderBy(array $fields) : SQLQueryBuilder
     {
         if ($this->query->getField('type') === null)
-            throw new Exception('SQL Query must start with SELECT, INSERT or UPDATE');
+            throw new SQLException('ORDER BY', 3);
 
         if ($this->query->getField('type') !== 'select')
-            throw new Exception('ORDER BY can only be added to SELECT');
+            throw new SQLException('ORDER BY can only be added to SELECT');
 
         $values = [];
         foreach($fields as $field => $type) array_push($values, "$field $type");
@@ -121,10 +119,10 @@ class MySQLQueryBuilder implements SQLQueryBuilder
     public function join(string $table, array $conditions) : SQLQueryBuilder
     {
         if ($this->query->getField('type') === null)
-            throw new Exception('SQL Query must start with SELECT, INSERT or UPDATE');
+            throw new SQLException('INNER JOIN');
             
         if ($this->query->getField('type') === 'insert')
-            throw new Exception('JOIN can only be added to SELECT or UPDATE');
+            throw new SQLException('JOIN can only be added to SELECT or UPDATE');
 
         $tables = [];
         $values = [];

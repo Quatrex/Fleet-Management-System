@@ -1,8 +1,6 @@
 <?php
 namespace DB\Model\SQLQueryBuilder;
 
-use Exception;
-
 class WhereBuilder
 {
     private static ?WhereBuilder $instance = null;
@@ -92,10 +90,10 @@ class WhereBuilder
     function close() : WhereBuilder
     {
         if ($this->activeParentheses < 1) 
-            throw new Exception('There are no open parentheses to close');
+            throw new SQLException('There are no open parentheses to close');
 
         if (!$this->start) 
-            throw new Exception('Cannot start WHERE condition with a closing parenthesis');
+            throw new SQLException('Cannot start a WHERE condition with a closing parenthesis');
 
         $this->query->appendStatement(')');
         $this->activeParentheses--;
@@ -106,7 +104,7 @@ class WhereBuilder
     public function getWhere()
     {
         if ($this->activeParentheses !== 0)
-            throw new Exception('Parentheses are not close');
+            throw new SQLException('Parentheses are not close');
 
         $this->query;
         return MySQLQueryBuilder::getInstance($this->query);

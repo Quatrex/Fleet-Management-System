@@ -1,8 +1,6 @@
 <?php
 namespace DB\Model\SQLQueryBuilder;
 
-use Exception;
-
 class SQLQuery
 {
     private string $statement;
@@ -20,7 +18,7 @@ class SQLQuery
         if(property_exists($this,$field)){
             return $this->$field;
         }
-        throw new Exception('Field does not exist');
+        throw new SQLException($field, 2);
     }
 
     /**
