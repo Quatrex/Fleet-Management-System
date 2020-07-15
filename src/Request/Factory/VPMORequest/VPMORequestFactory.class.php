@@ -4,6 +4,7 @@ namespace Request\Factory\VPMORequest;
 use Request\State\State;
 use DB\Viewer\RequestViewer;
 use Request\Request;
+use Exception;
 
 class VPMORequestFactory
 {
@@ -18,10 +19,7 @@ class VPMORequestFactory
     {
         $acceptedStates = ['scheduled', 'approved', 'completed'];
         if (!in_array($state, $acceptedStates))
-        {
-            echo "Access Denied";
-            return null;
-        }
+            throw new Exception('Invalid state parameter');
 
         $requestViewer = new RequestViewer();
         $state = State::getStateID($state);

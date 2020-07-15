@@ -25,26 +25,15 @@ class VPMO extends Requester
 
     /**
      *
-     * Returns all approved requests
+     * Returns all requests with the given state
+     * 
+     * @param string $state 'approve', 'scheduled' or 'completed'
      *
-     * @return array(Request)
-     *
+     * @return array{Request}
      */
-    public function getApprovedRequests()
+    public function getRequests(string $state) : array
     {
-        return VPMORequestFactory::makeRequests('scheduled');
-    }
-
-    /**
-     *
-     * Returns all scheduled requests
-     *
-     * @return array(Request)
-     *
-     */
-    public function getScheduledRequests()
-    {
-        return VPMORequestFactory::makerequests('approved');
+        return VPMORequestFactory::makeRequests($state);
     }
 
     /**
