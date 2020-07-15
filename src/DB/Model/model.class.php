@@ -116,6 +116,7 @@ abstract class Model
                                         ->conditions($stateConditions,"OR")
                                         ->close()
                                         ->getWhere()
+                                        ->orderBy(['DateOfTrip' => 'ASC'])
                                     ->getSQLQuery();
 
         $result = $this->dbh->read($query);

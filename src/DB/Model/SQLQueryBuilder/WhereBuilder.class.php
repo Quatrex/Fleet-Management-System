@@ -1,6 +1,8 @@
 <?php
 namespace DB\Model\SQLQueryBuilder;
 
+use DB\Model\DatabaseHandler;
+
 class WhereBuilder
 {
     private static ?WhereBuilder $instance = null;
@@ -22,13 +24,14 @@ class WhereBuilder
 
     /**
      * Builds the conditions for WHERE statement
+     * Output is similar to "Field = Value AND|OR Field = Value"
      * 
      * @param array $conditions ['Field' => 'Value'] or ['Field' => [Values]]
      * @param string $operator @default AND | OR
      * 
      * @return WhereBuilder
      */
-    function conditions(array $conditions, string $operator = "AND") : WhereBuilder
+    public function conditions(array $conditions, string $operator = "AND") : WhereBuilder
     {
         if (empty($conditions)) return $this;
 
@@ -72,7 +75,7 @@ class WhereBuilder
      * 
      * @return WhereBuilder
      */
-    function open(string $operation = "AND") : WhereBuilder
+    public function open(string $operation = "AND") : WhereBuilder
     {
         if ($this->start)
             $this->query->appendStatement(" $operation (");
@@ -91,7 +94,7 @@ class WhereBuilder
      * 
      * @throws SQLException
      */
-    function close() : WhereBuilder
+    public function close() : WhereBuilder
     {
         if ($this->activeParentheses < 1) 
             throw new SQLException('There are no open parentheses to close');
@@ -102,6 +105,46 @@ class WhereBuilder
         $this->query->appendStatement(')');
         $this->activeParentheses--;
 
+        return $this;
+    }
+
+    /**
+     * BUILDS LIKE statements. 
+     * Output is similar to "(Field LIKE '%keyword%')"
+     * 
+     * @param string $table
+     * @param string $keyword
+     * @param string $fields ['Field'] @default = all
+     * 
+     * @return WhereBuilder
+     * @throws SQLException
+     */
+    public function like(string $table, string $keyword, array $fields = []) : WhereBuilder
+    {
+        if (!$this->start) 
+            throw new SQLException('Cannot start a WHERE condition with LIKE');
+
+        if (empty($fields))
+        {
+            // get the columns of the table
+            $columnsSQL = "SELECT `COLUMN_NAME` FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$table'";
+            $dbh = DatabaseHandler::getInstance();
+            $columnQuery = new SQLQuery();
+            $columnQuery->appendStatement($columnsSQL);
+            $columnRecords = $dbh->read($columnQuery);
+            array_walk_recursive($columnRecords, function($a) use (&$fields) { $fields[] = $a;});
+        }
+        
+        
+        //build the sql query for like
+        $sql = " AND (";
+        $values = array_fill(0, sizeof($fields), "%$keyword%");
+        $conditions = array_map(function($column) { return "$column LIKE ?";}, $fields);
+        $sql .= implode(" OR ", $conditions);
+        $sql .= ")";
+
+        $this->query->appendStatement($sql);
+        $this->query->appendValues($values);
         return $this;
     }
 
