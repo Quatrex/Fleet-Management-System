@@ -68,7 +68,9 @@ class WhereBuilder
     /**
      * Opens a brackets for multiple conditions
      * 
-     * @param string $operation - join with previous condition
+     * @param string $operation @default = AND | OR - with previous condition
+     * 
+     * @return WhereBuilder
      */
     function open(string $operation = "AND") : WhereBuilder
     {
@@ -85,7 +87,9 @@ class WhereBuilder
 
     /**
      * Closes the parenthesis
+     * @return WhereBuilder
      * 
+     * @throws SQLException
      */
     function close() : WhereBuilder
     {
@@ -101,7 +105,13 @@ class WhereBuilder
         return $this;
     }
 
-    public function getWhere()
+    /**
+     * Returns the WHERE statement
+     * 
+     * @return SQLQueryBuilder
+     * @throws SQLException
+     */
+    public function getWhere() : SQLQueryBuilder
     {
         if ($this->activeParentheses !== 0)
             throw new SQLException('Parentheses are not close');

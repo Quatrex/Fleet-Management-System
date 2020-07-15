@@ -20,6 +20,7 @@ class MySQLQueryBuilder implements SQLQueryBuilder
 
     /**
      * @inheritDoc
+     * @throws SQLException
      */
     public function select(string $table, array $fields = ['*']) : SQLQueryBuilder
     {
@@ -35,6 +36,7 @@ class MySQLQueryBuilder implements SQLQueryBuilder
 
     /**
      * @inheritDoc
+     * @throws SQLException
      */
     public function insert(string $table, array $values) : SQLQueryBuilder
     {
@@ -53,6 +55,7 @@ class MySQLQueryBuilder implements SQLQueryBuilder
 
     /**
      * @inheritDoc
+     * @throws SQLException
      */
     public function update(string $table, array $values) : SQLQueryBuilder
     {
@@ -69,6 +72,10 @@ class MySQLQueryBuilder implements SQLQueryBuilder
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     * @throws SQLException
+     */
     public function where(): WhereBuilder
     {
         if ($this->query->getField('type') === null)
@@ -79,6 +86,7 @@ class MySQLQueryBuilder implements SQLQueryBuilder
 
     /**
      * @inheritDoc
+     * @throws SQLException
      */
     public function limit(int $count, int $offset = 0) : SQLQueryBuilder
     {
@@ -96,6 +104,7 @@ class MySQLQueryBuilder implements SQLQueryBuilder
 
     /**
      * @inheritDoc
+     * @throws SQLException
      */
     public function orderBy(array $fields) : SQLQueryBuilder
     {
@@ -115,6 +124,7 @@ class MySQLQueryBuilder implements SQLQueryBuilder
 
     /**
      * @inheritDoc
+     * @throws SQLException
      */
     public function join(string $table, array $conditions) : SQLQueryBuilder
     {

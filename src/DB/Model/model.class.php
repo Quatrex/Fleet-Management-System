@@ -42,8 +42,7 @@ abstract class Model
      * A general code to generate SQL statement to get records from the database.
      * 
      * @param array $conditions ['Field' => 'Value'] or ['Field' => [Values]]
-     * @param array $wantedFields @default = all
-     * @param string $whereOP @default = "AND" | "OR"
+     * @param array $wantedFields ['Field'] @default = all
      * 
      * @return array
      */
@@ -81,7 +80,7 @@ abstract class Model
      * 
      * @param array $joinConditions [['Table1' => 'Field1', 'Table2' => 'Field2']]
      * @param array $conditions ['Field' => 'Value'] or ['Field' => [Values]]
-     * @param array $wantedFields @default = all
+     * @param array $wantedFields ['Field'] @default = all
      * 
      * @return array
      */
@@ -101,6 +100,12 @@ abstract class Model
 
     /**
      * Generates SQL statement to get records for multiple states
+     * 
+     * @param array $conditions ['Field' => 'Value'] or ['Field' => [Values]] - primary conditions
+     * @param array $stateConditions ['Field' => 'Value'] or ['Field' => [Values]] - state conditions
+     * @param array $wantedFields ['Field'] @default = all
+     * 
+     * @return array
      */
     public function getRecordsFromMultipleStates(array $conditions, array $stateConditions, array $wantedFields = ['*']) : array
     {

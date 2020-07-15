@@ -14,6 +14,12 @@ class SQLQuery
         $this->type = null;
     }
 
+    /**
+     * @param string $field
+     * 
+     * @return string|array
+     * @throws SQLException
+     */
     public function getField(string $field){ 
         if(property_exists($this,$field)){
             return $this->$field;
