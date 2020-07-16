@@ -95,4 +95,16 @@ abstract class RequestModel extends Model
         $conditions = ['RequestID' => $requestID];
         parent::updateRecord($values, $conditions);
     }
+
+    protected function getLastRequestID(string $empID)
+    {
+        $query = $this->queryBuilder->select($this->tableName, ['RequestID'])
+                                    ->where()
+                                        ->conditions(['RequesterID' => $empID])
+                                        ->getWhere()
+                                    ->orderBy(['RequestID' => 'DESC'])
+                                    ->limit(1)
+                                    ->getSQLQuery();
+        return $this->dbh->read($query);
+    }
 }

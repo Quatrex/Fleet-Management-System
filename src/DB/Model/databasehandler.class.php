@@ -44,10 +44,7 @@ class DatabaseHandler
     {
         $stmt = $this->pdo->prepare($query->getField('statement'));
         $stmt->execute($query->getField('values'));
-        $results = array();
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            array_push($results, $row);
-        }
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $query->reset();
         return $results;
     }

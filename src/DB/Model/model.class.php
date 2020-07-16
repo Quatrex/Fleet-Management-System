@@ -10,7 +10,7 @@ abstract class Model
 {
     protected $tableName;
     protected DatabaseHandler $dbh;
-    private SQLQueryBuilder $queryBuilder;
+    protected SQLQueryBuilder $queryBuilder;
 
     public function __construct(String $tableName)
     {
