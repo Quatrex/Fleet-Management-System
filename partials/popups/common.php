@@ -300,7 +300,7 @@
             <hr>
         </div>
         <div class="popup-body">
-            <div >
+            <div>
                 <div class="center" style="text-align: center; ">
                     <img src="../images/default-user-image.png" class="form-image" style="padding:5px; width:600p;text-align: center; cursor:pointer" id="change-profile-picture-button">
                 </div>
@@ -477,4 +477,14 @@
         <p id="alert-message" style=" font-weight:500;font-size: initial;"></p>
 
     </div>
+</div>
+
+
+<div id="overlay">
+    <div class="cv-spinner">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
 </div>

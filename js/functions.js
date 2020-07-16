@@ -35,8 +35,12 @@ function writeToDatabase(event, callback = () => {}) {
 		type: 'POST',
 		data: data,
 		cache: false,
+		beforeSend: function () {
+			$('#overlay').fadeIn(300);
+		},
 		success: function (returnArr) {
 			console.log(returnArr);
+			$('#overlay').fadeOut(300);
 			if (type === 'form') {
 				$(`#${trigger}_form`).trigger('reset');
 			}
@@ -196,5 +200,3 @@ function removeClass(elements, className) {
 		}
 	});
 }
-
-
