@@ -138,8 +138,7 @@ class PrivilegedEmployeeFactory
             case 'admin':
                 return new Administrator($values);
             default:
-                echo 'Invalid Position Parameter'; // TODO: throw excpetion
-                return null;
+                throw new Exception('Invalid Position Parameter'); // TODO: throw excpetion
         }
     }
 }
