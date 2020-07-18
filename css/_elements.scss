@@ -15,8 +15,8 @@
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
     color: #495057;
-    background-color: #F3F3F9;
-    border-color: #dee2e6 #dee2e6 #F3F3F9;
+    background-color: #f3f3f9;
+    border-color: #dee2e6 #dee2e6 #f3f3f9;
 }
 
 .default-tab .nav-link {
@@ -84,4 +84,13 @@ a {
         max-width: 50%;
         height: auto;
     }
+}
+
+#request-vehicle-button {
+    height: 55px;
+    width: 200px;
+}
+
+#leasing-details {
+    display: none;
 }

@@ -100,12 +100,6 @@ document.querySelector('#position-select').addEventListener('change', () => {
 	}
 });
 
-//**********************Request Table ***************/
-document.querySelector('#requestTable').onclick = (event) => {
-	let tableRow = event.target.parentElement;
-	document.getElementById('request-details-popup').style.display = 'block';
-};
-
 document.querySelector('#driverTable').onclick = (event) => {
 	let tableRow = event.target.parentElement;
 	let row_id = tableRow.children[0].id.split('-');
@@ -127,14 +121,7 @@ document.querySelector('#driverTable').onclick = (event) => {
 	});
 	document.getElementById('driver-profile-form').style.display = 'block';
 };
-// //Driver update profile
-// document.querySelector('#driver-profile-form-close').onclick = () => {
-// 	document.getElementById('driver-profile-form').style.display = 'none';
-// };
 
-// document.querySelector('#driver-profile-confirm').onclick = () => {
-// 	document.getElementById('driver-profile-form').style.display = 'none';
-// };
 //Driver Profile
 ///Driver profile close//
 document.querySelector('#driver-profile-form-close').addEventListener('click', () => {
@@ -221,14 +208,3 @@ document.querySelector('#confirm-alert-close').addEventListener('click', () => {
 	document.getElementById('cancel-request-alert').style.display = 'none';
 });
 
-//no button-click
-document.querySelector('#confirm-alert-no-button').addEventListener('click', () => {
-	document.getElementById('cancel-request-alert').style.display = 'none';
-});
-
-//yes button-click
-document.querySelector('#confirm-alert-yes-button').addEventListener('click', () => {
-	document.querySelectorAll('.popup').forEach((popup) => {
-		popup.style.display = 'none';
-	});
-});

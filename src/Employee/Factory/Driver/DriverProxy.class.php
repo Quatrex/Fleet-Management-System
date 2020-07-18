@@ -57,6 +57,7 @@ class DriverProxy implements Driver, JsonSerializable
             'firstName' => $this->driver->getField('firstName'),
             'employedDate' => $this->driver->getField('employedDate'),
             'firstName' => $this->driver->getField('firstName'),
+            'lastName' => $this->driver->getField('lastName'),
             'assignedVehicleID' => $this->driver->getField('assignedVehicleID'),
             'licenseID' => $this->driver->getField('licenseID'),
             'licenseExpDate' => $this->driver->getField('licenseExpDate'),

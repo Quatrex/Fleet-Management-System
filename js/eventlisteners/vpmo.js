@@ -1,5 +1,5 @@
 //*******************Assign Table *******************/
-document.querySelector('#approveRequestTable').onclick = (event) => {
+document.querySelector('#assignRequestTable').onclick = (event) => {
 	let tableRow = event.target.parentElement;
 	lastClickedRow = tableRow.id;
 	let row_id = tableRow.children[0].id.split('-');
@@ -33,12 +33,37 @@ document.querySelector('#approveRequestTable').onclick = (event) => {
 
 };
 
-//**********************Ongoing Table ***************/
-document.querySelector('#ongoingTable').onclick = (event) => {
+//************Scheduled History Table ******************/
+document.querySelector('#scheduledHistoryTable').onclick = (event) => {
+	let tableRow = event.target.parentElement;
+	let row_id = tableRow.children[0].id.split('-');
+	request_ID = row_id;
+	let entity = scheduledRequests[row_id[1]];
+	changeInnerHTML({
+		'#requestID-preview': entity.RequestId,
+		'#status-preview': entity.Status,
+		'#time-preview': entity.TimeOfTrip,
+		'#date-preview': entity.DateOfTrip,
+		'#pickup-preview': entity.PickLocation,
+		'#drop-preview': entity.DropLocation,
+		'#purpose-preview': entity.Purpose,
+		'#joComment-preview': entity.JOComment,
+		'#caoComment-preview': entity.CAOComment,
+		'#driver-preview': `${entity.Driver.firstName} ${entity.Driver.lastName}`,
+		'#vehicle-preview': entity.Vehicle.registration,
+	});
+	changeDisplay(document.querySelectorAll('.scheduled-preview'), 'show');
+	changeDisplay([document.querySelector('#request-cancel')], 'hide');
+	document.getElementById('request-preview-popup').style.display = 'block';
+};
+
+
+//**********************Ongoing Trip Table ***************/
+document.querySelector('#ongoingTripTable').onclick = (event) => {
 	let tableRow = event.target.parentElement;
 	lastClickedRow = tableRow.id;
 	let row_id = tableRow.children[0].id.split('-');
-	let entity = requestsToAssign[row_id[1]];
+	let entity = scheduledRequests[row_id[1]];
 	lastClickedRow = tableRow.id;
 	changeInnerHTML({
 		'#ongoing-requester': `${entity.Requester.FirstName} ${entity.Requester.LastName}`,
@@ -48,6 +73,8 @@ document.querySelector('#ongoingTable').onclick = (event) => {
 		'#ongoing-pickUpLocation': entity.PickLocation,
 		'#ongoing-dropOffLocation': entity.DropLocation,
 		'#ongoing-purpose': entity.Purpose,
+		'#ongoing-driver': `${entity.Driver.firstName} ${entity.Driver.lastName}`,
+		'#ongoing-vehicle': entity.Vehicle.registration,
 	});
 	document.getElementById('ongoing-table-details-popup').style.display = 'block';
 };
@@ -299,3 +326,90 @@ document.querySelector('#selectionDriverTable').onclick = (event) => {
 		document.querySelector('#select-driver-tooltip').title = 'Select a driver to enable';
 	}
 };
+
+
+//**********Driver  */
+document.querySelector('#driverTable').onclick = (event) => {
+	let tableRow = event.target.parentElement;
+	let row_id = tableRow.children[0].id.split('-');
+	let entity = drivers[row_id[1]];
+	lastClickedRow = tableRow.id;
+	changeValue({
+		'.driver-driverIDCopy': entity.driverId,
+		'.driver-driverID': entity.driverId,
+		'.driver-employedDate': entity.employedDate,
+		'.driver-firstName': entity.firstName,
+		'.driver-lastName': entity.lastName,
+		'.driver-address': entity.address,
+		'.driver-assignedVehicleID': entity.assignedVehicleID,
+		'.driver-contactNo': entity.ContactNo,
+		'.driver-licenseID': entity.licenseID,
+		'.driver-licenseType': entity.licenseType,
+		'.driver-licenseExpDate': entity.licenseExpDate,
+		'.driver-email': entity.Email,
+	});
+	document.getElementById('driver-profile-form').style.display = 'block';
+};
+
+//Driver Profile
+///Driver profile close//
+document.querySelector('#driver-profile-form-close').addEventListener('click', () => {
+	document.getElementById('driver-profile-form').style.display = 'none';
+});
+
+document.querySelector('#driver-profile-edit-button').addEventListener('click', () => {
+	document.getElementById('driver-profile-form').style.display = 'none';
+	document.getElementById('confirm-driver-profile').disabled = true;
+	document.querySelector('#edit-confirm-tooltip').title = 'Make changes to enable';
+	document.getElementById('driver-profile-edit-form').style.display = 'block';
+});
+
+document.querySelector('#driver-delete').addEventListener('click', () => {
+	document.getElementById('delete-driver-alert').style.display = 'block';
+});
+
+document.querySelector('#confirm-driver-delete-button').addEventListener('click', () => {
+	document.getElementById('delete-driver-alert').style.display = 'none';
+	document.getElementById('driver-profile-form').style.display = 'none';
+	writeToDatabase('DeleteDriver_button_employeeID', () => {
+		deleteRow(lastClickedRow);
+	});
+});
+
+document.querySelector('#driver-delete-cancel-button').addEventListener('click', () => {
+	document.getElementById('delete-driver-alert').style.display = 'none';
+	document.getElementById('driver-profile-form').style.display = 'block';
+});
+
+//Driver Edit form
+document.querySelector('#driver-profile-edit-form-close').addEventListener('click', () => {
+	changeInnerHTML({
+		'#cancel-alert-header': 'Cancel Update',
+		'#cancel-alert-message': 'Are you sure you want cancel updates?',
+	});
+	document.getElementById('cancel-request-alert').style.display = 'block';
+});
+
+document.querySelector('#driver-profile-edit-cancel-button').addEventListener('click', () => {
+	document.getElementById('driver-profile-edit-form').style.display = 'none';
+	document.getElementById('driver-profile-form').style.display = 'block';
+});
+
+document.querySelector('#confirm-driver-profile').addEventListener('click', () => {
+	if (compareValues('UpdateDriver_form', 'DriverProfile_form')) {
+		writeToDatabase('UpdateDriver_form');
+	}
+	document.getElementById('driver-profile-edit-form').style.display = 'none';
+});
+
+document.querySelectorAll('.driver-edit').forEach((element) => 
+	element.addEventListener('keyup', () => {
+		if (compareValues('UpdateDriver_form', 'DriverProfile_form')) {
+			document.querySelector('#edit-confirm-tooltip').title = '';
+			document.getElementById('confirm-driver-profile').disabled = false;
+		} else {
+			document.querySelector('#edit-confirm-tooltip').title = 'Make changes to enable';
+			document.getElementById('confirm-driver-profile').disabled = true;
+		}
+	})
+);

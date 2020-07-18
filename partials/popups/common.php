@@ -167,7 +167,7 @@
                     <p>Status</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="request-status-preview">Pending</p>
+                    <p id="status-preview">Pending</p>
                 </div>
             </div>
 
@@ -213,6 +213,38 @@
                 </div>
                 <div class="col-sm-6">
                     <p id="purpose-preview">Text</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>JO Comment</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="joComment-preview">Text</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>CAO Comment</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="caoComment-preview">Text</p>
+                </div>
+            </div>
+            <div class="row scheduled-preview">
+                <div class="col-sm-6">
+                    <p>Driver</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="driver-preview">Text</p>
+                </div>
+            </div>
+            <div class="row scheduled-preview">
+                <div class="col-sm-6">
+                    <p>Vehicle</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="vehicle-preview">Text</p>
                 </div>
             </div>
         </div>
