@@ -1,0 +1,100 @@
+.nav-link {
+    color: white;
+    &:hover {
+        color: white;
+    }
+}
+
+.hvrcenter {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px transparent;
+    position: relative;
+    overflow: hidden;
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        left: 50%;
+        right: 50%;
+        bottom: 0;
+        background: #ecf0f1;
+        height: 2px;
+        -webkit-transition-property: left, right;
+        transition-property: left, right;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        -webkit-transition-timing-function: ease-out;
+        transition-timing-function: ease-out;
+    }
+    &:hover:before,
+    :focus:before {
+        left: 0;
+        right: 0;
+    }
+}
+
+.main-nav {
+    align-items: stretch;
+    background-color: #1c313a;
+    .logo {
+        width: 50px;
+        height: 58px;
+    }
+    &-link {
+        align-items: stretch;
+    }
+    .nav-link {
+        font-size: 0.95rem;
+        font-weight: 500;
+        z-index: 1000;
+        line-height: 50px;
+    }
+    .active {
+        border-bottom: 4px solid #ecf0f1;
+        font-weight: bold;
+        color: white;
+    }
+    .tab-info {
+        .profile-dropdown {
+            box-shadow: 0px 1px 17px 2px rgba(0, 0, 0, 0.78);
+            .user-dropdown {
+                text-align: center;
+                margin: 20px 33px;
+                img {
+                    height: 100px;
+                    width: 100px;
+                    align-items: center;
+                }
+                >p {
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+.secondary-nav-bar {
+    background-color: #718792;
+    nav {
+        font-size: 1rem;
+        height: 4rem;
+        a.active {
+            background-color: #457b9d !important;
+            font-weight: bold;
+            color: white;
+        }
+    }
+}
+
+.tab-pane {
+    .card {
+        min-height: 58%;
+    }
+}
+
+.dropdown-toggle::after {
+    content: none !important;
+}

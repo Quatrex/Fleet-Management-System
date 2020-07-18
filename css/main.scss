@@ -1,13 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700");
-@import 'header';
 @import 'footer';
 @import 'elements';
 @import 'popup';
 @import 'config';
 @import 'responsive';
-@import 'datatable';
-@import 'form';
-@import 'vehicle';
+@import 'spinner';
+@import 'nav';
 body {
     display: block;
     margin: 0;

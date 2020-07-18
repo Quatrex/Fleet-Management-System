@@ -20,30 +20,36 @@ document.querySelector("#justifyRequestTable").onclick = (event) => {
   document.getElementById('deny-requestID').value = entity.RequestId;
 };
 
-//************Denied Table ******************/
-document.querySelector("#deniedTable").onclick = (event) => {
+//************Justified History Table ******************/
+document.querySelector("#justifiedHistoryTable").onclick = (event) => {
   let tableRow = event.target.parentElement;
   let row_id = tableRow.children[0].id.split("-");
   request_ID = row_id;
-  let entity = requestEntity[row_id[1]];
+  let entity = justifiedRequests[row_id[1]];
   changeInnerHTML({
-    "#date-preview": entity.date,
-    "#time-preview": entity.time,
-    "#pickup-preview": entity.pickLocation,
-    "#drop-preview": entity.dropLocation,
+		'#requestID-preview': entity.RequestId,
+		'#status-preview': entity.Status,
+    '#time-preview': entity.TimeOfTrip,
+    '#date-preview': entity.DateOfTrip,
+		'#pickup-preview': entity.PickLocation,
+		'#drop-preview': entity.DropLocation,
+		'#purpose-preview': entity.Purpose,
+		'#joComment-preview': entity.JOComment,
+		'#caoComment-preview': entity.CAOComment,
+		'#driver-preview': `${entity.Driver.firstName} ${entity.Driver.lastName}`,
+		'#vehicle-preview': entity.Vehicle.registration,
   });
-  document.getElementById("request-details-popup").style.display = "block";
+  if((entity.Vehicle).hasOwnProperty('registration')){
+		changeDisplay(document.querySelectorAll('.scheduled-preview'), 'show');
+  }
+	else{
+		changeDisplay(document.querySelectorAll('.scheduled-preview'), 'hide');
+    
+  }
+	changeDisplay([document.querySelector('#request-cancel')], 'hide');
+	document.getElementById('request-preview-popup').style.display = 'block';
 };
 
-//***********************Request Denied Preview**************/
-document
-  .querySelector("#request-denied-preview-close")
-  .addEventListener("click", () => {
-    document.getElementById("request-denied-preview-popup").style.display =
-      "none";
-  });
-
-//***********End of request Denied************/
 
 //***********************Justify Request ********************/
 

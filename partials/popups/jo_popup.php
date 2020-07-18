@@ -1,90 +1,3 @@
-    <!--Denied Table request preview-->
-    <div class="popup" id="request-denied-table-preview-popup">
-        <div class="popup-content">
-            <div class="popup-header">
-                <span class="close" id="request-denied-preview-close">&times;</span>
-                <h3>Preview</h3>
-                <hr>
-            </div>
-            <div class="popup-body">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>Requester</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>Text</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>Designation</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>Text</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>Date</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>DD-MM-YYYY</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>Time</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>HH:MM: AM/PM</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>Pick-up Location</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>Text</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>Drop-off Location</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>Text</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>Status</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>Text</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>Purpose</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>Text</p>
-                    </div>
-                </div>
-
-            </div>
-            <div class="popup-footer">
-            </div>
-        </div>
-    </div>
-
     <!--Justify Table Row click Preview-->
     <div class="popup" id="request-justify-preview-popup">
         <!-- Request details content -->
@@ -159,7 +72,7 @@
                     </div>
                 </div>
 
-                <input type="button" value="Approve Request" class="btn btn-primary" id="request-details-approve-button">
+                <input type="button" value="Justify Request" class="btn btn-primary" id="request-details-approve-button">
                 <input type="button" value="Decline" class="btn btn-danger" id="request-details-decline-button">
 
             </div>

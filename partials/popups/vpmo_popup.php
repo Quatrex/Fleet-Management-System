@@ -77,7 +77,7 @@
                         <p>Driver</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="ongoing-driver">Text</p>
                     </div>
                 </div>
 
@@ -86,7 +86,7 @@
                         <p>Vehicle</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Text</p>
+                        <p id="ongoing-vehicle">Text</p>
                     </div>
                 </div>
 
@@ -691,6 +691,217 @@
                 <input type="button" value="No" class="btn btn-primary" id="confirm-endtrip-no-button">
             </div>
             <div class="popup-footer">
+            </div>
+        </div>
+    </div>
+
+    <!--Driver profile Form-->
+    <div class="popup" id="driver-profile-form">
+        <!-- Request Form content -->
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="driver-profile-form-close">&times;</span>
+                <h2>Driver</h2>
+                <hr>
+            </div>
+            <div class="popup-body">
+                <img src="../images/default-user-image.png" class="form-image">
+                <div id="submit-form-wrapper">
+                    <div class="basic-form">
+                        <form id="DriverProfile_form">
+                            <input class="form-control py-2 border-right-0 border driver-driverIDCopy" type="hidden" name="driverIDCopy">
+                            <div class="form-group row mb-4">
+                                <div class="form-group col-md-6">
+                                    <label>Driver ID</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border driver-driverID" type="text" name="driverID" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Employed Date</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border driver-employedDate" type="date" name="employedDate" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <div class="form-group col-md-6">
+                                    <label>First Name</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border driver-firstName" type="text" name="firstName" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Last Name</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border driver-lastName" type="text" name="lastName" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4 mx-auto">
+                                <label>Address</label>
+                                <div class="input-group">
+                                    <input class="form-control py-2 border-right-0 border driver-address" type="text" name="address" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <div class="form-group col-md-4">
+                                    <label>Assigned Vehicle</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border driver-assignedVehicleID" type="text" name="assignedVehicleID" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Contact Number</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border driver-contactNo" type="text" name="contactNo" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Email</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border driver-email" type="text" name="email" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <div class="form-group col-md-4">
+                                    <label>License ID</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border driver-licenseID" type="text" name="designation" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>License Type</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border driver-licenseType" type="text" name="contactNo" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>License Expirey Date</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border driver-licenseExpDate" type="text" name="email" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <input type="button" value="Edit" class="btn btn-primary" id="driver-profile-edit-button">
+                        <input type="button" class="btn btn-danger" value="Delete" id="driver-delete">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Driver profile Form-->
+    <div class="popup" id="driver-profile-edit-form">
+        <!-- Request Form content -->
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="driver-profile-edit-form-close">&times;</span>
+                <h2>Driver</h2>
+                <hr>
+            </div>
+            <div class="popup-body">
+                <img src="../images/default-user-image.png" class="form-image">
+                <div id="submit-form-wrapper">
+                    <div class="basic-form">
+                        <form id="UpdateDriver_form">
+                            <input class="form-control py-2 border-right-0 border driver-driverIDCopy" type="hidden" name="driverIDCopy">
+                            <div class="form-group row mb-4">
+                                <div class="form-group col-md-6">
+                                    <label>Driver ID</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 driver-edit border driver-driverID" type="text" name="driverID">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Employed Date</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 driver-edit border driver-employedDate" type="date" name="employedDate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <div class="form-group col-md-6">
+                                    <label>First Name</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 driver-edit border driver-firstName" type="text" name="firstName">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Last Name</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 driver-edit border driver-lastName" type="text" name="lastName">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mx-autorow mb-4">
+                                <label>Address</label>
+                                <div class="input-group">
+                                    <input class="form-control py-2 border-right-0 driver-edit border driver-address" type="text" name="address">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <div class="form-group col-md-4">
+                                    <label>Assigned Vehicle</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 driver-edit border driver-assignedVehicleID" type="text" name="assignedVehicleID">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Contact Number</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 driver-edit border driver-contactNo" type="text" name="contactNo">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Email</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 driver-edit border driver-email" type="text" name="email">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <div class="form-group col-md-4">
+                                    <label>License ID</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 driver-edit border driver-licenseID" type="text" name="designation">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>License Type</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 driver-edit border driver-licenseType" type="text" name="contactNo">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>License Expirey Date</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 driver-edit border driver-licenseExpDate" type="text" name="email">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <span class="d-inline-block" id="edit-confirm-tooltip" data-toggle="tooltip" title="Make changes to enable"><input type="button" class="btn btn-success" value="Confirm" id="confirm-driver-profile" disabled></span>
+                        <input type="button" value="Cancel" class="btn btn-primary" id="driver-profile-edit-cancel-button">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Delete Driver Alert-->
+    <div class="popup" id="delete-driver-alert">
+        <!-- Confirm alert content -->
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="confirm-alert-close">&times;</span>
+                <h3>Delete Driver</h3>
+                <hr>
+            </div>
+            <div class="popup-body">
+                <p>Are you sure you want to delete driver?</p>
+                <input type="button" value="Yes" class="btn btn-danger" id="confirm-driver-delete-button">
+                <input type="button" value="No" class="btn btn-primary" id="driver-delete-cancel-button">
             </div>
         </div>
     </div>
