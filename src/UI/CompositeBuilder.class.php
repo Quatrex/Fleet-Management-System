@@ -12,7 +12,7 @@ class CompositeBuilder
         $this->parent = $parent;
     }
 
-    public function createComposite(string $tag,  array $attributes = []): CompositeBuilder
+    public function createComposite(string $tag='div',  array $attributes = []): CompositeBuilder
     {
         $this->compositeElement = new HTMLCompositeElement($tag);
         $this->compositeElement->addAttributes($attributes);
@@ -36,6 +36,12 @@ class CompositeBuilder
         return $this;
     }
 
+    public function addArrayToContent(array $components)
+    {
+        $this->compositeElement->addToContent($components);
+        return $this;
+    }
+
     public function getComposite(): HTMLCompositeElement
     {
         return $this->compositeElement;
@@ -55,8 +61,16 @@ class CompositeBuilder
         $this->compositeElement->addToContent([$element]);
         return $this;
     }
+
     public function show(): void
     {
         $this->compositeElement->show();
     }
+
+    // public function reset()
+    // {
+    //     $this->compositeElement=null;
+    //     $this->parent=null;
+    //     return $this;
+    // }
 }

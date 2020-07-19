@@ -26,7 +26,6 @@ class HTMLBuilder
     {
         $i=0;
         $navComList=[];
-        $navBuilder= new CompositeBuilder();
         foreach ($navList as $nav) {
             
             if ($i==0) {
@@ -92,23 +91,54 @@ class HTMLBuilder
         return $this;
     }
 
-    public function myRequests(array $requests): HTMLBuilder
+    public function createSecondaryNavBar(array $navList):HTMLBuilder
+    {
+        $i=0;
+        $navComList=[];
+        foreach ($navList as $nav) {
+            
+            if ($i==0) {
+                $this->elementBuilder
+                    ->createElement('a', ['class'=>"nav-item nav-link active hvrcenter", 'data-toggle'=>"tab", 'href'=>'#'.str_replace(' ','',$nav)],[$nav]);
+            } else {
+                $this->elementBuilder
+                    ->createElement('a', ['class'=>"nav-item nav-link hvrcenter", 'data-toggle'=>"tab", 'href'=>'#'.str_replace(' ','',$nav)],[$nav]);
+            }
+            
+            $navCom=$this->elementBuilder->getElement();
+            array_push($navComList,$navCom);
+            $i++;
+        }
+        $this->compositeBuilder
+            ->createComposite('div',['class'=>'secondary-nav-bar'])
+            ->composite()
+                ->createComposite('nav',['class'=>'pt-3 mb-3'])
+                ->composite()
+                    ->createComposite('div',['class'=>'nav nav-pills justify-content-start ml-5'])
+                    ->addArrayToContent($navComList)
+                    ->get()
+                ->get()
+            ->show();
+        return $this;
+    }
+
+    public function myRequests(array $requests,string $state='Pending'): HTMLBuilder
     {
         $inputButton = $this->elementBuilder
             ->createElement('input', ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "request-vehicle-button"])
             ->getElement();
         $heading = $this->elementBuilder
-            ->createElement('h4', [], ['Your Pending Requests'])
+            ->createElement('h4', [], ['Your ' . $state . ' Requests'])
             ->getElement();
         $i = 0;
         $requestElements = [];
         $cardBuilder = new CardBuilder();
         foreach ($requests as $request) {
-            $requestElement= $cardBuilder
-                ->createCard(['class' => 'card request-card'])
+            $requestElement= $this->compositeBuilder
+                ->createComposite('div',['class' => 'card request-card','id'=> strtolower($state) . 'RequestCard-'.htmlentities($request->getField('requestID')),'style'=>'z-index:2;'])
                 ->composite()
-                    ->createComposite('div',['class'=>'card-body description'])
-                    ->addElement('span',['class'=>'request-id','id'=> 'request-' . $i],['Requset id: ' . htmlentities($request->getField('requestID'))])
+                    ->createComposite('div',['class'=>'description'])
+                    ->addElement('span',['class'=>'request-id','id'=> strtolower($state) . '-request-' . $i],['Requset id: ' . htmlentities($request->getField('requestID'))])
                     ->addElement('h1',['class'=>'card-title'],['For: ' . htmlentities($request->getField('purpose'))])
                     ->addElement('h1',['class'=>'card-title'],['Status: ' . htmlentities($request->getField('state'))])
                     ->addElement('hr')

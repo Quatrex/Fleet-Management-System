@@ -29,8 +29,8 @@ $_SESSION['scheduledRequests'] = $scheduledRequests;
 <?php include '../partials/head.php'; ?>
 
 <body>
-       <!-- Main Nav Bar -->
-       <nav class="main-nav navbar navbar-expand-md navbar-dark py-0">
+    <!-- Main Nav Bar -->
+    <nav class="main-nav navbar navbar-expand-md navbar-dark py-0">
         <a class="navbar-brand mr-auto" href="#"><img src="../images/national-logo.png" class="logo img-fluid"></a>
         <button class="navbar-toggler my-2" type="button" data-toggle="collapse" data-target="#navbarContent">
             <span class="navbar-toggler-icon"></span>
@@ -446,7 +446,6 @@ $_SESSION['scheduledRequests'] = $scheduledRequests;
         const pastRequests = <?php echo json_encode(($_SESSION['pastRequests'])) ?>;
         const requestsToAssign = <?php echo json_encode(($_SESSION['requestsToAssign'])) ?>;
         const scheduledRequests = <?php echo json_encode(($_SESSION['scheduledRequests'])) ?>;
-
     </script>
     <script src="../js/functions.js"></script>
     <script src="../js/eventlisteners/common.js"></script>
