@@ -11,7 +11,7 @@ require_once '../includes/autoloader.inc.php';
 $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
 $requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved']);
 $ongoingRequests = $employee->getMyRequests(['scheduled']);
-$pastRequests = $employee->getMyRequests(['denied', 'expired', 'cancelled', 'completed']);
+$pastRequests = $employee->getRequests('completed');
 $vehicles = $employee->getVehicles();
 $requestsToAssign = $employee->getRequests('approved');
 $drivers = $employee->getDrivers();
@@ -323,7 +323,7 @@ $_SESSION['scheduledRequests'] = $scheduledRequests;
                                         <tbody>
                                             <?php
                                             $i = 0;
-                                            foreach ($scheduledRequests as $request) : ?>
+                                            foreach ($pastRequests as $request) : ?>
                                                 <tr id="scheduledHistoryTable_<?php echo $request->getField('requestID') ?>">
                                                     <th id="request-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
                                                     <td><?php echo $request->getField('purpose') ?></td>

@@ -14,7 +14,7 @@ abstract class VehicleModel extends Model
     protected function getRecordByID($registrationNo, $isLeased)
     {;
         $joinConditions = [['vehicle' => 'RegistrationNo', 'leased_vehicle' => 'RegistrationNo']];
-        $conditions = ['RegistrationNo' => $registrationNo, 'IsDeleted' => 0];
+        $conditions = ['vehicle.RegistrationNo' => $registrationNo, 'IsDeleted' => 0];
         $results = $isLeased ? parent::getRecordsFromTwo($joinConditions, $conditions)
             : parent::getRecords($conditions);
         return $results[0];
