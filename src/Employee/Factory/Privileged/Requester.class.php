@@ -7,7 +7,7 @@ class Requester extends PrivilegedEmployee
 {
     public function placeRequest(array $values){
         $values ['RequesterID'] = $this->empID;
-        $request = RequesterRequestFactory::makeNewRequest($values);
+        return RequesterRequestFactory::makeNewRequest($values);
     }
 
     public function cancelRequest($requestID){

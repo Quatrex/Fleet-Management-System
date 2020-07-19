@@ -1,20 +1,15 @@
 <?php
 
-use EmailClient\EmailClient;
-use EmailClient\INotifiableRequest;
+use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
 
 include_once '../includes/autoloader.inc.php';
+header("Content-type: application/json; charset=utf-8");
 
-class Request implements INotifiableRequest
-{
-    public function getField(string $field)
-    {
-        if ($field == 'requestID')
-            return '53';
-    }
-}
-
-$ec = EmailClient::getInstance();
-// $ec->notifyRequestSubmission(new Request);
-$ec->notifyJustificationApprove(new Request);
-echo "Done";
+$requester = PrivilegedEmployeeFactory::makeEmployee(1);
+$values = ['DateOfTrip' => '2020-10-21',
+        'TimeOfTrip' => '10:21:00',
+        'DropLocation' => 'Gampaha',
+        'PickLocation' => 'Colombo',
+        'Purpose' => 'Meeting'];
+$request = $requester->placeRequest($values);
+echo json_encode($request);
