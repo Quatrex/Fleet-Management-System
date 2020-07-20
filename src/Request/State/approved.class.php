@@ -27,8 +27,6 @@ class Approved extends State {
 
     public function schedule(RealRequest $request) : void 
     {
-        $request->getField('vehicle')->allocate();
-        $request->getField('driver')->allocate();
         $request->setState(Scheduled::getInstance());
         $this->emailClient->notifySchedule($request);
     }
