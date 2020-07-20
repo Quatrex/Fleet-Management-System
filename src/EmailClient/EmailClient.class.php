@@ -14,6 +14,7 @@ class EmailClient {
     {
         $this->mailer = new PHPMailerAdapter();
         $this->mailer->config();
+        if (!isset($_SESSION['emails'])) $_SESSION['emails'] = [];
     }
 
     public static function getInstance() : EmailClient 
@@ -48,7 +49,7 @@ class EmailClient {
             <p> Purpose of the request : \"$purpose\"");
         $email->addRecepients($this->joEmails);
 
-        $this->mailer->send($email);
+        $_SESSION['emails'][] = $email;
     }
 
     /**
@@ -76,7 +77,7 @@ class EmailClient {
 
         $email->addRecepient($request->getField('requester')->getField('email'));
 
-        $this->mailer->send($email);
+        $_SESSION['emails'][] = $email;;
 
         //email to the CAOs
         $this->initializeEmails('cao');
@@ -98,7 +99,7 @@ class EmailClient {
         $email->setMessage($message);
         $email->addRecepients($this->caoEmails);
 
-        $this->mailer->send($email);
+        $_SESSION['emails'][] = $email;
     }
 
     /**
@@ -126,8 +127,7 @@ class EmailClient {
 
         $email->addRecepient($request->getField('requester')->getField('email'));
 
-        $this->mailer->send($email);
-
+        $_SESSION['emails'][] = $email;
     }
 
     /**
@@ -155,7 +155,7 @@ class EmailClient {
 
         $email->addRecepient($request->getField('requester')->getField('email'));
 
-        $this->mailer->send($email);
+        $_SESSION['emails'][] = $email;;
 
         //email to the VPMOs
         $this->initializeEmails('vpmo');
@@ -182,7 +182,7 @@ class EmailClient {
 
         $email->addRecepients($this->vpmoEmails);
 
-        $this->mailer->send($email);
+        $_SESSION['emails'][] = $email;
     }
 
     /**
@@ -210,7 +210,7 @@ class EmailClient {
 
         $email->addRecepient($request->getField('requester')->getField('email'));
 
-        $this->mailer->send($email);
+        $_SESSION['emails'][] = $email;
 
         //email to the JO
         $email = new Email();
@@ -225,7 +225,7 @@ class EmailClient {
 
         $email->addRecepient($request->getField('justifiedBy')->getField('email'));
 
-        $this->mailer->send($email);
+        $_SESSION['emails'][] = $email;
     }
 
     /**
@@ -255,7 +255,7 @@ class EmailClient {
 
         $email->addRecepient($request->getField('requester')->getField('email'));
 
-        $this->mailer->send($email);
+        $_SESSION['emails'][] = $email;;
     }
 
     /**
@@ -288,6 +288,15 @@ class EmailClient {
                     $this->vpmoEmails = $employeeViewer->getEmails('vpmo');
                 }
                 break;
+        }
+    }
+
+    public function sendEmails()
+    {
+        foreach ($_SESSION['emails'] as $key => $email)
+        {
+            $_SESSION['emails'][] = $email;;
+            unset($_SESSION['emails'][$key]);
         }
     }
 }

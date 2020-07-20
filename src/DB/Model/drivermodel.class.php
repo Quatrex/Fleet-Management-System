@@ -27,7 +27,7 @@ abstract class DriverModel extends Model{
         
     // }
     //should contain a state of the driver
-    protected function saveRecord($driverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicleId, $email, $state) {
+    protected function saveRecord($driverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicle, $email, $state) {
         $values = ['DriverID' => $driverId,
                 'FirstName' => $firstName,
                 'LastName' => $lastName,
@@ -35,7 +35,7 @@ abstract class DriverModel extends Model{
                 'LicenseType' => $licenseType,
                 'LicenseExpirationDay' => $licenseExpirationDay,
                 'DateOfAdmission' => $dateOfAdmission,
-                'AssignedVehicleID' => $assignedVehicleId,
+                'AssignedVehicle' => $assignedVehicle,
                 'Email' => $email,
                 'State' => $state];
         parent::addRecord($values);

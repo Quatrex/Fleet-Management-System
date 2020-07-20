@@ -1,8 +1,12 @@
 <?php
 
 use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
+use EmailClient\EmailClient;
 
 include_once '../includes/autoloader.inc.php';
+ob_start();
+header("Content-type: application/json; charset=utf-8");
+
 $method = $_POST['Method'];
 switch ($method) {
 	case 'JOJustify':
@@ -160,3 +164,11 @@ switch ($method) {
 	default:
 		echo "Invalid method";
 }
+
+header('Connection: close');
+header('Content-Length: '.ob_get_length());
+ob_end_flush();
+ob_flush();
+flush();
+$emailClient = EmailClient::getInstance();
+$emailClient->sendEmails();
