@@ -9,11 +9,15 @@ use Vehicle\Vehicle;
 use EmailClient\INotifiableRequest;
 use Employee\Factory\Driver\DriverFactory;
 use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
+use Exception;
+use Report\IVisitable;
+use Report\IVisitor;
+use Report\VehicleHandoutSlip;
 use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
 use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
 use Vehicle\Factory\Base\VehicleFactory;
 
-class RealRequest implements Request, INotifiableRequest
+class RealRequest implements Request, INotifiableRequest, IVisitable
 {
     //ToDO: make attributes private and use get/set methods
     private int $requestID;
@@ -65,7 +69,7 @@ class RealRequest implements Request, INotifiableRequest
     {
         $this->justifiedBy['ID'] = $empID;
         $this->JOComment = $comment;
-        $stateID=null;
+        $stateID = null;
 
         if ($justification) {
             $this->state->justify($this);
@@ -88,7 +92,7 @@ class RealRequest implements Request, INotifiableRequest
     {
         $this->approvedBy['ID'] = $empID;
         $this->CAOComment = $comment;
-        $stateID=null;
+        $stateID = null;
 
         if ($approval) {
             $this->state->approve($this);
@@ -107,7 +111,8 @@ class RealRequest implements Request, INotifiableRequest
         );
     }
 
-    public function schedule(string $empID, string $driver, string $vehicle) : void{
+    public function schedule(string $empID, string $driver, string $vehicle): void
+    {
         $this->scehduledBy['ID'] = $empID;
         $this->driver['ID'] = $driver;
         $this->vehicle['ID'] = $vehicle;
@@ -162,6 +167,39 @@ class RealRequest implements Request, INotifiableRequest
         return null;
     }
 
+    public function generateVehicleHandoutSlip(): VehicleHandoutSlip
+    {
+        $vehicleHandoutSlip = new VehicleHandoutSlip();
+        $this->accept($vehicleHandoutSlip,'request');
+
+        return $vehicleHandoutSlip;
+    }
+
+    public function accept(IVisitor $vehicleHandoutSlip, string $visitableType)
+    {
+        $this->loadObject('requester');
+        $this->requester['object']->accept($vehicleHandoutSlip, 'requester');
+
+        $this->loadObject('jo');
+        $this->justifiedBy['object']->accept($vehicleHandoutSlip, 'justifiedBy');
+
+        $this->loadObject('cao');
+        $this->approvedBy['object']->accept($vehicleHandoutSlip, 'approvedBy');
+
+        $vehicleHandoutSlip->visit($this, $visitableType);
+    }
+
+    public function getInfo(): array
+    {
+        $values = array();
+        $values['purpose'] = $this->purpose;
+        $values['dateOfTrip'] = $this->dateOfTrip;
+        $values['timeOfTrip'] = $this->timeOfTrip;
+        $values['dropLocation'] = $this->dropLocation;
+        $values['pickLocation'] = $this->pickLocation;
+        return $values;
+    }
+
     /**
      * Loads a specified object
      * 
@@ -175,34 +213,35 @@ class RealRequest implements Request, INotifiableRequest
         switch ($objectName) {
             case "requester":
                 $this->requester['object'] = $byValue ? PrivilegedEmployeeFactory::makeEmployeeByValues($values)
-                                                : PrivilegedEmployeeFactory::makeEmployee($this->requester["ID"]);
-            break;
+                    : PrivilegedEmployeeFactory::makeEmployee($this->requester["ID"]);
+                break;
 
             case "jo":
                 $this->justifiedBy['object'] = $byValue ? PrivilegedEmployeeFactory::makeEmployeeByValues($values)
-                                                : PrivilegedEmployeeFactory::makeEmployee($this->justifiedBy["ID"]);
-            break;
+                    : PrivilegedEmployeeFactory::makeEmployee($this->justifiedBy["ID"]);
+                break;
 
             case "cao":
                 $this->approvedBy['object'] = $byValue ? PrivilegedEmployeeFactory::makeEmployeeByValues($values)
-                                                : PrivilegedEmployeeFactory::makeEmployee($this->approvedBy["ID"]);
-            break;
+                    : PrivilegedEmployeeFactory::makeEmployee($this->approvedBy["ID"]);
+                break;
 
             case "vpmo":
                 $this->scehduledBy['object'] = $byValue ? PrivilegedEmployeeFactory::makeEmployeeByValues($values)
-                                                : PrivilegedEmployeeFactory::makeEmployee($this->scehduledBy["ID"]);
-            break;
+                    : PrivilegedEmployeeFactory::makeEmployee($this->scehduledBy["ID"]);
+                break;
 
             case "vehicle":
-                $this->vehicle['object'] = $byValue ? $this->constructVehicleObject(true,$values)
-                                                : $this->constructVehicleObject(false);
-            break;
+                $this->vehicle['object'] = $byValue ? $this->constructVehicleObject(true, $values)
+                    : $this->constructVehicleObject(false);
+                break;
 
             case 'driver':
-                $this->driver['object'] = $byValue ? DriverFactory::makeDriverByValues($values) 
-                                                : DriverFactory::makeDriver($this->driver['ID']);
-            break;
-
+                $this->driver['object'] = $byValue ? DriverFactory::makeDriverByValues($values)
+                    : DriverFactory::makeDriver($this->driver['ID']);
+                break;
+            default:
+            throw new Exception("Invalid parameter $objectName for RealRequest::loadObject");
         }
     }
 
@@ -214,24 +253,17 @@ class RealRequest implements Request, INotifiableRequest
      * 
      * @return Vehicle
      */
-    private function constructVehicleObject(bool $byValue,array $values = []) : Vehicle
+    private function constructVehicleObject(bool $byValue, array $values = []): Vehicle
     {
-        if ($byValue)
-        {
-            if ($values['isLeased'])
-            {
+        if ($byValue) {
+            if ($values['isLeased']) {
                 $leasedVehicleFactory = LeasedVehicleFactory::getInstance();
                 $vehicle = $leasedVehicleFactory->makeVehicleByValues($values);
-            } 
-            else 
-            {
+            } else {
                 $purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
                 $vehicle = $purchasedVehicleFactory->makeVehicleByValues($values);
             }
-            
-        }
-        else
-        {
+        } else {
             $vehicle = VehicleFactory::getVehicle($this->vehicle['ID']);
         }
         return $vehicle;
@@ -249,6 +281,7 @@ class RealRequest implements Request, INotifiableRequest
             $this->dropLocation,
             $this->pickLocation,
             $this->requester['ID'],
-            $this->purpose);
+            $this->purpose
+        );
     }
 }

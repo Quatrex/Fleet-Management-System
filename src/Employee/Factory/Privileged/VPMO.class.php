@@ -192,4 +192,6 @@ class VPMO extends Requester
         $vehicle = $this->leasedVehicleFactory->makeVehicle($registrationNo);
         $vehicle->delete();
     }
+
+    
 }

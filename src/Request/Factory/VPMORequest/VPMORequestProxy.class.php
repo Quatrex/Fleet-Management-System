@@ -3,6 +3,7 @@ namespace Request\Factory\VPMORequest;
 
 use Request\State\State;
 use Request\Factory\Base\EmployeeRequestProxy;
+use Report\VehicleHandoutSlip;
 
 class VPMORequestProxy extends EmployeeRequestProxy
 {
@@ -34,5 +35,12 @@ class VPMORequestProxy extends EmployeeRequestProxy
             $this->realRequest->cancel();
         else
             echo "Access Denied"; //throw an exception instead
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function generateVehicleHandoutSlip(): VehicleHandoutSlip{
+        return $this->realRequest->generateVehicleHandoutSlip();
     }
 }

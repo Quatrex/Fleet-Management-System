@@ -1,20 +1,19 @@
 <?php
 
+use DB\Viewer\RequestViewer;
 use EmailClient\EmailClient;
 use EmailClient\INotifiableRequest;
+use Request\Factory\VPMORequest\VPMORequestFactory;
+use Request\Factory\VPMORequest\VPMORequestProxy;
 
 include_once '../includes/autoloader.inc.php';
 
-class Request implements INotifiableRequest
-{
-    public function getField(string $field)
-    {
-        if ($field == 'requestID')
-            return '53';
-    }
-}
+$request=VPMORequestFactory::makeRequest(184);
+//print_r($request);
+$token=$request->generateVehicleHandoutSlip();
 
-$ec = EmailClient::getInstance();
-// $ec->notifyRequestSubmission(new Request);
-$ec->notifyJustificationApprove(new Request);
-echo "Done";
+
+print_r($token);
+
+    
+

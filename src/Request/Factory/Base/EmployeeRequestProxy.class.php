@@ -3,8 +3,10 @@ namespace Request\Factory\Base;
 
 use Vehicle\Vehicle;
 use Employee\Driver\Factory\Driver;
+use Exception;
 use Request\Request;
 use JsonSerializable;
+use Report\VehicleHandoutSlip;
 
 abstract class EmployeeRequestProxy implements Request, JsonSerializable
 {
@@ -82,6 +84,13 @@ abstract class EmployeeRequestProxy implements Request, JsonSerializable
     public function close() : void 
     {
         echo "Access Denied";
+    }
+
+    /**
+     * Get RequestToken
+     */
+    public function generateVehicleHandoutSlip(): VehicleHandoutSlip{
+        throw new Exception('Access Denied');
     }
 
     public function loadObject(string $objectName, bool $byValue = false, array $values = array())
