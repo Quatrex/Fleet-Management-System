@@ -8,6 +8,7 @@ use Vehicle\Factory\Base\VehicleFactory;
 use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
 use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
 use Employee\Factory\Driver\DriverFactory;
+use Report\VehicleHandoutSlip;
 use Request\Factory\VPMORequest\VPMORequestFactory;
 
 
@@ -31,7 +32,7 @@ class VPMO extends Requester
      *
      * @return array{Request}
      */
-    public function getRequests(string $state) : array
+    public function getRequests(string $state): array
     {
         return VPMORequestFactory::makeRequests($state);
     }
@@ -118,7 +119,7 @@ class VPMO extends Requester
      * @return void
      *
      */
-    
+
     public function addPurchasedVehicle($values)
     {
         $vehicle = $this->purchasedVehicleFactory->makeNewVehicle($values);
@@ -164,7 +165,7 @@ class VPMO extends Requester
      */
     public function updateLeasedVehicleInfo($values)
     {
-        $vehicle = $this->leasedVehicleFactory->makeVehicle($values['RegistrationNo']); 
+        $vehicle = $this->leasedVehicleFactory->makeVehicle($values['RegistrationNo']);
         $vehicle->updateInfo($values);
         return $vehicle;
     }
@@ -197,5 +198,18 @@ class VPMO extends Requester
         $vehicle->delete();
     }
 
-    
+    /**
+     *
+     * generate vehicle hand-out slip.
+     *
+     * @param requestID
+     * @return VehicleHandoutSlip
+     *
+     */
+    public function generateVehicleHandoutSlip(int $requestID):VehicleHandoutSlip
+    {
+        $request = VPMORequestFactory::makeRequest($requestID);
+        $vehicleHandoutSlip = $request->generateVehicleHandoutSlip();
+        return $vehicleHandoutSlip;
+    }
 }
