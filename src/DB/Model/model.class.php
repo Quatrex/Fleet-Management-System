@@ -91,6 +91,7 @@ abstract class Model
                                     ->where()
                                         ->conditions($conditions)
                                         ->getWhere()
+                                    ->limit(10)
                                     ->getSQLQuery();
 
         $result = $this->dbh->read($query);
@@ -117,6 +118,7 @@ abstract class Model
                                         ->close()
                                         ->getWhere()
                                     ->orderBy(['DateOfTrip' => 'ASC'])
+                                    ->limit(10)
                                     ->getSQLQuery();
 
         $result = $this->dbh->read($query);
