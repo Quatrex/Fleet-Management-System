@@ -181,10 +181,10 @@ class RealRequest implements Request, INotifiableRequest, IVisitable
         $this->loadObject('requester');
         $this->requester['object']->accept($vehicleHandoutSlip, 'requester');
 
-        $this->loadObject('jo');
+        $this->loadObject('justifiedBy');
         $this->justifiedBy['object']->accept($vehicleHandoutSlip, 'justifiedBy');
 
-        $this->loadObject('cao');
+        $this->loadObject('approvedBy');
         $this->approvedBy['object']->accept($vehicleHandoutSlip, 'approvedBy');
 
         $vehicleHandoutSlip->visit($this, $visitableType);
@@ -210,29 +210,28 @@ class RealRequest implements Request, INotifiableRequest, IVisitable
      */
     public function loadObject(string $objectName, bool $byValue = false, array $values = array())
     {
-        $objectName = strtolower($objectName);
         switch ($objectName) {
-            case "requester":
+            case 'requester':
                 $this->requester['object'] = $byValue ? PrivilegedEmployeeFactory::makeEmployeeByValues($values)
                     : PrivilegedEmployeeFactory::makeEmployee($this->requester["ID"]);
                 break;
 
-            case "jo":
+            case 'justifiedBy':
                 $this->justifiedBy['object'] = $byValue ? PrivilegedEmployeeFactory::makeEmployeeByValues($values)
                     : PrivilegedEmployeeFactory::makeEmployee($this->justifiedBy["ID"]);
                 break;
 
-            case "cao":
+            case 'approvedBy':
                 $this->approvedBy['object'] = $byValue ? PrivilegedEmployeeFactory::makeEmployeeByValues($values)
                     : PrivilegedEmployeeFactory::makeEmployee($this->approvedBy["ID"]);
                 break;
 
-            case "vpmo":
+            case 'scehduledBy':
                 $this->scehduledBy['object'] = $byValue ? PrivilegedEmployeeFactory::makeEmployeeByValues($values)
                     : PrivilegedEmployeeFactory::makeEmployee($this->scehduledBy["ID"]);
                 break;
 
-            case "vehicle":
+            case 'vehicle':
                 $this->vehicle['object'] = $byValue ? $this->constructVehicleObject(true, $values)
                     : $this->constructVehicleObject(false);
                 break;
@@ -242,7 +241,7 @@ class RealRequest implements Request, INotifiableRequest, IVisitable
                     : DriverFactory::makeDriver($this->driver['ID']);
                 break;
             default:
-            throw new Exception("Invalid parameter $objectName for RealRequest::loadObject");
+                throw new Exception("Invalid parameter $objectName for RealRequest::loadObject");
         }
     }
 

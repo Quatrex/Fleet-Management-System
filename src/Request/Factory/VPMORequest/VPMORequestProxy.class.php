@@ -40,7 +40,8 @@ class VPMORequestProxy extends EmployeeRequestProxy
     /**
      * @inheritDoc
      */
-    public function generateVehicleHandoutSlip(): VehicleHandoutSlip{
+    public function generateVehicleHandoutSlip(): VehicleHandoutSlip
+    {
         return $this->realRequest->generateVehicleHandoutSlip();
     }
 }

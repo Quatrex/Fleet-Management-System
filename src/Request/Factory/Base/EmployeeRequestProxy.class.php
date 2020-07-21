@@ -89,7 +89,8 @@ abstract class EmployeeRequestProxy implements Request, JsonSerializable
     /**
      * Get RequestToken
      */
-    public function generateVehicleHandoutSlip(): VehicleHandoutSlip{
+    public function generateVehicleHandoutSlip(): VehicleHandoutSlip
+    {
         throw new Exception('Access Denied');
     }
 
