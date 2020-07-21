@@ -2,10 +2,10 @@
 
 namespace Report;
 
-use Request;
-use Request\Factory\Base\RealRequest;
 
 class VehicleHandoutSlip implements IVisitor{
+    private PDFGenerator $pdfGen;
+
     private string $requesterFirstName;
     private string $requesterLastName;
     private string $requesterDesignation;
@@ -24,9 +24,45 @@ class VehicleHandoutSlip implements IVisitor{
     private string $dropLocation;
     private string $pickLocation;
 
+    public function __construct()
+    {
+        $this->pdfGen = new MpdfPDFGenerator();
+    }
 
-    public function print():void{
-        //print token
+    /**
+     * Displays a pdf version of the vehicle handout slip
+     */
+    public function print() : void
+    {
+        $html =
+        '<h1 style="text-align: center; font-family: sans-serif; font-size: 36;"> Vehicle Handout Slip </h1><p></p>
+        <table style="border-spacing: 5px">
+        <tr>
+            <td height="42"; style="font-family: sans-serif";><b>Name & Designation</b> : </td>
+            <td>' .  $this->requesterFirstName . ' ' . 
+                $this->requesterLastName . ', ' . $this->requesterDesignation . '</td>
+        </tr><tr>
+            <td height="42"; style="font-family: sans-serif";><b>Purpose</b> : </td>
+            <td>' . $this->purpose . '</td>
+        </tr><tr>
+            <td height="42"; style="font-family: sans-serif";><b>Date & Time</b> : </td>
+            <td>' . $this->dateOfTrip . ' ' . $this->timeOfTrip . '</td>
+        </tr><tr>
+            <td height="42"; style="font-family: sans-serif";><b>From</b> : </td>
+            <td>' . $this->pickLocation . '</td>
+        </tr><tr>
+            <td height="42"; style="font-family: sans-serif";><b>To</b> : </td>
+            <td>' . $this->dropLocation . '</td>
+        </tr><tr>
+            <td height="42"; style="font-family: sans-serif";><b>Recommended by</b> : </td>
+            <td>' . $this->justifierFirstName . ' ' . 
+                $this->justifierLastName . ', ' . $this->justifierDesignation . '</td>
+        </tr><tr>
+            <td height="42"; style="font-family: sans-serif";><b>Approved by</b> : </td>
+            <td>' . $this->approverFirstName . ' ' . 
+                $this->approverLastName . ', ' . $this->approverDesignation . '</td>
+        </tr></table>';
+        $this->pdfGen->generatePDF($html);
     }
 
     public function visit(IVisitable $visitable,string $visitableType)
