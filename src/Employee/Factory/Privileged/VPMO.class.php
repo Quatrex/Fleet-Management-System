@@ -200,16 +200,15 @@ class VPMO extends Requester
 
     /**
      *
-     * generate vehicle hand-out slip.
+     * Generate vehicle hand-out slip.
      *
      * @param requestID
-     * @return VehicleHandoutSlip
      *
      */
-    public function generateVehicleHandoutSlip(int $requestID):VehicleHandoutSlip
+    public function generateVehicleHandoutSlip(int $requestID) : void
     {
         $request = VPMORequestFactory::makeRequest($requestID);
         $vehicleHandoutSlip = $request->generateVehicleHandoutSlip();
-        return $vehicleHandoutSlip;
+        $vehicleHandoutSlip->print();
     }
 }

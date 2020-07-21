@@ -5,6 +5,7 @@ namespace Request\Factory\Base;
 use DB\Controller\RequestController;
 use DB\Viewer\RequestViewer;
 use Request\State\State;
+use Request\State\Scheduled;
 use Request\Request;
 use Vehicle\Vehicle;
 use EmailClient\INotifiableRequest;
@@ -170,6 +171,9 @@ class RealRequest implements Request, INotifiableRequest, IVisitable
 
     public function generateVehicleHandoutSlip(): VehicleHandoutSlip
     {
+        if ($this->state !== Scheduled::getInstance())
+            throw new Exception('Vehicle slip can only be generated to scheduled requests');
+            
         $vehicleHandoutSlip = new VehicleHandoutSlip();
         $this->accept($vehicleHandoutSlip,'request');
 
