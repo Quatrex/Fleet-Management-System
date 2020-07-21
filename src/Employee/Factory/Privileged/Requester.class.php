@@ -9,7 +9,7 @@ class Requester extends PrivilegedEmployee implements IVisitable
 {
     public function placeRequest(array $values){
         $values ['RequesterID'] = $this->empID;
-        $request = RequesterRequestFactory::makeNewRequest($values);
+        return RequesterRequestFactory::makeNewRequest($values);
     }
 
     public function cancelRequest($requestID){

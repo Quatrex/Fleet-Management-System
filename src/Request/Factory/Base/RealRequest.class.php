@@ -3,6 +3,7 @@
 namespace Request\Factory\Base;
 
 use DB\Controller\RequestController;
+use DB\Viewer\RequestViewer;
 use Request\State\State;
 use Request\Request;
 use Vehicle\Vehicle;
@@ -281,7 +282,8 @@ class RealRequest implements Request, INotifiableRequest, IVisitable
             $this->dropLocation,
             $this->pickLocation,
             $this->requester['ID'],
-            $this->purpose
-        );
+            $this->purpose);
+        $requestViewer = new RequestViewer();
+        $this->requestID = $requestViewer->getLastRequestID($this->requester['ID']); //should get the last request of the relevant requester instead
     }
 }

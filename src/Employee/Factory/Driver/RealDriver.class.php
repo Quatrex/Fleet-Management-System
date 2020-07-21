@@ -13,7 +13,7 @@ class RealDriver extends Employee implements Driver
     private string $licenseNumber;
     private string $licenseExpirationDay;
     private string $dateOfAdmission;
-    private ?string $assignedVehicleId;
+    private ?string $assignedVehicle;
     private State $state;
     
     public function __construct($values)
@@ -24,7 +24,7 @@ class RealDriver extends Employee implements Driver
         $this->licenseType = $values['LicenseType'];
         $this->licenseExpirationDay = $values['LicenseExpirationDay'];
         $this->dateOfAdmission = $values['DateOfAdmission'];
-        $this->assignedVehicleId = $values['AssignedVehicleID'];
+        $this->assignedVehicle = $values['AssignedVehicle'];
         $this->state = State::getState($values['State']);
     }
 
@@ -44,7 +44,7 @@ class RealDriver extends Employee implements Driver
                                     $this->licenseType,
                                     $this->licenseExpirationDay,
                                     $this->dateOfAdmission,
-                                    $this->assignedVehicleId,
+                                    $this->assignedVehicle,
                                     $this->email,
                                     $this->state->getID()); //use $this->state->getID; instead
     }
@@ -72,6 +72,6 @@ class RealDriver extends Employee implements Driver
 
     public function assignVehicle(string $registrationNo) : void
     {
-        $this->assignedVehicleId = $registrationNo;
+        $this->assignedVehicle = $registrationNo;
     }
 }

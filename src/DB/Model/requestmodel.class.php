@@ -105,6 +105,7 @@ abstract class RequestModel extends Model
                                     ->orderBy(['RequestID' => 'DESC'])
                                     ->limit(1)
                                     ->getSQLQuery();
-        return $this->dbh->read($query);
+        $result = $this->dbh->read($query);
+        return $result[0]['RequestID'];
     }
 }

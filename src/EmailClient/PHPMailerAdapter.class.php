@@ -41,20 +41,18 @@ class PHPMailerAdapter implements Mailer
      */
     public function send(Email $email) : void
     {
-        $recipients = $email->getRecepient();
+        $recipients = $email->getField('recipients');
         foreach ($recipients as $recipient)
-        {
             $this->mail->addAddress($recipient);
-        }
-        $this->mail->Subject = $email->getSubject();
-        $this->mail->Body = $email->getMessage();
-        
+        $this->mail->Subject = $email->getField('subject');
+        $this->mail->Body = $email->getField('message');
+
         try {
             $this->mail->Send();
-            echo "Mail sent";
+            // echo "Mail sent<br>";
         } catch (phpmailerException $e) {
             $e -> errorMessage();
-            echo "Mail not sent";
+            // echo "Mail not sent";
         }
 
         $this->clearMail();

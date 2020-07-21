@@ -1,68 +1,40 @@
 <?php
 namespace EmailClient;
 
+use Exception;
+
 class Email {
     private array $recipients;
-    private String $subject;
-    private String $message;
+    private string $subject;
+    private string $message;
 
-    public function __construct()
+    /**
+     * Getter
+     * 
+     * @param string $field valid = 'subject' 'recipients' 'message'
+     * 
+     * @return string|array
+     */
+    public function getField(string $field)
     {
-        $this->recipients = array();
+        if (property_exists($this, $field))
+            return $this->$field;
+        throw new Exception("Invalid parameter $field for getField");
     }
 
     /**
-     * Add recipient to an email
+     * Setter
      * 
-     * @param string $recipient
+     * @param string $field valid = 'subject' 'recipients' 'message'
+     * @param string|array $value
      */
-    public function addRecepient(string $recipient) : void
+    public function setField(string $field, $value) : void
     {
-        array_push($this->recipients, $recipient);
-    }
-
-    /**
-     * Add recipient to an email
-     * 
-     * @param array(String) $recipients
-     * 
-     */
-    public function addRecepients(array $recipients) : void
-    {
-        $this->recipients += $recipients;
-    }
-
-    /**
-     * Set the subject of the email
-     * 
-     * @param string $subject
-     */
-    public function setSubject(string $subject) 
-    {
-        $this->subject = $subject;
-    }
-
-    /**
-     * Set the message of the email
-     * 
-     * @param string $message
-     */
-    public function setMessage($message) {
-        $this->message = $message;
-    }
-
-    public function getRecepient() : array
-    {
-        return $this->recipients;
-    }
-
-    public function getSubject() : string
-    {
-        return $this->subject;
-    }
-
-    public function getMessage() : string
-    {
-        return $this->message;
+        if (property_exists($this, $field))
+        {
+            $this->$field = $value;
+            return;
+        }
+        throw new Exception("Invalid parameter $field for setField");
     }
 }

@@ -72,10 +72,14 @@ class VPMO extends Requester
      * @return void
      *
      */
-    public function scheduleRequest($requestID, $driver, $vehicle)
+    public function scheduleRequest($requestID, $driverID, $vehicleID)
     {
         $request = VPMORequestFactory::makeRequest($requestID);
-        $request->schedule($this->empID, $driver, $vehicle);
+        $request->schedule($this->empID, $driverID, $vehicleID);
+        $driver = DriverFactory::makeDriver($driverID);
+        $driver->allocate();
+        $vehicle = VehicleFactory::getVehicle($vehicleID);
+        $vehicle->allocate();
     }
 
     /**

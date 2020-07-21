@@ -27,6 +27,7 @@ class PurchasedVehicleFactory extends VehicleFactory
     {
         $values['State'] = State::getStateID('available');
         $values['CurrentLocation'] = '';
+        $values['AssignedOfficer'] = null;
         $vehicle = new PurchasedVehicle($values);
         $vehicle->saveToDatabase(); //check for failure
         return $this->castToVehicle($vehicle);

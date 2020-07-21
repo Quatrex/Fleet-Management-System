@@ -1,8 +1,12 @@
 <?php
 
 use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
+use EmailClient\EmailClient;
 
 include_once '../includes/autoloader.inc.php';
+ob_start();
+header("Content-type: application/json; charset=utf-8");
+
 $method = $_POST['Method'];
 switch ($method) {
 	case 'JOJustify':
@@ -30,21 +34,21 @@ switch ($method) {
 
 	case 'RequestAdd':
 		$requester = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
-		$requester->placeRequest([
+		$request = $requester->placeRequest([
 			'DateOfTrip' => $_POST['date'],
 			'TimeOfTrip' => $_POST['time'],
 			'DropLocation' => $_POST['dropoff'],
 			'PickLocation' => $_POST['pickup'],
 			'Purpose' => $_POST['purpose']
 		]);
-		echo json_encode("success_Request successfully added");
+		echo json_encode($request);
 		break;
 
 	case 'AddVehicle':
 		$vpmo = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
 		//echo $_POST['model'];
 		if ($_POST['isLeased'] == "Yes") {
-			$vpmo->addLeasedVehicle([
+			$vehicle = $vpmo->addLeasedVehicle([
 				'RegistrationNo' => $_POST['registrationNo'],
 				'Model' => $_POST['model'],
 				'PurchasedYear' => $_POST['purchasedYear'],
@@ -58,7 +62,7 @@ switch ($method) {
 				'MonthlyPayment' => $_POST['monthlyPayment']
 			]);
 		} else {
-			$vpmo->addPurchasedVehicle([
+			$vehicle = $vpmo->addPurchasedVehicle([
 				'RegistrationNo' => $_POST['registrationNo'],
 				'Model' => $_POST['model'],
 				'PurchasedYear' => $_POST['purchasedYear'],
@@ -69,7 +73,7 @@ switch ($method) {
 			]);
 		}
 
-		echo json_encode("success_Vehicle " . $_POST['registrationNo'] . " successfully added");
+		echo json_encode($vehicle);
 		break;
 
 	case 'UpdateVehicle':
@@ -129,8 +133,8 @@ switch ($method) {
 		break;
 	case 'AddEmployee':
 		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
-		$admin->createNewAccount(['EmpID' => $_POST['newEmployeeId'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Username' => "", 'Designation' => $_POST['designation'], 'Position' => $_POST['position'], 'Email' => $_POST['email'], 'Password' => $_POST['password'], 'ContactNo' => $_POST['contactNo']]);
-		echo json_encode("success_Employee " . $_POST['newEmployeeId'] . " successfully added");
+		$employee = $admin->createNewAccount(['EmpID' => $_POST['newEmployeeId'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Username' => "", 'Designation' => $_POST['designation'], 'Position' => $_POST['position'], 'Email' => $_POST['email'], 'Password' => $_POST['password'], 'ContactNo' => $_POST['contactNo']]);
+		echo json_encode($employee);
 		break;
 	case 'UpdateEmployee':
 		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
@@ -144,8 +148,8 @@ switch ($method) {
 		break;
 	case 'AddDriver':
 		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
-		$admin->createNewDriver(['DriverID' => $_POST['driverId'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Email' => $_POST['email'], 'Address' => $_POST['address'], 'ContactNo' => $_POST['contactNo'], 'LicenseNumber' => $_POST['licenseNo'], 'LicenseType' => $_POST['licenseType'], 'LicenseExpirationDay' => $_POST['licenseExpireDate'], 'DateOfAdmission' => $_POST['employedDate'], 'AssignedVehicleID' => ""]);
-		echo json_encode("success_Driver " . $_POST['driverId'] . " successfully added");
+		$driver = $admin->createNewDriver(['DriverID' => $_POST['driverId'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Email' => $_POST['email'], 'Address' => $_POST['address'], 'ContactNo' => $_POST['contactNo'], 'LicenseNumber' => $_POST['licenseNo'], 'LicenseType' => $_POST['licenseType'], 'LicenseExpirationDay' => $_POST['licenseExpireDate'], 'DateOfAdmission' => $_POST['employedDate'], 'AssignedVehicleID' => ""]);
+		echo json_encode($driver);
 		break;
 	case 'DeleteDriver':
 		$admin = PrivilegedEmployeeFactory::makeEmployee($_POST['empID']);
@@ -160,3 +164,11 @@ switch ($method) {
 	default:
 		echo "Invalid method";
 }
+
+header('Connection: close');
+header('Content-Length: '.ob_get_length());
+ob_end_flush();
+ob_flush();
+flush();
+$emailClient = EmailClient::getInstance();
+$emailClient->sendEmails();
