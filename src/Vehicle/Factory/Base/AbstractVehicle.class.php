@@ -19,6 +19,7 @@ abstract class AbstractVehicle implements Vehicle
     protected ?string $assignedOfficer;
     protected State $state;
     protected string $currentLocation;
+    protected string $numOfAllocations;
     protected string $status;
 
     public function __construct($values)
@@ -34,40 +35,54 @@ abstract class AbstractVehicle implements Vehicle
         $this->status = State::getStateString($values['State']);
         $this->state = State::getState($values['State']);
         $this->currentLocation = ($values['CurrentLocation'] != null) ? $values['CurrentLocation'] : '';
+        $this->numOfAllocations = $values['NumOfAllocations'];
     }
 
     abstract public function getField(string $field);
 
-    abstract public function updateInfo(array $vehicleInfo) : void;
+    abstract public function updateInfo(array $vehicleInfo): void;
 
-    abstract public function saveToDatabase() : void;
+    abstract public function saveToDatabase(): void;
 
-    public function delete(): void{
+    public function delete(): void
+    {
         $vehicleController = new VehicleController();
         $vehicleController->deleteVehicle($this->registrationNo);
     }
 
-    public function setState(State $state) 
+    public function setState(State $state)
     {
         $this->state = $state;
     }
 
-    public function allocate() : void
+    public function allocate(): void
     {
-        $this->state->allocate($this);
+        $this->numOfAllocations += 1;
+        $vehicleController = new VehicleController();
+        $vehicleController->updateNumOfAllocations($this->registrationNo, $this->numOfAllocations);
+
+        if ($this->numOfAllocations > 0) {
+            $this->state->allocate($this);
+        }
     }
 
-    public function deallocate() : void
+    public function deallocate(): void
     {
-        $this->state->deallocate($this);
+        $this->numOfAllocations -= 1;
+        $vehicleController = new VehicleController();
+        $vehicleController->updateNumOfAllocations($this->registrationNo, $this->numOfAllocations);
+
+        if ($this->numOfAllocations == 0) {
+            $this->state->deallocate($this);
+        }
     }
 
-    public function repair() : void
+    public function repair(): void
     {
         $this->state->repair($this);
     }
 
-    public function finishRepair() : void
+    public function finishRepair(): void
     {
         $this->state->finishRepair($this);
     }

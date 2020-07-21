@@ -36,7 +36,7 @@ abstract class VehicleModel extends Model
         return $results;
     }
 
-    protected function saveRecordToVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer, $state, $currentLocation, $isLeased)
+    protected function saveRecordToVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer, $state, $currentLocation, $numOfAllocations, $isLeased)
     {
         $values = [
             'RegistrationNo' => $registrationNo,
@@ -49,6 +49,7 @@ abstract class VehicleModel extends Model
             'AssignedOfficer' => $assignedOfficer,
             'State' => $state,
             'CurrentLocation' => $currentLocation,
+            'NumOfAllocations' => $numOfAllocations,
             'IsLeased' => $isLeased
         ];
         parent::addRecord($values);
@@ -95,6 +96,15 @@ abstract class VehicleModel extends Model
         $conditions = ['RegistrationNo' => $registrationNo];
         parent::updateRecord($values, $conditions);
         parent::setTableName('vehicle');
+    }
+
+    protected function updateNumOfAllocations(string $registrationNo, int $numOfAllocations)
+    {
+        $values = [
+            'NumOfAllocations' => $numOfAllocations
+        ];
+        $conditions = ['RegistrationNo' => $registrationNo];
+        parent::updateRecord($values, $conditions);
     }
 
     protected function deleteVehicle($registrationNo)

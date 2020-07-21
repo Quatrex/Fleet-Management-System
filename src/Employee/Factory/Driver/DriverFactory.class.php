@@ -19,6 +19,7 @@ class DriverFactory
     public static function makeNewDriver(array $values): Driver
     {
         $values['State'] = State::getStateID('available');
+        $values['NumOfAllocations']=0;
         $driver = self::createProxy($values);
         $driver->saveToDatabase();
 

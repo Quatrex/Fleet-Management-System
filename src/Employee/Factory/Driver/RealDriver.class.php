@@ -15,6 +15,7 @@ class RealDriver extends Employee implements Driver
     private string $dateOfAdmission;
     private ?string $assignedVehicle;
     private State $state;
+    private int $numOfAllocations;
     
     public function __construct($values)
     {
@@ -26,6 +27,7 @@ class RealDriver extends Employee implements Driver
         $this->dateOfAdmission = $values['DateOfAdmission'];
         $this->assignedVehicle = $values['AssignedVehicle'];
         $this->state = State::getState($values['State']);
+        $this->numOfAllocations=$values['NumOfAllocations'];
     }
 
     public function getField($field){ 
@@ -36,8 +38,8 @@ class RealDriver extends Employee implements Driver
     }
 
     public function saveToDatabase(){
-        $employeeController = new DriverController();
-        $employeeController->saveRecord($this->driverId,
+        $driverController = new DriverController();
+        $driverController->saveRecord($this->driverId,
                                     $this->firstName,
                                     $this->lastName,
                                     $this->licenseNumber,
@@ -46,7 +48,8 @@ class RealDriver extends Employee implements Driver
                                     $this->dateOfAdmission,
                                     $this->assignedVehicle,
                                     $this->email,
-                                    $this->state->getID()); //use $this->state->getID; instead
+                                    $this->state->getID(),
+                                    $this->numOfAllocations); 
     }
 
     // TODO: Implement updateInfo
@@ -62,12 +65,24 @@ class RealDriver extends Employee implements Driver
 
     public function allocate() : void
     {
-        $this->state->allocate($this);
+        $this->numOfAllocations += 1;
+        $driverController = new DriverController();
+        $driverController->updateNumOfAllocations($this->driverId, $this->numOfAllocations);
+
+        if ($this->numOfAllocations > 0) {
+            $this->state->allocate($this);
+        }
     }
 
     public function deallocate() : void
     {
-        $this->state->deallocate($this);
+        $this->numOfAllocations -= 1;
+        $driverController = new DriverController();
+        $driverController->updateNumOfAllocations($this->driverId, $this->numOfAllocations);
+
+        if ($this->numOfAllocations == 0) {
+            $this->state->deallocate($this);
+        }
     }
 
     public function assignVehicle(string $registrationNo) : void

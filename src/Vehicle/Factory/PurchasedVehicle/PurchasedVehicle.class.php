@@ -1,4 +1,5 @@
 <?php
+
 namespace Vehicle\Factory\PurchasedVehicle;
 
 use db\Controller\VehicleController;
@@ -13,8 +14,9 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
         parent::__construct($values);
     }
 
-    public function getField(string $field){ 
-        if(property_exists($this,$field)){
+    public function getField(string $field)
+    {
+        if (property_exists($this, $field)) {
             return $this->$field;
         }
         return null;
@@ -29,28 +31,35 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
             'value' => $this->value,
             'fuelType' => $this->fuelType,
             'insuranceValue' => $this->insuranceValue,
-            'insuranceCompany'=>$this->insuranceCompany,
-            'assignedOfficer'=>$this->assignedOfficer,
+            'insuranceCompany' => $this->insuranceCompany,
+            'assignedOfficer' => $this->assignedOfficer,
             'state' => State::getStateString($this->state->getID()),
-            'currentLocation' => $this->currentLocation];
+            'currentLocation' => $this->currentLocation,
+            'numOfAllocations' => $this->numOfAllocations
+        ];
     }
 
     //IObjectHandle
-    public function saveToDatabase() : void{
+    public function saveToDatabase(): void
+    {
         $vehicleController = new VehicleController();
-        $vehicleController->savePurchasedVehicleRecord($this->registrationNo,
-                                    $this->model,
-                                    $this->purchasedYear,
-                                    $this->value,
-                                    $this->fuelType,
-                                    $this->insuranceValue,
-                                    $this->insuranceCompany,
-                                    $this->assignedOfficer,
-                                    $this->state->getID(),
-                                    $this->currentLocation);
+        $vehicleController->savePurchasedVehicleRecord(
+            $this->registrationNo,
+            $this->model,
+            $this->purchasedYear,
+            $this->value,
+            $this->fuelType,
+            $this->insuranceValue,
+            $this->insuranceCompany,
+            $this->assignedOfficer,
+            $this->state->getID(),
+            $this->currentLocation,
+            $this->numOfAllocations
+        );
     }
 
-    public function updateInfo(array $values) : void{
+    public function updateInfo(array $values): void
+    {
         //changed vehicle attributes can be analysed here
 
         $this->model = $values['Model'];
@@ -62,13 +71,15 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
         $this->currentLocation = $values['CurrentLocation'];
 
         $vehicleController = new VehicleController();
-        $vehicleController->updatePurchasedVehicleInfo($this->registrationNo, 
-                                                    $this->model, 
-                                                    $this->purchasedYear, 
-                                                    $this->value, 
-                                                    $this->fuelType, 
-                                                    $this->insuranceValue, 
-                                                    $this->insuranceCompany,
-                                                    $this->assignedOfficer);
+        $vehicleController->updatePurchasedVehicleInfo(
+            $this->registrationNo,
+            $this->model,
+            $this->purchasedYear,
+            $this->value,
+            $this->fuelType,
+            $this->insuranceValue,
+            $this->insuranceCompany,
+            $this->assignedOfficer
+        );
     }
 }
