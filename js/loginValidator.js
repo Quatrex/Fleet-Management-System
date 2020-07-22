@@ -1,25 +1,47 @@
 class LogInValidator {
-    constructor(username, password) {
-        this.username = username;
-        this.password = password;
+    constructor() {
         this.is_passed = false;
         this.errors = ['', ''];
     }
 
-    validateUserName() {
-        if (this.username == "") {
-            return "Username is required";
+    validateUsername(username) {
+        if (username == "") {
+            this.errors[0] = "Username is required";
+            return false;
         }
-        if (this.username.length < 3) {
-            return "Username must be at least 3 characters";
+        else if (username.length < 3) {
+            this.errors[0] = "Username must be at least 3 characters";
+            return false;
         }
-        return true
+        else {
+            this.errors[0] = '';
+            return true;
+        }
     }
-    validatePassword() {
-        if (this.password == "") {
-            return "Password is required";
+    validatePassword(password) {
+        if (password == "") {
+            this.errors[1] = "Password is required";
+            return false;
         }
-        return true
+        else if (password.length < 3) {
+            this.errors[1] = "Password must be at least 3 characters";
+            return false;
+        }
+        else {
+            this.errors[1] = '';
+            return true;
+        }
+    }
 
+    getUsernameError() {
+        return this.errors[0];
+    }
+
+    getPasswordError() {
+        return this.errors[1];
+    }
+
+    isvalidationPassed() {
+        return this.errors == ['', ''];
     }
 }
