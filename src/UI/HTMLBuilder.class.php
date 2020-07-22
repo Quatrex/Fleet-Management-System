@@ -8,6 +8,9 @@ class HTMLBuilder
     private CompositeBuilder $compositeBuilder;
     private ElementBuilder $elementBuilder;
     private array $contents = [];
+    private array $secNavList=[];
+    private array $secTabs=[];
+    private array $subTabContents=[];
 
     private function __construct()
     {
@@ -22,7 +25,7 @@ class HTMLBuilder
         return self::$instance;
     }
 
-    public function createMainNavBar(array $navList):HTMLBuilder
+    public function createMainNavBar(array $navList=[]):HTMLBuilder
     {
         $i=0;
         $navComList=[];
@@ -87,7 +90,8 @@ class HTMLBuilder
                         ->get()
                     ->get()
                 ->get()
-            ->show();
+            ->getComposite();
+        array_push($this->contents,$mainNavBar);
         return $this;
     }
 
@@ -99,16 +103,17 @@ class HTMLBuilder
             
             if ($i==0) {
                 $this->elementBuilder
-                    ->createElement('a', ['class'=>"nav-item nav-link active hvrcenter", 'data-toggle'=>"tab", 'href'=>'#'.str_replace(' ','',$nav)],[$nav]);
+                    ->createElement('a', ['class'=>"nav-item nav-link active hvrcenter", 'data-toggle'=>"tab", 'href'=>'#'.str_replace(' ','',$nav)],[strpos($nav,'History')?'History':$nav]);
             } else {
                 $this->elementBuilder
-                    ->createElement('a', ['class'=>"nav-item nav-link hvrcenter", 'data-toggle'=>"tab", 'href'=>'#'.str_replace(' ','',$nav)],[$nav]);
+                    ->createElement('a', ['class'=>"nav-item nav-link hvrcenter", 'data-toggle'=>"tab", 'href'=>'#'.str_replace(' ','',$nav)],[strpos($nav,'History')?'History':$nav]);
             }
             
             $navCom=$this->elementBuilder->getElement();
             array_push($navComList,$navCom);
             $i++;
         }
+        $secNavBar=
         $this->compositeBuilder
             ->createComposite('div',['class'=>'secondary-nav-bar'])
             ->composite()
@@ -118,29 +123,27 @@ class HTMLBuilder
                     ->addArrayToContent($navComList)
                     ->get()
                 ->get()
-            ->show();
+            ->getComposite();
+        array_push($this->secNavList,$secNavBar);
         return $this;
     }
 
-    public function myRequests(array $requests,string $state='Pending'): HTMLBuilder
+    public function myRequests(array $requests,string $state,$header=''): HTMLBuilder
     {
-        $inputButton = $this->elementBuilder
-            ->createElement('input', ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "request-vehicle-button"])
-            ->getElement();
-        $heading = $this->elementBuilder
-            ->createElement('h4', [], ['Your ' . $state . ' Requests'])
-            ->getElement();
         $i = 0;
         $requestElements = [];
-        $cardBuilder = new CardBuilder();
         foreach ($requests as $request) {
             $requestElement= $this->compositeBuilder
                 ->createComposite('div',['class' => 'card request-card','id'=> strtolower($state) . 'RequestCard-'.htmlentities($request->getField('requestID')),'style'=>'z-index:2;'])
                 ->composite()
                     ->createComposite('div',['class'=>'description'])
-                    ->addElement('span',['class'=>'request-id','id'=> strtolower($state) . '-request-' . $i],['Requset id: ' . htmlentities($request->getField('requestID'))])
+                    //->addElement('span',['class'=>'request-id','id'=> strtolower($state) . '-request-' . $i],['Requset id: ' . htmlentities($request->getField('requestID'))])
                     ->addElement('h1',['class'=>'card-title'],['For: ' . htmlentities($request->getField('purpose'))])
-                    ->addElement('h1',['class'=>'card-title'],['Status: ' . htmlentities($request->getField('state'))])
+                    ->composite()
+                        ->createComposite('div',['class'=>'row','style'=>'padding-left:1rem;'])
+                        ->addElement('h2',['class'=>'card-title','style'=>'color:rgba(95,99,104,0.9);'],['Status: ' ])
+                        ->addElement('h2',['class'=>'card-title','style'=>'color:'.$this->getColorForState(htmlentities($request->getField('state'))).';'],[htmlentities($request->getField('state'))])
+                        ->get()
                     ->addElement('hr')
                     ->composite()
                         ->createComposite('div',['class'=>'row justify-content-between'])
@@ -166,57 +169,285 @@ class HTMLBuilder
                             ->get()
                         ->get()
                     ->get()
-                ->show();
+                ->getComposite();
             array_push($requestElements,$requestElement);
             $i++;
         }
+        $card= $this->compositeBuilder
+            ->createComposite('div',['class'=>'card mt-5'])
+            ->addElement('h3',['class'=>"card-header bg-dark text-white"],[$header])
+            ->composite()
+                ->createComposite('div',['class'=>'card-body'])
+                ->addArrayToContent($requestElements)
+                ->get()
+            ->getComposite();
+        array_push($this->subTabContents,$card);
         return $this;
     }
 
-    public function awaitingRequests(array $requests): HTMLBuilder
+    public function awaitingRequests(array $requests, string $state,string $header): HTMLBuilder
     {
-        $heading = ElementBuilder::getInstance()
-            ->createElement('h4', [], ['Your Pending Requests'])
-            ->getElement();
         $i = 0;
         $requestElements = [];
-        $cardBuilder = new CardBuilder();
         foreach ($requests as $request) {
-            $requestElement= $cardBuilder
-                ->createCard(['class' => 'card request-card'])
+            $requestElement= $this->compositeBuilder
+                ->createComposite('div',['class' => 'card request-card','id'=> strtolower($state) . 'RequestCard-'.htmlentities($request->getField('requestID')),'style'=>'z-index:2;'])
                 ->composite()
-                    ->createComposite('div',['class'=>'card-body description'])
-                    ->addElement('span',['class'=>'request-id','id'=> 'request-' . $i],['Requset id: ' . $request->getField('requestID')])
-                    ->addElement('h1',['class'=>'card-title'],['For: ' . $request->getField('purpose')])
-                    ->addElement('h1',['class'=>'card-title'],['Status: ' . $request->getField('state')])
+                    ->createComposite('div',['class'=>'description'])
+                    //->addElement('span',['class'=>'request-id','id'=> strtolower($state) . '-request-' . $i],['Requset id: ' . htmlentities($request->getField('requestID'))])
+                    ->addElement('h1',['class'=>'card-title'],['For: ' . htmlentities($request->getField('purpose'))])
+                    ->addElement('h2',['class'=>'card-title'],['By: ' . htmlentities(($request->getField('requester'))->getField('firstName') . ' ' . ($request->getField('requester'))->getField('lastName'))])
+                    ->addElement('h2',['class'=>'card-title hidden-details'],['Designation: ' . htmlentities(($request->getField('requester'))->getField('designation'))])
                     ->addElement('hr')
                     ->composite()
                         ->createComposite('div',['class'=>'row justify-content-between'])
                         ->composite()
                             ->createComposite('div',['class'=>'col-sm-3'])
-                            ->addElement('p',[], ['On: ' . $request->getField('dateOfTrip')])
+                            ->addElement('p',[], ['On: ' . htmlentities($request->getField('dateOfTrip'))])
                             ->get() 
                         ->composite()
                             ->createComposite('div',['class'=>'col-sm-3'])
-                            ->addElement('p',[], ['At: ' . $request->getField('timeOfTrip')])
+                            ->addElement('p',[], ['At: ' . htmlentities($request->getField('timeOfTrip'))])
                             ->get()
                         ->composite()
                             ->createComposite('div',['class'=>'col-sm-3'])
-                            ->addElement('p',[], ['From: ' . $request->getField('pickLocation')])
+                            ->addElement('p',[], ['From: ' . htmlentities($request->getField('pickLocation'))])
                             ->get()
                         ->composite()
                             ->createComposite('div',['class'=>'col-sm-3'])
-                            ->addElement('p',[], ['To: ' . $request->getField('dropLocation')])
+                            ->addElement('p',[], ['To: ' . htmlentities($request->getField('dropLocation'))])
                             ->get()
                         ->composite()
                             ->createComposite('div',['class'=>'col'])
                             ->addElement('p',['class'=>'more'], [])
                             ->get()
+                        ->get()
                     ->get()
                 ->getComposite();
             array_push($requestElements,$requestElement);
             $i++;
         }
+        $card= $this->compositeBuilder
+            ->createComposite('div',['class'=>'card mt-5'])
+            ->addElement('h3',['class'=>"card-header bg-dark text-white"],[$header])
+            ->composite()
+                ->createComposite('div',['class'=>'card-body'])
+                ->addArrayToContent($requestElements)
+                ->get()
+            ->getComposite();
+        array_push($this->subTabContents,$card);
         return $this;
+    }
+
+    public function drivers(array $drivers):HTMLBuilder
+    {
+        $driverCards=[];
+        foreach ($drivers as $driver) {
+            $driverCard=$this->compositeBuilder
+                ->createComposite('div',['class'=>'col-sm-3'])
+                ->composite()
+                    ->createComposite('div',['class'=>'card text-center', 'id'=>'driver-card-'.htmlentities($driver->getField('driverId')), 'style'=>'width: 18rem;'])
+                    ->addElement('img',['class'=>"card-img-top rounded-circle user-image mt-2", 'src'=>"../images/default-user-image.png", 'alt'=>"Driver Image"])
+                    ->composite()
+                        ->createComposite('div',['class'=>'card-body'])
+                        ->addElement('h5',['class'=>'card-title'],[$driver->getField('firstName') . ' ' . $driver->getField('lastName') ])
+                        ->addElement('h6',['class'=>'card-subtitle mb-2 text-muted'],[$driver->getField('driverId')])
+                        ->addElement('p',['class'=>'card-text'],[$driver->getField('assignedVehicleId')])
+                        ->addElement('p',['class'=>'card-text'],["Empty"])
+                        ->get()
+                    ->get()
+                ->getComposite();
+            array_push($driverCards,$driverCard);
+        }
+        $card= $this->compositeBuilder
+            ->createComposite('div',['class'=>'card mt-5'])
+            ->addElement('h3',['class'=>"card-header bg-dark text-white"],['Drivers'])
+            ->composite()
+                ->createComposite('div',['class'=>'card-body row'])
+                ->addArrayToContent($driverCards)
+                ->get()
+            ->getComposite();
+        array_push($this->subTabContents,$card);
+        return $this;
+    }
+
+    public function vehicles(array $vehicles):HTMLBuilder
+    {
+        $vehicleCards=[];
+        foreach ($vehicles as $vehicle) {
+            $vehicleCard=$this->compositeBuilder
+                ->createComposite('div',['class'=>'col-sm-3'])
+                ->composite()
+                    ->createComposite('div',['class'=>'card text-center', 'id'=>'vehicle-card-'.htmlentities($vehicle->getField('registrationNo')), 'style'=>'width: 18rem;'])
+                    ->addElement('img',['class'=>"card-img-top rounded-circle user-image mt-2", 'src'=>"../images/default-user-image.png", 'alt'=>"Driver Image"])
+                    ->composite()
+                        ->createComposite('div',['class'=>'card-body'])
+                        ->addElement('h5',['class'=>'card-title'],[$vehicle->getField('model')])
+                        ->addElement('h6',['class'=>'card-subtitle mb-2 text-muted'],[$vehicle->getField('registrationNo')])
+                        ->addElement('p',['class'=>'card-text'],[$vehicle->getField('purchasedYear')])
+                        ->addElement('p',['class'=>'card-text'],['Nothing'])
+                        ->get()
+                    ->get()
+                ->getComposite();
+            array_push($vehicleCards,$vehicleCard);
+        }
+        $card= $this->compositeBuilder
+            ->createComposite('div',['class'=>'card mt-5'])
+            ->addElement('h3',['class'=>"card-header bg-dark text-white"],['Vehicles'])
+            ->composite()
+                ->createComposite('div',['class'=>'card-body row'])
+                ->addArrayToContent($vehicleCards)
+                ->get()
+            ->getComposite();
+        array_push($this->subTabContents,$card);
+        return $this;
+    }
+
+    public function employees(array $employees):HTMLBuilder
+    {
+        $employeeCards=[];
+        foreach ($employees as $employee) {
+            $employeeCard=$this->compositeBuilder
+                ->createComposite('div',['class'=>'col-sm-3'])
+                ->composite()
+                    ->createComposite('div',['class'=>'card text-center', 'id'=>'employee-card-'.htmlentities($employee->getField('empID')), 'style'=>'width: 18rem;'])
+                    ->addElement('img',['class'=>"card-img-top rounded-circle user-image mt-2", 'src'=>"../images/default-user-image.png", 'alt'=>"Driver Image"])
+                    ->composite()
+                        ->createComposite('div',['class'=>'card-body'])
+                        ->addElement('h5',['class'=>'card-title'],[$employee->getField('firstName') . ' ' . $employee->getField('lastName')])
+                        ->addElement('h6',['class'=>'card-subtitle mb-2 text-muted'],['Designation: ' . $employee->getField('designation')])
+                        ->addElement('h6',['class'=>'card-subtitle mb-2 text-muted'],['Role: ' . $employee->getField('position')])
+                        ->addElement('p',['class'=>'card-text'],[$employee->getField('email')])
+                        ->get()
+                    ->get()
+                ->getComposite();
+            array_push($employeeCards,$employeeCard);
+        }
+        $card= $this->compositeBuilder
+            ->createComposite('div',['class'=>'card mt-5'])
+            ->addElement('h3',['class'=>"card-header bg-dark text-white"],['Employees'])
+            ->composite()
+                ->createComposite('div',['class'=>'card-body row'])
+                ->addArrayToContent($employeeCards)
+                ->get()
+            ->getComposite();
+        array_push($this->subTabContents,$card);
+        return $this;
+    }
+
+    public function buildSecTabBody($tabids):HTMLBuilder
+    {
+        $i=0;
+        $tabComList=[];
+        foreach ($this->subTabContents as $tab) {
+            
+            if ($i==0) {
+                $this->compositeBuilder
+                    ->createComposite('div',['class'=>"tab-pane fade active show",'id'=>$tabids[$i],'role'=>'tabpanel']);
+            } else {
+                $this->compositeBuilder
+                    ->createComposite('div',['class'=>"tab-pane fade",'id'=>$tabids[$i],'role'=>'tabpanel']);
+            }
+            $buttonAttributes=$this->getButtonAttributes($tabids[$i]);
+            $tabCom=$this->compositeBuilder
+                ->addElement(($buttonAttributes==[]) ? 'div' : 'input', $buttonAttributes)
+                ->addToContent($tab)
+                ->getComposite();
+            array_push($tabComList,$tabCom);
+            $i++;
+        }
+        $subBody= $this->compositeBuilder
+            ->createComposite('div',['class'=>'container-fluid'])
+            ->composite()
+                ->createComposite('div',['class'=>'tab-content'])
+                ->addArrayToContent($tabComList)
+                ->get()
+            ->getComposite();
+        array_push($this->secTabs,$subBody);
+        $this->subTabContents=[];
+        return $this;
+    }
+
+    public function createMainNavHierachy($tabids=[]):HTMLBuilder
+    {
+        $mainTabComList=[];
+        for ($i=0; $i < sizeof($this->secNavList); $i++) {
+            
+            if ($i==0) {
+                $tabClass='main-tabs tab-pane fade active show';
+            } else {
+                $tabClass='main-tabs tab-pane fade';
+            }
+            if ($tabids==[]) {
+                $this->compositeBuilder
+                    ->createComposite('div',['class'=>$tabClass,'role'=>'tabpanel']);
+            } else {
+                $this->compositeBuilder
+                    ->createComposite('div',['class'=>$tabClass,'id'=>$tabids[$i],'role'=>'tabpanel']);
+            }
+            
+            $tabCom=$this->compositeBuilder
+                ->addArrayToContent([$this->secNavList[$i],$this->secTabs[$i]])
+                ->getComposite();
+            array_push($mainTabComList,$tabCom);
+        }
+        $mainBody= $this->compositeBuilder
+            ->createComposite('div',['class'=>'tab-content main-tab-pane'])
+            ->composite()
+                ->createComposite('div',['class'=>'tab-content'])
+                ->addArrayToContent($mainTabComList)
+                ->get()
+            ->getComposite();
+        array_push($this->contents,$mainBody);
+        return $this;
+    }
+
+    public function show()
+    {
+        foreach ($this->contents as $content) {
+            $content->show();
+        }
+    }
+
+    private function getButtonAttributes($tabid)
+    {
+        switch ($tabid) {
+            case 'PendingRequests':
+                return ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "request-vehicle-button"];
+                break;
+            case 'OngoingRequests':
+                return ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "request-vehicle-button"];
+                break;
+            case 'History':
+                return ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "request-vehicle-button"];
+                break;       
+            default:
+                return [];
+                break;
+        }
+    }
+
+    private function getColorForState(string $state)
+    {
+        switch ($state) {
+            case 'Justified':
+                return 'darkorange';
+                break;
+            case 'Approved':
+                return 'green';
+                break;
+            case 'Denied':
+                return 'red';
+                break;
+            case 'Disapproved':
+                return 'red';
+                break;
+            case 'Completed':
+                return 'blue';
+                break;
+            default:
+                return 'rgba(95,99,104,0.9)';
+                break;
+        }
     }
 }
