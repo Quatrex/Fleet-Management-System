@@ -244,9 +244,9 @@ class HTMLBuilder
         $driverCards=[];
         foreach ($drivers as $driver) {
             $driverCard=$this->compositeBuilder
-                ->createComposite('div',['class'=>'col-sm-3'])
+                ->createComposite('div',['class'=>'col-lg-3 col-md-4 col-sm-6 col-xs-12'])
                 ->composite()
-                    ->createComposite('div',['class'=>'card text-center', 'id'=>'driver-card-'.htmlentities($driver->getField('driverId')), 'style'=>'width: 18rem;'])
+                    ->createComposite('div',['class'=>'card text-center', 'id'=>'driver-card-'.htmlentities($driver->getField('driverId')), 'style'=>'width: 15rem;'])
                     ->addElement('img',['class'=>"card-img-top rounded-circle user-image mt-2", 'src'=>"../images/default-user-image.png", 'alt'=>"Driver Image"])
                     ->composite()
                         ->createComposite('div',['class'=>'card-body'])
@@ -276,9 +276,9 @@ class HTMLBuilder
         $vehicleCards=[];
         foreach ($vehicles as $vehicle) {
             $vehicleCard=$this->compositeBuilder
-                ->createComposite('div',['class'=>'col-sm-3'])
+                ->createComposite('div',['class'=>'col-lg-3 col-md-4 col-sm-6 col-xs-12'])
                 ->composite()
-                    ->createComposite('div',['class'=>'card text-center', 'id'=>'vehicle-card-'.htmlentities($vehicle->getField('registrationNo')), 'style'=>'width: 18rem;'])
+                    ->createComposite('div',['class'=>'card text-center', 'id'=>'vehicle-card-'.htmlentities($vehicle->getField('registrationNo')), 'style'=>'width: 15rem;'])
                     ->addElement('img',['class'=>"card-img-top rounded-circle user-image mt-2", 'src'=>"../images/default-user-image.png", 'alt'=>"Driver Image"])
                     ->composite()
                         ->createComposite('div',['class'=>'card-body'])
@@ -308,9 +308,9 @@ class HTMLBuilder
         $employeeCards=[];
         foreach ($employees as $employee) {
             $employeeCard=$this->compositeBuilder
-                ->createComposite('div',['class'=>'col-sm-3'])
+                ->createComposite('div',['class'=>'col-lg-3 col-md-4 col-sm-6 col-xs-12'])
                 ->composite()
-                    ->createComposite('div',['class'=>'card text-center', 'id'=>'employee-card-'.htmlentities($employee->getField('empID')), 'style'=>'width: 18rem;'])
+                    ->createComposite('div',['class'=>'card text-center', 'id'=>'employee-card-'.htmlentities($employee->getField('empID')), 'style'=>'width: 15rem;'])
                     ->addElement('img',['class'=>"card-img-top rounded-circle user-image mt-2", 'src'=>"../images/default-user-image.png", 'alt'=>"Driver Image"])
                     ->composite()
                         ->createComposite('div',['class'=>'card-body'])
@@ -425,7 +425,7 @@ class HTMLBuilder
                 return ['type'=>"button", 'value'=>"Add Employee", 'class'=>"btn btn-primary mb-3", 'id'=>"add-employee-button"];
                 break;
             case 'Drivers': 
-                return ['type'=>"button", 'value'=>"Add Driver", 'class'=>"btn btn-primary mb-3", 'id'=>"add-driver-button"];
+                return  ($_SESSION['position'] == 'admin') ? ['type'=>"button", 'value'=>"Add Driver", 'class'=>"btn btn-primary mb-3", 'id'=>"add-driver-button"] : [];
                 break;
             case 'Vehicles': 
                 return ['type'=>"button", 'value'=>"Add Vehicle", 'class'=>"btn btn-primary mb-3", 'id'=>"add-vehicle-button"];
