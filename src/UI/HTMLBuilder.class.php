@@ -420,7 +420,16 @@ class HTMLBuilder
                 break;
             case 'History':
                 return ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "request-vehicle-button"];
-                break;       
+                break;
+            case 'Employees': 
+                return ['type'=>"button", 'value'=>"Add Employee", 'class'=>"btn btn-primary mb-3", 'id'=>"add-employee-button"];
+                break;
+            case 'Drivers': 
+                return ['type'=>"button", 'value'=>"Add Driver", 'class'=>"btn btn-primary mb-3", 'id'=>"add-driver-button"];
+                break;
+            case 'Vehicles': 
+                return ['type'=>"button", 'value'=>"Add Vehicle", 'class'=>"btn btn-primary mb-3", 'id'=>"add-vehicle-button"];
+                break;         
             default:
                 return [];
                 break;
