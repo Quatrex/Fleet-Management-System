@@ -15,6 +15,14 @@ class DriverController extends DriverModel
         parent::updateNumOfAllocations($driverId, $numOfAllocations);
     }
 
+    public function updateDriverInfo($driverId, $newDriverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicle, $email){
+        parent::updateDriverInfo($driverId, $newDriverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicle, $email);
+    }
+
+    public function updateAssignedVehicle($driverId,$assignedVehicle){
+        parent::updateAssignedVehicle($driverId,$assignedVehicle);
+    }
+
     // public function updateRecord($driverId,$fields){
     //     parent::updateRecord($driverId,$fields);
     // }

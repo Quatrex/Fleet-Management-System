@@ -9,8 +9,8 @@ class RealDriver extends Employee implements Driver
 {
     //TODO: set attributes to private and implement a getter
     private string $driverId;
-    private string $licenseType;
     private string $licenseNumber;
+    private string $licenseType; 
     private string $licenseExpirationDay;
     private string $dateOfAdmission;
     private ?string $assignedVehicle;
@@ -52,10 +52,33 @@ class RealDriver extends Employee implements Driver
                                     $this->numOfAllocations); 
     }
 
-    // TODO: Implement updateInfo
     public function updateInfo(array $values): void
     {
+        //changed driver attributes can be analysed here
 
+        $this->driverId = $values['NewDriverID'];
+        $this->firstName = $values['FirstName'];
+        $this->lastName = $values['LastName'];
+        $this->licenseNumber = $values['LicenseNumber'];
+        $this->licenseType = $values['LicenseType'];
+        $this->licenseExpirationDay = $values['LicenseExpirationDay'];
+        $this->dateOfAdmission = $values['DateOfAdmission'];
+        $this->assignedVehicle = $values['AssignedVehicle'];
+        $this->email = $values['Email'];
+
+        $driverController = new DriverController();
+        $driverController->updateDriverInfo(
+            $values['DriverID'],
+            $this->driverId,
+            $this->firstName,
+            $this->lastName,
+            $this->licenseNumber,
+            $this->licenseType,
+            $this->licenseExpirationDay,
+            $this->dateOfAdmission,
+            $this->assignedVehicle,
+            $this->email
+        );
     }
 
     public function setState(State $state) 
@@ -88,5 +111,11 @@ class RealDriver extends Employee implements Driver
     public function assignVehicle(string $registrationNo) : void
     {
         $this->assignedVehicle = $registrationNo;
+
+        $driverController = new DriverController();
+        $driverController->updateAssignedVehicle(
+            $this->driverId,
+            $this->assignedVehicle
+        );
     }
 }

@@ -77,6 +77,7 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
     public function updateInfo(array $values): void
     {
         //changed vehicle attributes can be analysed here
+        //TODO : change implementation to change vehicle registration no.
 
         $this->model = $values['Model'];
         $this->purchasedYear = $values['PurchasedYear'];

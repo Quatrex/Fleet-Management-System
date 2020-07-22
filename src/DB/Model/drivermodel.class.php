@@ -40,6 +40,32 @@ abstract class DriverModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    protected function updateDriverInfo($driverId, $newDriverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicle, $email)
+    {
+        $values = [
+            'DriverID' => $newDriverId,
+            'FirstName' => $firstName,
+            'LastName' => $lastName,
+            'LicenseNumber' => $licenseNumber,
+            'LicenseType' => $licenseType,
+            'LicenseExpirationDay' => $licenseExpirationDay,
+            'DateOfAdmission' => $dateOfAdmission,
+            'AssignedVehicle' => $assignedVehicle,
+            'Email' => $email
+        ];
+        $conditions = ['DriverID' => $driverId];
+        parent::updateRecord($values, $conditions);
+    }
+
+    protected function updateAssignedVehicle($driverId,$assignedVehicle)
+    {
+        $values = [
+            'AssignedVehicle' => $assignedVehicle
+        ];
+        $conditions = ['DriverID' => $driverId];
+        parent::updateRecord($values, $conditions);
+    }
+
     protected function saveRecord($driverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicle, $email, $state, $numOfAllocations)
     {
         $values = [
