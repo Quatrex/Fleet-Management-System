@@ -86,7 +86,7 @@ $_SESSION['justifiedRequests'] = $justifiedRequests;
             </div>
             <!--Secondary Nav Bar End-->
             <div class="container-fluid">
-                <input type="button" value="New Request" class="btn btn-primary rounded shadow p-3 mb-4" id="request-vehicle-button">
+                <input type="button" value="New Request" class="btn btn-primary rounded shadow p-3 mb-4" id="NewRequestButton">
                 <div class="tab-content">
                     <div class="tab-pane fade active show" id="pendingRequests" role="tabpanel">
                         <div class="card">
@@ -314,18 +314,19 @@ $_SESSION['justifiedRequests'] = $justifiedRequests;
     include '../partials/popups/jo_popup.php';
     ?>
     <script>
-        const empID = <?php echo json_encode(($_SESSION['empid'])) ?>;
         const requestsByMe = <?php echo json_encode(($_SESSION['requestsByMe'])) ?>;
         const ongoingRequests = <?php echo json_encode(($_SESSION['ongoingRequests'])) ?>;
         const pastRequests = <?php echo json_encode(($_SESSION['pastRequests'])) ?>;
         const requestsToJustify = <?php echo json_encode(($_SESSION['requestsToJustify'])) ?>;
         const justifiedRequests = <?php echo json_encode(($_SESSION['justifiedRequests'])) ?>;
+        console.log(justifiedRequests);
+        console.log(requestsToJustify);
 
-        sessionStorage.setItem('requestToJustify', requestsToJustify);
     </script>
-    <script src="../js/functions.js"></script>
+    <script src="../js/classes.js"></script>
     <script src="../js/eventlisteners/common.js"></script>
     <script src="../js/eventlisteners/jo.js"></script>
+    <script src="../js/functions.js"></script>
 
 </body>
 

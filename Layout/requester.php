@@ -58,7 +58,7 @@ $_SESSION['pastRequests'] = $pastRequests;
     <!-- Main Nav Bar End-->
 
     <!--Secondary Nav Bar-->
-    <div class="secondary-nav-bar" >
+    <div class="secondary-nav-bar">
         <nav class="pt-3 mb-3">
             <div class="nav nav-pills justify-content-start ml-5">
                 <a class="nav-item nav-link active hvrcenter" data-toggle="tab" href="#pendingRequests">Pending Requests</a>
@@ -71,7 +71,7 @@ $_SESSION['pastRequests'] = $pastRequests;
 
     <!-- Body Start -->
     <div class="container-fluid">
-        <input type="button" value="New Request" class="btn btn-primary rounded shadow p-3 mb-4" id="request-vehicle-button">
+        <input type="button" value="New Request" class="btn btn-primary rounded shadow p-3 mb-4" id="NewRequestButton">
         <div class="tab-content">
             <div class="tab-pane fade active show" id="pendingRequests" role="tabpanel">
                 <div class="card">
@@ -197,11 +197,10 @@ $_SESSION['pastRequests'] = $pastRequests;
         const requestsByMe = <?php echo json_encode(($_SESSION['requestsByMe'])) ?>;
         const ongoingRequests = <?php echo json_encode(($_SESSION['ongoingRequests'])) ?>;
         const pastRequests = <?php echo json_encode(($_SESSION['pastRequests'])) ?>;
-        const empID = <?php echo json_encode(($_SESSION['empid'])) ?>;
-        sessionStorage.setItem('requestsByMe', requestsByMe);
     </script>
-    <script src="../js/functions.js"></script>
+    <script src="../js/classes.js"></script>
     <script src="../js/eventlisteners/common.js"></script>
+    <script src="../js/functions.js"></script>
 </body>
 
 </html>

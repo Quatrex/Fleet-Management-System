@@ -1,210 +1,56 @@
-document.querySelector('#employeeTable').onclick = (event) => {
-	let tableRow = event.target.parentElement;
-	let row_id = tableRow.children[0].id.split('-');
-	let entity = employees[row_id[1]];
-	lastClickedRow = tableRow.id;
-	changeValue({
-		'.employee-employeeIDCopy': entity.empID,
-		'.employee-position': entity.Position,
-		'.employee-employeeID': entity.empID,
-		'.employee-firstName': entity.FirstName,
-		'.employee-lastName': entity.LastName,
-		'.employee-designation': entity.Designation,
-		'.employee-contactNo': entity.ContactNo,
-		'.employee-email': entity.Email,
-	});
-	document.getElementById('employee-profile-form').style.display = 'block';
-};
+//Add a employee
+const EmployeeAddFormClose = new DisplayNextButton('EmployeeAddForm_Close');
+const EmployeeAddFormConfirm = new DisplayNextButton('EmployeeAddForm_Confirm',{},[ObjectCreate,BackendAccess('AddEmployee')]);
+const EmployeeAddFormPopup = new Popup('EmployeeAddForm',[EmployeeAddFormClose,EmployeeAddFormConfirm]);
 
-//Employee Profile
-///Employee profile close//
-document.querySelector('#employee-profile-form-close').addEventListener('click', () => {
-	document.getElementById('employee-profile-form').style.display = 'none';
-});
+//Employee Profile Form
+const EmployeeProfileEditFormClose = new DisplayNextButton('EmployeeProfileEditForm_Close')
+const EmployeeProfileEditFormCancel = new DisplayNextButton('EmployeeProfileEditForm_Cancel')
+const EmployeeProfileEditFormConfirm = new DisplayNextButton('EmployeeProfileEditForm_Confirm',{},[ObjectCreate,BackendAccess('UpdateEmployee')],{disabled:"true"});
+const EmployeeProfileEditFormPopup = new Popup('EmployeeProfileEditForm',[EmployeeProfileEditFormCancel,EmployeeProfileEditFormClose,EmployeeProfileEditFormConfirm],['click','keyup']);
+EmployeeProfileEditFormPopup.setDataType('value')
 
-document.querySelector('#employee-profile-edit-button').addEventListener('click', () => {
-	document.getElementById('employee-profile-form').style.display = 'none';
-	document.getElementById('confirm-employee-profile').disabled = true;
-	document.querySelector('#edit-confirm-tooltip').title = 'Make changes to enable';
-	document.getElementById('employee-profile-edit-form').style.display = 'block';
-});
+//Employee Delete Confirm
+const DeleteEmployeeAlertClose = new DisplayNextButton('DeleteEmployeeAlert_Close')
+const DeleteEmployeeAlertCancel = new DisplayNextButton('DeleteEmployeeAlert_Cancel')
+const DeleteEmployeeAlertDelete = new DisplayNextButton('DeleteEmployeeAlert_Delete',{},[BackendAccess('DeleteEmployee')]);
+const DeleteEmployeeAlertPopup = new Popup('DeleteEmployeeAlertPopup',[DeleteEmployeeAlertCancel,DeleteEmployeeAlertClose,DeleteEmployeeAlertDelete]);
 
-document.querySelector('#employee-delete').addEventListener('click', () => {
-	document.getElementById('delete-employee-alert').style.display = 'block';
-});
+//Employee Profile Form
+const EmployeeProfileFormClose = new DisplayNextButton('EmployeeProfileForm_Close')
+const EmployeeProfileFormEdit = new DisplayNextButton('EmployeeProfileForm_Edit',EmployeeProfileEditFormPopup)
+const EmployeeProfileFormDelete = new DisplayAlertButton('EmployeeProfileForm_Delete',DeleteEmployeeAlertPopup)
+const EmployeeProfileFormPopup = new Popup('EmployeeProfileForm',[EmployeeProfileFormEdit,EmployeeProfileFormClose,EmployeeProfileFormDelete]);
+EmployeeProfileFormPopup.setDataType('value');
+EmployeeProfileEditFormCancel.setNext(EmployeeProfileFormPopup);
 
-document.querySelector('#confirm-employee-delete-button').addEventListener('click', () => {
-	document.getElementById('delete-employee-alert').style.display = 'none';
-	document.getElementById('employee-profile-form').style.display = 'none';
-	writeToDatabase('DeleteEmployee_button_employeeID', () => {
-		deleteRow(lastClickedRow);
-	});
-});
+//Add a employee
+const DriverAddFormClose = new DisplayNextButton('DriverAddForm_Close')
+const DriverAddFormConfirm = new DisplayNextButton('DriverAddForm_Confirm',[ObjectCreate,BackendAccess('AddDriver')]);
+const DriverAddFormPopup = new Popup('DriverAddForm',[DriverAddFormClose,DriverAddFormConfirm]);
 
-document.querySelector('#employee-delete-cancel-button').addEventListener('click', () => {
-	document.getElementById('delete-employee-alert').style.display = 'none';
-	document.getElementById('employee-profile-form').style.display = 'block';
-});
+//Driver Delete Confirm
+const DeleteDriverAlertClose = new DisplayNextButton('DeleteDriverAlert_Close')
+const DeleteDriverAlertCancel = new DisplayNextButton('DeleteDriverAlert_Cancel')
+const DeleteDriverAlertDelete = new DisplayNextButton('DeleteDriverAlert_Delete',[BackendAccess('DeleteDriver'),RemoveAllPopup]);
+const DeleteDriverAlertPopup = new Popup('DeleteDriverAlert',[DeleteDriverAlertCancel,DeleteDriverAlertClose,DeleteDriverAlertDelete]);
 
-//Employee Edit form
-document.querySelector('#employee-profile-edit-form-close').addEventListener('click', () => {
-	changeInnerHTML({
-		'#cancel-alert-header': 'Cancel Update',
-		'#cancel-alert-message': 'Are you sure you want cancel updates?',
-	});
-	document.getElementById('cancel-request-alert').style.display = 'block';
-});
+//Driver Assign Profile Form
+const DriverProfileEditFormClose = new DisplayNextButton('DriverProfileEditForm_Close')
+const DriverProfileEditFormCancel = new DisplayNextButton('DriverProfileEditForm_Cancel')
+const DriverProfileEditFormConfirm = new DisplayNextButton('DriverProfileEditForm_Confirm',{},[ObjectCreate,BackendAccess('UpdateDriver')],{disabled:"true"});
+const DriverProfileEditFormPopup = new Popup('DriverProfileEditForm',[DriverProfileEditFormCancel,DriverProfileEditFormClose,DriverProfileEditFormConfirm],['click','keyup']);
 
-document.querySelector('#employee-profile-edit-cancel-button').addEventListener('click', () => {
-	document.getElementById('employee-profile-edit-form').style.display = 'none';
-	document.getElementById('employee-profile-form').style.display = 'block';
-});
+//Driver Profile Form
+const DriverProfileFormClose = new DisplayNextButton('DriverProfileForm_Close')
+const DriverProfileFormEdit = new DisplayNextButton('DriverProfileForm_Edit')
+const DriverProfileFormDelete = new DisplayAlertButton('DriverProfileForm_Delete',DeleteDriverAlertPopup)
+const DriverProfileFormPopup = new Popup('DriverProfileForm',[DriverProfileFormEdit,DriverProfileFormClose,DriverProfileFormDelete]);
+DriverProfileFormPopup.setDataType('value')
+DriverProfileEditFormCancel.setNext(DriverProfileFormPopup);
 
-document.querySelector('#confirm-employee-profile').addEventListener('click', () => {
-	if (compareValues('UpdateEmployee_form', 'EmployeeProfile_form')) {
-		writeToDatabase('UpdateEmployee_form');
-	}
-	document.getElementById('employee-profile-edit-form').style.display = 'none';
-});
+const employeeTable = new Table('employeeTable',["FirstName","Designation","Email"],EmployeeProfileFormPopup,'employees','empID')
+const driverTable = new Table('driverTable',["driverId",,"firstName","assignedVehicleId"],DriverProfileFormPopup,'drivers','driverId')
 
-document.querySelectorAll('.employee-edit').forEach((element) => 
-	element.addEventListener('keyup', () => {
-		if (compareValues('UpdateEmployee_form', 'EmployeeProfile_form')) {
-			document.querySelector('#edit-confirm-tooltip').title = '';
-			document.getElementById('confirm-employee-profile').disabled = false;
-		} else {
-			document.querySelector('#edit-confirm-tooltip').title = 'Make changes to enable';
-			document.getElementById('confirm-employee-profile').disabled = true;
-		}
-	})
-);
-
-//Add employee form
-document.querySelector('#add-employee-button').addEventListener('click', () => {
-	document.getElementById('employee-add-form').style.display = 'block';
-});
-
-document.querySelector('#employee-add-form-close').addEventListener('click', () => {
-	document.getElementById('employee-add-form').style.display = 'none';
-});
-
-document.querySelector('#employee-add-form-confirm').addEventListener('click', () => {
-	document.getElementById('employee-add-form').style.display = 'none';
-	writeToDatabase('AddEmployee_form');
-});
-
-//form autofill
-document.querySelector('#position-select').addEventListener('change', () => {
-	if ($('#position-select').val() !== 'Requester') {
-		$('#employee-designation').val($('#position-select').val());
-	}
-});
-
-document.querySelector('#driverTable').onclick = (event) => {
-	let tableRow = event.target.parentElement;
-	let row_id = tableRow.children[0].id.split('-');
-	let entity = drivers[row_id[1]];
-	lastClickedRow = tableRow.id;
-	changeValue({
-		'.driver-driverIDCopy': entity.driverId,
-		'.driver-driverID': entity.driverId,
-		'.driver-employedDate': entity.employedDate,
-		'.driver-firstName': entity.firstName,
-		'.driver-lastName': entity.lastName,
-		'.driver-address': entity.address,
-		'.driver-assignedVehicleID': entity.assignedVehicleID,
-		'.driver-contactNo': entity.ContactNo,
-		'.driver-licenseID': entity.licenseID,
-		'.driver-licenseType': entity.licenseType,
-		'.driver-licenseExpDate': entity.licenseExpDate,
-		'.driver-email': entity.Email,
-	});
-	document.getElementById('driver-profile-form').style.display = 'block';
-};
-
-//Driver Profile
-///Driver profile close//
-document.querySelector('#driver-profile-form-close').addEventListener('click', () => {
-	document.getElementById('driver-profile-form').style.display = 'none';
-});
-
-document.querySelector('#driver-profile-edit-button').addEventListener('click', () => {
-	document.getElementById('driver-profile-form').style.display = 'none';
-	document.getElementById('confirm-driver-profile').disabled = true;
-	document.querySelector('#edit-confirm-tooltip').title = 'Make changes to enable';
-	document.getElementById('driver-profile-edit-form').style.display = 'block';
-});
-
-document.querySelector('#driver-delete').addEventListener('click', () => {
-	document.getElementById('delete-driver-alert').style.display = 'block';
-});
-
-document.querySelector('#confirm-driver-delete-button').addEventListener('click', () => {
-	document.getElementById('delete-driver-alert').style.display = 'none';
-	document.getElementById('driver-profile-form').style.display = 'none';
-	writeToDatabase('DeleteDriver_button_employeeID', () => {
-		deleteRow(lastClickedRow);
-	});
-});
-
-document.querySelector('#driver-delete-cancel-button').addEventListener('click', () => {
-	document.getElementById('delete-driver-alert').style.display = 'none';
-	document.getElementById('driver-profile-form').style.display = 'block';
-});
-
-//Driver Edit form
-document.querySelector('#driver-profile-edit-form-close').addEventListener('click', () => {
-	changeInnerHTML({
-		'#cancel-alert-header': 'Cancel Update',
-		'#cancel-alert-message': 'Are you sure you want cancel updates?',
-	});
-	document.getElementById('cancel-request-alert').style.display = 'block';
-});
-
-document.querySelector('#driver-profile-edit-cancel-button').addEventListener('click', () => {
-	document.getElementById('driver-profile-edit-form').style.display = 'none';
-	document.getElementById('driver-profile-form').style.display = 'block';
-});
-
-document.querySelector('#confirm-driver-profile').addEventListener('click', () => {
-	if (compareValues('UpdateDriver_form', 'DriverProfile_form')) {
-		writeToDatabase('UpdateDriver_form');
-	}
-	document.getElementById('driver-profile-edit-form').style.display = 'none';
-});
-
-document.querySelectorAll('.driver-edit').forEach((element) => 
-	element.addEventListener('keyup', () => {
-		if (compareValues('UpdateDriver_form', 'DriverProfile_form')) {
-			document.querySelector('#edit-confirm-tooltip').title = '';
-			document.getElementById('confirm-driver-profile').disabled = false;
-		} else {
-			document.querySelector('#edit-confirm-tooltip').title = 'Make changes to enable';
-			document.getElementById('confirm-driver-profile').disabled = true;
-		}
-	})
-);
-
-// //*********************Add Driver *******************************/
-// //Form
-document.querySelector('#add-driver-button').addEventListener('click', () => {
-	document.getElementById('driver-add-form').style.display = 'block';
-});
-
-// //Driver adding procedure
-document.querySelector('#driver-add-form-close').addEventListener('click', () => {
-	document.getElementById('driver-add-form').style.display = 'none';
-});
-
-document.querySelector('#driver-add-form-confirm').addEventListener('click', () => {
-    writeToDatabase("AddDriver_form");
-    document.getElementById('driver-add-form').style.display = 'none';
-});
-
-//##############          Confirm alert         ###################
-
-//x button-click
-document.querySelector('#confirm-alert-close').addEventListener('click', () => {
-	document.getElementById('cancel-request-alert').style.display = 'none';
-});
-
+const AddEmployeeButton = new DOMButton('AddEmployeeButton',EmployeeAddFormPopup)
+const AddDriverButton = new DOMButton('AddDriverButton',DriverAddFormPopup)

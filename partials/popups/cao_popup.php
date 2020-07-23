@@ -1,9 +1,9 @@
     <!--Approve Table Row click Preview-->
-    <div class="popup" id="request-approve-preview-popup">
+    <div class="popup" id="RequestApprovePreviewPopup">
         <!-- Request details content -->
         <div class="popup-content">
             <div class="popup-header">
-                <span class="close" id="request-approve-preview-close">&times;</span>
+                <span class="close" id="RequestApprovePreview_Close">&times;</span>
                 <h3>Request Details</h3>
                 <hr>
             </div>
@@ -14,7 +14,7 @@
                         <p>Requester</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="approve-preview-requester">Text</p>
+                        <p id="RequesterName-RequestApprovePreviewPopup">Text</p>
                     </div>
                 </div>
 
@@ -23,7 +23,7 @@
                         <p>Designation</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="approve-preview-designation">Text</p>
+                        <p id="Designation-RequestApprovePreviewPopup">Text</p>
                     </div>
                 </div>
 
@@ -32,7 +32,7 @@
                         <p>Date</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="approve-preview-date">DD-MM-YYYY</p>
+                        <p id="DateOfTrip-RequestApprovePreviewPopup">DD-MM-YYYY</p>
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
                         <p>Time</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="approve-preview-time">HH:MM: AM/PM</p>
+                        <p id="TimeOfTrip-RequestApprovePreviewPopup">HH:MM: AM/PM</p>
                     </div>
                 </div>
 
@@ -50,7 +50,7 @@
                         <p>Pick-up Location</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="approve-preview-pick">Text</p>
+                        <p id="PickLocation-RequestApprovePreviewPopup">Text</p>
                     </div>
                 </div>
 
@@ -59,7 +59,7 @@
                         <p>Drop-off Location</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="approve-preview-drop">Text</p>
+                        <p id="DropLocation-RequestApprovePreviewPopup">Text</p>
                     </div>
                 </div>
 
@@ -68,7 +68,7 @@
                         <p>Purpose</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="approve-preview-purpose">Text</p>
+                        <p id="Purpose-RequestApprovePreviewPopup">Text</p>
                     </div>
                 </div>
                 <div class="row">
@@ -76,12 +76,12 @@
                         <p>JO Comment</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="approve-preview-joComment">Text</p>
+                        <p id="JOComment-RequestApprovePreviewPopup">Text</p>
                     </div>
                 </div>
 
-                <input type="button" value="Approve Request" class="btn btn-primary" id="request-details-approve-button">
-                <input type="button" value="Decline" class="btn btn-danger" id="request-details-decline-button">
+                <input type="button" value="Approve Request" class="btn btn-primary" id="RequestApprovePreview_Approve">
+                <input type="button" value="Decline" class="btn btn-danger" id="RequestApprovePreview_Decline">
 
             </div>
             <div class="popup-footer">
@@ -90,55 +90,46 @@
     </div>
 
     <!--Approve Confirm alert-->
-    <div class="popup" id="approve-request-alert">
+    <div class="popup" id="ApproveRequestAlertPopup">
         <!-- Approve alert content -->
         <div class="popup-content">
             <div class="popup-header">
-                <span class="close" id="confirm-alert-close-approve">&times;</span>
-                <h3>Do you wish to process?</h3>
+                <span class="close" id="ApproveRequestAlert_Close">&times;</span>
+                <h3>Do you wish to proceed?</h3>
                 <hr>
             </div>
             <div class="popup-body">
-
                 <p>Are you sure you want to approve the request?</p>
                 <form id='CAOApprove_form'>
-                    <textarea class="form-control" id="approve-comment" name="approve-comment" placeholder="Comments" rows="4"></textarea>
-                    <input type="hidden" name="approve-requestID" id="approve-requestID" />
+                    <textarea class="form-control inputs" id="CAOComment" name="approve-comment" placeholder="Comments" rows="4"></textarea>
                 </form>
-
-
             </div>
             <div class="popup-footer">
-
-                <input type="button" value="Approve Request" class="btn btn-success" id="approve-alert-approve-button">
-                <input type="button" value="Cancel" class="btn btn-light" id="approve-alert-cancel-button">
+                <input type="button" value="Approve Request" class="btn btn-success" id="ApproveRequestAlert_Approve">
+                <input type="button" value="Cancel" class="btn btn-light" id="ApproveRequestAlert_Cancel">
             </div>
         </div>
     </div>
 
     <!--Decline Confirm alert-->
-    <div class="popup" id="decline-request-alert">
+    <div class="popup" id="DenyRequestAlertPopup">
         <!-- Decline alert content -->
         <div class="popup-content">
             <div class="popup-header">
-                <span class="close" id="confirm-alert-close-decline">&times;</span>
+                <span class="close" id="DenyRequestAlert_Close">&times;</span>
                 <h3>Do you wish to process?</h3>
                 <hr>
             </div>
             <div class="popup-body">
-
                 <p>Are you sure you want to decline the request?</p>
                 <form id='CAODeny_form'>
-                    <textarea class="form-control" name="CAO-deny-comment" placeholder="Comments" rows="4"></textarea>
-                    <input type="hidden" name="CAOdeny-requestID" id="CAOdeny-requestID" />
+                    <textarea class="form-control" name="CAOComment" placeholder="Comments" rows="4"></textarea>
                 </form>
-
-
             </div>
             <div class="popup-footer">
 
-                <input type="button" value="Decline Request" class="btn btn-danger" id="decline-alert-decline-button">
-                <input type="button" value="Cancel" class="btn btn-light" id="decline-alert-cancel-button">
+                <input type="button" value="Decline Request" class="btn btn-danger" id="DenyRequestAlert_Decline">
+                <input type="button" value="Cancel" class="btn btn-light" id="DenyRequestAlert_Cancel">
             </div>
         </div>
     </div>
