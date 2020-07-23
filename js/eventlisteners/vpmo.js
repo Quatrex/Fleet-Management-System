@@ -1,24 +1,24 @@
 //Add a vehicle
-const VehicleAddFormClose = new DisplayNextGenerator('VehicleAddForm_Close')
-const VehicleAddFormSubmit = new DisplayNextGenerator('VehicleAddForm_Submit',{},[ObjectCreate,BackendAccess('AddVehicle')]);
+const VehicleAddFormClose = new DisplayNextButton('VehicleAddForm_Close')
+const VehicleAddFormSubmit = new DisplayNextButton('VehicleAddForm_Submit',{},[ObjectCreate,BackendAccess('AddVehicle')]);
 const VehicleAddFormPopup = new Popup('VehicleAddForm',[VehicleAddFormClose,VehicleAddFormSubmit]);
 
 //Vehicle Delete Confirm
-const DeleteVehicleAlertClose = new DisplayNextGenerator('DeleteVehicleAlert_Close')
-const DeleteVehicleAlertCancel = new DisplayNextGenerator('DeleteVehicleAlert_Cancel')
-const DeleteVehicleAlertDelete = new DisplayNextGenerator('DeleteVehicleAlert_Delete',{},[BackendAccess('DeleteVehicle'),RemoveAllPopup]);
+const DeleteVehicleAlertClose = new DisplayNextButton('DeleteVehicleAlert_Close')
+const DeleteVehicleAlertCancel = new DisplayNextButton('DeleteVehicleAlert_Cancel')
+const DeleteVehicleAlertDelete = new DisplayNextButton('DeleteVehicleAlert_Delete',{},[BackendAccess('DeleteVehicle'),RemoveAllPopup]);
 const DeleteVehicleAlertPopup = new Popup('DeleteVehicleAlertPopup',[DeleteVehicleAlertCancel,DeleteVehicleAlertClose,DeleteVehicleAlertDelete]);
 
 //Vehicle Edit Profile Form
 const VehicleProfileEditFormClose = new DisplayAlertButton('VehicleProfileEditForm_Close', CancelRequestAlertPopup)
-const VehicleProfileEditFormCancel = new DisplayNextGenerator('VehicleProfileEditForm_Cancel')
-const VehicleProfileEditFormConfirm = new DisplayNextGenerator('VehicleProfileEditForm_Confirm',{},[ObjectCreate,BackendAccess('UpdateVehicle')],{disabled:'true'});
+const VehicleProfileEditFormCancel = new DisplayNextButton('VehicleProfileEditForm_Cancel')
+const VehicleProfileEditFormConfirm = new DisplayNextButton('VehicleProfileEditForm_Confirm',{},[ObjectCreate,BackendAccess('UpdateVehicle')],{disabled:'true'});
 const VehicleProfileEditFormPopup = new Popup('VehicleProfileEditForm',[VehicleProfileEditFormCancel,VehicleProfileEditFormClose,VehicleProfileEditFormConfirm],['click','keyup']);
 VehicleProfileEditFormPopup.setDataType('value');
 
 //Vehicle Profile Form
-const VehicleProfileFormClose = new DisplayNextGenerator('VehicleProfileForm_Close')
-const VehicleProfileFormEdit = new DisplayNextGenerator('VehicleProfileForm_Edit',VehicleProfileEditFormPopup);
+const VehicleProfileFormClose = new DisplayNextButton('VehicleProfileForm_Close')
+const VehicleProfileFormEdit = new DisplayNextButton('VehicleProfileForm_Edit',VehicleProfileEditFormPopup);
 const VehicleProfileFormDelete = new DisplayAlertButton('VehicleProfileForm_Delete',DeleteVehicleAlertPopup);
 const VehicleProfileFormPopup = new Popup('VehicleProfileForm',[VehicleProfileFormEdit,VehicleProfileFormClose,VehicleProfileFormDelete]);
 VehicleProfileFormPopup.setDataType('value');
