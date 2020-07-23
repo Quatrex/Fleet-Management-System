@@ -69,10 +69,10 @@ $_SESSION['approvedRequests'] = $approvedRequests;
     <!-- Main Nav Bar End-->
 
     <!--Main Nav Hierarchy -->
-    <div class="tab-content">
+    <div class="tab-content main-tab-pane">
 
         <!-- My Requests Tab-->
-        <div class="tab-pane fade active show" id="MyRequests" role="tabpanel">
+        <div class="main-tabs tab-pane fade active show" id="MyRequests" role="tabpanel">
             <!--Secondary Nav Bar-->
             <div class="secondary-nav-bar">
                 <nav class="pt-3 mb-3">
@@ -85,7 +85,7 @@ $_SESSION['approvedRequests'] = $approvedRequests;
             </div>
             <!--Secondary Nav Bar End-->
             <div class="container-fluid">
-                <input type="button" value="New Request" class="btn btn-primary rounded shadow p-3 mb-4" id="request-vehicle-button">
+                <input type="button" value="New Request" class="btn btn-primary rounded shadow p-3 mb-4" id="NewRequestButton">
                 <div class="tab-content">
                     <div class="tab-pane fade active show" id="pendingRequests" role="tabpanel">
                         <div class="card">
@@ -207,7 +207,7 @@ $_SESSION['approvedRequests'] = $approvedRequests;
         <!--My Requests Tab End-->
 
         <!--Awaiting Requests Tab-->
-        <div class="tab-pane fade" id="AwaitingRequests" role="tabpanel">
+        <div class="main-tabs tab-pane fade" id="AwaitingRequests" role="tabpanel">
 
             <!--Secondary Nav Bar-->
             <div class="secondary-nav-bar">
@@ -278,7 +278,7 @@ $_SESSION['approvedRequests'] = $approvedRequests;
                                             <?php
                                             $i = 0;
                                             foreach ($approvedRequests as $request) : ?>
-                                                <tr id="approvedHistoryTable<?php echo $request->getField('requestID') ?>">
+                                                <tr id="approvedHistoryTable_<?php echo $request->getField('requestID') ?>">
                                                     <th id="request-<?php echo $i ?>"><?php echo $request->getField('requestID') ?></td>
                                                     <td><?php echo $request->getField('purpose') ?></td>
                                                     <td><?php echo $request->getField('dateOfTrip') ?></td>
@@ -319,9 +319,10 @@ $_SESSION['approvedRequests'] = $approvedRequests;
 
         sessionStorage.setItem('requestsToApprove', requestsToApprove);
     </script>
-    <script src="../js/functions.js"></script>
+     <script src="../js/classes.js"></script>
     <script src="../js/eventlisteners/common.js"></script>
     <script src="../js/eventlisteners/cao.js"></script>
+    <script src="../js/functions.js"></script>
 
 </body>
 

@@ -1,415 +1,82 @@
-//*******************Assign Table *******************/
-document.querySelector('#assignRequestTable').onclick = (event) => {
-	let tableRow = event.target.parentElement;
-	lastClickedRow = tableRow.id;
-	let row_id = tableRow.children[0].id.split('-');
-	let entity = requestsToAssign[row_id[1]];
-	lastClickedRow = tableRow.id;
-	document.querySelectorAll('.leasedVehicleData').forEach((element) => {
-		if (!element.classList.contains('d-none')) {
-			element.classList.add('d-none');
-		}
-	});
-	changeInnerHTML({
-		'.vpmo-assign-requester': `${entity.Requester.FirstName} ${entity.Requester.LastName}`,
-		'#vpmo-assign-designation': entity.Requester.Position,
-		'.vpmo-assign-date': entity.DateOfTrip,
-		'.vpmo-assign-time': entity.TimeOfTrip,
-		'.vpmo-assign-pickUpLocation': entity.PickLocation,
-		'.vpmo-assign-dropOffLocation': entity.DropLocation,
-		'#vpmo-assign-purpose': entity.Purpose,
-		'#vpmo-assign-joComment': entity.JOComment,
-		'#vpmo-assign-caoComment': entity.CAOComment,
-	});
-	removeClass(document.querySelector('#selectionDriverTable').querySelectorAll('tbody > tr'), 'selected');
-	removeClass(document.querySelector('#selectionVehicleTable').querySelectorAll('tbody > tr'), 'selected');
-	changeInnerHTML({ '#driver-name': '', '#vehicle-name': '' });
-	changeValue({ '#requestId-input': entity.RequestId });
-	document.getElementById('request-assign-preview-popup').style.display = 'block';
-	document.querySelector('#confirm-vehicle').disabled = true;
-	document.querySelector('#confirm-driver').disabled = true;
-	document.querySelector('#select-driver-tooltip').title = 'Select a driver to enable';
-	document.querySelector('#select-vehicle-tooltip').title = 'Select a vehicle to enable';
+//Add a vehicle
+const VehicleAddFormClose = new DisplayNextButton('VehicleAddForm_Close')
+const VehicleAddFormSubmit = new DisplayNextButton('VehicleAddForm_Submit',{},[ObjectCreate,BackendAccess('AddVehicle')]);
+const VehicleAddFormPopup = new Popup('VehicleAddForm',[VehicleAddFormClose,VehicleAddFormSubmit]);
 
-};
+//Vehicle Delete Confirm
+const DeleteVehicleAlertClose = new DisplayNextButton('DeleteVehicleAlert_Close')
+const DeleteVehicleAlertCancel = new DisplayNextButton('DeleteVehicleAlert_Cancel')
+const DeleteVehicleAlertDelete = new DisplayNextButton('DeleteVehicleAlert_Delete',{},[BackendAccess('DeleteVehicle'),RemoveAllPopup]);
+const DeleteVehicleAlertPopup = new Popup('DeleteVehicleAlertPopup',[DeleteVehicleAlertCancel,DeleteVehicleAlertClose,DeleteVehicleAlertDelete]);
 
-//************Scheduled History Table ******************/
-document.querySelector('#scheduledHistoryTable').onclick = (event) => {
-	let tableRow = event.target.parentElement;
-	let row_id = tableRow.children[0].id.split('-');
-	request_ID = row_id;
-	let entity = scheduledRequests[row_id[1]];
-	changeInnerHTML({
-		'#requestID-preview': entity.RequestId,
-		'#status-preview': entity.Status,
-		'#time-preview': entity.TimeOfTrip,
-		'#date-preview': entity.DateOfTrip,
-		'#pickup-preview': entity.PickLocation,
-		'#drop-preview': entity.DropLocation,
-		'#purpose-preview': entity.Purpose,
-		'#joComment-preview': entity.JOComment,
-		'#caoComment-preview': entity.CAOComment,
-		'#driver-preview': `${entity.Driver.firstName} ${entity.Driver.lastName}`,
-		'#vehicle-preview': entity.Vehicle.registration,
-	});
-	changeDisplay(document.querySelectorAll('.scheduled-preview'), 'show');
-	changeDisplay([document.querySelector('#request-cancel')], 'hide');
-	document.getElementById('request-preview-popup').style.display = 'block';
-};
+//Vehicle Edit Profile Form
+const VehicleProfileEditFormClose = new DisplayAlertButton('VehicleProfileEditForm_Close', CancelRequestAlertPopup)
+const VehicleProfileEditFormCancel = new DisplayNextButton('VehicleProfileEditForm_Cancel')
+const VehicleProfileEditFormConfirm = new DisplayNextButton('VehicleProfileEditForm_Confirm',{},[ObjectCreate,BackendAccess('UpdateVehicle')],{disabled:'true'});
+const VehicleProfileEditFormPopup = new Popup('VehicleProfileEditForm',[VehicleProfileEditFormCancel,VehicleProfileEditFormClose,VehicleProfileEditFormConfirm],['click','keyup']);
+VehicleProfileEditFormPopup.setDataType('value');
 
+//Vehicle Profile Form
+const VehicleProfileFormClose = new DisplayNextButton('VehicleProfileForm_Close')
+const VehicleProfileFormEdit = new DisplayNextButton('VehicleProfileForm_Edit',VehicleProfileEditFormPopup);
+const VehicleProfileFormDelete = new DisplayAlertButton('VehicleProfileForm_Delete',DeleteVehicleAlertPopup);
+const VehicleProfileFormPopup = new Popup('VehicleProfileForm',[VehicleProfileFormEdit,VehicleProfileFormClose,VehicleProfileFormDelete]);
+VehicleProfileFormPopup.setDataType('value');
+VehicleProfileEditFormCancel.setNext(VehicleProfileFormPopup);
+DeleteVehicleAlertCancel.setNext(VehicleProfileFormPopup);
+DeleteVehicleAlertClose.setNext(VehicleProfileFormPopup);
 
-//**********************Ongoing Trip Table ***************/
-document.querySelector('#ongoingTripTable').onclick = (event) => {
-	let tableRow = event.target.parentElement;
-	lastClickedRow = tableRow.id;
-	let row_id = tableRow.children[0].id.split('-');
-	let entity = scheduledRequests[row_id[1]];
-	lastClickedRow = tableRow.id;
-	changeInnerHTML({
-		'#ongoing-requester': `${entity.Requester.FirstName} ${entity.Requester.LastName}`,
-		'#ongoing-designation': entity.Requester.Position,
-		'#ongoing-date': entity.DateOfTrip,
-		'#ongoing-time': entity.TimeOfTrip,
-		'#ongoing-pickUpLocation': entity.PickLocation,
-		'#ongoing-dropOffLocation': entity.DropLocation,
-		'#ongoing-purpose': entity.Purpose,
-		'#ongoing-driver': `${entity.Driver.firstName} ${entity.Driver.lastName}`,
-		'#ongoing-vehicle': entity.Vehicle.registration,
-	});
-	document.getElementById('ongoing-table-details-popup').style.display = 'block';
-};
+//Driver Profile Form
+const DriverProfileFormClose = new DisplayNextButton('DriverProfileForm_Close')
+const DriverProfileFormEdit = new DisplayNextButton('DriverProfileForm_Edit')
+const DriverProfileFormPopup = new Popup('DriverProfileForm',[DriverProfileFormEdit,DriverProfileFormClose]);
+DriverProfileFormPopup.setDataType('value');
 
-//**********************Vehicle Table ***************/
-document.querySelector('#vehicleTable').onclick = (event) => {
-	let tableRow = event.target.parentElement;
-	lastClickedRow = tableRow.id;
-	let row_id = tableRow.children[0].id.split('-');
-	let entity = vehicles[row_id[1]];
-	lastClickedRow = tableRow.id;
-	document.querySelectorAll('.leasedVehicleData').forEach((element) => {
-		if (!element.classList.contains('d-none')) {
-			element.classList.add('d-none');
-		}
-	});
-	changeValue({
-		'.vehicle-registrationNo': entity.registration,
-		'.vehicle-registrationNoCopy': entity.registration,
-		'.vehicle-model': entity.model,
-		'.vehicle-purchasedYear': entity.purchasedYear,
-		'.vehicle-price': entity.value,
-		'.vehicle-fuelType': entity.fuelType,
-		'.vehicle-currentLocation': entity.currentLocation,
-		'.vehicle-insuranceCompany': entity.insuranceCompany,
-		'.vehicle-insuranceValue': entity.insuranceValue,
-	});
-	if ('leasedCompany' in entity) {
-		removeClass(document.querySelectorAll('.leasedVehicleData'), 'd-none');
-		changeValue({
-			'.vehicle-leasedCompany': entity.leasedCompany,
-			'.vehicle-leasedValue': entity.monthlyPayment,
-			'.vehicle-leasedFrom': entity.leasedPeriodFrom,
-			'.vehicle-leasedTo': entity.leasedPeriodTo,
-		});
-	}
-	document.getElementById('vehicle-profile-form').style.display = 'block';
-};
+//Assign Final Preview
+const RequestFinalDetailsClose = new DisplayAlertButton('RequestFinalDetails_Close', CancelRequestAlertPopup)
+const RequestFinalDetailsBack = new DisplayNextButton('RequestFinalDetails_Back')
+const RequestFinalDetailsConfirm = new DisplayNextButton('RequestFinalDetails_Confirm',{},[BackendAccess('Schedule')]);
+const RequestFinalDetailsPopup = new Popup('RequestFinalDetailsPopup',[RequestFinalDetailsBack,RequestFinalDetailsClose,RequestFinalDetailsConfirm]);
 
-//Vehicle Profile
-///Vehicle profile close//
-document.querySelector('#vehicle-profile-form-close').addEventListener('click', () => {
-	document.getElementById('vehicle-profile-form').style.display = 'none';
-});
+//Select Vehicle
+const SelectVehicleAlertClose = new DisplayNextButton('SelectVehicleAlert_Close')
+const SelectVehicleAlertBack = new DisplayNextButton('SelectVehicleAlert_Goback')
+const SelectVehicleAlertConfirm = new DisplayNextButton('SelectVehicleAlert_Confirm',RequestFinalDetailsPopup,[],{disabled:'true'});
+const SelectionVehicleTable = new SelectionTable('selectionVehicleTable',[],{},'vehicles','registration',SelectVehicleAlertConfirm,'Vehicle')
+const SelectVehicleAlertPopup = new Popup('SelectVehicleAlertPopup',[SelectVehicleAlertBack,SelectVehicleAlertClose,SelectVehicleAlertConfirm],['click'],SelectionVehicleTable);
+RequestFinalDetailsBack.setNext(SelectVehicleAlertPopup);
+//Select Driver
 
-document.querySelector('#vehicle-profile-edit-form-close').addEventListener('click', () => {
-	changeInnerHTML({
-		'#cancel-alert-header': 'Cancel Update',
-		'#cancel-alert-message': 'Are you sure you want cancel updates?',
-	});
-	document.getElementById('cancel-request-alert').style.display = 'block';
-});
+const SelectDriverAlertClose = new DisplayNextButton('SelectDriverAlert_Close')
+const SelectDriverAlertBack = new DisplayNextButton('SelectDriverAlert_Goback')
+const SelectDriverAlertConfirm = new DisplayNextButton('SelectDriverAlert_Confirm', SelectVehicleAlertPopup,[],{disabled:'true'});
+const SelectionDriverTable = new SelectionTable('selectionDriverTable',[],{},'drivers','driverId',SelectDriverAlertConfirm,'Driver','Vehicle','assignedVehicleID')
+const SelectDriverAlertPopup = new Popup('SelectDriverAlertPopup',[SelectDriverAlertBack,SelectDriverAlertClose,SelectDriverAlertConfirm],['click'],SelectionDriverTable);
+SelectVehicleAlertBack.setNext(SelectDriverAlertPopup);
 
-document.querySelector('#confirm-vehicle-profile').addEventListener('click', () => {
-	if (compareValues('UpdateVehicle_form', 'VehicleProfile_form')) {
-		writeToDatabase('UpdateVehicle_form');
-	}
-	// else{}
-	document.getElementById('vehicle-profile-edit-form').style.display = 'none';
-});
+//Request Assign Preview
+const RequestAssignPreviewClose = new DisplayNextButton('RequestAssignPreview_Close')
+const RequestAssignPreviewCancel = new DisplayNextButton('RequestAssignPreview_Cancel')
+const RequestAssignPreviewAssign = new DisplayNextButton('RequestAssignPreview_Assign', SelectDriverAlertPopup);
+const RequestAssignPreviewPopup = new Popup('RequestAssignPreviewPopup',[RequestAssignPreviewCancel,RequestAssignPreviewClose,RequestAssignPreviewAssign]);
+SelectDriverAlertBack.setNext(RequestAssignPreviewPopup);
 
-document.querySelector('#vehicle-delete').addEventListener('click', () => {
-	document.getElementById('delete-vehicle-alert').style.display = 'block';
-});
+//Active Trips Preview Popup
+const EndTripConfirmClose = new DisplayNextButton('EndTripConfirm_Close')
+const EndTripConfirmCancel = new DisplayNextButton('EndTripConfirm_Cancel')
+const EndTripConfirmEnd = new DisplayNextButton('EndTripConfirm_End', {},[BackendAccess('EndTrip'),RemoveAllPopup]);
+const EndTripConfirmPopup = new Popup('EndTripConfirmPopup',[EndTripConfirmCancel,EndTripConfirmClose,EndTripConfirmEnd]);
 
-document.querySelectorAll('.vehicle-edit').forEach((element) =>
-	element.addEventListener('keyup', () => {
-		if (compareValues('UpdateVehicle_form', 'VehicleProfile_form')) {
-			document.querySelector('#edit-confirm-tooltip').title = '';
-			document.getElementById('confirm-vehicle-profile').disabled = false;
-		} else {
-			document.querySelector('#edit-confirm-tooltip').title = 'Make changes to enable';
-			document.getElementById('confirm-vehicle-profile').disabled = true;
-		}
-	})
-);
-
-document.querySelector('#confirm-vehicle-delete-button').addEventListener('click', () => {
-	document.getElementById('delete-vehicle-alert').style.display = 'none';
-	document.getElementById('vehicle-profile-form').style.display = 'none';
-	if (document.querySelector('.leasedVehicleData').classList.contains('d-none')) {
-		writeToDatabase('DeletePurchasedVehicle_button_VehicleID',() => { deleteRow(lastClickedRow) });
-	} else {
-		writeToDatabase('DeleteLeasedVehicle_button_VehicleID',() => { deleteRow(lastClickedRow) });
-	}
-});
-
-document.querySelector('#vehicle-delete-cancel-button').addEventListener('click', () => {
-	document.getElementById('delete-vehicle-alert').style.display = 'none';
-	document.getElementById('vehicle-profile-form').style.display = 'block';
-});
-
-document.querySelector('#vehicle-profile-edit-button').addEventListener('click', () => {
-	document.getElementById('vehicle-profile-form').style.display = 'none';
-	document.getElementById('confirm-vehicle-profile').disabled = true;
-	document.querySelector('#edit-confirm-tooltip').title = 'Make changes to enable';
-	document.getElementById('vehicle-profile-edit-form').style.display = 'block';
-});
-document.querySelector('#vehicle-profile-edit-cancel-button').addEventListener('click', () => {
-	document.getElementById('vehicle-profile-edit-form').style.display = 'none';
-	document.getElementById('vehicle-profile-form').style.display = 'block';
-});
-
-//**********************Ongoing  **********************/
-//X-button
-document.querySelector('#ongoing-preview-close').addEventListener('click', () => {
-	document.getElementById('ongoing-table-details-popup').style.display = 'none';
-});
-
-//close button-click
-document.querySelector('#ongoing-close-button').addEventListener('click', () => {
-	document.getElementById('ongoing-table-details-popup').style.display = 'none';
-});
-//End button
-document.querySelector('#ongoing-end-button').addEventListener('click', () => {
-	document.getElementById('end-trip-confirm').style.display = 'block';
-});
-document.querySelector('#confirm-endtrip-yes-button').addEventListener('click', () => {
-	document.getElementById('end-trip-confirm').style.display = 'none';
-	document.getElementById('ongoing-table-details-popup').style.display = 'none';
-	writeToDatabase("EndTrip_button_RequestId",() => { deleteRow(lastClickedRow) })
-
-});
-document.querySelector('#confirm-endtrip-no-button').addEventListener('click', () => {
-	document.getElementById('end-trip-confirm').style.display = 'none';
-	
-});
-document.querySelector('#confirm-endtrip-close').addEventListener('click', () => {
-	document.getElementById('end-trip-confirm').style.display = 'none';
-	
-});
-
-//***********************Approve Request ********************/
-// Preview
-document.querySelector('#request-details-approve-button').addEventListener('click', () => {
-	document.getElementById('request-assign-preview-popup').style.display = 'none';
-	document.getElementById('select-vehicle-alert').style.display = 'block';
-});
-
-document.querySelector('#request-details-decline-button').addEventListener('click', () => {
-	document.getElementById('request-assign-preview-popup').style.display = 'none';
-});
-
-document.querySelector('#request-approve-preview-close').addEventListener('click', () => {
-	document.getElementById('request-assign-preview-popup').style.display = 'none';
-});
-
-//***********************Add Vehicle ********************/
-//Vehicle add form
-document.querySelector('#add-vehicle-button').addEventListener('click', () => {
-	document.getElementById('vehicle-add-form').style.display = 'block';
-});
-
-document.querySelector('#vehicle-add-form-submit').addEventListener('click', () => {
-	document.getElementById('vehicle-add-form').style.display = 'none';
-	writeToDatabase('AddVehicle_form');
-});
-// //x button-click
-document.querySelector('#vehicle-add-form-close').addEventListener('click', () => {
-	changeInnerHTML({
-		'#cancel-alert-header': 'Cancel Adding',
-		'#cancel-alert-message': 'Are you sure you to cancel?',
-	});
-	document.getElementById('cancel-request-alert').style.display = 'block';
-});
-
-//x button-click
-document.querySelector('#confirm-alert-close').addEventListener('click', () => {
-	document.getElementById('cancel-request-alert').style.display = 'none';
-});
-
-//no button-click
-document.querySelector('#confirm-alert-no-button').addEventListener('click', () => {
-	document.getElementById('cancel-request-alert').style.display = 'none';
-});
-
-//yes button-click
-document.querySelector('#confirm-alert-yes-button').addEventListener('click', () => {
-	document.querySelectorAll('.popup').forEach((popup) => {
-		popup.style.display = 'none';
-	});
-});
-
-document.querySelector('#vehicle-close').onclick = (event) => {
-	document.getElementById('select-vehicle-alert').style.display = 'none';
-};
-
-document.querySelector('#confirm-vehicle').onclick = (event) => {
-	document.getElementById('select-vehicle-alert').style.display = 'none';
-	document
-		.querySelector('#selectionDriverTable')
-		.querySelectorAll('tbody > tr')
-		.forEach((element) => {
-			if (element.classList.contains('selected')) {
-				document.querySelector('#confirm-driver').disabled = false;
-				document.querySelector('#select-driver-tooltip').title = '';
-			}
-		});
-	document.getElementById('select-driver-alert').style.display = 'block';
-};
-document.querySelector('#go-back-driver').onclick = (event) => {
-	document.getElementById('select-vehicle-alert').style.display = 'block';
-	document.getElementById('select-driver-alert').style.display = 'none';
-};
-
-document.querySelector('#goback-select-vehicle').onclick = (event) => {
-	document.getElementById('select-vehicle-alert').style.display = 'none';
-	document.getElementById('request-assign-preview-popup').style.display = 'block';
-};
-
-document.querySelector('#confirm-driver').onclick = (event) => {
-	const driver = document.querySelector('#driver-name').innerHTML;
-	const vehicle = document.querySelector('#vehicle-name').innerHTML;
-	document.querySelector('#final-driver-p').innerHTML = driver;
-	document.querySelector('#final-vehicle-p').innerHTML = vehicle;
-	document.getElementById('select-driver-alert').style.display = 'none';
-	document.getElementById('request-final-details-popup').style.display = 'block';
-	writeToDatabase('Schedule_form',() => { deleteRow(lastClickedRow) });
-};
-document.querySelector('#request-final-details-close').onclick = (event) => {
-	document.getElementById('request-final-details-popup').style.display = 'none';
-};
-
-document.querySelector('#vehicle-close').onclick = (event) => {
-	document.getElementById('select-vehicle-alert').style.display = 'none';
-};
-
-document.querySelector('#selectionVehicleTable').onclick = (event) => {
-	let tableRow = event.target.parentElement;
-	changeValue({ '#final-vehicle-input': tableRow.children[0].innerHTML.trim() });
-	toggleBack(tableRow.parentElement, tableRow, 'vehicle-name');
-	if (document.querySelector('#vehicle-name').innerHTML!=='') {
-		document.querySelector('#confirm-vehicle').disabled = false;
-		document.querySelector('#select-vehicle-tooltip').title = '';
-	}else{
-		document.querySelector('#confirm-vehicle').disabled = true;
-		document.querySelector('#select-vehicle-tooltip').title = 'Select a vehicle to enable';
-	}
-};
-document.querySelector('#selectionDriverTable').onclick = (event) => {
-	let tableRow = event.target.parentElement;
-	changeValue({ '#final-driver-input': tableRow.children[0].innerHTML.trim() });
-	toggleBack(tableRow.parentElement, tableRow, 'driver-name');
-	if (document.querySelector('#driver-name').innerHTML!=='') {
-		document.querySelector('#confirm-driver').disabled = false;
-		document.querySelector('#select-driver-tooltip').title = '';
-	}else{
-		document.querySelector('#confirm-driver').disabled = true;
-		document.querySelector('#select-driver-tooltip').title = 'Select a driver to enable';
-	}
-};
+//Active Trips Preview Popup
+const AciveTripDetailsClose = new DisplayNextButton('AciveTripDetails_Close')
+const AciveTripDetailsCancel = new DisplayNextButton('AciveTripDetails_Cancel')
+const AciveTripDetailsEnd = new DisplayAlertButton('AciveTripDetails_End', EndTripConfirmPopup);
+const AciveTripDetailsPopup = new Popup('AciveTripDetailsPopup',[AciveTripDetailsCancel,AciveTripDetailsClose,AciveTripDetailsEnd]);
 
 
-//**********Driver  */
-document.querySelector('#driverTable').onclick = (event) => {
-	let tableRow = event.target.parentElement;
-	let row_id = tableRow.children[0].id.split('-');
-	let entity = drivers[row_id[1]];
-	lastClickedRow = tableRow.id;
-	changeValue({
-		'.driver-driverIDCopy': entity.driverId,
-		'.driver-driverID': entity.driverId,
-		'.driver-employedDate': entity.employedDate,
-		'.driver-firstName': entity.firstName,
-		'.driver-lastName': entity.lastName,
-		'.driver-address': entity.address,
-		'.driver-assignedVehicleID': entity.assignedVehicleID,
-		'.driver-contactNo': entity.ContactNo,
-		'.driver-licenseID': entity.licenseID,
-		'.driver-licenseType': entity.licenseType,
-		'.driver-licenseExpDate': entity.licenseExpDate,
-		'.driver-email': entity.Email,
-	});
-	document.getElementById('driver-profile-form').style.display = 'block';
-};
-
-//Driver Profile
-///Driver profile close//
-document.querySelector('#driver-profile-form-close').addEventListener('click', () => {
-	document.getElementById('driver-profile-form').style.display = 'none';
-});
-
-document.querySelector('#driver-profile-edit-button').addEventListener('click', () => {
-	document.getElementById('driver-profile-form').style.display = 'none';
-	document.getElementById('confirm-driver-profile').disabled = true;
-	document.querySelector('#edit-confirm-tooltip').title = 'Make changes to enable';
-	document.getElementById('driver-profile-edit-form').style.display = 'block';
-});
-
-document.querySelector('#driver-delete').addEventListener('click', () => {
-	document.getElementById('delete-driver-alert').style.display = 'block';
-});
-
-document.querySelector('#confirm-driver-delete-button').addEventListener('click', () => {
-	document.getElementById('delete-driver-alert').style.display = 'none';
-	document.getElementById('driver-profile-form').style.display = 'none';
-	writeToDatabase('DeleteDriver_button_employeeID', () => {
-		deleteRow(lastClickedRow);
-	});
-});
-
-document.querySelector('#driver-delete-cancel-button').addEventListener('click', () => {
-	document.getElementById('delete-driver-alert').style.display = 'none';
-	document.getElementById('driver-profile-form').style.display = 'block';
-});
-
-//Driver Edit form
-document.querySelector('#driver-profile-edit-form-close').addEventListener('click', () => {
-	changeInnerHTML({
-		'#cancel-alert-header': 'Cancel Update',
-		'#cancel-alert-message': 'Are you sure you want cancel updates?',
-	});
-	document.getElementById('cancel-request-alert').style.display = 'block';
-});
-
-document.querySelector('#driver-profile-edit-cancel-button').addEventListener('click', () => {
-	document.getElementById('driver-profile-edit-form').style.display = 'none';
-	document.getElementById('driver-profile-form').style.display = 'block';
-});
-
-document.querySelector('#confirm-driver-profile').addEventListener('click', () => {
-	if (compareValues('UpdateDriver_form', 'DriverProfile_form')) {
-		writeToDatabase('UpdateDriver_form');
-	}
-	document.getElementById('driver-profile-edit-form').style.display = 'none';
-});
-
-document.querySelectorAll('.driver-edit').forEach((element) => 
-	element.addEventListener('keyup', () => {
-		if (compareValues('UpdateDriver_form', 'DriverProfile_form')) {
-			document.querySelector('#edit-confirm-tooltip').title = '';
-			document.getElementById('confirm-driver-profile').disabled = false;
-		} else {
-			document.querySelector('#edit-confirm-tooltip').title = 'Make changes to enable';
-			document.getElementById('confirm-driver-profile').disabled = true;
-		}
-	})
-);
+const assignRequestTable = new Table('assignRequestTable',["RequestId",,"Purpose","Status","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"],RequestAssignPreviewPopup,'requestsToAssign',"RequestId")
+const ongoingTripTable = new Table('ongoingTripTable',["RequestId",,"Purpose","Status","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"],AciveTripDetailsPopup,'scheduledRequests',"RequestId")
+const scheduledHistoryTable = new Table('scheduledHistoryTable',["RequestId",,"Purpose","Status","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"],RequestHistoryPreviewPopup,'scheduledRequests',"RequestId")
+const vehicleTable = new Table('vehicleTable',["registration",,"model","status","fuelType"],VehicleProfileFormPopup,'vehicles',"registration")
+const driverTable = new Table('driverTable',["firstName","assignedVehicleID","email"],DriverProfileFormPopup,'drivers',"driverId")
+const AddVehicleButton = new DOMButton('AddVehicleButton',VehicleAddFormPopup)

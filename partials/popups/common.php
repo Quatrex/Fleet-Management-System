@@ -4,11 +4,11 @@
         REQUEST
     *************************-->
 <!--Popup request form-->
-<div class="popup" id="vehicle-request-form">
+<div class="popup" id="VehicleRequestForm">
     <!-- Request Form content -->
     <div class="popup-content">
         <div class="popup-header">
-            <span class="close" id="vehicle-request-form-close">&times;</span>
+            <span class="close" id="VehicleRequestForm_Close">&times;</span>
             <h2>Vehicle Request Form</h2>
             <hr>
         </div>
@@ -18,27 +18,27 @@
                 <form id="RequestAdd_form">
 
                     <div class="form-group">
-                        <input type="date" class="form-control" name="date" placeholder="Date" autocomplete="off">
+                        <input type="date" class="form-control inputs" name="date" placeholder="Date" autocomplete="off">
                     </div>
 
                     <div class="form-group">
-                        <input type="time" class="form-control" name="time" placeholder="Time" autocomplete="off">
+                        <input type="time" class="form-control inputs" name="time" placeholder="Time" autocomplete="off">
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" name="pickup" placeholder="Pick-up Location" autocomplete="off">
+                        <input type="text" class="form-control inputs" name="pickup" placeholder="Pick-up Location" autocomplete="off">
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" name="dropoff" placeholder="Drop-off Location" autocomplete="off">
+                        <input type="text" class="form-control inputs"  name="dropoff" placeholder="Drop-off Location" autocomplete="off">
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" name="purpose" placeholder="Purpose" autocomplete="off">
+                        <input type="text" class="form-control inputs" name="purpose" placeholder="Purpose" autocomplete="off">
                     </div>
 
-                    <input type="button" value="Submit" class="btn btn-primary" id="request-form-submit-button">
-                    <input type="button" value="Close" class="btn btn-primary" id="request-form-close-button">
+                    <input type="button" value="Submit" class="btn btn-primary" id="VehicleRequestForm_Submit">
+                    <input type="button" value="Close" class="btn btn-primary" id="VehicleRequestForm_Cancel">
 
                 </form>
             </div>
@@ -50,115 +50,57 @@
 </div>
 
 <!--Cancel Alert-->
-<div class="popup" id="cancel-request-alert">
-    <!-- Confirm alert content -->
+<div class="popup" id="CancelRequestAlertPopup" style="z-index:1000;">
     <div class="popup-content">
         <div class="popup-header">
-            <span class="close" id="confirm-alert-close">&times;</span>
+            <span class="close" id="CancelRequestAlert_Close">&times;</span>
             <h3 id="cancel-alert-header">Cancel Request</h3>
             <hr>
         </div>
         <div class="popup-body">
-
             <p id="cancel-alert-message">Are you sure you want to cancel request</p>
-            <input type="button" value="Yes" class="btn btn-danger" id="confirm-alert-yes-button">
-            <input type="button" value="No" class="btn btn-primary" id="confirm-alert-no-button">
+            <input type="button" value="Yes" class="btn btn-danger" id="CancelRequestAlert_Confirm">
+            <input type="button" value="No" class="btn btn-primary" id="CancelRequestAlert_Cancel">
         </div>
         <div class="popup-footer">
         </div>
     </div>
 </div>
 
-<!--request details content in a new Request-->
-<div class="popup" id="request-details-popup">
-
+<!--Cancel Added Request Alert-->
+<div class="popup" id="CancelAddedRequestAlertPopup" style="z-index:1000;">
     <div class="popup-content">
         <div class="popup-header">
-            <span class="close" id="request-details-close">&times;</span>
-            <h3>Request Details</h3>
+            <span class="close" id="CancelAddedRequestAlert_Close">&times;</span>
+            <h3 id="cancel-alert-header">Cancel Request</h3>
             <hr>
         </div>
         <div class="popup-body">
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Date</p>
-                </div>
-                <div class="col-sm-6">
-                    <p id="new-date">DD-MM-YYYY</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Time</p>
-                </div>
-                <div class="col-sm-6">
-                    <p id="new-time">HH:MM: AM/PM</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Pick-up Location</p>
-                </div>
-                <div class="col-sm-6">
-                    <p id="new-pickup">Text</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Drop-off Location</p>
-                </div>
-                <div class="col-sm-6">
-                    <p id="new-dropoff">Text</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Purpose</p>
-                </div>
-                <div class="col-sm-6">
-                    <p id="new-purpose">Text</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Status</p>
-                </div>
-                <div class="col-sm-6">
-                    <p id="new-request-status">Sending</p>
-                </div>
-            </div>
-
-            <input type="button" value="Exit" class="btn btn-link" id="request-details-exit-button">
+            <p id="cancel-alert-message">Are you sure you want to cancel request</p>
+            <input type="button" value="Yes" class="btn btn-danger" id="CancelAddedRequestAlert_Confirm">
+            <input type="button" value="No" class="btn btn-primary" id="CancelAddedRequestAlert_Cancel">
         </div>
         <div class="popup-footer">
         </div>
     </div>
 </div>
 
-<!--Request Preview for a Table-->
-<div class="popup" id="request-preview-popup">
+
+<!--Request Preview for a Ongoing Table-->
+<div class="popup" id="OngoingRequestPreviewPopup">
     <div class="popup-content">
         <div class="popup-header">
-            <span class="close" id="request-preview-close">&times;</span>
+            <span class="close" id="OngoingRequestPreview_Close">&times;</span>
             <h3>Preview</h3>
             <hr>
         </div>
         <div class="popup-body">
-            <form>
-                <input type="hidden" name="requestID" id="request-preview-ID" />
-            </form>
             <div class="row">
                 <div class="col-sm-6">
                     <p>RequestID</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="requestID-preview">DD-MM-YYYY</p>
+                    <p id="RequestId-OngoingRequestPreviewPopup">DD-MM-YYYY</p>
                 </div>
             </div>
 
@@ -167,7 +109,7 @@
                     <p>Status</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="status-preview">Pending</p>
+                    <p id="Status-OngoingRequestPreviewPopup">Pending</p>
                 </div>
             </div>
 
@@ -176,7 +118,7 @@
                     <p>Date</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="date-preview">DD-MM-YYYY</p>
+                    <p id="DateOfTrip-OngoingRequestPreviewPopup">DD-MM-YYYY</p>
                 </div>
             </div>
 
@@ -185,7 +127,7 @@
                     <p>Time</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="time-preview">HH:MM: AM/PM</p>
+                    <p id="TimeOfTrip-OngoingRequestPreviewPopup">HH:MM: AM/PM</p>
                 </div>
             </div>
 
@@ -194,7 +136,7 @@
                     <p>Pick-up Location</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="pickup-preview">Text</p>
+                    <p id="PickLocation-OngoingRequestPreviewPopup">Text</p>
                 </div>
             </div>
 
@@ -203,7 +145,7 @@
                     <p>Drop-off Location</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="drop-preview">Text</p>
+                    <p id="DropLocation-OngoingRequestPreviewPopup">Text</p>
                 </div>
             </div>
 
@@ -212,7 +154,7 @@
                     <p>Purpose</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="purpose-preview">Text</p>
+                    <p id="Purpose-OngoingRequestPreviewPopup">Text</p>
                 </div>
             </div>
             <div class="row">
@@ -220,7 +162,7 @@
                     <p>JO Comment</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="joComment-preview">Text</p>
+                    <p id="JOComment-OngoingRequestPreviewPopup">Text</p>
                 </div>
             </div>
             <div class="row">
@@ -228,7 +170,7 @@
                     <p>CAO Comment</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="caoComment-preview">Text</p>
+                    <p id="CAOComment-OngoingRequestPreviewPopup">Text</p>
                 </div>
             </div>
             <div class="row scheduled-preview">
@@ -236,7 +178,7 @@
                     <p>Driver</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="driver-preview">Text</p>
+                    <p id="Driver-OngoingRequestPreviewPopup">Text</p>
                 </div>
             </div>
             <div class="row scheduled-preview">
@@ -244,20 +186,219 @@
                     <p>Vehicle</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="vehicle-preview">Text</p>
+                    <p id="Vehicle-OngoingRequestPreviewPopup">Text</p>
                 </div>
             </div>
         </div>
         <div class="popup-footer">
-            <button class="btn btn-danger" id="request-cancel">Cancel Request</button>
+            <button class="btn btn-danger" id="OngoingRequestPreviewRequestCancel">Cancel Request</button>
+        </div>
+    </div>
+</div>
+<!--Request Preview for a Pending Table-->
+<div class="popup" id="PendingRequestPreviewPopup">
+    <div class="popup-content">
+        <div class="popup-header">
+            <span class="close" id="PendingRequestPreview_Close">&times;</span>
+            <h3>Preview</h3>
+            <hr>
+        </div>
+        <div class="popup-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>RequestID</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="RequestId-PendingRequestPreviewPopup">DD-MM-YYYY</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Status</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="Status-PendingRequestPreviewPopup">Pending</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Date</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="DateOfTrip-PendingRequestPreviewPopup">DD-MM-YYYY</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Time</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="TimeOfTrip-PendingRequestPreviewPopup">HH:MM: AM/PM</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Pick-up Location</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="PickLocation-PendingRequestPreviewPopup">Text</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Drop-off Location</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="DropLocation-PendingRequestPreviewPopup">Text</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Purpose</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="Purpose-PendingRequestPreviewPopup">Text</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>JO Comment</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="JOComment-PendingRequestPreviewPopup">Text</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>CAO Comment</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="CAOComment-PendingRequestPreviewPopup">Text</p>
+                </div>
+            </div>
+        </div>
+        <div class="popup-footer">
+            <button class="btn btn-danger" id="PendingRequestPreviewRequestCancel">Cancel Request</button>
+        </div>
+    </div>
+</div>
+<!--Request Preview for a Request History Table-->
+<div class="popup" id="RequestHistoryPreviewPopup">
+    <div class="popup-content">
+        <div class="popup-header">
+            <span class="close" id="RequestHistoryPreview_Close">&times;</span>
+            <h3>Preview</h3>
+            <hr>
+        </div>
+        <div class="popup-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>RequestID</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="RequestId-RequestHistoryPreviewPopup">DD-MM-YYYY</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Status</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="Status-RequestHistoryPreviewPopup">Pending</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Date</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="DateOfTrip-RequestHistoryPreviewPopup">DD-MM-YYYY</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Time</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="TimeOfTrip-RequestHistoryPreviewPopup">HH:MM: AM/PM</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Pick-up Location</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="PickLocation-RequestHistoryPreviewPopup">Text</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Drop-off Location</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="DropLocation-RequestHistoryPreviewPopup">Text</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Purpose</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="Purpose-RequestHistoryPreviewPopup">Text</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>JO Comment</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="JOComment-RequestHistoryPreviewPopup">Text</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>CAO Comment</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="CAOComment-RequestHistoryPreviewPopup">Text</p>
+                </div>
+            </div>
+            <div class="row scheduled-preview">
+                <div class="col-sm-6">
+                    <p>Driver</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="Driver-RequestHistoryPreviewPopup">Text</p>
+                </div>
+            </div>
+            <div class="row scheduled-preview">
+                <div class="col-sm-6">
+                    <p>Vehicle</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="Vehicle-RequestHistoryPreviewPopup">Text</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="popup" id="new-request-preview-popup">
+<div class="popup" id="NewRequestPreviewPopup">
     <div class="popup-content">
         <div class="popup-header">
-            <span class="close" id="new-request-preview-close">&times;</span>
+            <span class="close" id="NewRequestPreview_Close">&times;</span>
             <h3>Preview</h3>
             <hr>
         </div>
@@ -268,7 +409,7 @@
                     <p>Date</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="new-date">DD-MM-YYYY</p>
+                    <p id="date-NewRequestPreviewPopup">DD-MM-YYYY</p>
                 </div>
             </div>
 
@@ -277,7 +418,7 @@
                     <p>Time</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="new-time">HH:MM: AM/PM</p>
+                    <p id="time-NewRequestPreviewPopup">HH:MM: AM/PM</p>
                 </div>
             </div>
 
@@ -286,7 +427,7 @@
                     <p>Pick-up Location</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="new-pickup">Text</p>
+                    <p id="pickup-NewRequestPreviewPopup">Text</p>
                 </div>
             </div>
 
@@ -295,7 +436,7 @@
                     <p>Drop-off Location</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="new-dropoff">Text</p>
+                    <p id="dropoff-NewRequestPreviewPopup">Text</p>
                 </div>
             </div>
 
@@ -304,17 +445,18 @@
                     <p>Purpose</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="new-purpose">Text</p>
+                    <p id="purpose-NewRequestPreviewPopup">Text</p>
                 </div>
             </div>
-            <input type="button" value="Confirm" class="btn btn-primary" id="request-preview-confirm-button">
-            <input type="button" value="Edit" class="btn btn-link" id="request-preview-edit-button">
+            <input type="button" value="Confirm" class="btn btn-primary" id="NewRequestPreview_Confirm">
+            <input type="button" value="Edit" class="btn btn-link" id="NewRequestPreview_Edit">
 
         </div>
         <div class="popup-footer">
         </div>
     </div>
 </div>
+
 <!-- on submit success snackbar -->
 <div class="snackbar" id="request-added-success-snackbar">Request Added Successfully</div>
 

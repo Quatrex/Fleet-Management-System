@@ -9,17 +9,17 @@ if (!isset($_SESSION['empid']) or !isset($_SESSION['position']) or $_SESSION['po
 }
 require_once '../includes/autoloader.inc.php';
 $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
-$requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved']);
-$ongoingRequests = $employee->getMyRequests(['scheduled']);
-$pastRequests = $employee->getRequests('completed');
+$requestsByMe = [];
+$ongoingRequests = [];
+$pastRequests = [];
 $vehicles = $employee->getVehicles();
 $requestsToAssign = $employee->getRequests('approved');
 $drivers = $employee->getDrivers();
 $scheduledRequests = $employee->getRequests('scheduled');
 $_SESSION['employee'] = $employee;
-$_SESSION['requestsByMe'] = $requestsByMe;
-$_SESSION['ongoingRequests'] = $ongoingRequests;
-$_SESSION['pastRequests'] = $pastRequests;
+$_SESSION['requestsByMe'] = [];
+$_SESSION['ongoingRequests'] = [];
+$_SESSION['pastRequests'] = [];
 $_SESSION['requestsToAssign'] = $requestsToAssign;
 $_SESSION['vehicles'] = $vehicles;
 $_SESSION['drivers'] = $drivers;
@@ -93,7 +93,7 @@ $_SESSION['scheduledRequests'] = $scheduledRequests;
             </div>
             <!--Secondary Nav Bar End-->
             <div class="container-fluid">
-                <input type="button" value="New Request" class="btn btn-primary rounded shadow p-3 mb-4" id="request-vehicle-button">
+                <input type="button" value="New Request" class="btn btn-primary rounded shadow p-3 mb-4" id="NewRequestButton">
                 <div class="tab-content">
                     <div class="tab-pane fade active show" id="pendingRequests" role="tabpanel">
                         <div class="card">
@@ -360,7 +360,7 @@ $_SESSION['scheduledRequests'] = $scheduledRequests;
             <div class="container-fluid">
                 <div class="tab-content">
                     <div class="tab-pane fade active show" id="vehicleTab" role="tabpanel">
-                        <input type="button" value="Add Vehicle" class="btn btn-primary mb-4" id="add-vehicle-button">
+                        <input type="button" value="Add Vehicle" class="btn btn-primary mb-4" id="AddVehicleButton">
                         <div class="card">
                             <h3 class="card-header bg-dark text-white">Vehicles</h3>
                             <div class="card-body">
@@ -438,7 +438,6 @@ $_SESSION['scheduledRequests'] = $scheduledRequests;
     include '../partials/popups/common.php';
     ?>
     <script>
-        const empID = <?php echo json_encode(($_SESSION['empid'])) ?>;
         const vehicles = <?php echo json_encode(($_SESSION['vehicles'])) ?>;
         const drivers = <?php echo json_encode(($_SESSION['drivers'])) ?>;
         const requestsByMe = <?php echo json_encode(($_SESSION['requestsByMe'])) ?>;
@@ -447,9 +446,10 @@ $_SESSION['scheduledRequests'] = $scheduledRequests;
         const requestsToAssign = <?php echo json_encode(($_SESSION['requestsToAssign'])) ?>;
         const scheduledRequests = <?php echo json_encode(($_SESSION['scheduledRequests'])) ?>;
     </script>
-    <script src="../js/functions.js"></script>
+    <script src="../js/classes.js"></script>
     <script src="../js/eventlisteners/common.js"></script>
     <script src="../js/eventlisteners/vpmo.js"></script>
+    <script src="../js/functions.js"></script>
 
 </body>
 

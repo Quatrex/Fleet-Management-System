@@ -21,15 +21,18 @@
     <script>
         $(document).ready(function() {
             $('#all-driver-table').DataTable();
-        });
-        $(document).ready(function() {
             $('#employee-table').DataTable();
-        });
-        $(document).ready(function() {
-            $('#selectionDriverTable').DataTable();
-        });
-        $(document).ready(function() {
-            $('#selectionVehicleTable').DataTable();
+            $('#selectionDriverTable').DataTable({
+                "scrollY": "300px",
+                "paging": true
+                // "scrollCollapse": true,
+            });
+            $('#selectionVehicleTable').DataTable({
+                "scrollY": "300px",
+                // "scrollCollapse": true,
+                "paging": true
+            });
+
         });
     </script>
 </head>

@@ -73,7 +73,7 @@ $_SESSION['drivers'] = $drivers;
     <div class="container-fluid">
         <div class="tab-content">
             <div class="tab-pane fade active show" id="employees" role="tabpanel">
-                <input type="button" value="Add Employee" class="btn btn-primary mb-3" id="add-employee-button">
+                <input type="button" value="Add Employee" class="btn btn-primary mb-3" id="AddEmployeeButton">
                 <div class="card">
                     <h3 class="card-header bg-dark text-white">Employees</h3>
                     <div class="card-body">
@@ -106,7 +106,7 @@ $_SESSION['drivers'] = $drivers;
                 </div>
             </div>
             <div class="tab-pane fade" id="drivers" role="tabpanel">
-                <input type="button" value="Add Driver" class="btn btn-primary mb-3" id="add-driver-button">
+                <input type="button" value="Add Driver" class="btn btn-primary mb-3" id="AddDriverButton">
                 <div class="card">
                     <h3 class="card-header bg-dark text-white">Drivers</h3>
                     <div class="card-body">
@@ -185,12 +185,14 @@ $_SESSION['drivers'] = $drivers;
     include '../partials/popups/admin_popup.php';
     ?>
     <script>
-        const empID = <?php echo json_encode(($_SESSION['empid'])) ?>;
         const employees = <?php echo json_encode(($_SESSION['employees'])) ?>;
         const drivers = <?php echo json_encode(($_SESSION['drivers'])) ?>;
+        console.log(employees);
+        console.log(drivers);
     </script>
-    <script src="../js/functions.js"></script>
+    <script src="../js/classes.js"></script>
     <script src="../js/eventlisteners/admin.js"></script>
+    <script src="../js/functions.js"></script>
 </body>
 
 </html>
