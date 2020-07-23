@@ -66,17 +66,17 @@ class SelectionTable extends Table {
 		this.nextField = nextField;
 		this.nextFieldId = nextFieldId;
 	}
-	setStyle(style) {
-		this.style = style;
-	}
 	getId() {
 		return this.id;
 	}
 	render(object = {}) {
 		if (object[this.selectField] === '') {
 			this.toggleStyle(-1);
+			console.log(`${this.selectField}-${this.id}`);
+			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = '';
 		} else {
-			this.button.removeAttribute('disabled');
+			this.button.removeProperty('disabled');
+			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
 			this.toggleStyle(`${this.id}_${object[this.selectField]}`);
 		}
 	}
@@ -85,9 +85,7 @@ class SelectionTable extends Table {
 		if (this.toggleStyle(id)) {
 			object[this.selectField] = targetObject[this.dataID];
 			if (this.nextFieldId != '') {
-				console.log(this.nextFieldId);
-				console.log(targetObject);
-				console.log(targetObject[this.nextFieldId]);
+				document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
 				if (targetObject[this.nextFieldId]) {
 					object[this.nextField] = targetObject[this.nextFieldId];
 				}
@@ -95,6 +93,7 @@ class SelectionTable extends Table {
 			popup.setObject(object);
 		} else {
 			object[this.selectField] = '';
+			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = ""
 			if (object[this.nextField] != '') {
 				object[this.nextField] = '';
 			}
@@ -111,7 +110,7 @@ class SelectionTable extends Table {
 			if (element === tableRow) {
 				element.classList.toggle(this.style);
 				if (element.classList.contains(this.style)) {
-					this.button.removeAttribute('disabled');
+					this.button.removeProperty('disabled');
 					hasSelected = true;
 				}
 			} else {
@@ -123,7 +122,6 @@ class SelectionTable extends Table {
 		return hasSelected;
 	}
 }
-
 
 class Popup {
 	constructor(id, eventObjects, eventTypes = ['click'], selectionTable = {}) {
@@ -155,13 +153,13 @@ class Popup {
 		this.object = object;
 		console.log(this.object);
 		this.dataType == 'innerHTML' ? changeInnerHTML(object, this.id) : changeValue(object, this.id);
+		this.eventObjects.forEach((eventObject) => eventObject.initializeProperties());
 		if (Object.keys(this.selectionTable).length != 0) {
 			this.selectionTable.render(object);
 		}
 		this.eventTypes.forEach((type) => {
 			this.popup.addEventListener(type, this);
 		});
-		this.eventObjects.forEach((eventObject) => eventObject.initializeProperties());
 		this.popup.style.display = 'block';
 	}
 	removeFromDOM() {
@@ -202,7 +200,7 @@ class PopupButton {
 			document.getElementById(this.id).setAttribute(key, this.properties[key]);
 		}
 	}
-	removeAttribute(property) {
+	removeProperty(property) {
 		document.getElementById(this.id).removeAttribute(property);
 	}
 	setNext(next) {
@@ -300,7 +298,6 @@ const changeValue = (object, id) => {
 
 const changeInnerHTML = (object, id) => {
 	let objProps = Object.getOwnPropertyNames(object);
-	console.log(objProps);
 	for (let i = 0; i < objProps.length; i++) {
 		document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
 			tag.innerHTML = object[objProps[i]];

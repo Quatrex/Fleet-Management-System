@@ -141,6 +141,14 @@ switch ($method) {
 		//code to update
 		echo json_encode("success_Driver " . $_POST['employeeID'] . " successfully updated");
 		break;
+	case 'AssignVehicleToDriver':
+		$employee->assignVehicleToDriver($_POST['driverId'], $_POST['assignedVehicleID']);
+		echo json_encode("success_Driver " . $_POST['driverId'] . " successfully assigned ". $_POST['assignedVehicleID'] );
+		break;
+	case 'PrintSlip':
+		$employee->generateVehicleHandoutSlip($_POST['RequestId']);
+		echo json_encode("success_Printed Slip For" . $_POST['RequestId']);
+		break;
 	default:
 		echo "Invalid method";
 }

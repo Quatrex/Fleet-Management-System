@@ -26,11 +26,6 @@ VehicleProfileEditFormCancel.setNext(VehicleProfileFormPopup);
 DeleteVehicleAlertCancel.setNext(VehicleProfileFormPopup);
 DeleteVehicleAlertClose.setNext(VehicleProfileFormPopup);
 
-//Driver Profile Form
-const DriverProfileFormClose = new DisplayNextButton('DriverProfileForm_Close')
-const DriverProfileFormEdit = new DisplayNextButton('DriverProfileForm_Edit')
-const DriverProfileFormPopup = new Popup('DriverProfileForm',[DriverProfileFormEdit,DriverProfileFormClose]);
-DriverProfileFormPopup.setDataType('value');
 
 //Assign Final Preview
 const RequestFinalDetailsClose = new DisplayAlertButton('RequestFinalDetails_Close', CancelRequestAlertPopup)
@@ -54,6 +49,20 @@ const SelectionDriverTable = new SelectionTable('selectionDriverTable',[],{},'dr
 const SelectDriverAlertPopup = new Popup('SelectDriverAlertPopup',[SelectDriverAlertBack,SelectDriverAlertClose,SelectDriverAlertConfirm],['click'],SelectionDriverTable);
 SelectVehicleAlertBack.setNext(SelectDriverAlertPopup);
 
+//Assign Vehicle To Driver
+const AssignVehicleToDriverClose = new DisplayNextButton('AssignVehicleToDriver_Close')
+const AssignVehicleToDriverBack = new DisplayNextButton('AssignVehicleToDriver_Goback')
+const AssignVehicleToDriverConfirm = new DisplayNextButton('AssignVehicleToDriver_Confirm', {},[BackendAccess('AssignVehicleToDriver')],{disabled:'true'});
+const assignVehicleToDriverTable = new SelectionTable('assignVehicleToDriverTable',[],{},'vehicles','registration',AssignVehicleToDriverConfirm,'assignedVehicleID');
+const AssignVehicleToDriverPopup = new Popup('AssignVehicleToDriverPopup',[AssignVehicleToDriverBack,AssignVehicleToDriverClose,AssignVehicleToDriverConfirm],['click'],assignVehicleToDriverTable);
+
+//Driver Profile Form
+const DriverProfileFormClose = new DisplayNextButton('DriverProfileForm_Close')
+const DriverProfileFormAssignVehicle = new DisplayNextButton('DriverProfileForm_AssignVehicle',AssignVehicleToDriverPopup)
+const DriverProfileFormPopup = new Popup('DriverProfileForm',[DriverProfileFormAssignVehicle,DriverProfileFormClose]);
+DriverProfileFormPopup.setDataType('value');
+AssignVehicleToDriverBack.setNext(DriverProfileFormPopup);
+
 //Request Assign Preview
 const RequestAssignPreviewClose = new DisplayNextButton('RequestAssignPreview_Close')
 const RequestAssignPreviewCancel = new DisplayNextButton('RequestAssignPreview_Cancel')
@@ -68,14 +77,15 @@ const EndTripConfirmEnd = new DisplayNextButton('EndTripConfirm_End', {},[Backen
 const EndTripConfirmPopup = new Popup('EndTripConfirmPopup',[EndTripConfirmCancel,EndTripConfirmClose,EndTripConfirmEnd]);
 
 //Active Trips Preview Popup
-const AciveTripDetailsClose = new DisplayNextButton('AciveTripDetails_Close')
-const AciveTripDetailsCancel = new DisplayNextButton('AciveTripDetails_Cancel')
-const AciveTripDetailsEnd = new DisplayAlertButton('AciveTripDetails_End', EndTripConfirmPopup);
-const AciveTripDetailsPopup = new Popup('AciveTripDetailsPopup',[AciveTripDetailsCancel,AciveTripDetailsClose,AciveTripDetailsEnd]);
+const ActiveTripDetailsClose = new DisplayNextButton('ActiveTripDetails_Close')
+const ActiveTripDetailsCancel = new DisplayNextButton('ActiveTripDetails_Cancel')
+const ActiveTripDetailsEnd = new DisplayAlertButton('ActiveTripDetails_End', EndTripConfirmPopup);
+const ActiveTripDetailsPrintSlip = new DisplayNextButton('ActiveTripDetails_PrintSlip',[],[BackendAccess('PrintSlip')]);
+const ActiveTripDetailsPopup = new Popup('ActiveTripDetailsPopup',[ActiveTripDetailsCancel,ActiveTripDetailsClose,ActiveTripDetailsEnd,ActiveTripDetailsPrintSlip]);
 
 
 const assignRequestTable = new Table('assignRequestTable',["RequestId",,"Purpose","Status","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"],RequestAssignPreviewPopup,'requestsToAssign',"RequestId")
-const ongoingTripTable = new Table('ongoingTripTable',["RequestId",,"Purpose","Status","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"],AciveTripDetailsPopup,'scheduledRequests',"RequestId")
+const ongoingTripTable = new Table('ongoingTripTable',["RequestId",,"Purpose","Status","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"],ActiveTripDetailsPopup,'scheduledRequests',"RequestId")
 const scheduledHistoryTable = new Table('scheduledHistoryTable',["RequestId",,"Purpose","Status","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"],RequestHistoryPreviewPopup,'scheduledRequests',"RequestId")
 const vehicleTable = new Table('vehicleTable',["registration",,"model","status","fuelType"],VehicleProfileFormPopup,'vehicles',"registration")
 const driverTable = new Table('driverTable',["firstName","assignedVehicleID","email"],DriverProfileFormPopup,'drivers',"driverId")
