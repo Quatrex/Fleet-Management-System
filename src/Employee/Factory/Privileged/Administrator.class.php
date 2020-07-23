@@ -4,6 +4,7 @@ namespace Employee\Factory\Privileged;
 
 use DB\Controller\EmployeeController;
 use DB\Viewer\EmployeeViewer;
+use Employee\Factory\Driver\AdminDriverProxy;
 use Employee\Factory\Driver\DriverFactory;
 
 class Administrator extends PrivilegedEmployee
@@ -42,5 +43,20 @@ class Administrator extends PrivilegedEmployee
     {
         $employee = PrivilegedEmployeeFactory::makeEmployee($empID);
         $employee->delete();
+    }
+
+    /**
+     *
+     * update driver's info
+     *
+     * @param driverID, registrationNo
+     * @return VPMODriverProxy
+     *
+     */
+    public function updateDriverInfo(string $driverID, array $values): AdminDriverProxy
+    {
+        $driver =  DriverFactory::makeDriver($driverID);
+        $driver->updateInfo($values);
+        return $driver;
     }
 }

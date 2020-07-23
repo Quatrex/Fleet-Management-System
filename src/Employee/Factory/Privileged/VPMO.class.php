@@ -8,6 +8,7 @@ use Vehicle\Factory\Base\VehicleFactory;
 use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
 use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
 use Employee\Factory\Driver\DriverFactory;
+use Employee\Factory\Driver\VPMODriverProxy;
 use Report\VehicleHandoutSlip;
 use Request\Factory\VPMORequest\VPMORequestFactory;
 
@@ -205,10 +206,25 @@ class VPMO extends Requester
      * @param requestID
      *
      */
-    public function generateVehicleHandoutSlip(int $requestID) : void
+    public function generateVehicleHandoutSlip(int $requestID): void
     {
         $request = VPMORequestFactory::makeRequest($requestID);
         $vehicleHandoutSlip = $request->generateVehicleHandoutSlip();
         $vehicleHandoutSlip->print();
+    }
+
+    /**
+     *
+     * update driver's AssignedVehicle
+     *
+     * @param driverID, registrationNo
+     * @return VPMODriverProxy
+     *
+     */
+    public function assignVehicleToDriver(string $driverID, string $registrationNo): VPMODriverProxy
+    {
+        $driver =  DriverFactory::makeDriver($driverID);
+        $driver->assignVehicle($registrationNo);
+        return $driver;
     }
 }
