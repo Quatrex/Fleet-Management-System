@@ -23,6 +23,10 @@ class DriverController extends DriverModel
         parent::updateAssignedVehicle($driverId,$assignedVehicle);
     }
 
+    public function deleteDriver($driverID){
+        parent::deleteDriver($driverID);
+    }
+
     // public function updateRecord($driverId,$fields){
     //     parent::updateRecord($driverId,$fields);
     // }

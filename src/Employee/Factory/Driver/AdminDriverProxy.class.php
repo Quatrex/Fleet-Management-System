@@ -11,4 +11,9 @@ class AdminDriverProxy extends DriverProxy
     {
         $this->driver->updateInfo($values);
     }
+
+    public function deleteDriver(string $driverID): void
+    {
+        $this->driver->deleteDriver();
+    }
 }

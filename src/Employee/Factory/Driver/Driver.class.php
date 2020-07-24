@@ -24,5 +24,10 @@ interface Driver
      */
     public function updateInfo(array $values): void;
 
+     /**
+     * Deletes driver information. Only the Admin is privileged to invoke this.
+     */
+    public function deleteDriver(string $driverID) : void;
+
     public function getField(string $field);
 }
