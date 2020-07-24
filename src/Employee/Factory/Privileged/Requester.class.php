@@ -15,6 +15,7 @@ class Requester extends PrivilegedEmployee implements IVisitable
     public function cancelRequest($requestID){
         $request = RequesterRequestFactory::makeRequest($requestID);
         $request->cancel();
+        return $request;
     }
 
     public function getMyRequests(array $states) : array 

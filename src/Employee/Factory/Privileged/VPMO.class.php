@@ -96,6 +96,7 @@ class VPMO extends Requester
     {
         $request = VPMORequestFactory::makeRequest($requestID);
         $request->close();
+        return $request;
     }
 
     /**
@@ -110,6 +111,7 @@ class VPMO extends Requester
     {
         $request = VPMORequestFactory::makeRequest($requestID);
         $request->cancel();
+        return $request;
     }
 
     /**
@@ -183,6 +185,7 @@ class VPMO extends Requester
     {
         $vehicle = $this->purchasedVehicleFactory->makeVehicle($registrationNo);
         $vehicle->delete();
+        return $vehicle;
     }
 
     /**
@@ -197,6 +200,7 @@ class VPMO extends Requester
     {
         $vehicle = $this->leasedVehicleFactory->makeVehicle($registrationNo);
         $vehicle->delete();
+        return $vehicle;
     }
 
     /**
