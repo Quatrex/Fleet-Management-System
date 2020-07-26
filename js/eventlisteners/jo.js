@@ -24,8 +24,8 @@ const RequestJustifyPreviewPopup = new Popup('RequestJustifyPreviewPopup',[Reque
 JustifyRequestAlertCancel.setNext(RequestJustifyPreviewPopup);
 DeclineRequestAlertCancel.setNext(RequestJustifyPreviewPopup);
 
-const justifyRequestContainer = new DOMContainer('justifyAwaitingRequestCard',justifyRequestCard_Fields,RequestJustifyPreviewPopup,'requestsToJustify','RequestId',awaitingRequestStore,["Pending"],"awaitingRequestCardTemplate")
-const justifiedRequestContainer = new DOMContainer('justifiedAwaitingRequestCard',justifiedHistoryCard_Fields,RequestHistoryPreviewPopup,'justifiedRequests','RequestId',awaitingRequestStore,["Justified","Denied","Approved","Cancelled","Scheduled","Completed"],"awaitingRequestCardTemplate")
+const justifyRequestContainer = new DOMContainer('justifyAwaitingRequestCard',justifyRequestCard_Fields,RequestJustifyPreviewPopup,'RequestId',awaitingRequestStore,"awaitingRequestCardTemplate",["Pending"])
+const justifiedRequestContainer = new DOMContainer('justifiedAwaitingRequestCard',justifiedHistoryCard_Fields,RequestHistoryPreviewPopup,'RequestId',awaitingRequestStore,"awaitingRequestCardTemplate",["Justified","Denied","Approved","Cancelled","Scheduled","Completed"])
 
 
 awaitingRequestStore.addObservers([justifyRequestContainer,justifiedRequestContainer])

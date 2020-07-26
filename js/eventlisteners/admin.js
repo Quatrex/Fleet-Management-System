@@ -108,20 +108,16 @@ const employeeContainer = new DOMContainer(
 	'employeeContainer',
 	employeeCard_Fields,
 	EmployeeProfileFormPopup,
-	'employees',
 	'empID',
 	employeeStore,
-	[],
 	'employeeCardTemplate'
 );
 const driverContainer = new DOMContainer(
 	'driverContainer',
 	driverCard_Fields,
 	DriverProfileFormPopup,
-	'drivers',
 	'driverId',
 	driverStore,
-	[],
 	'driverCardTemplate'
 );
 

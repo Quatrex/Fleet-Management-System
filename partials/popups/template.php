@@ -1,5 +1,5 @@
 <template id="cardTemplate">
-    <div class="card request-card" style="z-index:2;">
+    <div class="card request-card detail-description" style="z-index:2;">
         <div class="description">
             <h1 class="card-title Purpose">For: </h1>
             <div class="row" style="padding-left:1rem;">
@@ -28,7 +28,7 @@
 </template>
 
 <template id="awaitingRequestCardTemplate">
-    <div class="card request-card" style="z-index:2;">
+    <div class="card request-card detail-description" style="z-index:2;">
         <div class="description">
             <h1 class="card-title Purpose">For: </h1>
             <h2 class="card-title RequesterName">By: </h2>
@@ -57,7 +57,7 @@
 </template>
 
 <template id="vehicleCardTemplate">
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description">
         <div class="card text-center" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2" src="../images/default-user-image.png" alt="Driver Image">
             <div class="card-body">
                 <h5 class="card-title model"></h5>

@@ -40,8 +40,8 @@ const RequestHistoryPreviewPopup = new Popup('RequestHistoryPreviewPopup',[Reque
 
 
 const NewRequestButton = new DOMButton('NewRequestButton',VehicleRequestFormPopup)
-const pendingRequestTable = new DOMContainer('pendingRequestCard',pendingRequestTable_Fields,PendingRequestPreviewPopup,'requestsByMe',"RequestId",myRequestStore,["Pending","Approved","Justified"],"cardTemplate");
-const ongoingRequestTable = new DOMContainer('ongoingRequestCard',ongoingRequestTable_Fields,OngoingRequestPreviewPopup,'ongoingRequests',"RequestId",myRequestStore,["Scheduled"],"cardTemplate");
-const requestHistoryTable = new DOMContainer('pastRequestCard',requestHistoryTable_Fields,RequestHistoryPreviewPopup,'pastRequests',"RequestId",myRequestStore,["Denied","Cancelled","Completed"],"cardTemplate");
+const pendingRequestTable = new DOMContainer('pendingRequestCard',pendingRequestTable_Fields,PendingRequestPreviewPopup,"RequestId",myRequestStore,"cardTemplate",["Pending","Approved","Justified"]);
+const ongoingRequestTable = new DOMContainer('ongoingRequestCard',ongoingRequestTable_Fields,OngoingRequestPreviewPopup,"RequestId",myRequestStore,"cardTemplate",["Scheduled"]);
+const requestHistoryTable = new DOMContainer('pastRequestCard',requestHistoryTable_Fields,RequestHistoryPreviewPopup,"RequestId",myRequestStore,"cardTemplate",["Denied","Cancelled","Completed"]);
 
 myRequestStore.addObservers([pendingRequestTable,ongoingRequestTable,requestHistoryTable])

@@ -14,11 +14,10 @@ class DOMButton {
 }
 
 class DOMContainer {
-	constructor(id, fields, popup, data, dataID, store, validStates = [], templateId) {
+	constructor(id, fields, popup,dataID, store, templateId, validStates = []) {
 		this.id = id;
 		this.fields = fields;
 		this.popup = popup;
-		this.data = data;
 		this.cardContainer = document.getElementById(id);
 		this.dataID = dataID;
 		this.store = store;
@@ -51,7 +50,8 @@ class DOMContainer {
 	}
 
 	handleEvent(event) {
-		let targetObject = eval(this.data).find(
+		let data = this.store.getState();
+		let targetObject = data.find(
 			(obj) => obj[this.dataID] == event.target.closest('.detail-description').id.split('_')[1]
 		);
 		if (targetObject) {
@@ -71,6 +71,7 @@ class DOMContainer {
 		});
 		// template.querySelector('.card').id =  `${this.id}_${object[this.dataID]}`
 		this.cardContainer.insertBefore(clone, this.cardContainer.firstChild);
+		this.cardContainer.firstElementChild.id = `${this.id}_${object[this.dataID]}`
 		// }
 		// else{
 		// 	console.log("Error");
@@ -95,15 +96,6 @@ class DOMContainer {
 			this.insertEntry(object);
 		}
 	}
-	// handleEvent(event) {
-	// 	let targetObject = eval(this.data).find(
-	// 		(obj) => obj[this.dataID] == event.target.parentElement.id.split('_')[1]
-	// 	);
-	// 	if (targetObject) {
-	// 		this.store.setCurrentObj(targetObject);
-	// 		this.popup.render(targetObject);
-	// 	}
-	// }
 }
 
 // class Table {
@@ -185,7 +177,6 @@ class SelectionTable extends DOMContainer {
 		id,
 		fields,
 		popup,
-		data,
 		dataID,
 		store,
 		templateId,
@@ -194,7 +185,7 @@ class SelectionTable extends DOMContainer {
 		nextField = '',
 		nextFieldId = ''
 	) {
-		super(id, fields, popup, data, dataID, store, [], templateId);
+		super(id, fields, popup, dataID, store, templateId);
 		this.selectField = selectField;
 		this.button = button;
 		this.cardContainer.removeEventListener('click', this);
@@ -217,7 +208,8 @@ class SelectionTable extends DOMContainer {
 		}
 	}
 	handleEvent(popup, object, id) {
-		let targetObject = eval(this.data).find((obj) => obj[this.dataID] == id.split('_')[1]);
+		let data = this.store.getState();
+		let targetObject = data.find((obj) => obj[this.dataID] == id.split('_')[1]);
 		if (this.toggleStyle(id)) {
 			object[this.selectField] = targetObject[this.dataID];
 			if (this.nextFieldId != '') {

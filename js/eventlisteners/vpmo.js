@@ -107,7 +107,6 @@ const SelectionVehicleTable = new SelectionTable(
 	'selectionVehicleTable',
 	[],
 	{},
-	'vehicles',
 	'registration',
 	vehicleStore,
 	'',
@@ -132,7 +131,6 @@ const SelectionDriverTable = new SelectionTable(
 	'selectionDriverTable',
 	[],
 	{},
-	'drivers',
 	'driverId',
 	driverStore,
 	'',
@@ -167,7 +165,6 @@ const assignVehicleToDriverTable = new SelectionTable(
 	'assignVehicleToDriverTable',
 	[],
 	{},
-	'vehicles',
 	'registration',
 	AssignVehicleToDriverConfirm,
 	'assignedVehicleID'
@@ -234,50 +231,44 @@ const assignRequestContainer = new DOMContainer(
 	'assignAwaitingRequestCard',
 	assignRequestCard_Fields,
 	RequestAssignPreviewPopup,
-	'requestsToAssign',
 	'RequestId',
 	awaitingRequestStore,
-	['Approved'],
 	'awaitingRequestCardTemplate'
+	['Approved'],
 );
 const ongoingTripContainer = new DOMContainer(
 	'ongoingAwaitingRequestCard',
 	ongoingTripCard_Fields,
 	ActiveTripDetailsPopup,
-	'scheduledRequests',
 	'RequestId',
 	awaitingRequestStore,
+	'awaitingRequestCardTemplate',
 	['Scheduled'],
-	'awaitingRequestCardTemplate'
+
 );
 const scheduledHistoryContainer = new DOMContainer(
 	'scheduledAwaitingRequestCard',
 	scheduledHistoryCard_Fields,
 	RequestHistoryPreviewPopup,
-	'scheduledRequests',
 	'RequestId',
 	awaitingRequestStore,
+	'awaitingRequestCardTemplate',
 	['Completed', 'Cancelled'],
-	'awaitingRequestCardTemplate'
 );
 const vehicleContainer = new DOMContainer(
 	'vehicleContainer',
 	vehicleCard_Fields,
 	VehicleProfileFormPopup,
-	'vehicles',
 	'registration',
 	vehicleStore,
-	[],
 	'vehicleCardTemplate'
 );
 const driverContainer = new DOMContainer(
 	'driverContainer',
 	driverCard_Fields,
 	DriverProfileFormPopup,
-	'drivers',
 	'driverId',
 	driverStore,
-	[],
 	'employeeCardTemplate'
 );
 const AddVehicleButton = new DOMButton('AddVehicleButton', VehicleAddFormPopup);

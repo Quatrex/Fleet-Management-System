@@ -25,8 +25,8 @@ const RequestApprovePreviewPopup = new Popup('RequestApprovePreviewPopup',[Reque
 ApproveRequestAlertCancel.setNext(RequestApprovePreviewPopup);
 DenyRequestAlertCancel.setNext(RequestApprovePreviewPopup);
 
-const approveRequestContainer = new DOMContainer('approveAwaitingRequestCard',approveRequestCard_Fields,RequestApprovePreviewPopup,'requestsToApprove','RequestId',awaitingRequestStore,["Justified"],"awaitingRequestCardTemplate")
-const approvedHistoryContainer = new DOMContainer('approvedAwaitingRequestCard',approvedHistoryCard_Fields,RequestHistoryPreviewPopup,'approvedRequests','RequestId',awaitingRequestStore,["Denied","Approved","Cancelled","Scheduled","Completed"],"awaitingRequestCardTemplate")
+const approveRequestContainer = new DOMContainer('approveAwaitingRequestCard',approveRequestCard_Fields,RequestApprovePreviewPopup,'RequestId',awaitingRequestStore,"awaitingRequestCardTemplate",["Justified"])
+const approvedHistoryContainer = new DOMContainer('approvedAwaitingRequestCard',approvedHistoryCard_Fields,RequestHistoryPreviewPopup,'RequestId',awaitingRequestStore,"awaitingRequestCardTemplate",["Denied","Approved","Cancelled","Scheduled","Completed"])
 
 awaitingRequestStore.addObservers([approveRequestContainer,approvedHistoryContainer])
 
