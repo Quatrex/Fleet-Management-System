@@ -111,7 +111,7 @@ switch ($method) {
 			]);
 		} else {
 			$vehicle = $employee->updatePurchasedVehicleInfo([
-				'RegistrationNo' => $_POST['registrationNo'],
+				'RegistrationNo' => $_POST['registration'],
 				'Model' => $_POST['model'],
 				'PurchasedYear' => $_POST['purchasedYear'],
 				'Value' => $_POST['value'],
@@ -124,7 +124,7 @@ switch ($method) {
 		{
 			$object['error'] = false;
 			$object['object'] = $vehicle;
-			$object['message'] = "success_Vehicle " . $_POST['registrationNo'] . " successfully updated";
+			$object['message'] = "success_Vehicle " . $_POST['registration'] . " successfully updated";
 		} else {
 			$object['error'] = true;
 			$object['message'] = 'Failed to create a vehicle object';
@@ -139,17 +139,17 @@ switch ($method) {
 	break;
 
 	case 'DeletePurchasedVehicle':
-		$vehicle = $employee->deletePurchasedVehicle($_POST['VehicleID']);
+		$vehicle = $employee->deletePurchasedVehicle($_POST['registration']);
 		$object['error'] = false;
 		$object['object'] = $vehicle;
-		$object['message'] = "success_Vehicle " . $_POST['VehicleID'] . " successfully deleted";
+		$object['message'] = "success_Vehicle " . $_POST['registration'] . " successfully deleted";
 	break;
 
 	case 'DeleteLeasedVehicle':
-		$vehicle = $employee->deleteLeasedVehicle($_POST['VehicleID']);
+		$vehicle = $employee->deleteLeasedVehicle($_POST['registration']);
 		$object['error'] = false;
 		$object['object'] = $vehicle;
-		$object['message'] = "success_Vehicle " . $_POST['VehicleID'] . " successfully deleted";	
+		$object['message'] = "success_Vehicle " . $_POST['registration'] . " successfully deleted";	
 	break;
 
 	case 'Schedule':
@@ -168,40 +168,40 @@ switch ($method) {
 
 	case 'AddEmployee':
 		$emp = $employee->createNewAccount([
-			'EmpID' => $_POST['newEmployeeId'], 
-			'FirstName' => $_POST['firstName'], 
-			'LastName' => $_POST['lastName'], 
+			'EmpID' => $_POST['empID'], 
+			'FirstName' => $_POST['FirstName'], 
+			'LastName' => $_POST['LastName'], 
 			'Username' => "", 
-			'Designation' => $_POST['designation'], 
-			'Position' => $_POST['position'], 
-			'Email' => $_POST['email'], 
-			'Password' => $_POST['password'], 
-			'ContactNo' => $_POST['contactNo']]);
+			'Designation' => $_POST['Designation'], 
+			'Position' => $_POST['Position'], 
+			'Email' => $_POST['Email'], 
+			'Password' => $_POST['Password'], 
+			'ContactNo' => $_POST['ContactNo']]);
 		$object['error'] = false;
 		$object['object'] = $emp;
-		$object['message'] = "success_Employee " . $_POST['newEmployeeId'] . " successfully added";
+		$object['message'] = "success_Employee " . $_POST['empID'] . " successfully added";
 	break;
 
 	case 'UpdateEmployee':
 		$emp = $employee->updateAccount([
-			'NewEmpID' => $_POST['employeeID'], 
-			'FirstName' => $_POST['firstName'], 
-			'LastName' => $_POST['lastName'], 
+			'NewEmpID' => $_POST['empID'], 
+			'FirstName' => $_POST['FirstName'], 
+			'LastName' => $_POST['LastName'], 
 			'Username' => "", 
-			'Designation' => $_POST['designation'],
-			'Position' => $_POST['position'], 
-			'Email' => $_POST['email'], 
-			'ContactNo' => $_POST['contactNo']]);
+			'Designation' => $_POST['Designation'],
+			'Position' => $_POST['Position'], 
+			'Email' => $_POST['Email'], 
+			'ContactNo' => $_POST['ContactNo']]);
 		$object['error'] = false;
 		$object['object'] = $emp;
-		$object['message'] = "success_Employee " . $_POST['employeeID'] . " successfully updated";
+		$object['message'] = "success_Employee " . $_POST['empID'] . " successfully updated";
 	break;
 	
 	case 'DeleteEmployee':
-		$emp = $employee->removeAccount($_POST['employeeID']);
+		$emp = $employee->removeAccount($_POST['empID']);
 		$object['error'] = false;
 		$object['object'] = $emp;
-		$object['message'] = "success_Employee " . $_POST['employeeID'] . " successfully deleted";
+		$object['message'] = "success_Employee " . $_POST['empID'] . " successfully deleted";
 	break;
 
 	case 'AddDriver':

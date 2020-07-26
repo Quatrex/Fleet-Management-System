@@ -463,7 +463,7 @@ const Database = {
 				if (actionCreaters.length != 0) {
 					actionCreaters.forEach((actionCreator) =>
 						actionCreator.type == 'ADD'
-							? actionCreator.store.dispatch({ type: actionCreator.type, payload: returnArr[0] })
+							? actionCreator.store.dispatch({ type: actionCreator.type, payload: returnArr.object })
 							: actionCreator.store.dispatch({ type: actionCreator.type, payload: object })
 					);
 				}
