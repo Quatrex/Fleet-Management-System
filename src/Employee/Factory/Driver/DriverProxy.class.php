@@ -45,6 +45,14 @@ class DriverProxy implements Driver, JsonSerializable
         throw new Exception('Illegel Access');
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function deleteDriver(string $driverID) : void
+    {
+        throw new Exception('Illegel Access');
+    }
+
     public function getField(string $field)
     {
         return $this->driver->getField($field);

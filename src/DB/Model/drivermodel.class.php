@@ -83,4 +83,10 @@ abstract class DriverModel extends Model
         ];
         parent::addRecord($values);
     }
+
+    protected function deleteDriver($driverID){
+        $values = ['IsDeleted' => 1];
+        $conditions = ['DriverID' => $driverID];
+        parent::updateRecord($values,$conditions);  
+    }
 }
