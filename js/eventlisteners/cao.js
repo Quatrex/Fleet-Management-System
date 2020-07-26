@@ -1,13 +1,21 @@
 
+//Fields
+const approveRequestCard_Fields = ["RequesterName","Designation","Purpose","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"]
+const approvedHistoryCard_Fields = ["RequesterName","Designation","Purpose","DateOfTrip","TimeOfTrip","PickLocation",]
+
+
+const awaitingRequestStore = new Store([...requestsToApprove,...approvedRequests]);
+
+
 //CAO
 const ApproveRequestAlertClose = new DisplayAlertButton('ApproveRequestAlert_Close', CancelRequestAlertPopup)
 const ApproveRequestAlertCancel = new DisplayNextButton('ApproveRequestAlert_Cancel')
-const ApproveRequestAlertApprove = new DisplayNextButton('ApproveRequestAlert_Approve',{},[ObjectCreate,BackendAccess('CAOApprove')]);
+const ApproveRequestAlertApprove = new DisplayNextButton('ApproveRequestAlert_Approve',{},[ObjectCreate,BackendAccess('CAOApprove',[ActionCreator(awaitingRequestStore,"UPDATE")])]);
 const ApproveRequestAlertPopup = new Popup('ApproveRequestAlertPopup',[ApproveRequestAlertCancel,ApproveRequestAlertClose,ApproveRequestAlertApprove]);
 
 const DenyRequestAlertClose = new DisplayAlertButton('DenyRequestAlert_Close', CancelRequestAlertPopup)
 const DenyRequestAlertCancel = new DisplayNextButton('DenyRequestAlert_Cancel')
-const DenyRequestAlertDeny = new DisplayNextButton('DenyRequestAlert_Decline',{},[ObjectCreate,BackendAccess('CAODeny')]);
+const DenyRequestAlertDeny = new DisplayNextButton('DenyRequestAlert_Decline',{},[ObjectCreate,BackendAccess('CAODeny',[ActionCreator(awaitingRequestStore,"UPDATE")])]);
 const DenyRequestAlertPopup = new Popup('DenyRequestAlertPopup',[DenyRequestAlertCancel,DenyRequestAlertClose,DenyRequestAlertDeny]);
 
 const RequestApprovePreviewClose = new DisplayNextButton('RequestApprovePreview_Close')
@@ -17,5 +25,8 @@ const RequestApprovePreviewPopup = new Popup('RequestApprovePreviewPopup',[Reque
 ApproveRequestAlertCancel.setNext(RequestApprovePreviewPopup);
 DenyRequestAlertCancel.setNext(RequestApprovePreviewPopup);
 
-const approveRequestTable = new Table('approveRequestTable',["RequestId",,"Purpose","Status","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"],RequestApprovePreviewPopup,'requestsToApprove','RequestId')
-const approvedHistoryTable = new Table('approvedHistoryTable',["RequestId",,"Purpose","Status","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"],RequestHistoryPreviewPopup,'approvedRequests','RequestId')
+const approveRequestContainer = new DOMContainer('approveAwaitingRequestCard',approveRequestCard_Fields,RequestApprovePreviewPopup,'requestsToApprove','RequestId',awaitingRequestStore,["Justified"],"awaitingRequestCardTemplate")
+const approvedHistoryContainer = new DOMContainer('approvedAwaitingRequestCard',approvedHistoryCard_Fields,RequestHistoryPreviewPopup,'approvedRequests','RequestId',awaitingRequestStore,["Denied","Approved","Cancelled","Scheduled","Completed"],"awaitingRequestCardTemplate")
+
+awaitingRequestStore.addObservers([approveRequestContainer,approvedHistoryContainer])
+

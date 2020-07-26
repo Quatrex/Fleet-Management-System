@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control inputs"  name="dropoff" placeholder="Drop-off Location" autocomplete="off">
+                        <input type="text" class="form-control inputs" name="dropoff" placeholder="Drop-off Location" autocomplete="off">
                     </div>
 
                     <div class="form-group">
@@ -77,6 +77,7 @@
         </div>
         <div class="popup-body">
             <p id="cancel-alert-message">Are you sure you want to cancel request</p>
+            <input class="inputs" type="hidden" name="Status" value="Cancelled" disabled>
             <input type="button" value="Yes" class="btn btn-danger" id="CancelAddedRequestAlert_Confirm">
             <input type="button" value="No" class="btn btn-primary" id="CancelAddedRequestAlert_Cancel">
         </div>

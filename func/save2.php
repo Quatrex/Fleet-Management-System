@@ -27,14 +27,14 @@ switch ($method) {
 		break;
 
 	case 'RequestAdd':
-		$employee->placeRequest([
+		$request = $employee->placeRequest([
 			'DateOfTrip' => $_POST['date'],
 			'TimeOfTrip' => $_POST['time'],
 			'DropLocation' => $_POST['dropoff'],
 			'PickLocation' => $_POST['pickup'],
 			'Purpose' => $_POST['purpose']
 		]);
-		echo json_encode("success_Request successfully added");
+		echo json_encode($request);
 		break;
 
 	case 'AddVehicle':
@@ -85,7 +85,7 @@ switch ($method) {
 			]);
 		} else {
 			$employee->updatePurchasedVehicleInfo([
-				'RegistrationNo' => $_POST['registrationNo'],
+				'RegistrationNo' => $_POST['registration'],
 				'Model' => $_POST['model'],
 				'PurchasedYear' => $_POST['purchasedYear'],
 				'Value' => $_POST['value'],
@@ -122,12 +122,12 @@ switch ($method) {
 		echo json_encode("success_Employee " . $_POST['newEmployeeId'] . " successfully added");
 		break;
 	case 'UpdateEmployee':
-		$employee->updateAccount(['NewEmpID' => $_POST['employeeID'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Username' => "", 'Designation' => $_POST['designation'],'Position' => $_POST['position'], 'Email' => $_POST['email'], 'ContactNo' => $_POST['contactNo']]);
+		$employee->updateAccount(['NewEmpID' => $_POST['empID'], 'FirstName' => $_POST['FirstName'], 'LastName' => $_POST['LastName'], 'Username' => "", 'Designation' => $_POST['Designation'],'Position' => $_POST['Position'], 'Email' => $_POST['Email'], 'ContactNo' => $_POST['ContactNo']]);
 		echo json_encode("success_Employee " . $_POST['employeeID'] . " successfully updated");
 		break;
 	case 'DeleteEmployee':
-		$employee->removeAccount($_POST['employeeID']);
-		echo json_encode("success_Employee " . $_POST['employeeID'] . " successfully deleted");
+		// $employee->removeAccount($_POST['empID']);
+		echo json_encode("success_Employee " . $_POST['empID'] . " successfully deleted");
 		break;
 	case 'AddDriver':
 		$employee->createNewDriver(['DriverID' => $_POST['driverId'], 'FirstName' => $_POST['firstName'], 'LastName' => $_POST['lastName'], 'Email' => $_POST['email'], 'Address' => $_POST['address'], 'ContactNo' => $_POST['contactNo'], 'LicenseNumber' => $_POST['licenseNo'], 'LicenseType' => $_POST['licenseType'], 'LicenseExpirationDay' => $_POST['licenseExpireDate'], 'DateOfAdmission' => $_POST['employedDate'], 'AssignedVehicleID' => ""]);
@@ -139,7 +139,7 @@ switch ($method) {
 		break;
 	case 'UpdateDriver':
 		//code to update
-		echo json_encode("success_Driver " . $_POST['employeeID'] . " successfully updated");
+		echo json_encode("success_Driver " . $_POST['driverId'] . " successfully updated");
 		break;
 	case 'AssignVehicleToDriver':
 		$employee->assignVehicleToDriver($_POST['driverId'], $_POST['assignedVehicleID']);

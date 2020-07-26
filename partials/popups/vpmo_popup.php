@@ -413,6 +413,7 @@
                         <p id="Vehicle-RequestFinalDetailsPopup">Text</p>
                     </div>
                 </div>
+                <input class="inputs" type="hidden" name="Status" value="Scheduled" disabled>
             </div>
             <div class="popup-footer">
                 <input type="button" value="Confirm" class="btn btn-primary" id="RequestFinalDetails_Confirm">
@@ -675,7 +676,7 @@
                 <hr>
             </div>
             <div class="popup-body">
-
+                <input class="inputs" type="hidden" name="Status" value="Completed" disabled>
                 <p id="cancel-alert-message">Are you sure you want to end the trip?</p>
                 <input type="button" value="Yes" class="btn btn-danger" id="EndTripConfirm_Confirm">
                 <input type="button" value="No" class="btn btn-primary" id="EndTripConfirm_Cancel">

@@ -92,7 +92,10 @@
             </div>
             <div class="popup-body">
                 <p>Are you sure you want to justify the request?</p>
-                <textarea class="form-control inputs" name="JOComment" placeholder="Comments" rows="4"></textarea>
+                <form id='JOJustify_form'>
+                    <input class="inputs" type="hidden" name="Status" value="Justified" disabled>
+                    <textarea class="form-control inputs" name="JOComment" placeholder="Comments" rows="4"></textarea>
+                </form>
             </div>
             <div class="popup-footer">
 
@@ -113,7 +116,10 @@
             </div>
             <div class="popup-body">
                 <p>Are you sure you want to decline the request?</p>
-                <textarea class="form-control inputs" name="JOComment" placeholder="Comments" rows="4"></textarea>
+                <form id='JODeny_form'>
+                    <input class="inputs" type="hidden" name="Status" value="Justified" disabled>
+                    <textarea class="form-control inputs" name="JOComment" placeholder="Comments" rows="4"></textarea>
+                </form>
             </div>
             <div class="popup-footer">
                 <input type="button" value="Decline Request" class="btn btn-danger" id="DeclineRequestAlert_Decline">
@@ -121,5 +127,3 @@
             </div>
         </div>
     </div>
-
-

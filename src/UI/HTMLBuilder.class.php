@@ -134,7 +134,7 @@ class HTMLBuilder
         $requestElements = [];
         foreach ($requests as $request) {
             $requestElement= $this->compositeBuilder
-                ->createComposite('div',['class' => 'card request-card','id'=> strtolower($state) . 'RequestCard-'.htmlentities($request->getField('requestID')),'style'=>'z-index:2;'])
+                ->createComposite('div',['class' => 'card request-card detail-description','id'=> strtolower($state) . 'RequestCard_'.htmlentities($request->getField('requestID')),'style'=>'z-index:2;'])
                 ->composite()
                     ->createComposite('div',['class'=>'description'])
                     //->addElement('span',['class'=>'request-id','id'=> strtolower($state) . '-request-' . $i],['Requset id: ' . htmlentities($request->getField('requestID'))])
@@ -177,7 +177,7 @@ class HTMLBuilder
             ->createComposite('div',['class'=>'card mt-5'])
             ->addElement('h3',['class'=>"card-header bg-dark text-white"],[$header])
             ->composite()
-                ->createComposite('div',['class'=>'card-body'])
+                ->createComposite('div',['class'=>'card-body', 'id'=> strtolower($state).'RequestCard'])
                 ->addArrayToContent($requestElements)
                 ->get()
             ->getComposite();
@@ -191,7 +191,7 @@ class HTMLBuilder
         $requestElements = [];
         foreach ($requests as $request) {
             $requestElement= $this->compositeBuilder
-                ->createComposite('div',['class' => 'card request-card','id'=> strtolower($state) . 'RequestCard-'.htmlentities($request->getField('requestID')),'style'=>'z-index:2;'])
+                ->createComposite('div',['class' => 'card request-card detail-description','id'=> strtolower($state) . 'AwaitingRequestCard_'.htmlentities($request->getField('requestID')),'style'=>'z-index:2;'])
                 ->composite()
                     ->createComposite('div',['class'=>'description'])
                     //->addElement('span',['class'=>'request-id','id'=> strtolower($state) . '-request-' . $i],['Requset id: ' . htmlentities($request->getField('requestID'))])
@@ -231,7 +231,7 @@ class HTMLBuilder
             ->createComposite('div',['class'=>'card mt-5'])
             ->addElement('h3',['class'=>"card-header bg-dark text-white"],[$header])
             ->composite()
-                ->createComposite('div',['class'=>'card-body'])
+                ->createComposite('div',['class'=>'card-body','id'=> strtolower($state).'AwaitingRequestCard'])
                 ->addArrayToContent($requestElements)
                 ->get()
             ->getComposite();
@@ -244,15 +244,15 @@ class HTMLBuilder
         $driverCards=[];
         foreach ($drivers as $driver) {
             $driverCard=$this->compositeBuilder
-                ->createComposite('div',['class'=>'col-lg-3 col-md-4 col-sm-6 col-xs-12'])
+                ->createComposite('div',['class'=>'col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description', 'id'=>'driverContainer_'.htmlentities($driver->getField('driverId'))])
                 ->composite()
-                    ->createComposite('div',['class'=>'card text-center', 'id'=>'driver-card-'.htmlentities($driver->getField('driverId')), 'style'=>'width: 15rem;'])
+                    ->createComposite('div',['class'=>'card text-center' ,'style'=>'width: 15rem;'])
                     ->addElement('img',['class'=>"card-img-top rounded-circle user-image mt-2", 'src'=>"../images/default-user-image.png", 'alt'=>"Driver Image"])
                     ->composite()
                         ->createComposite('div',['class'=>'card-body'])
-                        ->addElement('h5',['class'=>'card-title'],[$driver->getField('firstName') . ' ' . $driver->getField('lastName') ])
-                        ->addElement('h6',['class'=>'card-subtitle mb-2 text-muted'],[$driver->getField('driverId')])
-                        ->addElement('p',['class'=>'card-text'],[$driver->getField('assignedVehicleId')])
+                        ->addElement('h5',['class'=>'card-title firstName lastName'],[$driver->getField('firstName') . ' ' . $driver->getField('lastName') ])
+                        ->addElement('h6',['class'=>'card-subtitle mb-2 text-muted driverId'],[$driver->getField('driverId')])
+                        ->addElement('p',['class'=>'card-text assignedVehicleId'],[$driver->getField('assignedVehicleId')])
                         ->addElement('p',['class'=>'card-text'],["Empty"])
                         ->get()
                     ->get()
@@ -263,7 +263,7 @@ class HTMLBuilder
             ->createComposite('div',['class'=>'card mt-5'])
             ->addElement('h3',['class'=>"card-header bg-dark text-white"],['Drivers'])
             ->composite()
-                ->createComposite('div',['class'=>'card-body row'])
+                ->createComposite('div',['class'=>'card-body row', 'id'=>'driverContainer'])
                 ->addArrayToContent($driverCards)
                 ->get()
             ->getComposite();
@@ -276,15 +276,15 @@ class HTMLBuilder
         $vehicleCards=[];
         foreach ($vehicles as $vehicle) {
             $vehicleCard=$this->compositeBuilder
-                ->createComposite('div',['class'=>'col-lg-3 col-md-4 col-sm-6 col-xs-12'])
+                ->createComposite('div',['class'=>'col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description', 'id'=>'vehicleContainer_'.htmlentities($vehicle->getField('registrationNo'))])
                 ->composite()
-                    ->createComposite('div',['class'=>'card text-center', 'id'=>'vehicle-card-'.htmlentities($vehicle->getField('registrationNo')), 'style'=>'width: 15rem;'])
+                    ->createComposite('div',['class'=>'card text-center' , 'style'=>'width: 15rem;'])
                     ->addElement('img',['class'=>"card-img-top rounded-circle user-image mt-2", 'src'=>"../images/default-user-image.png", 'alt'=>"Driver Image"])
                     ->composite()
                         ->createComposite('div',['class'=>'card-body'])
-                        ->addElement('h5',['class'=>'card-title'],[$vehicle->getField('model')])
-                        ->addElement('h6',['class'=>'card-subtitle mb-2 text-muted'],[$vehicle->getField('registrationNo')])
-                        ->addElement('p',['class'=>'card-text'],[$vehicle->getField('purchasedYear')])
+                        ->addElement('h5',['class'=>'card-title model'],[$vehicle->getField('model')])
+                        ->addElement('h6',['class'=>'card-subtitle mb-2 text-muted registration'],[$vehicle->getField('registrationNo')])
+                        ->addElement('p',['class'=>'card-text purchasedYear'],[$vehicle->getField('purchasedYear')])
                         ->addElement('p',['class'=>'card-text'],['Nothing'])
                         ->get()
                     ->get()
@@ -295,7 +295,7 @@ class HTMLBuilder
             ->createComposite('div',['class'=>'card mt-5'])
             ->addElement('h3',['class'=>"card-header bg-dark text-white"],['Vehicles'])
             ->composite()
-                ->createComposite('div',['class'=>'card-body row'])
+                ->createComposite('div',['class'=>'card-body row', 'id'=> 'vehicleContainer'])
                 ->addArrayToContent($vehicleCards)
                 ->get()
             ->getComposite();
@@ -308,16 +308,16 @@ class HTMLBuilder
         $employeeCards=[];
         foreach ($employees as $employee) {
             $employeeCard=$this->compositeBuilder
-                ->createComposite('div',['class'=>'col-lg-3 col-md-4 col-sm-6 col-xs-12'])
+                ->createComposite('div',['class'=>'col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description', 'id'=>'employeeContainer_'.htmlentities($employee->getField('empID'))])
                 ->composite()
-                    ->createComposite('div',['class'=>'card text-center', 'id'=>'employee-card-'.htmlentities($employee->getField('empID')), 'style'=>'width: 15rem;'])
+                    ->createComposite('div',['class'=>'card text-center', 'style'=>'width: 15rem;'])
                     ->addElement('img',['class'=>"card-img-top rounded-circle user-image mt-2", 'src'=>"../images/default-user-image.png", 'alt'=>"Driver Image"])
                     ->composite()
                         ->createComposite('div',['class'=>'card-body'])
-                        ->addElement('h5',['class'=>'card-title'],[$employee->getField('firstName') . ' ' . $employee->getField('lastName')])
-                        ->addElement('h6',['class'=>'card-subtitle mb-2 text-muted'],['Designation: ' . $employee->getField('designation')])
-                        ->addElement('h6',['class'=>'card-subtitle mb-2 text-muted'],['Role: ' . $employee->getField('position')])
-                        ->addElement('p',['class'=>'card-text'],[$employee->getField('email')])
+                        ->addElement('h5',['class'=>'card-title FirstName LastName'],[$employee->getField('firstName') . ' ' . $employee->getField('lastName')])
+                        ->addElement('h6',['class'=>'card-subtitle mb-2 text-muted Designation'],['Designation: ' . $employee->getField('designation')])
+                        ->addElement('h6',['class'=>'card-subtitle mb-2 text-muted Position'],['Role: ' . $employee->getField('position')])
+                        ->addElement('p',['class'=>'card-text Email'],[$employee->getField('email')])
                         ->get()
                     ->get()
                 ->getComposite();
@@ -327,7 +327,7 @@ class HTMLBuilder
             ->createComposite('div',['class'=>'card mt-5'])
             ->addElement('h3',['class'=>"card-header bg-dark text-white"],['Employees'])
             ->composite()
-                ->createComposite('div',['class'=>'card-body row'])
+                ->createComposite('div',['class'=>'card-body row','id'=>'employeeContainer'])
                 ->addArrayToContent($employeeCards)
                 ->get()
             ->getComposite();
@@ -413,22 +413,22 @@ class HTMLBuilder
     {
         switch ($tabid) {
             case 'PendingRequests':
-                return ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "request-vehicle-button"];
+                return ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "NewRequestButton"];
                 break;
             case 'OngoingRequests':
-                return ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "request-vehicle-button"];
+                return ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "NewRequestButton"];
                 break;
             case 'History':
-                return ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "request-vehicle-button"];
+                return ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "NewRequestButton"];
                 break;
             case 'Employees': 
-                return ['type'=>"button", 'value'=>"Add Employee", 'class'=>"btn btn-primary mb-3", 'id'=>"add-employee-button"];
+                return ['type'=>"button", 'value'=>"Add Employee", 'class'=>"btn btn-primary mb-3", 'id'=>"AddEmployeeButton"];
                 break;
             case 'Drivers': 
-                return  ($_SESSION['position'] == 'admin') ? ['type'=>"button", 'value'=>"Add Driver", 'class'=>"btn btn-primary mb-3", 'id'=>"add-driver-button"] : [];
+                return  ($_SESSION['position'] == 'admin') ? ['type'=>"button", 'value'=>"Add Driver", 'class'=>"btn btn-primary mb-3", 'id'=>"AddDriverButton"] : [];
                 break;
             case 'Vehicles': 
-                return ['type'=>"button", 'value'=>"Add Vehicle", 'class'=>"btn btn-primary mb-3", 'id'=>"add-vehicle-button"];
+                return ['type'=>"button", 'value'=>"Add Vehicle", 'class'=>"btn btn-primary mb-3", 'id'=>"AddVehicleButton"];
                 break;         
             default:
                 return [];
