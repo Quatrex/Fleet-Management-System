@@ -32,7 +32,7 @@
                         <p>Date</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="date-ActiveTripDetailsPopup">DD-MM-YYYY</p>
+                        <p id="DateOfTrip-ActiveTripDetailsPopup">DD-MM-YYYY</p>
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
                         <p>Time</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="time-ActiveTripDetailsPopup">HH:MM: AM/PM</p>
+                        <p id="TimeOfTrip-ActiveTripDetailsPopup">HH:MM: AM/PM</p>
                     </div>
                 </div>
 
@@ -50,7 +50,7 @@
                         <p>Pick-up Location</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="pickUpLocation-ActiveTripDetailsPopup">Text</p>
+                        <p id="PickLocation-ActiveTripDetailsPopup">Text</p>
                     </div>
                 </div>
 
@@ -59,7 +59,7 @@
                         <p>Drop-off Location</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="dropOffLocation-ActiveTripDetailsPopup">Text</p>
+                        <p id="DropOLocation-ActiveTripDetailsPopup">Text</p>
                     </div>
                 </div>
 
@@ -68,7 +68,7 @@
                         <p>Purpose</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="purpose-ActiveTripDetailsPopup"></p>
+                        <p id="Purpose-ActiveTripDetailsPopup"></p>
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@
                         <p>Driver</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="driver-ActiveTripDetailsPopup">Text</p>
+                        <p id="Driver-ActiveTripDetailsPopup">Text</p>
                     </div>
                 </div>
 
@@ -86,13 +86,13 @@
                         <p>Vehicle</p>
                     </div>
                     <div class="col-sm-6">
-                        <p id="vehicle-ActiveTripDetailsPopup">Text</p>
+                        <p id="Vehicle-ActiveTripDetailsPopup">Text</p>
                     </div>
                 </div>
 
                 <input type="button" value="Print Slip" class="btn btn-success" id="ActiveTripDetails_PrintSlip">
                 <input type="button" value="End Trip" class="btn btn-primary" id="ActiveTripDetails_End">
-                <input type="button" value="Cancel" class="btn btn-danger" id="ActiveTripDetails_Cancel">
+                <input type="button" value="Cancel Request" class="btn btn-danger" id="ActiveTripDetails_Cancel">
 
             </div>
             <div class="popup-footer">
