@@ -79,7 +79,7 @@ class HTMLBuilder
                                     ->addElement('p',['class'=>"name-profile-dd"])
                                     ->addElement('p',['class'=>"mail-profile-dd"])
                                     ->addElement('p')
-                                    ->addElement('button',['type'=>"button", 'class'=>"btn btn-light mx-auto my-2", 'id'=>"edit-account-info-btn"],['Edit account info'])
+                                    ->addElement('button',['type'=>"button", 'class'=>"btn btn-light mx-auto my-2", 'id'=>"UserProfileEditButton"],['Edit account info'])
                                     ->get()
                                 ->get()
                             ->composite()

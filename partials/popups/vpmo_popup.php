@@ -90,7 +90,7 @@
                     </div>
                 </div>
 
-                <input type="button" value="Print Slip" class="btn btn-success" id="ActiveTripDetails_PrintSlip">
+                <input type="button" value="Print Slip" class="btn btn-success" id="ActiveTripDetails_PrintSlip" href="../../func/slip.php">
                 <input type="button" value="End Trip" class="btn btn-primary" id="ActiveTripDetails_End">
                 <input type="button" value="Cancel Request" class="btn btn-danger" id="ActiveTripDetails_Cancel">
 
