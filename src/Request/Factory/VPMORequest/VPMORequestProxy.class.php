@@ -4,6 +4,7 @@ namespace Request\Factory\VPMORequest;
 use Request\State\State;
 use Request\Factory\Base\EmployeeRequestProxy;
 use Report\VehicleHandoutSlip;
+use Exception;
 
 class VPMORequestProxy extends EmployeeRequestProxy
 {
@@ -28,13 +29,13 @@ class VPMORequestProxy extends EmployeeRequestProxy
      */
     public function cancel() : void 
     {
-        $state = $this->realRequest->getField('state');
+        $state = State::getState(State::getStateID($this->realRequest->getField('state')));
         $conditions = array(State::getState(State::getStateID('scheduled')));
         
         if (in_array($state,$conditions))
             $this->realRequest->cancel();
         else
-            echo "Access Denied"; //throw an exception instead
+            throw new Exception('Access Denied');
     }
 
     /**
