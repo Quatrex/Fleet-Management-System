@@ -213,7 +213,7 @@ const EndTripConfirmPopup = new Popup('EndTripConfirmPopup', [
 
 //Active Trips Preview Popup
 const ActiveTripDetailsClose = new DisplayNextButton('ActiveTripDetails_Close');
-const ActiveTripDetailsCancel = new DisplayNextButton('ActiveTripDetails_Cancel');
+const ActiveTripDetailsCancel = new DisplayNextButton('ActiveTripDetails_Cancel',{},[BackendAccess('CancelTrip',[ActionCreator(awaitingRequestStore,'UPDATE')])]);
 const ActiveTripDetailsEnd = new DisplayAlertButton('ActiveTripDetails_End', EndTripConfirmPopup);
 const ActiveTripDetailsPrintSlip = new DisplayNextButton(
 	'ActiveTripDetails_PrintSlip',

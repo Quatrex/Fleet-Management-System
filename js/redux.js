@@ -34,3 +34,4 @@ const ActionCreator = (store, actionType) => ({
 	type: actionType,
 	store: store,
 });
+

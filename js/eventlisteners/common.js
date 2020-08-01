@@ -23,8 +23,8 @@ const NewRequestPreviewPopup = new Popup('NewRequestPreviewPopup',[NewRequestPre
 
 const VehicleRequestFormClose = new DisplayAlertButton('VehicleRequestForm_Close',CancelRequestAlertPopup)
 const VehicleRequestFormCancel = new DisplayAlertButton('VehicleRequestForm_Cancel',CancelRequestAlertPopup)
-const VehicleRequestFormSubmit = new DisplayNextButton('VehicleRequestForm_Submit',NewRequestPreviewPopup,[ObjectCreate]);
-const VehicleRequestFormPopup = new Popup('VehicleRequestForm',[VehicleRequestFormCancel,VehicleRequestFormClose,VehicleRequestFormSubmit]);
+const VehicleRequestFormSubmit = new ValidatorButton('VehicleRequestForm_Submit',NewRequestPreviewPopup,[ObjectCreate,FormValidate,DateValidator]);
+const VehicleRequestFormPopup = new Popup('VehicleRequestForm',[VehicleRequestFormCancel,VehicleRequestFormClose,VehicleRequestFormSubmit],['click','keyup']);
 NewRequestPreviewEdit.setNext(VehicleRequestFormPopup);
 
 const OngoingRequestPreviewClose = new DisplayNextButton('OngoingRequestPreview_Close')
@@ -38,8 +38,12 @@ const PendingRequestPreviewPopup = new Popup('PendingRequestPreviewPopup',[Pendi
 const RequestHistoryPreviewClose = new DisplayNextButton('RequestHistoryPreview_Close')
 const RequestHistoryPreviewPopup = new Popup('RequestHistoryPreviewPopup',[RequestHistoryPreviewClose]);
 
+const UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close')
+const UserProfilePopup = new Popup('UserProfilePopup',[UserProfilePopupClose]);
+
 
 const NewRequestButton = new DOMButton('NewRequestButton',VehicleRequestFormPopup)
+const UserProfileEditButton = new DOMButton('UserProfileEditButton',UserProfilePopup)
 const pendingRequestTable = new DOMContainer('pendingRequestCard',pendingRequestTable_Fields,PendingRequestPreviewPopup,"RequestId",myRequestStore,"cardTemplate",["Pending","Approved","Justified"]);
 const ongoingRequestTable = new DOMContainer('ongoingRequestCard',ongoingRequestTable_Fields,OngoingRequestPreviewPopup,"RequestId",myRequestStore,"cardTemplate",["Scheduled"]);
 const requestHistoryTable = new DOMContainer('pastRequestCard',requestHistoryTable_Fields,RequestHistoryPreviewPopup,"RequestId",myRequestStore,"cardTemplate",["Denied","Cancelled","Completed"]);
