@@ -100,11 +100,11 @@ class DOMContainer {
         });
         // template.querySelector('.card').id =  `${this.id}_${object[this.dataID]}`
         this.cardContainer.insertBefore(clone, this.cardContainer.firstChild);
-        this.cardContainer.firstElementChild.id = `${this.id}_${object[this.dataID]}`
-            // }
-            // else{
-            // 	console.log("Error");
-            // }
+        this.cardContainer.firstElementChild.id = `${this.id}_${object[this.dataID]}`;
+        // }
+        // else{
+        // 	console.log("Error");
+        // }
     }
 
     deleteEntry(object) {
@@ -202,18 +202,7 @@ class DOMContainer {
 // }
 
 class SelectionTable extends DOMContainer {
-    constructor(
-        id,
-        fields,
-        popup,
-        dataID,
-        store,
-        templateId,
-        button,
-        selectField,
-        nextField = '',
-        nextFieldId = ''
-    ) {
+    constructor(id, fields, popup, dataID, store, templateId, button, selectField, nextField = '', nextFieldId = '') {
         super(id, fields, popup, dataID, store, templateId);
         this.selectField = selectField;
         this.button = button;
@@ -309,6 +298,15 @@ class Popup {
     render(object) {
         this.object = object;
         console.log(this.object);
+        let inputs = this.popup.querySelectorAll('.inputs');
+        inputs.forEach((input) => {
+            input.value = '';
+            console.log("Came here");
+            input.classList.remove('invalid-details', 'warning-details');
+            if (this.popup.querySelector(`#${input.name}-error`)) {
+                this.popup.querySelector(`#${input.name}-error`).innerHTML = null;
+            }
+        });
         this.dataType == 'innerHTML' ? changeInnerHTML(object, this.id) : changeValue(object, this.id);
         this.eventObjects.forEach((eventObject) => eventObject.initializeProperties());
         if (Object.keys(this.selectionTable).length != 0) {
@@ -330,7 +328,7 @@ class Popup {
         if (event.type == 'click') {
             let targetObject = this.eventObjects.find((obj) => obj.id === event.target.id);
             if (targetObject) {
-                targetObject.handleEvent(this, this.object, event.type);
+                targetObject.handleEvent(this, this.object, event);
             } else {
                 if (Object.keys(this.selectionTable).length != 0) {
                     event.target.parentElement.id.includes(this.selectionTable.getId());
@@ -339,7 +337,7 @@ class Popup {
             }
         } else if (event.type == 'keyup') {
             let targetObject = this.eventObjects.find((obj) => obj.id.includes('Confirm') || obj.id.includes('Submit'));
-            targetObject.handleEvent(this, this.object, event.type);
+            targetObject.handleEvent(this, this.object, event);
         }
     }
 }
@@ -370,18 +368,19 @@ class DisplayNextButton extends PopupButton {
         super(id, next, properties);
         this.eventHandleHelpers = eventHandleHelpers;
     }
-    handleEvent(popup, object = {}, type) {
+    handleEvent(popup, object = {}, event) {
         this.eventHandleHelpers.forEach((helper) => {
-            object = helper(popup, object, type);
+            object = helper(popup, object, event);
         });
-        if (type === 'click') {
+
+        if (event.type === 'click') {
             if (Object.keys(this.next).length == 0) {
                 popup.removeFromDOM();
             } else {
                 popup.removeFromDOM();
                 this.next.render(object);
             }
-        } else if (type === 'keyup') {
+        } else if (event.type === 'keyup') {
             console.log(object);
             console.log(popup.getObject());
 
@@ -398,32 +397,105 @@ class DisplayAlertButton extends PopupButton {
     constructor(id, next = {}, properties = {}) {
         super(id, next, properties);
     }
-    handleEvent(popup, object = {}, type) {
+    handleEvent(popup, object = {}, event) {
         this.next.render(object);
         this.next.setPrev(popup);
     }
 }
+
+class ValidatorButton extends PopupButton {
+    constructor(id, next = {}, eventHandleHelpers = [], properties = {}) {
+        super(id, next, properties);
+        this.eventHandleHelpers = eventHandleHelpers;
+    }
+    handleEvent(popup, object = {}, event) {
+        this.eventHandleHelpers.forEach((helper) => {
+            object = helper(popup, object, event);
+        });
+        let check = object.hasOwnProperty('valid') ? object.valid : true;
+        if (check) {
+            if (event.type === 'click') {
+                if (Object.keys(this.next).length == 0) {
+                    popup.removeFromDOM();
+                } else {
+                    popup.removeFromDOM();
+                    this.next.render(object);
+                }
+            }
+        }
+    }
+}
+
 //************************ Decorators ****************//
 
-const BackendAccess = (method, actionCreater = []) => (popup, object = {}, type) => {
-    if (type == 'click') {
+const BackendAccess = (method, actionCreater = []) => (popup, object = {}, event) => {
+    if (event.type == 'click') {
         Database.writeToDatabase(object, method, actionCreater);
     }
     return object;
 };
 
-const RemoveAllPopup = (popup, object = {}, type) => {
+const RemoveAllPopup = (popup, object = {}, event) => {
     document.querySelectorAll('.popup').forEach((element) => (element.style.display = 'none'));
     popup.getPrev().removeFromDOM();
     return object;
 };
 
-const ObjectCreate = (popup, object = {}, type) => {
+const DateValidator = (popup, object = {}, event) => {
+    if (event.type == 'keyup') {
+        let target = event.target;
+        if (target.type == 'date') {
+            if (target.value.length > 0) {
+                let currentDate = new Date();
+                let givenDate = new Date(target.value);
+                if (givenDate < currentDate) {
+                    target.classList.add('warning-details');
+                    popup.popup.querySelector(`#${target.name}-error`).innerHTML =
+                        'Given Date is before the current date';
+                    popup.popup.querySelector(`#${target.name}-error`).classList = '';
+                    popup.popup.querySelector(`#${target.name}-error`).classList.add('text-warning');
+                } else {
+                    target.classList.remove('warning-details');
+                    popup.popup.querySelector(`#${target.name}-error`).innerHTML = null;
+                }
+            }
+        }
+    }
+    return object;
+};
+const FormValidate = (popup, object = {}, event) => {
+    if (event.type == 'click') {
+        let fields = popup.popup.querySelectorAll('.inputs');
+        let valid = true;
+        fields.forEach((field) => {
+            if (field.hasAttribute('required')) {
+                if (field.value.length == 0) {
+                    valid = false;
+                    field.classList.add('invalid-details');
+                    popup.popup.querySelector(`#${field.name}-error`).innerHTML = 'This field should be provided';
+                    popup.popup.querySelector(`#${field.name}-error`).classList = '';
+                    popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
+                } else {
+                    field.classList.remove('invalid-details');
+                    popup.popup.querySelector(`#${field.name}-error`).innerHTML = null;
+                }
+            }
+            if (field.type == 'text') {
+                field.value = field.value.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+        });
+
+        return {...object, valid: valid };
+    }
+    return object;
+};
+
+const ObjectCreate = (popup, object = {}, event) => {
     let obj = {};
     popup.popup.querySelectorAll(`.inputs`).forEach((element) => {
         obj[element.name] = element.value;
     });
-    if (type == 'keyup') {
+    if (event.type == 'keyup') {
         return {...object, ...obj };
     } else {
         return {...object, ...obj };
@@ -446,6 +518,13 @@ const SimilarityCheck = (first, second) => {
     return true;
 };
 
+const WindowOpen = () => {
+    windowObjectReference = window.open(
+        'http://www.domainname.ext/path/ImageFile.png',
+        'DescriptiveWindowName',
+        'resizable,scrollbars,status'
+    );
+};
 //************************Change Popup InnerHTML/Value Helper Function *********/
 const changeValue = (object, id) => {
     let objProps = Object.getOwnPropertyNames(object);

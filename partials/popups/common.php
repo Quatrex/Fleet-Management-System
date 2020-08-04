@@ -18,23 +18,28 @@
                 <form id="RequestAdd_form">
 
                     <div class="form-group">
-                        <input type="date" class="form-control inputs" name="date" placeholder="Date" autocomplete="off">
+                        <input type="date" class="form-control inputs" name="date" placeholder="Date" autocomplete="off" required>
+                        <div id="date-error" class="text-danger"></div>
                     </div>
 
                     <div class="form-group">
-                        <input type="time" class="form-control inputs" name="time" placeholder="Time" autocomplete="off">
+                        <input type="time" class="form-control inputs" name="time" placeholder="Time" autocomplete="off" required>
+                        <div id="time-error" class="text-danger"></div>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control inputs" name="pickup" placeholder="Pick-up Location" autocomplete="off">
+                        <input type="text" class="form-control inputs" name="pickup" placeholder="Pick-up Location" autocomplete="off" required>
+                        <div id="pickup-error" class="text-danger"></div>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control inputs" name="dropoff" placeholder="Drop-off Location" autocomplete="off">
+                        <input type="text" class="form-control inputs" name="dropoff" placeholder="Drop-off Location" autocomplete="off" required>
+                        <div id="dropoff-error" class="text-danger"></div>
                     </div>
 
                     <div class="form-group">
                         <input type="text" class="form-control inputs" name="purpose" placeholder="Purpose" autocomplete="off">
+                        <div id="purpose-error" class="text-danger"></div>
                     </div>
 
                     <input type="button" value="Submit" class="btn btn-primary" id="VehicleRequestForm_Submit">
@@ -469,11 +474,11 @@
         START OF USER DETAILS
         ***************-->
 <!-- user profile details -->
-<div class="popup" id="user-profile">
+<div class="popup" id="UserProfilePopup">
     <!-- User Profile content -->
     <div class="popup-content">
         <div class="popup-header">
-            <span class="close" id="user-profile-form-close">&times;</span>
+            <span class="close" id="UserProfilePopup_Close">&times;</span>
             <h2>My Profile</h2>
             <hr>
         </div>
@@ -482,11 +487,11 @@
                 <div class="center" style="text-align: center; ">
                     <img src="../images/default-user-image.png" class="form-image" style="padding:5px; width:600p;text-align: center; cursor:pointer" id="change-profile-picture-button">
                 </div>
-                <!-- <div class="row justify-content-center">
+                <div class="row justify-content-center">
                     <div class="col-auto">
                         <button class="btn btn-link" id="change-profile-picture-button">Change Profile Picture</button>
                     </div>
-                </div> -->
+                </div>
             </div>
             <div id="submit-form-wrapper">
                 <div class="basic-form">
@@ -496,11 +501,6 @@
                                 <label>Name</label>
                                 <div class="input-group">
                                     <input class="form-control py-2 border-right-0 border" type="text" value='<?php echo $employee->getfield('firstName') . ' ' . $employee->getfield('lastName'); ?>' disabled>
-                                    <span class="input-group-append">
-                                        <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                            <i class="icon far fa-edit"></i>
-                                        </button>
-                                    </span>
                                 </div>
 
                             </div>
@@ -508,34 +508,7 @@
                                 <label>Email</label>
                                 <div class="input-group">
                                     <input class="form-control py-2 border-right-0 border" type="text" value="<?php echo $employee->getfield('email'); ?>" disabled>
-                                    <span class="input-group-append">
-                                        <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                            <i class="icon far fa-edit"></i>
-                                        </button>
-                                    </span>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border" type="text" value="Address" disabled>
-                                <span class="input-group-append">
-                                    <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                        <i class="icon far fa-edit"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Address 2</label>
-                            <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border" type="text" value="Name" disabled>
-                                <span class="input-group-append">
-                                    <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                        <i class="icon far fa-edit"></i>
-                                    </button>
-                                </span>
                             </div>
                         </div>
                         <div class="form-row">
@@ -543,17 +516,12 @@
                                 <label>Contact Number</label>
                                 <div class="input-group">
                                     <input class="form-control py-2 border-right-0 border" type="text" value="Contacts Number" disabled>
-                                    <span class="input-group-append">
-                                        <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                                            <i class="icon far fa-edit"></i>
-                                        </button>
-                                    </span>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Position</label>
+                                <label>Designation</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" type="text" value="<?php echo $employee->getfield('position'); ?>" disabled>
+                                    <input class="form-control py-2 border-right-0 border" type="text" value="<?php echo $employee->getfield('designation'); ?>" disabled>
                                 </div>
                             </div>
 
@@ -563,9 +531,8 @@
                                 <a id="change-password-button" style="cursor:pointer; color:royalblue">Change password</a>
                             </div>
                         </div>
-
-
                         <button type="submit" class="btn btn-dark" id="user-profile-confirm">Confirm</button>
+                        <button type="submit" class="btn btn-dark" id="user-profile-confirm">Edit</button>
                     </form>
                 </div>
 

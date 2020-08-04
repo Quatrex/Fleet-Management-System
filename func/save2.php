@@ -254,10 +254,17 @@ switch ($method) {
 		$object['message'] = "success_Driver " . $_POST['driverId'] . " successfully assigned ". $_POST['assignedVehicleID'];
 	break;
 
-	// case 'PrintSlip':
-	// 	$employee->generateVehicleHandoutSlip($_POST['RequestId']);
-	// 	$object['message'] = "success_Printed Slip For" . $_POST['RequestId']);
-	// 	break;
+	case 'PrintSlip':
+		$employee->generateVehicleHandoutSlip($_POST['RequestId']);
+		$object['message'] = "success_Printed Slip For" . $_POST['RequestId'];
+		break;
+	
+	case 'CancelTrip':
+		$request = $employee->cancelRequest($_POST['RequestId']);
+		$object['error'] = false;
+		$object['object'] = $request;
+		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully cancelled";
+	break;
 
 	default:
 		$object['error'] = true;
