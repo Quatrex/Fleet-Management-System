@@ -1,48 +1,58 @@
 <?php
+
 namespace DB\Model;
 
-abstract class EmployeeModel extends Model{
-    
+abstract class EmployeeModel extends Model
+{
+
     function __construct()
     {
         parent::__construct('employee');
     }
 
-    protected function getAllRecords(){
+    protected function getAllRecords()
+    {
         $conditions = ['IsDeleted' => 0];
-        $results = parent::getRecords($conditions); 
+        $results = parent::getRecords($conditions);
         return $results;
     }
 
-    protected function getRecordByID($empID){
+    protected function getRecordByID($empID)
+    {
         $conditions = ['EmpID' => $empID, 'IsDeleted' => 0];
-        $wantedFields = ['EmpID','FirstName','LastName','Position','Designation','Email','Username'];
+        $wantedFields = ['EmpID', 'FirstName', 'LastName', 'Position', 'Designation', 'Email', 'Username', 'ProfilePicturePath'];
         $results = parent::getRecords($conditions, $wantedFields); //change getRecords() to not get password from database
         return $results[0];
     }
 
-    protected function getRecordByUsername($username){
+    protected function getRecordByUsername($username)
+    {
         $conditions = ['Username' => $username, 'IsDeleted' => 0];
-        $wantedFields = array('EmpID','FirstName','LastName','Position','Designation','Email','Username');
-        return parent::getRecords($conditions,$wantedFields);
+        $wantedFields = array('EmpID', 'FirstName', 'LastName', 'Position', 'Designation', 'Email', 'Username', 'ProfilePicturePath');
+        return parent::getRecords($conditions, $wantedFields);
     }
 
-    protected function saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $username, $password) {
-        $values = ['EmpID' => $empID,
-                'FirstName' => $firstName,
-                'LastName' => $lastName,
-                'Position' => $position,
-                'Designation' => $designation,
-                'Email' => $email,
-                'Username' => $username,
-                'Password' => $password];
+    protected function saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $username, $password)
+    {
+        $values = [
+            'EmpID' => $empID,
+            'FirstName' => $firstName,
+            'LastName' => $lastName,
+            'Position' => $position,
+            'Designation' => $designation,
+            'Email' => $email,
+            'Username' => $username,
+            'Password' => $password,
+            'ProfilePicturePath' => 'images/default-user-image.png'
+        ];
         parent::addRecord($values);
     }
 
-    protected function checkPassword($username,$password){
+    protected function checkPassword($username, $password)
+    {
         $conditions = ['Username' => $username, 'IsDeleted' => 0];
-        $wantedFields = ['Username','Password'];
-        return (parent::getRecords($conditions,$wantedFields)[0]['Password']==$password)? true:false;
+        $wantedFields = ['Username', 'Password'];
+        return (parent::getRecords($conditions, $wantedFields)[0]['Password'] == $password) ? true : false;
     }
 
 
@@ -56,28 +66,41 @@ abstract class EmployeeModel extends Model{
     {
         $conditions = ['Position' => $position, 'IsDeleted' => 0];
         $wantedFields = ['Email'];
-        $emailRecords = parent::getRecords($conditions,$wantedFields);
+        $emailRecords = parent::getRecords($conditions, $wantedFields);
 
         $emails = [];
         foreach ($emailRecords as $email)
-             array_push($emails,$email['Email']);
+            array_push($emails, $email['Email']);
         return $emails;
     }
 
-    protected function updateEmployeeInfo($newEmpID, $empID, $firstName, $lastName, $position, $designation, $email){
-        $values = ['EmpID' => $newEmpID,
-                'FirstName' => $firstName,
-                'LastName' => $lastName,
-                'Position' => $position,
-                'Designation' => $designation,
-                'Email' => $email];
+    protected function updateEmployeeInfo($newEmpID, $empID, $firstName, $lastName, $position, $designation, $email)
+    {
+        $values = [
+            'EmpID' => $newEmpID,
+            'FirstName' => $firstName,
+            'LastName' => $lastName,
+            'Position' => $position,
+            'Designation' => $designation,
+            'Email' => $email
+        ];
         $conditions = ['EmpID' => $empID];
-        parent::updateRecord($values,$conditions);
+        parent::updateRecord($values, $conditions);
     }
 
-    protected function deleteEmployee($empID){
+    protected function updateEmployeeProfilePicture($empID, string $imagePath)
+    {
+        $values = [
+            'ProfilePicturePath' => $imagePath
+        ];
+        $conditions = ['EmpID' => $empID];
+        parent::updateRecord($values, $conditions);
+    }
+
+    protected function deleteEmployee($empID)
+    {
         $values = ['IsDeleted' => 1];
         $conditions = ['EmpID' => $empID];
-        parent::updateRecord($values,$conditions);  
+        parent::updateRecord($values, $conditions);
     }
 }

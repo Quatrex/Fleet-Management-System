@@ -22,6 +22,11 @@ class EmployeeController extends EmployeeModel
         parent::updateEmployeeInfo($empID, $newEmpID, $firstName, $lastName, $position, $designation, $email);
     }
 
+    public function updateEmployeeProfilePicture($empID,string $imagePath)
+    {
+        parent::updateEmployeeProfilePicture($empID,$imagePath);
+    }
+
     public function deleteEmployee($empID)
     {
         parent::deleteEmployee($empID);

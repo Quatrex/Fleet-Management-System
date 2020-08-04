@@ -1,4 +1,5 @@
 <?php
+
 namespace Employee\Factory\Privileged;
 
 use Report\IVisitable;
@@ -7,25 +8,27 @@ use Request\Factory\RequesterRequest\RequesterRequestFactory;
 
 class Requester extends PrivilegedEmployee implements IVisitable
 {
-    public function placeRequest(array $values){
-        $values ['RequesterID'] = $this->empID;
+    public function placeRequest(array $values)
+    {
+        $values['RequesterID'] = $this->empID;
         return RequesterRequestFactory::makeNewRequest($values);
     }
 
-    public function cancelRequest($requestID){
+    public function cancelRequest($requestID)
+    {
         $request = RequesterRequestFactory::makeRequest($requestID);
         $request->cancel();
         return $request;
     }
 
-    public function getMyRequests(array $states) : array 
+    public function getMyRequests(array $states): array
     {
-        return RequesterRequestFactory::makeRequests($this->empID,$states);
+        return RequesterRequestFactory::makeRequests($this->empID, $states);
     }
 
-    public function accept(IVisitor $requestToken,string $visitableType)
+    public function accept(IVisitor $requestToken, string $visitableType)
     {
-        $requestToken->visit($this,$visitableType);
+        $requestToken->visit($this, $visitableType);
     }
 
     public function getInfo(): array

@@ -1,4 +1,5 @@
 <?php
+
 namespace Employee\Factory\Privileged;
 
 use DB\Viewer\EmployeeViewer;
@@ -14,14 +15,14 @@ class PrivilegedEmployeeFactory
      * 
      * @return mixed
      */
-    public static function makeEmployee(string $empID) 
+    public static function makeEmployee(string $empID)
     {
         $employeeViewer = new EmployeeViewer(); // method of obtaining the viewer/controller must be determined and changed
         $values = $employeeViewer->getRecordByID($empID);
         $values['Password'] = null;
 
         $employee = self::createConcreteEmployee($values);
-        
+
         // if (self::checkAccess()) $employee = self::castToEmployee($employee);
         return $employee;
     }
@@ -33,9 +34,9 @@ class PrivilegedEmployeeFactory
      * 
      * @return PrivilegedEmployee
      */
-    public static function makeNewEmployee(array $values) : PrivilegedEmployee
+    public static function makeNewEmployee(array $values): PrivilegedEmployee
     {
-        if(!self::checkAccess()) throw new Exception('Illegel Access');
+        if (!self::checkAccess()) throw new Exception('Illegel Access');
 
         $employee = self::createConcreteEmployee($values);
         $employee->saveToDatabase();
@@ -49,14 +50,14 @@ class PrivilegedEmployeeFactory
      * 
      * @return PrivilegedEmployee
      */
-    public static function makeEmployeeByValues(array $values) : PrivilegedEmployee
+    public static function makeEmployeeByValues(array $values): PrivilegedEmployee
     {
-        if(!self::checkAccess()) throw new Exception('Illegel Access');
+        if (!self::checkAccess()) throw new Exception('Illegel Access');
 
         $values['Password'] = null;
 
         $employee = self::createConcreteEmployee($values);
-        
+
         // if (self::checkAccess()) $employee = self::castToEmployee($employee);
         return self::castToEmployee($employee);
     }
@@ -68,28 +69,26 @@ class PrivilegedEmployeeFactory
      * 
      * @return array(PrivilegedEmployee)
      */
-    public static function makeEmployees(string $position = '') : array
+    public static function makeEmployees(string $position = ''): array
     {
-        if(!self::checkAccess()) throw new Exception('Illegel Access');
+        if (!self::checkAccess()) throw new Exception('Illegel Access');
 
-        $position=strtolower($position);
-        $validPositonNames = ['', 'requester','jo','cao','vpmo','admin'];
         $position = strtolower($position);
-        if (!in_array($position,$validPositonNames))
-        {
+        $validPositonNames = ['', 'requester', 'jo', 'cao', 'vpmo', 'admin'];
+        $position = strtolower($position);
+        if (!in_array($position, $validPositonNames)) {
             echo 'Invalid Position Paramter'; // TODO: throw exception
         }
 
         $employeeViewer = new EmployeeViewer();
         $employeeRecords = $position === '' ? $employeeViewer->getAllRecords() :
-                                        $employeeViewer->getEmployeesByPosition($position);;
+            $employeeViewer->getEmployeesByPosition($position);;
 
         $employees = [];
-        foreach ($employeeRecords as $record)
-        {
+        foreach ($employeeRecords as $record) {
             $record['Password'] = null;
             $employee = self::createConcreteEmployee($record);
-            array_push($employees,self::castToEmployee($employee));
+            array_push($employees, self::castToEmployee($employee));
         }
         return $employees;
     }
@@ -101,22 +100,20 @@ class PrivilegedEmployeeFactory
      * 
      * @return PrivilegedEmployee
      */
-    private static function castToEmployee(PrivilegedEmployee $employee) : PrivilegedEmployee
+    private static function castToEmployee(PrivilegedEmployee $employee): PrivilegedEmployee
     {
         return $employee;
     }
 
-    private static function checkAccess() : bool
+    private static function checkAccess(): bool
     {
         $accessibleClasses = [Administrator::class, RealRequest::class];
         $trace1 = debug_backtrace();
-        if (array_key_exists(2,$trace1))
-        {
+        if (array_key_exists(2, $trace1)) {
             $trace2 = debug_backtrace()[2];
-            if (array_key_exists('class',$trace2))
-            {
+            if (array_key_exists('class', $trace2)) {
                 $class = $trace2['class'];
-                return in_array($class,$accessibleClasses);
+                return in_array($class, $accessibleClasses);
             }
         }
         return false;
@@ -124,9 +121,8 @@ class PrivilegedEmployeeFactory
 
     private static function createConcreteEmployee(array $values)
     {
-        $values['Position'] = strtolower( $values['Position']);
-        switch ($values['Position'])
-        {
+        $values['Position'] = strtolower($values['Position']);
+        switch ($values['Position']) {
             case 'requester':
                 return new Requester($values);
             case 'jo':

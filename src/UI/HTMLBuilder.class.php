@@ -343,10 +343,10 @@ class HTMLBuilder
             
             if ($i==0) {
                 $this->compositeBuilder
-                    ->createComposite('div',['class'=>"tab-pane fade active show",'id'=>$tabids[$i],'role'=>'tabpanel']);
+                    ->createComposite('div',['class'=>"tab-pane secondary-tab fade active show",'id'=>$tabids[$i],'role'=>'tabpanel']);
             } else {
                 $this->compositeBuilder
-                    ->createComposite('div',['class'=>"tab-pane fade",'id'=>$tabids[$i],'role'=>'tabpanel']);
+                    ->createComposite('div',['class'=>"tab-pane secondary-tab fade",'id'=>$tabids[$i],'role'=>'tabpanel']);
             }
             $buttonAttributes=$this->getButtonAttributes($tabids[$i]);
             $tabCom=$this->compositeBuilder

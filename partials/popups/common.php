@@ -86,7 +86,6 @@
     </div>
 </div>
 
-
 <!--Request Preview for a Ongoing Table-->
 <div class="popup" id="OngoingRequestPreviewPopup">
     <div class="popup-content">
@@ -466,6 +465,10 @@
         ***************-->
 
 
+<!---****************
+        START OF USER DETAILS
+        ***************-->
+<!-- user profile details -->
 <div class="popup" id="user-profile">
     <!-- User Profile content -->
     <div class="popup-content">
@@ -572,16 +575,17 @@
     </div>
 </div>
 
-<div id="change-profile-picture-popup" class="popup">
+<!-- change profile picture -->
+<div id="ChangeProfilePictureForm" class="popup">
     <div class="popup-content">
         <div class="popup-header">
-            <span class="close" id="change-profile-picture-popup-close">&times;</span>
+            <span class="close" id="ChangeProfilePictureForm_Close">&times;</span>
             <h2>Change Profile Picture</h2>
             <hr>
         </div>
         <div class="popup-body">
             <div class="modal-body">
-                <form id="crop-image" method="post" enctype="multipart/form-data" action="change_pic.php">
+                <form id="ChangeProfilePicture" method="post" enctype="multipart/form-data" action="change_pic.php">
                     <strong>Upload Image:</strong> <br><br>
                     <input type="file" name="profile-pic" id="profile-pic" />
                     <!-- <input type="hidden" name="hdn-profile-id" id="hdn-profile-id" value="1" />
@@ -598,12 +602,13 @@
                         <img id='preview-profile-pic' class="form-image" src="../images/default-user-image.png" style="padding:5px; width:50%;"></img>
                     </div>
                     <div id="thumbs" style="padding:5px; width:600p"></div>
+                    <input type="button" value="Save" class="btn btn-primary" id="ChangeProfilePictureForm_Submit">
+                    <input type="button" value="Close" class="btn btn-primary" id="ChangeProfilePictureForm_Cancel">
                 </form>
             </div>
         </div>
         <div class="popup-footer">
-            <button type="button" class="btn btn-default" id="change-profile-picture-popup-close-button">Close</button>
-            <button type="button" id="save-crop" class="btn btn-primary">Save</button>
+
         </div>
     </div>
 </div>
