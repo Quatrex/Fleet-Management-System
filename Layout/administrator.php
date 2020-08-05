@@ -22,7 +22,7 @@ $drivers = $employee->getAllDrivers();
 <body>
     <?php
     $uiBuilder
-        ->createMainNavBar([])
+        ->createMainNavBar($employee,[])
         ->createSecondaryNavBar(['Employees', 'Drivers'])
         ->employees($employees)
         ->drivers($drivers)

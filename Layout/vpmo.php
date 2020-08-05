@@ -26,7 +26,7 @@ $_SESSION['employee'] = $employee;
 <body>
     <?php
     $uiBuilder
-        ->createMainNavBar(['My Requests', 'Awaiting Requests', 'Database'])
+        ->createMainNavBar($employee,['My Requests', 'Awaiting Requests', 'Database'])
         ->createSecondaryNavBar(['Pending Requests', 'Ongoing Requests', 'History'])
         ->myRequests($requestsByMe, 'Pending', 'Your Pending Requests')
         ->myRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests')

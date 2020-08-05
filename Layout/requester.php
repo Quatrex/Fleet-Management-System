@@ -25,7 +25,7 @@ $_SESSION['pastRequests'] = $pastRequests;
 
     <?php
     $uiBuilder
-        ->createMainNavBar()
+        ->createMainNavBar($employee)
         ->createSecondaryNavBar(['Pending Requests', 'Ongoing Requests', 'History'])
         ->myRequests($requests, 'Pending', 'Your Pending Requests')
         ->myRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests')

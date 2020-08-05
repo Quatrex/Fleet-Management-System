@@ -15,27 +15,18 @@ class DOMButton {
 class DOMWindow {
     constructor() {
         this.containers = [];
-        // $(window).scroll(function() {
-        //     if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
-        //         //find which container
-        //         //     <div class="main-tabs tab-pane fade active show" id="MyRequests">
-        //         // <!--Secondary Nav Bar-->
-        //         // <div class="secondary-nav-bar">
-        //         //     <nav class="pt-3 mb-3">
-        //         //         <div class="nav nav-pills justify-content-start ml-5">
-        //         //             <a class="nav-item nav-link active hvrcenter" data-toggle="tab" href="#pendingRequests">Pending Requests</a>
-        //         //             <a class="nav-item nav-link hvrcenter" data-toggle="tab" href="#ongoingRequests">Ongoing Requests</a>
-        //         //             <a class="nav-item nav-link hvrcenter" data-toggle="tab" href="#history">History</a>
-        //         //         </div>
-        //         //     </nav>
-        //         // </div>
-        //         let activeTab = $('.secondary-tab .active > secondary-nav-bar > nav > div > a .active').attr('class');
-        //         // let method = activeTab.replace('#', 'get');
-        //         console.log(activeTab);
-        //         //ajax call for objects
-        //         //render objects on success
-        //     }
-        // })
+        $(window).scroll(function() {
+            if (document.body.scrollHeight == document.body.scrollTop + window.innerHeight) {
+                let activeTab = $(".main-tabs.active > .secondary-nav-bar > nav > div.nav > a.nav-item.active").attr('href');
+                let method = activeTab.replace('#', 'get');
+                console.log(method);
+                // get number of objects inside active tab
+                let numberOfObjects = $('.main-tabs.active > .container-fluid > .tab-content > .secondary-tab.active > .card > .card-body > .card').length;
+                console.log(numberOfObjects);
+                //ajax call for objects
+                //render objects on success
+            }
+        });
     }
 
     addContainers(containers) {
@@ -436,6 +427,27 @@ const BackendAccess = (method, actionCreater = []) => (popup, object = {}, event
     return object;
 };
 
+const BackendAccessForPicture = (method, actionCreater = []) => (popup, object = {}, event) => {
+    if (event.type == 'click') {
+        data = new FormData();
+        data.append('profileImage', $('#profile-pic')[0].files[0]);
+        data.append('Method', method)
+        $.ajax({
+            url: '../func/save2.php',
+            type: 'POST',
+            data: data,
+            mimeType: 'mutipart/FormData',
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function(returnArr) {
+                console.log(returnArr);
+            },
+        });
+    }
+    return object;
+};
+
 const RemoveAllPopup = (popup, object = {}, event) => {
     document.querySelectorAll('.popup').forEach((element) => (element.style.display = 'none'));
     popup.getPrev().removeFromDOM();
@@ -494,7 +506,12 @@ const FormValidate = (popup, object = {}, event) => {
 const ObjectCreate = (popup, object = {}, event) => {
     let obj = {};
     popup.popup.querySelectorAll(`.inputs`).forEach((element) => {
-        obj[element.name] = element.value;
+        if (element.type == 'file') {
+            obj[element.name] = element.files[0];
+        } else {
+            obj[element.name] = element.value;
+        }
+
     });
     if (event.type == 'keyup') {
         return {...object, ...obj };
@@ -547,7 +564,6 @@ const changeInnerHTML = (object, id) => {
 
 const Database = {
     writeToDatabase: (object, method, actionCreaters = []) => {
-        console.log('Data:');
         console.log({...object, Method: method });
         $.ajax({
             url: '../func/save2.php',
