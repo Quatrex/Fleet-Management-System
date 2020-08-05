@@ -15,26 +15,27 @@ class DOMButton {
 class DOMWindow {
     constructor() {
         this.containers = [];
-        $(window).scroll(function() {
-            if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
-                //find which container
-                //     <div class="main-tabs tab-pane fade active show" id="MyRequests">
-                // <!--Secondary Nav Bar-->
-                // <div class="secondary-nav-bar">
-                //     <nav class="pt-3 mb-3">
-                //         <div class="nav nav-pills justify-content-start ml-5">
-                //             <a class="nav-item nav-link active hvrcenter" data-toggle="tab" href="#pendingRequests">Pending Requests</a>
-                //             <a class="nav-item nav-link hvrcenter" data-toggle="tab" href="#ongoingRequests">Ongoing Requests</a>
-                //             <a class="nav-item nav-link hvrcenter" data-toggle="tab" href="#history">History</a>
-                //         </div>
-                //     </nav>
-                // </div>
-                let activeTab = $('.secondary-tab .active > secondary-nav-bar > nav > div > a .active').attr('href');
-                let method = str_replace('#', 'get', activeTab);
-                //ajax call for objects
-                //render objects on success
-            }
-        })
+        // $(window).scroll(function() {
+        //     if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
+        //         //find which container
+        //         //     <div class="main-tabs tab-pane fade active show" id="MyRequests">
+        //         // <!--Secondary Nav Bar-->
+        //         // <div class="secondary-nav-bar">
+        //         //     <nav class="pt-3 mb-3">
+        //         //         <div class="nav nav-pills justify-content-start ml-5">
+        //         //             <a class="nav-item nav-link active hvrcenter" data-toggle="tab" href="#pendingRequests">Pending Requests</a>
+        //         //             <a class="nav-item nav-link hvrcenter" data-toggle="tab" href="#ongoingRequests">Ongoing Requests</a>
+        //         //             <a class="nav-item nav-link hvrcenter" data-toggle="tab" href="#history">History</a>
+        //         //         </div>
+        //         //     </nav>
+        //         // </div>
+        //         let activeTab = $('.secondary-tab .active > secondary-nav-bar > nav > div > a .active').attr('class');
+        //         // let method = activeTab.replace('#', 'get');
+        //         console.log(activeTab);
+        //         //ajax call for objects
+        //         //render objects on success
+        //     }
+        // })
     }
 
     addContainers(containers) {
