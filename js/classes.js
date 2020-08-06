@@ -113,7 +113,7 @@ class DOMTabContainer {
 	}
 	handleEvent(event) {
 		if (event.type == 'scroll') {
-			if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
+			if (document.body.scrollHeight == document.body.scrollTop + window.innerHeight) {
 				console.log(`Came to bottom:${this.contentContainer.id}`);
 				// this.contentContainer.loadContent();
 			}
@@ -460,6 +460,18 @@ class DisplayNextButton extends PopupButton {
 	}
 }
 
+class OpenNewWindowButton extends PopupButton {
+	constructor(id, next = {}, eventHandleHelpers = [], properties = {}) {
+		super(id, next, properties);
+		this.eventHandleHelpers = eventHandleHelpers;
+	}
+	handleEvent(popup, object = {}, event) {
+		this.eventHandleHelpers.forEach((helper) => {
+			object = helper(popup, object, event);
+		});
+		window.open('../../func/slip.php?id=' + object.RequestId);
+	}
+}
 class DisplayAlertButton extends PopupButton {
 	constructor(id, next = {}, properties = {}) {
 		super(id, next, properties);
