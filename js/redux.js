@@ -15,7 +15,7 @@ class Store {
 		return this.state.length;
 	}
 	loadData(){
-		Database.loadContent(type,this.state.length, ActionCreator([this], 'ADD'));
+		Database.loadContent(this.type,this.state.length, ActionCreator([this], 'ADD'));
 	}
 	dispatch(action) {
 		console.log(action.type);

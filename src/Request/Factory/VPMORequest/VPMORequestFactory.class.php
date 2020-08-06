@@ -17,7 +17,7 @@ class VPMORequestFactory
      */
     public static function makeRequests(string $state) : array
     {
-        $acceptedStates = ['scheduled', 'approved', 'completed'];
+        $acceptedStates = ['scheduled', 'approved', 'completed','cancelled'];
         if (!in_array($state, $acceptedStates))
             throw new Exception('Invalid state parameter');
 

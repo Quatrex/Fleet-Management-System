@@ -30,8 +30,8 @@ const vehicleCard_Fields = ['registration', 'model', 'purchasedYear'];
 const driverCard_Fields = ['firstName', 'assignedVehicleID', 'email'];
 
 const requestsToAssignStore = new Store(requestsToAssign);
-const ongoingTripStore = new Store(ongoingRequests);
-const scheduledRequestsStore = new Store(scheduledRequests);
+const ongoingTripStore = new Store(scheduledRequests);
+const scheduledRequestsStore = new Store(scheduledHistoryRequests);
 const vehicleStore = new Store(vehicles);
 const driverStore = new Store(drivers);
 

@@ -132,10 +132,10 @@ class DOMContainer {
 		this.templateId = templateId;
 		document.getElementById(id).addEventListener('click', this);
 	}
-	render(){
-		if(this.store.getOffset() ==0){
-			this.loadContent();
-		}
+	render() {
+		// if (this.store.getOffset() == 0) {
+		// 	this.loadContent();
+		// }
 	}
 	update(action) {
 		if (action.type == 'ADD') {
@@ -503,24 +503,24 @@ const BackendAccess = (method, actionCreater = {}) => (popup, object = {}, event
 };
 
 const BackendAccessForPicture = (method, actionCreater = []) => (popup, object = {}, event) => {
-    if (event.type == 'click') {
-        data = new FormData();
-        data.append('profileImage', $('#profile-pic')[0].files[0]);
-        data.append('Method', method)
-        $.ajax({
-            url: '../func/save2.php',
-            type: 'POST',
-            data: data,
-            mimeType: 'mutipart/FormData',
-            contentType: false,
-            processData: false,
-            cache: false,
-            success: function(returnArr) {
-                console.log(returnArr);
-            },
-        });
-    }
-    return object;
+	if (event.type == 'click') {
+		data = new FormData();
+		data.append('profileImage', $('#profile-pic')[0].files[0]);
+		data.append('Method', method);
+		$.ajax({
+			url: '../func/save2.php',
+			type: 'POST',
+			data: data,
+			mimeType: 'mutipart/FormData',
+			contentType: false,
+			processData: false,
+			cache: false,
+			success: function (returnArr) {
+				console.log(returnArr);
+			},
+		});
+	}
+	return object;
 };
 
 const RemoveAllPopup = (popup, object = {}, event) => {
@@ -579,20 +579,19 @@ const FormValidate = (popup, object = {}, event) => {
 };
 
 const ObjectCreate = (popup, object = {}, event) => {
-    let obj = {};
-    popup.popup.querySelectorAll(`.inputs`).forEach((element) => {
-        if (element.type == 'file') {
-            obj[element.name] = element.files[0];
-        } else {
-            obj[element.name] = element.value;
-        }
-
-    });
-    if (event.type == 'keyup') {
-        return {...object, ...obj };
-    } else {
-        return {...object, ...obj };
-    }
+	let obj = {};
+	popup.popup.querySelectorAll(`.inputs`).forEach((element) => {
+		if (element.type == 'file') {
+			obj[element.name] = element.files[0];
+		} else {
+			obj[element.name] = element.value;
+		}
+	});
+	if (event.type == 'keyup') {
+		return { ...object, ...obj };
+	} else {
+		return { ...object, ...obj };
+	}
 };
 
 //********************Helper Function to compare two objects **************//
@@ -659,44 +658,41 @@ const Database = {
 			},
 		});
 	},
-	loadContent(method, offset, actionCreater = {},loadAmount=5) {
-		if (!holdload) {
-			var holder = {
-				loadAmount: loadAmount,
-				offset: offset,
-				Method: method,
-			};
-			console.log(holder);
-			holdload = true;
-			$.ajax({
-				url: '..func/save2.php',
-				type: 'POST',
-				data: holder,
-				dataType: 'json',
-				beforeSend: function () {
-					$('#overlay').fadeIn(300);
-				},
-				success: function (returnArr) {
-					console.log(returnArr);
-					$('#overlay').fadeOut(300);
-					if (Object.keys(actionCreater).length != 0) {
-						actionCreater.updateStores(object, returnArr.data);
-					}
-				},
-				// success: function (data) {
-					
-				// 	for (var i = 0; i < data.content.length; i++) {
-				// 		offset++;
-				// 		var item = data.content[i];
-				// 		var html = '<div class="box">' + item.id + ' ' + item.content + ' ' + item.date + ' </div>';
-				// 		$('#content').append(html);
-				// 	}
-				// 	holdload = false;
-				// 	if (data.content.length == 0) {
-				// 		holdload = true;
-				// 	}
-				// },
-			});
-		}
+	loadContent(method, offset, actionCreater = {}, loadAmount = 5) {
+		var holder = {
+			loadAmount: loadAmount,
+			offset: offset,
+			Method: method,
+		};
+		console.log(holder);
+		$.ajax({
+			url: '..func/save2.php',
+			type: 'POST',
+			data: holder,
+			dataType: 'json',
+			beforeSend: function () {
+				$('#overlay').fadeIn(300);
+			},
+			success: function (returnArr) {
+				console.log(returnArr);
+				$('#overlay').fadeOut(300);
+				if (Object.keys(actionCreater).length != 0) {
+					actionCreater.updateStores(object, returnArr.data);
+				}
+			},
+			// success: function (data) {
+
+			// 	for (var i = 0; i < data.content.length; i++) {
+			// 		offset++;
+			// 		var item = data.content[i];
+			// 		var html = '<div class="box">' + item.id + ' ' + item.content + ' ' + item.date + ' </div>';
+			// 		$('#content').append(html);
+			// 	}
+			// 	holdload = false;
+			// 	if (data.content.length == 0) {
+			// 		holdload = true;
+			// 	}
+			// },
+		});
 	},
 };
