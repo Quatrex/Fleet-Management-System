@@ -469,7 +469,7 @@ class OpenNewWindowButton extends PopupButton {
 		this.eventHandleHelpers.forEach((helper) => {
 			object = helper(popup, object, event);
 		});
-		window.open('../../func/slip.php?id=' + object.RequestId);
+		window.open('../../Fleet-Management-System/func/slip.php?id=' + object.RequestId);
 	}
 }
 class DisplayAlertButton extends PopupButton {
