@@ -15,13 +15,13 @@ const CancelRequestAlertPopup = new Popup('CancelRequestAlertPopup', [CancelRequ
 
 const CancelAddedRequestAlertClose = new DisplayNextButton('CancelAddedRequestAlert_Close');
 const CancelAddedRequestAlertCancel = new DisplayNextButton('CancelAddedRequestAlert_Cancel');
-const CancelAddedRequestAlertConfirm = new DisplayNextButton('CancelAddedRequestAlert_Confirm',{},[ObjectCreate,BackendAccess('CancelRequest',ActionCreator([requestsByMeStore,pastRequestsStore],"DELETE&ADD")),RemoveAllPopup])
-const CancelAddedRequestAlertPopup = new Popup('CancelAddedRequestAlertPopup',[CancelAddedRequestAlertClose,CancelAddedRequestAlertCancel,CancelAddedRequestAlertConfirm]);
+const CancelAddedRequestAlertConfirm = new DisplayNextButton('CancelAddedRequestAlert_Confirm', {}, [ObjectCreate, BackendAccess('CancelRequest', ActionCreator([requestsByMeStore, pastRequestsStore], "DELETE&ADD")), RemoveAllPopup])
+const CancelAddedRequestAlertPopup = new Popup('CancelAddedRequestAlertPopup', [CancelAddedRequestAlertClose, CancelAddedRequestAlertCancel, CancelAddedRequestAlertConfirm]);
 
 const NewRequestPreviewClose = new DisplayAlertButton('NewRequestPreview_Close', CancelRequestAlertPopup)
 const NewRequestPreviewEdit = new DisplayNextButton('NewRequestPreview_Edit')
-const NewRequestPreviewConfirm = new DisplayNextButton('NewRequestPreview_Confirm',{},[BackendAccess('RequestAdd',ActionCreator([requestsByMeStore],"ADD"))])
-const NewRequestPreviewPopup = new Popup('NewRequestPreviewPopup',[NewRequestPreviewClose,NewRequestPreviewConfirm,NewRequestPreviewEdit]);
+const NewRequestPreviewConfirm = new DisplayNextButton('NewRequestPreview_Confirm', {}, [BackendAccess('RequestAdd', ActionCreator([requestsByMeStore], "ADD"))])
+const NewRequestPreviewPopup = new Popup('NewRequestPreviewPopup', [NewRequestPreviewClose, NewRequestPreviewConfirm, NewRequestPreviewEdit]);
 //cancel request next setup
 
 const VehicleRequestFormClose = new DisplayAlertButton('VehicleRequestForm_Close', CancelRequestAlertPopup)
@@ -50,24 +50,48 @@ const UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');
 const UserProfilePictureChange = new DisplayNextButton('change-profile-picture-button', ChangeProfilePicturePopup);
 const UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, UserProfilePictureChange]);
 
-const NewRequestButton = new DOMButton('NewRequestButton',VehicleRequestFormPopup)
-const UserProfileEditButton = new DOMButton('UserProfileEditButton',UserProfilePopup)
-const pendingRequestTable = new DOMContainer('pendingRequestCard',pendingRequestTable_Fields,PendingRequestPreviewPopup,"RequestId",requestsByMeStore,"cardTemplate");
-const ongoingRequestTable = new DOMContainer('ongoingRequestCard',ongoingRequestTable_Fields,OngoingRequestPreviewPopup,"RequestId",ongoingRequestsStore,"cardTemplate");
-const requestHistoryTable = new DOMContainer('pastRequestCard',requestHistoryTable_Fields,RequestHistoryPreviewPopup,"RequestId",pastRequestsStore,"cardTemplate" );
+const NewRequestButton = new DOMButton('NewRequestButton', VehicleRequestFormPopup)
+const UserProfileEditButton = new DOMButton('UserProfileEditButton', UserProfilePopup)
+const pendingRequestTable = new DOMContainer('pendingRequestCard', pendingRequestTable_Fields, PendingRequestPreviewPopup, "RequestId", requestsByMeStore, "cardTemplate");
+const ongoingRequestTable = new DOMContainer('ongoingRequestCard', ongoingRequestTable_Fields, OngoingRequestPreviewPopup, "RequestId", ongoingRequestsStore, "cardTemplate");
+const requestHistoryTable = new DOMContainer('pastRequestCard', requestHistoryTable_Fields, RequestHistoryPreviewPopup, "RequestId", pastRequestsStore, "cardTemplate");
 
-const pendingRequestTab = new DOMTabContainer('PendingRequestsSecTab',pendingRequestTable);
-const ongoingRequestTab = new DOMTabContainer('OngoingRequestsSecTab',ongoingRequestTable);
-const requestHistoryTab = new DOMTabContainer('HistorySecTab',requestHistoryTable);
+const pendingRequestTab = new DOMTabContainer('PendingRequestsSecTab', pendingRequestTable);
+const ongoingRequestTab = new DOMTabContainer('OngoingRequestsSecTab', ongoingRequestTable);
+const requestHistoryTab = new DOMTabContainer('HistorySecTab', requestHistoryTable);
 
-const pendingRequestTabButton = new SecondaryTabButton('PendingRequestsSecLink',pendingRequestTab);
-const ongoingRequestTabButton = new SecondaryTabButton('OngoingRequestsSecLink',ongoingRequestTab);
-const requestHistoryTabButton = new SecondaryTabButton('HistorySecLink',requestHistoryTab);
+const pendingRequestTabButton = new SecondaryTabButton('PendingRequestsSecLink', pendingRequestTab);
+const ongoingRequestTabButton = new SecondaryTabButton('OngoingRequestsSecLink', ongoingRequestTab);
+const requestHistoryTabButton = new SecondaryTabButton('HistorySecLink', requestHistoryTab);
 
-const requesterTab = new SecondaryTab('MyRequestsSecTab',[pendingRequestTabButton,ongoingRequestTabButton,requestHistoryTabButton],pendingRequestTabButton);
+const requesterTab = new SecondaryTab('MyRequestsSecTab', [pendingRequestTabButton, ongoingRequestTabButton, requestHistoryTabButton], pendingRequestTabButton);
 requesterTab.render();
 
 
 requestsByMeStore.addObservers(pendingRequestTable)
 ongoingRequestsStore.addObservers(ongoingRequestTable)
 pastRequestsStore.addObservers(requestHistoryTable)
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#preview-profile-pic').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#imgInp").change(function() {
+    console.log(this);
+    readURL(this);
+});
+
+$('#profile-pic').on('change', function() {
+    $("#while-uploading").html('');
+    $("#while-uploading").html('Uploading....');
+    readURL(this);
+    $("#while-uploading").html('');
+});
