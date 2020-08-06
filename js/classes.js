@@ -148,7 +148,7 @@ class DOMContainer {
 	}
 
 	loadContent() {
-		this.store.loadContent();
+		this.store.loadData();
 	}
 
 	handleEvent(event) {
