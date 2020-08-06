@@ -502,6 +502,27 @@ const BackendAccess = (method, actionCreater = {}) => (popup, object = {}, event
 	return object;
 };
 
+const BackendAccessForPicture = (method, actionCreater = []) => (popup, object = {}, event) => {
+    if (event.type == 'click') {
+        data = new FormData();
+        data.append('profileImage', $('#profile-pic')[0].files[0]);
+        data.append('Method', method)
+        $.ajax({
+            url: '../func/save2.php',
+            type: 'POST',
+            data: data,
+            mimeType: 'mutipart/FormData',
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function(returnArr) {
+                console.log(returnArr);
+            },
+        });
+    }
+    return object;
+};
+
 const RemoveAllPopup = (popup, object = {}, event) => {
 	document.querySelectorAll('.popup').forEach((element) => (element.style.display = 'none'));
 	popup.getPrev().removeFromDOM();
@@ -558,15 +579,20 @@ const FormValidate = (popup, object = {}, event) => {
 };
 
 const ObjectCreate = (popup, object = {}, event) => {
-	let obj = {};
-	popup.popup.querySelectorAll(`.inputs`).forEach((element) => {
-		obj[element.name] = element.value;
-	});
-	if (event.type == 'keyup') {
-		return { ...object, ...obj };
-	} else {
-		return { ...object, ...obj };
-	}
+    let obj = {};
+    popup.popup.querySelectorAll(`.inputs`).forEach((element) => {
+        if (element.type == 'file') {
+            obj[element.name] = element.files[0];
+        } else {
+            obj[element.name] = element.value;
+        }
+
+    });
+    if (event.type == 'keyup') {
+        return {...object, ...obj };
+    } else {
+        return {...object, ...obj };
+    }
 };
 
 //********************Helper Function to compare two objects **************//

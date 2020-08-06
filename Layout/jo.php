@@ -25,8 +25,13 @@ $_SESSION['employee'] = $employee;
 <body>
     <?php
     $uiBuilder
+<<<<<<< HEAD
         ->createMainNavBar(['My Requests', 'Awaiting Requests'])
         ->createSecondaryNavBar('MyRequestsSecTab',['Pending Requests', 'Ongoing Requests', 'History'])
+=======
+        ->createMainNavBar($employee,['My Requests', 'Awaiting Requests'])
+        ->createSecondaryNavBar(['Pending Requests', 'Ongoing Requests', 'History'])
+>>>>>>> 825261e1a3694ffb19873bb6ccc2ddaa8debb92c
         ->myRequests($requestsByMe, 'Pending', 'Your Pending Requests')
         ->myRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests')
         ->myRequests($pastRequests, 'Past', 'History')
@@ -53,8 +58,20 @@ $_SESSION['employee'] = $employee;
         const pastRequests = <?php echo json_encode($pastRequests) ?>;
         const requestsToJustify = <?php echo json_encode($requestsToJustify) ?>;
         const justifiedRequests = <?php echo json_encode($justifiedRequests) ?>;
+        $(window).scroll(function() {
+            if (document.body.scrollHeight == document.body.scrollTop + window.innerHeight) {
+                let activeTab = $(".main-tabs.active > .secondary-nav-bar > nav > div.nav > a.nav-item.active").attr('href');
+                let method = activeTab.replace('#', 'get');
+                console.log(method);
+                // get number of objects inside active tab
+                let numberOfObjects= $('.main-tabs.active > .container-fluid > .tab-content > .secondary-tab.active > .card > .card-body > .card').length;
+                console.log(numberOfObjects);
+                //ajax call for objects
+                //render objects on success
+            }
+        })
     </script>
-      <script src="../js/classes.js"></script>
+    <script src="../js/classes.js"></script>
     <script src="../js/redux.js"></script>
     <script src="../js/eventlisteners/common.js"></script>
     <script src="../js/eventlisteners/jo.js"></script>
