@@ -4,18 +4,19 @@ const approveRequestCard_Fields = ["RequesterName","Designation","Purpose","Date
 const approvedHistoryCard_Fields = ["RequesterName","Designation","Purpose","DateOfTrip","TimeOfTrip","PickLocation",]
 
 
-const awaitingRequestStore = new Store([...requestsToApprove,...approvedRequests]);
+const requestsToApproveStore = new Store(requestsToApprove);
+const approvedRequestsStore = new Store(approvedRequests);
 
 
 //CAO
 const ApproveRequestAlertClose = new DisplayAlertButton('ApproveRequestAlert_Close', CancelRequestAlertPopup)
 const ApproveRequestAlertCancel = new DisplayNextButton('ApproveRequestAlert_Cancel')
-const ApproveRequestAlertApprove = new DisplayNextButton('ApproveRequestAlert_Approve',{},[ObjectCreate,BackendAccess('CAOApprove',[ActionCreator(awaitingRequestStore,"UPDATE")])]);
+const ApproveRequestAlertApprove = new DisplayNextButton('ApproveRequestAlert_Approve',{},[ObjectCreate,BackendAccess('CAOApprove',ActionCreator([requestsToApproveStore,approvedRequestsStore],"DELETE&ADD"))]);
 const ApproveRequestAlertPopup = new Popup('ApproveRequestAlertPopup',[ApproveRequestAlertCancel,ApproveRequestAlertClose,ApproveRequestAlertApprove]);
 
 const DenyRequestAlertClose = new DisplayAlertButton('DenyRequestAlert_Close', CancelRequestAlertPopup)
 const DenyRequestAlertCancel = new DisplayNextButton('DenyRequestAlert_Cancel')
-const DenyRequestAlertDeny = new DisplayNextButton('DenyRequestAlert_Decline',{},[ObjectCreate,BackendAccess('CAODeny',[ActionCreator(awaitingRequestStore,"UPDATE")])]);
+const DenyRequestAlertDeny = new DisplayNextButton('DenyRequestAlert_Decline',{},[ObjectCreate,BackendAccess('CAODeny',ActionCreator([requestsToApproveStore,approvedRequestsStore],"DELETE&ADD"))]);
 const DenyRequestAlertPopup = new Popup('DenyRequestAlertPopup',[DenyRequestAlertCancel,DenyRequestAlertClose,DenyRequestAlertDeny]);
 
 const RequestApprovePreviewClose = new DisplayNextButton('RequestApprovePreview_Close')
@@ -25,8 +26,25 @@ const RequestApprovePreviewPopup = new Popup('RequestApprovePreviewPopup',[Reque
 ApproveRequestAlertCancel.setNext(RequestApprovePreviewPopup);
 DenyRequestAlertCancel.setNext(RequestApprovePreviewPopup);
 
-const approveRequestContainer = new DOMContainer('approveAwaitingRequestCard',approveRequestCard_Fields,RequestApprovePreviewPopup,'RequestId',awaitingRequestStore,"awaitingRequestCardTemplate",["Justified"])
-const approvedHistoryContainer = new DOMContainer('approvedAwaitingRequestCard',approvedHistoryCard_Fields,RequestHistoryPreviewPopup,'RequestId',awaitingRequestStore,"awaitingRequestCardTemplate",["Denied","Approved","Cancelled","Scheduled","Completed"])
+const approveRequestContainer = new DOMContainer('approveAwaitingRequestCard',approveRequestCard_Fields,RequestApprovePreviewPopup,'RequestId',requestsToApproveStore,"awaitingRequestCardTemplate")
+const approvedHistoryContainer = new DOMContainer('approvedAwaitingRequestCard',approvedHistoryCard_Fields,RequestHistoryPreviewPopup,'RequestId',approvedRequestsStore,"awaitingRequestCardTemplate")
 
-awaitingRequestStore.addObservers([approveRequestContainer,approvedHistoryContainer])
+
+const approveRequestContainerTab = new DOMTabContainer('ApproveRequestsSecTab',approveRequestContainer);
+const approvedHistoryContainerTab = new DOMTabContainer('ApprovedHistorySecTab',approvedHistoryContainer);
+
+const approveRequestContainerTabButton = new SecondaryTabButton('ApproveRequestsSecLink',approveRequestContainerTab);
+const approvedHistoryContainerTabButton = new SecondaryTabButton('ApprovedHistorySecLink',approvedHistoryContainerTab);
+
+const approveTab = new SecondaryTab('AwaitingRequestsSecTab',[approveRequestContainerTabButton,approvedHistoryContainerTabButton],approveRequestContainerTabButton);
+requesterTab.removeFromDOM();
+
+const approveTabButton = new MainTabButton('AwaitingRequestsMainLink','AwaitingRequestsMainTab',approveTab);
+const requesterTabButton = new MainTabButton('MyRequestsMainLink','MyRequestsMainTab',requesterTab);
+
+const caoMainTab = new MainTab('mainNavBarContainer',[approveTabButton,requesterTabButton],requesterTabButton)
+
+
+requestsToApproveStore.addObservers(approveRequestContainer)
+approvedRequestsStore.addObservers(approvedHistoryContainer)
 

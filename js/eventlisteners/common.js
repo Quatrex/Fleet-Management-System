@@ -3,7 +3,10 @@ const pendingRequestTable_Fields = ["Purpose","Status","DateOfTrip","TimeOfTrip"
 const ongoingRequestTable_Fields = ["Purpose","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"]
 const requestHistoryTable_Fields = ["Purpose","Status","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"]
 
-const myRequestStore = new Store([...requestsByMe,...ongoingRequests,...pastRequests]);
+const requestsByMeStore = new Store(requestsByMe);
+const ongoingRequestsStore = new Store(ongoingRequests);
+const pastRequestsStore = new Store(pastRequests);
+
 
 const CancelRequestAlertClose = new DisplayNextButton('CancelRequestAlert_Close');
 const CancelRequestAlertCancel = new DisplayNextButton('CancelRequestAlert_Cancel');
@@ -12,12 +15,12 @@ const CancelRequestAlertPopup = new Popup('CancelRequestAlertPopup',[CancelReque
 
 const CancelAddedRequestAlertClose = new DisplayNextButton('CancelAddedRequestAlert_Close');
 const CancelAddedRequestAlertCancel = new DisplayNextButton('CancelAddedRequestAlert_Cancel');
-const CancelAddedRequestAlertConfirm = new DisplayNextButton('CancelAddedRequestAlert_Confirm',{},[ObjectCreate,BackendAccess('CancelRequest',[ActionCreator(myRequestStore,"UPDATE")]),RemoveAllPopup])
+const CancelAddedRequestAlertConfirm = new DisplayNextButton('CancelAddedRequestAlert_Confirm',{},[ObjectCreate,BackendAccess('CancelRequest',ActionCreator([requestsByMeStore,pastRequestsStore],"DELETE&ADD")),RemoveAllPopup])
 const CancelAddedRequestAlertPopup = new Popup('CancelAddedRequestAlertPopup',[CancelAddedRequestAlertClose,CancelAddedRequestAlertCancel,CancelAddedRequestAlertConfirm]);
 
 const NewRequestPreviewClose = new DisplayAlertButton('NewRequestPreview_Close',CancelRequestAlertPopup)
 const NewRequestPreviewEdit = new DisplayNextButton('NewRequestPreview_Edit')
-const NewRequestPreviewConfirm = new DisplayNextButton('NewRequestPreview_Confirm',{},[BackendAccess('RequestAdd',[ActionCreator(myRequestStore,"ADD")])])
+const NewRequestPreviewConfirm = new DisplayNextButton('NewRequestPreview_Confirm',{},[BackendAccess('RequestAdd',ActionCreator([requestsByMeStore],"ADD"))])
 const NewRequestPreviewPopup = new Popup('NewRequestPreviewPopup',[NewRequestPreviewClose,NewRequestPreviewConfirm,NewRequestPreviewEdit]);
 //cancel request next setup
 
@@ -44,8 +47,22 @@ const UserProfilePopup = new Popup('UserProfilePopup',[UserProfilePopupClose]);
 
 const NewRequestButton = new DOMButton('NewRequestButton',VehicleRequestFormPopup)
 const UserProfileEditButton = new DOMButton('UserProfileEditButton',UserProfilePopup)
-const pendingRequestTable = new DOMContainer('pendingRequestCard',pendingRequestTable_Fields,PendingRequestPreviewPopup,"RequestId",myRequestStore,"cardTemplate",["Pending","Approved","Justified"]);
-const ongoingRequestTable = new DOMContainer('ongoingRequestCard',ongoingRequestTable_Fields,OngoingRequestPreviewPopup,"RequestId",myRequestStore,"cardTemplate",["Scheduled"]);
-const requestHistoryTable = new DOMContainer('pastRequestCard',requestHistoryTable_Fields,RequestHistoryPreviewPopup,"RequestId",myRequestStore,"cardTemplate",["Denied","Cancelled","Completed"]);
+const pendingRequestTable = new DOMContainer('pendingRequestCard',pendingRequestTable_Fields,PendingRequestPreviewPopup,"RequestId",requestsByMeStore,"cardTemplate");
+const ongoingRequestTable = new DOMContainer('ongoingRequestCard',ongoingRequestTable_Fields,OngoingRequestPreviewPopup,"RequestId",ongoingRequestsStore,"cardTemplate");
+const requestHistoryTable = new DOMContainer('pastRequestCard',requestHistoryTable_Fields,RequestHistoryPreviewPopup,"RequestId",pastRequestsStore,"cardTemplate" );
 
-myRequestStore.addObservers([pendingRequestTable,ongoingRequestTable,requestHistoryTable])
+const pendingRequestTab = new DOMTabContainer('PendingRequestsSecTab',pendingRequestTable);
+const ongoingRequestTab = new DOMTabContainer('OngoingRequestsSecTab',ongoingRequestTable);
+const requestHistoryTab = new DOMTabContainer('HistorySecTab',requestHistoryTable);
+
+const pendingRequestTabButton = new SecondaryTabButton('PendingRequestsSecLink',pendingRequestTab);
+const ongoingRequestTabButton = new SecondaryTabButton('OngoingRequestsSecLink',ongoingRequestTab);
+const requestHistoryTabButton = new SecondaryTabButton('HistorySecLink',requestHistoryTab);
+
+const requesterTab = new SecondaryTab('MyRequestsSecTab',[pendingRequestTabButton,ongoingRequestTabButton,requestHistoryTabButton],pendingRequestTabButton);
+requesterTab.render();
+
+
+requestsByMeStore.addObservers(pendingRequestTable)
+ongoingRequestsStore.addObservers(ongoingRequestTable)
+pastRequestsStore.addObservers(requestHistoryTable)

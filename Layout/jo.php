@@ -26,12 +26,12 @@ $_SESSION['employee'] = $employee;
     <?php
     $uiBuilder
         ->createMainNavBar(['My Requests', 'Awaiting Requests'])
-        ->createSecondaryNavBar(['Pending Requests', 'Ongoing Requests', 'History'])
+        ->createSecondaryNavBar('MyRequestsSecTab',['Pending Requests', 'Ongoing Requests', 'History'])
         ->myRequests($requestsByMe, 'Pending', 'Your Pending Requests')
         ->myRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests')
         ->myRequests($pastRequests, 'Past', 'History')
         ->buildSecTabBody(['PendingRequests', 'OngoingRequests', 'History'])
-        ->createSecondaryNavBar(['Justify Requests', 'Justified History'])
+        ->createSecondaryNavBar('AwaitingRequestsSecTab',['Justify Requests', 'Justified History'])
         ->awaitingRequests($requestsToJustify, 'Justify', 'Justify Requests')
         ->awaitingRequests($justifiedRequests, 'Justified', 'Justified History')
         ->buildSecTabBody(['JustifyRequests', 'JustifiedHistory'])

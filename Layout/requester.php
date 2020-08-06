@@ -26,7 +26,7 @@ $_SESSION['pastRequests'] = $pastRequests;
     <?php
     $uiBuilder
         ->createMainNavBar()
-        ->createSecondaryNavBar(['Pending Requests', 'Ongoing Requests', 'History'])
+        ->createSecondaryNavBar('MyRequestsSecTab',['Pending Requests', 'Ongoing Requests', 'History'])
         ->myRequests($requests, 'Pending', 'Your Pending Requests')
         ->myRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests')
         ->myRequests($pastRequests, 'Past', 'History')
@@ -47,9 +47,7 @@ $_SESSION['pastRequests'] = $pastRequests;
     <script src="../js/classes.js"></script>
     <script src="../js/eventlisteners/common.js"></script>
     <script src="../js/functions.js"></script>
-    <script>
-        const myWindow = new DOMWindow();
-    </script>
+  
 </body>
 
 </html>

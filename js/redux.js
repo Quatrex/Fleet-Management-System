@@ -1,8 +1,9 @@
 class Store {
-	constructor(initialState, observers = []) {
+	constructor(initialState, type,observers = []) {
 		this.state = initialState;
 		this.observers = observers;
-        this.currentObj = {};
+		this.type = type;
+		this.currentObj = {};
 	}
 	setCurrentObj(obj) {
 		this.currentObj = obj;
@@ -10,10 +11,16 @@ class Store {
 	getState() {
 		return this.state;
 	}
+	getOffset(){
+		return this.state.length;
+	}
+	loadData(){
+		Database.loadContent(type,this.state.length, ActionCreator([this], 'ADD'));
+	}
 	dispatch(action) {
-        console.log(action.type);
+		console.log(action.type);
 		if (action.type === 'ADD') {
-			this.state.push(action.payload);
+			this.state = [...this.state, ...action.payload];
 		} else if (action.type === 'UPDATE') {
 			this.state = this.state.map((item) => (this.currentObj === item ? { ...item, ...action.payload } : item));
 		} else if (action.type === 'DELETE') {
@@ -22,16 +29,29 @@ class Store {
 		console.log(this.state);
 		this.notifyObservers(action);
 	}
-	addObservers(observers) {
-		this.observers = [...this.observers, ...observers];
+	addObservers(observer) {
+		this.observers.push(observer);
 	}
 	notifyObservers(update) {
 		this.observers.forEach((observer) => observer.update(update));
 	}
 }
 
-const ActionCreator = (store, actionType) => ({
+const ActionCreator = (stores, actionType) => ({
 	type: actionType,
-	store: store,
+	stores: stores,
+	updateStores: (currentObj, returnedObj) => {
+		let types = actionType.split('&');
+		if (types.length == 1) {
+			let actionObj = { type: actionType };
+			actionType == 'ADD'
+				? stores[0].dispatch({ ...actionObj, payload: returnedObj })
+				: stores[0].dispatch({ ...actionObj, payload: currentObj });
+		} else if (types.length > 1) {
+			for (let i = 0; i < stores.length; i++) {
+				stores[i].dispatch({ type: types[i], payload: currentObj });
+			}
+		}
+	},
 });
 

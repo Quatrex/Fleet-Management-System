@@ -1,14 +1,14 @@
-let lastClickedRow = '';
-$('.main-nav .navbar-nav .hvrcenter ').on('click', function () {
-	let current = $('.main-nav .navbar-nav .hvrcenter.active').attr('data-toggle');
-	let clicked = $(this).attr('data-toggle');
-	$('.main-nav .navbar-nav .hvrcenter.active').removeClass('active');
-	$(this).addClass('active');
-	if (current != clicked) {
-		$('.main-tab-pane .main-tabs.active.show').removeClass(['show', 'active']);
-		$(`#${clicked}`).addClass(['active', 'show']);
-	}
-});
+// let lastClickedRow = '';
+// $('.main-nav .navbar-nav .hvrcenter ').on('click', function () {
+// 	let current = $('.main-nav .navbar-nav .hvrcenter.active').attr('data-toggle');
+// 	let clicked = $(this).attr('data-toggle');
+// 	$('.main-nav .navbar-nav .hvrcenter.active').removeClass('active');
+// 	$(this).addClass('active');
+// 	if (current != clicked) {
+// 		$('.main-tab-pane .main-tabs.active.show').removeClass(['show', 'active']);
+// 		$(`#${clicked}`).addClass(['active', 'show']);
+// 	}
+// });
 function loadData() {
 	$.ajax({
 		url: 'fetch.php',

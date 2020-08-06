@@ -29,7 +29,9 @@ const scheduledHistoryCard_Fields = [
 const vehicleCard_Fields = ['registration', 'model', 'purchasedYear'];
 const driverCard_Fields = ['firstName', 'assignedVehicleID', 'email'];
 
-const awaitingRequestStore = new Store([...requestsToAssign, ...scheduledRequests, ...scheduledRequests]);
+const requestsToAssignStore = new Store(requestsToAssign);
+const ongoingTripStore = new Store(ongoingRequests);
+const scheduledRequestsStore = new Store(scheduledRequests);
 const vehicleStore = new Store(vehicles);
 const driverStore = new Store(drivers);
 
@@ -37,7 +39,7 @@ const driverStore = new Store(drivers);
 const VehicleAddFormClose = new DisplayNextButton('VehicleAddForm_Close');
 const VehicleAddFormSubmit = new DisplayNextButton('VehicleAddForm_Submit', {}, [
 	ObjectCreate,
-	BackendAccess('AddVehicle', [ActionCreator(vehicleStore, 'ADD')]),
+	BackendAccess('AddVehicle', ActionCreator([vehicleStore], 'ADD')),
 ]);
 const VehicleAddFormPopup = new Popup('VehicleAddForm', [VehicleAddFormClose, VehicleAddFormSubmit]);
 
@@ -45,7 +47,7 @@ const VehicleAddFormPopup = new Popup('VehicleAddForm', [VehicleAddFormClose, Ve
 const DeleteVehicleAlertClose = new DisplayNextButton('DeleteVehicleAlert_Close');
 const DeleteVehicleAlertCancel = new DisplayNextButton('DeleteVehicleAlert_Cancel');
 const DeleteVehicleAlertDelete = new DisplayNextButton('DeleteVehicleAlert_Delete', {}, [
-	BackendAccess('DeleteVehicle', [ActionCreator(vehicleStore, 'DELETE')]),
+	BackendAccess('DeleteVehicle', ActionCreator([vehicleStore], 'DELETE')),
 	RemoveAllPopup,
 ]);
 const DeleteVehicleAlertPopup = new Popup('DeleteVehicleAlertPopup', [
@@ -60,7 +62,7 @@ const VehicleProfileEditFormCancel = new DisplayNextButton('VehicleProfileEditFo
 const VehicleProfileEditFormConfirm = new DisplayNextButton(
 	'VehicleProfileEditForm_Confirm',
 	{},
-	[ObjectCreate, BackendAccess('UpdateVehicle', [ActionCreator(vehicleStore, 'UPDATE')])],
+	[ObjectCreate, BackendAccess('UpdateVehicle', ActionCreator([vehicleStore], 'UPDATE'))],
 	{ disabled: 'true' }
 );
 const VehicleProfileEditFormPopup = new Popup(
@@ -89,7 +91,7 @@ const RequestFinalDetailsClose = new DisplayAlertButton('RequestFinalDetails_Clo
 const RequestFinalDetailsBack = new DisplayNextButton('RequestFinalDetails_Back');
 const RequestFinalDetailsConfirm = new DisplayNextButton('RequestFinalDetails_Confirm', {}, [
 	ObjectCreate,
-	BackendAccess('Schedule', [ActionCreator(awaitingRequestStore, 'UPDATE')]),
+	BackendAccess('Schedule', ActionCreator([requestsToAssignStore, ongoingTripStore], 'DELETE&ADD')),
 ]);
 const RequestFinalDetailsPopup = new Popup('RequestFinalDetailsPopup', [
 	RequestFinalDetailsBack,
@@ -153,12 +155,7 @@ const AssignVehicleToDriverBack = new DisplayNextButton('AssignVehicleToDriver_G
 const AssignVehicleToDriverConfirm = new DisplayNextButton(
 	'AssignVehicleToDriver_Confirm',
 	{},
-	[
-		BackendAccess('AssignVehicleToDriver', [
-			ActionCreator(vehicleStore, 'UPDATE'),
-			ActionCreator(driverStore, 'UPDATE'),
-		]),
-	],
+	[BackendAccess('AssignVehicleToDriver', ActionCreator([vehicleStore, driverStore], 'UPDATE&UPDATE'))],
 	{ disabled: 'true' }
 );
 const assignVehicleToDriverTable = new SelectionTable(
@@ -202,7 +199,7 @@ const EndTripConfirmClose = new DisplayNextButton('EndTripConfirm_Close');
 const EndTripConfirmCancel = new DisplayNextButton('EndTripConfirm_Cancel');
 const EndTripConfirmEnd = new DisplayNextButton('EndTripConfirm_End', {}, [
 	ObjectCreate,
-	BackendAccess('EndTrip', [ActionCreator(awaitingRequestStore, 'UPDATE')]),
+	BackendAccess('EndTrip', ActionCreator([ongoingTripStore,scheduledRequestsStore], 'DELETE&ADD')),
 	RemoveAllPopup,
 ]);
 const EndTripConfirmPopup = new Popup('EndTripConfirmPopup', [
@@ -213,7 +210,9 @@ const EndTripConfirmPopup = new Popup('EndTripConfirmPopup', [
 
 //Active Trips Preview Popup
 const ActiveTripDetailsClose = new DisplayNextButton('ActiveTripDetails_Close');
-const ActiveTripDetailsCancel = new DisplayNextButton('ActiveTripDetails_Cancel',{},[BackendAccess('CancelTrip',[ActionCreator(awaitingRequestStore,'UPDATE')])]);
+const ActiveTripDetailsCancel = new DisplayNextButton('ActiveTripDetails_Cancel', {}, [
+	BackendAccess('CancelTrip', ActionCreator([ongoingTripStore,scheduledRequestsStore], 'UPDATE')),
+]);
 const ActiveTripDetailsEnd = new DisplayAlertButton('ActiveTripDetails_End', EndTripConfirmPopup);
 const ActiveTripDetailsPrintSlip = new DisplayNextButton(
 	'ActiveTripDetails_PrintSlip',
@@ -232,28 +231,24 @@ const assignRequestContainer = new DOMContainer(
 	assignRequestCard_Fields,
 	RequestAssignPreviewPopup,
 	'RequestId',
-	awaitingRequestStore,
+	requestsToAssignStore,
 	'awaitingRequestCardTemplate'
-	['Approved'],
 );
 const ongoingTripContainer = new DOMContainer(
 	'ongoingAwaitingRequestCard',
 	ongoingTripCard_Fields,
 	ActiveTripDetailsPopup,
 	'RequestId',
-	awaitingRequestStore,
+	ongoingTripStore,
 	'awaitingRequestCardTemplate',
-	['Scheduled'],
-
 );
 const scheduledHistoryContainer = new DOMContainer(
 	'scheduledAwaitingRequestCard',
 	scheduledHistoryCard_Fields,
 	RequestHistoryPreviewPopup,
 	'RequestId',
-	awaitingRequestStore,
+	scheduledRequestsStore,
 	'awaitingRequestCardTemplate',
-	['Completed', 'Cancelled'],
 );
 const vehicleContainer = new DOMContainer(
 	'vehicleContainer',
@@ -273,6 +268,30 @@ const driverContainer = new DOMContainer(
 );
 const AddVehicleButton = new DOMButton('AddVehicleButton', VehicleAddFormPopup);
 
-awaitingRequestStore.addObservers([assignRequestContainer, ongoingTripContainer, scheduledHistoryContainer]);
-vehicleStore.addObservers([vehicleContainer]);
-driverStore.addObservers([driverContainer]);
+const assignRequestContainerTab = new DOMTabContainer('AssignRequestsSecTab',assignRequestContainer);
+const ongoingTripContainerTab = new DOMTabContainer('OngoingTripsSecTab',ongoingTripContainer);
+const scheduledHistoryContainerTab = new DOMTabContainer('ScheduledHistorySecTab',scheduledHistoryContainer);
+const vehicleContainerTab = new DOMTabContainer('VehiclesSecTab',vehicleContainer);
+const driverContainerTab = new DOMTabContainer('DriversSecTab',driverContainer);
+
+const assignRequestContainerTabButton = new SecondaryTabButton('AssignRequestsSecLink',assignRequestContainerTab);
+const ongoingTripContainerTabButton = new SecondaryTabButton('OngoingTripsSecLink',ongoingTripContainerTab);
+const scheduledHistoryContainerTabButton = new SecondaryTabButton('ScheduledHistorySecLink',scheduledHistoryContainerTab);
+const vehicleContainerTabButton = new SecondaryTabButton('VehiclesSecLink',vehicleContainerTab);
+const driverContainerTabButton = new SecondaryTabButton('DriversSecLink',driverContainerTab);
+
+const assignTab = new SecondaryTab('AwaitingRequestsSecTab',[assignRequestContainerTabButton,ongoingTripContainerTabButton,scheduledHistoryContainerTabButton],assignRequestContainerTabButton);
+const databaseTab = new SecondaryTab('DatabaseSecTab',[vehicleContainerTabButton,driverContainerTabButton],vehicleContainerTabButton);
+requesterTab.removeFromDOM();
+
+const assignTabButton = new MainTabButton('AwaitingRequestsMainLink','AwaitingRequestsMainTab',assignTab);
+const requesterTabButton = new MainTabButton('MyRequestsMainLink','MyRequestsMainTab',requesterTab);
+const databaseTabButton = new MainTabButton('DatabaseMainLink','DatabaseMainTab',databaseTab);
+
+const vpmoMainTab = new MainTab('mainNavBarContainer',[assignTabButton,requesterTabButton,databaseTabButton],requesterTabButton)
+
+requestsToAssignStore.addObservers(assignRequestContainer);
+ongoingTripStore.addObservers(ongoingTripContainer);
+scheduledRequestsStore.addObservers(scheduledHistoryContainer);
+vehicleStore.addObservers(vehicleContainer);
+driverStore.addObservers(driverContainer);

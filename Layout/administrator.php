@@ -23,7 +23,7 @@ $drivers = $employee->getAllDrivers();
     <?php
     $uiBuilder
         ->createMainNavBar([])
-        ->createSecondaryNavBar(['Employees', 'Drivers'])
+        ->createSecondaryNavBar('AdminSecTab',['Employees', 'Drivers'])
         ->employees($employees)
         ->drivers($drivers)
         ->buildSecTabBody(['Employees', 'Drivers'])

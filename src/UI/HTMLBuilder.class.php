@@ -33,10 +33,10 @@ class HTMLBuilder
             
             if ($i==0) {
                 $this->compositeBuilder
-                    ->createComposite('li',['class'=>"nav-item hvrcenter active", 'data-toggle'=>str_replace(' ','',$nav)]);
+                    ->createComposite('li',['class'=>"nav-item hvrcenter active",'id'=>str_replace(' ','',$nav).'MainLink', 'data-toggle'=>str_replace(' ','',$nav)]);
             } else {
                 $this->compositeBuilder
-                    ->createComposite('li',['class'=>"nav-item hvrcenter mr-2", 'data-toggle'=>str_replace(' ','',$nav)]);
+                    ->createComposite('li',['class'=>"nav-item hvrcenter mr-2",'id'=>str_replace(' ','',$nav).'MainLink', 'data-toggle'=>str_replace(' ','',$nav)]);
             }
             
             $navCom=$this->compositeBuilder
@@ -53,13 +53,13 @@ class HTMLBuilder
                 ->addElement('img',['src'=>"../images/national-logo.png", 'class'=>"logo img-fluid"])
                 ->get()
             ->composite()
-                ->createComposite('button',['class'=>"navbar-toggler my-2", 'type'=>"button", 'data-toggle'=>"collapse" ,'data-target'=>"#navbarContent"])
+                ->createComposite('button',['class'=>"navbar-toggler my-2", 'type'=>"button", 'data-toggle'=>"collapse" ,'data-target'=>"#mainNavbarContent"])
                 ->addElement('span',['class'=>"navbar-toggler-icon"])
                 ->get()
             ->composite()
-                ->createComposite('div',['class'=>"collapse tab-info navbar-collapse", 'id'=>"navbarContent"])
+                ->createComposite('div',['class'=>"collapse tab-info navbar-collapse", 'id'=>"mainNavbarContent"])
                 ->composite()
-                    ->createComposite('ul',['class'=>'navbar-nav ml-auto'])
+                    ->createComposite('ul',['class'=>'navbar-nav ml-auto','id'=>'mainNavBarContainer'])
                     ->addArrayToContent($navComList)
                     ->composite()
                         ->createComposite('li',['class'=>'nav-item dropdown'])
@@ -95,7 +95,7 @@ class HTMLBuilder
         return $this;
     }
 
-    public function createSecondaryNavBar(array $navList):HTMLBuilder
+    public function createSecondaryNavBar(string $id,array $navList):HTMLBuilder
     {
         $i=0;
         $navComList=[];
@@ -103,10 +103,10 @@ class HTMLBuilder
             
             if ($i==0) {
                 $this->elementBuilder
-                    ->createElement('a', ['class'=>"nav-item nav-link active hvrcenter", 'data-toggle'=>"tab", 'href'=>'#'.str_replace(' ','',$nav)],[strpos($nav,'History')?'History':$nav]);
+                    ->createElement('a', ['class'=>"nav-item nav-link active hvrcenter", 'data-toggle'=>"tab", 'id'=> str_replace(' ','',$nav).'SecLink', 'href'=>'#'.str_replace(' ','',$nav)],[strpos($nav,'History')?'History':$nav]);
             } else {
                 $this->elementBuilder
-                    ->createElement('a', ['class'=>"nav-item nav-link hvrcenter", 'data-toggle'=>"tab", 'href'=>'#'.str_replace(' ','',$nav)],[strpos($nav,'History')?'History':$nav]);
+                    ->createElement('a', ['class'=>"nav-item nav-link hvrcenter", 'data-toggle'=>"tab", 'id'=> str_replace(' ','',$nav).'SecLink','href'=>'#'.str_replace(' ','',$nav)],[strpos($nav,'History')?'History':$nav]);
             }
             
             $navCom=$this->elementBuilder->getElement();
@@ -119,7 +119,7 @@ class HTMLBuilder
             ->composite()
                 ->createComposite('nav',['class'=>'pt-3 mb-3'])
                 ->composite()
-                    ->createComposite('div',['class'=>'nav nav-pills justify-content-start ml-5'])
+                    ->createComposite('div',['class'=>'nav nav-pills justify-content-start ml-5','id'=>$id])
                     ->addArrayToContent($navComList)
                     ->get()
                 ->get()
@@ -343,10 +343,10 @@ class HTMLBuilder
             
             if ($i==0) {
                 $this->compositeBuilder
-                    ->createComposite('div',['class'=>"tab-pane secondary-tab fade active show",'id'=>$tabids[$i],'role'=>'tabpanel']);
+                    ->createComposite('div',['class'=>"tab-pane secondary-tab fade active show",'id'=>$tabids[$i].'SecTab','role'=>'tabpanel']);
             } else {
                 $this->compositeBuilder
-                    ->createComposite('div',['class'=>"tab-pane secondary-tab fade",'id'=>$tabids[$i],'role'=>'tabpanel']);
+                    ->createComposite('div',['class'=>"tab-pane secondary-tab fade",'id'=>$tabids[$i].'SecTab','role'=>'tabpanel']);
             }
             $buttonAttributes=$this->getButtonAttributes($tabids[$i]);
             $tabCom=$this->compositeBuilder
@@ -383,7 +383,7 @@ class HTMLBuilder
                     ->createComposite('div',['class'=>$tabClass,'role'=>'tabpanel']);
             } else {
                 $this->compositeBuilder
-                    ->createComposite('div',['class'=>$tabClass,'id'=>$tabids[$i],'role'=>'tabpanel']);
+                    ->createComposite('div',['class'=>$tabClass,'id'=>$tabids[$i].'MainTab','role'=>'tabpanel']);
             }
             
             $tabCom=$this->compositeBuilder

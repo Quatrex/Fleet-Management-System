@@ -9,7 +9,7 @@ const driverStore = new Store(drivers);
 const EmployeeAddFormClose = new DisplayNextButton('EmployeeAddForm_Close');
 const EmployeeAddFormConfirm = new DisplayNextButton('EmployeeAddForm_Confirm', {}, [
 	ObjectCreate,
-	BackendAccess('AddEmployee', [ActionCreator(employeeStore, 'ADD')]),
+	BackendAccess('AddEmployee', ActionCreator([employeeStore], 'ADD')),
 ]);
 const EmployeeAddFormPopup = new Popup('EmployeeAddForm', [EmployeeAddFormClose, EmployeeAddFormConfirm]);
 
@@ -19,7 +19,7 @@ const EmployeeProfileEditFormCancel = new DisplayNextButton('EmployeeProfileEdit
 const EmployeeProfileEditFormConfirm = new DisplayNextButton(
 	'EmployeeProfileEditForm_Confirm',
 	{},
-	[ObjectCreate, BackendAccess('UpdateEmployee', [ActionCreator(employeeStore, 'UPDATE')])],
+	[ObjectCreate, BackendAccess('UpdateEmployee', ActionCreator([employeeStore], 'UPDATE'))],
 	{ disabled: 'true' }
 );
 const EmployeeProfileEditFormPopup = new Popup(
@@ -33,7 +33,7 @@ EmployeeProfileEditFormPopup.setDataType('value');
 const DeleteEmployeeAlertClose = new DisplayNextButton('DeleteEmployeeAlert_Close');
 const DeleteEmployeeAlertCancel = new DisplayNextButton('DeleteEmployeeAlert_Cancel');
 const DeleteEmployeeAlertDelete = new DisplayNextButton('DeleteEmployeeAlert_Delete', {}, [
-	BackendAccess('DeleteEmployee', [ActionCreator(employeeStore, 'DELETE')]),RemoveAllPopup
+	BackendAccess('DeleteEmployee', ActionCreator([employeeStore], 'DELETE')),RemoveAllPopup
 ]);
 const DeleteEmployeeAlertPopup = new Popup('DeleteEmployeeAlertPopup', [
 	DeleteEmployeeAlertCancel,
@@ -57,7 +57,7 @@ EmployeeProfileEditFormCancel.setNext(EmployeeProfileFormPopup);
 const DriverAddFormClose = new DisplayNextButton('DriverAddForm_Close');
 const DriverAddFormConfirm = new DisplayNextButton('DriverAddForm_Confirm', [
 	ObjectCreate,
-	BackendAccess('AddDriver', [ActionCreator(driverStore, 'ADD')]),
+	BackendAccess('AddDriver', ActionCreator([driverStore], 'ADD')),
 ]);
 const DriverAddFormPopup = new Popup('DriverAddForm', [DriverAddFormClose, DriverAddFormConfirm]);
 
@@ -65,7 +65,7 @@ const DriverAddFormPopup = new Popup('DriverAddForm', [DriverAddFormClose, Drive
 const DeleteDriverAlertClose = new DisplayNextButton('DeleteDriverAlert_Close');
 const DeleteDriverAlertCancel = new DisplayNextButton('DeleteDriverAlert_Cancel');
 const DeleteDriverAlertDelete = new DisplayNextButton('DeleteDriverAlert_Delete',{},[
-	BackendAccess('DeleteDriver', [ActionCreator(driverStore, 'DELETE')]),
+	BackendAccess('DeleteDriver', ActionCreator([driverStore], 'DELETE')),
 	RemoveAllPopup,
 ]);
 const DeleteDriverAlertPopup = new Popup('DeleteDriverAlertPopup', [
@@ -80,7 +80,7 @@ const DriverProfileEditFormCancel = new DisplayNextButton('DriverProfileEditForm
 const DriverProfileEditFormConfirm = new DisplayNextButton(
 	'DriverProfileEditForm_Confirm',
 	{},
-	[ObjectCreate, BackendAccess('UpdateDriver', [ActionCreator(driverStore, 'UPDATE')])],
+	[ObjectCreate, BackendAccess('UpdateDriver', ActionCreator([driverStore], 'UPDATE'))],
 	{ disabled: 'true' }
 );
 const DriverProfileEditFormPopup = new Popup(
@@ -121,5 +121,15 @@ const driverContainer = new DOMContainer(
 	'driverCardTemplate'
 );
 
-employeeStore.addObservers([employeeContainer]);
-driverStore.addObservers([driverContainer]);
+
+const driverTab = new DOMTabContainer('DriverSecTab',driverContainer);
+const employeeTab = new DOMTabContainer('EmployeeSecTab',employeeContainer);
+
+const driverTabButton = new SecondaryTabButton('DriverSecLink',driverTab);
+const employeeTabButton = new SecondaryTabButton('EmployeeSecLink',employeeTab);
+
+const adminTab = new SecondaryTab('AdminSecTab',[driverTabButton,employeeTabButton],employeeTabButton)
+adminTab.render();
+
+employeeStore.addObservers(employeeContainer);
+driverStore.addObservers(driverContainer);
