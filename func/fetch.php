@@ -12,24 +12,21 @@ $object = ['error' => true, 'object' => '', 'message' => ''];
 
 switch ($method) {
 	case 'Load_requestsByMe':
-		$request = $employee->justifyRequest($_POST['RequestId'], $_POST['JOComment']);
+		$requests = $employee->getMyRequests(['pending','justified','approved'],$offset);
 		$object['error'] = false;
-		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully justified";
+		$object['object'] = $requests;
 		break;
 
 	case 'Load_ongoingRequests':
-		$request = $employee->denyRequest($_POST['RequestId'], $_POST['JOComment']);
+		$request = $requests = $employee->getMyRequests(['scheduled'],$offset);
 		$object['error'] = false;
-		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully denied";
+		$object['object'] = $requests;
 		break;
 
 	case 'Load_pastRequests':
-		$request = $employee->approveRequest($_POST['RequestId'], $_POST['CAOComment']);
+		$request =  $employee->getMyRequests(['denied', 'expired', 'cancelled', 'completed'],$offset);
 		$object['error'] = false;
-		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully approved";
+		$object['object'] = $requests;
 		break;
 
 	default:
