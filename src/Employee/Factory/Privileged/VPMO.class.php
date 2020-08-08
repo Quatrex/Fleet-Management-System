@@ -47,11 +47,9 @@ class VPMO extends Requester
      * @return array(Vehicle)
      *
      */
-    public function getVehicles()
+    public function getVehicles(int $offset = 0)
     {
-        $leasedVehicles = $this->leasedVehicleFactory->makeVehicles();
-        $purchasedVehicles = $this->purchasedVehicleFactory->makeVehicles();
-        return array_merge($purchasedVehicles, $leasedVehicles);
+        return VehicleFactory::getVehicles($offset);
     }
 
     /**

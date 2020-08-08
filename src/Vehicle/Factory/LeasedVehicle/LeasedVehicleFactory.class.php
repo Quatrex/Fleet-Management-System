@@ -46,21 +46,6 @@ class LeasedVehicleFactory extends VehicleFactory
     /**
      * @inheritDoc
      */
-    public function makeVehicles() : array
-    {
-        $vehicleViewer = new VehicleViewer();
-        $vehicleIDs = $vehicleViewer->getAllRecords('leased');
-        $vehicles = array();
-        foreach ($vehicleIDs as $values) {
-            $vehicle = new LeasedVehicle($values);
-            array_push($vehicles, $this->castToVehicle($vehicle));
-        }
-        return $vehicles;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function makeVehicleByValues(array $values) : Vehicle
     {
         return $this->castToVehicle(new LeasedVehicle($values));

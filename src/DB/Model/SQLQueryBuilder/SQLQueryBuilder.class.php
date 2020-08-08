@@ -7,7 +7,7 @@ interface SQLQueryBuilder
      * Builds SELECT statement
      * 
      * @param string $table
-     * @param array $fields
+     * @param array $fields ['Field']
      * 
      * @return SQLQueryBuilder
      */
@@ -62,12 +62,13 @@ interface SQLQueryBuilder
     /**
      * Builds INNER JOIN statement
      * 
-     * @param array $tables
+     * @param string $table
      * @param array $conditions [['Table1' => 'Field1', 'Table2' => 'Field2']]
+     * @param string $type default "INNER", accepted "LEFT", "RIGHT", "OUTER"
      * 
      * @return SQLQueryBuilder
      */
-    public function join(string $table, array $conditions) : SQLQueryBuilder;
+    public function join(string $table, array $conditions, string $type = "INNER") : SQLQueryBuilder;
 
     public function getSQLQuery() : SQLQuery;
 }

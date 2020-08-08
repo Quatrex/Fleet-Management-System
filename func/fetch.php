@@ -72,7 +72,7 @@ switch ($method) {
 		break;
 	
 	case 'Load_vehicles':
-		$vehicles = $employee->getVehicles();
+		$vehicles = $employee->getVehicles($offset);
 		$object['error'] = false;
 		$object['object'] = $vehicles;
 		break;

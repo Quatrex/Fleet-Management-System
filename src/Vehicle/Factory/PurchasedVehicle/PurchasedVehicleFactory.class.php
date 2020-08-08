@@ -50,21 +50,6 @@ class PurchasedVehicleFactory extends VehicleFactory
     /**
      * @inheritDoc
      */
-    public function makeVehicles(): array
-    {
-        $vehicleViewer = new VehicleViewer();
-        $vehicleIDs = $vehicleViewer->getAllRecords('purchased');
-        $vehicles = array();
-        foreach ($vehicleIDs as $values) {
-            $vehicle = new PurchasedVehicle($values);
-            array_push($vehicles, $this->castToVehicle($vehicle));
-        }
-        return $vehicles;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function makeVehicleByValues(array $values): Vehicle
     {
         return $this->castToVehicle(new PurchasedVehicle($values));
