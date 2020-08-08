@@ -24,7 +24,7 @@ switch ($method) {
 		break;
 
 	case 'Load_pastRequests':
-		$request =  $employee->getMyRequests(['denied', 'expired', 'cancelled', 'completed'],$offset);
+		$request =  $employee->getMyRequests(['denied', 'cancelled', 'completed'],$offset);
 		$object['error'] = false;
 		$object['object'] = $requests;
 		break;

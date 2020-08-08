@@ -96,6 +96,7 @@ class DOMTabContainer {
 	constructor(id, contentContainer = {}) {
 		this.id = id;
 		this.contentContainer = contentContainer;
+		this.lastTime = 0; 
 	}
 	render() {
 		document.getElementById(this.id).classList.add('active', 'show');
@@ -110,8 +111,18 @@ class DOMTabContainer {
 	handleEvent(event) {
 		if (event.type == 'scroll') {
 			if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-				console.log(`Came to bottom:${this.contentContainer.id}`);
-				this.contentContainer.loadContent();
+				let currentTime = Date.now();
+				if(this.lastTime ==0 ){
+					console.log(`Came to bottom:${this.contentContainer.id}`);
+					this.contentContainer.loadContent();
+					this.lastTime = currentTime;
+				}
+				else if(currentTime - this.lastTime> 8000){
+					console.log(`Came to bottom:${this.contentContainer.id}`);
+					this.contentContainer.loadContent();
+					this.lastTime = currentTime;
+				}
+				
 			}
 		}
 	}
