@@ -82,6 +82,12 @@ switch ($method) {
 		$object['error'] = false;
 		$object['object'] = $drivers;
 		break;
+
+	case 'Load_employeess':
+		$employees = $employee->getAllPriviledgedEmployees($offset);
+		$object['error'] = false;
+		$object['object'] = $employees;
+		break;
 	
 	default:
 		$object['error'] = true;

@@ -10,15 +10,15 @@ use Employee\Factory\Driver\DriverFactory;
 
 class Administrator extends PrivilegedEmployee
 {
-    public function getAllPriviledgedEmployees()
+    public function getAllPriviledgedEmployees(int $offset = 0)
     {
-        $employees=PrivilegedEmployeeFactory::makeEmployees();
+        $employees= PrivilegedEmployeeFactory::makeEmployees($offset);
         return $employees;
     }
 
-    public function getAllDrivers()
+    public function getAllDrivers(int $offset = 0)
     {
-        return DriverFactory::makeDrivers();
+        return DriverFactory::makeDrivers($offset);
     }
 
     public function createNewAccount(array $values): PrivilegedEmployee
