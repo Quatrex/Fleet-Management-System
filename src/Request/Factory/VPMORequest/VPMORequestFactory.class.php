@@ -15,7 +15,7 @@ class VPMORequestFactory
      * 
      * @return array(Request)
      */
-    public static function makeRequests(string $state) : array
+    public static function makeRequests(string $state, int $offset) : array
     {
         $acceptedStates = ['scheduled', 'approved', 'completed','cancelled'];
         if (!in_array($state, $acceptedStates))
@@ -23,7 +23,7 @@ class VPMORequestFactory
 
         $requestViewer = new RequestViewer();
         $state = State::getStateID($state);
-        $requestRecords = $requestViewer->getRequestsbyState($state);
+        $requestRecords = $requestViewer->getRequestsbyState($state,$offset);
         $requests=array();
 
         foreach($requestRecords as $values){

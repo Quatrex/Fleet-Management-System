@@ -16,12 +16,12 @@ $employee = PrivilegedEmployeeFactory::makeEmployee(1);
 //     'DropLocation' => 'A',
 //     'PickLocation' => 'B',
 //     'Purpose' => 'C']);
-$requests = $employee->getMyRequests(['pending'],0);
+$requests =  $employee->getMyRequests(['denied', 'expired', 'cancelled', 'completed'],0);
 foreach($requests as $request)
     echo $request->getField('requestID') . "<br>";
 echo "===========================================<br>";
 
-$requests = $employee->getMyRequests(['pending'],1);
+$requests =  $employee->getMyRequests(['denied', 'expired', 'cancelled', 'completed'],1);
 foreach($requests as $request)
     echo $request->getField('requestID') . "<br>";
 echo "===========================================<br>";

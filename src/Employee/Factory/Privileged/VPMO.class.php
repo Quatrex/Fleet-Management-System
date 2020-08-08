@@ -33,9 +33,9 @@ class VPMO extends Requester
      *
      * @return array{Request}
      */
-    public function getRequests(string $state): array
+    public function getRequests(string $state, int $offset): array
     {
-        return VPMORequestFactory::makeRequests($state);
+        return VPMORequestFactory::makeRequests($state, $offset);
     }
 
     /**

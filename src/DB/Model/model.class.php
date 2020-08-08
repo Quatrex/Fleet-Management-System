@@ -84,14 +84,14 @@ abstract class Model
      * 
      * @return array
      */
-    public function getRecordsFromTwo(array $joinConditions, array $conditions = [], array $wantedFields = ['*']): array 
+    public function getRecordsFromTwo(array $joinConditions, array $conditions = [],int $offset, array $wantedFields = ['*']): array 
     {
         $query = $this->queryBuilder->select($this->tableName,$wantedFields)
                                     ->join($this->tableName,$joinConditions)
                                     ->where()
                                         ->conditions($conditions)
                                         ->getWhere()
-                                    ->limit(10)
+                                    ->limit($offset)
                                     ->getSQLQuery();
 
         $result = $this->dbh->read($query);

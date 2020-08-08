@@ -7,12 +7,12 @@ use Request\Factory\CAORequest\CAORequestFactory;
 
 class CAO extends Requester
 {
-    public function getMyApprovedRequests(array $states) : array {
-        return CAORequestFactory::makeApprovedRequests($this->empID,$states);
+    public function getMyApprovedRequests(array $states, int $offset) : array {
+        return CAORequestFactory::makeApprovedRequests($this->empID,$states,$offset);
     }
 
-    public function getJustifiedRequests(){
-        return CAORequestFactory::makeJustifiedRequests();
+    public function getJustifiedRequests(int $offset){
+        return CAORequestFactory::makeJustifiedRequests($offset);
     }
 
     public function approveRequest($requestID,$CAOComment){
