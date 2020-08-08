@@ -1,6 +1,6 @@
 class Store {
-	constructor(initialState, type,observers = []) {
-		this.state = initialState;
+	constructor(type,observers = []) {
+		this.state = eval(type);
 		this.observers = observers;
 		this.type = type;
 		this.currentObj = {};
@@ -15,7 +15,7 @@ class Store {
 		return this.state.length;
 	}
 	loadData(){
-		Database.loadContent(this.type,this.state.length, ActionCreator([this], 'ADD'));
+		Database.loadContent(`Load_${this.type}`,this.state.length, ActionCreator([this], 'ADD'));
 	}
 	dispatch(action) {
 		console.log(action.type);

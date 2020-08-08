@@ -3,9 +3,9 @@ const pendingRequestTable_Fields = ["Purpose", "Status", "DateOfTrip", "TimeOfTr
 const ongoingRequestTable_Fields = ["Purpose", "DateOfTrip", "TimeOfTrip", "PickLocation", "DropLocation"]
 const requestHistoryTable_Fields = ["Purpose", "Status", "DateOfTrip", "TimeOfTrip", "PickLocation", "DropLocation"]
 
-const requestsByMeStore = new Store(requestsByMe);
-const ongoingRequestsStore = new Store(ongoingRequests);
-const pastRequestsStore = new Store(pastRequests);
+const requestsByMeStore = new Store('requestsByMe');
+const ongoingRequestsStore = new Store('ongoingRequests');
+const pastRequestsStore = new Store('pastRequests');
 
 
 const CancelRequestAlertClose = new DisplayNextButton('CancelRequestAlert_Close');

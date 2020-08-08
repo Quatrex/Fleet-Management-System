@@ -29,11 +29,11 @@ const scheduledHistoryCard_Fields = [
 const vehicleCard_Fields = ['registration', 'model', 'purchasedYear'];
 const driverCard_Fields = ['firstName', 'assignedVehicleID', 'email'];
 
-const requestsToAssignStore = new Store(requestsToAssign);
-const ongoingTripStore = new Store(scheduledRequests);
-const scheduledRequestsStore = new Store(scheduledHistoryRequests);
-const vehicleStore = new Store(vehicles);
-const driverStore = new Store(drivers);
+const requestsToAssignStore = new Store('requestsToAssign');
+const ongoingTripStore = new Store('scheduledRequests');
+const scheduledRequestsStore = new Store('scheduledHistoryRequests');
+const vehicleStore = new Store('vehicles');
+const driverStore = new Store('drivers');
 
 //Add a vehicle
 const VehicleAddFormClose = new DisplayNextButton('VehicleAddForm_Close');

@@ -67,11 +67,7 @@ class SecondaryTab {
 	}
 	handleEvent(event) {
 		if (event.type == 'click') {
-			console.log(this.buttons);
 			let targetButton = this.buttons.find((button) => button.id == event.target.id);
-			console.log(`targetButton:${targetButton}`);
-			console.log(event.target.id);
-			console.log(`activeButton:${this.activeButton.id}`);
 			if (targetButton.id != this.activeButton.id) {
 				this.activeButton.removeFromDOM();
 				targetButton.renderContent();
@@ -113,9 +109,9 @@ class DOMTabContainer {
 	}
 	handleEvent(event) {
 		if (event.type == 'scroll') {
-			if (document.body.scrollHeight == document.body.scrollTop + window.innerHeight) {
+			if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
 				console.log(`Came to bottom:${this.contentContainer.id}`);
-				// this.contentContainer.loadContent();
+				this.contentContainer.loadContent();
 			}
 		}
 	}
@@ -133,9 +129,9 @@ class DOMContainer {
 		document.getElementById(id).addEventListener('click', this);
 	}
 	render() {
-		// if (this.store.getOffset() == 0) {
-		// 	this.loadContent();
-		// }
+		if (this.store.getOffset() == 0) {
+			this.loadContent();
+		}
 	}
 	update(action) {
 		if (action.type == 'ADD') {
@@ -148,6 +144,7 @@ class DOMContainer {
 	}
 
 	loadContent() {
+		console.log("Came to log in container");
 		this.store.loadData();
 	}
 
@@ -670,15 +667,14 @@ const Database = {
 			},
 		});
 	},
-	loadContent(method, offset, actionCreater = {}, loadAmount = 5) {
+	loadContent(method, offset, actionCreater = {}) {
 		var holder = {
-			loadAmount: loadAmount,
 			offset: offset,
 			Method: method,
 		};
 		console.log(holder);
 		$.ajax({
-			url: '..func/save2.php',
+			url: '../func/fetch.php',
 			type: 'POST',
 			data: holder,
 			dataType: 'json',
@@ -689,9 +685,13 @@ const Database = {
 				console.log(returnArr);
 				$('#overlay').fadeOut(300);
 				if (Object.keys(actionCreater).length != 0) {
-					actionCreater.updateStores(object, returnArr.data);
+					actionCreater.updateStores({}, returnArr.object);
 				}
 			},
+			error:function() {
+				$('#overlay').fadeOut(300);
+			},
+			// timeout:5000,
 			// success: function (data) {
 
 			// 	for (var i = 0; i < data.content.length; i++) {

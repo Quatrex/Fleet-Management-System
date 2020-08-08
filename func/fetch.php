@@ -6,7 +6,7 @@ session_start();
 
 header("Content-type: application/json; charset=utf-8");
 $method = $_POST['Method'];
-$offset = $_POST['Offset'];
+$offset = $_POST['offset'];
 $employee = $_SESSION['employee'];
 $object = ['error' => true, 'object' => '', 'message' => ''];
 

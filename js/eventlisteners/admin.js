@@ -2,8 +2,8 @@
 const employeeCard_Fields = ['FirstName', 'LastName', 'Designation', 'Email'];
 const driverCard_Fields = ['driverId', , 'firstName', 'assignedVehicleId'];
 
-const employeeStore = new Store(employees);
-const driverStore = new Store(drivers);
+const employeeStore = new Store('employees');
+const driverStore = new Store('drivers');
 
 //Add a employee
 const EmployeeAddFormClose = new DisplayNextButton('EmployeeAddForm_Close');

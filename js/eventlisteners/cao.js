@@ -4,8 +4,8 @@ const approveRequestCard_Fields = ["RequesterName","Designation","Purpose","Date
 const approvedHistoryCard_Fields = ["RequesterName","Designation","Purpose","DateOfTrip","TimeOfTrip","PickLocation",]
 
 
-const requestsToApproveStore = new Store(requestsToApprove);
-const approvedRequestsStore = new Store(approvedRequests);
+const requestsToApproveStore = new Store('requestsToApprove');
+const approvedRequestsStore = new Store('approvedRequests');
 
 
 //CAO
