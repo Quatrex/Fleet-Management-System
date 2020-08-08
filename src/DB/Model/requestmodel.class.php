@@ -23,21 +23,21 @@ abstract class RequestModel extends Model
     {
         $conditions = ['RequesterID' => $requesterID];
         $stateConditions = ['State' => $states];
-        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset*10);
+        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset);
     }
 
     protected function getJustifiedRequestsByIDNState(String $requesterID, array $states, int $offset)
     {
         $conditions = ['JustifiedBy' => $requesterID];
         $stateConditions = ['State' => $states];
-        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset*10);
+        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset);
     }
 
     protected function getApprovedRequestsByIDNState(String $requesterID, array $states, int $offset)
     {
         $conditions = ['ApprovedBy' => $requesterID];
         $stateConditions = ['State' => $states];
-        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset*10);
+        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset);
     }
 
     public function getRequestsbyState(string $state)
