@@ -26,8 +26,8 @@ class RequestViewer extends RequestModel{
         return parent::getApprovedRequestsByIDNState($approvedBy,$states,$offset);
     }
 
-    public function getRequestsbyState(string $state) {
-        return parent::getRequestsbyState($state);
+    public function getRequestsbyState(string $state, int $offset) {
+        return parent::getRequestsbyState($state, $offset);
     }
 
     public function getLastRequestID(string $empID) {

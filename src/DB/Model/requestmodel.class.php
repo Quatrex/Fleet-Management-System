@@ -40,11 +40,11 @@ abstract class RequestModel extends Model
         return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset);
     }
 
-    public function getRequestsbyState(string $state)
+    public function getRequestsbyState(string $state, int $offset)
     {
         $joinConditions = [['request' => 'RequesterID', 'employee' => 'EmpID']];
         $conditions = ['State' => $state];
-        $results = parent::getRecordsFromTwo($joinConditions, $conditions);
+        $results = parent::getRecordsFromTwo($joinConditions, $conditions, $offset);
         return $results;
     }
 

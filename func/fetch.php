@@ -29,6 +29,42 @@ switch ($method) {
 		$object['object'] = $requests;
 		break;
 
+	case 'Load_requestsToJustify':
+		$request =  $employee->getPendingRequests($offset);
+		$object['error'] = false;
+		$object['object'] = $requests;
+		break;
+
+	case 'Load_justifiedRequests':
+		$request =  $employee->getMyJustifiedRequests(['approved', 'justified', 'denied', 'expired', 'cancelled', 'completed'],$offset);
+		$object['error'] = false;
+		$object['object'] = $requests;
+		break;
+
+	case 'Load_requestsToApprove':
+		$request =  $employee->getJustifiedRequests();
+		$object['error'] = false;
+		$object['object'] = $requests;
+		break;
+	
+	case 'Load_approvedRequests':
+		$request =  $employee->getMyApprovedRequests(['approved', 'denied', 'expired', 'cancelled', 'completed'],$offset);
+		$object['error'] = false;
+		$object['object'] = $requests;
+		break;
+
+	case 'Load_requestsToAssign':
+		$request =  $employee->getRequests('approved',$offset);
+		$object['error'] = false;
+		$object['object'] = $requests;
+		break;
+	
+	case 'Load_scheduledRequests':
+		$request =  $employee->getRequests('scheduled',$offset);
+		$object['error'] = false;
+		$object['object'] = $requests;
+		break;
+	
 	default:
 		$object['error'] = true;
 		$object['message'] = 'Invalid method';
