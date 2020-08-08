@@ -15,11 +15,11 @@ class Store {
 		return this.state.length;
 	}
 	loadData(){
-		Database.loadContent(`Load_${this.type}`,this.state.length, ActionCreator([this], 'ADD'));
+		Database.loadContent(`Load_${this.type}`,this.state.length, ActionCreator([this], 'APPEND'));
 	}
 	dispatch(action) {
 		console.log(action.type);
-		if (action.type === 'ADD') {
+		if (action.type === 'ADD' || action.type === 'APPEND') {
 			this.state = [...this.state, ...action.payload];
 		} else if (action.type === 'UPDATE') {
 			this.state = this.state.map((item) => (this.currentObj === item ? { ...item, ...action.payload } : item));
@@ -44,7 +44,7 @@ const ActionCreator = (stores, actionType) => ({
 		let types = actionType.split('&');
 		if (types.length == 1) {
 			let actionObj = { type: actionType };
-			actionType == 'ADD'
+			actionType == 'ADD'||actionType == 'APPEND'
 				? stores[0].dispatch({ ...actionObj, payload: returnedObj })
 				: stores[0].dispatch({ ...actionObj, payload: currentObj });
 		} else if (types.length > 1) {

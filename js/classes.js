@@ -151,6 +151,8 @@ class DOMContainer {
 			this.deleteEntry(action.payload);
 		} else if (action.type == 'UPDATE') {
 			this.updateEntry(action.payload);
+		} else if (action.type == 'APPEND') {
+			action.payload.forEach((object) => this.appendEntry(object));
 		}
 	}
 
@@ -180,6 +182,18 @@ class DOMContainer {
 		});
 		this.cardContainer.insertBefore(clone, this.cardContainer.firstChild);
 		this.cardContainer.firstElementChild.id = `${this.id}_${object[this.dataID]}`;
+	}
+	
+	appendEntry(object) {
+		let template = document.querySelector(`#${this.templateId}`);
+		let clone = template.content.cloneNode(true);
+		this.fields.forEach((field) => {
+			if (clone.querySelector(`.${field}`)) {
+				clone.querySelector(`.${field}`).innerHTML += object[field];
+			}
+		});
+		this.cardContainer.appendChild(clone);
+		this.cardContainer.lastElementChild.id = `${this.id}_${object[this.dataID]}`;
 	}
 
 	deleteEntry(object) {
