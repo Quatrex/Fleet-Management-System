@@ -18,51 +18,69 @@ switch ($method) {
 		break;
 
 	case 'Load_ongoingRequests':
-		$request = $requests = $employee->getMyRequests(['scheduled'],$offset);
+		$requests = $employee->getMyRequests(['scheduled'],$offset);
 		$object['error'] = false;
 		$object['object'] = $requests;
 		break;
 
 	case 'Load_pastRequests':
-		$request =  $employee->getMyRequests(['denied', 'cancelled', 'completed'],$offset);
+		$requests = $employee->getMyRequests(['denied', 'cancelled', 'completed'],$offset);
 		$object['error'] = false;
 		$object['object'] = $requests;
 		break;
 
 	case 'Load_requestsToJustify':
-		$request =  $employee->getPendingRequests($offset);
+		$requests = $employee->getPendingRequests($offset);
 		$object['error'] = false;
 		$object['object'] = $requests;
 		break;
 
 	case 'Load_justifiedRequests':
-		$request =  $employee->getMyJustifiedRequests(['approved', 'justified', 'denied', 'expired', 'cancelled', 'completed'],$offset);
+		$requests = $employee->getMyJustifiedRequests(['approved', 'justified', 'denied', 'expired', 'cancelled', 'completed'],$offset);
 		$object['error'] = false;
 		$object['object'] = $requests;
 		break;
 
 	case 'Load_requestsToApprove':
-		$request =  $employee->getJustifiedRequests();
+		$requests = $employee->getJustifiedRequests($offset);
 		$object['error'] = false;
 		$object['object'] = $requests;
 		break;
 	
 	case 'Load_approvedRequests':
-		$request =  $employee->getMyApprovedRequests(['approved', 'denied', 'expired', 'cancelled', 'completed'],$offset);
+		$requests = $employee->getMyApprovedRequests(['approved', 'denied', 'expired', 'cancelled', 'completed'],$offset);
 		$object['error'] = false;
 		$object['object'] = $requests;
 		break;
 
 	case 'Load_requestsToAssign':
-		$request =  $employee->getRequests('approved',$offset);
+		$requests = $employee->getRequests('approved',$offset);
 		$object['error'] = false;
 		$object['object'] = $requests;
 		break;
 	
 	case 'Load_scheduledRequests':
-		$request =  $employee->getRequests('scheduled',$offset);
+		$requests = $employee->getRequests('scheduled',$offset);
 		$object['error'] = false;
 		$object['object'] = $requests;
+		break;
+	
+	case 'Load_scheduledHistoryRequests':
+		$requests = $employee->getRequests(['scheduled','cancelled'],$offset);
+		$object['error'] = false;
+		$object['object'] = $requests;
+		break;
+	
+	case 'Load_vehicles':
+		$vehicles = $employee->getVehicles();
+		$object['error'] = false;
+		$object['object'] = $vehicles;
+		break;
+
+	case 'Load_drivers':
+		$drivers = $employee->getDrivers($offset);
+		$object['error'] = false;
+		$object['object'] = $drivers;
 		break;
 	
 	default:

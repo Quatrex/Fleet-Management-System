@@ -39,7 +39,7 @@ class CAORequestFactory
     {
         $requestViewer = new RequestViewer();
         $state = State::getStateID('justified');
-        $requestRecords= $requestViewer->getRequestsbyState($state,$offset);
+        $requestRecords= $requestViewer->getRequestsbyState([$state],$offset);
         $requests=array();
 
         foreach($requestRecords as $values){
