@@ -87,9 +87,9 @@
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div class="card text-center detail-description" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2" src="../images/default-user-image.png" alt="Driver Image">
             <div class="card-body">
-                <h5 class="card-title FirstName LastName"></h5>
-                <h6 class="card-subtitle mb-2 text-muted Designation">Designation: </h6>
-                <h6 class="card-subtitle mb-2 text-muted Position">Role:</h6>
+                <h5 class="card-title firstName lastName"></h5>
+                <h6 class="card-subtitle mb-2 text-muted assignedVehicleID">Assigned Vehicle: </h6>
+                <h6 class="card-subtitle mb-2 text-muted email">Email:</h6>
                 <p class="card-text Email"></p>
             </div>
         </div>

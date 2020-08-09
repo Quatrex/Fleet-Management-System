@@ -27,7 +27,7 @@ const scheduledHistoryCard_Fields = [
 	'DropLocation',
 ];
 const vehicleCard_Fields = ['registration', 'model', 'purchasedYear'];
-const driverCard_Fields = ['firstName', 'assignedVehicleID', 'email'];
+const driverCard_Fields = ['firstName', 'lastName','assignedVehicleID', 'email'];
 
 const requestsToAssignStore = new Store('requestsToAssign');
 const ongoingTripStore = new Store('scheduledRequests');
@@ -264,7 +264,7 @@ const driverContainer = new DOMContainer(
 	DriverProfileFormPopup,
 	'driverId',
 	driverStore,
-	'employeeCardTemplate'
+	'driverCardTemplate'
 );
 const AddVehicleButton = new DOMButton('AddVehicleButton', VehicleAddFormPopup);
 

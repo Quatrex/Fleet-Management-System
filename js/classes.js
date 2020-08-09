@@ -117,11 +117,9 @@ class DOMTabContainer {
 			if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
 				let currentTime = Date.now();
 				if (this.lastTime == 0) {
-					console.log(`Came to bottom:${this.contentContainer.id}`);
 					this.contentContainer.loadContent();
 					this.lastTime = currentTime;
 				} else if (currentTime - this.lastTime > 8000) {
-					console.log(`Came to bottom:${this.contentContainer.id}`);
 					this.contentContainer.loadContent();
 					this.lastTime = currentTime;
 				}
@@ -159,7 +157,6 @@ class DOMContainer {
 	}
 
 	loadContent() {
-		console.log('Came to log in container');
 		this.store.loadData();
 	}
 
@@ -179,7 +176,7 @@ class DOMContainer {
 		let clone = template.content.cloneNode(true);
 		this.fields.forEach((field) => {
 			if (clone.querySelector(`.${field}`)) {
-				clone.querySelector(`.${field}`).innerHTML += object[field];
+				clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
 			}
 		});
 		this.cardContainer.insertBefore(clone, this.cardContainer.firstChild);
@@ -191,7 +188,7 @@ class DOMContainer {
 		let clone = template.content.cloneNode(true);
 		this.fields.forEach((field) => {
 			if (clone.querySelector(`.${field}`)) {
-				clone.querySelector(`.${field}`).innerHTML += object[field];
+				clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
 			}
 		});
 		this.cardContainer.appendChild(clone);
