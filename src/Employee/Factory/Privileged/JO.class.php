@@ -2,6 +2,7 @@
 namespace Employee\Factory\Privileged;
 
 use Request\Factory\JORequest\JORequestFactory;
+use Vehicle\Factory\Base\VehicleFactory;
 
 class JO extends Requester
 {
@@ -23,5 +24,17 @@ class JO extends Requester
         $request = JORequestFactory::makeRequest($requestID);
         $request->setJustify(false,$this->empID,$JOComment,$this->position);
         return $request;
+    }
+
+    /**
+     *
+     * Returns all the vehicles
+     *
+     * @return array(Vehicle)
+     *
+     */
+    public function getVehicles(int $offset = 0)
+    {
+        return VehicleFactory::getVehicles($offset);
     }
 }
