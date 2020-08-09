@@ -84,8 +84,8 @@
 </template>
 
 <template id="driverCardTemplate">
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div class="card text-center detail-description" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2" src="../images/default-user-image.png" alt="Driver Image">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description">
+        <div class="card text-center" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2" src="../images/default-user-image.png" alt="Driver Image">
             <div class="card-body">
                 <h5 class="card-title firstName lastName"></h5>
                 <h6 class="card-subtitle mb-2 text-muted assignedVehicleID">Assigned Vehicle: </h6>
@@ -94,4 +94,22 @@
             </div>
         </div>
     </div>
+</template>
+
+<template id="selectionDriverTemplate">
+    <tr role="row">
+        <th class="driverId sorting_1"></th>
+        <td class="firstName lastName"></td>
+        <td class="assignedVehicleID"></td>
+        <td>Nothing</td>
+    </tr>
+</template>
+
+<template id="selectionVehicleTemplate">
+    <tr role="row">
+        <th class="registration"></th>
+        <td class="model"></td>
+        <td class="purchasedYear"></td>
+        <td class="assignedTrips"></td>
+    </tr>
 </template>

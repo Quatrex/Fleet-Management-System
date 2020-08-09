@@ -260,7 +260,7 @@
                         <p id="Vehicle-selectionVehicleTable"></p>
                     </span>
                 </div>
-                <table class="table table-hover" style="width:100%" id="selectionVehicleTable">
+                <table class="table table-hover" style="width:100%">
                     <thead class="thead-dark " style="position:relative; width:100%!important;">
                         <tr>
                             <th class="" scope="col">#</th>
@@ -269,12 +269,12 @@
                             <th class="th-sm" scope="col">Passengers</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="selectionVehicleTable">
                         <?php
                         $i = 0;
                         foreach ($vehicles as $vehicle) : ?>
                             <tr id="selectionVehicleTable_<?php echo $vehicle->getField('registrationNo') ?>">
-                                <th id="vehicle-<?php echo $i ?>"><?php echo $vehicle->getField('registrationNo') ?></td>
+                                <th id="vehicle-<?php echo $i ?>"><?php echo $vehicle->getField('registrationNo') ?></th>
                                 <td><?php echo $vehicle->getField('model') ?></td>
                                 <td><?php echo $vehicle->getField('purchasedYear') ?></td>
                                 <td>Nothing</td>
@@ -310,16 +310,16 @@
                         <p id="Driver-selectionDriverTable"></p>
                     </span>
                 </div>
-                <table id="selectionDriverTable" class="table table-hover" style="width:100%">
+                <table class="table table-hover" style="width:100%">
                     <thead class="thead-dark" style="width:100%!important">
                         <tr>
                             <th class="" scope="col">#</th>
                             <th class="th-sm" scope="col">Driver</th>
-                            <th class="th-sm" scope="col">Location</th>
-                            <th class="th-sm" scope="col">Details</th>
+                            <th class="th-sm" scope="col">AssignedVehicleId</th>
+                            <th class="th-sm" scope="col">Assigned Trips</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="selectionDriverTable">
                         <?php
                         $i = 0;
                         foreach ($drivers as $driver) : ?>

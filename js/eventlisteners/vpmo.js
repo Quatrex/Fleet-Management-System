@@ -28,6 +28,7 @@ const scheduledHistoryCard_Fields = [
 ];
 const vehicleCard_Fields = ['registration', 'model', 'purchasedYear'];
 const driverCard_Fields = ['firstName', 'lastName','assignedVehicleID', 'email'];
+// const driverSelction_Fields = ['firstName', 'lastName','assignedVehicleID', 'email'];
 
 const requestsToAssignStore = new Store('requestsToAssign');
 const ongoingTripStore = new Store('scheduledRequests');
@@ -107,18 +108,18 @@ const SelectVehicleAlertConfirm = new DisplayNextButton('SelectVehicleAlert_Conf
 });
 const SelectionVehicleTable = new SelectionTable(
 	'selectionVehicleTable',
-	[],
+	vehicleCard_Fields,
 	{},
 	'registration',
 	vehicleStore,
-	'',
+	'selectionVehicleTemplate',
 	SelectVehicleAlertConfirm,
 	'Vehicle'
 );
 const SelectVehicleAlertPopup = new Popup(
 	'SelectVehicleAlertPopup',
 	[SelectVehicleAlertBack, SelectVehicleAlertClose, SelectVehicleAlertConfirm],
-	['click'],
+	['click'],{},
 	SelectionVehicleTable
 );
 RequestFinalDetailsBack.setNext(SelectVehicleAlertPopup);
@@ -131,11 +132,11 @@ const SelectDriverAlertConfirm = new DisplayNextButton('SelectDriverAlert_Confir
 });
 const SelectionDriverTable = new SelectionTable(
 	'selectionDriverTable',
-	[],
+	driverCard_Fields,
 	{},
 	'driverId',
 	driverStore,
-	'',
+	'selectionDriverTemplate',
 	SelectDriverAlertConfirm,
 	'Driver',
 	'Vehicle',
@@ -144,7 +145,7 @@ const SelectionDriverTable = new SelectionTable(
 const SelectDriverAlertPopup = new Popup(
 	'SelectDriverAlertPopup',
 	[SelectDriverAlertBack, SelectDriverAlertClose, SelectDriverAlertConfirm],
-	['click'],
+	['click'],{},
 	SelectionDriverTable
 );
 SelectVehicleAlertBack.setNext(SelectDriverAlertPopup);
@@ -160,9 +161,11 @@ const AssignVehicleToDriverConfirm = new DisplayNextButton(
 );
 const assignVehicleToDriverTable = new SelectionTable(
 	'assignVehicleToDriverTable',
-	[],
+	vehicleCard_Fields,
 	{},
 	'registration',
+	vehicleStore,
+	'selectionVehicleTemplate',
 	AssignVehicleToDriverConfirm,
 	'assignedVehicleID'
 );
@@ -176,8 +179,7 @@ const AssignVehicleToDriverPopup = new Popup(
 //Driver Profile Form
 const DriverProfileFormClose = new DisplayNextButton('DriverProfileForm_Close');
 const DriverProfileFormAssignVehicle = new DisplayNextButton(
-	'DriverProfileForm_AssignVehicle',
-	AssignVehicleToDriverPopup
+	'DriverProfileForm_AssignVehicle'
 );
 const DriverProfileFormPopup = new Popup('DriverProfileForm', [DriverProfileFormAssignVehicle, DriverProfileFormClose]);
 DriverProfileFormPopup.setDataType('value');
@@ -294,4 +296,6 @@ requestsToAssignStore.addObservers(assignRequestContainer);
 ongoingTripStore.addObservers(ongoingTripContainer);
 scheduledRequestsStore.addObservers(scheduledHistoryContainer);
 vehicleStore.addObservers(vehicleContainer);
+vehicleStore.addObservers(SelectionVehicleTable);
 driverStore.addObservers(driverContainer);
+driverStore.addObservers(SelectionDriverTable);

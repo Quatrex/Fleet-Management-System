@@ -197,7 +197,6 @@ class DOMContainer {
 
 	deleteEntry(object) {
 		let entry = document.getElementById(`${this.id}_${object[this.dataID]}`);
-		console.log(entry);
 		if (entry != 'undefined' && entry != null) {
 			this.cardContainer.removeChild(entry);
 		}
@@ -206,7 +205,6 @@ class DOMContainer {
 		let entry = document.getElementById(`${this.id}_${object[this.dataID]}`);
 		if (entry != 'undefined' && entry != null) {
 			this.fields.forEach((field) => {
-				console.log(field);
 				entry.querySelector(`.${field}`).innerHTML = object[field];
 			});
 		} else {
@@ -214,80 +212,6 @@ class DOMContainer {
 		}
 	}
 }
-
-// class Table {
-// 	constructor(id, fields, popup, data, dataID, store, validStates = []) {
-// 		this.id = id;
-// 		this.fields = fields;
-// 		this.popup = popup;
-// 		this.data = data;
-// 		this.table = document.getElementById(id);
-// 		this.dataID = dataID;
-// 		this.store = store;
-// 		this.validStates = validStates;
-// 		this.table.addEventListener('click', this);
-// 	}
-// 	update(action) {
-// 		if (action.type == 'ADD') {
-// 			if (this.validStates.length != 0) {
-// 				if (this.validStates.includes(action.payload['Status'])) {
-// 					this.insertRow(action.payload);
-// 				}
-// 			} else {
-// 				this.insertRow(action.payload);
-// 			}
-// 		} else if (action.type == 'DELETE') {
-// 			this.delete(action.payload);
-// 		} else if (action.type == 'UPDATE') {
-// 			if (this.validStates.length != 0) {
-// 				if (this.validStates.includes(action.payload['Status'])) {
-// 					console.log('Update called in table');
-// 					this.updateRow(action.payload);
-// 				} else {
-// 					this.delete(action.payload);
-// 				}
-// 			} else {
-// 				this.updateRow(action.payload);
-// 			}
-// 		}
-// 	}
-// 	handleEvent(event) {
-// 		let targetObject = eval(this.data).find(
-// 			(obj) => obj[this.dataID] == event.target.parentElement.id.split('_')[1]
-// 		);
-// 		if (targetObject) {
-// 			this.store.setCurrentObj(targetObject);
-// 			this.popup.render(targetObject);
-// 		}
-// 	}
-// 	insertRow(object) {
-// 		let newRow = this.table.insertRow(1);
-// 		let cellValue;
-// 		for (let i = 0; i < this.fields.length; i++) {
-// 			cellValue = newRow.insertCell(i);
-// 			cellValue.innerHTML = object[this.fields[i]];
-// 		}
-// 		newRow.id = `${this.id}_${object[this.dataID]}`;
-// 		console.log('Came to add');
-// 	}
-// 	delete(object) {
-// 		let row = document.getElementById(`${this.id}_${object[this.dataID]}`);
-// 		if (row != 'undefined' && row != null) {
-// 			row.remove();
-// 		}
-// 	}
-// 	updateRow(object) {
-// 		//complete the update Row
-// 		let row = document.getElementById(`${this.id}_${object[this.dataID]}`);
-// 		if (row != 'undefined' && row != null) {
-// 			for (let i = 0; i < row.cells.length; i++) {
-// 				cells[i].innerHTML = object[this.fields[i]];
-// 			}
-// 		} else {
-// 			this.insertRow(object);
-// 		}
-// 	}
-// }
 
 class SelectionTable extends DOMContainer {
 	constructor(id, fields, popup, dataID, store, templateId, button, selectField, nextField = '', nextFieldId = '') {
@@ -303,6 +227,8 @@ class SelectionTable extends DOMContainer {
 		return this.id;
 	}
 	render(object = {}) {
+		super.render(object);
+
 		if (object[this.selectField] === '') {
 			this.toggleStyle(-1);
 			console.log(`${this.selectField}-${this.id}`);
@@ -358,7 +284,7 @@ class SelectionTable extends DOMContainer {
 }
 
 class Popup {
-	constructor(id, eventObjects, eventTypes = ['click'], objectFields={},selectionTable = {}) {
+	constructor(id, eventObjects, eventTypes = ['click'], objectFields = {}, selectionTable = {}) {
 		this.id = id;
 		this.eventObjects = eventObjects;
 		this.eventTypes = eventTypes;
@@ -395,7 +321,9 @@ class Popup {
 				this.popup.querySelector(`#${input.name}-error`).innerHTML = null;
 			}
 		});
-		this.dataType == 'innerHTML' ? changeInnerHTML(object, this.id,this.objectFields) : changeValue(object, this.id);
+		this.dataType == 'innerHTML'
+			? changeInnerHTML(object, this.id, this.objectFields)
+			: changeValue(object, this.id);
 		this.eventObjects.forEach((eventObject) => eventObject.initializeProperties());
 
 		if (Object.keys(this.selectionTable).length != 0) {
@@ -417,9 +345,8 @@ class Popup {
 		if (event.type == 'click') {
 			let targetObject = this.eventObjects.find((obj) => obj.id === event.target.id);
 			if (targetObject) {
-				if(targetObject.id.includes('Details')){
-					console.log(targetObject.id);
-					let field = targetObject.id.split("_")[1];
+				if (targetObject.id.includes('Details')) {
+					let field = targetObject.id.split('_')[1];
 					targetObject.handleEvent(this, this.object[field], event);
 					targetObject.next.setObject(this.object);
 				}
@@ -476,9 +403,6 @@ class DisplayNextButton extends PopupButton {
 				this.next.render(object);
 			}
 		} else if (event.type === 'keyup') {
-			console.log(object);
-			console.log(popup.getObject());
-
 			if (SimilarityCheck(object, popup.getObject())) {
 				document.getElementById(this.id).setAttribute('disabled', 'true');
 			} else {
@@ -667,18 +591,18 @@ const changeValue = (object, id) => {
 	}
 };
 
-const changeInnerHTML = (object, id,objectFields) => {
+const changeInnerHTML = (object, id, objectFields) => {
 	let objProps = Object.getOwnPropertyNames(object);
 	for (let i = 0; i < objProps.length; i++) {
 		document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
-			if(typeof(object[objProps[i]])!== 'object'){
+			if (typeof object[objProps[i]] !== 'object') {
 				tag.innerHTML = object[objProps[i]];
-			}else{
+			} else {
 				tag.innerHTML = '';
-				let fields = objectFields[objProps[i]]
-				fields.forEach(field => {
+				let fields = objectFields[objProps[i]];
+				fields.forEach((field) => {
 					tag.innerHTML += object[objProps[i]][field];
-				})
+				});
 			}
 		});
 	}
@@ -731,19 +655,6 @@ const Database = {
 				$('#overlay').fadeOut(300);
 			},
 			// timeout:5000,
-			// success: function (data) {
-
-			// 	for (var i = 0; i < data.content.length; i++) {
-			// 		offset++;
-			// 		var item = data.content[i];
-			// 		var html = '<div class="box">' + item.id + ' ' + item.content + ' ' + item.date + ' </div>';
-			// 		$('#content').append(html);
-			// 	}
-			// 	holdload = false;
-			// 	if (data.content.length == 0) {
-			// 		holdload = true;
-			// 	}
-			// },
 		});
 	},
 };
