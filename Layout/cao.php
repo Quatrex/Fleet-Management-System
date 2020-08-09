@@ -13,11 +13,15 @@ include '../partials/head.php';
 require_once '../includes/autoloader.inc.php';
 $uiBuilder = HTMLBuilder::getInstance();
 $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
-$requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved']);
-$ongoingRequests = $employee->getMyRequests(['scheduled']);
-$pastRequests = $employee->getMyRequests(['denied', 'expired', 'cancelled', 'completed']);
-$requestsToApprove = $employee->getJustifiedRequests();
-$approvedRequests = $employee->getMyApprovedRequests(['approved', 'denied', 'expired', 'cancelled', 'completed']);
+$requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved'],0);
+$ongoingRequests = [];
+// $ongoingRequests = $employee->getMyRequests(['scheduled']);
+$pastRequests = [];
+// $pastRequests = $employee->getMyRequests(['denied', 'expired', 'cancelled', 'completed']);
+$requestsToApprove = [];
+// $requestsToApprove = $employee->getJustifiedRequests();
+$approvedRequests = [];
+// $approvedRequests = $employee->getMyApprovedRequests(['approved', 'denied', 'expired', 'cancelled', 'completed']);
 $_SESSION['employee'] = $employee;
 ?>
 

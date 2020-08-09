@@ -20,20 +20,23 @@ abstract class VehicleModel extends Model
         return $results[0];
     }
 
-    protected function getAllRecords(string $vehicleType)
+    protected function getAllRecords(int $offset)
     {
-        switch ($vehicleType) {
-            case 'leased':
-                $joinConditions = [['vehicle' => 'RegistrationNo', 'leased_vehicle' => 'RegistrationNo']];
-                $conditions = ['IsDeleted' => 0];
-                $results = parent::getRecordsFromTwo($joinConditions, $conditions);
-                break;
-            case 'purchased':
-                $conditions = ['IsLeased' => 0, 'IsDeleted' => 0];
-                $results = parent::getRecords($conditions);
-                break;
-        }
-        return $results;
+        $joinConditions = [['vehicle' => 'RegistrationNo', 'leased_vehicle' => 'RegistrationNo']];
+        $conditions = ['IsDeleted' => 0];
+        $wantedFields = ['vehicle.RegistrationNo', 'Model', 'PurchasedYear', 'Value', 'FuelType', 
+                    'InsuranceValue','InsuranceCompany','AssignedOfficer','State','CurrentLocation',
+                    'NumOfAllocations', 'IsLeased', 'leasedCompany', 'leasedPeriodFrom', 'leasedPeriodTo', 'monthlyPayment'];
+        $query = $this->queryBuilder->select($this->tableName,$wantedFields)
+                                    ->join($this->tableName,$joinConditions,"LEFT")
+                                    ->where()
+                                        ->conditions($conditions)
+                                        ->getWhere()
+                                    ->limit(10,$offset)
+                                    ->getSQLQuery();
+
+        $result = $this->dbh->read($query);
+        return $result ? $result : [];
     }
 
     protected function saveRecordToVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer, $state, $currentLocation, $numOfAllocations, $isLeased)

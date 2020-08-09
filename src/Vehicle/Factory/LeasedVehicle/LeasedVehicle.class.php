@@ -17,10 +17,10 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
     public function __construct(array $values)
     {
         parent::__construct($values);
-        $this->leasedCompany = $values['LeasedCompany'];
-        $this->leasedPeriodFrom = $values['LeasedPeriodFrom'];
-        $this->leasedPeriodTo = $values['LeasedPeriodTo'];
-        $this->monthlyPayment = $values['MonthlyPayment'];
+        $this->leasedCompany = $values['leasedCompany'];
+        $this->leasedPeriodFrom = $values['leasedPeriodFrom'];
+        $this->leasedPeriodTo = $values['leasedPeriodTo'];
+        $this->monthlyPayment = $values['monthlyPayment'];
     }
 
     public function getField(string $field)

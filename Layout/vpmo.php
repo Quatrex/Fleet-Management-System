@@ -11,13 +11,23 @@ if (!isset($_SESSION['empid']) or !isset($_SESSION['position']) or $_SESSION['po
 require_once '../includes/autoloader.inc.php';
 $uiBuilder = HTMLBuilder::getInstance();
 $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
-$requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved']);
-$ongoingRequests = $employee->getMyRequests(['scheduled']);
-$pastRequests = $employee->getRequests('completed');
-$vehicles = $employee->getVehicles();
-$requestsToAssign = $employee->getRequests('approved');
-$drivers = $employee->getDrivers();
-$scheduledRequests = $employee->getRequests('scheduled');
+$requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved'],0);
+// $ongoingRequests = $employee->getMyRequests(['scheduled']);
+$ongoingRequests = [];
+// $pastRequests = $employee->getRequests('completed');
+$pastRequests = [];
+// $vehicles = $employee->getVehicles();
+$vehicles = [];
+// $requestsToAssign = $employee->getRequests('approved');
+$requestsToAssign = [];
+// $drivers = $employee->getDrivers();
+$drivers = [];
+// $scheduledRequests = $employee->getRequests('scheduled');
+$scheduledRequests = [];
+// $scheduledHistoryRequests = $employee->getRequests('completed');
+$scheduledHistoryRequests = [];
+// array_merge($scheduledHistoryRe  quests,$employee->getRequests('cancelled'));
+// print_r($scheduledHistoryRequests);
 $_SESSION['employee'] = $employee;
 ?>
 <html>
@@ -35,7 +45,7 @@ $_SESSION['employee'] = $employee;
         ->createSecondaryNavBar('AwaitingRequestsSecTab',['Assign Requests', 'Ongoing Trips', 'Scheduled History'])
         ->awaitingRequests($requestsToAssign, 'Assign', 'Assign Requests')
         ->awaitingRequests($scheduledRequests, 'Ongoing', 'Ongoing Trips')
-        ->awaitingRequests($pastRequests, 'Scheduled', 'Scheduled History')
+        ->awaitingRequests($scheduledHistoryRequests, 'Scheduled', 'Scheduled History')
         ->buildSecTabBody(['AssignRequests', 'OngoingTrips', 'ScheduledHistory'])
         ->createSecondaryNavBar('DatabaseSecTab',['Vehicles', 'Drivers'])
         ->vehicles($vehicles)
@@ -60,6 +70,7 @@ $_SESSION['employee'] = $employee;
         const pastRequests = <?php echo json_encode($pastRequests) ?>;
         const requestsToAssign = <?php echo json_encode($requestsToAssign) ?>;
         const scheduledRequests = <?php echo json_encode($scheduledRequests) ?>;
+        const scheduledHistoryRequests = <?php echo json_encode($scheduledHistoryRequests) ?>;
     </script>
     <script src="../js/redux.js"></script>
     <script src="../js/classes.js"></script>

@@ -27,13 +27,14 @@ const scheduledHistoryCard_Fields = [
 	'DropLocation',
 ];
 const vehicleCard_Fields = ['registration', 'model', 'purchasedYear'];
-const driverCard_Fields = ['firstName', 'assignedVehicleID', 'email'];
+const driverCard_Fields = ['firstName', 'lastName','assignedVehicleID', 'email'];
+// const driverSelction_Fields = ['firstName', 'lastName','assignedVehicleID', 'email'];
 
-const requestsToAssignStore = new Store(requestsToAssign);
-const ongoingTripStore = new Store(ongoingRequests);
-const scheduledRequestsStore = new Store(scheduledRequests);
-const vehicleStore = new Store(vehicles);
-const driverStore = new Store(drivers);
+const requestsToAssignStore = new Store('requestsToAssign');
+const ongoingTripStore = new Store('scheduledRequests');
+const scheduledRequestsStore = new Store('scheduledHistoryRequests');
+const vehicleStore = new Store('vehicles');
+const driverStore = new Store('drivers');
 
 //Add a vehicle
 const VehicleAddFormClose = new DisplayNextButton('VehicleAddForm_Close');
@@ -107,18 +108,18 @@ const SelectVehicleAlertConfirm = new DisplayNextButton('SelectVehicleAlert_Conf
 });
 const SelectionVehicleTable = new SelectionTable(
 	'selectionVehicleTable',
-	[],
+	vehicleCard_Fields,
 	{},
 	'registration',
 	vehicleStore,
-	'',
+	'selectionVehicleTemplate',
 	SelectVehicleAlertConfirm,
 	'Vehicle'
 );
 const SelectVehicleAlertPopup = new Popup(
 	'SelectVehicleAlertPopup',
 	[SelectVehicleAlertBack, SelectVehicleAlertClose, SelectVehicleAlertConfirm],
-	['click'],
+	['click'],{},
 	SelectionVehicleTable
 );
 RequestFinalDetailsBack.setNext(SelectVehicleAlertPopup);
@@ -131,11 +132,11 @@ const SelectDriverAlertConfirm = new DisplayNextButton('SelectDriverAlert_Confir
 });
 const SelectionDriverTable = new SelectionTable(
 	'selectionDriverTable',
-	[],
+	driverCard_Fields,
 	{},
 	'driverId',
 	driverStore,
-	'',
+	'selectionDriverTemplate',
 	SelectDriverAlertConfirm,
 	'Driver',
 	'Vehicle',
@@ -144,7 +145,7 @@ const SelectionDriverTable = new SelectionTable(
 const SelectDriverAlertPopup = new Popup(
 	'SelectDriverAlertPopup',
 	[SelectDriverAlertBack, SelectDriverAlertClose, SelectDriverAlertConfirm],
-	['click'],
+	['click'],{},
 	SelectionDriverTable
 );
 SelectVehicleAlertBack.setNext(SelectDriverAlertPopup);
@@ -160,9 +161,11 @@ const AssignVehicleToDriverConfirm = new DisplayNextButton(
 );
 const assignVehicleToDriverTable = new SelectionTable(
 	'assignVehicleToDriverTable',
-	[],
+	vehicleCard_Fields,
 	{},
 	'registration',
+	vehicleStore,
+	'selectionVehicleTemplate',
 	AssignVehicleToDriverConfirm,
 	'assignedVehicleID'
 );
@@ -176,8 +179,7 @@ const AssignVehicleToDriverPopup = new Popup(
 //Driver Profile Form
 const DriverProfileFormClose = new DisplayNextButton('DriverProfileForm_Close');
 const DriverProfileFormAssignVehicle = new DisplayNextButton(
-	'DriverProfileForm_AssignVehicle',
-	AssignVehicleToDriverPopup
+	'DriverProfileForm_AssignVehicle'
 );
 const DriverProfileFormPopup = new Popup('DriverProfileForm', [DriverProfileFormAssignVehicle, DriverProfileFormClose]);
 DriverProfileFormPopup.setDataType('value');
@@ -214,7 +216,7 @@ const ActiveTripDetailsCancel = new DisplayNextButton('ActiveTripDetails_Cancel'
 	BackendAccess('CancelTrip', ActionCreator([ongoingTripStore,scheduledRequestsStore], 'UPDATE')),
 ]);
 const ActiveTripDetailsEnd = new DisplayAlertButton('ActiveTripDetails_End', EndTripConfirmPopup);
-const ActiveTripDetailsPrintSlip = new DisplayNextButton(
+const ActiveTripDetailsPrintSlip = new OpenNewWindowButton(
 	'ActiveTripDetails_PrintSlip',
 	[],
 	[BackendAccess('PrintSlip')]
@@ -264,7 +266,7 @@ const driverContainer = new DOMContainer(
 	DriverProfileFormPopup,
 	'driverId',
 	driverStore,
-	'employeeCardTemplate'
+	'driverCardTemplate'
 );
 const AddVehicleButton = new DOMButton('AddVehicleButton', VehicleAddFormPopup);
 
@@ -294,4 +296,6 @@ requestsToAssignStore.addObservers(assignRequestContainer);
 ongoingTripStore.addObservers(ongoingTripContainer);
 scheduledRequestsStore.addObservers(scheduledHistoryContainer);
 vehicleStore.addObservers(vehicleContainer);
+vehicleStore.addObservers(SelectionVehicleTable);
 driverStore.addObservers(driverContainer);
+driverStore.addObservers(SelectionDriverTable);

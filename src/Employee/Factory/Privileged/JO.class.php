@@ -5,12 +5,12 @@ use Request\Factory\JORequest\JORequestFactory;
 
 class JO extends Requester
 {
-    public function getMyJustifiedRequests(array $states) : array {
-        return JORequestFactory::makeJustifiedRequests($this->empID,$states);
+    public function getMyJustifiedRequests(array $states, int $offset = 0) : array {
+        return JORequestFactory::makeJustifiedRequests($this->empID,$states,$offset);
     }
 
-    public function getPendingRequests(){
-        return JORequestFactory::makePendingRequests();
+    public function getPendingRequests(int $offset = 0){
+        return JORequestFactory::makePendingRequests($offset);
     }
 
     public function justifyRequest($requestID,$JOComment){

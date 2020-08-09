@@ -2,8 +2,8 @@
 const justifyRequestCard_Fields = ["RequesterName","Designation","Purpose","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"]
 const justifiedHistoryCard_Fields = ["RequesterName","Designation","Purpose","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"]
 
-const requestsToJustifyStore = new Store(requestsToJustify);
-const justifiedRequestsStore = new Store(justifiedRequests);
+const requestsToJustifyStore = new Store('requestsToJustify');
+const justifiedRequestsStore = new Store('justifiedRequests');
 
 
 

@@ -19,33 +19,42 @@ abstract class RequestModel extends Model
         return $results[0];
     }
 
-    protected function getRequestsByIDNState(String $requesterID, array $states)
+    protected function getRequestsByIDNState(String $requesterID, array $states, int $offset)
     {
         $conditions = ['RequesterID' => $requesterID];
         $stateConditions = ['State' => $states];
-        return parent::getRecordsFromMultipleStates($conditions,$stateConditions);
+        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset);
     }
 
-    protected function getJustifiedRequestsByIDNState(String $requesterID, array $states)
+    protected function getJustifiedRequestsByIDNState(String $requesterID, array $states, int $offset)
     {
         $conditions = ['JustifiedBy' => $requesterID];
         $stateConditions = ['State' => $states];
-        return parent::getRecordsFromMultipleStates($conditions,$stateConditions);
+        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset);
     }
 
-    protected function getApprovedRequestsByIDNState(String $requesterID, array $states)
+    protected function getApprovedRequestsByIDNState(String $requesterID, array $states, int $offset)
     {
         $conditions = ['ApprovedBy' => $requesterID];
         $stateConditions = ['State' => $states];
-        return parent::getRecordsFromMultipleStates($conditions,$stateConditions);
+        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset);
     }
 
-    public function getRequestsbyState(string $state)
+    public function getRequestsbyState(array $states, int $offset)
     {
         $joinConditions = [['request' => 'RequesterID', 'employee' => 'EmpID']];
-        $conditions = ['State' => $state];
-        $results = parent::getRecordsFromTwo($joinConditions, $conditions);
-        return $results;
+        $stateConditions = ['State' => $states];
+        $query = $this->queryBuilder->select($this->tableName)
+                                    ->join($this->tableName,$joinConditions)
+                                    ->where()
+                                        ->conditions($stateConditions,"OR")
+                                        ->getWhere()
+                                    ->orderBy(['DateOfTrip' => 'ASC'])
+                                    ->limit(10,$offset)
+                                    ->getSQLQuery();
+
+        $result = $this->dbh->read($query);
+        return $result ? $result : [];
     }
 
     protected function saveRecord($createdDate, $state, $dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $requesterID, $purpose)

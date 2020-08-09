@@ -14,7 +14,8 @@ $uiBuilder = HTMLBuilder::getInstance();
 $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
 $_SESSION['employee'] = $employee;
 $employees = $employee->getAllPriviledgedEmployees();
-$drivers = $employee->getAllDrivers();
+// $drivers = $employee->getAllDrivers();
+$drivers = [];
 
 
 ?>

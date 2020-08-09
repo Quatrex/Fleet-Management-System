@@ -84,14 +84,14 @@ abstract class Model
      * 
      * @return array
      */
-    public function getRecordsFromTwo(array $joinConditions, array $conditions = [], array $wantedFields = ['*']): array 
+    public function getRecordsFromTwo(array $joinConditions, array $conditions = [],int $offset, array $wantedFields = ['*']): array 
     {
         $query = $this->queryBuilder->select($this->tableName,$wantedFields)
                                     ->join($this->tableName,$joinConditions)
                                     ->where()
                                         ->conditions($conditions)
                                         ->getWhere()
-                                    ->limit(10)
+                                    ->limit(10,$offset)
                                     ->getSQLQuery();
 
         $result = $this->dbh->read($query);
@@ -108,7 +108,11 @@ abstract class Model
      * 
      * @return array
      */
-    public function getRecordsFromMultipleStates(array $conditions, array $stateConditions, array $wantedFields = ['*']) : array
+    public function getRecordsFromMultipleStates(   array $conditions, 
+                                                    array $stateConditions, 
+                                                    int $offset = 0, 
+                                                    array $order = ['DateOfTrip' => 'ASC'],
+                                                    array $wantedFields = ['*']) : array
     {
         $query = $this->queryBuilder->select($this->tableName,$wantedFields)
                                     ->where()
@@ -117,8 +121,8 @@ abstract class Model
                                         ->conditions($stateConditions,"OR")
                                         ->close()
                                         ->getWhere()
-                                    ->orderBy(['DateOfTrip' => 'ASC'])
-                                    ->limit(10)
+                                    ->orderBy($order)
+                                    ->limit(10,$offset)
                                     ->getSQLQuery();
 
         $result = $this->dbh->read($query);

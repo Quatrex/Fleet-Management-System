@@ -13,11 +13,15 @@ include '../partials/head.php';
 require_once '../includes/autoloader.inc.php';
 $uiBuilder = HTMLBuilder::getInstance();
 $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
-$requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved']);
-$ongoingRequests = $employee->getMyRequests(['scheduled']);
-$pastRequests = $employee->getMyRequests(['denied', 'expired', 'cancelled', 'completed']);
-$requestsToJustify = $employee->getPendingRequests();
-$justifiedRequests = $employee->getMyJustifiedRequests(['approved', 'justified', 'denied', 'expired', 'cancelled', 'completed']);
+$requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved'],0);
+$ongoingRequests = [];
+// $ongoingRequests = $employee->getMyRequests(['scheduled'],0);
+$pastRequests = [];
+// $pastRequests = $employee->getMyRequests(['denied', 'expired', 'cancelled', 'completed']);
+$requestsToJustify = [];
+// $requestsToJustify = $employee->getPendingRequests();
+$justifiedRequests = [];
+// $justifiedRequests = $employee->getMyJustifiedRequests(['approved', 'justified', 'denied', 'expired', 'cancelled', 'completed']);
 $_SESSION['employee'] = $employee;
 
 ?>
@@ -53,18 +57,7 @@ $_SESSION['employee'] = $employee;
         const pastRequests = <?php echo json_encode($pastRequests) ?>;
         const requestsToJustify = <?php echo json_encode($requestsToJustify) ?>;
         const justifiedRequests = <?php echo json_encode($justifiedRequests) ?>;
-        $(window).scroll(function() {
-            if (document.body.scrollHeight == document.body.scrollTop + window.innerHeight) {
-                let activeTab = $(".main-tabs.active > .secondary-nav-bar > nav > div.nav > a.nav-item.active").attr('href');
-                let method = activeTab.replace('#', 'get');
-                console.log(method);
-                // get number of objects inside active tab
-                let numberOfObjects= $('.main-tabs.active > .container-fluid > .tab-content > .secondary-tab.active > .card > .card-body > .card').length;
-                console.log(numberOfObjects);
-                //ajax call for objects
-                //render objects on success
-            }
-        })
+
     </script>
     <script src="../js/classes.js"></script>
     <script src="../js/redux.js"></script>

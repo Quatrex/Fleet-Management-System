@@ -19,20 +19,20 @@
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#all-driver-table').DataTable();
-            $('#employee-table').DataTable();
-            $('#selectionDriverTable').DataTable({
-                "scrollY": "300px",
-                "paging": true
-                // "scrollCollapse": true,
-            });
-            $('#selectionVehicleTable').DataTable({
-                "scrollY": "300px",
-                // "scrollCollapse": true,
-                "paging": true
-            });
+        // $(document).ready(function() {
+        //     $('#all-driver-table').DataTable();
+        //     $('#employee-table').DataTable();
+        //     $('#selectionDriverTable').DataTable({
+        //         "scrollY": "300px",
+        //         "paging": true
+        //         // "scrollCollapse": true,
+        //     });
+        //     $('#selectionVehicleTable').DataTable({
+        //         "scrollY": "300px",
+        //         // "scrollCollapse": true,
+        //         "paging": true
+        //     });
 
-        });
+        // });
     </script>
 </head>

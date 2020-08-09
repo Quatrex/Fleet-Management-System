@@ -22,10 +22,12 @@ class MainTab {
 	handleEvent(event) {
 		if (event.type == 'click') {
 			let targetButton = this.mainTabButtons.find((button) => button.id == event.target.closest('li').id);
-			if (targetButton.id != this.activeButton.id) {
-				targetButton.renderContent();
-				this.activeButton.removeFromDOM();
-				this.activeButton = targetButton;
+			if (targetButton != null) {
+				if (targetButton.id != this.activeButton.id) {
+					targetButton.renderContent();
+					this.activeButton.removeFromDOM();
+					this.activeButton = targetButton;
+				}
 			}
 		}
 	}
@@ -67,15 +69,13 @@ class SecondaryTab {
 	}
 	handleEvent(event) {
 		if (event.type == 'click') {
-			console.log(this.buttons);
 			let targetButton = this.buttons.find((button) => button.id == event.target.id);
-			console.log(`targetButton:${targetButton}`);
-			console.log(event.target.id);
-			console.log(`activeButton:${this.activeButton.id}`);
-			if (targetButton.id != this.activeButton.id) {
-				this.activeButton.removeFromDOM();
-				targetButton.renderContent();
-				this.activeButton = targetButton;
+			if (targetButton != null) {
+				if (targetButton.id != this.activeButton.id) {
+					this.activeButton.removeFromDOM();
+					targetButton.renderContent();
+					this.activeButton = targetButton;
+				}
 			}
 		}
 	}
@@ -100,6 +100,7 @@ class DOMTabContainer {
 	constructor(id, contentContainer = {}) {
 		this.id = id;
 		this.contentContainer = contentContainer;
+		this.lastTime = 0;
 	}
 	render() {
 		document.getElementById(this.id).classList.add('active', 'show');
@@ -113,9 +114,15 @@ class DOMTabContainer {
 	}
 	handleEvent(event) {
 		if (event.type == 'scroll') {
-			if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
-				console.log(`Came to bottom:${this.contentContainer.id}`);
-				// this.contentContainer.loadContent();
+			if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+				let currentTime = Date.now();
+				if (this.lastTime == 0) {
+					this.contentContainer.loadContent();
+					this.lastTime = currentTime;
+				} else if (currentTime - this.lastTime > 8000) {
+					this.contentContainer.loadContent();
+					this.lastTime = currentTime;
+				}
 			}
 		}
 	}
@@ -132,8 +139,8 @@ class DOMContainer {
 		this.templateId = templateId;
 		document.getElementById(id).addEventListener('click', this);
 	}
-	render(){
-		if(this.store.getOffset() ==0){
+	render() {
+		if (this.store.getOffset() == 0) {
 			this.loadContent();
 		}
 	}
@@ -144,6 +151,8 @@ class DOMContainer {
 			this.deleteEntry(action.payload);
 		} else if (action.type == 'UPDATE') {
 			this.updateEntry(action.payload);
+		} else if (action.type == 'APPEND') {
+			action.payload.forEach((object) => this.appendEntry(object));
 		}
 	}
 
@@ -167,16 +176,27 @@ class DOMContainer {
 		let clone = template.content.cloneNode(true);
 		this.fields.forEach((field) => {
 			if (clone.querySelector(`.${field}`)) {
-				clone.querySelector(`.${field}`).innerHTML += object[field];
+				clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
 			}
 		});
 		this.cardContainer.insertBefore(clone, this.cardContainer.firstChild);
 		this.cardContainer.firstElementChild.id = `${this.id}_${object[this.dataID]}`;
 	}
 
+	appendEntry(object) {
+		let template = document.querySelector(`#${this.templateId}`);
+		let clone = template.content.cloneNode(true);
+		this.fields.forEach((field) => {
+			if (clone.querySelector(`.${field}`)) {
+				clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
+			}
+		});
+		this.cardContainer.appendChild(clone);
+		this.cardContainer.lastElementChild.id = `${this.id}_${object[this.dataID]}`;
+	}
+
 	deleteEntry(object) {
 		let entry = document.getElementById(`${this.id}_${object[this.dataID]}`);
-		console.log(entry);
 		if (entry != 'undefined' && entry != null) {
 			this.cardContainer.removeChild(entry);
 		}
@@ -185,7 +205,6 @@ class DOMContainer {
 		let entry = document.getElementById(`${this.id}_${object[this.dataID]}`);
 		if (entry != 'undefined' && entry != null) {
 			this.fields.forEach((field) => {
-				console.log(field);
 				entry.querySelector(`.${field}`).innerHTML = object[field];
 			});
 		} else {
@@ -193,80 +212,6 @@ class DOMContainer {
 		}
 	}
 }
-
-// class Table {
-// 	constructor(id, fields, popup, data, dataID, store, validStates = []) {
-// 		this.id = id;
-// 		this.fields = fields;
-// 		this.popup = popup;
-// 		this.data = data;
-// 		this.table = document.getElementById(id);
-// 		this.dataID = dataID;
-// 		this.store = store;
-// 		this.validStates = validStates;
-// 		this.table.addEventListener('click', this);
-// 	}
-// 	update(action) {
-// 		if (action.type == 'ADD') {
-// 			if (this.validStates.length != 0) {
-// 				if (this.validStates.includes(action.payload['Status'])) {
-// 					this.insertRow(action.payload);
-// 				}
-// 			} else {
-// 				this.insertRow(action.payload);
-// 			}
-// 		} else if (action.type == 'DELETE') {
-// 			this.delete(action.payload);
-// 		} else if (action.type == 'UPDATE') {
-// 			if (this.validStates.length != 0) {
-// 				if (this.validStates.includes(action.payload['Status'])) {
-// 					console.log('Update called in table');
-// 					this.updateRow(action.payload);
-// 				} else {
-// 					this.delete(action.payload);
-// 				}
-// 			} else {
-// 				this.updateRow(action.payload);
-// 			}
-// 		}
-// 	}
-// 	handleEvent(event) {
-// 		let targetObject = eval(this.data).find(
-// 			(obj) => obj[this.dataID] == event.target.parentElement.id.split('_')[1]
-// 		);
-// 		if (targetObject) {
-// 			this.store.setCurrentObj(targetObject);
-// 			this.popup.render(targetObject);
-// 		}
-// 	}
-// 	insertRow(object) {
-// 		let newRow = this.table.insertRow(1);
-// 		let cellValue;
-// 		for (let i = 0; i < this.fields.length; i++) {
-// 			cellValue = newRow.insertCell(i);
-// 			cellValue.innerHTML = object[this.fields[i]];
-// 		}
-// 		newRow.id = `${this.id}_${object[this.dataID]}`;
-// 		console.log('Came to add');
-// 	}
-// 	delete(object) {
-// 		let row = document.getElementById(`${this.id}_${object[this.dataID]}`);
-// 		if (row != 'undefined' && row != null) {
-// 			row.remove();
-// 		}
-// 	}
-// 	updateRow(object) {
-// 		//complete the update Row
-// 		let row = document.getElementById(`${this.id}_${object[this.dataID]}`);
-// 		if (row != 'undefined' && row != null) {
-// 			for (let i = 0; i < row.cells.length; i++) {
-// 				cells[i].innerHTML = object[this.fields[i]];
-// 			}
-// 		} else {
-// 			this.insertRow(object);
-// 		}
-// 	}
-// }
 
 class SelectionTable extends DOMContainer {
 	constructor(id, fields, popup, dataID, store, templateId, button, selectField, nextField = '', nextFieldId = '') {
@@ -282,6 +227,8 @@ class SelectionTable extends DOMContainer {
 		return this.id;
 	}
 	render(object = {}) {
+		super.render(object);
+
 		if (object[this.selectField] === '') {
 			this.toggleStyle(-1);
 			console.log(`${this.selectField}-${this.id}`);
@@ -302,6 +249,10 @@ class SelectionTable extends DOMContainer {
 				if (targetObject[this.nextFieldId]) {
 					object[this.nextField] = targetObject[this.nextFieldId];
 				}
+				else{
+					object[this.nextField] = '';
+
+				}
 			}
 			popup.setObject(object);
 		} else {
@@ -313,6 +264,7 @@ class SelectionTable extends DOMContainer {
 			this.button.initializeProperties({ disabled: 'true' });
 			popup.setObject(object);
 		}
+		console.log(object);
 	}
 
 	toggleStyle(tableRowId) {
@@ -337,7 +289,7 @@ class SelectionTable extends DOMContainer {
 }
 
 class Popup {
-	constructor(id, eventObjects, eventTypes = ['click'], selectionTable = {}) {
+	constructor(id, eventObjects, eventTypes = ['click'], objectFields = {}, selectionTable = {}) {
 		this.id = id;
 		this.eventObjects = eventObjects;
 		this.eventTypes = eventTypes;
@@ -345,6 +297,7 @@ class Popup {
 		this.selectionTable = selectionTable;
 		this.object = {};
 		this.prev = {};
+		this.objectFields = objectFields;
 		this.popup = document.getElementById(this.id);
 	}
 	setPrev(prev) {
@@ -368,14 +321,16 @@ class Popup {
 		let inputs = this.popup.querySelectorAll('.inputs');
 		inputs.forEach((input) => {
 			input.value = '';
-			console.log('Came here');
 			input.classList.remove('invalid-details', 'warning-details');
 			if (this.popup.querySelector(`#${input.name}-error`)) {
 				this.popup.querySelector(`#${input.name}-error`).innerHTML = null;
 			}
 		});
-		this.dataType == 'innerHTML' ? changeInnerHTML(object, this.id) : changeValue(object, this.id);
+		this.dataType == 'innerHTML'
+			? changeInnerHTML(object, this.id, this.objectFields)
+			: changeValue(object, this.id);
 		this.eventObjects.forEach((eventObject) => eventObject.initializeProperties());
+
 		if (Object.keys(this.selectionTable).length != 0) {
 			this.selectionTable.render(object);
 		}
@@ -395,6 +350,11 @@ class Popup {
 		if (event.type == 'click') {
 			let targetObject = this.eventObjects.find((obj) => obj.id === event.target.id);
 			if (targetObject) {
+				if (targetObject.id.includes('Details')) {
+					let field = targetObject.id.split('_')[1];
+					targetObject.handleEvent(this, this.object[field], event);
+					targetObject.next.setObject(this.object);
+				}
 				targetObject.handleEvent(this, this.object, event);
 			} else {
 				if (Object.keys(this.selectionTable).length != 0) {
@@ -448,9 +408,6 @@ class DisplayNextButton extends PopupButton {
 				this.next.render(object);
 			}
 		} else if (event.type === 'keyup') {
-			console.log(object);
-			console.log(popup.getObject());
-
 			if (SimilarityCheck(object, popup.getObject())) {
 				document.getElementById(this.id).setAttribute('disabled', 'true');
 			} else {
@@ -460,6 +417,18 @@ class DisplayNextButton extends PopupButton {
 	}
 }
 
+class OpenNewWindowButton extends PopupButton {
+	constructor(id, next = {}, eventHandleHelpers = [], properties = {}) {
+		super(id, next, properties);
+		this.eventHandleHelpers = eventHandleHelpers;
+	}
+	handleEvent(popup, object = {}, event) {
+		this.eventHandleHelpers.forEach((helper) => {
+			object = helper(popup, object, event);
+		});
+		window.open('../../Fleet-Management-System/func/slip.php?id=' + object.RequestId);
+	}
+}
 class DisplayAlertButton extends PopupButton {
 	constructor(id, next = {}, properties = {}) {
 		super(id, next, properties);
@@ -503,24 +472,24 @@ const BackendAccess = (method, actionCreater = {}) => (popup, object = {}, event
 };
 
 const BackendAccessForPicture = (method, actionCreater = []) => (popup, object = {}, event) => {
-    if (event.type == 'click') {
-        data = new FormData();
-        data.append('profileImage', $('#profile-pic')[0].files[0]);
-        data.append('Method', method)
-        $.ajax({
-            url: '../func/save2.php',
-            type: 'POST',
-            data: data,
-            mimeType: 'mutipart/FormData',
-            contentType: false,
-            processData: false,
-            cache: false,
-            success: function(returnArr) {
-                console.log(returnArr);
-            },
-        });
-    }
-    return object;
+	if (event.type == 'click') {
+		data = new FormData();
+		data.append('profileImage', $('#profile-pic')[0].files[0]);
+		data.append('Method', method);
+		$.ajax({
+			url: '../func/save2.php',
+			type: 'POST',
+			data: data,
+			mimeType: 'mutipart/FormData',
+			contentType: false,
+			processData: false,
+			cache: false,
+			success: function (returnArr) {
+				console.log(returnArr);
+			},
+		});
+	}
+	return object;
 };
 
 const RemoveAllPopup = (popup, object = {}, event) => {
@@ -579,20 +548,19 @@ const FormValidate = (popup, object = {}, event) => {
 };
 
 const ObjectCreate = (popup, object = {}, event) => {
-    let obj = {};
-    popup.popup.querySelectorAll(`.inputs`).forEach((element) => {
-        if (element.type == 'file') {
-            obj[element.name] = element.files[0];
-        } else {
-            obj[element.name] = element.value;
-        }
-
-    });
-    if (event.type == 'keyup') {
-        return {...object, ...obj };
-    } else {
-        return {...object, ...obj };
-    }
+	let obj = {};
+	popup.popup.querySelectorAll(`.inputs`).forEach((element) => {
+		if (element.type == 'file') {
+			obj[element.name] = element.files[0];
+		} else {
+			obj[element.name] = element.value;
+		}
+	});
+	if (event.type == 'keyup') {
+		return { ...object, ...obj };
+	} else {
+		return { ...object, ...obj };
+	}
 };
 
 //********************Helper Function to compare two objects **************//
@@ -628,11 +596,19 @@ const changeValue = (object, id) => {
 	}
 };
 
-const changeInnerHTML = (object, id) => {
+const changeInnerHTML = (object, id, objectFields) => {
 	let objProps = Object.getOwnPropertyNames(object);
 	for (let i = 0; i < objProps.length; i++) {
 		document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
-			tag.innerHTML = object[objProps[i]];
+			if (typeof object[objProps[i]] !== 'object') {
+				tag.innerHTML = object[objProps[i]];
+			} else {
+				tag.innerHTML = '';
+				let fields = objectFields[objProps[i]];
+				fields.forEach((field) => {
+					tag.innerHTML += object[objProps[i]][field];
+				});
+			}
 		});
 	}
 };
@@ -659,44 +635,31 @@ const Database = {
 			},
 		});
 	},
-	loadContent(method, offset, actionCreater = {},loadAmount=5) {
-		if (!holdload) {
-			var holder = {
-				loadAmount: loadAmount,
-				offset: offset,
-				Method: method,
-			};
-			console.log(holder);
-			holdload = true;
-			$.ajax({
-				url: '..func/save2.php',
-				type: 'POST',
-				data: holder,
-				dataType: 'json',
-				beforeSend: function () {
-					$('#overlay').fadeIn(300);
-				},
-				success: function (returnArr) {
-					console.log(returnArr);
-					$('#overlay').fadeOut(300);
-					if (Object.keys(actionCreater).length != 0) {
-						actionCreater.updateStores(object, returnArr.data);
-					}
-				},
-				// success: function (data) {
-					
-				// 	for (var i = 0; i < data.content.length; i++) {
-				// 		offset++;
-				// 		var item = data.content[i];
-				// 		var html = '<div class="box">' + item.id + ' ' + item.content + ' ' + item.date + ' </div>';
-				// 		$('#content').append(html);
-				// 	}
-				// 	holdload = false;
-				// 	if (data.content.length == 0) {
-				// 		holdload = true;
-				// 	}
-				// },
-			});
-		}
+	loadContent(method, offset, actionCreater = {}) {
+		var holder = {
+			offset: offset,
+			Method: method,
+		};
+		console.log(holder);
+		$.ajax({
+			url: '../func/fetch.php',
+			type: 'POST',
+			data: holder,
+			dataType: 'json',
+			beforeSend: function () {
+				$('#overlay').fadeIn(300);
+			},
+			success: function (returnArr) {
+				console.log(returnArr);
+				$('#overlay').fadeOut(300);
+				if (Object.keys(actionCreater).length != 0) {
+					actionCreater.updateStores({}, returnArr.object);
+				}
+			},
+			error: function () {
+				$('#overlay').fadeOut(300);
+			},
+			// timeout:5000,
+		});
 	},
 };

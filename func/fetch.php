@@ -1,311 +1,97 @@
 <?php
 
-use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
-use EmailClient\EmailClient;
-
 include_once '../includes/autoloader.inc.php';
 
 session_start();
-ob_start();
+
 header("Content-type: application/json; charset=utf-8");
 $method = $_POST['Method'];
+$offset = $_POST['offset'];
 $employee = $_SESSION['employee'];
 $object = ['error' => true, 'object' => '', 'message' => ''];
 
 switch ($method) {
-	case 'JOJustify':
-		$request = $employee->justifyRequest($_POST['RequestId'], $_POST['JOComment']);
+	case 'Load_requestsByMe':
+		$requests = $employee->getMyRequests(['pending','justified','approved'],$offset);
 		$object['error'] = false;
-		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully justified";
+		$object['object'] = $requests;
 		break;
 
-	case 'JODeny':
-		$request = $employee->denyRequest($_POST['RequestId'], $_POST['JOComment']);
+	case 'Load_ongoingRequests':
+		$requests = $employee->getMyRequests(['scheduled'],$offset);
 		$object['error'] = false;
-		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully denied";
+		$object['object'] = $requests;
 		break;
 
-	case 'CAOApprove':
-		$request = $employee->approveRequest($_POST['RequestId'], $_POST['CAOComment']);
+	case 'Load_pastRequests':
+		$requests = $employee->getMyRequests(['denied', 'cancelled', 'completed'],$offset);
 		$object['error'] = false;
-		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully approved";
+		$object['object'] = $requests;
 		break;
 
-	case 'CAODeny':
-		$request = $employee->denyRequest($_POST['RequestId'], $_POST['CAOComment']);
+	case 'Load_requestsToJustify':
+		$requests = $employee->getPendingRequests($offset);
 		$object['error'] = false;
-		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully denied";
+		$object['object'] = $requests;
 		break;
 
-	case 'RequestAdd':
-		$request = $employee->placeRequest([
-			'DateOfTrip' => $_POST['date'],
-			'TimeOfTrip' => $_POST['time'],
-			'DropLocation' => $_POST['dropoff'],
-			'PickLocation' => $_POST['pickup'],
-			'Purpose' => $_POST['purpose']
-		]);
+	case 'Load_justifiedRequests':
+		$requests = $employee->getMyJustifiedRequests(['approved', 'justified', 'denied', 'expired', 'cancelled', 'completed'],$offset);
 		$object['error'] = false;
-		$object['object'] = $request;
-		$object['message'] = "success_Request successfully added";
+		$object['object'] = $requests;
 		break;
 
-	case 'AddVehicle':
-		$vehicle = null;
-		if ($_POST['isLeased'] == "Yes") {
-			$vehicle = $employee->addLeasedVehicle([
-				'RegistrationNo' => $_POST['registration'],
-				'Model' => $_POST['model'],
-				'PurchasedYear' => $_POST['purchasedYear'],
-				'Value' => $_POST['value'],
-				'FuelType' => $_POST['fuelType'],
-				'InsuranceValue' => $_POST['insuranceValue'],
-				'InsuranceCompany' => $_POST['insuranceCompany'],
-				'LeasedCompany' => $_POST['leasedCompany'],
-				'LeasedPeriodFrom' => $_POST['leasedPeriodFrom'],
-				'LeasedPeriodTo' => $_POST['leasedPeriodTo'],
-				'MonthlyPayment' => $_POST['monthlyPayment']
-			]);
-		} else {
-			$vehicle = $employee->addPurchasedVehicle([
-				'RegistrationNo' => $_POST['registration'],
-				'Model' => $_POST['model'],
-				'PurchasedYear' => $_POST['purchasedYear'],
-				'Value' => $_POST['value'],
-				'FuelType' => $_POST['fuelType'],
-				'InsuranceValue' => $_POST['insuranceValue'],
-				'InsuranceCompany' => $_POST['insuranceCompany']
-			]);
-		}
-		if ($vehicle !== null) {
-			$object['error'] = false;
-			$object['object'] = $vehicle;
-			$object['message'] = "success_Vehicle " . $_POST['registration'] . " successfully added";
-		} else {
-			$object['error'] = true;
-			$object['message'] = 'Failed to create a vehicle object';
-		}
-
-		break;
-
-	case 'UpdateVehicle':
-		$vehicle = null;
-		if ($_POST['leasedCompany'] !== "") {
-			$vehicle = $employee->updateLeasedVehicleInfo([
-				'RegistrationNo' => $_POST['registration'],
-				'Model' => $_POST['model'],
-				'PurchasedYear' => $_POST['purchasedYear'],
-				'Value' => $_POST['value'],
-				'FuelType' => $_POST['fuelType'],
-				'InsuranceValue' => $_POST['insuranceValue'],
-				'InsuranceCompany' => $_POST['insuranceCompany'],
-				'LeasedCompany' => $_POST['leasedCompany'],
-				'LeasedPeriodFrom' => $_POST['leasedPeriodFrom'],
-				'LeasedPeriodTo' => $_POST['leasedPeriodTo'],
-				'MonthlyPayment' => $_POST['monthlyPayment']
-			]);
-		} else {
-			$vehicle = $employee->updatePurchasedVehicleInfo([
-				'RegistrationNo' => $_POST['registration'],
-				'Model' => $_POST['model'],
-				'PurchasedYear' => $_POST['purchasedYear'],
-				'Value' => $_POST['value'],
-				'FuelType' => $_POST['fuelType'],
-				'InsuranceValue' => $_POST['insuranceValue'],
-				'InsuranceCompany' => $_POST['insuranceCompany']
-			]);
-		}
-		if ($vehicle !== null) {
-			$object['error'] = false;
-			$object['object'] = $vehicle;
-			$object['message'] = "success_Vehicle " . $_POST['registration'] . " successfully updated";
-		} else {
-			$object['error'] = true;
-			$object['message'] = 'Failed to create a vehicle object';
-		}
-		break;
-
-	case 'CancelRequest':
-		$request = $employee->cancelRequest($_POST['RequestId']);
+	case 'Load_requestsToApprove':
+		$requests = $employee->getJustifiedRequests($offset);
 		$object['error'] = false;
-		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully cancelled";
+		$object['object'] = $requests;
 		break;
-
-	case 'DeletePurchasedVehicle':
-		$vehicle = $employee->deletePurchasedVehicle($_POST['registration']);
+	
+	case 'Load_approvedRequests':
+		$requests = $employee->getMyApprovedRequests(['approved', 'denied', 'expired', 'cancelled', 'completed'],$offset);
 		$object['error'] = false;
-		$object['object'] = $vehicle;
-		$object['message'] = "success_Vehicle " . $_POST['registration'] . " successfully deleted";
+		$object['object'] = $requests;
 		break;
 
-	case 'DeleteLeasedVehicle':
-		$vehicle = $employee->deleteLeasedVehicle($_POST['registration']);
+	case 'Load_requestsToAssign':
+		$requests = $employee->getRequests('approved',$offset);
 		$object['error'] = false;
-		$object['object'] = $vehicle;
-		$object['message'] = "success_Vehicle " . $_POST['registration'] . " successfully deleted";
+		$object['object'] = $requests;
 		break;
-
-	case 'Schedule':
-		$request = $employee->scheduleRequest($_POST['RequestId'], $_POST['Driver'], $_POST['Vehicle']);
+	
+	case 'Load_scheduledRequests':
+		$requests = $employee->getRequests('scheduled',$offset);
 		$object['error'] = false;
-		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully Assigned";
+		$object['object'] = $requests;
 		break;
-
-	case 'EndTrip':
-		$request = $employee->closeRequest($_POST['RequestId']);
+	
+	case 'Load_scheduledHistoryRequests':
+		$requests = $employee->getRequests(['scheduled','cancelled'],$offset);
 		$object['error'] = false;
-		$object['object'] = $request;
-		$object['message'] = "success_Trip " . $_POST['RequestId'] . " successfully ended";
+		$object['object'] = $requests;
 		break;
-
-	case 'AddEmployee':
-		$emp = $employee->createNewAccount([
-			'EmpID' => $_POST['empID'],
-			'FirstName' => $_POST['FirstName'],
-			'LastName' => $_POST['LastName'],
-			'Username' => "",
-			'Designation' => $_POST['Designation'],
-			'Position' => $_POST['Position'],
-			'Email' => $_POST['Email'],
-			'Password' => $_POST['Password'],
-			'ContactNo' => $_POST['ContactNo']
-		]);
+	
+	case 'Load_vehicles':
+		$vehicles = $employee->getVehicles($offset);
 		$object['error'] = false;
-		$object['object'] = $emp;
-		$object['message'] = "success_Employee " . $_POST['empID'] . " successfully added";
+		$object['object'] = $vehicles;
 		break;
 
-	case 'UpdateEmployee':
-		$emp = $employee->updateAccount([
-			'NewEmpID' => $_POST['empID'],
-			'FirstName' => $_POST['FirstName'],
-			'LastName' => $_POST['LastName'],
-			'Username' => "",
-			'Designation' => $_POST['Designation'],
-			'Position' => $_POST['Position'],
-			'Email' => $_POST['Email'],
-			'ContactNo' => $_POST['ContactNo']
-		]);
+	case 'Load_drivers':
+		$drivers = $employee->getDrivers($offset);
 		$object['error'] = false;
-		$object['object'] = $emp;
-		$object['message'] = "success_Employee " . $_POST['empID'] . " successfully updated";
+		$object['object'] = $drivers;
 		break;
 
-	case 'ChangeProfilePicture':
-
-		$profileImageName = time() . '-' . $_FILES["profileImage"]["name"];
-
-		$target_dir = "../images/userProfilePictures/";
-		$target_file = $target_dir . basename($profileImageName);
-		
-		if ($_FILES['profileImage']['size'] > 200000) {
-			$object['message'] = "Image size should not be greated than 200Kb";
-		}
-
-		if (file_exists($target_file)) {
-			$object['message'] = "File already exists";
-		}
-
-		if ($object['message'] == '') {
-			if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $target_file)) {
-				$emp = $employee->UpdateProfilePicture(['ProfilePicturePath' => $profileImageName]);
-				$object['error'] = false;
-				$object['object'] = $emp;
-				$object['message'] = "success_Employee " . " successfully updated profile picture";
-			} else {
-				$object['message'] = "There was an error uploading the file";
-			}
-		}
-
-		break;
-
-	case 'DeleteEmployee':
-		$emp = $employee->removeAccount($_POST['empID']);
+	case 'Load_employeess':
+		$employees = $employee->getAllPriviledgedEmployees($offset);
 		$object['error'] = false;
-		$object['object'] = $emp;
-		$object['message'] = "success_Employee " . $_POST['empID'] . " successfully deleted";
+		$object['object'] = $employees;
 		break;
-
-	case 'AddDriver':
-		$driver = $employee->createNewDriver([
-			'DriverID' => $_POST['driverId'],
-			'FirstName' => $_POST['firstName'],
-			'LastName' => $_POST['lastName'],
-			'Email' => $_POST['email'],
-			'Address' => $_POST['address'],
-			'ContactNo' => $_POST['contactNo'],
-			'LicenseNumber' => $_POST['licenseNo'],
-			'LicenseType' => $_POST['licenseType'],
-			'LicenseExpirationDay' => $_POST['licenseExpireDate'],
-			'DateOfAdmission' => $_POST['employedDate'],
-			'AssignedVehicleID' => ""
-		]);
-		$object['error'] = false;
-		$object['request'] = $driver;
-		$object['message'] = "success_Driver " . $_POST['driverId'] . " successfully added";
-		break;
-
-	case 'DeleteDriver':
-		$driver = $employee->deleteDriver($_POST['driverId']);
-		$object['error'] = false;
-		$object['object'] = $driver;
-		$object['message'] = "success_Driver " . $_POST['driverId'] . " successfully deleted";
-		break;
-
-	case 'UpdateDriver':
-		$driver = $employee->updateDriverInfo([
-			'DriverID' => $_POST['driverId'],
-			'FirstName' => $_POST['firstName'],
-			'LastName' => $_POST['lastName'],
-			'Email' => $_POST['email'],
-			'Address' => $_POST['address'],
-			'ContactNo' => $_POST['contactNo'],
-			'LicenseNumber' => $_POST['licenseNo'],
-			'LicenseType' => $_POST['licenseType'],
-			'LicenseExpirationDay' => $_POST['licenseExpireDate'],
-			'DateOfAdmission' => $_POST['employedDate'],
-			'AssignedVehicleID' => ""
-		]);
-		$object['error'] = false;
-		$object['object'] = $driver;
-		$object['message'] = "success_Driver " . $_POST['employeeID'] . " successfully updated";
-		break;
-
-	case 'AssignVehicleToDriver':
-		$driver = $employee->assignVehicleToDriver($_POST['driverId'], $_POST['assignedVehicleID']);
-		$object['error'] = false;
-		$object['request'] = $driver;
-		$object['message'] = "success_Driver " . $_POST['driverId'] . " successfully assigned " . $_POST['assignedVehicleID'];
-		break;
-
-	case 'PrintSlip':
-		$employee->generateVehicleHandoutSlip($_POST['RequestId']);
-		$object['message'] = "success_Printed Slip For" . $_POST['RequestId'];
-		break;
-
-	case 'CancelTrip':
-		$request = $employee->cancelRequest($_POST['RequestId']);
-		$object['error'] = false;
-		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully cancelled";
-		break;
-
+	
 	default:
 		$object['error'] = true;
 		$object['message'] = 'Invalid method';
 }
 
 echo json_encode($object);
-header('Connection: close');
-header('Content-Length: ' . ob_get_length());
-ob_end_flush();
-ob_flush();
-flush();
-$emailClient = EmailClient::getInstance();
-$emailClient->sendEmails();
