@@ -289,4 +289,12 @@ class RealRequest implements Request, INotifiableRequest, IVisitable
         $requestViewer = new RequestViewer();
         $this->requestID = $requestViewer->getLastRequestID($this->requester['ID']); //should get the last request of the relevant requester instead
     }
+
+    public static function expireRequests()
+    {
+        $expireState = State::getStateID('Expired');
+        $expirableStates = [State::getStateID('Pending'),State::getStateID('Justified'),State::getStateID('Approved')];
+        $requestController = new RequestController();
+        $requestController->expireRequests($expireState,$expirableStates);
+    }
 }

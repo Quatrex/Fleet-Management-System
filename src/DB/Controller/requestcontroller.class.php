@@ -35,4 +35,9 @@ class RequestController extends RequestModel
     {
         parent::closeRequest($requestID, $stateID);
     }
+
+    public function expireRequests(int $state , array $conditionStates)
+    {
+        parent::expireRequests($state , $conditionStates);
+    }
 }
