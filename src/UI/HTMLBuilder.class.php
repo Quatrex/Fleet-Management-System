@@ -413,7 +413,7 @@ class HTMLBuilder
         }
     }
 
-    private function createMySearchBar(string $tabid,array $dropDownList){
+    private function createMySearchBar(string $header,array $dropDownList){
         $searchbarBuilder= new CompositeBuilder();
         $searchBar=$searchbarBuilder
             ->createComposite('div',['class'=>'container-fluid'])
@@ -436,7 +436,7 @@ class HTMLBuilder
                             ->addElement('button',['class'=>"btn btn-outline-dark dropdown-toggle", 'type'=>"button", 'data-toggle'=>"dropdown",'aria-haspopup'=>"true", 'aria-expanded'=>"false"],['All'])
                             ->composite()
                                 ->createComposite('div',['class'=>"dropdown-menu"])
-                                ->addArrayToContent($this->getDropDownMenu('search',$tabid,array_merge(['All'],$dropDownList)))
+                                ->addArrayToContent($this->getDropDownMenu('search',$header,array_merge(['All'],$dropDownList)))
                                 ->get()
                             ->get()
                         ->get()
@@ -453,14 +453,14 @@ class HTMLBuilder
                                 ->addElement('button',['class'=>"btn btn-outline-dark dropdown-toggle", 'type'=>"button", 'data-toggle'=>"dropdown",'aria-haspopup'=>"true", 'aria-expanded'=>"false"],['Date Of Trip'])
                                 ->composite()
                                     ->createComposite('div',['class'=>"dropdown-menu"])
-                                    ->addArrayToContent($this->getDropDownMenu('sort',$tabid,$dropDownList))
+                                    ->addArrayToContent($this->getDropDownMenu('sort',$header,$dropDownList))
                                     ->get()
                                 ->get()
                             ->get()
                         ->composite()
                             ->createComposite('div',['class'=>"md-6 ml-2 my-auto"])
                             ->composite()
-                                ->createComposite('button', ['type'=>"button", 'class'=>"btn btn-default p-0"])
+                                ->createComposite('button', ['type'=>"button", 'class'=>"btn btn-default p-0", 'id'=> 'down'.str_replace(' ','',strtolower($header))])
                                 ->composite()
                                     ->createComposite('svg',['width'=>"1em", 'height'=>"1em", 'viewBox'=>"0 0 16 16", 'class'=>"bi bi-sort-down-alt", 'fill'=>"currentColor", 'xmlns'=>"http://www.w3.org/2000/svg"])
                                     ->addElement('path',['fill-rule'=>"evenodd", 'd'=>"M3 3a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-1 0v-10A.5.5 0 0 1 3 3z"])
@@ -468,7 +468,7 @@ class HTMLBuilder
                                     ->get()
                                 ->get()
                             ->composite()
-                                ->createComposite('button', ['type'=>"button", 'class'=>"btn btn-default p-0"])
+                                ->createComposite('button', ['type'=>"button", 'class'=>"btn btn-default p-0", 'id'=> 'up'.str_replace(' ','',strtolower($header))])
                                 ->composite()
                                     ->createComposite('svg',['width'=>"1em", 'height'=>"1em", 'viewBox'=>"0 0 16 16", 'class'=>"bi bi-sort-up-alt", 'fill'=>"currentColor", 'xmlns'=>"http://www.w3.org/2000/svg"])
                                     ->addElement('path',['fill-rule'=>"evenodd", 'd'=>"M3 14a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z"])
@@ -483,10 +483,10 @@ class HTMLBuilder
         return $searchBar;
     }
 
-    private function getDropDownMenu(string $searchOrSort,string $tabid,array $itemList=[]){
+    private function getDropDownMenu(string $searchOrSort,string $header,array $itemList=[]){
         $dropDownMenu=[];
         foreach ($itemList as $item){
-            $dropdown=$this->elementBuilder->createElement('a',['class'=>'dropdown-item', 'href'=>'#'. $searchOrSort. str_replace(' ','',strtolower($tabid)) . str_replace(' ','',strtolower($item)), 'id '=>$searchOrSort. str_replace(' ','',strtolower($tabid)) . str_replace(' ','',strtolower($item))],[$item])->getElement();
+            $dropdown=$this->elementBuilder->createElement('a',['class'=>'dropdown-item', 'href'=>'#'. $searchOrSort. str_replace(' ','',strtolower($header)) . str_replace(' ','',strtolower($item)), 'id '=>$searchOrSort. str_replace(' ','',strtolower($header)) . str_replace(' ','',strtolower($item))],[$item])->getElement();
             array_push($dropDownMenu,$dropdown);
         }
         return $dropDownMenu;
