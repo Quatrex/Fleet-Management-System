@@ -82,7 +82,7 @@
     </div>
 
     <!--Content After Clicking Justify in Request Details-->
-    <div class="popup" id="JustifyRequestAlertPopup">
+    <div class="popup " id="JustifyRequestAlertPopup">
         <!-- Justify alert content -->
         <div class="popup-content">
             <div class="popup-header">
@@ -94,23 +94,69 @@
                 <p>Are you sure you want to justify the request?</p>
                 <form id='JOJustify_form'>
                     <input class="inputs" type="hidden" name="Status" value="Justified" disabled>
-                    <div class="form-group row">
-                        <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="JOSelectedVehicle" placeholder="Select Vehicle (Optional)" disabled>
+                        <div class="input-group-append">
+                            <input type="button" class="btn btn-outline-secondary"  id="JustifyRequestAlert_SelectVehicle" value="Choose">
                         </div>
                     </div>
                     <textarea class="form-control inputs" name="JOComment" placeholder="Comments" rows="4"></textarea>
                 </form>
             </div>
-            <div class="popup-footer">
-
+            <div class="popup-footer mt-3">
+                <input type="button" value="Justify Request" class="btn btn-success mr-2" id="JustifyRequestAlert_Justify">
                 <input type="button" value="Cancel" class="btn btn-light" id="JustifyRequestAlert_Cancel">
-                <input type="button" value="Justify Request" class="btn btn-success" id="JustifyRequestAlert_Justify">
             </div>
         </div>
     </div>
 
+    <div class="popup" id="SelectVehicleAlertPopup">
+        <!-- My profile content -->
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="SelectVehicleAlert_Close">&times;</span>
+                <h2>Select Vehicle</h2>
+                <hr>
+            </div>
+            <div class="popup-body" style="max-height: 80vh;">
+                <div class="row mx-auto">
+                    <label class="mr-2">Selected Vehicle:</label> <span>
+                        <p id="Vehicle-selectionVehicleTable"></p>
+                    </span>
+                </div>
+                <table class="table table-hover" style="width:100%">
+                    <thead class="thead-dark " style="position:relative; width:100%!important;">
+                        <tr>
+                            <th class="" scope="col">#</th>
+                            <th class="th-sm" scope="col">Vehicle</th>
+                            <th class="th-sm" scope="col">Assigned Driver</th>
+                            <th class="th-sm" scope="col">Passengers</th>
+                        </tr>
+                    </thead>
+                    <tbody id="selectionVehicleTable">
+                        <?php
+                        $i = 0;
+                        foreach ($vehicles as $vehicle) : ?>
+                            <tr id="selectionVehicleTable_<?php echo $vehicle->getField('registrationNo') ?>">
+                                <th id="vehicle-<?php echo $i ?>"><?php echo $vehicle->getField('registrationNo') ?></th>
+                                <td><?php echo $vehicle->getField('model') ?></td>
+                                <td><?php echo $vehicle->getField('purchasedYear') ?></td>
+                                <td>Nothing</td>
+                            </tr>
+                        <?php $i++;
+                        endforeach;; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="popup-footer">
+                <hr style="margin-bottom: 0.5rem;">
+                <input type="button" value="Go Back" class="btn btn-primary" style="margin-right:10px " id="SelectVehicleAlert_Goback">
+                <span class="d-inline-block" id="select-vehicle-tooltip" data-toggle="tooltip" title="Select a vehicle to enable"><input type="button" value="Confirm" class="btn btn-success" id="SelectVehicleAlert_Confirm"></span>
+
+            </div>
+        </div>
+    </div>
     <!--Decline Confirm alert-->
     <div class="popup" id="DeclineRequestAlertPopup">
         <!-- Decline alert content -->

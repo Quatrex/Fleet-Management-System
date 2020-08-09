@@ -51,7 +51,7 @@ const PendingRequestPreviewRequestCancel = new DisplayAlertButton('PendingReques
 const PendingRequestPreviewPopup = new Popup('PendingRequestPreviewPopup', [PendingRequestPreviewClose, PendingRequestPreviewRequestCancel]);
 
 const RequestHistoryPreviewClose = new DisplayNextButton('RequestHistoryPreview_Close');
-const RequestHistoryPreviewPopup = new Popup('RequestHistoryPreviewPopup', [RequestHistoryPreviewClose]);
+const RequestHistoryPreviewPopup = new Popup('RequestHistoryPreviewPopup', [RequestHistoryPreviewClose],['click'],{'Vehicle':['registration'],'Driver':['firstName','lastName']});
 
 const ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePictureForm_Close');
 const ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');

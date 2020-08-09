@@ -231,7 +231,6 @@ class SelectionTable extends DOMContainer {
 
 		if (object[this.selectField] === '') {
 			this.toggleStyle(-1);
-			console.log(`${this.selectField}-${this.id}`);
 			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = '';
 		} else {
 			this.button.removeProperty('disabled');
@@ -248,10 +247,8 @@ class SelectionTable extends DOMContainer {
 				document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
 				if (targetObject[this.nextFieldId]) {
 					object[this.nextField] = targetObject[this.nextFieldId];
-				}
-				else{
+				} else {
 					object[this.nextField] = '';
-
 				}
 			}
 			popup.setObject(object);
@@ -596,7 +593,7 @@ const changeValue = (object, id) => {
 	}
 };
 
-const changeInnerHTML = (object, id, objectFields) => {
+const changeInnerHTML = (object, id, objectFields = {}) => {
 	let objProps = Object.getOwnPropertyNames(object);
 	for (let i = 0; i < objProps.length; i++) {
 		document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
@@ -633,6 +630,11 @@ const Database = {
 					actionCreater.updateStores(object, returnArr.object);
 				}
 			},
+			error: function () {
+				$('#overlay').fadeOut(300);
+			},
+			timeout: 5000,
+			
 		});
 	},
 	loadContent(method, offset, actionCreater = {}) {

@@ -226,7 +226,7 @@ const ActiveTripDetailsPopup = new Popup('ActiveTripDetailsPopup', [
 	ActiveTripDetailsClose,
 	ActiveTripDetailsEnd,
 	ActiveTripDetailsPrintSlip,
-]);
+],['click'],{'Vehicle':['registration'],'Driver':['firstName','lastName']});
 
 const assignRequestContainer = new DOMContainer(
 	'assignAwaitingRequestCard',

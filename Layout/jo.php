@@ -22,6 +22,7 @@ $requestsToJustify = [];
 // $requestsToJustify = $employee->getPendingRequests();
 $justifiedRequests = [];
 // $justifiedRequests = $employee->getMyJustifiedRequests(['approved', 'justified', 'denied', 'expired', 'cancelled', 'completed']);
+$vehicles = [];
 $_SESSION['employee'] = $employee;
 
 ?>
@@ -57,6 +58,7 @@ $_SESSION['employee'] = $employee;
         const pastRequests = <?php echo json_encode($pastRequests) ?>;
         const requestsToJustify = <?php echo json_encode($requestsToJustify) ?>;
         const justifiedRequests = <?php echo json_encode($justifiedRequests) ?>;
+        const vehicles = <?php echo json_encode($vehicles) ?>;
 
     </script>
     <script src="../js/classes.js"></script>
