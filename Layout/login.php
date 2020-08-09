@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="col-md" id="username_div">
                                 <label for="username" class="sr-only">Username</label>
                                 <input type="text" name="username" class="form-control" id="username-input" placeholder="Username..." required autocomplete="off" value="<?php if (isset($_POST['username'])) echo $_POST['username']; ?>">
-                                <div id="name-error" class="text-danger"></div>
+                                <div id="name-error" class="text-danger"><?php if (isset($_SESSION['user-error'])) echo $_SESSION['user-error'];?></div>
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="col-md" id="password_div">
                                 <label for="password" class="sr-only">Password</label>
                                 <input type="password" name="password" class="form-control" id="password-input" placeholder="Enter password..." required autocomplete="off" value="<?php if (isset($_POST['password'])) echo $_POST['password']; ?>">
-                                <div id="password-error" class="text-danger"></div>
+                                <div id="password-error" class="text-danger"><?php if (isset($_SESSION['password-error'])) echo $_SESSION['password-error'];?> </div>
                                 <!--Forgot Password?-->
                                 <div class="float-right">
                                     <a class="d-block small mt-3" href="forgot-password.html">Forgot Password?</a>
@@ -87,13 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
                     <!--Remember password-->
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox" name="remember"> Remember
                                 Password</label>
                         </div>
-                    </div>
+                    </div> -->
                     <!--Log in button-->
                     <div style="text-align: right;">
                         <button type="submit" class="btn btn-primary " name="login-submit" id="login-button">Log in</button>
@@ -107,8 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <a class="d-block small mt-3" href="signup.html">Doesn't have an account?</a>
                     </div>
                 </div>
-                <input type="hidden" name="token" value="<?php //echo Token::generate(); 
-                                                            ?>">
                 <!--<div class="text-center">
                     <a class="d-block small mt-3" href="signup.html">Doesn't have an account?</a>
                     <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
