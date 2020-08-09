@@ -180,6 +180,7 @@ class HTMLBuilder
             ->addElement('h3', ['class' => "card-header bg-dark text-white"], [$header])
             ->composite()
             ->createComposite('div', ['class' => 'card-body', 'id' => strtolower($state) . 'RequestCard'])
+            ->addToContent($this->createMySearchBar($header,['Pickup Location','Drop Location','Time of Trip', 'Date of Trip', 'Purpose']))
             ->addArrayToContent($requestElements)
             ->get()
             ->getComposite();
@@ -233,9 +234,10 @@ class HTMLBuilder
             ->createComposite('div', ['class' => 'card mt-5'])
             ->addElement('h3', ['class' => "card-header bg-dark text-white"], [$header])
             ->composite()
-            ->createComposite('div', ['class' => 'card-body', 'id' => strtolower($state) . 'AwaitingRequestCard'])
-            ->addArrayToContent($requestElements)
-            ->get()
+                ->createComposite('div', ['class' => 'card-body', 'id' => strtolower($state) . 'AwaitingRequestCard'])
+                ->addToContent($this->createMySearchBar($header,['Pickup Location','Drop Location','Time of Trip', 'Date of Trip', 'Purpose']))
+                ->addArrayToContent($requestElements)
+                ->get()
             ->getComposite();
         array_push($this->subTabContents, $card);
         return $this;
@@ -409,6 +411,85 @@ class HTMLBuilder
         foreach ($this->contents as $content) {
             $content->show();
         }
+    }
+
+    private function createMySearchBar(string $tabid,array $dropDownList){
+        $searchbarBuilder= new CompositeBuilder();
+        $searchBar=$searchbarBuilder
+            ->createComposite('div',['class'=>'container-fluid'])
+            ->composite()
+                ->createComposite('div',['class'=>'row mt-3 pt-3 ml-3 border'])
+                ->composite()
+                    ->createComposite('div',['class'=>"col-md-4 mb-3"])
+                    ->composite()
+                        ->createComposite('div',['class'=>"input-group"])
+                        ->composite()
+                            ->createComposite('span',['class'=>"input-group-prepend"])
+                            ->composite()
+                                ->createComposite('div',['class'=>"input-group-text bg-transparent border-right-0"])
+                                ->addElement('i',['class'=>"fa fa-search"])
+                                ->get()
+                            ->get()
+                        ->addElement('input',['type'=>"text", 'class'=>"form-control border-left-0", 'aria-label'=>"Text input with dropdown button"])
+                        ->composite()
+                            ->createComposite('div',['class'=>"input-group-append"])
+                            ->addElement('button',['class'=>"btn btn-outline-dark dropdown-toggle", 'type'=>"button", 'data-toggle'=>"dropdown",'aria-haspopup'=>"true", 'aria-expanded'=>"false"],['All'])
+                            ->composite()
+                                ->createComposite('div',['class'=>"dropdown-menu"])
+                                ->addArrayToContent($this->getDropDownMenu('search',$tabid,array_merge(['All'],$dropDownList)))
+                                ->get()
+                            ->get()
+                        ->get()
+                    ->get()
+                ->composite()
+                    ->createComposite('div',['class'=>"col-md-6 ml-2"])
+                    ->composite()
+                        ->createComposite('div',['class'=>"row"])
+                        ->composite()
+                            ->createComposite('div',['class'=>"md-6"])
+                            ->composite()
+                                ->createComposite()
+                                ->addElement('label',['class'=>'mr-2 my-auto'],['Sort'])
+                                ->addElement('button',['class'=>"btn btn-outline-dark dropdown-toggle", 'type'=>"button", 'data-toggle'=>"dropdown",'aria-haspopup'=>"true", 'aria-expanded'=>"false"],['Date Of Trip'])
+                                ->composite()
+                                    ->createComposite('div',['class'=>"dropdown-menu"])
+                                    ->addArrayToContent($this->getDropDownMenu('sort',$tabid,$dropDownList))
+                                    ->get()
+                                ->get()
+                            ->get()
+                        ->composite()
+                            ->createComposite('div',['class'=>"md-6 ml-2 my-auto"])
+                            ->composite()
+                                ->createComposite('button', ['type'=>"button", 'class'=>"btn btn-default p-0"])
+                                ->composite()
+                                    ->createComposite('svg',['width'=>"1em", 'height'=>"1em", 'viewBox'=>"0 0 16 16", 'class'=>"bi bi-sort-down-alt", 'fill'=>"currentColor", 'xmlns'=>"http://www.w3.org/2000/svg"])
+                                    ->addElement('path',['fill-rule'=>"evenodd", 'd'=>"M3 3a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-1 0v-10A.5.5 0 0 1 3 3z"])
+                                    ->addElement('path',['fill-rule'=>"evenodd", 'd'=>"M5.354 11.146a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L3 12.793l1.646-1.647a.5.5 0 0 1 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z"])
+                                    ->get()
+                                ->get()
+                            ->composite()
+                                ->createComposite('button', ['type'=>"button", 'class'=>"btn btn-default p-0"])
+                                ->composite()
+                                    ->createComposite('svg',['width'=>"1em", 'height'=>"1em", 'viewBox'=>"0 0 16 16", 'class'=>"bi bi-sort-up-alt", 'fill'=>"currentColor", 'xmlns'=>"http://www.w3.org/2000/svg"])
+                                    ->addElement('path',['fill-rule'=>"evenodd", 'd'=>"M3 14a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z"])
+                                    ->addElement('path',['fill-rule'=>"evenodd", 'd'=>"M5.354 5.854a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L3 4.207l1.646 1.647a.5.5 0 0 0 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z"])
+                                    ->get()
+                                ->get()
+                            ->get()
+                        ->get()
+                    ->get()
+                ->get()
+            ->getComposite();
+        return $searchBar;
+    }
+
+    private function getDropDownMenu(string $searchOrSort,string $tabid,array $itemList=[]){
+        $dropDownMenu=[];
+        foreach ($itemList as $item){
+            $dropdown=$this->elementBuilder->createElement('a',['class'=>'dropdown-item', 'href'=>'#'. $searchOrSort. str_replace(' ','',strtolower($tabid)) . str_replace(' ','',strtolower($item)), 'id '=>$searchOrSort. str_replace(' ','',strtolower($tabid)) . str_replace(' ','',strtolower($item))],[$item])->getElement();
+            array_push($dropDownMenu,$dropdown);
+        }
+        return $dropDownMenu;
     }
 
     private function getButtonAttributes($tabid)
