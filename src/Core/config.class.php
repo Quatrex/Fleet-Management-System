@@ -1,5 +1,5 @@
 <?php
-namespace Validator;
+namespace Core;
 
 class Config{
     static $host = 'remotemysql.com';

@@ -1,14 +1,15 @@
 <?php
 
-namespace Validator;
+namespace Authentication;
+
+use Validator\Validate;
+use User\User;
 
 class Authenticate
 {
     public static function authenticateMe()
     {
         if (!empty($_POST)) {
-
-
 
             $validate = new Validate();
             $validation = $validate->check($_POST, array(
