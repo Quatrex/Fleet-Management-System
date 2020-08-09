@@ -22,10 +22,12 @@ class MainTab {
 	handleEvent(event) {
 		if (event.type == 'click') {
 			let targetButton = this.mainTabButtons.find((button) => button.id == event.target.closest('li').id);
-			if (targetButton.id != this.activeButton.id) {
-				targetButton.renderContent();
-				this.activeButton.removeFromDOM();
-				this.activeButton = targetButton;
+			if (targetButton != null) {
+				if (targetButton.id != this.activeButton.id) {
+					targetButton.renderContent();
+					this.activeButton.removeFromDOM();
+					this.activeButton = targetButton;
+				}
 			}
 		}
 	}
@@ -68,10 +70,12 @@ class SecondaryTab {
 	handleEvent(event) {
 		if (event.type == 'click') {
 			let targetButton = this.buttons.find((button) => button.id == event.target.id);
-			if (targetButton.id != this.activeButton.id) {
-				this.activeButton.removeFromDOM();
-				targetButton.renderContent();
-				this.activeButton = targetButton;
+			if (targetButton != null) {
+				if (targetButton.id != this.activeButton.id) {
+					this.activeButton.removeFromDOM();
+					targetButton.renderContent();
+					this.activeButton = targetButton;
+				}
 			}
 		}
 	}
@@ -96,7 +100,7 @@ class DOMTabContainer {
 	constructor(id, contentContainer = {}) {
 		this.id = id;
 		this.contentContainer = contentContainer;
-		this.lastTime = 0; 
+		this.lastTime = 0;
 	}
 	render() {
 		document.getElementById(this.id).classList.add('active', 'show');
@@ -112,17 +116,13 @@ class DOMTabContainer {
 		if (event.type == 'scroll') {
 			if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
 				let currentTime = Date.now();
-				if(this.lastTime ==0 ){
-					console.log(`Came to bottom:${this.contentContainer.id}`);
+				if (this.lastTime == 0) {
+					this.contentContainer.loadContent();
+					this.lastTime = currentTime;
+				} else if (currentTime - this.lastTime > 8000) {
 					this.contentContainer.loadContent();
 					this.lastTime = currentTime;
 				}
-				else if(currentTime - this.lastTime> 8000){
-					console.log(`Came to bottom:${this.contentContainer.id}`);
-					this.contentContainer.loadContent();
-					this.lastTime = currentTime;
-				}
-				
 			}
 		}
 	}
@@ -140,7 +140,7 @@ class DOMContainer {
 		document.getElementById(id).addEventListener('click', this);
 	}
 	render() {
-		if (this.store.getOffset() == 0) {
+		if (this.store.getOffset() <= 5) {
 			this.loadContent();
 		}
 	}
@@ -157,7 +157,6 @@ class DOMContainer {
 	}
 
 	loadContent() {
-		console.log("Came to log in container");
 		this.store.loadData();
 	}
 
@@ -177,19 +176,19 @@ class DOMContainer {
 		let clone = template.content.cloneNode(true);
 		this.fields.forEach((field) => {
 			if (clone.querySelector(`.${field}`)) {
-				clone.querySelector(`.${field}`).innerHTML += object[field];
+				clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
 			}
 		});
 		this.cardContainer.insertBefore(clone, this.cardContainer.firstChild);
 		this.cardContainer.firstElementChild.id = `${this.id}_${object[this.dataID]}`;
 	}
-	
+
 	appendEntry(object) {
 		let template = document.querySelector(`#${this.templateId}`);
 		let clone = template.content.cloneNode(true);
 		this.fields.forEach((field) => {
 			if (clone.querySelector(`.${field}`)) {
-				clone.querySelector(`.${field}`).innerHTML += object[field];
+				clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
 			}
 		});
 		this.cardContainer.appendChild(clone);
@@ -198,7 +197,6 @@ class DOMContainer {
 
 	deleteEntry(object) {
 		let entry = document.getElementById(`${this.id}_${object[this.dataID]}`);
-		console.log(entry);
 		if (entry != 'undefined' && entry != null) {
 			this.cardContainer.removeChild(entry);
 		}
@@ -207,7 +205,6 @@ class DOMContainer {
 		let entry = document.getElementById(`${this.id}_${object[this.dataID]}`);
 		if (entry != 'undefined' && entry != null) {
 			this.fields.forEach((field) => {
-				console.log(field);
 				entry.querySelector(`.${field}`).innerHTML = object[field];
 			});
 		} else {
@@ -215,80 +212,6 @@ class DOMContainer {
 		}
 	}
 }
-
-// class Table {
-// 	constructor(id, fields, popup, data, dataID, store, validStates = []) {
-// 		this.id = id;
-// 		this.fields = fields;
-// 		this.popup = popup;
-// 		this.data = data;
-// 		this.table = document.getElementById(id);
-// 		this.dataID = dataID;
-// 		this.store = store;
-// 		this.validStates = validStates;
-// 		this.table.addEventListener('click', this);
-// 	}
-// 	update(action) {
-// 		if (action.type == 'ADD') {
-// 			if (this.validStates.length != 0) {
-// 				if (this.validStates.includes(action.payload['Status'])) {
-// 					this.insertRow(action.payload);
-// 				}
-// 			} else {
-// 				this.insertRow(action.payload);
-// 			}
-// 		} else if (action.type == 'DELETE') {
-// 			this.delete(action.payload);
-// 		} else if (action.type == 'UPDATE') {
-// 			if (this.validStates.length != 0) {
-// 				if (this.validStates.includes(action.payload['Status'])) {
-// 					console.log('Update called in table');
-// 					this.updateRow(action.payload);
-// 				} else {
-// 					this.delete(action.payload);
-// 				}
-// 			} else {
-// 				this.updateRow(action.payload);
-// 			}
-// 		}
-// 	}
-// 	handleEvent(event) {
-// 		let targetObject = eval(this.data).find(
-// 			(obj) => obj[this.dataID] == event.target.parentElement.id.split('_')[1]
-// 		);
-// 		if (targetObject) {
-// 			this.store.setCurrentObj(targetObject);
-// 			this.popup.render(targetObject);
-// 		}
-// 	}
-// 	insertRow(object) {
-// 		let newRow = this.table.insertRow(1);
-// 		let cellValue;
-// 		for (let i = 0; i < this.fields.length; i++) {
-// 			cellValue = newRow.insertCell(i);
-// 			cellValue.innerHTML = object[this.fields[i]];
-// 		}
-// 		newRow.id = `${this.id}_${object[this.dataID]}`;
-// 		console.log('Came to add');
-// 	}
-// 	delete(object) {
-// 		let row = document.getElementById(`${this.id}_${object[this.dataID]}`);
-// 		if (row != 'undefined' && row != null) {
-// 			row.remove();
-// 		}
-// 	}
-// 	updateRow(object) {
-// 		//complete the update Row
-// 		let row = document.getElementById(`${this.id}_${object[this.dataID]}`);
-// 		if (row != 'undefined' && row != null) {
-// 			for (let i = 0; i < row.cells.length; i++) {
-// 				cells[i].innerHTML = object[this.fields[i]];
-// 			}
-// 		} else {
-// 			this.insertRow(object);
-// 		}
-// 	}
-// }
 
 class SelectionTable extends DOMContainer {
 	constructor(id, fields, popup, dataID, store, templateId, button, selectField, nextField = '', nextFieldId = '') {
@@ -304,9 +227,10 @@ class SelectionTable extends DOMContainer {
 		return this.id;
 	}
 	render(object = {}) {
+		super.render(object);
+
 		if (object[this.selectField] === '') {
 			this.toggleStyle(-1);
-			console.log(`${this.selectField}-${this.id}`);
 			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = '';
 		} else {
 			this.button.removeProperty('disabled');
@@ -323,7 +247,12 @@ class SelectionTable extends DOMContainer {
 				document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
 				if (targetObject[this.nextFieldId]) {
 					object[this.nextField] = targetObject[this.nextFieldId];
+				} else {
+					object[this.nextField] = '';
 				}
+			}
+			else{
+				document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
 			}
 			popup.setObject(object);
 		} else {
@@ -335,6 +264,7 @@ class SelectionTable extends DOMContainer {
 			this.button.initializeProperties({ disabled: 'true' });
 			popup.setObject(object);
 		}
+		console.log(object);
 	}
 
 	toggleStyle(tableRowId) {
@@ -359,7 +289,7 @@ class SelectionTable extends DOMContainer {
 }
 
 class Popup {
-	constructor(id, eventObjects, eventTypes = ['click'], selectionTable = {}) {
+	constructor(id, eventObjects, eventTypes = ['click'], objectFields = {}, selectionTable = {}) {
 		this.id = id;
 		this.eventObjects = eventObjects;
 		this.eventTypes = eventTypes;
@@ -367,6 +297,7 @@ class Popup {
 		this.selectionTable = selectionTable;
 		this.object = {};
 		this.prev = {};
+		this.objectFields = objectFields;
 		this.popup = document.getElementById(this.id);
 	}
 	setPrev(prev) {
@@ -390,14 +321,16 @@ class Popup {
 		let inputs = this.popup.querySelectorAll('.inputs');
 		inputs.forEach((input) => {
 			input.value = '';
-			console.log('Came here');
 			input.classList.remove('invalid-details', 'warning-details');
 			if (this.popup.querySelector(`#${input.name}-error`)) {
 				this.popup.querySelector(`#${input.name}-error`).innerHTML = null;
 			}
 		});
-		this.dataType == 'innerHTML' ? changeInnerHTML(object, this.id) : changeValue(object, this.id);
+		this.dataType == 'innerHTML'
+			? changeInnerHTML(object, this.id, this.objectFields)
+			: changeValue(object, this.id);
 		this.eventObjects.forEach((eventObject) => eventObject.initializeProperties());
+
 		if (Object.keys(this.selectionTable).length != 0) {
 			this.selectionTable.render(object);
 		}
@@ -417,6 +350,11 @@ class Popup {
 		if (event.type == 'click') {
 			let targetObject = this.eventObjects.find((obj) => obj.id === event.target.id);
 			if (targetObject) {
+				if (targetObject.id.includes('Details')) {
+					let field = targetObject.id.split('_')[1];
+					targetObject.handleEvent(this, this.object[field], event);
+					targetObject.next.setObject(this.object);
+				}
 				targetObject.handleEvent(this, this.object, event);
 			} else {
 				if (Object.keys(this.selectionTable).length != 0) {
@@ -470,9 +408,6 @@ class DisplayNextButton extends PopupButton {
 				this.next.render(object);
 			}
 		} else if (event.type === 'keyup') {
-			console.log(object);
-			console.log(popup.getObject());
-
 			if (SimilarityCheck(object, popup.getObject())) {
 				document.getElementById(this.id).setAttribute('disabled', 'true');
 			} else {
@@ -661,11 +596,19 @@ const changeValue = (object, id) => {
 	}
 };
 
-const changeInnerHTML = (object, id) => {
+const changeInnerHTML = (object, id, objectFields = {}) => {
 	let objProps = Object.getOwnPropertyNames(object);
 	for (let i = 0; i < objProps.length; i++) {
 		document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
-			tag.innerHTML = object[objProps[i]];
+			if (typeof object[objProps[i]] !== 'object') {
+				tag.innerHTML = object[objProps[i]];
+			} else {
+				tag.innerHTML = '';
+				let fields = objectFields[objProps[i]];
+				fields.forEach((field) => {
+					tag.innerHTML += object[objProps[i]][field];
+				});
+			}
 		});
 	}
 };
@@ -690,6 +633,11 @@ const Database = {
 					actionCreater.updateStores(object, returnArr.object);
 				}
 			},
+			error: function () {
+				$('#overlay').fadeOut(300);
+			},
+			timeout: 5000,
+			
 		});
 	},
 	loadContent(method, offset, actionCreater = {}) {
@@ -713,23 +661,10 @@ const Database = {
 					actionCreater.updateStores({}, returnArr.object);
 				}
 			},
-			error:function() {
+			error: function () {
 				$('#overlay').fadeOut(300);
 			},
 			// timeout:5000,
-			// success: function (data) {
-
-			// 	for (var i = 0; i < data.content.length; i++) {
-			// 		offset++;
-			// 		var item = data.content[i];
-			// 		var html = '<div class="box">' + item.id + ' ' + item.content + ' ' + item.date + ' </div>';
-			// 		$('#content').append(html);
-			// 	}
-			// 	holdload = false;
-			// 	if (data.content.length == 0) {
-			// 		holdload = true;
-			// 	}
-			// },
 		});
 	},
 };

@@ -1,4 +1,6 @@
 <?php
+namespace Validator;
+
 class Config{
     static $host = 'remotemysql.com';
     static $user = 'Kvs8AuC78e';

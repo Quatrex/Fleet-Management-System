@@ -26,7 +26,7 @@ $drivers = [];
 $scheduledRequests = [];
 // $scheduledHistoryRequests = $employee->getRequests('completed');
 $scheduledHistoryRequests = [];
-// array_merge($scheduledHistoryRequests,$employee->getRequests('cancelled'));
+// array_merge($scheduledHistoryRe  quests,$employee->getRequests('cancelled'));
 // print_r($scheduledHistoryRequests);
 $_SESSION['employee'] = $employee;
 ?>
