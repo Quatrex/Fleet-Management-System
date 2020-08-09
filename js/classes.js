@@ -22,10 +22,12 @@ class MainTab {
 	handleEvent(event) {
 		if (event.type == 'click') {
 			let targetButton = this.mainTabButtons.find((button) => button.id == event.target.closest('li').id);
-			if (targetButton.id != this.activeButton.id) {
-				targetButton.renderContent();
-				this.activeButton.removeFromDOM();
-				this.activeButton = targetButton;
+			if (targetButton != null) {
+				if (targetButton.id != this.activeButton.id) {
+					targetButton.renderContent();
+					this.activeButton.removeFromDOM();
+					this.activeButton = targetButton;
+				}
 			}
 		}
 	}
@@ -68,10 +70,12 @@ class SecondaryTab {
 	handleEvent(event) {
 		if (event.type == 'click') {
 			let targetButton = this.buttons.find((button) => button.id == event.target.id);
-			if (targetButton.id != this.activeButton.id) {
-				this.activeButton.removeFromDOM();
-				targetButton.renderContent();
-				this.activeButton = targetButton;
+			if (targetButton != null) {
+				if (targetButton.id != this.activeButton.id) {
+					this.activeButton.removeFromDOM();
+					targetButton.renderContent();
+					this.activeButton = targetButton;
+				}
 			}
 		}
 	}
@@ -96,7 +100,7 @@ class DOMTabContainer {
 	constructor(id, contentContainer = {}) {
 		this.id = id;
 		this.contentContainer = contentContainer;
-		this.lastTime = 0; 
+		this.lastTime = 0;
 	}
 	render() {
 		document.getElementById(this.id).classList.add('active', 'show');
@@ -112,17 +116,15 @@ class DOMTabContainer {
 		if (event.type == 'scroll') {
 			if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
 				let currentTime = Date.now();
-				if(this.lastTime ==0 ){
+				if (this.lastTime == 0) {
+					console.log(`Came to bottom:${this.contentContainer.id}`);
+					this.contentContainer.loadContent();
+					this.lastTime = currentTime;
+				} else if (currentTime - this.lastTime > 8000) {
 					console.log(`Came to bottom:${this.contentContainer.id}`);
 					this.contentContainer.loadContent();
 					this.lastTime = currentTime;
 				}
-				else if(currentTime - this.lastTime> 8000){
-					console.log(`Came to bottom:${this.contentContainer.id}`);
-					this.contentContainer.loadContent();
-					this.lastTime = currentTime;
-				}
-				
 			}
 		}
 	}
@@ -157,7 +159,7 @@ class DOMContainer {
 	}
 
 	loadContent() {
-		console.log("Came to log in container");
+		console.log('Came to log in container');
 		this.store.loadData();
 	}
 
@@ -183,7 +185,7 @@ class DOMContainer {
 		this.cardContainer.insertBefore(clone, this.cardContainer.firstChild);
 		this.cardContainer.firstElementChild.id = `${this.id}_${object[this.dataID]}`;
 	}
-	
+
 	appendEntry(object) {
 		let template = document.querySelector(`#${this.templateId}`);
 		let clone = template.content.cloneNode(true);
@@ -359,7 +361,7 @@ class SelectionTable extends DOMContainer {
 }
 
 class Popup {
-	constructor(id, eventObjects, eventTypes = ['click'], selectionTable = {}) {
+	constructor(id, eventObjects, eventTypes = ['click'], objectFields={},selectionTable = {}) {
 		this.id = id;
 		this.eventObjects = eventObjects;
 		this.eventTypes = eventTypes;
@@ -367,6 +369,7 @@ class Popup {
 		this.selectionTable = selectionTable;
 		this.object = {};
 		this.prev = {};
+		this.objectFields = objectFields;
 		this.popup = document.getElementById(this.id);
 	}
 	setPrev(prev) {
@@ -390,14 +393,14 @@ class Popup {
 		let inputs = this.popup.querySelectorAll('.inputs');
 		inputs.forEach((input) => {
 			input.value = '';
-			console.log('Came here');
 			input.classList.remove('invalid-details', 'warning-details');
 			if (this.popup.querySelector(`#${input.name}-error`)) {
 				this.popup.querySelector(`#${input.name}-error`).innerHTML = null;
 			}
 		});
-		this.dataType == 'innerHTML' ? changeInnerHTML(object, this.id) : changeValue(object, this.id);
+		this.dataType == 'innerHTML' ? changeInnerHTML(object, this.id,this.objectFields) : changeValue(object, this.id);
 		this.eventObjects.forEach((eventObject) => eventObject.initializeProperties());
+
 		if (Object.keys(this.selectionTable).length != 0) {
 			this.selectionTable.render(object);
 		}
@@ -417,6 +420,12 @@ class Popup {
 		if (event.type == 'click') {
 			let targetObject = this.eventObjects.find((obj) => obj.id === event.target.id);
 			if (targetObject) {
+				if(targetObject.id.includes('Details')){
+					console.log(targetObject.id);
+					let field = targetObject.id.split("_")[1];
+					targetObject.handleEvent(this, this.object[field], event);
+					targetObject.next.setObject(this.object);
+				}
 				targetObject.handleEvent(this, this.object, event);
 			} else {
 				if (Object.keys(this.selectionTable).length != 0) {
@@ -661,11 +670,19 @@ const changeValue = (object, id) => {
 	}
 };
 
-const changeInnerHTML = (object, id) => {
+const changeInnerHTML = (object, id,objectFields) => {
 	let objProps = Object.getOwnPropertyNames(object);
 	for (let i = 0; i < objProps.length; i++) {
 		document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
-			tag.innerHTML = object[objProps[i]];
+			if(typeof(object[objProps[i]])!== 'object'){
+				tag.innerHTML = object[objProps[i]];
+			}else{
+				tag.innerHTML = '';
+				let fields = objectFields[objProps[i]]
+				fields.forEach(field => {
+					tag.innerHTML += object[objProps[i]][field];
+				})
+			}
 		});
 	}
 };
@@ -713,7 +730,7 @@ const Database = {
 					actionCreater.updateStores({}, returnArr.object);
 				}
 			},
-			error:function() {
+			error: function () {
 				$('#overlay').fadeOut(300);
 			},
 			// timeout:5000,

@@ -183,7 +183,10 @@
                     <p>Driver</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="Driver-OngoingRequestPreviewPopup">Text</p>
+                    <p class="d-inline" id="Driver-OngoingRequestPreviewPopup">Text</p>
+                    <button class="btn mb-1 btn-outline-dark" id="Details_Driver_OngoingRequestPreview">More ></button>
+                    <!-- <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-info-sign"></span> Default text here</a> -->
+
                 </div>
             </div>
             <div class="row scheduled-preview">
@@ -191,7 +194,8 @@
                     <p>Vehicle</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="Vehicle-OngoingRequestPreviewPopup">Text</p>
+                    <p class="d-inline" id="Vehicle-OngoingRequestPreviewPopup">Text</p>
+                    <button class="btn mb-1 btn-outline-dark" id="Details_Vehicle_OngoingRequestPreview">More ></button>
                 </div>
             </div>
         </div>
@@ -461,6 +465,92 @@
         </div>
     </div>
 </div>
+
+<!--Driver profile Form-->
+<div class="popup" id="DriverDetailPopup">
+    <!-- Request Form content -->
+    <div class="popup-content">
+        <div class="popup-header">
+            <span class="close" id="DriverDetailPopup_Close">&times;</span>
+            <h2>Driver</h2>
+            <hr>
+        </div>
+        <div class="popup-body">
+            <img src="../images/default-user-image.png" class="form-image" style="height:150px;width:150px">
+            <div class="row mt-3">
+                <div class="col-sm-6">
+                    <p>First Name</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="firstName-DriverDetailPopup">DD-MM-YYYY</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Last Name</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="lastName-DriverDetailPopup">HH:MM: AM/PM</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Contact Number</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="contactNo-DriverDetailPopup">Text</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!--Vehicle Profile Form-->
+<div class="popup" id="VehicleDetailPopup">
+    <!-- Request Popup content -->
+    <div class="popup-content">
+        <div class="popup-header">
+            <span class="close" id="VehicleDetailPopup_Close">&times;</span>
+            <h2>Vehicle</h2>
+            <hr>
+        </div>
+        <div class="popup-body">
+            <img src="../images/default-user-image.png" class="form-image" style="height:150px;width:150px">
+            <div class="row mt-3">
+                <div class="col-sm-6">
+                    <p>Registration Number</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="registration-VehicleDetailPopup">DD-MM-YYYY</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Model</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="model-VehicleDetailPopup">HH:MM: AM/PM</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Purchased Year</p>
+                </div>
+                <div class="col-sm-6">
+                    <p id="purchasedYear-VehicleDetailPopup">Text</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 
 <!-- on submit success snackbar -->
 <div class="snackbar" id="request-added-success-snackbar">Request Added Successfully</div>

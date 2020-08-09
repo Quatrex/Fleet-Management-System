@@ -30,9 +30,21 @@ const VehicleRequestFormSubmit = new ValidatorButton('VehicleRequestForm_Submit'
 const VehicleRequestFormPopup = new Popup('VehicleRequestForm', [VehicleRequestFormCancel, VehicleRequestFormClose, VehicleRequestFormSubmit], ['click', 'keyup']);
 NewRequestPreviewEdit.setNext(VehicleRequestFormPopup);
 
+
+const DriverDetailPopupClose = new DisplayNextButton('DriverDetailPopup_Close')
+const DriverDetailPopup = new Popup('DriverDetailPopup', [DriverDetailPopupClose]);
+
+const VehicleDetailPopupClose = new DisplayNextButton('VehicleDetailPopup_Close')
+const VehicleDetailPopup = new Popup('VehicleDetailPopup', [VehicleDetailPopupClose]);
+
 const OngoingRequestPreviewClose = new DisplayNextButton('OngoingRequestPreview_Close')
 const OngoingRequestPreviewRequestCancel = new DisplayAlertButton('OngoingRequestPreviewRequestCancel', CancelAddedRequestAlertPopup)
-const OngoingRequestPreviewPopup = new Popup('OngoingRequestPreviewPopup', [OngoingRequestPreviewClose, OngoingRequestPreviewRequestCancel]);
+const OngoingRequestPreviewDriverDetial = new DisplayAlertButton('Details_Driver_OngoingRequestPreview', DriverDetailPopup)
+const OngoingRequestPreviewVehicleDetail = new DisplayAlertButton('Details_Vehicle_OngoingRequestPreview', VehicleDetailPopup)
+const OngoingRequestPreviewPopup = new Popup('OngoingRequestPreviewPopup', [OngoingRequestPreviewClose, OngoingRequestPreviewRequestCancel,OngoingRequestPreviewDriverDetial,OngoingRequestPreviewVehicleDetail],['click'],{'Vehicle':['registration'],'Driver':['firstName','lastName']});
+DriverDetailPopupClose.setNext(OngoingRequestPreviewPopup);
+VehicleDetailPopupClose.setNext(OngoingRequestPreviewPopup);
+
 
 const PendingRequestPreviewClose = new DisplayNextButton('PendingRequestPreview_Close');
 const PendingRequestPreviewRequestCancel = new DisplayAlertButton('PendingRequestPreviewRequestCancel', CancelAddedRequestAlertPopup);
