@@ -40,7 +40,7 @@ class JORequestFactory
     {
         $requestViewer = new RequestViewer();
         $state = State::getStateID('pending');
-        $requestIDs= $requestViewer->getRequestsbyState($state,$offset);
+        $requestIDs= $requestViewer->getRequestsbyState([$state],$offset);
         $requests=array();
 
         foreach($requestIDs as $values){

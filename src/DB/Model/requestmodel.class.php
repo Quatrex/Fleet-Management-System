@@ -40,12 +40,21 @@ abstract class RequestModel extends Model
         return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset);
     }
 
-    public function getRequestsbyState(string $state, int $offset)
+    public function getRequestsbyState(array $states, int $offset)
     {
         $joinConditions = [['request' => 'RequesterID', 'employee' => 'EmpID']];
-        $conditions = ['State' => $state];
-        $results = parent::getRecordsFromTwo($joinConditions, $conditions, $offset);
-        return $results;
+        $stateConditions = ['State' => $states];
+        $query = $this->queryBuilder->select($this->tableName)
+                                    ->join($this->tableName,$joinConditions)
+                                    ->where()
+                                        ->conditions($stateConditions,"OR")
+                                        ->getWhere()
+                                    ->orderBy(['DateOfTrip' => 'ASC'])
+                                    ->limit(10,$offset)
+                                    ->getSQLQuery();
+
+        $result = $this->dbh->read($query);
+        return $result ? $result : [];
     }
 
     protected function saveRecord($createdDate, $state, $dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $requesterID, $purpose)

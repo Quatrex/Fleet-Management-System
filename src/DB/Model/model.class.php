@@ -91,7 +91,7 @@ abstract class Model
                                     ->where()
                                         ->conditions($conditions)
                                         ->getWhere()
-                                    ->limit($offset)
+                                    ->limit(10,$offset)
                                     ->getSQLQuery();
 
         $result = $this->dbh->read($query);

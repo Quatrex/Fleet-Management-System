@@ -16,10 +16,14 @@ abstract class DriverModel extends Model
         return $results[0];
     }
 
-    protected function getAllRecords()
+    protected function getAllRecords(int $offset)
     {
-        $results = parent::getRecords(); //check for IsDeleted
-        return $results;
+        $query = $this->queryBuilder->select($this->tableName)
+                                    ->limit(10,$offset)
+                                    ->getSQLQuery();
+        $result = $this->dbh->read($query);
+
+        return $result ? $result : [];
     }
 
     //updateRecord

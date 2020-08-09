@@ -126,10 +126,10 @@ class MySQLQueryBuilder implements SQLQueryBuilder
      * @inheritDoc
      * @throws SQLException
      */
-    public function join(string $table, array $conditions) : SQLQueryBuilder
+    public function join(string $table, array $conditions, string $type = "INNER") : SQLQueryBuilder
     {
         if ($this->query->getField('type') === null)
-            throw new SQLException('INNER JOIN');
+            throw new SQLException("$type JOIN");
             
         if ($this->query->getField('type') === 'insert')
             throw new SQLException('JOIN can only be added to SELECT or UPDATE');
@@ -155,7 +155,8 @@ class MySQLQueryBuilder implements SQLQueryBuilder
             unset($tables[$key]);
         }
          
-        $tables = array_map(function($val) { return " INNER JOIN $val "; }, $tables);
+        foreach ($tables as $key => $value)
+            $tables[$key] = " $type JOIN $value ";
         $sql = implode($tables) . "ON " . implode(" AND ", $values);
 
         $this->query->appendStatement($sql);

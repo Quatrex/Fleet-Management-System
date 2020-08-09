@@ -10,11 +10,17 @@ abstract class EmployeeModel extends Model
         parent::__construct('employee');
     }
 
-    protected function getAllRecords()
+    protected function getAllEmployees(int $offset)
     {
         $conditions = ['IsDeleted' => 0];
-        $results = parent::getRecords($conditions);
-        return $results;
+        return $this->getAllRecords($conditions,$offset);
+        
+    }
+
+    protected function getEmployeesByPosition(string $position, int $offset)
+    {
+        $conditions = ['Position' => $position, 'IsDeleted' => 0];
+        return $this->getAllRecords($conditions,$offset);
     }
 
     protected function getRecordByID($empID)
@@ -53,13 +59,6 @@ abstract class EmployeeModel extends Model
         $conditions = ['Username' => $username, 'IsDeleted' => 0];
         $wantedFields = ['Username', 'Password'];
         return (parent::getRecords($conditions, $wantedFields)[0]['Password'] == $password) ? true : false;
-    }
-
-
-    public function getEmployeesByPosition(string $position)
-    {
-        $conditions = ['Position' => $position];
-        return parent::getRecords($conditions);
     }
 
     protected function getEmails(string $position)
@@ -102,5 +101,18 @@ abstract class EmployeeModel extends Model
         $values = ['IsDeleted' => 1];
         $conditions = ['EmpID' => $empID];
         parent::updateRecord($values, $conditions);
+    }
+
+    private function getAllRecords(array $conditions, int $offset)
+    {
+        $query = $this->queryBuilder->select($this->tableName)
+                                    ->where()
+                                        ->conditions($conditions)
+                                        ->getWhere()
+                                    ->limit(10,$offset)
+                                    ->getSQLQuery();
+        $result = $this->dbh->read($query);
+
+        return $result ? $result : [];
     }
 }

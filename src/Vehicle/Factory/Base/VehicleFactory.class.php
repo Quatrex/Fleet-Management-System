@@ -25,13 +25,6 @@ abstract class VehicleFactory
     abstract public function makeVehicle(string $vehicleID) : Vehicle;
 
     /**
-     * Get all the vehicles
-     * 
-     * @return array(Vehicle)
-     */
-    abstract public function makeVehicles() : array;
-
-    /**
      * Create a vehicle object for given values
      * 
      * @param array $vehicleInfo
@@ -71,5 +64,31 @@ abstract class VehicleFactory
             $purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
             return $purchasedVehicleFactory->makeVehicle($registrationNo);
         }
+    }
+
+     /**
+     * Get all the vehicles
+     * 
+     * @return array(Vehicle)
+     */
+    public static function getVehicles(int $offset) : array
+    {
+        $vehicleViewer = new VehicleViewer();
+        $vehicleRecords = $vehicleViewer->getAllRecords($offset); 
+        $vehicles = []; 
+
+        foreach ($vehicleRecords as $rec)
+        {
+            if($rec['IsLeased'])
+            {
+                $leasedVehicleFactory = LeasedVehicleFactory::getInstance();
+                $vehicles[] = $leasedVehicleFactory->makeVehicleByValues($rec);
+            } else {
+                $purchasedVehicleFactory = PurchasedVehicleFactory::getInstance();
+                $vehicles[] = $purchasedVehicleFactory->makeVehicleByValues($rec);
+            }
+        }
+
+        return $vehicles;
     }
 }

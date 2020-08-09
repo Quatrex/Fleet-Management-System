@@ -29,13 +29,15 @@ class VPMO extends Requester
      *
      * Returns all requests with the given state
      * 
-     * @param string $state 'approve', 'scheduled' or 'completed'
+     * @param string|array $state 'approve', 'scheduled', 'completed' or 'cancelled'.
+     * Can send multiple states inside an array
      *
      * @return array{Request}
      */
-    public function getRequests(string $state, int $offset): array
+    public function getRequests($state, int $offset): array
     {
-        return VPMORequestFactory::makeRequests($state, $offset);
+        $states = is_array($state) ? $state : [$state];
+        return VPMORequestFactory::makeRequests($states, $offset);
     }
 
     /**
@@ -45,11 +47,9 @@ class VPMO extends Requester
      * @return array(Vehicle)
      *
      */
-    public function getVehicles()
+    public function getVehicles(int $offset = 0)
     {
-        $leasedVehicles = $this->leasedVehicleFactory->makeVehicles();
-        $purchasedVehicles = $this->purchasedVehicleFactory->makeVehicles();
-        return array_merge($purchasedVehicles, $leasedVehicles);
+        return VehicleFactory::getVehicles($offset);
     }
 
     /**
@@ -59,9 +59,9 @@ class VPMO extends Requester
      * @return array(Driver)
      *
      */
-    public function getDrivers()
+    public function getDrivers(int $offset = 0)
     {
-        return DriverFactory::makeDrivers();
+        return DriverFactory::makeDrivers($offset);
     }
 
     /**
