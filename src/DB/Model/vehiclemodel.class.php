@@ -69,9 +69,10 @@ abstract class VehicleModel extends Model
         parent::setTableName('vehicle');
     }
 
-    protected function updateVehicleRow($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer)
+    protected function updateVehicleRow($registrationNo, $newRegistrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer)
     {
         $values = [
+            'RegistrationNo' => $newRegistrationNo,
             'Model' => $model,
             'PurchasedYear' => $purchasedYear,
             'Value' => $value,
