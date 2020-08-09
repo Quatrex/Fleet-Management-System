@@ -14,7 +14,10 @@ $object = ['error' => true, 'object' => '', 'message' => ''];
 
 switch ($method) {
 	case 'JOJustify':
-		$request = $employee->justifyRequest($_POST['RequestId'], $_POST['JOComment']);
+		if($_POST['JOSelectedVehicle'] !=''){
+			$comment = $_POST['JOComment'].' Suggested Vehicle: '.$_POST['JOSelectedVehicle'];
+		}
+		$request = $employee->justifyRequest($_POST['RequestId'], $comment);
 		$object['error'] = false;
 		$object['object'] = $request;
 		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully justified";

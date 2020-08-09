@@ -117,4 +117,30 @@ abstract class RequestModel extends Model
         $result = $this->dbh->read($query);
         return $result[0]['RequestID'];
     }
+
+    protected function expireRequests(int $state , array $conditionStates) 
+    {
+        $nowDate = date('Y-m-d');
+        $nowTime = date('h:i:s');
+        $query = $this->queryBuilder->update($this->tableName,['State'=>$state])
+                                    ->where()
+                                        ->open()
+                                        ->conditions(['State' => $conditionStates],"OR")
+                                        ->close()
+                                        ->open()
+                                        ->conditions(['DateOfTrip'=>$nowDate],"AND","<")
+                                        ->close()
+                                        ->open("OR")
+                                        ->open("")
+                                        ->conditions(['DateOfTrip'=>$nowDate])
+                                        ->close()
+                                        ->open()
+                                        ->conditions(['TimeOfTrip'=>$nowTime],"AND","<")
+                                        ->close()
+                                        ->close()
+                                        ->getWhere()
+                                    ->getSQLQuery();
+    
+        $this->dbh->write($query);  
+    }
 }

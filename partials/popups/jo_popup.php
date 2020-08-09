@@ -95,7 +95,7 @@
                 <form id='JOJustify_form'>
                     <input class="inputs" type="hidden" name="Status" value="Justified" disabled>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="JOSelectedVehicle" placeholder="Select Vehicle (Optional)" disabled>
+                        <input type="text" class="form-control inputs" id ="JOSelectedVehicle-JustifyRequestAlertPopup" name="JOSelectedVehicle" placeholder="Select Vehicle (Optional)" disabled>
                         <div class="input-group-append">
                             <input type="button" class="btn btn-outline-secondary"  id="JustifyRequestAlert_SelectVehicle" value="Choose">
                         </div>
@@ -121,7 +121,7 @@
             <div class="popup-body" style="max-height: 80vh;">
                 <div class="row mx-auto">
                     <label class="mr-2">Selected Vehicle:</label> <span>
-                        <p id="Vehicle-selectionVehicleTable"></p>
+                        <p id="JOSelectedVehicle-selectionVehicleTable"></p>
                     </span>
                 </div>
                 <table class="table table-hover" style="width:100%">

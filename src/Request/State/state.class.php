@@ -74,6 +74,9 @@ abstract class State {
             case 7:
                 $state=Completed::getInstance();
                 break;
+            case 8:
+                $state=Expired::getInstance();
+                break;
           }
         return $state;
     }
@@ -105,6 +108,9 @@ abstract class State {
                 break;
             case 7:
                 $stateString="Completed";
+                break;
+            case 8:
+                $stateString="Expired";
                 break;
           }
         return $stateString;
@@ -139,6 +145,9 @@ abstract class State {
                 break;
             case "completed":
                 $stateID=7;
+                break;
+            case 'expired':
+                $stateID = 8;
                 break;
             default:
                 $stateID=false; //returning false in a function with a return type of int. is this appropriate?

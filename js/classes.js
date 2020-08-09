@@ -140,7 +140,7 @@ class DOMContainer {
 		document.getElementById(id).addEventListener('click', this);
 	}
 	render() {
-		if (this.store.getOffset() == 0) {
+		if (this.store.getOffset() <= 5) {
 			this.loadContent();
 		}
 	}
@@ -250,6 +250,9 @@ class SelectionTable extends DOMContainer {
 				} else {
 					object[this.nextField] = '';
 				}
+			}
+			else{
+				document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
 			}
 			popup.setObject(object);
 		} else {

@@ -31,7 +31,7 @@ class WhereBuilder
      * 
      * @return WhereBuilder
      */
-    public function conditions(array $conditions, string $operator = "AND") : WhereBuilder
+    public function conditions(array $conditions, string $operator = "AND", string $mathOp = "=") : WhereBuilder
     {
         if (empty($conditions)) return $this;
 
@@ -60,7 +60,8 @@ class WhereBuilder
             }
         }
 
-        $fields = array_map(function($val) { return $val . "=?"; }, $fields);
+        foreach ($fields as $key=>$val)
+            $fields[$key] = $val . "$mathOp?";
         $sql = implode(" $operator ", $fields);
         
         $this->query->appendStatement($sql);

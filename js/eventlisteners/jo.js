@@ -39,6 +39,7 @@ const JustifyRequestAlertPopup = new Popup('JustifyRequestAlertPopup', [
 	JustifyRequestAlertJustify,
 	JustifyRequestAlertSelectVehicle,
 ]);
+JustifyRequestAlertPopup.setDataType('value');
 
 //Select Vehicle
 const SelectVehicleAlertClose = new DisplayNextButton('SelectVehicleAlert_Close',JustifyRequestAlertPopup);
@@ -54,7 +55,7 @@ const SelectionVehicleTable = new SelectionTable(
 	vehicleStore,
 	'selectionVehicleTemplate',
 	SelectVehicleAlertConfirm,
-	'Vehicle'
+	'JOSelectedVehicle'
 );
 const SelectVehicleAlertPopup = new Popup(
 	'SelectVehicleAlertPopup',
@@ -129,3 +130,4 @@ const joMainTab = new MainTab('mainNavBarContainer', [justifyTabButton, requeste
 
 requestsToJustifyStore.addObservers(justifyRequestContainer);
 justifiedRequestsStore.addObservers(justifiedRequestContainer);
+vehicleStore.addObservers(SelectionVehicleTable);

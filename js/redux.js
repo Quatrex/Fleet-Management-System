@@ -20,6 +20,9 @@ class Store {
 	dispatch(action) {
 		console.log(action.type);
 		if (action.type === 'ADD' || action.type === 'APPEND') {
+			if(!Array.isArray(action.payload)){
+				action.payload = [action.payload]
+			}
 			this.state = [...this.state, ...action.payload];
 		} else if (action.type === 'UPDATE') {
 			this.state = this.state.map((item) => (this.currentObj === item ? { ...item, ...action.payload } : item));

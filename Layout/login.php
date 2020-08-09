@@ -2,11 +2,13 @@
 require_once '../includes/autoloader.inc.php';
 
 use Authentication\Authenticate;
+use Request\Factory\Base\RealRequest;
 
 session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     Authenticate::authenticateMe();
 }
+RealRequest::expireRequests();
 ?>
 <!DOCTYPE html>
 <html>
