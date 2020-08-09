@@ -10,17 +10,17 @@ abstract class EmployeeModel extends Model
         parent::__construct('employee');
     }
 
-    protected function getAllEmployees(int $offset)
+    protected function getAllEmployees(int $offset, array $sort, array $search)
     {
         $conditions = ['IsDeleted' => 0];
-        return $this->getAllRecords($conditions,$offset);
+        return $this->getAllRecords($conditions,$offset,$sort,$search);
         
     }
 
-    protected function getEmployeesByPosition(string $position, int $offset)
+    protected function getEmployeesByPosition(string $position, int $offset, array $sort, array $search)
     {
         $conditions = ['Position' => $position, 'IsDeleted' => 0];
-        return $this->getAllRecords($conditions,$offset);
+        return $this->getAllRecords($conditions,$offset,$sort,$search);
     }
 
     protected function getRecordByID($empID)
@@ -103,12 +103,14 @@ abstract class EmployeeModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
-    private function getAllRecords(array $conditions, int $offset)
+    private function getAllRecords(array $conditions, int $offset, array $sort, array $search)
     {
         $query = $this->queryBuilder->select($this->tableName)
                                     ->where()
                                         ->conditions($conditions)
+                                        ->like($this->tableName,key($search),$search[key($search)])
                                         ->getWhere()
+                                    ->orderBy($sort)
                                     ->limit(10,$offset)
                                     ->getSQLQuery();
         $result = $this->dbh->read($query);

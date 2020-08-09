@@ -20,7 +20,7 @@ abstract class VehicleModel extends Model
         return $results[0];
     }
 
-    protected function getAllRecords(int $offset)
+    protected function getAllRecords(int $offset, array $sort, array $search)
     {
         $joinConditions = [['vehicle' => 'RegistrationNo', 'leased_vehicle' => 'RegistrationNo']];
         $conditions = ['IsDeleted' => 0];
@@ -31,7 +31,9 @@ abstract class VehicleModel extends Model
                                     ->join($this->tableName,$joinConditions,"LEFT")
                                     ->where()
                                         ->conditions($conditions)
+                                        ->like($this->tableName,key($search),$search[key($search)])
                                         ->getWhere()
+                                    ->orderBy($sort)
                                     ->limit(10,$offset)
                                     ->getSQLQuery();
 

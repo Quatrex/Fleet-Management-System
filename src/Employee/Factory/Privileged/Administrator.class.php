@@ -10,15 +10,19 @@ use Employee\Factory\Driver\DriverFactory;
 
 class Administrator extends PrivilegedEmployee
 {
-    public function getAllPriviledgedEmployees(int $offset = 0)
+    public function getAllPriviledgedEmployees( int $offset = 0,
+                                                array $sort = ['FirstName' => 'ASC'], 
+                                                array $search = ['' => ['All']])
     {
-        $employees= PrivilegedEmployeeFactory::makeEmployees($offset);
+        $employees= PrivilegedEmployeeFactory::makeEmployees($offset,'',$sort,$search);
         return $employees;
     }
 
-    public function getAllDrivers(int $offset = 0)
+    public function getAllDrivers(  int $offset = 0,
+                                    array $sort = ['FirstName' => 'ASC'], 
+                                    array $search = ['' => ['All']])
     {
-        return DriverFactory::makeDrivers($offset);
+        return DriverFactory::makeDrivers($offset,$sort,$search);
     }
 
     public function createNewAccount(array $values): PrivilegedEmployee

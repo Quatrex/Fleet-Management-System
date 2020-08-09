@@ -111,20 +111,22 @@ abstract class Model
     public function getRecordsFromMultipleStates(   array $conditions, 
                                                     array $stateConditions, 
                                                     int $offset = 0, 
-                                                    array $order = ['DateOfTrip' => 'ASC'],
-                                                    array $wantedFields = ['*']) : array
+                                                    array $sort = ['DateOfTrip' => 'ASC'],
+                                                    string $searchKeyword = '',
+                                                    array $searchFields = ['All'] ) : array
     {
-        $query = $this->queryBuilder->select($this->tableName,$wantedFields)
+        $query = $this->queryBuilder->select($this->tableName)
                                     ->where()
                                         ->conditions($conditions)
                                         ->open()
                                         ->conditions($stateConditions,"OR")
                                         ->close()
+                                        ->like($this->tableName,$searchKeyword,$searchFields)
                                         ->getWhere()
-                                    ->orderBy($order)
+                                    ->orderBy($sort)
                                     ->limit(10,$offset)
                                     ->getSQLQuery();
-
+                                    
         $result = $this->dbh->read($query);
 
         return $result ? $result : [];

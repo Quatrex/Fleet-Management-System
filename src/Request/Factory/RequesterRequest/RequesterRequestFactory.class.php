@@ -15,11 +15,15 @@ class RequesterRequestFactory
      * @param string $stateString
      * @return array(Request)
      */
-    public static function makeRequests(int $empID, array $states, int $offset) : array
+    public static function makeRequests(int $empID, 
+                                        array $states, 
+                                        int $offset,
+                                        array $sort,
+                                        array $search) : array
     {
         $requestViewer = new RequestViewer();
         $stateIDs =  array_map(function($state) { return State::getStateID($state); }, $states);
-        $requestRecords = $requestViewer->getRequestsByIDNState($empID,$stateIDs,$offset);
+        $requestRecords = $requestViewer->getRequestsByIDNState($empID,$stateIDs,$offset,$sort,$search);
         $requests=array();
 
         foreach($requestRecords as $values){

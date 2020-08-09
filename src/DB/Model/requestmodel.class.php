@@ -19,28 +19,28 @@ abstract class RequestModel extends Model
         return $results[0];
     }
 
-    protected function getRequestsByIDNState(String $requesterID, array $states, int $offset)
+    protected function getRequestsByIDNState(String $requesterID, array $states, int $offset, array $sort, array $search)
     {
         $conditions = ['RequesterID' => $requesterID];
         $stateConditions = ['State' => $states];
-        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset);
+        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset,$sort,key($search),$search[key($search)]);
     }
 
-    protected function getJustifiedRequestsByIDNState(String $requesterID, array $states, int $offset)
+    protected function getJustifiedRequestsByIDNState(String $requesterID, array $states, int $offset, array $sort, array $search)
     {
         $conditions = ['JustifiedBy' => $requesterID];
         $stateConditions = ['State' => $states];
-        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset);
+        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset,$sort,key($search),$search[key($search)]);
     }
 
-    protected function getApprovedRequestsByIDNState(String $requesterID, array $states, int $offset)
+    protected function getApprovedRequestsByIDNState(String $requesterID, array $states, int $offset, array $sort, array $search)
     {
         $conditions = ['ApprovedBy' => $requesterID];
         $stateConditions = ['State' => $states];
-        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset);
+        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset,$sort,key($search),$search[key($search)]);
     }
 
-    public function getRequestsbyState(array $states, int $offset)
+    public function getRequestsbyState(array $states, int $offset, array $sort, array $search)
     {
         $joinConditions = [['request' => 'RequesterID', 'employee' => 'EmpID']];
         $stateConditions = ['State' => $states];
@@ -48,8 +48,9 @@ abstract class RequestModel extends Model
                                     ->join($this->tableName,$joinConditions)
                                     ->where()
                                         ->conditions($stateConditions,"OR")
+                                        ->like($this->tableName,key($search),$search[key($search)])
                                         ->getWhere()
-                                    ->orderBy(['DateOfTrip' => 'ASC'])
+                                    ->orderBy($sort)
                                     ->limit(10,$offset)
                                     ->getSQLQuery();
 

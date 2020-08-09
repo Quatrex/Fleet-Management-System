@@ -71,10 +71,10 @@ abstract class VehicleFactory
      * 
      * @return array(Vehicle)
      */
-    public static function getVehicles(int $offset) : array
+    public static function getVehicles(int $offset, array $sort, array $search) : array
     {
         $vehicleViewer = new VehicleViewer();
-        $vehicleRecords = $vehicleViewer->getAllRecords($offset); 
+        $vehicleRecords = $vehicleViewer->getAllRecords($offset, $sort, $search); 
         $vehicles = []; 
 
         foreach ($vehicleRecords as $rec)

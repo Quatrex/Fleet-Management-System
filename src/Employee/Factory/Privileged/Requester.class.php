@@ -21,9 +21,12 @@ class Requester extends PrivilegedEmployee implements IVisitable
         return $request;
     }
 
-    public function getMyRequests(array $states, int $offset): array
+    public function getMyRequests(  array $states, 
+                                    int $offset = 0,
+                                    array $sort = ['CreatedDate' => 'DESC'],
+                                    array $search = ['' => ['All']]): array
     {
-        return RequesterRequestFactory::makeRequests($this->empID, $states, $offset);
+        return RequesterRequestFactory::makeRequests($this->empID, $states, $offset,$sort,$search);
     }
 
     public function accept(IVisitor $requestToken, string $visitableType)

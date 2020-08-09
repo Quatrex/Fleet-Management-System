@@ -6,12 +6,17 @@ use Vehicle\Factory\Base\VehicleFactory;
 
 class JO extends Requester
 {
-    public function getMyJustifiedRequests(array $states, int $offset = 0) : array {
-        return JORequestFactory::makeJustifiedRequests($this->empID,$states,$offset);
+    public function getMyJustifiedRequests( array $states, 
+                                            int $offset = 0, 
+                                            array $sort = ['CreatedDate' => 'DESC'], 
+                                            array $search = ['' => ['All']]) : array {
+        return JORequestFactory::makeJustifiedRequests($this->empID,$states,$offset,$sort,$search);
     }
 
-    public function getPendingRequests(int $offset = 0){
-        return JORequestFactory::makePendingRequests($offset);
+    public function getPendingRequests( int $offset = 0, 
+                                        array $sort = ['CreatedDate' => 'DESC'], 
+                                        array $search = ['' => ['All']]){
+        return JORequestFactory::makePendingRequests($offset,$sort,$search);
     }
 
     public function justifyRequest($requestID,$JOComment){

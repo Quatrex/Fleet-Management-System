@@ -69,7 +69,7 @@ class PrivilegedEmployeeFactory
      * 
      * @return array(PrivilegedEmployee)
      */
-    public static function makeEmployees(int $offset, string $position = ''): array
+    public static function makeEmployees(int $offset, string $position = '', array $sort, array $search): array
     {
         if (!self::checkAccess()) throw new Exception('Illegel Access');
 
@@ -81,8 +81,8 @@ class PrivilegedEmployeeFactory
         }
 
         $employeeViewer = new EmployeeViewer();
-        $employeeRecords = $position === '' ? $employeeViewer->getAllEmployees($offset) :
-            $employeeViewer->getEmployeesByPosition($position,$offset);;
+        $employeeRecords = $position === '' ? $employeeViewer->getAllEmployees($offset,$sort,$search) :
+            $employeeViewer->getEmployeesByPosition($position,$offset,$sort,$search);;
 
         $employees = [];
         foreach ($employeeRecords as $record) {

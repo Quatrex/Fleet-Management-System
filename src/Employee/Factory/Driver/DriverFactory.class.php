@@ -44,10 +44,10 @@ class DriverFactory
      * 
      * @return array(Driver)
      */
-    public static function makeDrivers(int $offset) : array
+    public static function makeDrivers(int $offset, array $sort, array $search) : array
     {
         $driverViewer = new DriverViewer();
-        $driverIDs = $driverViewer->getAllRecords($offset);
+        $driverIDs = $driverViewer->getAllRecords($offset,$sort,$search);
         $drivers = array();
         foreach ($driverIDs as $values) {
             $driver = self::createProxy($values);

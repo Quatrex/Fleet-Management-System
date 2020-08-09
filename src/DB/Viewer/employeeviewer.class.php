@@ -30,13 +30,13 @@ class EmployeeViewer extends EmployeeModel{
         return parent::getEmails($position);
     }
 
-    public function getAllEmployees(int $offset)
+    public function getAllEmployees(int $offset, array $sort, array $search)
     {
-        return parent::getAllEmployees($offset);
+        return parent::getAllEmployees($offset,$sort,$search);
     }
     
-    public function getEmployeesByPosition(string $position, int $offset)
+    public function getEmployeesByPosition(string $position, int $offset, array $sort, array $search)
     {
-        parent::getEmployeesByPosition($position, $offset);
+        parent::getEmployeesByPosition($position, $offset,$sort,$search);
     }
 }

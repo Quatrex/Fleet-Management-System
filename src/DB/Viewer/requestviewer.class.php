@@ -14,20 +14,20 @@ class RequestViewer extends RequestModel{
         return parent::getRecordByID($requestID);
     }
     
-    public function getRequestsByIDNState(string $requesterID,array $states, int $offset){
-        return parent::getRequestsByIDNState($requesterID,$states,$offset);
+    public function getRequestsByIDNState(string $requesterID,array $states, int $offset, array $sort, array $search){
+        return parent::getRequestsByIDNState($requesterID,$states,$offset,$sort,$search);
     }
 
-    public function getJustifiedRequestsByIDNState(string $justifiedBy,array $states,int $offset){
-        return parent::getJustifiedRequestsByIDNState($justifiedBy,$states,$offset);
+    public function getJustifiedRequestsByIDNState(string $justifiedBy,array $states,int $offset, array $sort, array $search){
+        return parent::getJustifiedRequestsByIDNState($justifiedBy,$states,$offset,$sort,$search);
     }
 
-    public function getApprovedRequestsByIDNState(string $approvedBy,array $states,int $offset){
-        return parent::getApprovedRequestsByIDNState($approvedBy,$states,$offset);
+    public function getApprovedRequestsByIDNState(string $approvedBy,array $states,int $offset, array $sort, array $search){
+        return parent::getApprovedRequestsByIDNState($approvedBy,$states,$offset,$sort,$search);
     }
 
-    public function getRequestsbyState(array $states, int $offset) {
-        return parent::getRequestsbyState($states, $offset);
+    public function getRequestsbyState(array $states, int $offset, array $sort, array $search) {
+        return parent::getRequestsbyState($states, $offset, $sort, $search);
     }
 
     public function getLastRequestID(string $empID) {

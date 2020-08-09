@@ -115,17 +115,20 @@ class WhereBuilder
      * 
      * @param string $table
      * @param string $keyword
-     * @param string $fields ['Field'] @default = all
+     * @param string $fields ['Field'] @default = 'All'
      * 
      * @return WhereBuilder
      * @throws SQLException
      */
-    public function like(string $table, string $keyword, array $fields = []) : WhereBuilder
+    public function like(string $table, string $keyword, array $fields = ['All']) : WhereBuilder
     {
         if (!$this->start) 
             throw new SQLException('Cannot start a WHERE condition with LIKE');
 
-        if (empty($fields))
+        if ($keyword == '')
+            return $this;
+        
+        if (in_array('All',$fields))
         {
             // get the columns of the table
             $columnsSQL = "SELECT `COLUMN_NAME` FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$table'";
@@ -133,6 +136,7 @@ class WhereBuilder
             $columnQuery = new SQLQuery();
             $columnQuery->appendStatement($columnsSQL);
             $columnRecords = $dbh->read($columnQuery);
+            $fields = [];
             array_walk_recursive($columnRecords, function($a) use (&$fields) { $fields[] = $a;});
         }
         

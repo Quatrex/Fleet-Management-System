@@ -15,16 +15,16 @@ class VPMORequestFactory
      * 
      * @return array(Request)
      */
-    public static function makeRequests(array $states, int $offset) : array
+    public static function makeRequests(array $states, int $offset, array $sort, array $search) : array
     {
-        $acceptedStates = ['scheduled', 'approved', 'completed','cancelled'];
+        $acceptedStates = ['scheduled', 'approved', 'completed', 'cancelled'];
         foreach ($states as $state)
             if (!in_array($state, $acceptedStates))
                 throw new Exception('Invalid state parameter');
 
         $requestViewer = new RequestViewer();
         $stateIDs =  array_map(function($state) { return State::getStateID($state); }, $states);
-        $requestRecords = $requestViewer->getRequestsbyState($stateIDs,$offset);
+        $requestRecords = $requestViewer->getRequestsbyState($stateIDs,$offset,$sort,$search);
         $requests=array();
 
         foreach($requestRecords as $values){

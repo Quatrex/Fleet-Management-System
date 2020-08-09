@@ -15,11 +15,11 @@ class CAORequestFactory
      * @param string $stateString
      * @return array(Request)
      */
-    public static function makeApprovedRequests(int $empID, array $states, int $offset) : array
+    public static function makeApprovedRequests(int $empID, array $states, int $offset, array $sort, array $search) : array
     {
         $requestViewer = new RequestViewer();
         $stateIDs =  array_map(function($state) { return State::getStateID($state); }, $states);
-        $requestIDs= $requestViewer->getApprovedRequestsByIDNState($empID,$stateIDs,$offset);
+        $requestIDs= $requestViewer->getApprovedRequestsByIDNState($empID,$stateIDs,$offset,$sort,$search);
         $requests=array();
 
         foreach($requestIDs as $values){
@@ -35,11 +35,11 @@ class CAORequestFactory
      * 
      * @return array(Request)
      */
-    public static function makeJustifiedRequests(int $offset) : array
+    public static function makeJustifiedRequests(int $offset,array $sort, array $search) : array
     {
         $requestViewer = new RequestViewer();
         $state = State::getStateID('justified');
-        $requestRecords= $requestViewer->getRequestsbyState([$state],$offset);
+        $requestRecords= $requestViewer->getRequestsbyState([$state],$offset,$sort,$search);
         $requests=array();
 
         foreach($requestRecords as $values){

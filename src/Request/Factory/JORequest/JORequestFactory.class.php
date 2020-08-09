@@ -16,11 +16,11 @@ class JORequestFactory
      * @param string $stateString
      * @return array(Request)
      */
-    public static function makeJustifiedRequests(int $empID, array $states, int $offset) : array
+    public static function makeJustifiedRequests(int $empID, array $states, int $offset,array $sort, array $search) : array
     {
         $requestViewer = new RequestViewer();
         $stateIDs =  array_map(function($state) { return State::getStateID($state); }, $states);
-        $requestRecords= $requestViewer->getJustifiedRequestsByIDNState($empID,$stateIDs,$offset);
+        $requestRecords= $requestViewer->getJustifiedRequestsByIDNState($empID,$stateIDs,$offset,$sort,$search);
         $requests=array();
 
         foreach($requestRecords as $values){
@@ -36,11 +36,11 @@ class JORequestFactory
      * 
      * @return array(Request)
      */
-    public static function makePendingRequests(int $offset) : array
+    public static function makePendingRequests(int $offset, array $sort, array $search) : array
     {
         $requestViewer = new RequestViewer();
         $state = State::getStateID('pending');
-        $requestIDs= $requestViewer->getRequestsbyState([$state],$offset);
+        $requestIDs= $requestViewer->getRequestsbyState([$state],$offset,$sort,$search);
         $requests=array();
 
         foreach($requestIDs as $values){

@@ -16,9 +16,14 @@ abstract class DriverModel extends Model
         return $results[0];
     }
 
-    protected function getAllRecords(int $offset)
+    protected function getAllRecords(int $offset, array $sort, array $search)
     {
+        $conditions = ['IsDeleted' => 0];
         $query = $this->queryBuilder->select($this->tableName)
+                                    ->where()
+                                        ->conditions($conditions)
+                                        ->like($this->tableName,key($search),$search[key($search)])
+                                        ->getWhere()
                                     ->limit(10,$offset)
                                     ->getSQLQuery();
         $result = $this->dbh->read($query);

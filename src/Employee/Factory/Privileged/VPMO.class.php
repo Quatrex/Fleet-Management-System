@@ -34,10 +34,13 @@ class VPMO extends Requester
      *
      * @return array{Request}
      */
-    public function getRequests($state, int $offset): array
+    public function getRequests($state, 
+                                int $offset, 
+                                array $sort = ['CreatedDate' => 'DESC'], 
+                                array $search = ['' => ['All']]): array
     {
         $states = is_array($state) ? $state : [$state];
-        return VPMORequestFactory::makeRequests($states, $offset);
+        return VPMORequestFactory::makeRequests($states, $offset,$sort,$search);
     }
 
     /**
@@ -47,9 +50,11 @@ class VPMO extends Requester
      * @return array(Vehicle)
      *
      */
-    public function getVehicles(int $offset = 0)
+    public function getVehicles(int $offset = 0,
+                                array $sort = ['RegistrationNo' => 'ASC'], 
+                                array $search = ['' => ['All']])
     {
-        return VehicleFactory::getVehicles($offset);
+        return VehicleFactory::getVehicles($offset,$sort,$search);
     }
 
     /**
@@ -59,9 +64,11 @@ class VPMO extends Requester
      * @return array(Driver)
      *
      */
-    public function getDrivers(int $offset = 0)
+    public function getDrivers( int $offset = 0,
+                                array $sort = ['FirstName' => 'ASC'], 
+                                array $search = ['' => ['All']])
     {
-        return DriverFactory::makeDrivers($offset);
+        return DriverFactory::makeDrivers($offset,$sort,$search);
     }
 
     /**

@@ -13,8 +13,8 @@ class DriverViewer extends DriverModel{
         return parent::getRecordByID($driverId);
     }
 
-    public function getAllRecords(int $offset){
-        $results = parent::getAllRecords($offset);
+    public function getAllRecords(int $offset, array $sort, array $search){
+        $results = parent::getAllRecords($offset,$sort,$search);
         return $results;
     }
 

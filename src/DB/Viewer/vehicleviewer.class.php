@@ -13,8 +13,8 @@ class VehicleViewer extends VehicleModel{
         return parent::getRecordByID($registrationNo, $isLeased);
     }
 
-    public function getAllRecords(int $offset){
-        return parent::getAllRecords($offset);
+    public function getAllRecords(int $offset, array $sort, array $search){
+        return parent::getAllRecords($offset,$sort,$search);
     }
 
     public function isLeasedVehicle($registrationNo) : bool 
