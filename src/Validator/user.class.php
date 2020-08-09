@@ -16,41 +16,40 @@ class User
 
 	public function check($user = null, $password = null)
 	{
+		$_SESSION['user-error'] = '';
+		$_SESSION['password-error'] = '';
 		if ($user) {
-			// $field = (is_numeric($user)) ? 'id' : 'username';
 			$viewer = new EmployeeViewer();
 			$data = $viewer->getRecordByUsername($user);
 			if (sizeof($data) > 0) {
 				$check = $viewer->checkPassword($user, $password);
 				if ($check) {
 					$this->_data = $data[0];
-					$this->_isLoggedIn=true;
+					$this->_isLoggedIn = true;
 					return true;
+				} else {
+					$_SESSION['password-error'] = 'Incorrect password!';
+					return false;
 				}
-				else{
-					return 'Incorrect password!';
-				}
-			}
-			else{
-				return 'Incorrect username!';
+			} else {
+				$_SESSION['user-error'] = 'Incorrect username!';
+				return false;
 			}
 		}
 
-		return 'Incorrect username!';
+		$_SESSION['user-error'] = 'Incorrect username!';
+		return false;
 	}
 
 	public function login($username = null, $password = null, $remember = false)
 	{
-		$result =$this->check($username, $password);
-		if ($result===true && $this->exists()) {
+		$result = $this->check($username, $password);
+		if ($result === true && $this->exists()) {
 			$_SESSION['loggedin'] = true;
-			$_SESSION['empid']=$this->_data['EmpID'];
+			$_SESSION['empid'] = $this->_data['EmpID'];
 			$_SESSION['position'] = $this->_data['Position'];
-			return 'Layout/'.$_SESSION['position'];
 		}
-		else{
-			return $result;
-		}
+		return $result;
 	}
 
 	public function exists()
@@ -62,7 +61,6 @@ class User
 	{
 		session_start();
 		session_destroy();
-		// Redirect to the login page:
 		header('Location: ../Layout/login.php');
 	}
 

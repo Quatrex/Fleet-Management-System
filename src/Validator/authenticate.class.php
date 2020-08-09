@@ -27,9 +27,9 @@ class Authenticate
                     return $result;
                 }
             } else {
-                foreach ($validation->errors() as $error) {
-                    echo $error, '<br>';
-                }
+                // foreach ($validation->errors() as $error) {
+                //     echo $error, '<br>';
+                // }
             }
         }
     }
