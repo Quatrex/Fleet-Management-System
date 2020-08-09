@@ -1,6 +1,6 @@
 <?php
 
-namespace Validator;
+namespace User;
 
 use DB\Viewer\EmployeeViewer;
 
