@@ -62,6 +62,7 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
     {
         //changed vehicle attributes can be analysed here
 
+        $this->registrationNo=$values['NewRegistrationNo'];
         $this->model = $values['Model'];
         $this->purchasedYear = $values['PurchasedYear'];
         $this->value = $values['Value'];
@@ -72,6 +73,7 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
 
         $vehicleController = new VehicleController();
         $vehicleController->updatePurchasedVehicleInfo(
+            $values['RegistrationNo'],
             $this->registrationNo,
             $this->model,
             $this->purchasedYear,
