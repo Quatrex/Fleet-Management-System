@@ -249,6 +249,10 @@ class SelectionTable extends DOMContainer {
 				if (targetObject[this.nextFieldId]) {
 					object[this.nextField] = targetObject[this.nextFieldId];
 				}
+				else{
+					object[this.nextField] = '';
+
+				}
 			}
 			popup.setObject(object);
 		} else {
@@ -260,6 +264,7 @@ class SelectionTable extends DOMContainer {
 			this.button.initializeProperties({ disabled: 'true' });
 			popup.setObject(object);
 		}
+		console.log(object);
 	}
 
 	toggleStyle(tableRowId) {
