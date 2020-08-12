@@ -1,5 +1,5 @@
 class Popup {
-	constructor(id, eventObjects, eventTypes = ['click'], selectionTable = {}) {
+	constructor(id, eventObjects, eventTypes = ['click'], objectFields = {}, selectionTable = {}) {
 		this.id = id;
 		this.eventObjects = eventObjects;
 		this.eventTypes = eventTypes;
@@ -7,6 +7,7 @@ class Popup {
 		this.selectionTable = selectionTable;
 		this.object = {};
 		this.prev = {};
+		this.objectFields = objectFields;
 		this.popup = document.getElementById(this.id);
 	}
 	setPrev(prev) {
@@ -27,8 +28,19 @@ class Popup {
 	render(object) {
 		this.object = object;
 		console.log(this.object);
-		this.dataType == 'innerHTML' ? changeInnerHTML(object, this.id) : changeValue(object, this.id);
+		let inputs = this.popup.querySelectorAll('.inputs');
+		inputs.forEach((input) => {
+			input.value = '';
+			input.classList.remove('invalid-details', 'warning-details');
+			if (this.popup.querySelector(`#${input.name}-error`)) {
+				this.popup.querySelector(`#${input.name}-error`).innerHTML = null;
+			}
+		});
+		this.dataType == 'innerHTML'
+			? changeInnerHTML(object, this.id, this.objectFields)
+			: changeValue(object, this.id);
 		this.eventObjects.forEach((eventObject) => eventObject.initializeProperties());
+
 		if (Object.keys(this.selectionTable).length != 0) {
 			this.selectionTable.render(object);
 		}
@@ -48,6 +60,11 @@ class Popup {
 		if (event.type == 'click') {
 			let targetObject = this.eventObjects.find((obj) => obj.id === event.target.id);
 			if (targetObject) {
+				if (targetObject.id.includes('Info')) {
+					let field = targetObject.id.split('_')[1];
+					targetObject.handleEvent(this, this.object[field], event);
+					targetObject.next.setObject(this.object);
+				}
 				targetObject.handleEvent(this, this.object, event);
 			} else {
 				if (Object.keys(this.selectionTable).length != 0) {

@@ -51,7 +51,6 @@ const SelectionVehicleTable = new SelectionTable(
 	'selectionVehicleTable',
 	vehicleCard_Fields,
 	{},
-	'registration',
 	vehicleStore,
 	'selectionVehicleTemplate',
 	SelectVehicleAlertConfirm,
@@ -94,17 +93,15 @@ const justifyRequestContainer = new DOMContainer(
 	'justifyAwaitingRequestCard',
 	justifyRequestCard_Fields,
 	RequestJustifyPreviewPopup,
-	'RequestId',
 	requestsToJustifyStore,
-	'awaitingRequestCardTemplate'
+	'awaitingRequestCardTemplate',
 );
 const justifiedRequestContainer = new DOMContainer(
 	'justifiedAwaitingRequestCard',
 	justifiedHistoryCard_Fields,
 	RequestHistoryPreviewPopup,
-	'RequestId',
 	justifiedRequestsStore,
-	'awaitingRequestCardTemplate'
+	'awaitingRequestCardTemplate',
 );
 
 const justifyRequestContainerTab = new DOMTabContainer('JustifyRequestsSecTab', justifyRequestContainer);

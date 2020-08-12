@@ -29,7 +29,7 @@ $_SESSION['pastRequests'] = $pastRequests;
     $uiBuilder
         ->createMainNavBar($employee)
         ->createSecondaryNavBar('MyRequestsSecTab',['Pending Requests', 'Ongoing Requests', 'History'])
-        ->myRequests($requests, 'Pending', 'Your Pending Requests')
+        ->myRequests($requests, 'Pending', 'Pending Requests')
         ->myRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests')
         ->myRequests($pastRequests, 'Past', 'History')
         ->buildSecTabBody(['PendingRequests', 'OngoingRequests', 'History'])

@@ -2,8 +2,8 @@
 const employeeCard_Fields = ['FirstName', 'LastName', 'Designation', 'Email'];
 const driverCard_Fields = ['driverId', , 'firstName', 'assignedVehicleId'];
 
-const employeeStore = new Store('employees');
-const driverStore = new Store('drivers');
+const employeeStore = new Store('employees','empID');
+const driverStore = new Store('drivers','driverId',);
 
 //Add a employee
 const EmployeeAddFormClose = new DisplayNextButton('EmployeeAddForm_Close');
@@ -108,17 +108,15 @@ const employeeContainer = new DOMContainer(
 	'employeeContainer',
 	employeeCard_Fields,
 	EmployeeProfileFormPopup,
-	'empID',
 	employeeStore,
-	'employeeCardTemplate'
+	'employeeCardTemplate',
 );
 const driverContainer = new DOMContainer(
 	'driverContainer',
 	driverCard_Fields,
 	DriverProfileFormPopup,
-	'driverId',
 	driverStore,
-	'driverCardTemplate'
+	'driverCardTemplate',
 );
 
 

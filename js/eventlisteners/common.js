@@ -39,8 +39,8 @@ const VehicleDetailPopup = new Popup('VehicleDetailPopup', [VehicleDetailPopupCl
 
 const OngoingRequestPreviewClose = new DisplayNextButton('OngoingRequestPreview_Close')
 const OngoingRequestPreviewRequestCancel = new DisplayAlertButton('OngoingRequestPreviewRequestCancel', CancelAddedRequestAlertPopup)
-const OngoingRequestPreviewDriverDetial = new DisplayAlertButton('Details_Driver_OngoingRequestPreview', DriverDetailPopup)
-const OngoingRequestPreviewVehicleDetail = new DisplayAlertButton('Details_Vehicle_OngoingRequestPreview', VehicleDetailPopup)
+const OngoingRequestPreviewDriverDetial = new DisplayAlertButton('Info_Driver_OngoingRequestPreview', DriverDetailPopup)
+const OngoingRequestPreviewVehicleDetail = new DisplayAlertButton('Info_Vehicle_OngoingRequestPreview', VehicleDetailPopup)
 const OngoingRequestPreviewPopup = new Popup('OngoingRequestPreviewPopup', [OngoingRequestPreviewClose, OngoingRequestPreviewRequestCancel,OngoingRequestPreviewDriverDetial,OngoingRequestPreviewVehicleDetail],['click'],{'Vehicle':['registration'],'Driver':['firstName','lastName']});
 DriverDetailPopupClose.setNext(OngoingRequestPreviewPopup);
 VehicleDetailPopupClose.setNext(OngoingRequestPreviewPopup);
@@ -64,9 +64,9 @@ const UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, U
 
 const NewRequestButton = new DOMButton('NewRequestButton', VehicleRequestFormPopup)
 const UserProfileEditButton = new DOMButton('UserProfileEditButton', UserProfilePopup)
-const pendingRequestTable = new DOMContainer('pendingRequestCard', pendingRequestTable_Fields, PendingRequestPreviewPopup, "RequestId", requestsByMeStore, "cardTemplate");
-const ongoingRequestTable = new DOMContainer('ongoingRequestCard', ongoingRequestTable_Fields, OngoingRequestPreviewPopup, "RequestId", ongoingRequestsStore, "cardTemplate");
-const requestHistoryTable = new DOMContainer('pastRequestCard', requestHistoryTable_Fields, RequestHistoryPreviewPopup, "RequestId", pastRequestsStore, "cardTemplate");
+const pendingRequestTable = new DOMContainer('pendingRequestsCard', pendingRequestTable_Fields, PendingRequestPreviewPopup, requestsByMeStore, "cardTemplate");
+const ongoingRequestTable = new DOMContainer('ongoingRequestsCard', ongoingRequestTable_Fields, OngoingRequestPreviewPopup, ongoingRequestsStore, "cardTemplate");
+const requestHistoryTable = new DOMContainer('pastRequestsCard', requestHistoryTable_Fields, RequestHistoryPreviewPopup, pastRequestsStore, "cardTemplate");
 
 const pendingRequestTab = new DOMTabContainer('PendingRequestsSecTab', pendingRequestTable);
 const ongoingRequestTab = new DOMTabContainer('OngoingRequestsSecTab', ongoingRequestTable);

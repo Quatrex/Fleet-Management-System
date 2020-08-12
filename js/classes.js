@@ -129,26 +129,42 @@ class DOMTabContainer {
 }
 
 class DOMContainer {
-	constructor(id, fields, popup, dataID, store, templateId) {
+	constructor(id, fields, popup, store, templateId) {
 		this.id = id;
 		this.fields = fields;
 		this.popup = popup;
 		this.cardContainer = document.getElementById(id);
-		this.dataID = dataID;
 		this.store = store;
 		this.templateId = templateId;
+		this.searchButtonID = ['Search_Confirm','Cancel_Confirm','Sort_Confirm','Asc','Desc'];
+		this.searchObj = {
+			keyword: '',
+			searchColumn: 'ALL',
+			sortColumn: 'CREATEDDATE',
+			order: 'DESC',
+		};
 		document.getElementById(id).addEventListener('click', this);
+		document.getElementById(id).addEventListener('change', this);
+	}
+	setSearchObj(){
+		
 	}
 	render() {
 		if (this.store.getOffset() <= 5) {
 			this.loadContent();
 		}
+		// let fields = this.store.getFields();
+		// let searchSelect = document.getElementById(`${this.id}_SearchSelect`);
+		// let sortSelect = document.getElementById(`${this.id}_SortSelect`);
+		// for
 	}
 	update(action) {
 		if (action.type == 'ADD') {
 			action.payload.forEach((object) => this.insertEntry(object));
 		} else if (action.type == 'DELETE') {
 			this.deleteEntry(action.payload);
+		} else if (action.type == 'DELETEALL') {
+			this.deleteAllEntries();
 		} else if (action.type == 'UPDATE') {
 			this.updateEntry(action.payload);
 		} else if (action.type == 'APPEND') {
@@ -161,13 +177,60 @@ class DOMContainer {
 	}
 
 	handleEvent(event) {
-		let data = this.store.getState();
-		let targetObject = data.find(
-			(obj) => obj[this.dataID] == event.target.closest('.detail-description').id.split('_')[1]
-		);
-		if (targetObject) {
-			this.store.setCurrentObj(targetObject);
-			this.popup.render(targetObject);
+		console.log(event.target.id);
+		if (event.type == 'click' && event.target.id) {
+			let method = 'NULL';
+			for(let i =0;i<this.searchButtonID.length;i++){
+				if(event.target.id.includes(this.searchButtonID[i])){
+					method = this.searchButtonID[i].split("_")[0].toUpperCase();
+					console.log(method);
+				}
+			}
+			if (method != 'NULL' ) {
+				switch (method) {
+					case 'SEARCH':
+						this.searchObj.keyword = document.getElementById(`${this.id}_SearchInput`).value;
+						break;
+					case 'CANCEL':
+						this.searchObj.keyword = '';
+						document.getElementById(`${this.id}_SearchInput`).value = '';
+						break;
+					case 'DESC':
+						if(this.searchObj.order != 'DESC'){
+							this.searchObj.order = 'DESC';
+							method = 'SORT';
+						}else{
+							method ='NONE';
+						}
+						break;
+					case 'ASC':
+						if(this.searchObj.order != 'ASC'){
+							this.searchObj.order = 'ASC';
+							method ='SORT';
+						}else{
+							method ='NONE';
+						}
+						break;
+				}
+				this.store.searchAndSort(method,this.searchObj);
+
+			} else {
+				let targetObject = this.store.getObjectById(
+					event.target.closest('.detail-description').id.split('_')[1]
+				);
+				if (targetObject) {
+					this.store.setCurrentObj(targetObject);
+					this.popup.render(targetObject);
+				}
+			}
+		} else if (event.type == 'change') {
+			let eventTarget = event.target;
+			let method = event.target.dataset.field.toUpperCase();//Select_Search/Sort_containerid
+			if (this.searchObj[eventTarget.name]) {
+				this.searchObj[eventTarget.name] = eventTarget.value;
+				this.store.searchAndSort(method, this.searchObj);
+
+			}
 		}
 	}
 
@@ -180,7 +243,7 @@ class DOMContainer {
 			}
 		});
 		this.cardContainer.insertBefore(clone, this.cardContainer.firstChild);
-		this.cardContainer.firstElementChild.id = `${this.id}_${object[this.dataID]}`;
+		this.cardContainer.firstElementChild.id = `${this.id}_${object[this.store.getObjIdType()]}`;
 	}
 
 	appendEntry(object) {
@@ -192,17 +255,24 @@ class DOMContainer {
 			}
 		});
 		this.cardContainer.appendChild(clone);
-		this.cardContainer.lastElementChild.id = `${this.id}_${object[this.dataID]}`;
+		this.cardContainer.lastElementChild.id = `${this.id}_${object[this.store.getObjIdType()]}`;
 	}
 
 	deleteEntry(object) {
-		let entry = document.getElementById(`${this.id}_${object[this.dataID]}`);
+		let entry = document.getElementById(`${this.id}_${object[this.store.getObjIdType()]}`);
 		if (entry != 'undefined' && entry != null) {
 			this.cardContainer.removeChild(entry);
 		}
 	}
+	deleteAllEntries() {
+		let child = this.cardContainer.lastElementChild;
+		while (child) {
+			this.cardContainer.removeChild(child);
+			child = this.cardContainer.lastElementChild;
+		}
+	}
 	updateEntry(object) {
-		let entry = document.getElementById(`${this.id}_${object[this.dataID]}`);
+		let entry = document.getElementById(`${this.id}_${object[this.store.getObjIdType()]}`);
 		if (entry != 'undefined' && entry != null) {
 			this.fields.forEach((field) => {
 				entry.querySelector(`.${field}`).innerHTML = object[field];
@@ -214,8 +284,8 @@ class DOMContainer {
 }
 
 class SelectionTable extends DOMContainer {
-	constructor(id, fields, popup, dataID, store, templateId, button, selectField, nextField = '', nextFieldId = '') {
-		super(id, fields, popup, dataID, store, templateId);
+	constructor(id, fields, popup, store, templateId, button, selectField, nextField = '', nextFieldId = '') {
+		super(id, fields, popup, store, templateId);
 		this.selectField = selectField;
 		this.button = button;
 		this.cardContainer.removeEventListener('click', this);
@@ -240,9 +310,9 @@ class SelectionTable extends DOMContainer {
 	}
 	handleEvent(popup, object, id) {
 		let data = this.store.getState();
-		let targetObject = data.find((obj) => obj[this.dataID] == id.split('_')[1]);
+		let targetObject = this.store.getObjectById(id.split('_')[1]);
 		if (this.toggleStyle(id)) {
-			object[this.selectField] = targetObject[this.dataID];
+			object[this.selectField] = targetObject[this.store.getObjIdType()];
 			if (this.nextFieldId != '') {
 				document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
 				if (targetObject[this.nextFieldId]) {
@@ -250,8 +320,7 @@ class SelectionTable extends DOMContainer {
 				} else {
 					object[this.nextField] = '';
 				}
-			}
-			else{
+			} else {
 				document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
 			}
 			popup.setObject(object);
@@ -350,7 +419,7 @@ class Popup {
 		if (event.type == 'click') {
 			let targetObject = this.eventObjects.find((obj) => obj.id === event.target.id);
 			if (targetObject) {
-				if (targetObject.id.includes('Details')) {
+				if (targetObject.id.includes('Info')) {
 					let field = targetObject.id.split('_')[1];
 					targetObject.handleEvent(this, this.object[field], event);
 					targetObject.next.setObject(this.object);
@@ -440,6 +509,29 @@ class DisplayAlertButton extends PopupButton {
 }
 
 class ValidatorButton extends PopupButton {
+	constructor(id, next = {}, eventHandleHelpers = [], properties = {}) {
+		super(id, next, properties);
+		this.eventHandleHelpers = eventHandleHelpers;
+	}
+	handleEvent(popup, object = {}, event) {
+		this.eventHandleHelpers.forEach((helper) => {
+			object = helper(popup, object, event);
+		});
+		let check = object.hasOwnProperty('valid') ? object.valid : true;
+		if (check) {
+			if (event.type === 'click') {
+				if (Object.keys(this.next).length == 0) {
+					popup.removeFromDOM();
+				} else {
+					popup.removeFromDOM();
+					this.next.render(object);
+				}
+			}
+		}
+	}
+}
+
+class SearchButton extends PopupButton {
 	constructor(id, next = {}, eventHandleHelpers = [], properties = {}) {
 		super(id, next, properties);
 		this.eventHandleHelpers = eventHandleHelpers;
@@ -637,14 +729,10 @@ const Database = {
 				$('#overlay').fadeOut(300);
 			},
 			timeout: 5000,
-			
 		});
 	},
-	loadContent(method, offset, actionCreater = {}) {
-		var holder = {
-			offset: offset,
-			Method: method,
-		};
+	loadContent(method, offset, actionCreater = {}, searchObject = {}) {
+		var holder = { ...{ offset: offset, Method: method }, ...searchObject };
 		console.log(holder);
 		$.ajax({
 			url: '../func/fetch.php',
@@ -664,7 +752,9 @@ const Database = {
 			error: function () {
 				$('#overlay').fadeOut(300);
 			},
-			// timeout:5000,
+			timeout: 10000,
 		});
 	},
 };
+
+

@@ -1,6 +1,29 @@
-const BackendAccess = (method, actionCreater = []) => (popup, object = {}, event) => {
+//************************ Decorators ****************//
+
+const BackendAccess = (method, actionCreater = {}) => (popup, object = {}, event) => {
 	if (event.type == 'click') {
 		Database.writeToDatabase(object, method, actionCreater);
+	}
+	return object;
+};
+
+const BackendAccessForPicture = (method, actionCreater = []) => (popup, object = {}, event) => {
+	if (event.type == 'click') {
+		data = new FormData();
+		data.append('profileImage', $('#profile-pic')[0].files[0]);
+		data.append('Method', method);
+		$.ajax({
+			url: '../func/save2.php',
+			type: 'POST',
+			data: data,
+			mimeType: 'mutipart/FormData',
+			contentType: false,
+			processData: false,
+			cache: false,
+			success: function (returnArr) {
+				console.log(returnArr);
+			},
+		});
 	}
 	return object;
 };
@@ -19,10 +42,13 @@ const DateValidator = (popup, object = {}, event) => {
 				let currentDate = new Date();
 				let givenDate = new Date(target.value);
 				if (givenDate < currentDate) {
+					target.classList.add('warning-details');
 					popup.popup.querySelector(`#${target.name}-error`).innerHTML =
 						'Given Date is before the current date';
+					popup.popup.querySelector(`#${target.name}-error`).classList = '';
 					popup.popup.querySelector(`#${target.name}-error`).classList.add('text-warning');
 				} else {
+					target.classList.remove('warning-details');
 					popup.popup.querySelector(`#${target.name}-error`).innerHTML = null;
 				}
 			}
@@ -38,8 +64,12 @@ const FormValidate = (popup, object = {}, event) => {
 			if (field.hasAttribute('required')) {
 				if (field.value.length == 0) {
 					valid = false;
+					field.classList.add('invalid-details');
 					popup.popup.querySelector(`#${field.name}-error`).innerHTML = 'This field should be provided';
+					popup.popup.querySelector(`#${field.name}-error`).classList = '';
+					popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
 				} else {
+					field.classList.remove('invalid-details');
 					popup.popup.querySelector(`#${field.name}-error`).innerHTML = null;
 				}
 			}
@@ -56,7 +86,11 @@ const FormValidate = (popup, object = {}, event) => {
 const ObjectCreate = (popup, object = {}, event) => {
 	let obj = {};
 	popup.popup.querySelectorAll(`.inputs`).forEach((element) => {
-		obj[element.name] = element.value;
+		if (element.type == 'file') {
+			obj[element.name] = element.files[0];
+		} else {
+			obj[element.name] = element.value;
+		}
 	});
 	if (event.type == 'keyup') {
 		return { ...object, ...obj };

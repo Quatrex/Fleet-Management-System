@@ -1,3 +1,4 @@
+//******************Popup Buttons */
 class PopupButton {
 	constructor(id, next = {}, properties = {}) {
 		this.id = id;
@@ -36,9 +37,6 @@ class DisplayNextButton extends PopupButton {
 				this.next.render(object);
 			}
 		} else if (event.type === 'keyup') {
-			console.log(object);
-			console.log(popup.getObject());
-
 			if (SimilarityCheck(object, popup.getObject())) {
 				document.getElementById(this.id).setAttribute('disabled', 'true');
 			} else {
@@ -48,6 +46,18 @@ class DisplayNextButton extends PopupButton {
 	}
 }
 
+class OpenNewWindowButton extends PopupButton {
+	constructor(id, next = {}, eventHandleHelpers = [], properties = {}) {
+		super(id, next, properties);
+		this.eventHandleHelpers = eventHandleHelpers;
+	}
+	handleEvent(popup, object = {}, event) {
+		this.eventHandleHelpers.forEach((helper) => {
+			object = helper(popup, object, event);
+		});
+		window.open('../../Fleet-Management-System/func/slip.php?id=' + object.RequestId);
+	}
+}
 class DisplayAlertButton extends PopupButton {
 	constructor(id, next = {}, properties = {}) {
 		super(id, next, properties);
@@ -67,7 +77,30 @@ class ValidatorButton extends PopupButton {
 		this.eventHandleHelpers.forEach((helper) => {
 			object = helper(popup, object, event);
 		});
-		let check = object.hasOwnProperty('valid') ? object.valid : false;
+		let check = object.hasOwnProperty('valid') ? object.valid : true;
+		if (check) {
+			if (event.type === 'click') {
+				if (Object.keys(this.next).length == 0) {
+					popup.removeFromDOM();
+				} else {
+					popup.removeFromDOM();
+					this.next.render(object);
+				}
+			}
+		}
+	}
+}
+
+class SearchButton extends PopupButton {
+	constructor(id, next = {}, eventHandleHelpers = [], properties = {}) {
+		super(id, next, properties);
+		this.eventHandleHelpers = eventHandleHelpers;
+	}
+	handleEvent(popup, object = {}, event) {
+		this.eventHandleHelpers.forEach((helper) => {
+			object = helper(popup, object, event);
+		});
+		let check = object.hasOwnProperty('valid') ? object.valid : true;
 		if (check) {
 			if (event.type === 'click') {
 				if (Object.keys(this.next).length == 0) {

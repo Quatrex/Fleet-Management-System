@@ -179,8 +179,8 @@ class HTMLBuilder
             ->createComposite('div', ['class' => 'card mt-5'])
             ->addElement('h3', ['class' => "card-header bg-dark text-white"], [$header])
             ->composite()
-            ->createComposite('div', ['class' => 'card-body', 'id' => strtolower($state) . 'RequestCard'])
-            ->addToContent($this->createMySearchBar($header,['Pickup Location','Drop Location','Time of Trip', 'Date of Trip', 'Purpose']))
+            ->createComposite('div', ['class' => 'card-body', 'id' => strtolower($state) . 'RequestsCard'])
+            ->addToContent($this->createMySearchBar($header,['Created Date','Pickup Location','Drop Location','Time of Trip', 'Date of Trip', 'Purpose']))
             ->addArrayToContent($requestElements)
             ->get()
             ->getComposite();
@@ -235,7 +235,7 @@ class HTMLBuilder
             ->addElement('h3', ['class' => "card-header bg-dark text-white"], [$header])
             ->composite()
                 ->createComposite('div', ['class' => 'card-body', 'id' => strtolower($state) . 'AwaitingRequestCard'])
-                ->addToContent($this->createMySearchBar($header,['Pickup Location','Drop Location','Time of Trip', 'Date of Trip', 'Purpose']))
+                ->addToContent($this->createMySearchBar($header,['Created Date','Pickup Location','Drop Location','Time of Trip', 'Date of Trip', 'Purpose']))
                 ->addArrayToContent($requestElements)
                 ->get()
             ->getComposite();
@@ -427,7 +427,7 @@ class HTMLBuilder
                             ->createComposite('div',['class'=>'row w-100'])
                             ->composite()
                                 ->createComposite('div',['class'=>'col-sm-6 pr-0 form-group position-relative'])
-                                ->addElement('input',['type'=>"text", 'class'=>"form-control pr-2", 'id'=>"Search_pending", 'placeholder'=>"Search", 'style'=>"border-radius: 0px!important;"])
+                                ->addElement('input',['type'=>"text", 'class'=>"form-control pr-2", 'id'=>lcfirst(str_replace(' ','',$header))."Card_SearchInput", 'placeholder'=>"Search", 'style'=>"border-radius: 0px!important;"])
                                 ->composite()
                                     ->createComposite('span',['class'=>"form-clear d-none mr-2", 'id'=>"Cancel_Confirm_button"])
                                     ->addElement('i',['class'=>"material-icons"],['clear'])
@@ -436,13 +436,13 @@ class HTMLBuilder
                             ->composite()
                                 ->createComposite('div',['class'=>"col-sm-3"])
                                 ->composite()
-                                    ->createComposite('select',['class'=>"custom-select mr-sm-2", 'data-field'=>"Search", 'style'=>"border-radius: 0px!important;"])
+                                    ->createComposite('select',['class'=>"custom-select mr-sm-2", 'data-field'=>"Search", "name"=>"searchColumn", 'style'=>"border-radius: 0px!important;"])
                                     ->addArrayToContent($this->getDropDownMenu('search',$header,$dropDownList))
                                     ->get()
                                 ->get()
                             ->composite()
                                 ->createComposite('div',['class'=>'col-sm-3'])
-                                ->addElement('input',['type'=>"button", 'class'=>"btn btn-primary", 'id'=>"Search_Confirm_" . str_replace(' ','',$header), 'value'=>"Search"])
+                                ->addElement('input',['type'=>"button", 'class'=>"btn btn-primary", 'id'=>"Search_Confirm_" . lcfirst(str_replace(' ','',$header)), 'value'=>"Search"])
                                 ->get()
                             ->get()
                         ->get()
@@ -462,7 +462,7 @@ class HTMLBuilder
                                 ->composite()
                                     ->createComposite('div',['class'=>"col-sm-9"])
                                     ->composite()
-                                        ->createComposite('select',['class'=>"custom-select mr-sm-2", 'data-field'=>"Sort"])
+                                        ->createComposite('select',['class'=>"custom-select mr-sm-2", 'data-field'=>"Sort","name"=>"sortColumn"])
                                         ->addArrayToContent($this->getDropDownMenu('sort',$header,$dropDownList))
                                         ->get()
                                     ->get()
@@ -471,7 +471,7 @@ class HTMLBuilder
                         ->composite()
                             ->createComposite('div',['class'=>"col-sm-4 ml-2 my-auto"])
                             ->composite()
-                                ->createComposite('button', ['type'=>"button", 'class'=>"btn btn btn-outline-dark", 'id'=> 'Desc_'.str_replace(' ','',strtolower($header))])
+                                ->createComposite('button', ['type'=>"button", 'class'=>"btn btn btn-outline-dark", 'id'=> 'Desc_'.str_replace(' ','',lcfirst($header))])
                                 ->composite()
                                     ->createComposite('svg',['width'=>"1.3em", 'height'=>"1.3em", 'viewBox'=>"0 0 16 16", 'class'=>"bi bi-sort-down-alt", 'fill'=>"currentColor", 'xmlns'=>"http://www.w3.org/2000/svg"])
                                     ->addElement('path',['fill-rule'=>"evenodd", 'd'=>"M3 3a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-1 0v-10A.5.5 0 0 1 3 3z"])
@@ -479,7 +479,7 @@ class HTMLBuilder
                                     ->get()
                                 ->get()
                             ->composite()
-                                ->createComposite('button', ['type'=>"button", 'class'=>"btn btn btn-outline-dark", 'id'=> 'Asc_'.str_replace(' ','',strtolower($header))])
+                                ->createComposite('button', ['type'=>"button", 'class'=>"btn btn btn-outline-dark", 'id'=> 'Asc_'.str_replace(' ','',lcfirst($header))])
                                 ->composite()
                                     ->createComposite('svg',['width'=>"1.3em", 'height'=>"1.3em", 'viewBox'=>"0 0 16 16", 'class'=>"bi bi-sort-up-alt", 'fill'=>"currentColor", 'xmlns'=>"http://www.w3.org/2000/svg"])
                                     ->addElement('path',['fill-rule'=>"evenodd", 'd'=>"M3 14a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z"])
@@ -495,13 +495,16 @@ class HTMLBuilder
     }
 
     private function getDropDownMenu(string $searchOrSort,string $header,array $itemList=[]){
+        if($searchOrSort == 'search'){
+            array_unshift($itemList,"All");
+        }
         $dropDownMenu=[];
         $i=0;
         foreach ($itemList as $item){
             if ($i==0) {
-                $dropdown=$this->elementBuilder->createElement('option',['value'=>$item,'selected'=>''],[$item])->getElement();
+                $dropdown=$this->elementBuilder->createElement('option',['value'=>str_replace(' ','',$item),'selected'=>''],[$item])->getElement();
             } else {
-                $dropdown=$this->elementBuilder->createElement('option',['value'=>$item],[$item])->getElement();
+                $dropdown=$this->elementBuilder->createElement('option',['value'=>str_replace(' ','',$item)],[$item])->getElement();
             }
             array_push($dropDownMenu,$dropdown);
             $i++;

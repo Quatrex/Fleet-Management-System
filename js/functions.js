@@ -1,34 +1,3 @@
-// let lastClickedRow = '';
-// $('.main-nav .navbar-nav .hvrcenter ').on('click', function () {
-// 	let current = $('.main-nav .navbar-nav .hvrcenter.active').attr('data-toggle');
-// 	let clicked = $(this).attr('data-toggle');
-// 	$('.main-nav .navbar-nav .hvrcenter.active').removeClass('active');
-// 	$(this).addClass('active');
-// 	if (current != clicked) {
-// 		$('.main-tab-pane .main-tabs.active.show').removeClass(['show', 'active']);
-// 		$(`#${clicked}`).addClass(['active', 'show']);
-// 	}
-// });
-function loadData() {
-	$.ajax({
-		url: 'fetch.php',
-		method: 'POST',
-		data: {
-			view: view,
-		},
-		dataType: 'json',
-		success: function (data) {},
-	});
-}
-
-//   setInterval(function() {
-//       console.log("every 5s");
-
-//       load_unseen_notification();;
-//   }, 5000);
-// });
-
-
 //Show the success or error alert after ajax query
 function showAlert(type, message) {
 	document.getElementById('alert-message').innerHTML = message.substring(0, message.length - 1);

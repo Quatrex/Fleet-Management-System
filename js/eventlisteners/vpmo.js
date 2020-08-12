@@ -33,8 +33,8 @@ const driverCard_Fields = ['firstName', 'lastName','assignedVehicleID', 'email']
 const requestsToAssignStore = new Store('requestsToAssign');
 const ongoingTripStore = new Store('scheduledRequests');
 const scheduledRequestsStore = new Store('scheduledHistoryRequests');
-const vehicleStore = new Store('vehicles');
-const driverStore = new Store('drivers');
+const vehicleStore = new Store('vehicles','registration');
+const driverStore = new Store('drivers','driverId');
 
 //Add a vehicle
 const VehicleAddFormClose = new DisplayNextButton('VehicleAddForm_Close');
@@ -110,7 +110,6 @@ const SelectionVehicleTable = new SelectionTable(
 	'selectionVehicleTable',
 	vehicleCard_Fields,
 	{},
-	'registration',
 	vehicleStore,
 	'selectionVehicleTemplate',
 	SelectVehicleAlertConfirm,
@@ -134,7 +133,6 @@ const SelectionDriverTable = new SelectionTable(
 	'selectionDriverTable',
 	driverCard_Fields,
 	{},
-	'driverId',
 	driverStore,
 	'selectionDriverTemplate',
 	SelectDriverAlertConfirm,
@@ -163,7 +161,6 @@ const assignVehicleToDriverTable = new SelectionTable(
 	'assignVehicleToDriverTable',
 	vehicleCard_Fields,
 	{},
-	'registration',
 	vehicleStore,
 	'selectionVehicleTemplate',
 	AssignVehicleToDriverConfirm,
@@ -232,7 +229,6 @@ const assignRequestContainer = new DOMContainer(
 	'assignAwaitingRequestCard',
 	assignRequestCard_Fields,
 	RequestAssignPreviewPopup,
-	'RequestId',
 	requestsToAssignStore,
 	'awaitingRequestCardTemplate'
 );
@@ -240,7 +236,6 @@ const ongoingTripContainer = new DOMContainer(
 	'ongoingAwaitingRequestCard',
 	ongoingTripCard_Fields,
 	ActiveTripDetailsPopup,
-	'RequestId',
 	ongoingTripStore,
 	'awaitingRequestCardTemplate',
 );
@@ -248,7 +243,6 @@ const scheduledHistoryContainer = new DOMContainer(
 	'scheduledAwaitingRequestCard',
 	scheduledHistoryCard_Fields,
 	RequestHistoryPreviewPopup,
-	'RequestId',
 	scheduledRequestsStore,
 	'awaitingRequestCardTemplate',
 );
@@ -256,7 +250,6 @@ const vehicleContainer = new DOMContainer(
 	'vehicleContainer',
 	vehicleCard_Fields,
 	VehicleProfileFormPopup,
-	'registration',
 	vehicleStore,
 	'vehicleCardTemplate'
 );
@@ -264,7 +257,6 @@ const driverContainer = new DOMContainer(
 	'driverContainer',
 	driverCard_Fields,
 	DriverProfileFormPopup,
-	'driverId',
 	driverStore,
 	'driverCardTemplate'
 );

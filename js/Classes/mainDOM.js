@@ -1,95 +1,140 @@
-class DOMButton {
-	constructor(id, popup, sessionVar = '') {
-		this.id = id;
-		this.popup = popup;
-		this.sessionVar = sessionVar;
-		document.getElementById(id).addEventListener('click', this);
-	}
-	handleEvent(event) {
-		let targetObject = {};
-		if (this.sessionVar !== '') {
-		}
-		this.popup.render(targetObject);
-	}
-}
-
 class DOMContainer {
-	constructor(id, fields, popup, dataID, store, templateId, validStates = []) {
+	constructor(id, fields, popup, store, templateId) {
 		this.id = id;
 		this.fields = fields;
 		this.popup = popup;
 		this.cardContainer = document.getElementById(id);
-		this.dataID = dataID;
 		this.store = store;
-		this.validStates = validStates;
 		this.templateId = templateId;
+		this.searchButtonID = ['Search_Confirm','Cancel_Confirm','Sort_Confirm','Asc','Desc'];
+		this.searchObj = {
+			keyword: '',
+			searchColumn: 'DEFAULT',
+			sortColumn: 'DEFAULT',
+			order: 'DESC',
+		};
 		document.getElementById(id).addEventListener('click', this);
+		document.getElementById(id).addEventListener('change', this);
+	}
+	render() {
+		if (this.store.getOffset() <= 5) {
+			this.loadContent();
+		}
 	}
 	update(action) {
 		if (action.type == 'ADD') {
-			if (this.validStates.length != 0) {
-				if (this.validStates.includes(action.payload['Status'])) {
-					this.insertEntry(action.payload);
-				}
-			} else {
-				this.insertEntry(action.payload);
-			}
+			action.payload.forEach((object) => this.insertEntry(object));
 		} else if (action.type == 'DELETE') {
 			this.deleteEntry(action.payload);
+		} else if (action.type == 'DELETEALL') {
+			this.deleteAllEntries();
 		} else if (action.type == 'UPDATE') {
-			if (this.validStates.length != 0) {
-				if (this.validStates.includes(action.payload['Status'])) {
-					this.updateEntry(action.payload);
-				} else {
-					this.deleteEntry(action.payload);
-				}
-			} else {
-				this.updateEntry(action.payload);
-			}
+			this.updateEntry(action.payload);
+		} else if (action.type == 'APPEND') {
+			action.payload.forEach((object) => this.appendEntry(object));
 		}
 	}
 
+	loadContent() {
+		this.store.loadData();
+	}
+
 	handleEvent(event) {
-		let data = this.store.getState();
-		let targetObject = data.find(
-			(obj) => obj[this.dataID] == event.target.closest('.detail-description').id.split('_')[1]
-		);
-		if (targetObject) {
-			this.store.setCurrentObj(targetObject);
-			this.popup.render(targetObject);
+		if (event.type == 'click' && event.target.id) {
+			let method = 'NULL';
+			for(let i =0;i<this.searchButtonID.length;i++){
+				if(event.target.id.includes(this.searchButtonID[i])){
+					method = this.searchButtonID[i].split("_")[0].toUpperCase();
+				}
+			}
+			if (method != 'NULL' ) {
+				switch (method) {
+					case 'SEARCH':
+						this.searchObj.keyword = document.getElementById(`${id}_SearchInput`).value;
+						break;
+					case 'CANCEL':
+						this.searchObj.keyword = '';
+						document.getElementById(`${id}_SearchInput`).value = '';
+						break;
+					case 'DESC':
+						if(this.searchObj.order != 'DESC'){
+							this.searchObj.order = 'DESC';
+						}else{
+							method ='NONE';
+						}
+						break;
+					case 'ASC':
+						if(this.searchObj.order != 'ASC'){
+							this.searchObj.order = 'ASC';
+						}else{
+							method ='NONE';
+						}
+						break;
+				}
+				this.store.searchAndSort(method,searchButtons[event.target.id], this.searchObj);
+
+			} else {
+				let targetObject = this.store.getObjectById(
+					event.target.closest('.detail-description').id.split('_')[1]
+				);
+				if (targetObject) {
+					this.store.setCurrentObj(targetObject);
+					this.popup.render(targetObject);
+				}
+			}
+		} else if (event.type == 'change') {
+			let eventTarget = document.getElementById(event.target.id);
+			let method = event.target.id.split("_")[1];//Select_Search/Sort_containerid
+			if (this.searchObj[eventTarget.name]) {
+				console.log(method);
+				this.searchObj[eventTarget.name] = eventTarget.value;
+				this.store.searchAndSort(method,searchButtons[event.target.id], this.searchObj);
+
+			}
 		}
 	}
 
 	insertEntry(object) {
-		// if ('content' in document.createElement('template')) {
 		let template = document.querySelector(`#${this.templateId}`);
 		let clone = template.content.cloneNode(true);
 		this.fields.forEach((field) => {
 			if (clone.querySelector(`.${field}`)) {
-				clone.querySelector(`.${field}`).innerHTML += object[field];
+				clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
 			}
 		});
-		// template.querySelector('.card').id =  `${this.id}_${object[this.dataID]}`
 		this.cardContainer.insertBefore(clone, this.cardContainer.firstChild);
-		this.cardContainer.firstElementChild.id = `${this.id}_${object[this.dataID]}`;
-		// }
-		// else{
-		// 	console.log("Error");
-		// }
+		this.cardContainer.firstElementChild.id = `${this.id}_${object[this.store.getObjIdType()]}`;
+	}
+
+	appendEntry(object) {
+		let template = document.querySelector(`#${this.templateId}`);
+		let clone = template.content.cloneNode(true);
+		this.fields.forEach((field) => {
+			if (clone.querySelector(`.${field}`)) {
+				clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
+			}
+		});
+		this.cardContainer.appendChild(clone);
+		this.cardContainer.lastElementChild.id = `${this.id}_${object[this.store.getObjIdType()]}`;
 	}
 
 	deleteEntry(object) {
-		let entry = document.getElementById(`${this.id}_${object[this.dataID]}`);
-		console.log(entry);
+		let entry = document.getElementById(`${this.id}_${object[this.store.getObjIdType()]}`);
 		if (entry != 'undefined' && entry != null) {
 			this.cardContainer.removeChild(entry);
 		}
 	}
+	deleteAllEntries() {
+		let child = this.cardContainer.lastElementChild;
+		while (child) {
+			this.cardContainer.removeChild(child);
+			child = this.cardContainer.lastElementChild;
+		}
+	}
 	updateEntry(object) {
-		let entry = document.getElementById(`${this.id}_${object[this.dataID]}`);
+		let entry = document.getElementById(`${this.id}_${object[this.store.getObjIdType()]}`);
 		if (entry != 'undefined' && entry != null) {
 			this.fields.forEach((field) => {
-				console.log(field);
 				entry.querySelector(`.${field}`).innerHTML = object[field];
 			});
 		} else {
@@ -98,70 +143,14 @@ class DOMContainer {
 	}
 }
 
-class SelectionTable extends DOMContainer {
-	constructor(id, fields, popup, dataID, store, templateId, button, selectField, nextField = '', nextFieldId = '') {
-		super(id, fields, popup, dataID, store, templateId);
-		this.selectField = selectField;
-		this.button = button;
-		this.cardContainer.removeEventListener('click', this);
-		this.style = 'selected';
-		this.nextField = nextField;
-		this.nextFieldId = nextFieldId;
+class DOMButton {
+	constructor(id, popup) {
+		this.id = id;
+		this.popup = popup;
+		document.getElementById(id).addEventListener('click', this);
 	}
-	getId() {
-		return this.id;
-	}
-	render(object = {}) {
-		if (object[this.selectField] === '') {
-			this.toggleStyle(-1);
-			console.log(`${this.selectField}-${this.id}`);
-			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = '';
-		} else {
-			this.button.removeProperty('disabled');
-			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
-			this.toggleStyle(`${this.id}_${object[this.selectField]}`);
-		}
-	}
-	handleEvent(popup, object, id) {
-		let data = this.store.getState();
-		let targetObject = data.find((obj) => obj[this.dataID] == id.split('_')[1]);
-		if (this.toggleStyle(id)) {
-			object[this.selectField] = targetObject[this.dataID];
-			if (this.nextFieldId != '') {
-				document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
-				if (targetObject[this.nextFieldId]) {
-					object[this.nextField] = targetObject[this.nextFieldId];
-				}
-			}
-			popup.setObject(object);
-		} else {
-			object[this.selectField] = '';
-			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = '';
-			if (object[this.nextField] != '') {
-				object[this.nextField] = '';
-			}
-			this.button.initializeProperties({ disabled: 'true' });
-			popup.setObject(object);
-		}
-	}
-
-	toggleStyle(tableRowId) {
-		let tableRow = document.getElementById(tableRowId);
-		let rows = this.cardContainer.querySelectorAll('tr');
-		let hasSelected = false;
-		rows.forEach((element) => {
-			if (element === tableRow) {
-				element.classList.toggle(this.style);
-				if (element.classList.contains(this.style)) {
-					this.button.removeProperty('disabled');
-					hasSelected = true;
-				}
-			} else {
-				if (element.classList.contains(this.style)) {
-					element.classList.remove(this.style);
-				}
-			}
-		});
-		return hasSelected;
+	handleEvent(event) {
+		let targetObject = {};
+		this.popup.render(targetObject);
 	}
 }

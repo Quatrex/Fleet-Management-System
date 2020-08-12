@@ -184,7 +184,7 @@
                 </div>
                 <div class="col-sm-6">
                     <p class="d-inline" id="Driver-OngoingRequestPreviewPopup">Text</p>
-                    <button class="btn mb-1 btn-outline-dark" id="Details_Driver_OngoingRequestPreview">More ></button>
+                    <button class="btn mb-1 btn-outline-dark" id="Info_Driver_OngoingRequestPreview">More ></button>
                     <!-- <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-info-sign"></span> Default text here</a> -->
 
                 </div>
@@ -195,7 +195,7 @@
                 </div>
                 <div class="col-sm-6">
                     <p class="d-inline" id="Vehicle-OngoingRequestPreviewPopup">Text</p>
-                    <button class="btn mb-1 btn-outline-dark" id="Details_Vehicle_OngoingRequestPreview">More ></button>
+                    <button class="btn mb-1 btn-outline-dark" id="Info_Vehicle_OngoingRequestPreview">More ></button>
                 </div>
             </div>
         </div>
