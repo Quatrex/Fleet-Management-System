@@ -21,24 +21,4 @@ class HTMLCompositeElement extends HTMLComponent
         }
         echo '</' . $this->tag . '>';
     }
-
-    // public function wrapWith(HTMLElement $wrapper, int $count = null)
-    // {
-    //     $count == null ? $count = sizeof(($this->composite_content)) : $count = $count;
-    //     $wrapperContent = [];
-    //     for ($x = 1; $x <= $count; $x++) {
-    //         array_push($wrapperContent, array_pop($this->composite_content));
-    //     }
-    //     $wrapper->wrapElement(array_reverse($wrapperContent));
-    //     array_push($this->composite_content, $wrapper);
-    // }
-
-    // private function format()
-    // {
-    //     $contentText = [];
-    //     foreach ($this->composite_content as $composite) {
-    //         array_push($contentText, $composite->getElement());
-    //     }
-    //     $this->composite->setContent(join($contentText, ''));
-    // }
 }

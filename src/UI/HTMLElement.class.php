@@ -22,11 +22,4 @@ class HTMLElement extends HTMLComponent
         }
         echo '</' . $this->tag . '>';
     }
-    // public function wrapElement(array $elements)
-    // {
-    //     $this->content = '';
-    //     foreach ($elements as $element) {
-    //         $element->getElement() != null ? $this->content .= $element->getElement() : $this->content .= '';
-    //     }
-    // }
 }
