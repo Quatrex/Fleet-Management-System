@@ -40,7 +40,7 @@ $_SESSION['employee'] = $employee;
         ->createSecondaryNavBar('MyRequestsSecTab',['Pending Requests', 'Ongoing Requests', 'History'])
         ->myRequests($requestsByMe, 'Pending', 'Pending Requests')
         ->myRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests')
-        ->myRequests($pastRequests, 'Past', 'History')
+        ->myRequests($pastRequests, 'Past', 'Past Requests')
         ->buildSecTabBody(['PendingRequests', 'OngoingRequests', 'History'])
         ->createSecondaryNavBar('AwaitingRequestsSecTab',['Assign Requests', 'Ongoing Trips', 'Scheduled History'])
         ->awaitingRequests($requestsToAssign, 'Assign', 'Assign Requests')

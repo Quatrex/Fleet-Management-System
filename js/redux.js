@@ -28,13 +28,12 @@ class Store {
 		return this.state.length;
 	}
 	searchAndSort(method, obj) {
-		console.log(method);
 		if (method == 'SEARCH') {
 			this.searchObj = { ...this.searchObj, ...obj };
 			if (this.searchObj.keyword != '') {
 				Database.loadContent(
 					`Load_${this.type}`,
-					this.state.length,
+					0,
 					ActionCreator([this, this], 'DELETEALL&APPEND'),
 					this.searchObj
 				);
@@ -45,7 +44,7 @@ class Store {
 
 				Database.loadContent(
 					`Load_${this.type}`,
-					this.state.length,
+					0,
 					ActionCreator([this, this], 'DELETEALL&APPEND'),
 					this.searchObj
 				);
@@ -54,7 +53,7 @@ class Store {
 
 				Database.loadContent(
 					`Load_${this.type}`,
-					this.state.length,
+					0,
 					ActionCreator([this, this], 'DELETEALL&APPEND'),
 					this.searchObj
 				);
@@ -62,12 +61,7 @@ class Store {
 		} else if (method == 'CANCEL') {
 			this.searchObj = { ...this.searchObj, ...obj };
 
-			Database.loadContent(
-				`Load_${this.type}`,
-				this.state.length,
-				ActionCreator([this], 'APPEND'),
-				this.searchObj
-			);
+			Database.loadContent(`Load_${this.type}`, 0, ActionCreator([this], 'APPEND'), this.searchObj);
 		}
 	}
 
@@ -75,6 +69,7 @@ class Store {
 		Database.loadContent(`Load_${this.type}`, this.state.length, ActionCreator([this], 'APPEND'), this.searchObj);
 	}
 	dispatch(action) {
+		console.log(action.type);
 		if (action.type === 'ADD' || action.type === 'APPEND') {
 			if (!Array.isArray(action.payload)) {
 				if (Object.keys(action.payload).length != 0) {
@@ -109,13 +104,14 @@ const ActionCreator = (stores, actionType) => ({
 	stores: stores,
 	updateStores: (currentObj, returnedObj) => {
 		let types = actionType.split('&');
-		let actionObj = { type: actionType };
 		if (types.length == 1) {
+			let actionObj = { type: actionType };
 			actionType == 'ADD' || actionType == 'APPEND'
 				? stores[0].dispatch({ ...actionObj, payload: returnedObj })
 				: stores[0].dispatch({ ...actionObj, payload: currentObj });
 		} else if (types.length > 1) {
 			for (let i = 0; i < stores.length; i++) {
+				let actionObj = { type: types[i]};
 				types[i] == 'DELETEALL' || types[i] == 'APPEND'
 					? stores[i].dispatch({ ...actionObj, payload: returnedObj })
 					: stores[i].dispatch({ type: types[i], payload: currentObj });

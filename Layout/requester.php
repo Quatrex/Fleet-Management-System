@@ -31,7 +31,7 @@ $_SESSION['pastRequests'] = $pastRequests;
         ->createSecondaryNavBar('MyRequestsSecTab',['Pending Requests', 'Ongoing Requests', 'History'])
         ->myRequests($requests, 'Pending', 'Pending Requests')
         ->myRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests')
-        ->myRequests($pastRequests, 'Past', 'History')
+        ->myRequests($pastRequests, 'Past', 'Past Requests')
         ->buildSecTabBody(['PendingRequests', 'OngoingRequests', 'History'])
         ->createMainNavHierachy()
         ->show();

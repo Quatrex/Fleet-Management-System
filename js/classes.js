@@ -175,7 +175,10 @@ class DOMContainer {
 	}
 
 	handleEvent(event) {
-		if (event.type == 'click' && (event.target.id || event.target.closest('.searchTabButton')||event.target.closest('.detail-description'))) {
+		if (
+			event.type == 'click' &&
+			(event.target.id || event.target.closest('.searchTabButton') || event.target.closest('.detail-description'))
+		) {
 			let method = 'NULL';
 			for (let i = 0; i < this.searchButtonID.length; i++) {
 				if (event.target.closest('.searchTabButton')) {
@@ -196,6 +199,7 @@ class DOMContainer {
 						} else {
 							method = 'NONE';
 						}
+						document.querySelector('.form-clear').classList.add('d-none');
 						break;
 					case 'DESC':
 						if (this.searchObj.order != 'DESC') {
@@ -288,9 +292,9 @@ class DOMContainer {
 	}
 	deleteAllEntries() {
 		let children = this.cardContainer.querySelectorAll('.detail-description');
-		children.forEach(child =>{
-			child.remove()
-		})
+		children.forEach((child) => {
+			child.remove();
+		});
 	}
 	updateEntry(object) {
 		let entry = document.getElementById(`${this.id}_${object[this.store.getObjIdType()]}`);
@@ -644,11 +648,8 @@ const FormValidate = (popup, object = {}, event) => {
 		let fields = popup.popup.querySelectorAll('.inputs');
 		let valid = true;
 		fields.forEach((field) => {
-			console.log(field);
-			console.log(field.hasAttribute('required'));
 			if (field.hasAttribute('required')) {
 				if (field.value.length == 0) {
-					console.log('field empty');
 					valid = false;
 					field.classList.add('invalid-details');
 					popup.popup.querySelector(`#${field.name}-error`).innerHTML = 'This field should be provided';
@@ -737,7 +738,6 @@ const changeInnerHTML = (object, id, objectFields = {}) => {
 
 const Database = {
 	writeToDatabase: (object, method, actionCreater = {}) => {
-		console.log('Data:');
 		console.log({ ...object, Method: method });
 		$.ajax({
 			url: '../func/save2.php',
@@ -777,6 +777,7 @@ const Database = {
 				$('#overlay').fadeOut(300);
 				if (Object.keys(actionCreater).length != 0) {
 					actionCreater.updateStores({}, returnArr.object);
+
 				}
 			},
 			error: function () {
