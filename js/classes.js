@@ -143,6 +143,7 @@ class DOMContainer {
 			sortColumn: 'CreatedDate',
 			order: 'DESC',
 		};
+		this.searchInput = document.getElementById(`${this.id}_SearchInput`);
 		document.getElementById(id).addEventListener('click', this);
 		document.getElementById(id).addEventListener('change', this);
 		document.getElementById(id).addEventListener('keydown', this);
@@ -172,22 +173,27 @@ class DOMContainer {
 	}
 
 	handleEvent(event) {
-		if (event.type == 'click' && event.target.id) {
+		if (event.type == 'click' && (event.target.id||event.target.closest('.searchTabButton'))) {
 			let method = 'NULL';
 			for (let i = 0; i < this.searchButtonID.length; i++) {
-				if (event.target.id.includes(this.searchButtonID[i])) {
-					method = this.searchButtonID[i].split('_')[0].toUpperCase();
-					console.log(method);
+				if(event.target.closest('.searchTabButton')){
+					if (event.target.closest('.searchTabButton').id.includes(this.searchButtonID[i])) {
+						method = this.searchButtonID[i].split('_')[0].toUpperCase();
+					}
 				}
 			}
 			if (method != 'NULL') {
 				switch (method) {
 					case 'SEARCH':
-						this.searchObj.keyword = document.getElementById(`${this.id}_SearchInput`).value;
+						this.searchObj.keyword = this.searchInput.value;
 						break;
 					case 'CANCEL':
-						this.searchObj.keyword = '';
-						document.getElementById(`${this.id}_SearchInput`).value = '';
+						if (this.searchInput.value.length>0) {
+							this.searchInput.value ='';
+							this.searchObj.keyword = '';
+						}else{
+							method ='NONE'
+						}
 						break;
 					case 'DESC':
 						if (this.searchObj.order != 'DESC') {
@@ -208,14 +214,15 @@ class DOMContainer {
 				}
 				this.store.searchAndSort(method, this.searchObj);
 			} else {
-				if (event.target.tagName.toLowerCase() != 'input' && event.target.tagName.toLowerCase() !='select') {
-					console.log(event.target.tagName.toLowerCase());
-					let targetObject = this.store.getObjectById(
-						event.target.closest('.detail-description').id.split('_')[1]
-					);
-					if (targetObject) {
-						this.store.setCurrentObj(targetObject);
-						this.popup.render(targetObject);
+				if (event.target.tagName.toLowerCase() != 'input' && event.target.tagName.toLowerCase() != 'select') {
+					if(event.target.closest('.detail-description')){
+						let targetObject = this.store.getObjectById(
+							event.target.closest('.detail-description').id.split('_')[1]
+						);
+						if (targetObject) {
+							this.store.setCurrentObj(targetObject);
+							this.popup.render(targetObject);
+						}
 					}
 				}
 			}
@@ -229,7 +236,7 @@ class DOMContainer {
 				}
 			}
 		} else if (event.type == 'keydown') {
-			if (document.getElementById(`${this.id}_SearchInput`).value.length == 0) {
+			if (this.searchInput.value.length == 0) {
 				if (!document.querySelector('.form-clear').classList.contains('d-none')) {
 					document.querySelector('.form-clear').classList.add('d-none');
 				}
