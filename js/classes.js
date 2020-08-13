@@ -175,10 +175,10 @@ class DOMContainer {
 	}
 
 	handleEvent(event) {
-		if (event.type == 'click' && (event.target.id||event.target.closest('.searchTabButton'))) {
+		if (event.type == 'click' && (event.target.id || event.target.closest('.searchTabButton')||event.target.closest('.detail-description'))) {
 			let method = 'NULL';
 			for (let i = 0; i < this.searchButtonID.length; i++) {
-				if(event.target.closest('.searchTabButton')){
+				if (event.target.closest('.searchTabButton')) {
 					if (event.target.closest('.searchTabButton').id.includes(this.searchButtonID[i])) {
 						method = this.searchButtonID[i].split('_')[0].toUpperCase();
 					}
@@ -190,18 +190,18 @@ class DOMContainer {
 						this.searchObj.keyword = this.searchInput.value;
 						break;
 					case 'CANCEL':
-						if (this.searchInput.value.length>0) {
-							this.searchInput.value ='';
+						if (this.searchInput.value.length > 0) {
+							this.searchInput.value = '';
 							this.searchObj.keyword = '';
-						}else{
-							method ='NONE'
+						} else {
+							method = 'NONE';
 						}
 						break;
 					case 'DESC':
 						if (this.searchObj.order != 'DESC') {
 							this.searchObj.order = 'DESC';
-							this.descButton.classList.add('selected-sort')
-							this.ascButton.classList.remove('selected-sort')
+							this.descButton.classList.add('selected-sort');
+							this.ascButton.classList.remove('selected-sort');
 							method = 'SORT';
 						} else {
 							method = 'NONE';
@@ -210,8 +210,8 @@ class DOMContainer {
 					case 'ASC':
 						if (this.searchObj.order != 'ASC') {
 							this.searchObj.order = 'ASC';
-							this.ascButton.classList.add('selected-sort')
-							this.descButton.classList.remove('selected-sort')
+							this.ascButton.classList.add('selected-sort');
+							this.descButton.classList.remove('selected-sort');
 							method = 'SORT';
 						} else {
 							method = 'NONE';
@@ -221,7 +221,7 @@ class DOMContainer {
 				this.store.searchAndSort(method, this.searchObj);
 			} else {
 				if (event.target.tagName.toLowerCase() != 'input' && event.target.tagName.toLowerCase() != 'select') {
-					if(event.target.closest('.detail-description')){
+					if (event.target.closest('.detail-description')) {
 						let targetObject = this.store.getObjectById(
 							event.target.closest('.detail-description').id.split('_')[1]
 						);
@@ -287,11 +287,10 @@ class DOMContainer {
 		}
 	}
 	deleteAllEntries() {
-		let child = this.cardContainer.lastElementChild;
-		while (child) {
-			this.cardContainer.removeChild(child);
-			child = this.cardContainer.lastElementChild;
-		}
+		let children = this.cardContainer.querySelectorAll('.detail-description');
+		children.forEach(child =>{
+			child.remove()
+		})
 	}
 	updateEntry(object) {
 		let entry = document.getElementById(`${this.id}_${object[this.store.getObjIdType()]}`);
@@ -537,12 +536,11 @@ class ValidatorButton extends PopupButton {
 	}
 	handleEvent(popup, object = {}, event) {
 		this.eventHandleHelpers.forEach((helper) => {
-			if(object.hasOwnProperty('valid')){
-				if(object.valid){
+			if (object.hasOwnProperty('valid')) {
+				if (object.valid) {
 					object = helper(popup, object, event);
 				}
-			}
-			else{
+			} else {
 				object = helper(popup, object, event);
 			}
 		});

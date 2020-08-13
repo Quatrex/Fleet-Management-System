@@ -416,7 +416,7 @@ class HTMLBuilder
     private function createMySearchBar(string $header,array $dropDownList){
         $searchbarBuilder= new CompositeBuilder();
         $searchBar=$searchbarBuilder
-            ->createComposite('div',['class'=>'container-fluid maincontent'])
+            ->createComposite('div',['class'=>'container-fluid search-container'])
             ->composite()
                 ->createComposite('div',['class'=>'row mt-3 pt-3 ml-3 border'])
                 ->composite()
