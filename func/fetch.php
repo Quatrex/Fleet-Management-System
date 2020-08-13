@@ -7,7 +7,7 @@ session_start();
 header("Content-type: application/json; charset=utf-8");
 $method = $_POST['Method'];
 $offset = $_POST['offset'];
-$sort = [$_POST['order'] => $_POST['sortColumn']];
+$sort = [$_POST['sortColumn'] => $_POST['order']];
 $search = [$_POST['keyword'] => [$_POST['searchColumn']]];
 $employee = $_SESSION['employee'];
 $object = ['error' => true, 'object' => '', 'message' => ''];
