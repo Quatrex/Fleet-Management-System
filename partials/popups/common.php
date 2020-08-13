@@ -14,9 +14,7 @@
         </div>
         <div class="popup-body">
             <div id="submit-form-wrapper">
-
                 <form id="RequestAdd_form">
-
                     <div class="form-group">
                         <input type="date" class="form-control inputs" name="date" placeholder="Date" autocomplete="off" required>
                         <div id="date-error" class="text-danger"></div>

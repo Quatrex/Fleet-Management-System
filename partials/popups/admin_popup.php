@@ -9,23 +9,57 @@
         <div class="popup-body">
             <div id="submit-form-wrapper">
                 <form id="AddEmployee_form">
-                    <input class="form-control my-3" placeholder="Employee ID" type="text" name="newEmployeeId">
-                    <input class="form-control my-3" placeholder="First Name" type="text" name="firstName">
-                    <input class="form-control my-3" placeholder="Last Name" type="text" name="lastName">
-                    <select class="custom-select" name="position" id="position-select">
-                        <option selected>Account Type</option>
-                        <option value="Requester">Requester</option>
-                        <option value="VPMO">VPMO</option>
-                        <option value="JO">JO</option>
-                        <option value="CAO">CAO</option>
-                        <option value="DCAO">DCAO</option>
-                        <option value="Administrator">Administrator</option>
-                    </select>
-                    <input class="form-control my-3" placeholder="Designation" id="employee-designation" type="text" name="designation">
-                    <input type="number" name="contactNo" class="form-control my-3" placeholder="Contact Number">
-                    <input name="email" class="form-control my-3" placeholder="Email" type="text">
-                    <input name="password" class="form-control my-3" placeholder="Password" type="password">
-                    <input name="confirmPassword" class="form-control my-3" placeholder="Confirm Password" type="password">
+                    <div class="form-group">
+                        <input class="form-control inputs" placeholder="Employee ID" type="text" name="newEmployeeId" required>
+                        <div id="newEmployeeId-error" class="text-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control inputs" placeholder="First Name" type="text" name="firstName" required>
+                        <div id="firstName-error" class="text-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control inputs" placeholder="Last Name" type="text" name="lastName" required>
+                        <div id="lastName-error" class="text-danger"></div>
+
+                    </div>
+                    <div class="form-group">
+                        <select class="custom-select inputs" name="position" id="position-select" required>
+                            <option selected>Account Type</option>
+                            <option value="Requester">Requester</option>
+                            <option value="VPMO">VPMO</option>
+                            <option value="JO">JO</option>
+                            <option value="CAO">CAO</option>
+                            <option value="DCAO">DCAO</option>
+                            <option value="Administrator">Administrator</option>
+                        </select>
+                        <div id="position-error" class="text-danger"></div>
+
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control inputs" placeholder="Designation" id="employee-designation" type="text" name="designation" required>
+                        <div id="designation-error" class="text-danger"></div>
+
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="contactNo" class="form-control inputs" placeholder="Contact Number" required>
+                        <div id="contactNo-error" class="text-danger"></div>
+
+                    </div>
+                    <div class="form-group">
+                        <input name="email" class="form-control inputs" placeholder="Email" type="text" required>
+                        <div id="email-error" class="text-danger"></div>
+
+                    </div>
+                    <div class="form-group">
+                        <input name="password" class="form-control inputs" placeholder="Password" type="password" required>
+                        <div id="password-error" class="text-danger"></div>
+
+                    </div>
+                    <div class="form-group">
+                        <input name="confirmPassword" class="form-control inputs" placeholder="Confirm Password" type="password" required>
+                        <div id="confirmPassword-error" class="text-danger"></div>
+
+                    </div>
                     <input type="button" value="Submit" class="btn btn-success" id="EmployeeAddForm_Confirm">
                 </form>
             </div>
@@ -113,20 +147,23 @@
                         <div class="form-group-row mb-4">
                             <label>Employee ID</label>
                             <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border inputs" id="empID-EmployeeProfileEditForm" type="text" name="empID">
+                                <input class="form-control py-2 border-right-0 border inputs" id="empID-EmployeeProfileEditForm" type="text" name="empID" required>
+                                <div id="empID-error" class="text-danger"></div>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
                             <div class="col-md-6">
                                 <label>First Name</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="FirstName-EmployeeProfileEditForm" type="text" name="FirstName">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="FirstName-EmployeeProfileEditForm" type="text" name="FirstName" required>
+                                    <div id="FirstName-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Last Name</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="LastName-EmployeeProfileEditForm" type="text" name="LastName">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="LastName-EmployeeProfileEditForm" type="text" name="LastName" required>
+                                    <div id="LastName-error" class="text-danger"></div>
                                 </div>
                             </div>
                         </div>
@@ -134,19 +171,22 @@
                             <div class="form-group col-md-4">
                                 <label>Designation</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="Designation-EmployeeProfileEditForm" type="text" name="Designation">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="Designation-EmployeeProfileEditForm" type="text" name="Designation" required>
+                                    <div id="Designation-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Contact Number</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="ContactNo-EmployeeProfileEditForm" type="text" name="ContactNo">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="ContactNo-EmployeeProfileEditForm" type="text" name="ContactNo" required>
+                                    <div id="ContactNo-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Email</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="Email-EmployeeProfileEditForm" type="text" name="Email">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="Email-EmployeeProfileEditForm" type="text" name="Email" required>
+                                    <div id="Email-error" class="text-danger"></div>
                                 </div>
                             </div>
                         </div>
@@ -188,16 +228,46 @@
         <div class="popup-body">
             <div id="submit-form-wrapper">
                 <form id="AddDriver_form">
-                    <input class="form-control my-3" placeholder="Driver ID" type="text" name="driverId">
-                    <input class="form-control my-3" placeholder="First Name" type="text" name="firstName">
-                    <input class="form-control my-3" placeholder="Last Name" type="text" name="lastName">
-                    <input class="form-control my-3" placeholder="Email" type="text" name="email">
-                    <input class="form-control my-3" placeholder="Address" type="text" name="address">
-                    <input type="number" name="contactNo" class="form-control my-3" placeholder="Contact Number">
-                    <input name="employedDate" class="form-control my-3" placeholder="Employed Date" type="date">
-                    <input name="licenseNo" class="form-control my-3" placeholder="License Number" type="text">
-                    <input name="licenseType" class="form-control my-3" placeholder="License Type" type="text">
-                    <input name="licenseExpireDate" class="form-control my-3" placeholder="License Expire Data" type="date">
+                    <div class="form-group">
+                        <input class="form-control inputs" placeholder="Driver ID" type="text" name="driverId" required>
+                        <div id="driverId-error" class="text-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control inputs" placeholder="First Name" type="text" name="firstName" required>
+                        <div id="firstName-error" class="text-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control inputs" placeholder="Last Name" type="text" name="lastName" required>
+                        <div id="lastName-error" class="text-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control inputs" placeholder="Email" type="text" name="email" required>
+                        <div id="email-error" class="text-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control inputs" placeholder="Address" type="text" name="address" required>
+                        <div id="address-error" class="text-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="contactNo" class="form-control inputs" placeholder="Contact Number" required>
+                        <div id="contactNo-error" class="text-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <input name="employedDate" class="form-control inputs" placeholder="Employed Date" type="date">
+                        <div id="employedDate-error" class="text-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <input name="licenseNo" class="form-control inputs" placeholder="License Number" type="text" required>
+                        <div id="licenseNo-error" class="text-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <input name="licenseType" class="form-control inputs" placeholder="License Type" type="text" required>
+                        <div id="licenseType-error" class="text-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <input name="licenseExpireDate" class="form-control inputs" placeholder="License Expire Data" type="date">
+                        <div id="licenseExpireDate-error" class="text-danger"></div>
+                    </div>
                     <input type="button" value="Submit" class="btn btn-success" id="DriverAddForm_Confirm">
                 </form>
             </div>
@@ -320,13 +390,15 @@
                             <div class="form-group col-md-6">
                                 <label>Driver ID</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="driverId-DriverProfileEditForm" type="text" name="driverID">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="driverId-DriverProfileEditForm" type="text" name="driverID" required>
+                                    <div id="driverID-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Employed Date</label>
                                 <div class="input-group">
                                     <input class="form-control py-2 border-right-0 border inputs" id="employedDate-DriverProfileEditForm" type="date" name="employedDate">
+                                    <div id="employedDate-error" class="text-danger"></div>
                                 </div>
                             </div>
                         </div>
@@ -334,13 +406,15 @@
                             <div class="form-group col-md-6">
                                 <label>First Name</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="firstName-DriverProfileEditForm" type="text" name="firstName">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="firstName-DriverProfileEditForm" type="text" name="firstName" required>
+                                    <div id="firstName-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Last Name</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="lastName-DriverProfileEditForm" type="text" name="lastName">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="lastName-DriverProfileEditForm" type="text" name="lastName" required>
+                                    <div id="lastName-error" class="text-danger"></div>
                                 </div>
                             </div>
                         </div>
@@ -348,6 +422,7 @@
                             <label>Address</label>
                             <div class="input-group">
                                 <input class="form-control py-2 border-right-0 border inputs" id="address-DriverProfileEditForm" type="text" name="address">
+                                <div id="address-error" class="text-danger"></div>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
@@ -355,18 +430,21 @@
                                 <label>Assigned Vehicle</label>
                                 <div class="input-group">
                                     <input class="form-control py-2 border-right-0 border inputs" id="assignedVehicleID-DriverProfileEditForm" type="text" name="assignedVehicleID">
+                                    <div id="assignedVehicleID-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Contact Number</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="contactNo-DriverProfileEditForm" type="text" name="contactNo">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="contactNo-DriverProfileEditForm" type="text" name="contactNo" required>
+                                    <div id="contactNo-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Email</label>
                                 <div class="input-group">
                                     <input class="form-control py-2 border-right-0 border inputs" id="email-DriverProfileEditForm" type="text" name="email">
+                                    <div id="email-error" class="text-danger"></div>
                                 </div>
                             </div>
                         </div>
@@ -374,19 +452,22 @@
                             <div class="form-group col-md-4">
                                 <label>License ID</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="licenseID-DriverProfileEditForm" type="text" name="designation">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="licenseID-DriverProfileEditForm" type="text" name="licenseID" required>
+                                    <div id="designation-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>License Type</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="licenseType-DriverProfileEditForm" type="text" name="contactNo">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="licenseType-DriverProfileEditForm" type="text" name="licenseType">
+                                    <div id="licenseType-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>License Expirey Date</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="licenseExpDate-DriverProfileEditForm" type="text" name="email">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="licenseExpDate-DriverProfileEditForm" type="text" name="licenseExpDate">
+                                    <div id="licenseExpDate-error" class="text-danger"></div>
                                 </div>
                             </div>
                         </div>

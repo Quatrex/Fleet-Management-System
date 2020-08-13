@@ -112,15 +112,41 @@
             <div class="popup-body">
                 <div id="submit-form-wrapper">
                     <form id="AddVehicle_form">
-                        <input class="form-control my-3 inputs " placeholder="Vehicle model" type="text" name="model">
-                        <input class="form-control my-3 inputs" placeholder="Registration Number" type="text" name="registrationNo">
-                        <input type="date" name="purchasedYear" class="form-control my-3 inputs" placeholder="Date of purchase">
-                        <input name="value" class="form-control my-3 inputs" placeholder="Price" type="number">
-                        <input name="fuelType" class="form-control my-3 inputs" placeholder="Fuel type" type="text">
-                        <input name="currentLocation" class="form-control my-3 inputs" placeholder="Current Location" type="text">
-                        <h4>Insurance details</h4>
-                        <input name="insuranceValue" class="form-control my-3 inputs" placeholder="Monthly installment" type="number">
-                        <input name="insuranceCompany" class="form-control my-3 inputs" placeholder="Insurance company" type="text">
+                        <div class="form-group">
+                            <input class="form-control my-3 inputs " placeholder="Vehicle model" type="text" name="model">
+                            <div id="model-error" class="text-danger"></div>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control my-3 inputs" placeholder="Registration Number" type="text" name="registrationNo">
+                            <div id="registrationNo-error" class="text-danger"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="date" name="purchasedYear" class="form-control my-3 inputs" placeholder="Date of purchase">
+                            <div id="purchasedYear-error" class="text-danger"></div>
+                        </div>
+                        <div class="form-group">
+                            <input name="value" class="form-control my-3 inputs" placeholder="Price" type="number">
+                            <div id="value-error" class="text-danger"></div>
+                        </div>
+                        <div class="form-group">
+                            <input name="fuelType" class="form-control my-3 inputs" placeholder="Fuel type" type="text">
+                            <div id="fuelType-error" class="text-danger"></div>
+                        </div>
+                        <div class="form-group">
+                            <input name="currentLocation" class="form-control my-3 inputs" placeholder="Current Location" type="text">
+                            <div id="currentLocation-error" class="text-danger"></div>
+                        </div>
+                        <div class="form-group">
+                            <h4>Insurance details</h4>
+                            <input name="insuranceValue" class="form-control my-3 inputs" placeholder="Monthly installment" type="number">
+                            <div id="insuranceValue-error" class="text-danger"></div>
+
+                        </div>
+                        <div class="form-group">
+                            <input name="insuranceCompany" class="form-control my-3 inputs" placeholder="Insurance company" type="text">
+                            <div id="insuranceCompany-error" class="text-danger"></div>
+
+                        </div>
                         <div class="inline">
                             <p>Leased Vehicle</p>
                             <label class="radio-inline">
@@ -134,10 +160,25 @@
                         </div>
                         <div id="leasing-details">
                             <h4>Leasing details</h4>
-                            <input name="leasedCompany" class="form-control my-3 inputs" placeholder="Leasing company" type="text">
-                            <input type="date" name="leasedPeriodFrom" class="form-control my-3 inputs" placeholder="Lease period (from)">
-                            <input type="date" name="leasedPeriodTo" class="form-control my-3 inputs" placeholder="Lease period (to)">
-                            <input name="monthlyPayment" class="form-control my-3 inputs" placeholder="Monthly installment" type="number">
+                            <div class="form-group">
+                                <input name="leasedCompany" class="form-control my-3 inputs" placeholder="Leasing company" type="text">
+                                <div id="leasedCompany-error" class="text-danger"></div>
+
+                            </div>
+                            <div class="form-group">
+                                <input type="date" name="leasedPeriodFrom" class="form-control my-3 inputs" placeholder="Lease period (from)">
+                                <div id="leasedPeriodFrom-error" class="text-danger"></div>
+
+                            </div>
+                            <div class="form-group">
+                                <input type="date" name="leasedPeriodTo" class="form-control my-3 inputs" placeholder="Lease period (to)">
+                                <div id="leasedPeriodTo-error" class="text-danger"></div>
+
+                            </div>
+                            <div class="form-group">
+                                <input name="monthlyPayment" class="form-control my-3 inputs" placeholder="Monthly installment" type="number">
+                                <div id="monthlyPayment-error" class="text-danger"></div>
+                            </div>
                         </div>
                         <input type="button" value="Submit" class="btn btn-success" id="VehicleAddForm_Submit">
                     </form>
@@ -555,13 +596,15 @@
                                 <div class="col-md-6">
                                     <label>Registration Number</label>
                                     <div class="input-group">
-                                        <input class="form-control inputs py-2 border-right-0 border" id="registration-VehicleProfileEditForm" type="text" name="registrationNoDisplay">
+                                        <input class="form-control inputs py-2 border-right-0 border" id="registration-VehicleProfileEditForm" type="text" name="registrationNoDisplay" required>
+                                        <div id="registrationNoDisplay-error" class="text-danger"></div>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Model</label>
                                     <div class="input-group">
-                                        <input class="form-control inputs py-2 border-right-0 border" id="model-VehicleProfileEditForm" type="text" name="model">
+                                        <input class="form-control inputs py-2 border-right-0 border" id="model-VehicleProfileEditForm" type="text" name="model" required>
+                                        <div id="model-error" class="text-danger"></div>
                                     </div>
                                 </div>
                             </div>
@@ -570,12 +613,14 @@
                                     <label>Purchased Year</label>
                                     <div class="input-group">
                                         <input class="form-control inputs py-2 border-right-0 border" id="purchasedYear-VehicleProfileEditForm" type="text" name="purchasedYear">
+                                        <div id="purchasedYear-error" class="text-danger"></div>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Price</label>
                                     <div class="input-group">
                                         <input class="form-control inputs py-2 border-right-0 border" id="value-VehicleProfileEditForm" type="text" name="value">
+                                        <div id="value-error" class="text-danger"></div>
                                     </div>
                                 </div>
                             </div>
@@ -583,14 +628,15 @@
                                 <div class="form-group col-md-6">
                                     <label>Fuel Type</label>
                                     <div class="input-group">
-                                        <input class="form-control inputs py-2 border-right-0 border" id="fuelType-VehicleProfileEditForm" type="text" name="fuelType">
+                                        <input class="form-control inputs py-2 border-right-0 border" id="fuelType-VehicleProfileEditForm" type="text" name="fuelType" required>
+                                        <div id="fuelType-error" class="text-danger"></div>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Current Location</label>
                                     <div class="input-group">
                                         <input class="form-control inputs py-2 border-right-0 border" id="currentLocation-VehicleProfileEditForm" type="text" name="currentLocation">
-
+                                        <div id="currentLocation-error" class="text-danger"></div>
                                     </div>
                                 </div>
                             </div>
@@ -598,14 +644,16 @@
                                 <div class="form-group col-md-6">
                                     <label>Insurance Company</label>
                                     <div class="input-group">
-                                        <input class="form-control inputs py-2 border-right-0 border" id="insuranceCompany-VehicleProfileEditForm" type="text" name="insuranceCompany">
+                                        <input class="form-control inputs py-2 border-right-0 border" id="insuranceCompany-VehicleProfileEditForm" type="text" name="insuranceCompany" required>
+                                        <div id="insuranceCompany-error" class="text-danger"></div>
 
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Insurance Value</label>
                                     <div class="input-group">
-                                        <input class="form-control inputs py-2 border-right-0 border" id="insuranceValue-VehicleProfileEditForm" type="text" name="insuranceValue">
+                                        <input class="form-control inputs py-2 border-right-0 border" id="insuranceValue-VehicleProfileEditForm" type="text" name="insuranceValue" required>
+                                        <div id="insuranceValue-error" class="text-danger"></div>
                                     </div>
                                 </div>
                             </div>
@@ -615,6 +663,7 @@
                                         <label>Leased Company</label>
                                         <div class="input-group">
                                             <input class="form-control inputs py-2 border-right-0 border" id="leasedCompany-VehicleProfileEditForm" type="text" name="leasedCompany">
+                                            <div id="leasedCompany-error" class="text-danger"></div>
 
                                         </div>
                                     </div>
@@ -622,6 +671,7 @@
                                         <label>Leased Value</label>
                                         <div class="input-group">
                                             <input class="form-control inputs py-2 border-right-0 border" id="leasedValue-VehicleProfileEditForm" type="text" name="monthlyPayment">
+                                            <div id="monthlyPayment-error" class="text-danger"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -630,6 +680,7 @@
                                         <label>Leased From</label>
                                         <div class="input-group">
                                             <input class="form-control inputs py-2 border-right-0 border" id="leasedFrom-VehicleProfileEditForm" type="text" name="leasedPeriodFrom">
+                                            <div id="leasedPeriodFrom-error" class="text-danger"></div>
 
                                         </div>
                                     </div>
@@ -637,6 +688,7 @@
                                         <label>Leased To</label>
                                         <div class="input-group">
                                             <input class="form-control inputs py-2 border-right-0 border" id="leasedTo-VehicleProfileEditForm" type="text" name="leasedPeriodTo">
+                                            <div id="leasedPeriodTo-error" class="text-danger"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -830,7 +882,3 @@
             </div>
         </div>
     </div>
-
-
-
-    

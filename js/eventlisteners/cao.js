@@ -10,12 +10,12 @@ const approvedRequestsStore = new Store('approvedRequests');
 //CAO
 const ApproveRequestAlertClose = new DisplayAlertButton('ApproveRequestAlert_Close', CancelRequestAlertPopup)
 const ApproveRequestAlertCancel = new DisplayNextButton('ApproveRequestAlert_Cancel')
-const ApproveRequestAlertApprove = new DisplayNextButton('ApproveRequestAlert_Approve',{},[ObjectCreate,BackendAccess('CAOApprove',ActionCreator([requestsToApproveStore,approvedRequestsStore],"DELETE&ADD"))]);
+const ApproveRequestAlertApprove = new ValidatorButton('ApproveRequestAlert_Approve',{},[ObjectCreate,FormValidate,BackendAccess('CAOApprove',ActionCreator([requestsToApproveStore,approvedRequestsStore],"DELETE&ADD"))]);
 const ApproveRequestAlertPopup = new Popup('ApproveRequestAlertPopup',[ApproveRequestAlertCancel,ApproveRequestAlertClose,ApproveRequestAlertApprove]);
 
 const DenyRequestAlertClose = new DisplayAlertButton('DenyRequestAlert_Close', CancelRequestAlertPopup)
 const DenyRequestAlertCancel = new DisplayNextButton('DenyRequestAlert_Cancel')
-const DenyRequestAlertDeny = new DisplayNextButton('DenyRequestAlert_Decline',{},[ObjectCreate,BackendAccess('CAODeny',ActionCreator([requestsToApproveStore,approvedRequestsStore],"DELETE&ADD"))]);
+const DenyRequestAlertDeny = new ValidatorButton('DenyRequestAlert_Decline',{},[ObjectCreate,FormValidate,BackendAccess('CAODeny',ActionCreator([requestsToApproveStore,approvedRequestsStore],"DELETE&ADD"))]);
 const DenyRequestAlertPopup = new Popup('DenyRequestAlertPopup',[DenyRequestAlertCancel,DenyRequestAlertClose,DenyRequestAlertDeny]);
 
 const RequestApprovePreviewClose = new DisplayNextButton('RequestApprovePreview_Close')

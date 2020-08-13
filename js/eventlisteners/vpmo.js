@@ -38,8 +38,8 @@ const driverStore = new Store('drivers','driverId');
 
 //Add a vehicle
 const VehicleAddFormClose = new DisplayNextButton('VehicleAddForm_Close');
-const VehicleAddFormSubmit = new DisplayNextButton('VehicleAddForm_Submit', {}, [
-	ObjectCreate,
+const VehicleAddFormSubmit = new ValidatorButton('VehicleAddForm_Submit', {}, [
+	ObjectCreate,FormValidate,
 	BackendAccess('AddVehicle', ActionCreator([vehicleStore], 'ADD')),
 ]);
 const VehicleAddFormPopup = new Popup('VehicleAddForm', [VehicleAddFormClose, VehicleAddFormSubmit]);
@@ -60,10 +60,10 @@ const DeleteVehicleAlertPopup = new Popup('DeleteVehicleAlertPopup', [
 //Vehicle Edit Profile Form
 const VehicleProfileEditFormClose = new DisplayAlertButton('VehicleProfileEditForm_Close', CancelRequestAlertPopup);
 const VehicleProfileEditFormCancel = new DisplayNextButton('VehicleProfileEditForm_Cancel');
-const VehicleProfileEditFormConfirm = new DisplayNextButton(
+const VehicleProfileEditFormConfirm = new ValidatorButton(
 	'VehicleProfileEditForm_Confirm',
 	{},
-	[ObjectCreate, BackendAccess('UpdateVehicle', ActionCreator([vehicleStore], 'UPDATE'))],
+	[ObjectCreate, FormValidate,BackendAccess('UpdateVehicle', ActionCreator([vehicleStore], 'UPDATE'))],
 	{ disabled: 'true' }
 );
 const VehicleProfileEditFormPopup = new Popup(

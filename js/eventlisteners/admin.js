@@ -7,8 +7,8 @@ const driverStore = new Store('drivers','driverId',);
 
 //Add a employee
 const EmployeeAddFormClose = new DisplayNextButton('EmployeeAddForm_Close');
-const EmployeeAddFormConfirm = new DisplayNextButton('EmployeeAddForm_Confirm', {}, [
-	ObjectCreate,
+const EmployeeAddFormConfirm = new ValidatorButton('EmployeeAddForm_Confirm', {}, [
+	ObjectCreate,FormValidate,
 	BackendAccess('AddEmployee', ActionCreator([employeeStore], 'ADD')),
 ]);
 const EmployeeAddFormPopup = new Popup('EmployeeAddForm', [EmployeeAddFormClose, EmployeeAddFormConfirm]);
@@ -16,10 +16,10 @@ const EmployeeAddFormPopup = new Popup('EmployeeAddForm', [EmployeeAddFormClose,
 //Employee Profile Form
 const EmployeeProfileEditFormClose = new DisplayNextButton('EmployeeProfileEditForm_Close');
 const EmployeeProfileEditFormCancel = new DisplayNextButton('EmployeeProfileEditForm_Cancel');
-const EmployeeProfileEditFormConfirm = new DisplayNextButton(
+const EmployeeProfileEditFormConfirm = new ValidatorButton(
 	'EmployeeProfileEditForm_Confirm',
 	{},
-	[ObjectCreate, BackendAccess('UpdateEmployee', ActionCreator([employeeStore], 'UPDATE'))],
+	[ObjectCreate, FormValidate,BackendAccess('UpdateEmployee', ActionCreator([employeeStore], 'UPDATE'))],
 	{ disabled: 'true' }
 );
 const EmployeeProfileEditFormPopup = new Popup(
@@ -55,8 +55,8 @@ EmployeeProfileEditFormCancel.setNext(EmployeeProfileFormPopup);
 
 //Add a employee
 const DriverAddFormClose = new DisplayNextButton('DriverAddForm_Close');
-const DriverAddFormConfirm = new DisplayNextButton('DriverAddForm_Confirm', [
-	ObjectCreate,
+const DriverAddFormConfirm = new ValidatorButton('DriverAddForm_Confirm',{}, [
+	ObjectCreate,FormValidate,
 	BackendAccess('AddDriver', ActionCreator([driverStore], 'ADD')),
 ]);
 const DriverAddFormPopup = new Popup('DriverAddForm', [DriverAddFormClose, DriverAddFormConfirm]);
@@ -77,10 +77,10 @@ const DeleteDriverAlertPopup = new Popup('DeleteDriverAlertPopup', [
 //Driver Assign Profile Form
 const DriverProfileEditFormClose = new DisplayNextButton('DriverProfileEditForm_Close');
 const DriverProfileEditFormCancel = new DisplayNextButton('DriverProfileEditForm_Cancel');
-const DriverProfileEditFormConfirm = new DisplayNextButton(
+const DriverProfileEditFormConfirm = new ValidatorButton(
 	'DriverProfileEditForm_Confirm',
 	{},
-	[ObjectCreate, BackendAccess('UpdateDriver', ActionCreator([driverStore], 'UPDATE'))],
+	[ObjectCreate, FormValidate,BackendAccess('UpdateDriver', ActionCreator([driverStore], 'UPDATE'))],
 	{ disabled: 'true' }
 );
 const DriverProfileEditFormPopup = new Popup(
@@ -120,11 +120,11 @@ const driverContainer = new DOMContainer(
 );
 
 
-const driverTab = new DOMTabContainer('DriverSecTab',driverContainer);
-const employeeTab = new DOMTabContainer('EmployeeSecTab',employeeContainer);
+const driverTab = new DOMTabContainer('DriversSecTab',driverContainer);
+const employeeTab = new DOMTabContainer('EmployeesSecTab',employeeContainer);
 
-const driverTabButton = new SecondaryTabButton('DriverSecLink',driverTab);
-const employeeTabButton = new SecondaryTabButton('EmployeeSecLink',employeeTab);
+const driverTabButton = new SecondaryTabButton('DriversSecLink',driverTab);
+const employeeTabButton = new SecondaryTabButton('EmployeesSecLink',employeeTab);
 
 const adminTab = new SecondaryTab('AdminSecTab',[driverTabButton,employeeTabButton],employeeTabButton)
 adminTab.render();

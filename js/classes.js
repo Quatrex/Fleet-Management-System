@@ -537,7 +537,14 @@ class ValidatorButton extends PopupButton {
 	}
 	handleEvent(popup, object = {}, event) {
 		this.eventHandleHelpers.forEach((helper) => {
-			object = helper(popup, object, event);
+			if(object.hasOwnProperty('valid')){
+				if(object.valid){
+					object = helper(popup, object, event);
+				}
+			}
+			else{
+				object = helper(popup, object, event);
+			}
 		});
 		let check = object.hasOwnProperty('valid') ? object.valid : true;
 		if (check) {
@@ -639,8 +646,11 @@ const FormValidate = (popup, object = {}, event) => {
 		let fields = popup.popup.querySelectorAll('.inputs');
 		let valid = true;
 		fields.forEach((field) => {
+			console.log(field);
+			console.log(field.hasAttribute('required'));
 			if (field.hasAttribute('required')) {
 				if (field.value.length == 0) {
+					console.log('field empty');
 					valid = false;
 					field.classList.add('invalid-details');
 					popup.popup.querySelector(`#${field.name}-error`).innerHTML = 'This field should be provided';

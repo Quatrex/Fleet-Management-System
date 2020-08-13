@@ -29,8 +29,8 @@ const JustifyRequestAlertCancel = new DisplayNextButton('JustifyRequestAlert_Can
 const JustifyRequestAlertSelectVehicle = new DisplayNextButton('JustifyRequestAlert_SelectVehicle', {}, [
 	ObjectCreate,
 ]);
-const JustifyRequestAlertJustify = new DisplayNextButton('JustifyRequestAlert_Justify', {}, [
-	ObjectCreate,
+const JustifyRequestAlertJustify = new ValidatorButton('JustifyRequestAlert_Justify', {}, [
+	ObjectCreate,FormValidate,
 	BackendAccess('JOJustify', ActionCreator([requestsToJustifyStore, justifiedRequestsStore], 'DELETE&ADD')),
 ]);
 const JustifyRequestAlertPopup = new Popup('JustifyRequestAlertPopup', [
@@ -68,8 +68,8 @@ JustifyRequestAlertSelectVehicle.setNext(SelectVehicleAlertPopup)
 
 const DeclineRequestAlertClose = new DisplayNextButton('DeclineRequestAlert_Close');
 const DeclineRequestAlertCancel = new DisplayNextButton('DeclineRequestAlert_Cancel');
-const DeclineRequestAlertDecline = new DisplayNextButton('DeclineRequestAlert_Decline', {}, [
-	ObjectCreate,
+const DeclineRequestAlertDecline = new ValidatorButton('DeclineRequestAlert_Decline', {}, [
+	ObjectCreate,FormValidate,
 	BackendAccess('JODeny', ActionCreator([requestsToJustifyStore, justifiedRequestsStore], 'DELETE&ADD')),
 ]);
 const DeclineRequestAlertPopup = new Popup('DeclineRequestAlertPopup', [
