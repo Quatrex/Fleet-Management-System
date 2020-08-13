@@ -144,6 +144,8 @@ class DOMContainer {
 			order: 'DESC',
 		};
 		this.searchInput = document.getElementById(`${this.id}_SearchInput`);
+		this.ascButton = document.getElementById(`Asc_${this.id}`);
+		this.descButton = document.getElementById(`Desc_${this.id}`);
 		document.getElementById(id).addEventListener('click', this);
 		document.getElementById(id).addEventListener('change', this);
 		document.getElementById(id).addEventListener('keydown', this);
@@ -198,6 +200,8 @@ class DOMContainer {
 					case 'DESC':
 						if (this.searchObj.order != 'DESC') {
 							this.searchObj.order = 'DESC';
+							this.descButton.classList.add('selected-sort')
+							this.ascButton.classList.remove('selected-sort')
 							method = 'SORT';
 						} else {
 							method = 'NONE';
@@ -206,6 +210,8 @@ class DOMContainer {
 					case 'ASC':
 						if (this.searchObj.order != 'ASC') {
 							this.searchObj.order = 'ASC';
+							this.ascButton.classList.add('selected-sort')
+							this.descButton.classList.remove('selected-sort')
 							method = 'SORT';
 						} else {
 							method = 'NONE';
