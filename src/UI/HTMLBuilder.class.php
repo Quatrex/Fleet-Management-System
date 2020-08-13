@@ -180,7 +180,7 @@ class HTMLBuilder
             ->addElement('h3', ['class' => "card-header bg-dark text-white"], [$header])
             ->composite()
             ->createComposite('div', ['class' => 'card-body', 'id' => strtolower($state) . 'RequestsCard'])
-            ->addToContent($this->createMySearchBar($header,['Created Date','Pick Location','Drop Location','Time Of Trip', 'Date Of Trip', 'Purpose']))
+            ->addToContent($this->createMySearchBar($header,['Created Date','Pick Location','Drop Location','Time Of Trip', 'Date Of Trip', 'Purpose', 'State']))
             ->addArrayToContent($requestElements)
             ->get()
             ->getComposite();
@@ -235,7 +235,7 @@ class HTMLBuilder
             ->addElement('h3', ['class' => "card-header bg-dark text-white"], [$header])
             ->composite()
                 ->createComposite('div', ['class' => 'card-body', 'id' => strtolower($state) . 'AwaitingRequestCard'])
-                ->addToContent($this->createMySearchBar($header,['Created Date','Pickup Location','Drop Location','Time of Trip', 'Date of Trip', 'Purpose']))
+                ->addToContent($this->createMySearchBar($header,['Created Date','Pickup Location','Drop Location','Time of Trip', 'Date of Trip', 'Purpose', 'State']))
                 ->addArrayToContent($requestElements)
                 ->get()
             ->getComposite();

@@ -33,7 +33,7 @@ const driverCard_Fields = ['firstName', 'lastName','assignedVehicleID', 'email']
 const requestsToAssignStore = new Store('requestsToAssign');
 const ongoingTripStore = new Store('scheduledRequests');
 const scheduledRequestsStore = new Store('scheduledHistoryRequests');
-const vehicleStore = new Store('vehicles','registration');
+const vehicleStore = new Store('vehicles','registration','RegistrationNo');
 const driverStore = new Store('drivers','driverId');
 
 //Add a vehicle

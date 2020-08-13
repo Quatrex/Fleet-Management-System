@@ -14,6 +14,7 @@ $object = ['error' => true, 'object' => '', 'message' => ''];
 
 switch ($method) {
 	case 'JOJustify':
+		$comment = '';
 		if($_POST['JOSelectedVehicle'] !=''){
 			$comment = $_POST['JOComment'].' Suggested Vehicle: '.$_POST['JOSelectedVehicle'];
 		}
@@ -59,31 +60,31 @@ switch ($method) {
 
 	case 'AddVehicle':
 		$vehicle = null;
-		// if ($_POST['isLeased'] == "Yes") {
-		// 	$vehicle = $employee->addLeasedVehicle([
-		// 		'RegistrationNo' => $_POST['registration'],
-		// 		'Model' => $_POST['model'],
-		// 		'PurchasedYear' => $_POST['purchasedYear'],
-		// 		'Value' => $_POST['value'],
-		// 		'FuelType' => $_POST['fuelType'],
-		// 		'InsuranceValue' => $_POST['insuranceValue'],
-		// 		'InsuranceCompany' => $_POST['insuranceCompany'],
-		// 		'LeasedCompany' => $_POST['leasedCompany'],
-		// 		'LeasedPeriodFrom' => $_POST['leasedPeriodFrom'],
-		// 		'LeasedPeriodTo' => $_POST['leasedPeriodTo'],
-		// 		'MonthlyPayment' => $_POST['monthlyPayment']
-		// 	]);
-		// } else {
-		// 	$vehicle = $employee->addPurchasedVehicle([
-		// 		'RegistrationNo' => $_POST['registration'],
-		// 		'Model' => $_POST['model'],
-		// 		'PurchasedYear' => $_POST['purchasedYear'],
-		// 		'Value' => $_POST['value'],
-		// 		'FuelType' => $_POST['fuelType'],
-		// 		'InsuranceValue' => $_POST['insuranceValue'],
-		// 		'InsuranceCompany' => $_POST['insuranceCompany']
-		// 	]);
-		// }
+		if ($_POST['isLeased'] == "Yes") {
+			$vehicle = $employee->addLeasedVehicle([
+				'RegistrationNo' => $_POST['registration'],
+				'Model' => $_POST['model'],
+				'PurchasedYear' => $_POST['purchasedYear'],
+				'Value' => $_POST['value'],
+				'FuelType' => $_POST['fuelType'],
+				'InsuranceValue' => $_POST['insuranceValue'],
+				'InsuranceCompany' => $_POST['insuranceCompany'],
+				'LeasedCompany' => $_POST['leasedCompany'],
+				'LeasedPeriodFrom' => $_POST['leasedPeriodFrom'],
+				'LeasedPeriodTo' => $_POST['leasedPeriodTo'],
+				'MonthlyPayment' => $_POST['monthlyPayment']
+			]);
+		} else {
+			$vehicle = $employee->addPurchasedVehicle([
+				'RegistrationNo' => $_POST['registration'],
+				'Model' => $_POST['model'],
+				'PurchasedYear' => $_POST['purchasedYear'],
+				'Value' => $_POST['value'],
+				'FuelType' => $_POST['fuelType'],
+				'InsuranceValue' => $_POST['insuranceValue'],
+				'InsuranceCompany' => $_POST['insuranceCompany']
+			]);
+		}
 		if ($vehicle !== null) {
 			$object['error'] = false;
 			$object['object'] = $vehicle;
@@ -168,17 +169,17 @@ switch ($method) {
 		break;
 
 	case 'AddEmployee':
-		// $emp = $employee->createNewAccount([
-		// 	'EmpID' => $_POST['empID'],
-		// 	'FirstName' => $_POST['FirstName'],
-		// 	'LastName' => $_POST['LastName'],
-		// 	'Username' => "",
-		// 	'Designation' => $_POST['Designation'],
-		// 	'Position' => $_POST['Position'],
-		// 	'Email' => $_POST['Email'],
-		// 	'Password' => $_POST['Password'],
-		// 	'ContactNo' => $_POST['ContactNo']
-		// ]);
+		$emp = $employee->createNewAccount([
+			'EmpID' => $_POST['empID'],
+			'FirstName' => $_POST['FirstName'],
+			'LastName' => $_POST['LastName'],
+			'Username' => "",
+			'Designation' => $_POST['Designation'],
+			'Position' => $_POST['Position'],
+			'Email' => $_POST['Email'],
+			'Password' => $_POST['Password'],
+			'ContactNo' => $_POST['ContactNo']
+		]);
 		$object['error'] = false;
 		$object['object'] = $emp;
 		$object['message'] = "success_Employee " . $_POST['empID'] . " successfully added";
@@ -236,19 +237,19 @@ switch ($method) {
 		break;
 
 	case 'AddDriver':
-		// $driver = $employee->createNewDriver([
-		// 	'DriverID' => $_POST['driverId'],
-		// 	'FirstName' => $_POST['firstName'],
-		// 	'LastName' => $_POST['lastName'],
-		// 	'Email' => $_POST['email'],
-		// 	'Address' => $_POST['address'],
-		// 	'ContactNo' => $_POST['contactNo'],
-		// 	'LicenseNumber' => $_POST['licenseNo'],
-		// 	'LicenseType' => $_POST['licenseType'],
-		// 	'LicenseExpirationDay' => $_POST['licenseExpireDate'],
-		// 	'DateOfAdmission' => $_POST['employedDate'],
-		// 	'AssignedVehicleID' => ""
-		// ]);
+		$driver = $employee->createNewDriver([
+			'DriverID' => $_POST['driverId'],
+			'FirstName' => $_POST['firstName'],
+			'LastName' => $_POST['lastName'],
+			'Email' => $_POST['email'],
+			'Address' => $_POST['address'],
+			'ContactNo' => $_POST['contactNo'],
+			'LicenseNumber' => $_POST['licenseNo'],
+			'LicenseType' => $_POST['licenseType'],
+			'LicenseExpirationDay' => $_POST['licenseExpireDate'],
+			'DateOfAdmission' => $_POST['employedDate'],
+			'AssignedVehicleID' => ""
+		]);
 		$object['error'] = false;
 		$object['request'] = $driver;
 		$object['message'] = "success_Driver " . $_POST['driverId'] . " successfully added";
