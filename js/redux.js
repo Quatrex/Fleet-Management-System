@@ -1,5 +1,5 @@
 class Store {
-	constructor(type, objId = 'RequestId', searchColumn = '', sortColumn = 'CreatedDate') {
+	constructor(type, objId = 'RequestId', searchColumn = 'All', sortColumn = 'CreatedDate') {
 		this.state = eval(type);
 		this.observers = [];
 		this.type = type;
@@ -61,7 +61,7 @@ class Store {
 		} else if (method == 'CANCEL') {
 			this.searchObj = { ...this.searchObj, ...obj };
 
-			Database.loadContent(`Load_${this.type}`, 0, ActionCreator([this], 'APPEND'), this.searchObj);
+			Database.loadContent(`Load_${this.type}`, 0, ActionCreator([this,this], 'DELETEALL&APPEND'), this.searchObj);
 		}
 	}
 

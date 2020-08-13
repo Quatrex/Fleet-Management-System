@@ -139,16 +139,17 @@ class DOMContainer {
 		this.searchButtonID = ['Search_Confirm', 'Cancel_Confirm', 'Sort_Confirm', 'Asc', 'Desc'];
 		this.searchObj = {
 			keyword: '',
-			searchColumn: '',
+			searchColumn: 'All',
 			sortColumn: 'CreatedDate',
 			order: 'DESC',
 		};
 		this.searchInput = document.getElementById(`${this.id}_SearchInput`);
 		this.ascButton = document.getElementById(`Asc_${this.id}`);
 		this.descButton = document.getElementById(`Desc_${this.id}`);
+		this.cancelSearchButton = this.cardContainer.querySelector('.form-clear')
 		document.getElementById(id).addEventListener('click', this);
 		document.getElementById(id).addEventListener('change', this);
-		document.getElementById(id).addEventListener('keydown', this);
+		document.getElementById(id).addEventListener('keyup', this);
 	}
 	setSearchObj() {}
 	render() {
@@ -195,11 +196,11 @@ class DOMContainer {
 					case 'CANCEL':
 						if (this.searchInput.value.length > 0) {
 							this.searchInput.value = '';
-							this.searchObj.keyword = '';
+							this.searchObj.keyword != '' ? this.searchObj.keyword = '':method= 'NONE'
 						} else {
 							method = 'NONE';
 						}
-						document.querySelector('.form-clear').classList.add('d-none');
+						this.cancelSearchButton.classList.add('d-none');
 						break;
 					case 'DESC':
 						if (this.searchObj.order != 'DESC') {
@@ -245,17 +246,13 @@ class DOMContainer {
 					this.store.searchAndSort(method, this.searchObj);
 				}
 			}
-		} else if (event.type == 'keydown') {
+		} else if (event.type == 'keyup') {
 			if (this.searchInput.value.length == 0) {
-				if (!document.querySelector('.form-clear').classList.contains('d-none')) {
-					document.querySelector('.form-clear').classList.add('d-none');
+				if (!this.cancelSearchButton.classList.contains('d-none')) {
+					this.cancelSearchButton.classList.add('d-none');
 				}
 			} else {
-				document.querySelector('.form-clear').classList.remove('d-none');
-				if (this.searchObj.keyword != '') {
-					this.store.searchAndSort('CANCEL', this.searchObj);
-					this.searchObj.keyword = '';
-				}
+				this.cancelSearchButton.classList.remove('d-none');
 			}
 		}
 	}
