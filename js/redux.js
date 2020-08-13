@@ -1,5 +1,5 @@
 class Store {
-	constructor(type, objId = 'RequestId',searchColumn='ALL',sortColumn='CREATEDDATE') {
+	constructor(type, objId = 'RequestId',searchColumn='',sortColumn='CreatedDate') {
 		this.state = eval(type);
 		this.observers = [];
 		this.type = type;
@@ -11,22 +11,12 @@ class Store {
 			sortColumn: sortColumn,
 			order: 'DESC',
 		};
-		this.fields = ['Date Of Trip', 'Time Of Trip', 'Purpose', 'Pick Location', 'Drop Location'];
 	}
 	getObjIdType() {
 		return this.objId;
 	}
 	setCurrentObj(obj) {
 		this.currentObj = obj;
-	}
-	setFields(fields) {
-		this.fields = fields;
-	}
-	updateFields(fields) {
-		this.fields = [...this.fields, ...fields];
-	}
-	getFields() {
-		return this.fields;
 	}
 	getState() {
 		return this.state;
@@ -94,8 +84,10 @@ class Store {
 		} else if (action.type === 'UPDATE') {
 			this.state = this.state.map((item) => (this.currentObj === item ? { ...item, ...action.payload } : item));
 		} else if (action.type === 'DELETE') {
+			console.log('Delete called');
 			this.state = this.state.filter((item) => this.currentObj !== item);
 		} else if (action.type === 'DELETEALL') {
+			console.log('Delete all called');
 			this.state = [];
 		}
 		console.log(this.state);

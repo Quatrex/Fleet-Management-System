@@ -136,27 +136,22 @@ class DOMContainer {
 		this.cardContainer = document.getElementById(id);
 		this.store = store;
 		this.templateId = templateId;
-		this.searchButtonID = ['Search_Confirm','Cancel_Confirm','Sort_Confirm','Asc','Desc'];
+		this.searchButtonID = ['Search_Confirm', 'Cancel_Confirm', 'Sort_Confirm', 'Asc', 'Desc'];
 		this.searchObj = {
 			keyword: '',
-			searchColumn: 'ALL',
-			sortColumn: 'CREATEDDATE',
+			searchColumn: '',
+			sortColumn: 'CreatedDate',
 			order: 'DESC',
 		};
 		document.getElementById(id).addEventListener('click', this);
 		document.getElementById(id).addEventListener('change', this);
+		document.getElementById(id).addEventListener('keydown', this);
 	}
-	setSearchObj(){
-		
-	}
+	setSearchObj() {}
 	render() {
-		if (this.store.getOffset() <= 5) {
+		if (this.store.getOffset() <= 0) {
 			this.loadContent();
 		}
-		// let fields = this.store.getFields();
-		// let searchSelect = document.getElementById(`${this.id}_SearchSelect`);
-		// let sortSelect = document.getElementById(`${this.id}_SortSelect`);
-		// for
 	}
 	update(action) {
 		if (action.type == 'ADD') {
@@ -177,16 +172,15 @@ class DOMContainer {
 	}
 
 	handleEvent(event) {
-		console.log(event.target.id);
 		if (event.type == 'click' && event.target.id) {
 			let method = 'NULL';
-			for(let i =0;i<this.searchButtonID.length;i++){
-				if(event.target.id.includes(this.searchButtonID[i])){
-					method = this.searchButtonID[i].split("_")[0].toUpperCase();
+			for (let i = 0; i < this.searchButtonID.length; i++) {
+				if (event.target.id.includes(this.searchButtonID[i])) {
+					method = this.searchButtonID[i].split('_')[0].toUpperCase();
 					console.log(method);
 				}
 			}
-			if (method != 'NULL' ) {
+			if (method != 'NULL') {
 				switch (method) {
 					case 'SEARCH':
 						this.searchObj.keyword = document.getElementById(`${this.id}_SearchInput`).value;
@@ -196,40 +190,55 @@ class DOMContainer {
 						document.getElementById(`${this.id}_SearchInput`).value = '';
 						break;
 					case 'DESC':
-						if(this.searchObj.order != 'DESC'){
+						if (this.searchObj.order != 'DESC') {
 							this.searchObj.order = 'DESC';
 							method = 'SORT';
-						}else{
-							method ='NONE';
+						} else {
+							method = 'NONE';
 						}
 						break;
 					case 'ASC':
-						if(this.searchObj.order != 'ASC'){
+						if (this.searchObj.order != 'ASC') {
 							this.searchObj.order = 'ASC';
-							method ='SORT';
-						}else{
-							method ='NONE';
+							method = 'SORT';
+						} else {
+							method = 'NONE';
 						}
 						break;
 				}
-				this.store.searchAndSort(method,this.searchObj);
-
+				this.store.searchAndSort(method, this.searchObj);
 			} else {
-				let targetObject = this.store.getObjectById(
-					event.target.closest('.detail-description').id.split('_')[1]
-				);
-				if (targetObject) {
-					this.store.setCurrentObj(targetObject);
-					this.popup.render(targetObject);
+				if (event.target.tagName.toLowerCase() != 'input' && event.target.tagName.toLowerCase() !='select') {
+					console.log(event.target.tagName.toLowerCase());
+					let targetObject = this.store.getObjectById(
+						event.target.closest('.detail-description').id.split('_')[1]
+					);
+					if (targetObject) {
+						this.store.setCurrentObj(targetObject);
+						this.popup.render(targetObject);
+					}
 				}
 			}
 		} else if (event.type == 'change') {
 			let eventTarget = event.target;
-			let method = event.target.dataset.field.toUpperCase();//Select_Search/Sort_containerid
-			if (this.searchObj[eventTarget.name]) {
-				this.searchObj[eventTarget.name] = eventTarget.value;
-				this.store.searchAndSort(method, this.searchObj);
-
+			if (event.target.tagName.toLowerCase() == 'select') {
+				let method = event.target.dataset.field.toUpperCase(); //Select_Search/Sort_containerid
+				if (this.searchObj[eventTarget.name]) {
+					this.searchObj[eventTarget.name] = eventTarget.value;
+					this.store.searchAndSort(method, this.searchObj);
+				}
+			}
+		} else if (event.type == 'keydown') {
+			if (document.getElementById(`${this.id}_SearchInput`).value.length == 0) {
+				if (!document.querySelector('.form-clear').classList.contains('d-none')) {
+					document.querySelector('.form-clear').classList.add('d-none');
+				}
+			} else {
+				document.querySelector('.form-clear').classList.remove('d-none');
+				if (this.searchObj.keyword != '') {
+					this.store.searchAndSort('CANCEL', this.searchObj);
+					this.searchObj.keyword = '';
+				}
 			}
 		}
 	}
@@ -756,5 +765,3 @@ const Database = {
 		});
 	},
 };
-
-
