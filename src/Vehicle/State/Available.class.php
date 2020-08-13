@@ -17,11 +17,18 @@ class Available extends State {
         return self::$instance;
     }
 
-    public function allocate(AbstractVehicle $vehicle) : void {
+    public function allocate(AbstractVehicle $vehicle) : void 
+    {
         $vehicle->setState(Allocated::getInstance());
     }
 
-    public function repair(AbstractVehicle $vehicle) : void {
+    public function repair(AbstractVehicle $vehicle) : void 
+    {
         $vehicle->setState(Repairing::getInstance());
+    }
+
+    public function assign(AbstractVehicle $vehicle): void
+    {
+        $vehicle->setState(Assigned::getInstance());
     }
 }

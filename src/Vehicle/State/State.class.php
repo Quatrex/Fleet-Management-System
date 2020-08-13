@@ -24,6 +24,14 @@ abstract class State {
         echo "Invalid transition";
     }
 
+    public function assign(AbstractVehicle $vehcile) : void {
+        echo "Invalid transition";
+    }
+
+    public function disassociate(AbstractVehicle $vehcile) : void {
+        echo "Invalid transition";
+    }
+
     public function getID() : int{
         return $this->stateID;
     }
@@ -45,6 +53,9 @@ abstract class State {
             case 3:
                 $state=Repairing::getInstance();
                 break;
+            case 4:
+                $state=Assigned::getInstance();
+                break;
           }
         return $state;
     }
@@ -64,6 +75,9 @@ abstract class State {
                 break;
             case 3:
                 $stateString="repairing";
+                break;
+            case 4:
+                $stateString="assigned";
                 break;
           }
         return $stateString;
@@ -86,6 +100,9 @@ abstract class State {
                 break;
             case "repairing":
                 $stateID=3;
+                break;
+            case "assigned":
+                $stateID=4;
                 break;
             default:
                 $stateID=false; //returning false in a function with a return type of int. is this appropriate?

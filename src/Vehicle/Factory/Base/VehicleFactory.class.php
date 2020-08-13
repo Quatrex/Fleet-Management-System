@@ -5,6 +5,7 @@ use Vehicle\Vehicle;
 use DB\Viewer\VehicleViewer;
 use Vehicle\Factory\LeasedVehicle\LeasedVehicleFactory;
 use Vehicle\Factory\PurchasedVehicle\PurchasedVehicleFactory;
+use Vehicle\State\State;
 
 abstract class VehicleFactory
 {
@@ -71,11 +72,12 @@ abstract class VehicleFactory
      * 
      * @return array(Vehicle)
      */
-    public static function getVehicles(int $offset, array $sort, array $search) : array
+    public static function getVehicles(int $offset, array $sort, array $search, bool $isAvailable) : array
     {
         $vehicleViewer = new VehicleViewer();
-        $vehicleRecords = $vehicleViewer->getAllRecords($offset, $sort, $search); 
-        $vehicles = []; 
+        $states = $isAvailable ? [State::getStateID('available'), State::getStateID('allocated')] : [];
+        $vehicleRecords = $vehicleViewer->getAllRecords($offset, $sort, $search, $states); 
+        $vehicles = [];
 
         foreach ($vehicleRecords as $rec)
         {

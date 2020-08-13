@@ -79,6 +79,12 @@ switch ($method) {
 		$object['object'] = $vehicles;
 		break;
 
+	case 'Load_availableVehicles':
+		$vehicles = $employee->getVehicles($offset,$sort,$search,true);
+		$object['error'] = false;
+		$object['object'] = $vehicles;
+		break;
+
 	case 'Load_drivers':
 		$drivers = $employee->getDrivers($offset,$sort,$search);
 		$object['error'] = false;
