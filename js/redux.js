@@ -1,5 +1,5 @@
 class Store {
-	constructor(type, objId = 'RequestId', searchColumn = 'All', sortColumn = 'CreatedDate') {
+	constructor(type, objId = 'RequestId',sortColumn = 'CreatedDate') {
 		this.state = eval(type);
 		this.observers = [];
 		this.type = type;
@@ -7,7 +7,7 @@ class Store {
 		this.currentObj = {};
 		this.searchObj = {
 			keyword: '',
-			searchColumn: searchColumn,
+			searchColumn: 'All',
 			sortColumn: sortColumn,
 			order: 'DESC',
 		};

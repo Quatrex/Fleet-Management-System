@@ -21,7 +21,7 @@ const vehicleCard_Fields = ['registration', 'model', 'purchasedYear'];
 
 const requestsToJustifyStore = new Store('requestsToJustify');
 const justifiedRequestsStore = new Store('justifiedRequests');
-const vehicleStore = new Store('vehicles');
+const vehicleStore = new Store('vehicles','registration','RegistrationNo');
 
 
 const JustifyRequestAlertClose = new DisplayNextButton('JustifyRequestAlert_Close');
