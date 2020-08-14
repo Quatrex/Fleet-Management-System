@@ -24,7 +24,7 @@ abstract class DriverModel extends Model
                                         ->conditions($conditions)
                                         ->like($this->tableName,key($search),$search[key($search)])
                                         ->getWhere()
-                                    ->limit(10,$offset)
+                                    ->limit(5,$offset)
                                     ->getSQLQuery();
         $result = $this->dbh->read($query);
 

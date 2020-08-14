@@ -91,7 +91,7 @@ abstract class Model
                                     ->where()
                                         ->conditions($conditions)
                                         ->getWhere()
-                                    ->limit(10,$offset)
+                                    ->limit(5,$offset)
                                     ->getSQLQuery();
 
         $result = $this->dbh->read($query);
@@ -124,7 +124,7 @@ abstract class Model
                                         ->like($this->tableName,$searchKeyword,$searchFields)
                                         ->getWhere()
                                     ->orderBy($sort)
-                                    ->limit(10,$offset)
+                                    ->limit(5,$offset)
                                     ->getSQLQuery();
                                     
         $result = $this->dbh->read($query);

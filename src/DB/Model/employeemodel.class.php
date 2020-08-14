@@ -111,7 +111,7 @@ abstract class EmployeeModel extends Model
                                         ->like($this->tableName,key($search),$search[key($search)])
                                         ->getWhere()
                                     ->orderBy($sort)
-                                    ->limit(10,$offset)
+                                    ->limit(5,$offset)
                                     ->getSQLQuery();
         $result = $this->dbh->read($query);
 
