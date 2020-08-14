@@ -41,7 +41,7 @@ const OngoingRequestPreviewClose = new DisplayNextButton('OngoingRequestPreview_
 const OngoingRequestPreviewRequestCancel = new DisplayAlertButton('OngoingRequestPreviewRequestCancel', CancelAddedRequestAlertPopup)
 const OngoingRequestPreviewDriverDetial = new DisplayAlertButton('Info_Driver_OngoingRequestPreview', DriverDetailPopup)
 const OngoingRequestPreviewVehicleDetail = new DisplayAlertButton('Info_Vehicle_OngoingRequestPreview', VehicleDetailPopup)
-const OngoingRequestPreviewPopup = new Popup('OngoingRequestPreviewPopup', [OngoingRequestPreviewClose, OngoingRequestPreviewRequestCancel,OngoingRequestPreviewDriverDetial,OngoingRequestPreviewVehicleDetail],['click'],{'Vehicle':['registration'],'Driver':['firstName','lastName']});
+const OngoingRequestPreviewPopup = new Popup('OngoingRequestPreviewPopup', [OngoingRequestPreviewClose, OngoingRequestPreviewRequestCancel, OngoingRequestPreviewDriverDetial, OngoingRequestPreviewVehicleDetail], ['click'], { 'Vehicle': ['registration'], 'Driver': ['firstName', 'lastName'] });
 DriverDetailPopupClose.setNext(OngoingRequestPreviewPopup);
 VehicleDetailPopupClose.setNext(OngoingRequestPreviewPopup);
 
@@ -51,7 +51,7 @@ const PendingRequestPreviewRequestCancel = new DisplayAlertButton('PendingReques
 const PendingRequestPreviewPopup = new Popup('PendingRequestPreviewPopup', [PendingRequestPreviewClose, PendingRequestPreviewRequestCancel]);
 
 const RequestHistoryPreviewClose = new DisplayNextButton('RequestHistoryPreview_Close');
-const RequestHistoryPreviewPopup = new Popup('RequestHistoryPreviewPopup', [RequestHistoryPreviewClose],['click'],{'Vehicle':['registration'],'Driver':['firstName','lastName']});
+const RequestHistoryPreviewPopup = new Popup('RequestHistoryPreviewPopup', [RequestHistoryPreviewClose], ['click'], { 'Vehicle': ['registration'], 'Driver': ['firstName', 'lastName'] });
 
 const ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePictureForm_Close');
 const ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');
@@ -101,7 +101,7 @@ $("#imgInp").change(function() {
     readURL(this);
 });
 
-$('#profile-pic').on('change', function() {
+$('#ChangeProfilePicture').on('change', function() {
     $("#while-uploading").html('');
     $("#while-uploading").html('Uploading....');
     readURL(this);
