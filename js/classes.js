@@ -137,16 +137,11 @@ class DOMContainer {
 		this.store = store;
 		this.templateId = templateId;
 		this.searchButtonID = ['Search_Confirm', 'Cancel_Confirm', 'Sort_Confirm', 'Asc', 'Desc'];
-		this.searchObj = {
-			keyword: '',
-			searchColumn: 'All',
-			sortColumn: 'CreatedDate',
-			order: 'DESC',
-		};
+		this.searchObj = this.store.getSearchObject();
 		this.searchInput = document.getElementById(`${this.id}_SearchInput`);
 		this.ascButton = document.getElementById(`Asc_${this.id}`);
 		this.descButton = document.getElementById(`Desc_${this.id}`);
-		this.cancelSearchButton = this.cardContainer.querySelector('.form-clear')
+		this.cancelSearchButton = this.cardContainer.querySelector('.form-clear');
 		document.getElementById(id).addEventListener('click', this);
 		document.getElementById(id).addEventListener('change', this);
 		document.getElementById(id).addEventListener('keyup', this);
@@ -196,7 +191,7 @@ class DOMContainer {
 					case 'CANCEL':
 						if (this.searchInput.value.length > 0) {
 							this.searchInput.value = '';
-							this.searchObj.keyword != '' ? this.searchObj.keyword = '':method= 'NONE'
+							this.searchObj.keyword != '' ? (this.searchObj.keyword = '') : (method = 'NONE');
 						} else {
 							method = 'NONE';
 						}
@@ -355,7 +350,7 @@ class SelectionTable extends DOMContainer {
 			this.button.initializeProperties({ disabled: 'true' });
 			popup.setObject(object);
 		}
-		console.log(object);
+		// console.log(object);
 	}
 
 	toggleStyle(tableRowId) {
@@ -605,7 +600,7 @@ const BackendAccessForPicture = (method, actionCreater = []) => (popup, object =
 			processData: false,
 			cache: false,
 			success: function (returnArr) {
-				console.log(returnArr);
+				// console.log(returnArr);
 			},
 		});
 	}
@@ -774,7 +769,6 @@ const Database = {
 				$('#overlay').fadeOut(300);
 				if (Object.keys(actionCreater).length != 0) {
 					actionCreater.updateStores({}, returnArr.object);
-
 				}
 			},
 			error: function () {

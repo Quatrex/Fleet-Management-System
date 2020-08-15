@@ -18,6 +18,9 @@ class Store {
 	setCurrentObj(obj) {
 		this.currentObj = obj;
 	}
+	getSearchObject(){
+		return this.searchObj;
+	}
 	getState() {
 		return this.state;
 	}
@@ -69,7 +72,7 @@ class Store {
 		Database.loadContent(`Load_${this.type}`, this.state.length, ActionCreator([this], 'APPEND'), this.searchObj);
 	}
 	dispatch(action) {
-		console.log(action.type);
+		// console.log(action.type);
 		if (action.type === 'ADD' || action.type === 'APPEND') {
 			if (!Array.isArray(action.payload)) {
 				if (Object.keys(action.payload).length != 0) {
@@ -88,7 +91,7 @@ class Store {
 		} else if (action.type === 'DELETEALL') {
 			this.state = [];
 		}
-		console.log(this.state);
+		// console.log(this.state);
 		this.notifyObservers(action);
 	}
 	addObservers(observer) {

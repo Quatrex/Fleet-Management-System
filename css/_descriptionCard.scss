@@ -1,0 +1,13 @@
+.status-color {
+    /* position: fixed; */
+    width: 20px;
+    height: 20px;
+    /* bottom: 40px; */
+    /* right: 40px; */
+    background: rgb(63, 94, 251);
+    background: radial-gradient(circle, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 82%);
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    box-shadow: 2px 2px 3px #999;
+}
