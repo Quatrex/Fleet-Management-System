@@ -203,12 +203,12 @@ switch ($method) {
 
 	case 'ChangeProfilePicture':
 
-		$profileImageName = time() . '-' . $_FILES["profileImage"]["name"];
+		$profileImageName = time() . '-' . $_FILES["Image"]["name"];
 
 		$target_dir = "../images/userProfilePictures/";
 		$target_file = $target_dir . basename($profileImageName);
 		
-		if ($_FILES['profileImage']['size'] > 200000) {
+		if ($_FILES['Image']['size'] > 200000) {
 			$object['message'] = "Image size should not be greated than 200Kb";
 		}
 
@@ -217,10 +217,10 @@ switch ($method) {
 		}
 
 		if ($object['message'] == '') {
-			if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $target_file)) {
+			if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
 				$emp = $employee->UpdateProfilePicture(['ProfilePicturePath' => $profileImageName]);
 				$object['error'] = false;
-				$object['object'] = $profileImageName;
+				$object['object'] = $target_file;
 				$object['message'] = "success_Employee " . " successfully updated profile picture";
 			} else {
 				$object['message'] = "There was an error uploading the file";
