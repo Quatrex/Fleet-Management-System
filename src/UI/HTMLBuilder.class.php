@@ -177,10 +177,13 @@ class HTMLBuilder
         }
         $card = $this->compositeBuilder
             ->createComposite('div', ['class' => 'card mt-5'])
+            ->composite()
+            ->createComposite('div',['class' => "card-header bg-dark text-white"])
             ->addElement('h3', ['class' => "card-header bg-dark text-white"], [$header])
+            ->addToContent($this->createMySearchBar($header,['Created Date','Pick Location','Drop Location','Time Of Trip', 'Date Of Trip', 'Purpose', 'State']))
+            ->get()
             ->composite()
             ->createComposite('div', ['class' => 'card-body', 'id' => strtolower($state) . 'RequestsCard'])
-            ->addToContent($this->createMySearchBar($header,['Created Date','Pick Location','Drop Location','Time Of Trip', 'Date Of Trip', 'Purpose', 'State']))
             ->addArrayToContent($requestElements)
             ->get()
             ->getComposite();
@@ -232,10 +235,13 @@ class HTMLBuilder
         }
         $card = $this->compositeBuilder
             ->createComposite('div', ['class' => 'card mt-5'])
+            ->composite()
+            ->createComposite('div',['class' => "card-header bg-dark text-white"])
             ->addElement('h3', ['class' => "card-header bg-dark text-white"], [$header])
+            ->addToContent($this->createMySearchBar($header,['Created Date','Pickup Location','Drop Location','Time of Trip', 'Date of Trip', 'Purpose', 'State']))
+            ->get()
             ->composite()
                 ->createComposite('div', ['class' => 'card-body', 'id' => strtolower($state) . 'AwaitingRequestCard'])
-                ->addToContent($this->createMySearchBar($header,['Created Date','Pickup Location','Drop Location','Time of Trip', 'Date of Trip', 'Purpose', 'State']))
                 ->addArrayToContent($requestElements)
                 ->get()
             ->getComposite();
@@ -265,7 +271,11 @@ class HTMLBuilder
         }
         $card = $this->compositeBuilder
             ->createComposite('div', ['class' => 'card mt-5'])
+            ->composite()
+            ->createComposite('div',['class' => "card-header bg-dark text-white"])
             ->addElement('h3', ['class' => "card-header bg-dark text-white"], ['Drivers'])
+            ->addToContent($this->createMySearchBar('Drivers',['First Name','Last Name','Driver ID']))
+            ->get()
             ->composite()
             ->createComposite('div', ['class' => 'card-body row', 'id' => 'driverContainer'])
             ->addArrayToContent($driverCards)
@@ -297,7 +307,11 @@ class HTMLBuilder
         }
         $card = $this->compositeBuilder
             ->createComposite('div', ['class' => 'card mt-5'])
+            ->composite()
+            ->createComposite('div',['class' => "card-header bg-dark text-white"])
             ->addElement('h3', ['class' => "card-header bg-dark text-white"], ['Vehicles'])
+            ->addToContent($this->createMySearchBar('Vehicles',['Registration No','Model','FuelType']))
+            ->get()
             ->composite()
             ->createComposite('div', ['class' => 'card-body row', 'id' => 'vehicleContainer'])
             ->addArrayToContent($vehicleCards)
@@ -329,7 +343,11 @@ class HTMLBuilder
         }
         $card = $this->compositeBuilder
             ->createComposite('div', ['class' => 'card mt-5'])
+            ->composite()
+            ->createComposite('div',['class' => "card-header bg-dark text-white"])
             ->addElement('h3', ['class' => "card-header bg-dark text-white"], ['Employees'])
+            ->addToContent($this->createMySearchBar('Employees',['Employee ID','First Name','Last Name','Designation','Position']))
+            ->get()
             ->composite()
             ->createComposite('div', ['class' => 'card-body row', 'id' => 'employeeContainer'])
             ->addArrayToContent($employeeCards)
