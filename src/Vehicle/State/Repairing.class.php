@@ -17,7 +17,8 @@ class Repairing extends State {
         return self::$instance;
     }
 
-    public function finishRepair(AbstractVehicle $vehicle) : void {
+    public function finishRepair(AbstractVehicle $vehicle) : void 
+    {
         $vehicle->setState(Available::getInstance());
     }
 }

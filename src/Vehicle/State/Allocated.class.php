@@ -17,7 +17,8 @@ class Allocated extends State {
         return self::$instance;
     }
 
-    public function deallocate(AbstractVehicle $vehicle) : void {
+    public function deallocate(AbstractVehicle $vehicle) : void 
+    {
         $vehicle->setState(Available::getInstance());
     }
 }

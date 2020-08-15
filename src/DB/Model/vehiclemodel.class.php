@@ -20,10 +20,10 @@ abstract class VehicleModel extends Model
         return $results[0];
     }
 
-    protected function getAllRecords(int $offset, array $sort, array $search)
+    protected function getAllRecords(int $offset, array $sort, array $search, array $states)
     {
         $joinConditions = [['vehicle' => 'RegistrationNo', 'leased_vehicle' => 'RegistrationNo']];
-        $conditions = ['IsDeleted' => 0];
+        $conditions =  empty($states) ? ['IsDeleted' => 0] : ['IsDeleted' => 0, 'State' => $states];
         $wantedFields = ['vehicle.RegistrationNo', 'Model', 'PurchasedYear', 'Value', 'FuelType', 
                     'InsuranceValue','InsuranceCompany','AssignedOfficer','State','CurrentLocation',
                     'NumOfAllocations', 'IsLeased', 'leasedCompany', 'leasedPeriodFrom', 'leasedPeriodTo', 'monthlyPayment'];

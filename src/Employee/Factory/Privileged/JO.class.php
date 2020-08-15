@@ -38,8 +38,10 @@ class JO extends Requester
      * @return array(Vehicle)
      *
      */
-    public function getVehicles(int $offset = 0)
+    public function getVehicles(int $offset = 0,
+                                array $sort = ['RegistrationNo' => 'ASC'], 
+                                array $search = ['' => ['All']])
     {
-        return VehicleFactory::getVehicles($offset);
+        return VehicleFactory::getVehicles($offset,$sort,$search);
     }
 }

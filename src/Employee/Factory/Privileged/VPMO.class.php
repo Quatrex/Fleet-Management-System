@@ -52,9 +52,10 @@ class VPMO extends Requester
      */
     public function getVehicles(int $offset = 0,
                                 array $sort = ['RegistrationNo' => 'ASC'], 
-                                array $search = ['' => ['All']])
+                                array $search = ['' => ['All']],
+                                bool $isAvailable = false)
     {
-        return VehicleFactory::getVehicles($offset,$sort,$search);
+        return VehicleFactory::getVehicles($offset,$sort,$search,$isAvailable);
     }
 
     /**
