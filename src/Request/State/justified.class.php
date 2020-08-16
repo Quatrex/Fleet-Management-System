@@ -28,7 +28,7 @@ class Justified extends State {
 
     public function disapprove(RealRequest $request) : void 
     {
-        $request->setState(Denied::getInstance());
+        $request->setState(Disapproved::getInstance());
         $this->emailClient->notifyApprovalDeny($request);
     }
     
