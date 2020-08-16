@@ -176,15 +176,18 @@ class HTMLBuilder
             $i++;
         }
         $card = $this->compositeBuilder
-            ->createComposite('div', ['class' => 'card mt-5'])
+            ->createComposite('div', ['class' => 'card'])
             ->composite()
-            ->createComposite('div',['class' => "card-header bg-dark text-white"])
-            ->addElement('h3', ['class' => "card-header bg-dark text-white"], [$header])
+            ->createComposite('div',['class' => "card-header bg-dark text-white py-0"])
             ->addToContent($this->createMySearchBar($header,['Created Date','Pick Location','Drop Location','Time Of Trip', 'Date Of Trip', 'Purpose', 'State']))
             ->get()
             ->composite()
-            ->createComposite('div', ['class' => 'card-body', 'id' => strtolower($state) . 'RequestsCard'])
+            ->createComposite('div', ['class' => 'card-body pb-3', 'id' => strtolower($state) . 'RequestsCard'])
             ->addArrayToContent($requestElements)
+            ->get()
+            ->composite()
+            ->createComposite('div',['class' => "row d-flex justify-content-center"])
+            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5","id"=>strtolower($state).'RequestsCard_LoadMore'], ['Load More'])
             ->get()
             ->getComposite();
         array_push($this->subTabContents, $card);
@@ -372,7 +375,7 @@ class HTMLBuilder
             }
             $buttonAttributes = $this->getButtonAttributes($tabids[$i]);
             $tabCom = $this->compositeBuilder
-                ->addElement(($buttonAttributes == []) ? 'div' : 'input', $buttonAttributes)
+                ->addElement(($buttonAttributes == []) ? 'div' : 'button', $buttonAttributes)
                 ->addToContent($tab)
                 ->getComposite();
             array_push($tabComList, $tabCom);
@@ -434,9 +437,9 @@ class HTMLBuilder
     private function createMySearchBar(string $header,array $dropDownList){
         $searchbarBuilder= new CompositeBuilder();
         $searchBar=$searchbarBuilder
-            ->createComposite('div',['class'=>'container-fluid search-container'])
+            ->createComposite('div',['class'=>'search-container pt-3'])
             ->composite()
-                ->createComposite('div',['class'=>'row mt-3 pt-3 ml-3 border'])
+                ->createComposite('div',['class'=>'row mt-2 pt-2 ml-2'])
                 ->composite()
                     ->createComposite('div',['class'=>"col-sm-6 mb-3"])
                     ->composite()
@@ -534,13 +537,13 @@ class HTMLBuilder
     {
         switch ($tabid) {
             case 'PendingRequests':
-                return ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "NewRequestButton"];
+                return ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"];
                 break;
             case 'OngoingRequests':
-                return ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "NewRequestButton"];
+                return ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"];
                 break;
             case 'History':
-                return ['type' => 'button', 'value' => 'New Request', 'class' => "btn btn-primary rounded shadow p-3 mb-4", "id" => "NewRequestButton"];
+                return ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"];
                 break;
             case 'Employees':
                 return ['type' => "button", 'value' => "Add Employee", 'class' => "btn btn-primary mb-3", 'id' => "AddEmployeeButton"];

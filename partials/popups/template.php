@@ -113,3 +113,9 @@
         <td class="assignedTrips"></td>
     </tr>
 </template>
+
+<template id="loaderTemplate">
+    <div class="bouncybox">
+        <div class="bouncy"></div>
+    </div>
+</template>

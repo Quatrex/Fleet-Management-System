@@ -1,5 +1,5 @@
 class Store {
-	constructor(type, objId = 'RequestId',sortColumn = 'CreatedDate') {
+	constructor(type, objId = 'RequestId', sortColumn = 'CreatedDate') {
 		this.state = eval(type);
 		this.observers = [];
 		this.type = type;
@@ -11,6 +11,7 @@ class Store {
 			sortColumn: sortColumn,
 			order: 'DESC',
 		};
+		this.updated = false;
 	}
 	getObjIdType() {
 		return this.objId;
@@ -18,7 +19,7 @@ class Store {
 	setCurrentObj(obj) {
 		this.currentObj = obj;
 	}
-	getSearchObject(){
+	getSearchObject() {
 		return this.searchObj;
 	}
 	getState() {
@@ -64,12 +65,34 @@ class Store {
 		} else if (method == 'CANCEL') {
 			this.searchObj = { ...this.searchObj, ...obj };
 
-			Database.loadContent(`Load_${this.type}`, 0, ActionCreator([this,this], 'DELETEALL&APPEND'), this.searchObj);
+			Database.loadContent(
+				`Load_${this.type}`,
+				0,
+				ActionCreator([this, this], 'DELETEALL&APPEND'),
+				this.searchObj
+			);
 		}
 	}
 
-	loadData() {
-		Database.loadContent(`Load_${this.type}`, this.state.length, ActionCreator([this], 'APPEND'), this.searchObj);
+	loadData(trigger = 'render') {
+		if (!this.updated) {
+			Database.loadContent(
+				`Load_${this.type}`,
+				this.state.length,
+				ActionCreator([this], 'APPEND'),
+				this.searchObj
+			);
+			this.updated = true;
+		} else {
+			if (trigger != 'render') {
+				Database.loadContent(
+					`Load_${this.type}`,
+					this.state.length,
+					ActionCreator([this], 'APPEND'),
+					this.searchObj
+				);
+			}
+		}
 	}
 	dispatch(action) {
 		// console.log(action.type);
@@ -114,7 +137,7 @@ const ActionCreator = (stores, actionType) => ({
 				: stores[0].dispatch({ ...actionObj, payload: currentObj });
 		} else if (types.length > 1) {
 			for (let i = 0; i < stores.length; i++) {
-				let actionObj = { type: types[i]};
+				let actionObj = { type: types[i] };
 				types[i] == 'DELETEALL' || types[i] == 'APPEND'
 					? stores[i].dispatch({ ...actionObj, payload: returnedObj })
 					: stores[i].dispatch({ type: types[i], payload: currentObj });

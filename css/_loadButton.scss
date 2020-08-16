@@ -1,0 +1,36 @@
+.load-more {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+.load-more:after {
+    position: absolute;
+    content: '';
+    top: 0;
+    width: 15px;
+    height: 15px;
+    margin-left: 2px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: transparent;
+    border-bottom-color: grey;
+    border-right-color: grey;
+    border-radius: 0 0 5px 0;
+    transform: translate(50%, 50%) rotate(45deg);
+    transition: all 0.4s ease-in-out;
+}
+
+.load-more.active:after {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    animation: 0.8s rotate 0.4s infinite;
+}
+
+@keyframes rotate {
+    to {
+        transform: translate(50%, 50%) rotate(-315deg);
+    }
+}
