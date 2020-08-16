@@ -385,9 +385,18 @@ class HTMLBuilder
                 $this->compositeBuilder
                     ->createComposite('div', ['class' => "tab-pane secondary-tab fade", 'id' => $tabids[$i] . 'SecTab', 'role' => 'tabpanel']);
             }
+            $buttonBuilder= new CompositeBuilder();
             $buttonAttributes = $this->getButtonAttributes($tabids[$i]);
+            if ($buttonAttributes != []) {
+                $button=$buttonBuilder->createComposite('button',$buttonAttributes)
+                ->addElement('i',['class'=>"fa fa-plus", 'style'=>"font-size:40px;color:white"])
+                ->getComposite();
+            } else {
+                $button=$buttonBuilder->createComposite()->getComposite();
+            }
+            
             $tabCom = $this->compositeBuilder
-                ->addElement(($buttonAttributes == []) ? 'div' : 'button', $buttonAttributes)
+                ->addToContent($button)
                 ->addToContent($tab)
                 ->getComposite();
             array_push($tabComList, $tabCom);
