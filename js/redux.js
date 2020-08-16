@@ -95,7 +95,6 @@ class Store {
 		}
 	}
 	dispatch(action) {
-		// console.log(action.type);
 		if (action.type === 'ADD' || action.type === 'APPEND') {
 			if (!Array.isArray(action.payload)) {
 				if (Object.keys(action.payload).length != 0) {

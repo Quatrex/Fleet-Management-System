@@ -97,7 +97,7 @@
 </template>
 
 <template id="selectionDriverTemplate">
-    <tr role="row">
+    <tr role="row" class="detail-description">
         <th class="driverId sorting_1"></th>
         <td class="firstName lastName"></td>
         <td class="assignedVehicleID"></td>
@@ -106,7 +106,7 @@
 </template>
 
 <template id="selectionVehicleTemplate">
-    <tr role="row">
+    <tr role="row" class="detail-description">
         <th class="registration"></th>
         <td class="model"></td>
         <td class="purchasedYear"></td>

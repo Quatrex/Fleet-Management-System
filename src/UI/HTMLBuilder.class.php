@@ -476,7 +476,7 @@ class HTMLBuilder
             ->get()
             ->composite()
             ->createComposite('div', ['class' => 'col-sm-3'])
-            ->addElement('input', ['type' => "button", 'class' => "btn btn-primary searchTabButton", 'id' => "Search_Confirm_" . lcfirst(str_replace(' ', '', $header)), 'value' => "Search"])
+            ->addElement('input', ['type' => "button", 'class' => "btn searchTabButton", 'id' => "Search_Confirm_" . lcfirst(str_replace(' ', '', $header)), 'value' => "Search"])
             ->get()
             ->get()
             ->get()
@@ -505,7 +505,7 @@ class HTMLBuilder
             ->composite()
             ->createComposite('div', ['class' => "col-sm-4 ml-2 my-auto"])
             ->composite()
-            ->createComposite('button', ['type' => "button", 'class' => "btn btn btn-outline-dark searchTabButton selected-sort mr-2", 'id' => 'Desc_' . str_replace(' ', '', lcfirst($header)) . 'Card'])
+            ->createComposite('button', ['type' => "button", 'class' => "btn btn btn-outline-dark searchTabButton searchTabSortButton selected-sort mr-2", 'id' => 'Desc_' . str_replace(' ', '', lcfirst($header)) . 'Card'])
             ->composite()
             ->createComposite('svg', ['width' => "1.3em", 'height' => "1.3em", 'viewBox' => "0 0 16 16", 'class' => "bi bi-sort-down-alt", 'fill' => "currentColor", 'xmlns' => "http://www.w3.org/2000/svg"])
             ->addElement('path', ['fill-rule' => "evenodd", 'd' => "M3 3a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-1 0v-10A.5.5 0 0 1 3 3z"])
@@ -513,7 +513,7 @@ class HTMLBuilder
             ->get()
             ->get()
             ->composite()
-            ->createComposite('button', ['type' => "button", 'class' => "btn btn btn-outline-dark searchTabButton", 'id' => 'Asc_' . str_replace(' ', '', lcfirst($header)) . 'Card'])
+            ->createComposite('button', ['type' => "button", 'class' => "btn btn btn-outline-dark searchTabButton searchTabSortButton", 'id' => 'Asc_' . str_replace(' ', '', lcfirst($header)) . 'Card'])
             ->composite()
             ->createComposite('svg', ['width' => "1.3em", 'height' => "1.3em", 'viewBox' => "0 0 16 16", 'class' => "bi bi-sort-up-alt", 'fill' => "currentColor", 'xmlns' => "http://www.w3.org/2000/svg"])
             ->addElement('path', ['fill-rule' => "evenodd", 'd' => "M3 14a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z"])
@@ -556,7 +556,7 @@ class HTMLBuilder
                     ->createComposite()
                     ->composite()
                     ->createComposite('button', ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"])
-                    ->addElement('i', ['class' => "fa fa-plus", 'style' => "font-size:40px;color:white"])
+                    ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
                     ->get()
                     ->getComposite();
                 return $button;
@@ -566,7 +566,7 @@ class HTMLBuilder
                     ->createComposite()
                     ->composite()
                     ->createComposite('button', ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"])
-                    ->addElement('i', ['class' => "fa fa-plus", 'style' => "font-size:40px;color:white"])
+                    ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
                     ->get()
                     ->getComposite();
                 return $button;
@@ -576,7 +576,7 @@ class HTMLBuilder
                     ->createComposite()
                     ->composite()
                     ->createComposite('button', ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"])
-                    ->addElement('i', ['class' => "fa fa-plus", 'style' => "font-size:40px;color:white"])
+                    ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
                     ->get()
                     ->getComposite();
                 return $button;

@@ -312,17 +312,6 @@
                             </tr>
                         </thead>
                         <tbody class="card-body">
-                            <?php
-                            $i = 0;
-                            foreach ($vehicles as $vehicle) : ?>
-                                <tr id="selectionVehicleTable_<?php echo $vehicle->getField('registrationNo') ?>">
-                                    <th id="vehicle-<?php echo $i ?>"><?php echo $vehicle->getField('registrationNo') ?></th>
-                                    <td><?php echo $vehicle->getField('model') ?></td>
-                                    <td><?php echo $vehicle->getField('purchasedYear') ?></td>
-                                    <td>Nothing</td>
-                                </tr>
-                            <?php $i++;
-                            endforeach;; ?>
                         </tbody>
                     </table>
                     <div class="row d-flex justify-content-center"><button class="btn w-100 btn-light load-more mb-3 mr-5 ml-5" id="selectionVehicleTable_LoadMore">Load More</button></div>
@@ -360,7 +349,7 @@
                             <div class="input-group">
                                 <div class="row w-100">
                                     <div class="col-sm-6 pr-0 form-group position-relative">
-                                        <input type="text" class="form-control pr-2" id="Card_SearchInput" placeholder="Search" style="border-radius: 0px!important;">
+                                        <input type="text" class="form-control pr-2" id="selectionDriverTable_SearchInput" placeholder="Search" style="border-radius: 0px!important;">
                                         <span class="form-clear searchTabButton d-none mr-2" id="Cancel_Confirm_button"><i class="material-icons">clear</i></span>
 
                                     </div>
@@ -439,7 +428,7 @@
                             endforeach;; ?>
                         </tbody>
                     </table>
-                    <div class="row d-flex justify-content-center"><button class="btn w-100 btn-light load-more mb-3 mr-5 ml-5" id="selectionDriverTable_LoadMore">Load More</button></div>
+                    <div class="row d-flex justify-content-center"><button class="btn w-100 btn-light load-more mb-3 mr-5 ml-5 d-none" id="selectionDriverTable_LoadMore">Load More</button></div>
                 </div>
             </div>
             <div class="popup-footer">
