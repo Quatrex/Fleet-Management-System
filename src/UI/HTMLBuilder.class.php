@@ -248,7 +248,7 @@ class HTMLBuilder
             ->get()
             ->composite()
             ->createComposite('div', ['class' => "row d-flex justify-content-center"])
-            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5", "id" => strtolower($state) . 'RequestsCard_LoadMore'], ['Load More'])
+            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5", "id" => strtolower($state) . 'AwaitingRequestCard_LoadMore'], ['Load More'])
             ->get()
             ->getComposite();
         array_push($this->subTabContents, $card);
