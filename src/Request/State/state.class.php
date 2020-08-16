@@ -2,10 +2,8 @@
 namespace Request\State;
 
 use Request\Factory\Base\RealRequest;
-use EmailClient\EmailClient;
 
 abstract class State {
-    //TODO: add all transitions and implement
 
     protected int $stateID;
 
@@ -66,15 +64,18 @@ abstract class State {
                 $state=Denied::getInstance();
                 break;
             case 5:
-                $state=Cancelled::getInstance();
+                $state=Disapproved::getInstance();
                 break;
             case 6:
-                $state=Scheduled::getInstance();
+                $state=Cancelled::getInstance();
                 break;
             case 7:
-                $state=Completed::getInstance();
+                $state=Scheduled::getInstance();
                 break;
             case 8:
+                $state=Completed::getInstance();
+                break;
+            case 9:
                 $state=Expired::getInstance();
                 break;
           }
@@ -101,15 +102,18 @@ abstract class State {
                 $stateString="Denied";
                 break;
             case 5:
-                $stateString="Cancelled";
+                $stateString="Disapproved";
                 break;
             case 6:
-                $stateString="Scheduled";
+                $stateString="Cancelled";
                 break;
             case 7:
-                $stateString="Completed";
+                $stateString="Scheduled";
                 break;
             case 8:
+                $stateString="Completed";
+                break;
+            case 9:
                 $stateString="Expired";
                 break;
           }
@@ -137,17 +141,20 @@ abstract class State {
             case "denied":
                 $stateID=4;
                 break;
-            case "cancelled":
+            case "disapproved":
                 $stateID=5;
                 break;
-            case "scheduled":
+            case "cancelled":
                 $stateID=6;
                 break;
-            case "completed":
+            case "scheduled":
                 $stateID=7;
                 break;
+            case "completed":
+                $stateID=8;
+                break;
             case 'expired':
-                $stateID = 8;
+                $stateID=9;
                 break;
             default:
                 $stateID=false; //returning false in a function with a return type of int. is this appropriate?
