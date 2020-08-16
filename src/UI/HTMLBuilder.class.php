@@ -287,7 +287,7 @@ class HTMLBuilder
             ->get()
             ->composite()
             ->createComposite('div', ['class' => "row d-flex justify-content-center"])
-            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5", "id" =>'driverContainer_LoadMore'], ['Load More'])
+            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5", "id" => 'driverContainer_LoadMore'], ['Load More'])
             ->get()
             ->getComposite();
         array_push($this->subTabContents, $card);
@@ -326,7 +326,7 @@ class HTMLBuilder
             ->get()
             ->composite()
             ->createComposite('div', ['class' => "row d-flex justify-content-center"])
-            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5", "id" =>'vehicleContainer_LoadMore'], ['Load More'])
+            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5", "id" => 'vehicleContainer_LoadMore'], ['Load More'])
             ->get()
             ->getComposite();
         array_push($this->subTabContents, $card);
@@ -365,7 +365,7 @@ class HTMLBuilder
             ->get()
             ->composite()
             ->createComposite('div', ['class' => "row d-flex justify-content-center"])
-            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5", "id" =>'employeeContainer_LoadMore'], ['Load More'])
+            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5", "id" => 'employeeContainer_LoadMore'], ['Load More'])
             ->get()
             ->getComposite();
         array_push($this->subTabContents, $card);
@@ -385,18 +385,9 @@ class HTMLBuilder
                 $this->compositeBuilder
                     ->createComposite('div', ['class' => "tab-pane secondary-tab fade", 'id' => $tabids[$i] . 'SecTab', 'role' => 'tabpanel']);
             }
-            $buttonBuilder= new CompositeBuilder();
-            $buttonAttributes = $this->getButtonAttributes($tabids[$i]);
-            if ($buttonAttributes != []) {
-                $button=$buttonBuilder->createComposite('button',$buttonAttributes)
-                ->addElement('i',['class'=>"fa fa-plus", 'style'=>"font-size:40px;color:white"])
-                ->getComposite();
-            } else {
-                $button=$buttonBuilder->createComposite()->getComposite();
-            }
-            
+
             $tabCom = $this->compositeBuilder
-                ->addToContent($button)
+                ->addToContent($this->getButton($tabids[$i]))
                 ->addToContent($tab)
                 ->getComposite();
             array_push($tabComList, $tabCom);
@@ -556,29 +547,65 @@ class HTMLBuilder
         return $dropDownMenu;
     }
 
-    private function getButtonAttributes($tabid)
+    private function getButton($tabid):HTMLComponent
     {
+        $buttonBuilder = new CompositeBuilder();
         switch ($tabid) {
             case 'PendingRequests':
-                return ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"];
+                $button = $buttonBuilder
+                    ->createComposite()
+                    ->composite()
+                    ->createComposite('button', ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"])
+                    ->addElement('i', ['class' => "fa fa-plus", 'style' => "font-size:40px;color:white"])
+                    ->get()
+                    ->getComposite();
+                return $button;
                 break;
             case 'OngoingRequests':
-                return ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"];
+                $button = $buttonBuilder
+                    ->createComposite()
+                    ->composite()
+                    ->createComposite('button', ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"])
+                    ->addElement('i', ['class' => "fa fa-plus", 'style' => "font-size:40px;color:white"])
+                    ->get()
+                    ->getComposite();
+                return $button;
                 break;
             case 'History':
-                return ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"];
+                $button = $buttonBuilder
+                    ->createComposite()
+                    ->composite()
+                    ->createComposite('button', ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"])
+                    ->addElement('i', ['class' => "fa fa-plus", 'style' => "font-size:40px;color:white"])
+                    ->get()
+                    ->getComposite();
+                return $button;
                 break;
             case 'Employees':
-                return ['type' => "button", 'value' => "Add Employee", 'class' => "btn btn-primary mb-3", 'id' => "AddEmployeeButton"];
+                $button = $buttonBuilder
+                    ->createComposite('button', ['type' => "button", 'value' => "Add Employee", 'class' => "btn btn-primary mb-3", 'id' => "AddEmployeeButton"])
+                    ->getComposite();
+                return $button;
                 break;
             case 'Drivers':
-                return ($_SESSION['position'] == 'admin') ? ['type' => "button", 'value' => "Add Driver", 'class' => "btn btn-primary mb-3", 'id' => "AddDriverButton"] : [];
+                if ($_SESSION['position'] == 'admin') {
+                    $button = $buttonBuilder
+                        ->createComposite('button', ['type' => "button", 'value' => "Add Driver", 'class' => "btn btn-primary mb-3", 'id' => "AddDriverButton"])
+                        ->getComposite();
+                } else {
+                    $button = $buttonBuilder->createComposite()->getComposite();
+                }
+                return $button;
                 break;
             case 'Vehicles':
-                return ['type' => "button", 'value' => "Add Vehicle", 'class' => "btn btn-primary mb-3", 'id' => "AddVehicleButton"];
+                $button = $buttonBuilder
+                    ->createComposite('button', ['type' => "button", 'value' => "Add Vehicle", 'class' => "btn btn-primary mb-3", 'id' => "AddVehicleButton"])
+                    ->getComposite();
+                return $button;
                 break;
             default:
-                return [];
+                $button = $buttonBuilder->createComposite()->getComposite();
+                return $button;
                 break;
         }
     }
