@@ -151,8 +151,8 @@ class DOMContainer {
 	finishLoadContent(len) {
 		this.loadMoreButton.classList.contains('active')
 			? this.loadMoreButton.classList.remove('active')
-			// : this.cardContainer.removeChild(document.getElementById(`${this.id}_Loader`));
-			:$('bouncybox').fadeOut(300);
+			: // : this.cardContainer.removeChild(document.getElementById(`${this.id}_Loader`));
+			  $('bouncybox').fadeOut(300);
 
 		if (len < 5) {
 			if (!this.loadMoreButton.classList.contains('d-none')) {
@@ -276,7 +276,9 @@ class DOMContainer {
 			}
 		});
 		this.cardContainer.querySelector('.card-body').insertBefore(clone, this.cardContainer.firstChild);
-		this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.id}_${object[this.store.getObjIdType()]}`;
+		this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.id}_${
+			object[this.store.getObjIdType()]
+		}`;
 	}
 
 	appendEntry(object) {
@@ -288,7 +290,9 @@ class DOMContainer {
 			}
 		});
 		this.cardContainer.querySelector('.card-body').appendChild(clone);
-		this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.id}_${object[this.store.getObjIdType()]}`;
+		this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.id}_${
+			object[this.store.getObjIdType()]
+		}`;
 	}
 
 	deleteEntry(object) {
@@ -301,6 +305,7 @@ class DOMContainer {
 		let children = this.cardContainer.querySelectorAll('.detail-description');
 		children.forEach((child) => {
 			child.remove();
+
 		});
 	}
 	updateEntry(object) {
@@ -340,32 +345,42 @@ class SelectionTable extends DOMContainer {
 			this.toggleStyle(`${this.id}_${object[this.selectField]}`);
 		}
 	}
-	handleEvent(popup, object, id) {
-		let data = this.store.getState();
-		let targetObject = this.store.getObjectById(id.split('_')[1]);
-		if (this.toggleStyle(id)) {
-			object[this.selectField] = targetObject[this.store.getObjIdType()];
-			if (this.nextFieldId != '') {
-				document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
-				if (targetObject[this.nextFieldId]) {
-					object[this.nextField] = targetObject[this.nextFieldId];
+	handleEvent(event,popup={}, object={}) {
+		if (event.type == 'click') {
+			if (event.target.closest('tbody')) {
+				let id = event.target.parentElement.id
+				let targetObject = this.store.getObjectById(id.split('_')[1]);
+				if (this.toggleStyle(id)) {
+					object[this.selectField] = targetObject[this.store.getObjIdType()];
+					if (this.nextFieldId != '') {
+						document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
+						if (targetObject[this.nextFieldId]) {
+							object[this.nextField] = targetObject[this.nextFieldId];
+						} else {
+							object[this.nextField] = '';
+						}
+					} else {
+						document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
+					}
+					popup.setObject(object);
 				} else {
-					object[this.nextField] = '';
+					object[this.selectField] = '';
+					document.getElementById(`${this.selectField}-${this.id}`).innerHTML = '';
+					if (object[this.nextField] != '') {
+						object[this.nextField] = '';
+					}
+					this.button.initializeProperties({ disabled: 'true' });
+					popup.setObject(object);
 				}
-			} else {
-				document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
 			}
-			popup.setObject(object);
-		} else {
-			object[this.selectField] = '';
-			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = '';
-			if (object[this.nextField] != '') {
-				object[this.nextField] = '';
+			else{
+				super.handleEvent(event);
 			}
-			this.button.initializeProperties({ disabled: 'true' });
-			popup.setObject(object);
 		}
-		// console.log(object);
+		else{
+			super.handleEvent(event);
+		}
+
 	}
 
 	toggleStyle(tableRowId) {
@@ -459,8 +474,7 @@ class Popup {
 				targetObject.handleEvent(this, this.object, event);
 			} else {
 				if (Object.keys(this.selectionTable).length != 0) {
-					event.target.parentElement.id.includes(this.selectionTable.getId());
-					this.selectionTable.handleEvent(this, this.object, event.target.parentElement.id);
+					this.selectionTable.handleEvent(event,this, this.object);
 				}
 			}
 		} else if (event.type == 'keyup') {
@@ -468,6 +482,7 @@ class Popup {
 			targetObject.handleEvent(this, this.object, event);
 		}
 	}
+
 }
 
 //******************Popup Buttons */
