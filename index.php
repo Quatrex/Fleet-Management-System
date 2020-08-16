@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['loggedin'])) {
+if (!isset($_SESSION['position'])) {
 	header('Location: ./Layout/login.php');
 	exit;
 }
@@ -17,8 +17,11 @@ else{
     elseif(($_SESSION['position']=='admin')){
         header('Location: ./Layout/administrator.php');
     }
-    else {
+    elseif(($_SESSION['position']=='requester')){
         header('Location: ./Layout/requester.php');
+    }
+    else {
+        header('Location: ./Layout/404.php');
     }
     
     exit;
