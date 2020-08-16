@@ -126,7 +126,6 @@ class DOMContainer {
 		this.ascButton = document.getElementById(`Asc_${this.id}`);
 		this.descButton = document.getElementById(`Desc_${this.id}`);
 		this.cancelSearchButton = this.cardContainer.querySelector('.form-clear');
-		this.loadMoreButton.addEventListener('click', this);
 		document.getElementById(id).addEventListener('click', this);
 		document.getElementById(id).addEventListener('change', this);
 		document.getElementById(id).addEventListener('keyup', this);
@@ -288,7 +287,6 @@ class DOMContainer {
 				clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
 			}
 		});
-
 		this.cardContainer.querySelector('.card-body').appendChild(clone);
 		this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.id}_${object[this.store.getObjIdType()]}`;
 	}

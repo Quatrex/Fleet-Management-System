@@ -295,36 +295,37 @@
                 <h2>Select Vehicle</h2>
                 <hr>
             </div>
-            <div class="popup-body" style="max-height: 80vh;">
+            <div class="popup-body" style="max-height: 80vh;" id="selectionVehicleTable">
                 <div class="row mx-auto">
                     <label class="mr-2">Selected Vehicle:</label> <span>
                         <p id="Vehicle-selectionVehicleTable"></p>
                     </span>
                 </div>
                 <div style="overflow-y:scroll">
-                <table class="table table-hover" style="width:100%">
-                    <thead class="thead-dark " style="position:relative; width:100%!important;">
-                        <tr>
-                            <th class="" scope="col">#</th>
-                            <th class="th-sm" scope="col">Vehicle</th>
-                            <th class="th-sm" scope="col">Assigned Driver</th>
-                            <th class="th-sm" scope="col">Passengers</th>
-                        </tr>
-                    </thead>
-                    <tbody id="selectionVehicleTable">
-                        <?php
-                        $i = 0;
-                        foreach ($vehicles as $vehicle) : ?>
-                            <tr id="selectionVehicleTable_<?php echo $vehicle->getField('registrationNo') ?>">
-                                <th id="vehicle-<?php echo $i ?>"><?php echo $vehicle->getField('registrationNo') ?></th>
-                                <td><?php echo $vehicle->getField('model') ?></td>
-                                <td><?php echo $vehicle->getField('purchasedYear') ?></td>
-                                <td>Nothing</td>
+                    <table class="table table-hover" style="width:100%">
+                        <thead class="thead-dark " style="position:relative; width:100%!important;">
+                            <tr>
+                                <th class="" scope="col">#</th>
+                                <th class="th-sm" scope="col">Vehicle</th>
+                                <th class="th-sm" scope="col">Assigned Driver</th>
+                                <th class="th-sm" scope="col">Passengers</th>
                             </tr>
-                        <?php $i++;
-                        endforeach;; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="card-body">
+                            <?php
+                            $i = 0;
+                            foreach ($vehicles as $vehicle) : ?>
+                                <tr id="selectionVehicleTable_<?php echo $vehicle->getField('registrationNo') ?>">
+                                    <th id="vehicle-<?php echo $i ?>"><?php echo $vehicle->getField('registrationNo') ?></th>
+                                    <td><?php echo $vehicle->getField('model') ?></td>
+                                    <td><?php echo $vehicle->getField('purchasedYear') ?></td>
+                                    <td>Nothing</td>
+                                </tr>
+                            <?php $i++;
+                            endforeach;; ?>
+                        </tbody>
+                    </table>
+                    <div class="row d-flex justify-content-center"><button class="btn w-100 btn-light load-more mb-3 mr-5 ml-5" id="selectionVehicleTable_LoadMore">Load More</button></div>
                 </div>
             </div>
 
@@ -347,7 +348,7 @@
                 <h2>Select driver</h2>
                 <hr>
             </div>
-            <div class="popup-body" style="max-height: 80vh;">
+            <div class="popup-body" style="max-height: 80vh;" id="selectionDriverTable">
                 <div class="row mx-auto">
                     <label class="mr-2">Selected Driver:</label> <span>
                         <p id="Driver-selectionDriverTable"></p>
@@ -424,7 +425,7 @@
                                 <th class="th-sm" scope="col">Assigned Trips</th>
                             </tr>
                         </thead>
-                        <tbody id="selectionDriverTable">
+                        <tbody class="card-body">
                             <?php
                             $i = 0;
                             foreach ($drivers as $driver) : ?>
@@ -438,6 +439,7 @@
                             endforeach;; ?>
                         </tbody>
                     </table>
+                    <div class="row d-flex justify-content-center"><button class="btn w-100 btn-light load-more mb-3 mr-5 ml-5" id="selectionDriverTable_LoadMore">Load More</button></div>
                 </div>
             </div>
             <div class="popup-footer">
@@ -908,13 +910,13 @@
                 <h2>Select Vehicle</h2>
                 <hr>
             </div>
-            <div class="popup-body" style="max-height: 80vh;">
+            <div class="popup-body" style="max-height: 80vh;" id="assignVehicleToDriverTable">
                 <div class="row mx-auto">
                     <label class="mr-2">Assign Vehicle:</label> <span>
                         <p id="assignedVehicleID-assignVehicleToDriverTable"></p>
                     </span>
                 </div>
-                <table class="table table-hover" style="width:100%" id="assignVehicleToDriverTable">
+                <table class="table table-hover" style="width:100%">
                     <thead class="thead-dark " style="position:relative; width:100%!important;">
                         <tr>
                             <th class="" scope="col">#</th>
@@ -923,7 +925,7 @@
                             <th class="th-sm" scope="col">Passengers</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="card-body">
                         <?php
                         $i = 0;
                         foreach ($vehicles as $vehicle) : ?>
@@ -937,6 +939,7 @@
                         endforeach;; ?>
                     </tbody>
                 </table>
+                <div class="row d-flex justify-content-center"><button class="btn w-100 btn-light load-more mb-3 mr-5 ml-5" id="assignVehicleToDriverTable_LoadMore">Load More</button></div>
             </div>
 
             <div class="popup-footer">
