@@ -155,7 +155,7 @@ class DOMContainer {
 			// : this.cardContainer.removeChild(document.getElementById(`${this.id}_Loader`));
 			:$('bouncybox').fadeOut(300);
 
-		if (len < 10) {
+		if (len < 5) {
 			if (!this.loadMoreButton.classList.contains('d-none')) {
 				this.loadMoreButton.classList.add('d-none');
 			}
@@ -276,8 +276,8 @@ class DOMContainer {
 				clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
 			}
 		});
-		this.cardContainer.insertBefore(clone, this.cardContainer.firstChild);
-		this.cardContainer.firstElementChild.id = `${this.id}_${object[this.store.getObjIdType()]}`;
+		this.cardContainer.querySelector('.card-body').insertBefore(clone, this.cardContainer.firstChild);
+		this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.id}_${object[this.store.getObjIdType()]}`;
 	}
 
 	appendEntry(object) {
@@ -289,14 +289,14 @@ class DOMContainer {
 			}
 		});
 
-		this.cardContainer.appendChild(clone);
-		this.cardContainer.lastElementChild.id = `${this.id}_${object[this.store.getObjIdType()]}`;
+		this.cardContainer.querySelector('.card-body').appendChild(clone);
+		this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.id}_${object[this.store.getObjIdType()]}`;
 	}
 
 	deleteEntry(object) {
 		let entry = document.getElementById(`${this.id}_${object[this.store.getObjIdType()]}`);
 		if (entry != 'undefined' && entry != null) {
-			this.cardContainer.removeChild(entry);
+			this.cardContainer.querySelector('.card-body').removeChild(entry);
 		}
 	}
 	deleteAllEntries() {

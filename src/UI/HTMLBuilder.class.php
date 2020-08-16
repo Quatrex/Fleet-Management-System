@@ -176,13 +176,13 @@ class HTMLBuilder
             $i++;
         }
         $card = $this->compositeBuilder
-            ->createComposite('div', ['class' => 'card'])
+            ->createComposite('div', ['class' => 'card','id' => strtolower($state) . 'RequestsCard'])
             ->composite()
             ->createComposite('div',['class' => "card-header bg-dark text-white py-0"])
             ->addToContent($this->createMySearchBar($header,['Created Date','Pick Location','Drop Location','Time Of Trip', 'Date Of Trip', 'Purpose', 'State']))
             ->get()
             ->composite()
-            ->createComposite('div', ['class' => 'card-body pb-3', 'id' => strtolower($state) . 'RequestsCard'])
+            ->createComposite('div', ['class' => 'card-body pb-3'])
             ->addArrayToContent($requestElements)
             ->get()
             ->composite()
