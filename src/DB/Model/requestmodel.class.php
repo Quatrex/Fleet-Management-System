@@ -144,4 +144,18 @@ abstract class RequestModel extends Model
     
         $this->dbh->write($query);  
     }
+
+    protected function getRequestsByVehicle(string $registrationNo, int $state)
+    {
+        $conditions = ['Vehicle' => $registrationNo, 'State' => $state];
+        $requests = parent::getRecords($conditions);
+        return $requests;
+    }
+
+    protected function getRequestsByDriver(string $driverID, int $state)
+    {
+        $conditions = ['Driver' => $driverID, 'State' => $state];
+        $requests = parent::getRecords($conditions);
+        return $requests;
+    }
 }

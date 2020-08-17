@@ -36,6 +36,35 @@ class VPMORequestFactory
     }
 
     /**
+     * Returns assigned requests for a vehicle
+     * 
+     * @param string $registrationNo
+     * @return Request
+     */
+    public static function makeAssignedRequests(string $id, string $type)
+    {
+        $state = State::getStateID('scheduled');
+        $requestViewer = new RequestViewer();
+        switch ($type)
+        {
+            case 'driver':
+                $requestRecords = $requestViewer->getRequestsByDriver($id,$state);
+                break;
+
+            case 'vehicle':
+                $requestRecords = $requestViewer->getRequestsByVehicle($id,$state);
+                break;
+        }
+        $requests = [];
+        foreach($requestRecords as $values){
+            $request = new VPMORequestProxy($values);
+            array_push($requests,VPMORequestFactory::castToRequest($request));
+        }
+
+        return $requests;
+    }
+
+    /**
      * Returns a request for a given id
      * 
      * @param int $requestID

@@ -33,5 +33,12 @@ class RequestViewer extends RequestModel{
     public function getLastRequestID(string $empID) {
         return parent::getLastRequestID($empID);
     }
-    //public function getScheduledRequestsByIDNState(String $scheduledBy,int $state)
+    
+    public function getRequestsByVehicle(string $registrationNo, int $state) {
+        return parent::getRequestsByVehicle($registrationNo,$state);
+    }
+    
+    public function getRequestsByDriver(string $driverID, int $state) {
+        return parent::getRequestsByDriver($driverID,$state);
+    }
 }
