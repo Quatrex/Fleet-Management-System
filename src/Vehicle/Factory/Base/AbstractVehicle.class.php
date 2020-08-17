@@ -5,6 +5,8 @@ namespace Vehicle\Factory\Base;
 use Vehicle\State\State;
 use Vehicle\Vehicle;
 use db\Controller\VehicleController;
+use Exception;
+use Request\Factory\VPMORequest\VPMORequestFactory;
 
 
 abstract class AbstractVehicle implements Vehicle
@@ -21,6 +23,7 @@ abstract class AbstractVehicle implements Vehicle
     protected string $currentLocation;
     protected string $numOfAllocations;
     protected string $status;
+    protected ?array $assignedRequests;
 
     public function __construct($values)
     {
@@ -36,13 +39,54 @@ abstract class AbstractVehicle implements Vehicle
         $this->state = State::getState($values['State']);
         $this->currentLocation = ($values['CurrentLocation'] != null) ? $values['CurrentLocation'] : '';
         $this->numOfAllocations = $values['NumOfAllocations'];
+        $this->assignedRequests = null;
     }
 
-    abstract public function getField(string $field);
+    //abstract public function getField(string $field);
 
     abstract public function updateInfo(array $vehicleInfo): void;
 
     abstract public function saveToDatabase(): void;
+
+    public function getField(string $field)
+    {
+        if (property_exists($this, $field)) {
+            $noIDObjectFields = ['assignedRequests'];
+            if (in_array($field, $noIDObjectFields)) {
+                if ($this->$field === null)
+                    $this->loadObject($field);
+                return $this->$field;
+            }
+
+            if ($field === 'state') return State::getStateString($this->state->getID());
+            return $this->$field;
+        }
+        
+        return null;
+    }
+
+    /**
+     * Loads a specified object without a reference to it
+     * 
+     * @param string $objectName
+     * @param bool $byValue default => false
+     * @param array $values default => [ ]
+     */
+    public function loadObject(string $objectName, bool $byValue = false, array $values = array())
+    {
+        switch ($objectName) {
+            case 'assignedRequests':
+                if($byValue){
+                    throw new Exception("Cannot load assignedRequests by value");
+                }
+                else{
+                    $this->assignedRequests = VPMORequestFactory::makeAssignedRequests($this->registrationNo,"vehicle");
+                }
+                break;
+            default:
+                throw new Exception("Invalid parameter $objectName for AbstractVehicle::loadNoIDObject");
+        }
+    }
 
     public function delete(): void
     {

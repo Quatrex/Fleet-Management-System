@@ -1,8 +1,10 @@
 <?php
 
 use DB\Controller\RequestController;
+use Employee\Factory\Driver\DriverFactory;
 use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
 use Request\Factory\Base\RealRequest;
+use Vehicle\Factory\Base\VehicleFactory;
 
 include_once '../includes/autoloader.inc.php';
 
@@ -35,4 +37,7 @@ $employee = PrivilegedEmployeeFactory::makeEmployee(1);
 // echo json_encode($object);
 
 $requests = $employee->getMyRequests(['scheduled', 'justified'], 0, ['CreatedDate' => 'DESC'], ['Ampara' => ['PickLocation']]);
-print_r($requests);
+//print_r($requests);
+$vehicle=DriverFactory::makeDriver('1');
+print_r($vehicle->getField('assignedRequests'));
+

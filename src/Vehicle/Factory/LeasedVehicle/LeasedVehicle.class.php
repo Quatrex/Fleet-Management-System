@@ -4,6 +4,7 @@ namespace Vehicle\Factory\LeasedVehicle;
 
 use DB\Controller\VehicleController;
 use JsonSerializable;
+use Request\Factory\VPMORequest\VPMORequestFactory;
 use Vehicle\Factory\Base\AbstractVehicle;
 use Vehicle\State\State;
 
@@ -25,10 +26,11 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
 
     public function getField(string $field)
     {
-        if (property_exists($this, $field)) {
+        $property=parent::getField($field);
+        if ($property==null && property_exists($this, $field)) {
             return $this->$field;
         }
-        return null;
+        return $property;
     }
 
 

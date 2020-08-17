@@ -4,6 +4,8 @@ namespace Employee\Factory\Driver;
 use DB\Controller\DriverController;
 use Employee\Employee;
 use Employee\State\Driver\State;
+use Exception;
+use Request\Factory\VPMORequest\VPMORequestFactory;
 
 class RealDriver extends Employee implements Driver
 {
@@ -16,6 +18,7 @@ class RealDriver extends Employee implements Driver
     private ?string $assignedVehicle;
     private State $state;
     private int $numOfAllocations;
+    private ?array $assignedRequests;
     
     public function __construct($values)
     {
@@ -28,13 +31,49 @@ class RealDriver extends Employee implements Driver
         $this->assignedVehicle = $values['AssignedVehicle'];
         $this->state = State::getState($values['State']);
         $this->numOfAllocations=$values['NumOfAllocations'];
+        $this->assignedRequests=null;
     }
 
-    public function getField($field){ 
-        if(property_exists($this,$field)){
+
+    public function getField($field)
+    {
+        if (property_exists($this, $field)) {
+            $noIDObjectFields = ['assignedRequests'];
+            if (in_array($field, $noIDObjectFields)) {
+                if ($this->$field === null)
+                    $this->loadObject($field);
+                return $this->$field;
+            }
+           
             return $this->$field;
         }
+        if ($field === 'state') return State::getStateString($this->state->getID());
+        
         return null;
+    }
+
+    /**
+     * Loads a specified object without a reference to it
+     * 
+     * @param string $objectName
+     * @param bool $byValue default => false
+     * @param array $values default => [ ]
+     */
+    public function loadObject(string $objectName, bool $byValue = false, array $values = array())
+    {
+        switch ($objectName) {
+            case 'assignedRequests':
+                if($byValue){
+                    throw new Exception("Cannot load assignedRequests by value");
+                }
+                else{
+                    $this->assignedRequests = VPMORequestFactory::makeAssignedRequests($this->driverId,"driver");
+                }
+                
+                break;
+            default:
+                throw new Exception("Invalid parameter $objectName for AbstractVehicle::loadNoIDObject");
+        }
     }
 
     public function saveToDatabase(){

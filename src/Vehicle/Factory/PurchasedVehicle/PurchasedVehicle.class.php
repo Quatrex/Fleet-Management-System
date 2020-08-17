@@ -16,10 +16,11 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
 
     public function getField(string $field)
     {
-        if (property_exists($this, $field)) {
+        $property=parent::getField($field);
+        if ($property==null and property_exists($this, $field)) {
             return $this->$field;
         }
-        return null;
+        return $property;
     }
 
     public function jsonSerialize()
