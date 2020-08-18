@@ -650,18 +650,18 @@
                 <div class="basic-form">
                     <form id="UpdateVehicle_form" enctype="multipart/form-data">
                         <div class="center" style="text-align: center; ">
-                            <img src='../images/car.png' id="vehicleImagePath-VehicleProfileEditForm"class="form-image" style="padding:5px; width:50%;text-align: center;" id='VehicleImage'>
+                            <img src='../images/car.png' id="vehicleImagePath-VehicleProfileEditForm" class="form-image" style="padding:5px; width:50%;text-align: center;">
                         </div>
                         <div class="overlay">
                             <i class="fa fa-camera upload-button" data-input='ChangeVehiclePicture' style="cursor: pointer;" ></i>
-                            <input type="file" name="Image" id="ChangeVehiclePicture" class="inputs file-upload" data-imageid='VehicleImage' accept="image/png, .jpeg, .jpg, image/gif" />
+                            <input type="file" name="Image" id="ChangeVehiclePicture" class="file-upload" data-imageid="vehicleImagePath-VehicleProfileEditForm" accept="image/png, .jpeg, .jpg, image/gif" />
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <label>Registration Number</label>
                                 <div class="input-group">
                                     <input class="form-control inputs py-2 border-right-0 border" id="registration-VehicleProfileEditForm" type="text" name="registration" required>
-                                    <div id="registrationNoDisplay-error" class="text-danger"></div>
+                                    <div id="registration-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">

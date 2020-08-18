@@ -84,7 +84,7 @@ abstract class Model
      * 
      * @return array
      */
-    public function getRecordsFromTwo(array $joinConditions, array $conditions = [],int $offset, array $wantedFields = ['*']): array 
+    public function getRecordsFromTwo(array $joinConditions, array $conditions = [],int $offset=0, array $wantedFields = ['*']): array 
     {
         $query = $this->queryBuilder->select($this->tableName,$wantedFields)
                                     ->join($this->tableName,$joinConditions)
