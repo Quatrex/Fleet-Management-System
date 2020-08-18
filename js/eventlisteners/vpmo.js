@@ -26,7 +26,7 @@ const scheduledHistoryCard_Fields = [
     'PickLocation',
     'DropLocation',
 ];
-const vehicleCard_Fields = ['registration', 'model', 'purchasedYear', 'vehicleImagePath'];
+const vehicleCard_Fields = ['registration', 'model', 'purchasedYear', 'vehicleImagePath','NumOfAllocations'];
 const driverCard_Fields = ['FirstName', 'LastName', 'AssignedVehicle', 'Email', 'NumOfAllocations'];
 // const driverSelction_Fields = ['firstName', 'lastName','assignedVehicleID', 'email'];
 
@@ -64,7 +64,7 @@ const VehicleProfileEditFormConfirm = new ValidatorButton(
     'VehicleProfileEditForm_Confirm', {}, [ObjectCreate, FormValidate, BackendAccess('UpdateVehicle', ActionCreator([vehicleStore], 'UPDATE')), BackendAccessForPicture('ChangeVehiclePicture', 'registration-VehicleProfileEditForm')], { disabled: 'true' }
 );
 const VehicleProfileEditFormPopup = new Popup(
-    'VehicleProfileEditForm', [VehicleProfileEditFormCancel, VehicleProfileEditFormClose, VehicleProfileEditFormConfirm], ['click', 'keyup']
+    'VehicleProfileEditForm', [VehicleProfileEditFormCancel, VehicleProfileEditFormClose, VehicleProfileEditFormConfirm], ['click', 'keyup','change']
 );
 VehicleProfileEditFormPopup.setDataType('value');
 

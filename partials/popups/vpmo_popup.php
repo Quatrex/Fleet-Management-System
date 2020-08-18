@@ -308,7 +308,8 @@
                             <th class="" scope="col">#</th>
                             <th class="th-sm" scope="col">Vehicle</th>
                             <th class="th-sm" scope="col">Assigned Driver</th>
-                            <th class="th-sm" scope="col">Passengers</th>
+                            <th class="th-sm" scope="col">Allocations</th>
+                            <th class="th-sm" scope="col">Info</th>
                         </tr>
                     </thead>
                     <tbody class="card-body">
@@ -412,6 +413,7 @@
                             <th class="th-sm" scope="col">Driver</th>
                             <th class="th-sm" scope="col">AssignedVehicleId</th>
                             <th class="th-sm" scope="col">Assigned Trips</th>
+                            <th class="th-sm" scope="col">Trips</th>
                         </tr>
                     </thead>
                     <tbody class="card-body">
@@ -530,7 +532,7 @@
             <hr>
         </div>
         <div class="popup-body">
-            <img src="../images/default-user-image.png" class="form-image">
+            <img src="../images/car.png" id="vehicleImagePath-VehicleProfileForm" class="form-image image-fluid mx-auto" style="width:24rem;">
             <div id="submit-form-wrapper">
                 <div class="basic-form">
                     <form id="VehicleProfile_form">
@@ -648,7 +650,7 @@
                 <div class="basic-form">
                     <form id="UpdateVehicle_form" enctype="multipart/form-data">
                         <div class="center" style="text-align: center; ">
-                            <img src='../images/default-user-image.png' class="form-image" style="padding:5px; width:50%;text-align: center;" id='VehicleImage'>
+                            <img src='../images/car.png' id="vehicleImagePath-VehicleProfileEditForm"class="form-image" style="padding:5px; width:50%;text-align: center;" id='VehicleImage'>
                         </div>
                         <div class="overlay">
                             <i class="fa fa-camera upload-button" data-input='ChangeVehiclePicture' style="cursor: pointer;" ></i>
@@ -658,7 +660,7 @@
                             <div class="col-md-6">
                                 <label>Registration Number</label>
                                 <div class="input-group">
-                                    <input class="form-control inputs py-2 border-right-0 border" id="registration-VehicleProfileEditForm" type="text" name="registrationNoDisplay" required>
+                                    <input class="form-control inputs py-2 border-right-0 border" id="registration-VehicleProfileEditForm" type="text" name="registration" required>
                                     <div id="registrationNoDisplay-error" class="text-danger"></div>
                                 </div>
                             </div>

@@ -37,21 +37,21 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'registration' => $this->registrationNo,
-            'model' => $this->model,
-            'purchasedYear' => $this->purchasedYear,
-            'value' => $this->value,
-            'fuelType' => $this->fuelType,
-            'insuranceValue' => $this->insuranceValue,
-            'insuranceCompany' => $this->insuranceCompany,
-            'state' => State::getStateString($this->state->getID()),
-            'currentLocation' => $this->currentLocation,
-            'numOfAllocations' => $this->numOfAllocations,
+            'RegistrationNo' => $this->registrationNo,
+            'Model' => $this->model,
+            'PurchasedYear' => $this->purchasedYear,
+            'Value' => $this->value,
+            'FuelType' => $this->fuelType,
+            'InsuranceValue' => $this->insuranceValue,
+            'InsuranceCompany' => $this->insuranceCompany,
+            'State' => State::getStateString($this->state->getID()),
+            'CurrentLocation' => $this->currentLocation,
+            'NumOfAllocations' => $this->numOfAllocations,
             'leasedCompany' => $this->leasedCompany,
             'leasedPeriodFrom' => $this->leasedPeriodFrom,
             'leasedPeriodTo' => $this->leasedPeriodTo,
             'monthlyPayment' => $this->monthlyPayment,
-            'vehicleImagePath' => $this->vehicleImagePath,
+            'VehicleImagePath' => $this->vehicleImagePath,
 
         ];
     }

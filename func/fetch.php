@@ -81,6 +81,14 @@ switch ($method) {
 		$object['object'] = $vehicles;
 		break;
 
+	case 'Load_vehicles_assignedRequests':
+		$vehicle = $_POST['object'];
+		$updatedVehicle = $employee->loadAssignedRequests($vehicle, 'vehicle');
+		$object['error'] = false;
+		$object['object'] = $updatedVehicle;
+		break;
+
+
 	case 'Load_availableVehicles':
 		$vehicles = $employee->getVehicles($offset, $sort, $search, true);
 		$object['error'] = false;
@@ -94,7 +102,7 @@ switch ($method) {
 		break;
 	case 'Load_drivers_assignedRequests':
 		$driver = $_POST['object'];
-		$updatedDriver = $employee->loadAssignedRequests($driver,'driver');
+		$updatedDriver = $employee->loadAssignedRequests($driver, 'driver');
 		$object['error'] = false;
 		$object['object'] = $updatedDriver;
 		break;

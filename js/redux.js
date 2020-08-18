@@ -82,13 +82,15 @@ class Store {
 		} else {
 			if (trigger != 'render') {
 				if (method == 'UPDATE') {
-					Database.loadContent(
-						`Load_${this.type}_assignedRequests`,
-						this.state.length,
-						ActionCreator([this], method),
-						this.searchObj,
-						this.currentObj
-					);
+					if(this.currentObj.NumOfAllocations>0){
+						Database.loadContent(
+							`Load_${this.type}_assignedRequests`,
+							this.state.length,
+							ActionCreator([this], method),
+							this.searchObj,
+							this.currentObj
+						);
+					}
 				} else {
 					Database.loadContent(
 						`Load_${this.type}`,
