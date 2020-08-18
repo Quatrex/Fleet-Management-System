@@ -96,10 +96,6 @@ var readURL = function(input) {
     }
 }
 
-// $('#ChangeProfilePicture').on('change', function() {
-//     readURL(this);
-// });
-
 $(".file-upload").on('change', function() {
     readURL(this);
 });
