@@ -11,6 +11,7 @@ use Employee\Factory\Driver\DriverFactory;
 use Employee\Factory\Driver\VPMODriverProxy;
 use Report\VehicleHandoutSlip;
 use Request\Factory\VPMORequest\VPMORequestFactory;
+use Exception;
 
 
 class VPMO extends Requester
@@ -260,5 +261,35 @@ class VPMO extends Requester
         $driver =  DriverFactory::makeDriver($driverID);
         $driver->assignVehicle($registrationNo);
         return $driver;
+    }
+
+    /**
+     *
+     * update driver's AssignedVehicle
+     *
+     * @param driverID, registrationNo
+     * @return VPMODriverProxy
+     *
+     */
+    public function loadAssignedRequests(array $values, string $type)
+    {
+        switch ($type) {
+            case 'driver':
+                $driver =  DriverFactory::makeDriverByValues($values);
+                $driver->getField('assignedRequests');
+                return $driver;
+            case 'vehicle':
+                if ($values['IsLeased']) {
+                    $vehicle = $this->leasedVehicleFactory->makeVehicleByValues($values);
+                    $vehicle->getField('assignedRequests');
+                    return $vehicle;
+                } else {
+                    $vehicle = $this->purchasedVehicleFactory->makeVehicleByValues($values);
+                    $vehicle->getField('assignedRequests');
+                    return $vehicle;
+                }
+            default:
+                throw new Exception('Invalid Parameter for type');
+        }
     }
 }

@@ -59,7 +59,7 @@
 <template id="vehicleCardTemplate">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description" style="cursor: pointer;">
         <div class="card text-center" style="width: 15rem;">
-            <img class="card-img-top rounded-circle vehicle-image mt-2" src="../images/car.png" alt="Vehicle Image" >
+            <img class="vehicleImagePath card-img-top rounded-circle vehicle-image mt-2" src="../images/car.png" alt="Vehicle Image">
             <div class="card-body">
                 <h5 class="card-title model"></h5>
                 <h6 class="card-subtitle mb-2 text-muted registration"></h6>
@@ -73,7 +73,7 @@
 
 <template id="employeeCardTemplate">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div class="card text-center detail-description" id="driverContainer_222" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2" src="../images/default-user-image.png" alt="Driver Image">
+        <div class="  card text-center detail-description"  style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2" src="../images/default-user-image.png" alt="Driver Image">
             <div class="card-body">
                 <h5 class="card-title"></h5>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
@@ -99,10 +99,11 @@
 
 <template id="selectionDriverTemplate">
     <tr role="row" class="detail-description">
-        <th class="driverId sorting_1"></th>
-        <td class="firstName lastName"></td>
-        <td class="assignedVehicleID"></td>
-        <td>Nothing</td>
+        <th class="DriverID sorting_1"></th>
+        <td class="FirstName LastName"></td>
+        <td class="AssignedVehicle"></td>
+        <td class="NumOfAllocations"></td>
+        <td data-field="assignedRequests"><i class="fas fa-info-circle"></i></td>
     </tr>
 </template>
 
@@ -111,7 +112,7 @@
         <th class="registration"></th>
         <td class="model"></td>
         <td class="purchasedYear"></td>
-        <td class="assignedTrips"></td>
+        <td class="assignedTrips" data-field="assignedRequests"><i class="fas fa-info-circle"></i></td>
     </tr>
 </template>
 

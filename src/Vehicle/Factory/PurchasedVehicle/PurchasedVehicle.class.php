@@ -36,7 +36,8 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
             'assignedOfficer' => $this->assignedOfficer,
             'state' => State::getStateString($this->state->getID()),
             'currentLocation' => $this->currentLocation,
-            'numOfAllocations' => $this->numOfAllocations
+            'numOfAllocations' => $this->numOfAllocations,
+            'vehicleImagePath' => $this->vehicleImagePath
         ];
     }
 
