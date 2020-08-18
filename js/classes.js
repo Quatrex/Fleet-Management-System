@@ -779,7 +779,7 @@ const changeValue = (object, id) => {
                 tag.value = object[objProps[i]];
             } else {
                 if (object[objProps[i]] != '') {
-                    tag.src = object[objProps[i]];
+                    tag.src = `../images/${objProps[i].split('ImagePath')[0]}Pictures/${object[objProps[i]]}`;
                 }
             }
         });
