@@ -7,42 +7,43 @@
 }*/
 
 * {
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.login-box{
+.login-box {
     max-width: 700px;
     float: none;
     margin: 150px auto;
-    background-color: (211,211,211,0.5);
+    background-color: (211, 211, 211, 0.5);
     padding: 30px;
 }
 
 .login form input[type="submit"] {
-  width: 100%;
-  padding: 15px;
- margin-top: 20px;
-  background-color: #3274d6;
-  border: 0;
-  cursor: pointer;
-  font-weight: bold;
-  color: #ffffff;
-  transition: background-color 0.2s;
-}
-.login form input[type="submit"]:hover {
-background-color: #2868c7;
-  transition: background-color 0.2s;
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #3274d6;
+    border: 0;
+    cursor: pointer;
+    font-weight: bold;
+    color: #ffffff;
+    transition: background-color 0.2s;
 }
 
-.form-control{
+.login form input[type="submit"]:hover {
+    background-color: #2868c7;
+    transition: background-color 0.2s;
+}
+
+.form-control {
     background-color: transparent !important;
 }
 
-#national-logo{
+#national-logo {
     height: 3.7cm;
     width: 2.6cm;
 }
@@ -60,16 +61,64 @@ background-color: #2868c7;
     transform: translateY(-50%);
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-  }
-  
-  .header-logo a {
+}
+
+.header-logo a {
     display: block;
     padding: 0;
     outline: 0;
     border: none;
-  }
-  
-  .header-logo img {
+}
+
+.header-logo img {
     width: 2.6cm;
     height: 3.7cm;
-  }
+}
+
+.floating-label-form-group {
+    position: relative;
+}
+
+.floating-label-form-group input,
+.floating-label-form-group textarea {
+    z-index: 1;
+    resize: none;
+}
+
+.floating-label-form-group label {
+    font-size: 0.85em;
+    position: relative;
+    z-index: 0;
+    top: 5px;
+    display: block;
+    transition: top 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.text-danger {
+    font-size: 0.85em;
+    position: relative;
+    z-index: 0;
+    top: 5px;
+    display: block;
+    transition: bottom 0.5s ease-in;
+    opacity: 1;
+}
+
+.floating-label-form-group:not(:first-child) {
+    padding-left: 14px;
+    border-left: 1px solid #e9ecef;
+}
+
+.floating-label-form-group-with-value label {
+    top: 0;
+    opacity: 1;
+}
+
+.floating-label-form-group-with-focus label {
+    color: #1abc9c;
+}
+
+form .row:first-child .floating-label-form-group {
+    border-top: 1px solid #e9ecef;
+}

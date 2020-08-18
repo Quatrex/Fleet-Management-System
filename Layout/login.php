@@ -65,29 +65,42 @@ RealRequest::expireRequests();
                 <form method="post" name="vform" action="login.php">
                     <div id="message"></div>
                     <!--Form-Username-->
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <div class="form-row">
                             <div class="col-md" id="username_div">
                                 <label for="username" class="sr-only">Username</label>
                                 <input type="text" name="username" class="form-control" id="username-input" placeholder="Username..." required autocomplete="off" value="<?php if (isset($_POST['username'])) echo $_POST['username']; ?>">
-                                <div id="name-error" class="text-danger"><?php if (isset($_SESSION['user-error'])) echo $_SESSION['user-error'];?></div>
                             </div>
+                        </div>
+                    </div> -->
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label for="username">Username</label>
+                            <input class="form-control" name='username' id="username-input" type="text" placeholder="Username..." required="required" autocomplete="off" value="<?php if (isset($_POST['username'])) echo $_POST['username']; ?>" />
+                            <div id="name-error" class="text-danger"><?php if (isset($_SESSION['user-error'])) echo $_SESSION['user-error']; ?></div>
                         </div>
                     </div>
                     <!--Form-password-->
-                    <div class="form-group">
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" class="form-control" id="password-input" placeholder="Enter password..." required="required" autocomplete="off" value="<?php if (isset($_POST['password'])) echo $_POST['password']; ?>" />
+                            <div id="password-error" class="text-danger"><?php if (isset($_SESSION['password-error'])) echo $_SESSION['password-error']; ?> </div>
+                            <!--Forgot Password?-->
+                            <!-- <div class="float-right">
+                                <a class="d-block small mt-3" href="forgot-password.html">Forgot Password?</a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
                         <div class="form-row">
                             <div class="col-md" id="password_div">
                                 <label for="password" class="sr-only">Password</label>
                                 <input type="password" name="password" class="form-control" id="password-input" placeholder="Enter password..." required autocomplete="off" value="<?php if (isset($_POST['password'])) echo $_POST['password']; ?>">
-                                <div id="password-error" class="text-danger"><?php if (isset($_SESSION['password-error'])) echo $_SESSION['password-error'];?> </div>
-                                <!--Forgot Password?-->
-                                <div class="float-right">
-                                    <a class="d-block small mt-3" href="forgot-password.html">Forgot Password?</a>
-                                </div>
+
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!--Remember password-->
                     <!-- <div class="form-group">
                         <div class="form-check">
