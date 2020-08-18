@@ -413,344 +413,345 @@
                                 <th class="th-sm" scope="col">Trips</th>
                                 <th class="th-sm" scope="col">Info</th>
                             </tr>
+                        <tbody class="card-body">
+                        </tbody>
 
-                    </tbody>
-                </table>
-                <div class="row d-flex justify-content-center"><button class="btn w-100 btn-light load-more mb-3 mr-5 ml-5 d-none" id="selectionDriverTable_LoadMore">Load More</button></div>
+                    </table>
+                    <div class="row d-flex justify-content-center"><button class="btn w-100 btn-light load-more mb-3 mr-5 ml-5 d-none" id="selectionDriverTable_LoadMore">Load More</button></div>
+                </div>
             </div>
-        </div>
-        <div class="popup-footer">
-            <hr style="margin-bottom: 0.5rem;">
-            <input type="button" value="Go back" class="btn btn-primary" style="margin-right:10px " id="SelectDriverAlert_Goback">
-            <span class="d-inline-block" id="select-driver-tooltip" data-toggle="tooltip" title="Select a driver to enable"><input type="button" value="Confirm" class="btn btn-success" id="SelectDriverAlert_Confirm"></span>
+            <div class="popup-footer">
+                <hr style="margin-bottom: 0.5rem;">
+                <input type="button" value="Go back" class="btn btn-primary" style="margin-right:10px " id="SelectDriverAlert_Goback">
+                <span class="d-inline-block" id="select-driver-tooltip" data-toggle="tooltip" title="Select a driver to enable"><input type="button" value="Confirm" class="btn btn-success" id="SelectDriverAlert_Confirm"></span>
+            </div>
         </div>
     </div>
-</div>
 
-<!--Final-preview-->
-<div class="popup" id="RequestFinalDetailsPopup">
+    <!--Final-preview-->
+    <div class="popup" id="RequestFinalDetailsPopup">
 
-    <div class="popup-content">
-        <div class="popup-header">
-            <span class="close" id="RequestFinalDetails_Close">&times;</span>
-            <h3>Request Details</h3>
-            <hr>
-        </div>
-        <div class="popup-body">
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Requester</p>
-                </div>
-                <div class="col-sm-6">
-                    <p id="RequesterName-RequestFinalDetailsPopup">DD-MM-YYYY</p>
-                </div>
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="RequestFinalDetails_Close">&times;</span>
+                <h3>Request Details</h3>
+                <hr>
             </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Date</p>
-                </div>
-                <div class="col-sm-6">
-                    <p id="DateOfTrip-RequestFinalDetailsPopup">DD-MM-YYYY</p>
-                </div>
-            </div>
+            <div class="popup-body">
 
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Time</p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Requester</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p id="RequesterName-RequestFinalDetailsPopup">DD-MM-YYYY</p>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <p id="TimeOfTrip-RequestFinalDetailsPopup">HH:MM: AM/PM</p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Date</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p id="DateOfTrip-RequestFinalDetailsPopup">DD-MM-YYYY</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Pick-up Location</p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Time</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p id="TimeOfTrip-RequestFinalDetailsPopup">HH:MM: AM/PM</p>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <p id="PickLocation-RequestFinalDetailsPopup">Text</p>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Drop-off Location</p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Pick-up Location</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p id="PickLocation-RequestFinalDetailsPopup">Text</p>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <p id="DropLocation-RequestFinalDetailsPopup">Text</p>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Driver</p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Drop-off Location</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p id="DropLocation-RequestFinalDetailsPopup">Text</p>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <p id="Driver-RequestFinalDetailsPopup">Text</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Vehicle</p>
-                </div>
-                <div class="col-sm-6">
-                    <p id="Vehicle-RequestFinalDetailsPopup">Text</p>
-                </div>
-            </div>
-            <input class="inputs" type="hidden" name="Status" value="Scheduled" disabled>
-        </div>
-        <div class="popup-footer">
-            <input type="button" value="Confirm" class="btn btn-primary" id="RequestFinalDetails_Confirm">
-            <input type="button" value="Go back" class="btn btn-danger" id="RequestFinalDetails_Back">
 
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Driver</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p id="Driver-RequestFinalDetailsPopup">Text</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Vehicle</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p id="Vehicle-RequestFinalDetailsPopup">Text</p>
+                    </div>
+                </div>
+                <input class="inputs" type="hidden" name="Status" value="Scheduled" disabled>
+            </div>
+            <div class="popup-footer">
+                <input type="button" value="Confirm" class="btn btn-primary" id="RequestFinalDetails_Confirm">
+                <input type="button" value="Go back" class="btn btn-danger" id="RequestFinalDetails_Back">
+
+            </div>
         </div>
     </div>
-</div>
 
-<!--Vehicle Profile Form-->
-<div class="popup" id="VehicleProfileForm">
-    <!-- Request Form content -->
-    <div class="popup-content">
-        <div class="popup-header">
-            <span class="close" id="VehicleProfileForm_Close">&times;</span>
-            <h2>Vehicle</h2>
-            <hr>
-        </div>
-        <div class="popup-body">
-            <img src="../images/default-user-image.png" class="form-image">
-            <div id="submit-form-wrapper">
-                <div class="basic-form">
-                    <form id="VehicleProfile_form">
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label>Registration Number</label>
-                                <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="registration-VehicleProfileForm" type="text" name="registrationNoDisplay" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Model</label>
-                                <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="model-VehicleProfileForm" type="text" name="model" disabled>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="form-group col-md-6">
-                                <label>Purchased Year</label>
-                                <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="purchasedYear-VehicleProfileForm" type="text" name="purchasedYear" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Price</label>
-                                <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="value-VehicleProfileForm" type="text" name="value" disabled>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="form-group col-md-6">
-                                <label>Fuel Type</label>
-                                <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="fuelType-VehicleProfileForm" type="text" name="fuelType" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Current Location</label>
-                                <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="currentLocation-VehicleProfileForm" type="text" name="currentLocation" disabled>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="form-group col-md-6">
-                                <label>Insurance Company</label>
-                                <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="insuranceCompany-VehicleProfileForm" type="text" name="insuranceCompany" disabled>
-
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Insurance Value</label>
-                                <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="insuranceValue-VehicleProfileForm" type="text" name="insuranceValue" disabled>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-none leasedVehicleData">
-                            <div class="form-group row ">
-                                <div class="form-group col-md-6">
-                                    <label>Leased Company</label>
+    <!--Vehicle Profile Form-->
+    <div class="popup" id="VehicleProfileForm">
+        <!-- Request Form content -->
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="VehicleProfileForm_Close">&times;</span>
+                <h2>Vehicle</h2>
+                <hr>
+            </div>
+            <div class="popup-body">
+                <img src="../images/default-user-image.png" class="form-image">
+                <div id="submit-form-wrapper">
+                    <div class="basic-form">
+                        <form id="VehicleProfile_form">
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label>Registration Number</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border" id="leasedCompany-VehicleProfileForm" type="text" name="leasedCompany" disabled>
-
+                                        <input class="form-control py-2 border-right-0 border" id="registration-VehicleProfileForm" type="text" name="registrationNoDisplay" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label>Leased Value</label>
+                                    <label>Model</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border" id="leasedValue-VehicleProfileForm" type="text" name="monthlyPayment" disabled>
+                                        <input class="form-control py-2 border-right-0 border" id="model-VehicleProfileForm" type="text" name="model" disabled>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="form-group col-md-6">
-                                    <label>Leased From</label>
+                                    <label>Purchased Year</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border" id="leasedFrom-VehicleProfileForm" type="text" name="leasedPeriodFrom" disabled>
+                                        <input class="form-control py-2 border-right-0 border" id="purchasedYear-VehicleProfileForm" type="text" name="purchasedYear" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Price</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border" id="value-VehicleProfileForm" type="text" name="value" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="form-group col-md-6">
+                                    <label>Fuel Type</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border" id="fuelType-VehicleProfileForm" type="text" name="fuelType" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Current Location</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border" id="currentLocation-VehicleProfileForm" type="text" name="currentLocation" disabled>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="form-group col-md-6">
+                                    <label>Insurance Company</label>
+                                    <div class="input-group">
+                                        <input class="form-control py-2 border-right-0 border" id="insuranceCompany-VehicleProfileForm" type="text" name="insuranceCompany" disabled>
 
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label>Leased To</label>
+                                    <label>Insurance Value</label>
                                     <div class="input-group">
-                                        <input class="form-control py-2 border-right-0 border" id="leasedTo-VehicleProfileForm" type="text" name="leasedPeriodTo" disabled>
+                                        <input class="form-control py-2 border-right-0 border" id="insuranceValue-VehicleProfileForm" type="text" name="insuranceValue" disabled>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                    <input type="button" value="Edit" class="btn btn-primary" id="VehicleProfileForm_Edit">
-                    <input type="button" class="btn btn-danger" value="Delete" id="VehicleProfileForm_Delete">
+                            <div class="d-none leasedVehicleData">
+                                <div class="form-group row ">
+                                    <div class="form-group col-md-6">
+                                        <label>Leased Company</label>
+                                        <div class="input-group">
+                                            <input class="form-control py-2 border-right-0 border" id="leasedCompany-VehicleProfileForm" type="text" name="leasedCompany" disabled>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Leased Value</label>
+                                        <div class="input-group">
+                                            <input class="form-control py-2 border-right-0 border" id="leasedValue-VehicleProfileForm" type="text" name="monthlyPayment" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="form-group col-md-6">
+                                        <label>Leased From</label>
+                                        <div class="input-group">
+                                            <input class="form-control py-2 border-right-0 border" id="leasedFrom-VehicleProfileForm" type="text" name="leasedPeriodFrom" disabled>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Leased To</label>
+                                        <div class="input-group">
+                                            <input class="form-control py-2 border-right-0 border" id="leasedTo-VehicleProfileForm" type="text" name="leasedPeriodTo" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <input type="button" value="Edit" class="btn btn-primary" id="VehicleProfileForm_Edit">
+                        <input type="button" class="btn btn-danger" value="Delete" id="VehicleProfileForm_Delete">
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 
-</div>
-
-<!--Vehicle Edit Profile Form-->
-<div class="popup" id="VehicleProfileEditForm">
-    <!-- Request Form content -->
-    <div class="popup-content">
-        <div class="popup-header">
-            <span class="close" id="VehicleProfileEditForm_Close">&times;</span>
-            <h2>Edit Vehicle</h2>
-            <hr>
-        </div>
-        <div class="popup-body">
-            <div id="submit-form-wrapper">
-                <div class="basic-form">
-                    <form id="UpdateVehicle_form" enctype="multipart/form-data">
-                        <div class="center" style="text-align: center; ">
-                            <img src='../images/default-user-image.png' class="form-image" style="padding:5px; width:600p;text-align: center; cursor:pointer" id='VehicleImage'>
-                        </div>
-                        <div class="overlay">
-                            <i class="fa fa-camera upload-button" data-input='ChangeVehiclePicture'></i>
-                            <input type="file" name="Image" id="ChangeVehiclePicture" class="inputs file-upload" data-imageid='VehicleImage' accept="image/png, .jpeg, .jpg, image/gif" />
-                        </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <label>Registration Number</label>
-                        <div class="input-group">
-                            <input class="form-control inputs py-2 border-right-0 border" id="registration-VehicleProfileEditForm" type="text" name="registrationNoDisplay" required>
-                            <div id="registrationNoDisplay-error" class="text-danger"></div>
-                        </div>
+    <!--Vehicle Edit Profile Form-->
+    <div class="popup" id="VehicleProfileEditForm">
+        <!-- Request Form content -->
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close" id="VehicleProfileEditForm_Close">&times;</span>
+                <h2>Edit Vehicle</h2>
+                <hr>
+            </div>
+            <div class="popup-body">
+                <div id="submit-form-wrapper">
+                    <div class="basic-form">
+                        <form id="UpdateVehicle_form" enctype="multipart/form-data">
+                            <div class="center" style="text-align: center; ">
+                                <img src='../images/default-user-image.png' class="form-image" style="padding:5px; width:600p;text-align: center; cursor:pointer" id='VehicleImage'>
+                            </div>
+                            <div class="overlay">
+                                <i class="fa fa-camera upload-button" data-input='ChangeVehiclePicture'></i>
+                                <input type="file" name="Image" id="ChangeVehiclePicture" class="inputs file-upload" data-imageid='VehicleImage' accept="image/png, .jpeg, .jpg, image/gif" />
+                            </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label>Model</label>
-                        <div class="input-group">
-                            <input class="form-control inputs py-2 border-right-0 border" id="model-VehicleProfileEditForm" type="text" name="model" required>
-                            <div id="model-error" class="text-danger"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="form-group col-md-6">
-                        <label>Purchased Year</label>
-                        <div class="input-group">
-                            <input class="form-control inputs py-2 border-right-0 border" id="purchasedYear-VehicleProfileEditForm" type="text" name="purchasedYear">
-                            <div id="purchasedYear-error" class="text-danger"></div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Price</label>
-                        <div class="input-group">
-                            <input class="form-control inputs py-2 border-right-0 border" id="value-VehicleProfileEditForm" type="text" name="value">
-                            <div id="value-error" class="text-danger"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="form-group col-md-6">
-                        <label>Fuel Type</label>
-                        <div class="input-group">
-                            <input class="form-control inputs py-2 border-right-0 border" id="fuelType-VehicleProfileEditForm" type="text" name="fuelType" required>
-                            <div id="fuelType-error" class="text-danger"></div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Current Location</label>
-                        <div class="input-group">
-                            <input class="form-control inputs py-2 border-right-0 border" id="currentLocation-VehicleProfileEditForm" type="text" name="currentLocation">
-                            <div id="currentLocation-error" class="text-danger"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="form-group col-md-6">
-                        <label>Insurance Company</label>
-                        <div class="input-group">
-                            <input class="form-control inputs py-2 border-right-0 border" id="insuranceCompany-VehicleProfileEditForm" type="text" name="insuranceCompany" required>
-                            <div id="insuranceCompany-error" class="text-danger"></div>
-
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Insurance Value</label>
-                        <div class="input-group">
-                            <input class="form-control inputs py-2 border-right-0 border" id="insuranceValue-VehicleProfileEditForm" type="text" name="insuranceValue" required>
-                            <div id="insuranceValue-error" class="text-danger"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-none leasedVehicleData">
-                    <div class="form-group row ">
-                        <div class="form-group col-md-6">
-                            <label>Leased Company</label>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>Registration Number</label>
                             <div class="input-group">
-                                <input class="form-control inputs py-2 border-right-0 border" id="leasedCompany-VehicleProfileEditForm" type="text" name="leasedCompany">
-                                <div id="leasedCompany-error" class="text-danger"></div>
-
+                                <input class="form-control inputs py-2 border-right-0 border" id="registration-VehicleProfileEditForm" type="text" name="registrationNoDisplay" required>
+                                <div id="registrationNoDisplay-error" class="text-danger"></div>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label>Leased Value</label>
+                            <label>Model</label>
                             <div class="input-group">
-                                <input class="form-control inputs py-2 border-right-0 border" id="leasedValue-VehicleProfileEditForm" type="text" name="monthlyPayment">
-                                <div id="monthlyPayment-error" class="text-danger"></div>
+                                <input class="form-control inputs py-2 border-right-0 border" id="model-VehicleProfileEditForm" type="text" name="model" required>
+                                <div id="model-error" class="text-danger"></div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="form-group col-md-6">
-                            <label>Leased From</label>
+                            <label>Purchased Year</label>
                             <div class="input-group">
-                                <input class="form-control inputs py-2 border-right-0 border" id="leasedFrom-VehicleProfileEditForm" type="text" name="leasedPeriodFrom">
-                                <div id="leasedPeriodFrom-error" class="text-danger"></div>
+                                <input class="form-control inputs py-2 border-right-0 border" id="purchasedYear-VehicleProfileEditForm" type="text" name="purchasedYear">
+                                <div id="purchasedYear-error" class="text-danger"></div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Price</label>
+                            <div class="input-group">
+                                <input class="form-control inputs py-2 border-right-0 border" id="value-VehicleProfileEditForm" type="text" name="value">
+                                <div id="value-error" class="text-danger"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="form-group col-md-6">
+                            <label>Fuel Type</label>
+                            <div class="input-group">
+                                <input class="form-control inputs py-2 border-right-0 border" id="fuelType-VehicleProfileEditForm" type="text" name="fuelType" required>
+                                <div id="fuelType-error" class="text-danger"></div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Current Location</label>
+                            <div class="input-group">
+                                <input class="form-control inputs py-2 border-right-0 border" id="currentLocation-VehicleProfileEditForm" type="text" name="currentLocation">
+                                <div id="currentLocation-error" class="text-danger"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="form-group col-md-6">
+                            <label>Insurance Company</label>
+                            <div class="input-group">
+                                <input class="form-control inputs py-2 border-right-0 border" id="insuranceCompany-VehicleProfileEditForm" type="text" name="insuranceCompany" required>
+                                <div id="insuranceCompany-error" class="text-danger"></div>
 
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label>Leased To</label>
+                            <label>Insurance Value</label>
                             <div class="input-group">
-                                <input class="form-control inputs py-2 border-right-0 border" id="leasedTo-VehicleProfileEditForm" type="text" name="leasedPeriodTo">
-                                <div id="leasedPeriodTo-error" class="text-danger"></div>
+                                <input class="form-control inputs py-2 border-right-0 border" id="insuranceValue-VehicleProfileEditForm" type="text" name="insuranceValue" required>
+                                <div id="insuranceValue-error" class="text-danger"></div>
                             </div>
                         </div>
                     </div>
+                    <div class="d-none leasedVehicleData">
+                        <div class="form-group row ">
+                            <div class="form-group col-md-6">
+                                <label>Leased Company</label>
+                                <div class="input-group">
+                                    <input class="form-control inputs py-2 border-right-0 border" id="leasedCompany-VehicleProfileEditForm" type="text" name="leasedCompany">
+                                    <div id="leasedCompany-error" class="text-danger"></div>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Leased Value</label>
+                                <div class="input-group">
+                                    <input class="form-control inputs py-2 border-right-0 border" id="leasedValue-VehicleProfileEditForm" type="text" name="monthlyPayment">
+                                    <div id="monthlyPayment-error" class="text-danger"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="form-group col-md-6">
+                                <label>Leased From</label>
+                                <div class="input-group">
+                                    <input class="form-control inputs py-2 border-right-0 border" id="leasedFrom-VehicleProfileEditForm" type="text" name="leasedPeriodFrom">
+                                    <div id="leasedPeriodFrom-error" class="text-danger"></div>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Leased To</label>
+                                <div class="input-group">
+                                    <input class="form-control inputs py-2 border-right-0 border" id="leasedTo-VehicleProfileEditForm" type="text" name="leasedPeriodTo">
+                                    <div id="leasedPeriodTo-error" class="text-danger"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                    <span class="d-inline-block" id="edit-confirm-tooltip" data-toggle="tooltip" title="Make changes to enable"><input type="button" class="btn btn-success" value="Confirm" id="VehicleProfileEditForm_Confirm"></span>
+                    <input type="button" value="Cancel" class="btn btn-primary" id="VehicleProfileEditForm_Cancel">
                 </div>
-                </form>
-                <span class="d-inline-block" id="edit-confirm-tooltip" data-toggle="tooltip" title="Make changes to enable"><input type="button" class="btn btn-success" value="Confirm" id="VehicleProfileEditForm_Confirm"></span>
-                <input type="button" value="Cancel" class="btn btn-primary" id="VehicleProfileEditForm_Cancel">
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- change vehicle picture -->
 <!-- <div id="ChangeVehiclePictureForm" class="popup">

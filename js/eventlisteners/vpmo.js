@@ -26,7 +26,7 @@ const scheduledHistoryCard_Fields = [
 	'PickLocation',
 	'DropLocation',
 ];
-const vehicleCard_Fields = ['registration', 'model', 'purchasedYear'];
+const vehicleCard_Fields = ['registration', 'model', 'purchasedYear','vehicleImagePath'];
 const driverCard_Fields = ['FirstName', 'LastName','AssignedVehicle', 'Email','NumOfAllocations'];
 // const driverSelction_Fields = ['firstName', 'lastName','assignedVehicleID', 'email'];
 

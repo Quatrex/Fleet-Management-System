@@ -271,19 +271,22 @@ class VPMO extends Requester
      * @return VPMODriverProxy
      *
      */
-    public function loadAssignedRequests(array $values, string $type): array
+    public function loadAssignedRequests(array $values, string $type)
     {
         switch ($type) {
             case 'driver':
                 $driver =  DriverFactory::makeDriverByValues($values);
-                return $driver->getField('assignedRequests');
+                $driver->getField('assignedRequests');
+                return $driver;
             case 'vehicle':
                 if ($values['IsLeased']) {
                     $vehicle = $this->leasedVehicleFactory->makeVehicleByValues($values);
-                    return $vehicle->getField('assignedRequests');
+                    $vehicle->getField('assignedRequests');
+                    return $vehicle;
                 } else {
                     $vehicle = $this->purchasedVehicleFactory->makeVehicleByValues($values);
-                    return $vehicle->getField('assignedRequests');
+                    $vehicle->getField('assignedRequests');
+                    return $vehicle;
                 }
             default:
                 throw new Exception('Invalid Parameter for type');

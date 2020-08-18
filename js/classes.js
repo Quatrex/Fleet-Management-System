@@ -182,6 +182,7 @@ class DOMContainer {
 	}
 
 	handleEvent(event) {
+		console.log(event.target.closest('.detail-description').id);
 		if (
 			event.type == 'click' &&
 			(event.target.id || event.target.closest('.searchTabButton') || event.target.closest('.detail-description'))
@@ -240,7 +241,9 @@ class DOMContainer {
 						let targetObject = this.store.getObjectById(
 							event.target.closest('.detail-description').id.split('_')[1]
 						);
+						console.log(targetObject);
 						if (targetObject) {
+							console.log("render popup");
 							this.popup.render(targetObject);
 						}
 					}
@@ -269,9 +272,17 @@ class DOMContainer {
 	insertEntry(object) {
 		let template = document.querySelector(`#${this.templateId}`);
 		let clone = template.content.cloneNode(true);
+		
 		this.fields.forEach((field) => {
 			if (clone.querySelector(`.${field}`)) {
-				clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
+				if(field.includes('ImagePath')){
+					object[field] != ''?
+					clone.querySelector(`.${field}`).src = `${object[field]}`:
+					clone.querySelector(`.${field}`).src = '../images/car.png';
+				}
+				else{
+					clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
+				}
 			}
 		});
 		this.cardContainer.querySelector('.card-body').insertBefore(clone, this.cardContainer.firstChild);
@@ -285,7 +296,14 @@ class DOMContainer {
 		let clone = template.content.cloneNode(true);
 		this.fields.forEach((field) => {
 			if (clone.querySelector(`.${field}`)) {
-				clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
+				if(field.includes('ImagePath')){
+					object[field] != ''?
+					clone.querySelector(`.${field}`).src = `${object[field]}`:
+					clone.querySelector(`.${field}`).src = '../images/car.png';
+				}
+				else{
+					clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
+				}
 			}
 		});
 		this.cardContainer.querySelector('.card-body').appendChild(clone);
