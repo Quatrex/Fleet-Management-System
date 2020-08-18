@@ -40,6 +40,7 @@ abstract class AbstractVehicle implements Vehicle
         $this->currentLocation = ($values['CurrentLocation'] != null) ? $values['CurrentLocation'] : '';
         $this->numOfAllocations = $values['NumOfAllocations'];
         $this->assignedRequests = null;
+        $this->vehicleImagePath=$values['VehiclePicturePath'];
     }
 
     //abstract public function getField(string $field);
@@ -92,6 +93,12 @@ abstract class AbstractVehicle implements Vehicle
     {
         $vehicleController = new VehicleController();
         $vehicleController->deleteVehicle($this->registrationNo);
+    }
+
+    public function updatePicture(array $vehicleInfo): void
+    {
+        $vehicleController = new VehicleController();
+        $vehicleController->updatePicture($this->registrationNo,$vehicleInfo['VehiclePicturePath']);
     }
 
     public function setState(State $state)

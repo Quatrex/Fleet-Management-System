@@ -24,18 +24,21 @@ abstract class VehicleModel extends Model
     {
         $joinConditions = [['vehicle' => 'RegistrationNo', 'leased_vehicle' => 'RegistrationNo']];
         $conditions =  empty($states) ? ['IsDeleted' => 0] : ['IsDeleted' => 0, 'State' => $states];
-        $wantedFields = ['vehicle.RegistrationNo', 'Model', 'PurchasedYear', 'Value', 'FuelType', 
-                    'InsuranceValue','InsuranceCompany','AssignedOfficer','State','CurrentLocation',
-                    'NumOfAllocations', 'IsLeased', 'leasedCompany', 'leasedPeriodFrom', 'leasedPeriodTo', 'monthlyPayment'];
-        $query = $this->queryBuilder->select($this->tableName,$wantedFields)
-                                    ->join($this->tableName,$joinConditions,"LEFT")
-                                    ->where()
-                                        ->conditions($conditions)
-                                        ->like($this->tableName,key($search),$search[key($search)])
-                                        ->getWhere()
-                                    ->orderBy($sort)
-                                    ->limit(5,$offset)
-                                    ->getSQLQuery();
+        $wantedFields = [
+            'vehicle.RegistrationNo', 'Model', 'PurchasedYear', 'Value', 'FuelType',
+            'InsuranceValue', 'InsuranceCompany', 'AssignedOfficer', 'State',
+            'CurrentLocation', 'NumOfAllocations', 'IsLeased', 'leasedCompany', 'leasedPeriodFrom',
+            'leasedPeriodTo', 'monthlyPayment', 'VehiclePicturePath'
+        ];
+        $query = $this->queryBuilder->select($this->tableName, $wantedFields)
+            ->join($this->tableName, $joinConditions, "LEFT")
+            ->where()
+            ->conditions($conditions)
+            ->like($this->tableName, key($search), $search[key($search)])
+            ->getWhere()
+            ->orderBy($sort)
+            ->limit(5, $offset)
+            ->getSQLQuery();
 
         $result = $this->dbh->read($query);
         return $result ? $result : [];
@@ -85,6 +88,15 @@ abstract class VehicleModel extends Model
             'InsuranceValue' => $insuranceValue,
             'InsuranceCompany' => $insuranceCompany,
             'AssignedOfficer' => $assignedOfficer
+        ];
+        $conditions = ['RegistrationNo' => $registrationNo];
+        parent::updateRecord($values, $conditions);
+    }
+
+    protected function updateVehiclePicture(string $registrationNo, string $imagePath)
+    {
+        $values = [
+            'VehiclePicturePath' => $imagePath
         ];
         $conditions = ['RegistrationNo' => $registrationNo];
         parent::updateRecord($values, $conditions);

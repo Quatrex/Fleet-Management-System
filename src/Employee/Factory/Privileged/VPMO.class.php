@@ -34,13 +34,14 @@ class VPMO extends Requester
      *
      * @return array{Request}
      */
-    public function getRequests($state, 
-                                int $offset, 
-                                array $sort = ['CreatedDate' => 'DESC'], 
-                                array $search = ['' => ['All']]): array
-    {
+    public function getRequests(
+        $state,
+        int $offset,
+        array $sort = ['CreatedDate' => 'DESC'],
+        array $search = ['' => ['All']]
+    ): array {
         $states = is_array($state) ? $state : [$state];
-        return VPMORequestFactory::makeRequests($states, $offset,$sort,$search);
+        return VPMORequestFactory::makeRequests($states, $offset, $sort, $search);
     }
 
     /**
@@ -50,12 +51,13 @@ class VPMO extends Requester
      * @return array(Vehicle)
      *
      */
-    public function getVehicles(int $offset = 0,
-                                array $sort = ['RegistrationNo' => 'ASC'], 
-                                array $search = ['' => ['All']],
-                                bool $isAvailable = false)
-    {
-        return VehicleFactory::getVehicles($offset,$sort,$search,$isAvailable);
+    public function getVehicles(
+        int $offset = 0,
+        array $sort = ['RegistrationNo' => 'ASC'],
+        array $search = ['' => ['All']],
+        bool $isAvailable = false
+    ) {
+        return VehicleFactory::getVehicles($offset, $sort, $search, $isAvailable);
     }
 
     /**
@@ -65,11 +67,12 @@ class VPMO extends Requester
      * @return array(Driver)
      *
      */
-    public function getDrivers( int $offset = 0,
-                                array $sort = ['FirstName' => 'ASC'], 
-                                array $search = ['' => ['All']])
-    {
-        return DriverFactory::makeDrivers($offset,$sort,$search);
+    public function getDrivers(
+        int $offset = 0,
+        array $sort = ['FirstName' => 'ASC'],
+        array $search = ['' => ['All']]
+    ) {
+        return DriverFactory::makeDrivers($offset, $sort, $search);
     }
 
     /**
@@ -178,6 +181,25 @@ class VPMO extends Requester
     {
         $vehicle = $this->leasedVehicleFactory->makeVehicle($values['RegistrationNo']);
         $vehicle->updateInfo($values);
+        return $vehicle;
+    }
+
+    /**
+     *
+     * Update vehicle picture.
+     *
+     * @param imageName,registrationNo,isLeased, fields
+     * @return void
+     *
+     */
+    public function updateVehiclePicture($values)
+    {
+        if ($values['isLeased']) {
+            $vehicle = $this->leasedVehicleFactory->makeVehicle($values['RegistrationNo']);
+        } else {
+            $vehicle = $this->purchasedVehicleFactory->makeVehicle($values['RegistrationNo']);
+        }
+        $vehicle->updatePicture($values);
         return $vehicle;
     }
 

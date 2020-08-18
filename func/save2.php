@@ -15,8 +15,8 @@ $object = ['error' => true, 'object' => '', 'message' => ''];
 switch ($method) {
 	case 'JOJustify':
 		$comment = '';
-		if($_POST['JOSelectedVehicle'] !=''){
-			$comment = $_POST['JOComment'].' Suggested Vehicle: '.$_POST['JOSelectedVehicle'];
+		if ($_POST['JOSelectedVehicle'] != '') {
+			$comment = $_POST['JOComment'] . ' Suggested Vehicle: ' . $_POST['JOSelectedVehicle'];
 		}
 		$request = $employee->justifyRequest($_POST['RequestId'], $comment);
 		$object['error'] = false;
@@ -98,6 +98,7 @@ switch ($method) {
 
 	case 'UpdateVehicle':
 		$vehicle = null;
+
 		if ($_POST['leasedCompany'] !== "") {
 			$vehicle = $employee->updateLeasedVehicleInfo([
 				'RegistrationNo' => $_POST['registration'],
@@ -130,6 +131,31 @@ switch ($method) {
 		} else {
 			$object['error'] = true;
 			$object['message'] = 'Failed to create a vehicle object';
+		}
+		break;
+	case 'UpdateVehiclePicture':
+		$vehicleImageName = time() . '-' . $_FILES["Image"]["name"];
+
+		$target_dir = "../images/vehiclePictures/";
+		$target_file = $target_dir . basename($vehicleImageName);
+
+		if (file_exists($target_file)) {
+			$object['message'] = "File already exists";
+		}
+
+		if ($object['message'] == '') {
+			if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
+				$emp = $employee->UpdateVehiclePicture([
+					'VehiclePicturePath' => $vehicleImageName,
+					'RegistrationNo' => $_POST['registration'],
+					'isLeased' => $_POST['leasedCompany'] !== ""
+				]);
+				$object['error'] = false;
+				$object['object'] = $target_file;
+				$object['message'] = "success_ " . " successfully updated vehicle picture";
+			} else {
+				$object['message'] = "There was an error uploading the file";
+			}
 		}
 		break;
 
@@ -207,7 +233,7 @@ switch ($method) {
 
 		$target_dir = "../images/userProfilePictures/";
 		$target_file = $target_dir . basename($profileImageName);
-		
+
 		if ($_FILES['Image']['size'] > 200000) {
 			$object['message'] = "Image size should not be greated than 200Kb";
 		}
@@ -279,6 +305,32 @@ switch ($method) {
 		$object['error'] = false;
 		$object['object'] = $driver;
 		$object['message'] = "success_Driver " . $_POST['employeeID'] . " successfully updated";
+		break;
+
+	case 'UpdateDriverPicture':
+		$driverImageName = time() . '-' . $_FILES["Image"]["name"];
+
+		$target_dir = "../images/driverPictures/";
+		$target_file = $target_dir . basename($profileImageName);
+
+		if ($_FILES['Image']['size'] > 200000) {
+			$object['message'] = "Image size should not be greated than 200Kb";
+		}
+
+		if (file_exists($target_file)) {
+			$object['message'] = "File already exists";
+		}
+
+		if ($object['message'] == '') {
+			if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
+				$emp = $employee->UpdateProfilePicture(['ProfilePicturePath' => $profileImageName]);
+				$object['error'] = false;
+				$object['object'] = $target_file;
+				$object['message'] = "success_Employee " . " successfully updated profile picture";
+			} else {
+				$object['message'] = "There was an error uploading the file";
+			}
+		}
 		break;
 
 	case 'AssignVehicleToDriver':

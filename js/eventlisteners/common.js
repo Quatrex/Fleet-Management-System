@@ -84,26 +84,26 @@ requestsByMeStore.addObservers(pendingRequestTable)
 ongoingRequestsStore.addObservers(ongoingRequestTable)
 pastRequestsStore.addObservers(requestHistoryTable)
 
-function readURL(input) {
+function readURL(input, imageid) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 
         reader.onload = function(e) {
-            $('#preview-profile-pic').attr('src', e.target.result);
+            $('#'.concat(imageid)).attr('src', e.target.result);
         }
 
         reader.readAsDataURL(input.files[0]);
     }
 }
 
-$("#imgInp").change(function() {
-    console.log(this);
-    readURL(this);
+// $('#ChangeProfilePicture').on('change', function() {
+//     readURL(this);
+// });
+
+$(".file-upload").on('change', function() {
+    readURL(this, this.dataset.imageid);
 });
 
-$('#ChangeProfilePicture').on('change', function() {
-    $("#while-uploading").html('');
-    $("#while-uploading").html('Uploading....');
-    readURL(this);
-    $("#while-uploading").html('');
+$(".upload-button").on('click', function() {
+    $(".file-upload").click();
 });
