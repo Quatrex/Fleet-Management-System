@@ -98,10 +98,11 @@
 
 <template id="selectionDriverTemplate">
     <tr role="row" class="detail-description">
-        <th class="driverId sorting_1"></th>
-        <td class="firstName lastName"></td>
-        <td class="assignedVehicleID"></td>
-        <td>Nothing</td>
+        <th class="DriverID sorting_1"></th>
+        <td class="FirstName LastName"></td>
+        <td class="AssignedVehicle"></td>
+        <td class="NumOfAllocations"></td>
+        <td data-field="assignedRequests"><i class="fas fa-info-circle"></i></td>
     </tr>
 </template>
 
@@ -110,7 +111,7 @@
         <th class="registration"></th>
         <td class="model"></td>
         <td class="purchasedYear"></td>
-        <td class="assignedTrips"></td>
+        <td class="assignedTrips" data-field="assignedRequests"><i class="fas fa-info-circle"></i></td>
     </tr>
 </template>
 

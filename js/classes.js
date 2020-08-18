@@ -165,11 +165,11 @@ class DOMContainer {
 		}
 	}
 
-	loadContent(trigger = 'render') {
+	loadContent(trigger = 'render', method = 'APPEND') {
 		if (trigger != 'render') {
 			if (!this.loadMoreButton.classList.contains('active')) {
 				this.loadMoreButton.classList.add('active');
-				this.store.loadData(trigger);
+				this.store.loadData(trigger, method);
 			}
 		} else {
 			// let template = document.querySelector('#loaderTemplate');
@@ -241,7 +241,6 @@ class DOMContainer {
 							event.target.closest('.detail-description').id.split('_')[1]
 						);
 						if (targetObject) {
-							this.store.setCurrentObj(targetObject);
 							this.popup.render(targetObject);
 						}
 					}
@@ -305,7 +304,6 @@ class DOMContainer {
 		let children = this.cardContainer.querySelectorAll('.detail-description');
 		children.forEach((child) => {
 			child.remove();
-
 		});
 	}
 	updateEntry(object) {
@@ -345,42 +343,47 @@ class SelectionTable extends DOMContainer {
 			this.toggleStyle(`${this.id}_${object[this.selectField]}`);
 		}
 	}
-	handleEvent(event,popup={}, object={}) {
+	handleEvent(event, popup = {}, object = {}) {
 		if (event.type == 'click') {
 			if (event.target.closest('tbody')) {
-				let id = event.target.parentElement.id
+				let id = event.target.closest('.detail-description').id;
 				let targetObject = this.store.getObjectById(id.split('_')[1]);
-				if (this.toggleStyle(id)) {
-					object[this.selectField] = targetObject[this.store.getObjIdType()];
-					if (this.nextFieldId != '') {
-						document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
-						if (targetObject[this.nextFieldId]) {
-							object[this.nextField] = targetObject[this.nextFieldId];
+				console.log(event.target.closest('td').dataset.field);
+
+				if ('field' in event.target.closest('td').dataset) {
+					super.loadContent(event.type, 'UPDATE');
+				} else {
+					if (this.toggleStyle(id)) {
+						object[this.selectField] = targetObject[this.store.getObjIdType()];
+						if (this.nextFieldId != '') {
+							document.getElementById(`${this.selectField}-${this.id}`).innerHTML =
+								object[this.selectField];
+							if (targetObject[this.nextFieldId]) {
+								object[this.nextField] = targetObject[this.nextFieldId];
+							} else {
+								object[this.nextField] = '';
+							}
 						} else {
+							document.getElementById(`${this.selectField}-${this.id}`).innerHTML =
+								object[this.selectField];
+						}
+						popup.setObject(object);
+					} else {
+						object[this.selectField] = '';
+						document.getElementById(`${this.selectField}-${this.id}`).innerHTML = '';
+						if (object[this.nextField] != '') {
 							object[this.nextField] = '';
 						}
-					} else {
-						document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
+						this.button.initializeProperties({ disabled: 'true' });
+						popup.setObject(object);
 					}
-					popup.setObject(object);
-				} else {
-					object[this.selectField] = '';
-					document.getElementById(`${this.selectField}-${this.id}`).innerHTML = '';
-					if (object[this.nextField] != '') {
-						object[this.nextField] = '';
-					}
-					this.button.initializeProperties({ disabled: 'true' });
-					popup.setObject(object);
 				}
-			}
-			else{
+			} else {
 				super.handleEvent(event);
 			}
-		}
-		else{
+		} else {
 			super.handleEvent(event);
 		}
-
 	}
 
 	toggleStyle(tableRowId) {
@@ -474,7 +477,7 @@ class Popup {
 				targetObject.handleEvent(this, this.object, event);
 			} else {
 				if (Object.keys(this.selectionTable).length != 0) {
-					this.selectionTable.handleEvent(event,this, this.object);
+					this.selectionTable.handleEvent(event, this, this.object);
 				}
 			}
 		} else if (event.type == 'keyup') {
@@ -482,7 +485,6 @@ class Popup {
 			targetObject.handleEvent(this, this.object, event);
 		}
 	}
-
 }
 
 //******************Popup Buttons */
@@ -769,8 +771,8 @@ const Database = {
 			timeout: 5000,
 		});
 	},
-	loadContent(method, offset, actionCreater = {}, searchObject = {}) {
-		var holder = { ...{ offset: offset, Method: method }, ...searchObject };
+	loadContent(method, offset, actionCreater = {}, searchObject = {}, object = {}) {
+		var holder = { ...{ offset: offset, Method: method, object: object }, ...searchObject };
 		console.log(holder);
 		$.ajax({
 			url: '../func/fetch.php',

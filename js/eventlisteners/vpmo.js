@@ -27,14 +27,14 @@ const scheduledHistoryCard_Fields = [
 	'DropLocation',
 ];
 const vehicleCard_Fields = ['registration', 'model', 'purchasedYear'];
-const driverCard_Fields = ['firstName', 'lastName','assignedVehicleID', 'email'];
+const driverCard_Fields = ['FirstName', 'LastName','AssignedVehicle', 'Email','NumOfAllocations'];
 // const driverSelction_Fields = ['firstName', 'lastName','assignedVehicleID', 'email'];
 
 const requestsToAssignStore = new Store('requestsToAssign');
 const ongoingTripStore = new Store('scheduledRequests');
 const scheduledRequestsStore = new Store('scheduledHistoryRequests');
 const vehicleStore = new Store('vehicles','registration','RegistrationNo');
-const driverStore = new Store('drivers','driverId');
+const driverStore = new Store('drivers','DriverID','DriverID');
 
 //Add a vehicle
 const VehicleAddFormClose = new DisplayNextButton('VehicleAddForm_Close');

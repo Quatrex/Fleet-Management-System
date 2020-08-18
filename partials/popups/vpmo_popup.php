@@ -411,7 +411,8 @@
                                 <th class="" scope="col">#</th>
                                 <th class="th-sm" scope="col">Driver</th>
                                 <th class="th-sm" scope="col">AssignedVehicleId</th>
-                                <th class="th-sm" scope="col">Assigned Trips</th>
+                                <th class="th-sm" scope="col">Trips</th>
+                                <th class="th-sm" scope="col">Info</th>
                             </tr>
                         </thead>
                         <tbody class="card-body">

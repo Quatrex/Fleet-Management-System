@@ -11,6 +11,7 @@ use Employee\Factory\Driver\DriverFactory;
 use Employee\Factory\Driver\VPMODriverProxy;
 use Report\VehicleHandoutSlip;
 use Request\Factory\VPMORequest\VPMORequestFactory;
+use Exception;
 
 
 class VPMO extends Requester
@@ -34,13 +35,14 @@ class VPMO extends Requester
      *
      * @return array{Request}
      */
-    public function getRequests($state, 
-                                int $offset, 
-                                array $sort = ['CreatedDate' => 'DESC'], 
-                                array $search = ['' => ['All']]): array
-    {
+    public function getRequests(
+        $state,
+        int $offset,
+        array $sort = ['CreatedDate' => 'DESC'],
+        array $search = ['' => ['All']]
+    ): array {
         $states = is_array($state) ? $state : [$state];
-        return VPMORequestFactory::makeRequests($states, $offset,$sort,$search);
+        return VPMORequestFactory::makeRequests($states, $offset, $sort, $search);
     }
 
     /**
@@ -50,12 +52,13 @@ class VPMO extends Requester
      * @return array(Vehicle)
      *
      */
-    public function getVehicles(int $offset = 0,
-                                array $sort = ['RegistrationNo' => 'ASC'], 
-                                array $search = ['' => ['All']],
-                                bool $isAvailable = false)
-    {
-        return VehicleFactory::getVehicles($offset,$sort,$search,$isAvailable);
+    public function getVehicles(
+        int $offset = 0,
+        array $sort = ['RegistrationNo' => 'ASC'],
+        array $search = ['' => ['All']],
+        bool $isAvailable = false
+    ) {
+        return VehicleFactory::getVehicles($offset, $sort, $search, $isAvailable);
     }
 
     /**
@@ -65,11 +68,12 @@ class VPMO extends Requester
      * @return array(Driver)
      *
      */
-    public function getDrivers( int $offset = 0,
-                                array $sort = ['FirstName' => 'ASC'], 
-                                array $search = ['' => ['All']])
-    {
-        return DriverFactory::makeDrivers($offset,$sort,$search);
+    public function getDrivers(
+        int $offset = 0,
+        array $sort = ['FirstName' => 'ASC'],
+        array $search = ['' => ['All']]
+    ) {
+        return DriverFactory::makeDrivers($offset, $sort, $search);
     }
 
     /**
@@ -238,5 +242,32 @@ class VPMO extends Requester
         $driver =  DriverFactory::makeDriver($driverID);
         $driver->assignVehicle($registrationNo);
         return $driver;
+    }
+
+    /**
+     *
+     * update driver's AssignedVehicle
+     *
+     * @param driverID, registrationNo
+     * @return VPMODriverProxy
+     *
+     */
+    public function loadAssignedRequests(array $values, string $type): array
+    {
+        switch ($type) {
+            case 'driver':
+                $driver =  DriverFactory::makeDriverByValues($values);
+                return $driver->getField('assignedRequests');
+            case 'vehicle':
+                if ($values['IsLeased']) {
+                    $vehicle = $this->leasedVehicleFactory->makeVehicleByValues($values);
+                    return $vehicle->getField('assignedRequests');
+                } else {
+                    $vehicle = $this->purchasedVehicleFactory->makeVehicleByValues($values);
+                    return $vehicle->getField('assignedRequests');
+                }
+            default:
+                throw new Exception('Invalid Parameter for type');
+        }
     }
 }

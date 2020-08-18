@@ -61,16 +61,19 @@ class DriverProxy implements Driver, JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'driverId' => $this->driver->getField('driverId'),
-            'firstName' => $this->driver->getField('firstName'),
-            'employedDate' => $this->driver->getField('employedDate'),
-            'firstName' => $this->driver->getField('firstName'),
-            'lastName' => $this->driver->getField('lastName'),
-            'assignedVehicleID' => $this->driver->getField('assignedVehicle'),
-            'licenseID' => $this->driver->getField('licenseID'),
-            'licenseExpDate' => $this->driver->getField('licenseExpDate'),
-            'email' => $this->driver->getField('email'),
-            'licenseType' => $this->driver->getField('licenseType')
+            'FirstName' => $this->driver->getField('firstName'),
+            'LastName' => $this->driver->getField('lastName'),
+            'Email' => $this->driver->getField('email'),
+            'DriverID' => $this->driver->getField('driverId'),
+            'LicenseNumber' => $this->driver->getField('licenseNumber'),
+            'LicenseType' => $this->driver->getField('licenseType'),
+            'LicenseExpirationDay' => $this->driver->getField('licenseExpirationDay'),
+            'DateOfAdmission' => $this->driver->getField('dateOfAdmission'),
+            'AssignedVehicle' => $this->driver->getField('assignedVehicle'),
+            'NumOfAllocations' => $this->driver->getField('numOfAllocations'),
+            'State' => $this->driver->getField('state')->getID(),
+            'ProfilePicturePath' => $this->driver->getField('profilePicturePath'),            
+            'AssignedRequests' => [],            
         ];
     }
 

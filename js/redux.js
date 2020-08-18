@@ -26,7 +26,8 @@ class Store {
 		return this.state;
 	}
 	getObjectById(id) {
-		return this.state.find((obj) => obj[this.objId] == id);
+		this.currentObj = this.state.find((obj) => obj[this.objId] == id);
+		return this.currentObj;
 	}
 	getOffset() {
 		return this.state.length;
@@ -74,23 +75,30 @@ class Store {
 		}
 	}
 
-	loadData(trigger = 'render') {
+	loadData(trigger = 'render',method = 'APPEND') {
 		if (!this.updated) {
 			Database.loadContent(
 				`Load_${this.type}`,
 				this.state.length,
-				ActionCreator([this], 'APPEND'),
+				ActionCreator([this], method),
 				this.searchObj
 			);
 			this.updated = true;
 		} else {
 			if (trigger != 'render') {
+				method == 'UPDATE' ?
+				Database.loadContent(
+					`Load_${this.type}_assignedRequests`,
+					this.state.length,
+					ActionCreator([this], method),
+					this.searchObj,this.currentObj
+				):
 				Database.loadContent(
 					`Load_${this.type}`,
 					this.state.length,
-					ActionCreator([this], 'APPEND'),
+					ActionCreator([this], method),
 					this.searchObj
-				);
+				)
 			}
 		}
 	}
@@ -113,7 +121,7 @@ class Store {
 		} else if (action.type === 'DELETEALL') {
 			this.state = [];
 		}
-		// console.log(this.state);
+		console.log(this.state);
 		this.notifyObservers(action);
 	}
 	addObservers(observer) {
