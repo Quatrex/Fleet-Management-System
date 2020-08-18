@@ -187,6 +187,25 @@ class VPMO extends Requester
 
     /**
      *
+     * Update vehicle picture.
+     *
+     * @param imageName,registrationNo,isLeased, fields
+     * @return void
+     *
+     */
+    public function updateVehiclePicture($values)
+    {
+        if ($values['isLeased']) {
+            $vehicle = $this->leasedVehicleFactory->makeVehicle($values['RegistrationNo']);
+        } else {
+            $vehicle = $this->purchasedVehicleFactory->makeVehicle($values['RegistrationNo']);
+        }
+        $vehicle->updatePicture($values);
+        return $vehicle;
+    }
+
+    /**
+     *
      * Delete purchased vehicle data.
      *
      * @param registrationNo

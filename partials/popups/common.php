@@ -575,6 +575,18 @@
                 <div class="center" style="text-align: center; ">
                     <img src="<?php echo $employee->getField('profilePicturePath') != null ? "../images/userProfilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; ?>" class="form-image ProfilePicture" style="padding:5px; width:600p;text-align: center; cursor:pointer" id="change-profile-picture-button">
                 </div>
+                <!-- <div class="row">
+                    <div class="small-12 medium-2 large-2 columns">
+                        <div class="circle">
+                            <img src="<?php //echo $employee->getField('profilePicturePath') != null ? "../images/userProfilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; 
+                                        ?>" class="form-image ProfilePicture" id="change-profile-picture-button">
+                        </div>
+                        <div class="p-image">
+                            <i class="fa fa-camera upload-button"></i>
+                            <input class="file-upload" type="file" accept="image/*" />
+                        </div>
+                    </div>
+                </div> -->
                 <!-- <div class="row justify-content-center">
                     <div class="col-auto">
                         <button class="btn btn-link" id="change-profile-picture-button">Change Profile Picture</button>
@@ -642,22 +654,11 @@
             <div class="modal-body">
                 <form id="ChangeProfilePicture_Form" method="post" enctype="multipart/form-data">
                     <strong>Upload Image:</strong> <br><br>
-                    <input type="file" name="profileImage" id="ChangeProfilePicture" class="inputs" accept="image/png, .jpeg, .jpg, image/gif" />
+                    <input type="file" name="Image" id="ChangeProfilePicture" class="inputs file-upload" data-imageid="preview-profile-pic" accept="image/png, .jpeg, .jpg, image/gif" />
                     <input class="inputs" type="hidden" name="Method" value='ChangeProfilePicture' disabled>
-                    <!-- <input type="hidden" name="hdn-profile-id" id="hdn-profile-id" value="1" />
-                    <input type="hidden" name="hdn-x1-axis" id="hdn-x1-axis" value="" />
-                    <input type="hidden" name="hdn-y1-axis" id="hdn-y1-axis" value="" />
-                    <input type="hidden" name="hdn-x2-axis" value="" id="hdn-x2-axis" />
-                    <input type="hidden" name="hdn-y2-axis" value="" id="hdn-y2-axis" />
-                    <input type="hidden" name="hdn-thumb-width" id="hdn-thumb-width" value="" />
-                    <input type="hidden" name="hdn-thumb-height" id="hdn-thumb-height" value="" />
-                    <input type="hidden" name="action" value="" id="action" />
-                    <input type="hidden" name="image-name" value="" id="image-name" /> -->
-                    <div id="while-uploading"></div>
                     <div class="col" style="text-align: center;">
                         <img id='preview-profile-pic' class="form-image ProfilePicture" src="<?php echo $employee->getField('profilePicturePath') != null ? "../images/userProfilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; ?>" style="padding:5px; width:50%;"></img>
                     </div>
-                    <div id="thumbs" style="padding:5px; width:600p"></div>
                     <input type="button" value="Save" class="btn btn-primary" id="ChangeProfilePictureForm_Submit">
                     <input type="button" value="Close" class="btn btn-primary" id="ChangeProfilePictureForm_Cancel">
                 </form>

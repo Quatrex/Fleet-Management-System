@@ -26,8 +26,8 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
 
     public function getField(string $field)
     {
-        $property=parent::getField($field);
-        if ($property==null && property_exists($this, $field)) {
+        $property = parent::getField($field);
+        if ($property == null && property_exists($this, $field)) {
             return $this->$field;
         }
         return $property;
@@ -43,18 +43,19 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
             'value' => $this->value,
             'fuelType' => $this->fuelType,
             'insuranceValue' => $this->insuranceValue,
-            'insuranceCompany'=>$this->insuranceCompany,
+            'insuranceCompany' => $this->insuranceCompany,
             'state' => State::getStateString($this->state->getID()),
             'currentLocation' => $this->currentLocation,
-            'numOfAllocations'=>$this->numOfAllocations,
+            'numOfAllocations' => $this->numOfAllocations,
             'leasedCompany' => $this->leasedCompany,
             'leasedPeriodFrom' => $this->leasedPeriodFrom,
             'leasedPeriodTo' => $this->leasedPeriodTo,
-            'monthlyPayment' => $this->monthlyPayment];
+            'monthlyPayment' => $this->monthlyPayment
+        ];
     }
 
     //IObjectHandle
-    public function saveToDatabase() : void
+    public function saveToDatabase(): void
     {
         $vehicleController = new VehicleController();
         $vehicleController->saveLeasedVehicleRecord(
@@ -80,7 +81,7 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
     {
         //changed vehicle attributes can be analysed here
 
-        $this->registrationNo=$values['NewRegistrationNo'];
+        $this->registrationNo = $values['NewRegistrationNo'];
         $this->model = $values['Model'];
         $this->purchasedYear = $values['PurchasedYear'];
         $this->value = $values['Value'];
@@ -94,18 +95,20 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
         $this->monthlyPayment = $values['MonthlyPayment'];
 
         $vehicleController = new VehicleController();
-        $vehicleController->updateLeasedVehicleInfo($values['RegistrationNo'],
-                                                    $this->registrationNo, 
-                                                    $this->model, 
-                                                    $this->purchasedYear, 
-                                                    $this->value, 
-                                                    $this->fuelType, 
-                                                    $this->insuranceValue, 
-                                                    $this->insuranceCompany,
-                                                    $this->assignedOfficer, 
-                                                    $this->leasedCompany, 
-                                                    $this->leasedPeriodFrom, 
-                                                    $this->leasedPeriodTo, 
-                                                    $this->monthlyPayment);
+        $vehicleController->updateLeasedVehicleInfo(
+            $values['RegistrationNo'],
+            $this->registrationNo,
+            $this->model,
+            $this->purchasedYear,
+            $this->value,
+            $this->fuelType,
+            $this->insuranceValue,
+            $this->insuranceCompany,
+            $this->assignedOfficer,
+            $this->leasedCompany,
+            $this->leasedPeriodFrom,
+            $this->leasedPeriodTo,
+            $this->monthlyPayment
+        );
     }
 }

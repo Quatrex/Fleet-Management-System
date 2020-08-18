@@ -28,6 +28,11 @@ class VehicleController extends VehicleModel
         parent::updateLeasedVehicleRow($registrationNo, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
     }
 
+    public function updatePicture(string $registrationNo, string $imagePath)
+    {
+        parent::updateVehiclePicture($registrationNo,$imagePath);
+    }
+
     public function updateNumOfAllocations(string $registrationNo, int $numOfAllocations)
     {
         parent::updateNumOfAllocations($registrationNo, $numOfAllocations);
