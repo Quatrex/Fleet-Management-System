@@ -427,6 +427,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <!--Final-preview-->
     <div class="popup" id="RequestFinalDetailsPopup">
@@ -510,7 +511,7 @@
     </div>
 
     <!--Vehicle Profile Form-->
-    <div class="popup" id="VehicleProfileForm">
+    <div class="popup" id="VehicleProfileForm" >
         <!-- Request Form content -->
         <div class="popup-content">
             <div class="popup-header">
