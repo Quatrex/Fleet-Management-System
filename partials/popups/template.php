@@ -57,9 +57,9 @@
 </template>
 
 <template id="vehicleCardTemplate">
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description" style="cursor: pointer;">
         <div class="card text-center" style="width: 15rem;">
-            <img class="card-img-top rounded-circle vehicle-image mt-2" src="../images/car.png" alt="Vehicle Image">
+            <img class="card-img-top rounded-circle vehicle-image mt-2" src="../images/car.png" alt="Vehicle Image" >
             <div class="card-body">
                 <h5 class="card-title model"></h5>
                 <h6 class="card-subtitle mb-2 text-muted registration"></h6>

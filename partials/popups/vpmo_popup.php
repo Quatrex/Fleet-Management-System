@@ -648,11 +648,11 @@
                 <div class="basic-form">
                     <form id="UpdateVehicle_form" enctype="multipart/form-data">
                         <div class="center" style="text-align: center; ">
-                            <img src='../images/default-user-image.png' class="form-image" style="padding:5px; width:600p;text-align: center; cursor:pointer" id='VehicleImage'>
+                            <img src='../images/default-user-image.png' class="form-image" style="padding:5px; width:50%;text-align: center;" id='VehicleImage'>
                         </div>
                         <div class="overlay">
-                            <i class="fa fa-camera upload-button" data-input='ChangeVehiclePicture'></i>
-                            <input type="file" name="Image" id="ChangeVehiclePicture" class="inputs file-upload" data-imageid='VehicleImage' accept="image/png, .jpeg, .jpg, image/gif" />
+                            <i class="fa fa-camera upload-button" data-input='ChangeVehiclePicture' style="cursor: pointer;" onclick='run();'></i>
+                            <input type="file" name="Image" id="ChangeVehiclePicture" class="inputs file-upload" data-imageid='VehicleImage' accept="image/png, .jpeg, .jpg, image/gif" style="display: none;"/>
                         </div>
                 </div>
                 <div class="form-group row">
@@ -780,7 +780,7 @@
                     <input class="inputs" type="hidden" name="Method" value='ChangeVehiclePicture' disabled>
                     <div id="while-uploading"></div>
                     <div class="col" style="text-align: center;">
-                        <img id='preview-vehicle-pic' class="form-image VehiclePicture" src="<?php echo $employee->getField('vehiclePicturePath') != null ? "../images/userVehiclePictures/" . $employee->getField('vehiclePicturePath') : "../images/default-user-image.png"; ?>" style="padding:5px; width:50%;"></img>
+                        <img id='preview-vehicle-pic' class="form-image VehiclePicture" src="<?php //echo $employee->getField('vehiclePicturePath') != null ? "../images/userVehiclePictures/" . $employee->getField('vehiclePicturePath') : "../images/default-user-image.png"; ?>" style="padding:5px; width:50%;"></img>
                     </div>
                     <div id="thumbs" style="padding:5px; width:600p"></div>
                     <input type="button" value="Save" class="btn btn-primary" id="ChangeVehiclePictureForm_Submit">
