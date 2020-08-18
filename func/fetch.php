@@ -93,10 +93,10 @@ switch ($method) {
 		$object['object'] = $drivers;
 		break;
 	case 'Load_drivers_assignedRequests':
-		$object = $_POST['object'];
-		$requests = $employee->loadAssignedRequests($object,'driver');
+		$driver = $_POST['object'];
+		$updatedDriver = $employee->loadAssignedRequests($driver,'driver');
 		$object['error'] = false;
-		$object['object'] = $requests;
+		$object['object'] = $updatedDriver;
 		break;
 
 	case 'Load_employeess':

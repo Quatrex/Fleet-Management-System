@@ -168,7 +168,9 @@ class DOMContainer {
 	loadContent(trigger = 'render', method = 'APPEND') {
 		if (trigger != 'render') {
 			if (!this.loadMoreButton.classList.contains('active')) {
-				this.loadMoreButton.classList.add('active');
+				if(method =='APPEND'){
+					this.loadMoreButton.classList.add('active');
+				}
 				this.store.loadData(trigger, method);
 			}
 		} else {
@@ -328,7 +330,9 @@ class DOMContainer {
 		let entry = document.getElementById(`${this.id}_${object[this.store.getObjIdType()]}`);
 		if (entry != 'undefined' && entry != null) {
 			this.fields.forEach((field) => {
-				entry.querySelector(`.${field}`).innerHTML = object[field];
+				if(entry.querySelector(`.${field}`)){
+					entry.querySelector(`.${field}`).innerHTML = object[field];
+				}
 			});
 		} else {
 			this.insertEntry(object);
