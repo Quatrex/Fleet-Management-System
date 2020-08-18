@@ -651,8 +651,8 @@
                             <img src='../images/default-user-image.png' class="form-image" style="padding:5px; width:50%;text-align: center;" id='VehicleImage'>
                         </div>
                         <div class="overlay">
-                            <i class="fa fa-camera upload-button" data-input='ChangeVehiclePicture' style="cursor: pointer;" onclick=run();></i>
-                            <input type="file" name="Image" id="ChangeVehiclePicture" class="inputs file-upload" data-imageid='VehicleImage' accept="image/png, .jpeg, .jpg, image/gif" style="display: none;" />
+                            <i class="fa fa-camera upload-button" data-input='ChangeVehiclePicture' style="cursor: pointer;" ></i>
+                            <input type="file" name="Image" id="ChangeVehiclePicture" class="inputs file-upload" data-imageid='VehicleImage' accept="image/png, .jpeg, .jpg, image/gif" />
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6">

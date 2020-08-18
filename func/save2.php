@@ -133,7 +133,7 @@ switch ($method) {
 			$object['message'] = 'Failed to create a vehicle object';
 		}
 		break;
-	case 'UpdateVehiclePicture':
+	case 'ChangeVehiclePicture':
 		$vehicleImageName = time() . '-' . $_FILES["Image"]["name"];
 
 		$target_dir = "../images/vehiclePictures/";
@@ -147,8 +147,8 @@ switch ($method) {
 			if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
 				$emp = $employee->UpdateVehiclePicture([
 					'VehiclePicturePath' => $vehicleImageName,
-					'RegistrationNo' => $_POST['registration'],
-					'isLeased' => $_POST['leasedCompany'] !== ""
+					'RegistrationNo' => $_POST['Id'],
+					'isLeased' => ($_POST['leasedCompany'] !== "")
 				]);
 				$object['error'] = false;
 				$object['object'] = $target_file;
