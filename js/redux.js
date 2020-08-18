@@ -75,30 +75,30 @@ class Store {
 		}
 	}
 
-	loadData(trigger = 'render',method = 'APPEND') {
+	loadData(trigger = 'render', method = 'APPEND') {
 		if (!this.updated) {
-			Database.loadContent(
-				`Load_${this.type}`,
-				this.state.length,
-				ActionCreator([this], method),
-				this.searchObj
-			);
+			Database.loadContent(`Load_${this.type}`, this.state.length, ActionCreator([this], method), this.searchObj);
 			this.updated = true;
 		} else {
 			if (trigger != 'render') {
-				method == 'UPDATE' ?
-				Database.loadContent(
-					`Load_${this.type}_assignedRequests`,
-					this.state.length,
-					ActionCreator([this], method),
-					this.searchObj,this.currentObj
-				):
-				Database.loadContent(
-					`Load_${this.type}`,
-					this.state.length,
-					ActionCreator([this], method),
-					this.searchObj
-				)
+				if (method == 'UPDATE') {
+					if(this.currentObj.NumOfAllocations>0){
+						Database.loadContent(
+							`Load_${this.type}_assignedRequests`,
+							this.state.length,
+							ActionCreator([this], method),
+							this.searchObj,
+							this.currentObj
+						);
+					}
+				} else {
+					Database.loadContent(
+						`Load_${this.type}`,
+						this.state.length,
+						ActionCreator([this], method),
+						this.searchObj
+					);
+				}
 			}
 		}
 	}
@@ -139,7 +139,7 @@ const ActionCreator = (stores, actionType) => ({
 		let types = actionType.split('&');
 		if (types.length == 1) {
 			let actionObj = { type: actionType };
-			actionType == 'ADD' || actionType == 'APPEND'
+			actionType == 'ADD' || actionType == 'APPEND'|| actionType == 'UPDATE'
 				? stores[0].dispatch({ ...actionObj, payload: returnedObj })
 				: stores[0].dispatch({ ...actionObj, payload: currentObj });
 		} else if (types.length > 1) {
