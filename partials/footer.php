@@ -4,10 +4,6 @@
     </div>
 </div>
 <style>
-    .rounded {
-        border-radius: 0.5rem !important;
-    }
-
     .scroll-to-top {
         z-index: 1042;
         right: 1rem;
@@ -21,12 +17,15 @@
         background-color: rgba(33, 37, 41, 0.5);
         line-height: 3.1rem;
         justify-content: center;
-        align-items: center;
+        align-items: stretch;
+        font-size: 3rem;
+        border-radius: 0.5rem !important;
     }
 </style>
 <div class="scroll-to-top position-fixed">
-    <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top"><i class="fa fa-chevron-up"></i></a>
+    <a class="js-scroll-trigger d-block text-center text-white" href="#page-top"><i class="fa fa-chevron-up"></i></a>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script>
     $(document).scroll(function() {
         var scrollDistance = $(this).scrollTop();
