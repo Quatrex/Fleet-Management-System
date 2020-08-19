@@ -19,6 +19,11 @@ class DriverController extends DriverModel
         parent::updateDriverInfo($driverId, $newDriverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicle, $email);
     }
 
+    public function updateDriverPicture($driverId,$imagePath)
+    {
+        parent::updateDriverPicture($driverId,$imagePath);
+    }
+
     public function updateAssignedVehicle($driverId,$assignedVehicle){
         parent::updateAssignedVehicle($driverId,$assignedVehicle);
     }

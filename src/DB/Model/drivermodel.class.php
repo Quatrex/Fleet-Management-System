@@ -20,12 +20,12 @@ abstract class DriverModel extends Model
     {
         $conditions = ['IsDeleted' => 0];
         $query = $this->queryBuilder->select($this->tableName)
-                                    ->where()
-                                        ->conditions($conditions)
-                                        ->like($this->tableName,key($search),$search[key($search)])
-                                        ->getWhere()
-                                    ->limit(5,$offset)
-                                    ->getSQLQuery();
+            ->where()
+            ->conditions($conditions)
+            ->like($this->tableName, key($search), $search[key($search)])
+            ->getWhere()
+            ->limit(5, $offset)
+            ->getSQLQuery();
         $result = $this->dbh->read($query);
 
         return $result ? $result : [];
@@ -66,7 +66,16 @@ abstract class DriverModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
-    protected function updateAssignedVehicle($driverId,$assignedVehicle)
+    protected function updateDriverPicture($driverId, $imagePath)
+    {
+        $values = [
+            'ImagePath' => $imagePath
+        ];
+        $conditions = ['DriverID' => $driverId];
+        parent::updateRecord($values, $conditions);
+    }
+
+    protected function updateAssignedVehicle($driverId, $assignedVehicle)
     {
         $values = [
             'AssignedVehicle' => $assignedVehicle
@@ -93,9 +102,10 @@ abstract class DriverModel extends Model
         parent::addRecord($values);
     }
 
-    protected function deleteDriver($driverID){
+    protected function deleteDriver($driverID)
+    {
         $values = ['IsDeleted' => 1];
         $conditions = ['DriverID' => $driverID];
-        parent::updateRecord($values,$conditions);  
+        parent::updateRecord($values, $conditions);
     }
 }

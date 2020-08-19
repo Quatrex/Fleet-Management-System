@@ -19,6 +19,7 @@ class RealDriver extends Employee implements Driver
     private State $state;
     private int $numOfAllocations;
     private ?array $assignedRequests;
+    private ?string $imagePath;
     
     public function __construct($values)
     {
@@ -32,6 +33,7 @@ class RealDriver extends Employee implements Driver
         $this->state = State::getState($values['State']);
         $this->numOfAllocations=$values['NumOfAllocations'];
         $this->assignedRequests=null;
+        $this->imagePath=$values['ProfilePicturePath'];
     }
 
 
@@ -117,6 +119,16 @@ class RealDriver extends Employee implements Driver
             $this->dateOfAdmission,
             $this->assignedVehicle,
             $this->email
+        );
+    }
+
+    public function updatePicture(string $imagePath): void
+    {
+        $this->imagePath=$imagePath;
+        $driverController = new DriverController();
+        $driverController->updateDriverPicture(
+            $this->driverId,
+            $this->imagePath
         );
     }
 

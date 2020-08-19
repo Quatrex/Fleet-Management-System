@@ -856,10 +856,8 @@ const Database = {
         data = new FormData();
         data.append('Image', $(`#${method}`)[0].files[0]);
         data.append('Method', method);
-        let i = 1;
         ids.forEach(function(id) {
-            data.append(`value${i}`, $(`#${id}`).val());
-            i++;
+            data.append(id.split('-')[0], $(`#${id}`).val());
         });
         $.ajax({
             url: '../func/save2.php',

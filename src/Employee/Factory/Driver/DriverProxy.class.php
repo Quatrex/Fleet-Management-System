@@ -48,6 +48,14 @@ class DriverProxy implements Driver, JsonSerializable
     /**
      * @inheritDoc
      */
+    public function updatePicture(string $imagePath): void
+    {
+        throw new Exception('Illegel Access');
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function deleteDriver(string $driverID) : void
     {
         throw new Exception('Illegel Access');
@@ -72,7 +80,7 @@ class DriverProxy implements Driver, JsonSerializable
             'AssignedVehicle' => $this->driver->getField('assignedVehicle'),
             'NumOfAllocations' => $this->driver->getField('numOfAllocations'),
             'State' => $this->driver->getField('state')->getID(),
-            'ProfilePicturePath' => $this->driver->getField('profilePicturePath'),            
+            'ProfilePicturePath' => $this->driver->getField('imagePath'),            
             'AssignedRequests' => [],            
         ];
     }

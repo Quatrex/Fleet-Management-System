@@ -24,6 +24,11 @@ interface Driver
      */
     public function updateInfo(array $values): void;
 
+    /**
+     * Update driver picture. Only the Admin is privileged to invoke this.
+     */
+    public function updatePicture(string $imagePath): void;
+
      /**
      * Deletes driver information. Only the Admin is privileged to invoke this.
      */

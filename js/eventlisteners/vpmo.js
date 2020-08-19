@@ -61,7 +61,12 @@ const DeleteVehicleAlertPopup = new Popup('DeleteVehicleAlertPopup', [
 const VehicleProfileEditFormClose = new DisplayAlertButton('VehicleProfileEditForm_Close', CancelRequestAlertPopup);
 const VehicleProfileEditFormCancel = new DisplayNextButton('VehicleProfileEditForm_Cancel');
 const VehicleProfileEditFormConfirm = new ValidatorButton(
-    'VehicleProfileEditForm_Confirm', {}, [ObjectCreate, FormValidate, BackendAccess('UpdateVehicle', ActionCreator([vehicleStore], 'UPDATE')), BackendAccessForPicture('ChangeVehiclePicture', ['registration-VehicleProfileEditForm', 'leasedCompany-VehicleProfileEditForm'])], { disabled: 'true' }
+    'VehicleProfileEditForm_Confirm', {}, [
+        ObjectCreate,
+        FormValidate,
+        BackendAccess('UpdateVehicle', ActionCreator([vehicleStore], 'UPDATE')),
+        BackendAccessForPicture('ChangeVehiclePicture', ['registration-VehicleProfileEditForm', 'leasedCompany-VehicleProfileEditForm'])
+    ], { disabled: 'true' }
 );
 const VehicleProfileEditFormPopup = new Popup(
     'VehicleProfileEditForm', [VehicleProfileEditFormCancel, VehicleProfileEditFormClose, VehicleProfileEditFormConfirm], ['click', 'keyup', 'change']

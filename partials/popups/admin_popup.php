@@ -382,10 +382,16 @@
             <hr>
         </div>
         <div class="popup-body">
-            <img src="../images/default-user-image.png" class="form-image">
             <div id="submit-form-wrapper">
                 <div class="basic-form">
                     <form id="UpdateDriver_form">
+                        <div class="center" style="text-align: center; ">
+                            <img src='../images/default-user-image.png' id="driverImagePath-DriverProfileEditForm" class="form-image" style="padding:5px; width:50%;text-align: center;">
+                        </div>
+                        <div class="overlay">
+                            <i class="fa fa-camera upload-button" data-input='ChangeDriverPicture' style="cursor: pointer;"></i>
+                            <input type="file" name="Image" id="ChangeDriverPicture" class="file-upload" data-imageid="driverImagePath-DriverProfileEditForm" accept="image/png, .jpeg, .jpg, image/gif" />
+                        </div>
                         <div class="form-group row mb-4">
                             <div class="form-group col-md-6">
                                 <label>Driver ID</label>
