@@ -18,7 +18,7 @@ class Administrator extends PrivilegedEmployee
         return $employees;
     }
 
-    public function getAllDrivers(  int $offset = 0,
+    public function getDrivers(  int $offset = 0,
                                     array $sort = ['FirstName' => 'ASC'], 
                                     array $search = ['' => ['All']])
     {
@@ -62,6 +62,21 @@ class Administrator extends PrivilegedEmployee
     {
         $driver =  DriverFactory::makeDriver($driverID);
         $driver->updateInfo($values);
+        return $driver;
+    }
+
+    /**
+     *
+     * update driver's picture
+     *
+     * @param driverID,imagePath
+     * @return VPMODriverProxy
+     *
+     */
+    public function updateDriverPicture(array $values): Driver
+    {
+        $driver =  DriverFactory::makeDriver($values['DriverId']);
+        $driver->updatePicture($values['DriverPicturePath']);
         return $driver;
     }
 
