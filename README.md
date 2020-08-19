@@ -21,6 +21,6 @@ See also the list of [contributors](https://github.com/Quatrex/Fleet-Management-
 
 ## License
 
-This project is licensed under the License - see the [LICENSE.md](LICENSE.md) file for details:cop:
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/Quatrex/Fleet-Management-System/blob/develop/LICENSE.md) file for details:cop:
 
 ## Acknowledgments

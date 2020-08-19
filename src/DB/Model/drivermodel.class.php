@@ -69,7 +69,7 @@ abstract class DriverModel extends Model
     protected function updateDriverPicture($driverId, $imagePath)
     {
         $values = [
-            'ImagePath' => $imagePath
+            'ProfilePicturePath' => $imagePath
         ];
         $conditions = ['DriverID' => $driverId];
         parent::updateRecord($values, $conditions);

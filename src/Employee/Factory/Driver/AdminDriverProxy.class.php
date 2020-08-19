@@ -16,4 +16,9 @@ class AdminDriverProxy extends DriverProxy
     {
         $this->driver->deleteDriver($driverID);
     }
+
+    public function updatePicture(string $imagePath): void
+    {
+        $this->driver->updatePicture($imagePath);
+    }
 }

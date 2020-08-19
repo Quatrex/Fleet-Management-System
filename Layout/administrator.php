@@ -42,8 +42,8 @@ $drivers = [];
     </script>
     <script src="../js/classes.js"></script>
     <script src="../js/redux.js"></script>
-    <script src="../js/eventlisteners/admin.js"></script>
     <script src="../js/functions.js"></script>
+    <script src="../js/eventlisteners/admin.js"></script>
 </body>
 
 </html>

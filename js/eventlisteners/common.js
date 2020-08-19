@@ -89,9 +89,9 @@ var readURL = function(input) {
         var reader = new FileReader();
 
         reader.onload = function(e) {
-            $('#'.concat(input.dataset.imageid)).attr('src', e.target.result);
+            $(`#${input.dataset.imageid}`).attr('src', e.target.result);
         }
-
+        console.log(`#${input.dataset.imageid}`);
         reader.readAsDataURL(input.files[0]);
     }
 }

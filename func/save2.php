@@ -295,25 +295,28 @@ switch ($method) {
 		break;
 
 	case 'UpdateDriver':
-		$driver = $employee->updateDriverInfo([
-			'DriverID' => $_POST['driverId'],
-			'FirstName' => $_POST['firstName'],
-			'LastName' => $_POST['lastName'],
-			'Email' => $_POST['email'],
-			'Address' => $_POST['address'],
-			'ContactNo' => $_POST['contactNo'],
-			'LicenseNumber' => $_POST['licenseNo'],
-			'LicenseType' => $_POST['licenseType'],
-			'LicenseExpirationDay' => $_POST['licenseExpireDate'],
-			'DateOfAdmission' => $_POST['employedDate'],
-			'AssignedVehicleID' => ""
-		]);
+		$driver = $employee->updateDriverInfo(
+			$_POST['driverID'],
+			[
+				'DriverID' => $_POST['driverID'],
+				'FirstName' => $_POST['firstName'],
+				'LastName' => $_POST['lastName'],
+				'Email' => $_POST['email'],
+				'Address' => $_POST['address'],
+				'ContactNo' => $_POST['contactNo'],
+				'LicenseNumber' => $_POST['licenseID'],
+				'LicenseType' => $_POST['licenseType'],
+				'LicenseExpirationDay' => $_POST['licenseExpDate'],
+				'DateOfAdmission' => $_POST['employedDate'],
+				'AssignedVehicleID' => ""
+			]
+		);
 		$object['error'] = false;
 		$object['object'] = $driver;
 		$object['message'] = "success_Driver " . $_POST['employeeID'] . " successfully updated";
 		break;
 
-	case 'UpdateDriverPicture':
+	case 'ChangeDriverPicture':
 		$driverImageName = time() . '-' . $_FILES["Image"]["name"];
 
 		$target_dir = "../images/driverPictures/";

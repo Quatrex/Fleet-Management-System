@@ -459,7 +459,7 @@
                                 <label>License ID</label>
                                 <div class="input-group">
                                     <input class="form-control py-2 border-right-0 border inputs" id="licenseID-DriverProfileEditForm" type="text" name="licenseID" required>
-                                    <div id="designation-error" class="text-danger"></div>
+                                    <div id="licenseID-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">

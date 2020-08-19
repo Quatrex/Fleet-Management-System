@@ -76,7 +76,7 @@ const DriverProfileEditFormConfirm = new ValidatorButton(
     'DriverProfileEditForm_Confirm', {}, [ObjectCreate, FormValidate, BackendAccess('UpdateDriver', ActionCreator([driverStore], 'UPDATE')), BackendAccessForPicture('ChangeDriverPicture', ['driverId-DriverProfileEditForm'])], { disabled: 'true' }
 );
 const DriverProfileEditFormPopup = new Popup(
-    'DriverProfileEditForm', [DriverProfileEditFormCancel, DriverProfileEditFormClose, DriverProfileEditFormConfirm], ['click', 'keyup']
+    'DriverProfileEditForm', [DriverProfileEditFormCancel, DriverProfileEditFormClose, DriverProfileEditFormConfirm], ['click', 'keyup', 'change']
 );
 DriverProfileEditFormPopup.setDataType('value');
 
@@ -121,3 +121,23 @@ adminTab.render();
 
 employeeStore.addObservers(employeeContainer);
 driverStore.addObservers(driverContainer);
+
+var readURL = function(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $(`#${input.dataset.imageid}`).attr('src', e.target.result);
+        }
+        console.log(`#${input.dataset.imageid}`);
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$(".file-upload").on('change', function() {
+    readURL(this);
+});
+
+$(".upload-button").on('click', function() {
+    $(".file-upload").click();
+});
