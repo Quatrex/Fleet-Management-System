@@ -23,7 +23,7 @@ $_SESSION['ongoingRequests'] = $ongoingRequests;
 $_SESSION['pastRequests'] = $pastRequests;
 ?>
 
-<body>
+<body id="page-top">
 
     <?php
     $uiBuilder

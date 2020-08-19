@@ -25,7 +25,7 @@ $approvedRequests = [];
 $_SESSION['employee'] = $employee;
 ?>
 
-<body>
+<body id="page-top">
     <?php
     $uiBuilder
         ->createMainNavBar($employee,['My Requests', 'Awaiting Requests'])

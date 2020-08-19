@@ -33,7 +33,7 @@ $_SESSION['employee'] = $employee;
 <html>
 <?php include '../partials/head.php'; ?>
 
-<body>
+<body id="page-top">
     <?php
     $uiBuilder
         ->createMainNavBar($employee,['My Requests', 'Awaiting Requests', 'Database'])

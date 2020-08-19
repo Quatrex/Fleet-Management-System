@@ -20,7 +20,7 @@ $drivers = [];
 
 ?>
 
-<body>
+<body id="page-top">
     <?php
     $uiBuilder
         ->createMainNavBar($employee,[])
