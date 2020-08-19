@@ -1,6 +1,6 @@
 //Fields
-const employeeCard_Fields = ['FirstName', 'LastName', 'Designation', 'Email'];
-const driverCard_Fields = ['FirstName', 'LastName', 'AssignedVehicle', 'Email'];
+const employeeCard_Fields = ['FirstName', 'LastName', 'Designation', 'Email','ProfilePicturePath'];
+const driverCard_Fields = ['FirstName', 'LastName', 'AssignedVehicle', 'Email','ProfilePicturePath'];
 
 const employeeStore = new Store('employees', 'empID');
 const driverStore = new Store('drivers', 'DriverID', );

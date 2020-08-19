@@ -25,6 +25,9 @@ class Store {
 	getState() {
 		return this.state;
 	}
+	getType(){
+		return this.type;
+	}
 	getObjectById(id) {
 		this.currentObj = this.state.find((obj) => obj[this.objId] == id);
 		return this.currentObj;

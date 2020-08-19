@@ -241,7 +241,6 @@ class DOMContainer {
                         let targetObject = this.store.getObjectById(
                             event.target.closest('.detail-description').id.split('_')[1]
                         );
-                        console.log(targetObject);
                         if (targetObject) {
                             this.popup.render(targetObject);
                         }
@@ -294,10 +293,11 @@ class DOMContainer {
         let clone = template.content.cloneNode(true);
         this.fields.forEach((field) => {
             if (clone.querySelector(`.${field}`)) {
-                if (field.includes('ImagePath')) {
+                if (field.includes('ImagePath')||field.includes('PicturePath')) {
+                    console.log(this.store.getType().slice(0,-1))
                     object[field] != '' ?
-                        (clone.querySelector(`.${field}`).src = `../images/vehiclePictures/${object[field]}`) :
-                        (clone.querySelector(`.${field}`).src = '../images/car.png');
+                        (clone.querySelector(`.${field}`).src = `../images/${this.store.getType().slice(0,-1)}Pictures/${object[field]}`) :
+                        (clone.querySelector(`.${field}`).src = `../images//${this.store.getType().slice(0,-1)}.png`);
                 } else {
                     clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
                 }
@@ -775,7 +775,7 @@ const changeValue = (object, id) => {
     let objProps = Object.getOwnPropertyNames(object);
     for (let i = 0; i < objProps.length; i++) {
         document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
-            if (!objProps[i].includes('ImagePath')) {
+            if (!(objProps[i].includes('ImagePath')||objProps[i].includes('PicturePath'))) {
                 tag.value = object[objProps[i]];
             } else {
                 if (object[objProps[i]] != '') {

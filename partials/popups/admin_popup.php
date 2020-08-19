@@ -77,7 +77,7 @@
             <hr>
         </div>
         <div class="popup-body">
-            <img src="../images/default-user-image.png" class="form-image">
+            <img src="../images/default-user-image.png" class="form-image" id="ProfilePicturePath-EmployeeProfileForm">
             <div id="submit-form-wrapper">
                 <div class="basic-form">
                     <form id="EmployeeProfile_form">
@@ -293,13 +293,13 @@
                             <div class="form-group col-md-6">
                                 <label>Driver ID</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="driverId-DriverProfileForm" type="text" name="driverID" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="driverId-DriverProfileForm" type="text" name="DriverID" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Employed Date</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="employedDate-DriverProfileForm" type="date" name="employedDate" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="employedDate-DriverProfileForm" type="date" name="DateOfAdmission" disabled>
                                 </div>
                             </div>
                         </div>
@@ -307,39 +307,39 @@
                             <div class="form-group col-md-6">
                                 <label>First Name</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="firstName-DriverProfileForm" type="text" name="firstName" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="firstName-DriverProfileForm" type="text" name="FirstName" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Last Name</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="lastName-DriverProfileForm" type="text" name="lastName" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="lastName-DriverProfileForm" type="text" name="LastName" disabled>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row mb-4 mx-auto">
                             <label>Address</label>
                             <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border" id="address-DriverProfileForm" type="text" name="address" disabled>
+                                <input class="form-control py-2 border-right-0 border" id="address-DriverProfileForm" type="text" name="Address" disabled>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
                             <div class="form-group col-md-4">
                                 <label>Assigned Vehicle</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="assignedVehicleID-DriverProfileForm" type="text" name="assignedVehicleID" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="assignedVehicleID-DriverProfileForm" type="text" name="AssignedVehicle" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Contact Number</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="contactNo-DriverProfileForm" type="text" name="contactNo" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="contactNo-DriverProfileForm" type="text" name="ContactNo" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Email</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="email-DriverProfileForm" type="text" name="email" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="email-DriverProfileForm" type="text" name="Email" disabled>
                                 </div>
                             </div>
                         </div>
@@ -347,19 +347,19 @@
                             <div class="form-group col-md-4">
                                 <label>License ID</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="licenseID-DriverProfileForm" type="text" name="designation" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="licenseID-DriverProfileForm" type="text" name="LicenseNumber" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>License Type</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border " id="licenseType-DriverProfileForm" type="text" name="contactNo" disabled>
+                                    <input class="form-control py-2 border-right-0 border " id="licenseType-DriverProfileForm" type="text" name="LicenseType" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>License Expirey Date</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="licenseExpDate-DriverProfileForm" type="text" name="email" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="licenseExpDate-DriverProfileForm" type="text" name="LicenseExpirationDay" disabled>
                                 </div>
                             </div>
                         </div>
@@ -396,14 +396,14 @@
                             <div class="form-group col-md-6">
                                 <label>Driver ID</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="driverId-DriverProfileEditForm" type="text" name="driverID" required>
+                                    <input class="form-control py-2 border-right-0 border inputs" id="driverId-DriverProfileEditForm" type="text" name="DriverID" required>
                                     <div id="driverID-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Employed Date</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="employedDate-DriverProfileEditForm" type="date" name="employedDate">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="employedDate-DriverProfileEditForm" type="date" name="DateOfAdmission">
                                     <div id="employedDate-error" class="text-danger"></div>
                                 </div>
                             </div>
@@ -412,14 +412,14 @@
                             <div class="form-group col-md-6">
                                 <label>First Name</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="firstName-DriverProfileEditForm" type="text" name="firstName" required>
+                                    <input class="form-control py-2 border-right-0 border inputs" id="firstName-DriverProfileEditForm" type="text" name="FirstName" required>
                                     <div id="firstName-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Last Name</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="lastName-DriverProfileEditForm" type="text" name="lastName" required>
+                                    <input class="form-control py-2 border-right-0 border inputs" id="lastName-DriverProfileEditForm" type="text" name="LastName" required>
                                     <div id="lastName-error" class="text-danger"></div>
                                 </div>
                             </div>
@@ -427,7 +427,7 @@
                         <div class="form-group row mb-4 mx-auto">
                             <label>Address</label>
                             <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border inputs" id="address-DriverProfileEditForm" type="text" name="address">
+                                <input class="form-control py-2 border-right-0 border inputs" id="address-DriverProfileEditForm" type="text" name="Address">
                                 <div id="address-error" class="text-danger"></div>
                             </div>
                         </div>
@@ -435,21 +435,21 @@
                             <div class="form-group col-md-4">
                                 <label>Assigned Vehicle</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="assignedVehicleID-DriverProfileEditForm" type="text" name="assignedVehicleID">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="assignedVehicleID-DriverProfileEditForm" type="text" name="AssignedVehicle">
                                     <div id="assignedVehicleID-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Contact Number</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="contactNo-DriverProfileEditForm" type="text" name="contactNo" required>
+                                    <input class="form-control py-2 border-right-0 border inputs" id="contactNo-DriverProfileEditForm" type="text" name="ContactNo" required>
                                     <div id="contactNo-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Email</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="email-DriverProfileEditForm" type="text" name="email">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="email-DriverProfileEditForm" type="text" name="Email">
                                     <div id="email-error" class="text-danger"></div>
                                 </div>
                             </div>
@@ -465,14 +465,14 @@
                             <div class="form-group col-md-4">
                                 <label>License Type</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="licenseType-DriverProfileEditForm" type="text" name="licenseType">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="licenseType-DriverProfileEditForm" type="text" name="LicenseType">
                                     <div id="licenseType-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>License Expirey Date</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="licenseExpDate-DriverProfileEditForm" type="text" name="licenseExpDate">
+                                    <input class="form-control py-2 border-right-0 border inputs" id="licenseExpDate-DriverProfileEditForm" type="text" name="LicenseExpirationDate">
                                     <div id="licenseExpDate-error" class="text-danger"></div>
                                 </div>
                             </div>
