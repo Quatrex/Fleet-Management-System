@@ -270,16 +270,16 @@ switch ($method) {
 
 	case 'AddDriver':
 		$driver = $employee->createNewDriver([
-			'DriverID' => $_POST['driverId'],
-			'FirstName' => $_POST['firstName'],
-			'LastName' => $_POST['lastName'],
-			'Email' => $_POST['email'],
-			'Address' => $_POST['address'],
-			'ContactNo' => $_POST['contactNo'],
-			'LicenseNumber' => $_POST['licenseNo'],
-			'LicenseType' => $_POST['licenseType'],
-			'LicenseExpirationDay' => $_POST['licenseExpireDate'],
-			'DateOfAdmission' => $_POST['employedDate'],
+			'DriverID' => $_POST['DriverID'],
+			'FirstName' => $_POST['FirstName'],
+			'LastName' => $_POST['LastName'],
+			'Email' => $_POST['Email'],
+			'Address' => $_POST['Address'],
+			'ContactNo' => $_POST['ContactNo'],
+			'LicenseNumber' => $_POST['LicenseNumber'],
+			'LicenseType' => $_POST['LicenseType'],
+			'LicenseExpirationDay' => $_POST['LicenseExpirationDay'],
+			'DateOfAdmission' => $_POST['DateOfAdmission'],
 			'AssignedVehicleID' => ""
 		]);
 		$object['error'] = false;
@@ -298,17 +298,17 @@ switch ($method) {
 		$driver = $employee->updateDriverInfo(
 			$_POST['driverID'],
 			[
-				'DriverID' => $_POST['driverID'],
-				'FirstName' => $_POST['firstName'],
-				'LastName' => $_POST['lastName'],
-				'Email' => $_POST['email'],
-				'Address' => $_POST['address'],
-				'ContactNo' => $_POST['contactNo'],
-				'LicenseNumber' => $_POST['licenseID'],
+				'DriverID' => $_POST['DriverID'],
+				'FirstName' => $_POST['FirstName'],
+				'LastName' => $_POST['LastName'],
+				'Email' => $_POST['Email'],
+				'Address' => $_POST['Address'],
+				'ContactNo' => $_POST['ContactNo'],
+				'LicenseNumber' => $_POST['LicenseNumber'],
 				'LicenseType' => $_POST['licenseType'],
-				'LicenseExpirationDay' => $_POST['licenseExpDate'],
-				'DateOfAdmission' => $_POST['employedDate'],
-				'AssignedVehicleID' => ""
+				'LicenseExpirationDay' => $_POST['LicenseExpirationDay'],
+				'DateOfAdmission' => $_POST['DateOfAdmission'],
+				'AssignedVehicle' => ""
 			]
 		);
 		$object['error'] = false;

@@ -25,7 +25,7 @@ class Store {
 	getState() {
 		return this.state;
 	}
-	getType(){
+	getType() {
 		return this.type;
 	}
 	getObjectById(id) {
@@ -85,10 +85,10 @@ class Store {
 		} else {
 			if (trigger != 'render') {
 				if (method == 'UPDATE') {
-					if(this.currentObj.NumOfAllocations>0){
+					if (this.currentObj.NumOfAllocations > 0) {
 						Database.loadContent(
 							`Load_${this.type}_assignedRequests`,
-							this.state.length,
+							0,
 							ActionCreator([this], method),
 							this.searchObj,
 							this.currentObj
@@ -142,7 +142,7 @@ const ActionCreator = (stores, actionType) => ({
 		let types = actionType.split('&');
 		if (types.length == 1) {
 			let actionObj = { type: actionType };
-			actionType == 'ADD' || actionType == 'APPEND'|| actionType == 'UPDATE'
+			actionType == 'ADD' || actionType == 'APPEND' || actionType == 'UPDATE'
 				? stores[0].dispatch({ ...actionObj, payload: returnedObj })
 				: stores[0].dispatch({ ...actionObj, payload: currentObj });
 		} else if (types.length > 1) {

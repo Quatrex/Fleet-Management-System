@@ -32,18 +32,19 @@ class RealDriver extends Employee implements Driver
         $this->assignedVehicle = $values['AssignedVehicle'];
         $this->state = State::getState($values['State']);
         $this->numOfAllocations=$values['NumOfAllocations'];
-        $this->assignedRequests=null;
+        $this->assignedRequests=[];
         $this->imagePath=$values['ProfilePicturePath'];
     }
 
 
-    public function getField($field)
+    public function getField($field, $loadField = true)
     {
         if (property_exists($this, $field)) {
             $noIDObjectFields = ['assignedRequests'];
             if (in_array($field, $noIDObjectFields)) {
-                if ($this->$field === null)
+                if ($this->$field === [] && $loadField){
                     $this->loadObject($field);
+                }
                 return $this->$field;
             }
            

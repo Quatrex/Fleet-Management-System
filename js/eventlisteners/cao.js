@@ -1,8 +1,3 @@
-
-//Fields
-const approveRequestCard_Fields = ["RequesterName","Designation","Purpose","DateOfTrip","TimeOfTrip","PickLocation","DropLocation"]
-const approvedHistoryCard_Fields = ["RequesterName","Designation","Purpose","DateOfTrip","TimeOfTrip","PickLocation",]
-
 const requestsToApproveStore = new Store('requestsToApprove');
 const approvedRequestsStore = new Store('approvedRequests');
 
@@ -25,8 +20,8 @@ const RequestApprovePreviewPopup = new Popup('RequestApprovePreviewPopup',[Reque
 ApproveRequestAlertCancel.setNext(RequestApprovePreviewPopup);
 DenyRequestAlertCancel.setNext(RequestApprovePreviewPopup);
 
-const approveRequestContainer = new DOMContainer('approveAwaitingRequestCard',approveRequestCard_Fields,RequestApprovePreviewPopup,requestsToApproveStore,"awaitingRequestCardTemplate")
-const approvedHistoryContainer = new DOMContainer('approvedAwaitingRequestCard',approvedHistoryCard_Fields,RequestHistoryPreviewPopup, approvedRequestsStore,"awaitingRequestCardTemplate")
+const approveRequestContainer = new DOMContainer('approveAwaitingRequestCard',RequestApprovePreviewPopup,requestsToApproveStore,"awaitingRequestCardTemplate")
+const approvedHistoryContainer = new DOMContainer('approvedAwaitingRequestCard',RequestHistoryPreviewPopup, approvedRequestsStore,"awaitingRequestCardTemplate")
 
 
 const approveRequestContainerTab = new DOMTabContainer('ApproveRequestsSecTab',approveRequestContainer);

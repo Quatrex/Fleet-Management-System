@@ -1,8 +1,3 @@
-//Fields
-const pendingRequestTable_Fields = ["Purpose", "Status", "DateOfTrip", "TimeOfTrip", "PickLocation", "DropLocation"]
-const ongoingRequestTable_Fields = ["Purpose", "DateOfTrip", "TimeOfTrip", "PickLocation", "DropLocation"]
-const requestHistoryTable_Fields = ["Purpose", "Status", "DateOfTrip", "TimeOfTrip", "PickLocation", "DropLocation"]
-
 const requestsByMeStore = new Store('requestsByMe');
 const ongoingRequestsStore = new Store('ongoingRequests');
 const pastRequestsStore = new Store('pastRequests');
@@ -64,9 +59,9 @@ const UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, U
 
 const NewRequestButton = new DOMButton('NewRequestButton', VehicleRequestFormPopup)
 const UserProfileEditButton = new DOMButton('UserProfileEditButton', UserProfilePopup)
-const pendingRequestTable = new DOMContainer('pendingRequestsCard', pendingRequestTable_Fields, PendingRequestPreviewPopup, requestsByMeStore, "cardTemplate");
-const ongoingRequestTable = new DOMContainer('ongoingRequestsCard', ongoingRequestTable_Fields, OngoingRequestPreviewPopup, ongoingRequestsStore, "cardTemplate");
-const requestHistoryTable = new DOMContainer('pastRequestsCard', requestHistoryTable_Fields, RequestHistoryPreviewPopup, pastRequestsStore, "cardTemplate");
+const pendingRequestTable = new DOMContainer('pendingRequestsCard', PendingRequestPreviewPopup, requestsByMeStore, "cardTemplate");
+const ongoingRequestTable = new DOMContainer('ongoingRequestsCard', OngoingRequestPreviewPopup, ongoingRequestsStore, "cardTemplate");
+const requestHistoryTable = new DOMContainer('pastRequestsCard', RequestHistoryPreviewPopup, pastRequestsStore, "cardTemplate");
 
 const pendingRequestTab = new DOMTabContainer('PendingRequestsSecTab', pendingRequestTable);
 const ongoingRequestTab = new DOMTabContainer('OngoingRequestsSecTab', ongoingRequestTable);

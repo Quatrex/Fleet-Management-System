@@ -86,7 +86,7 @@
 
 <template id="driverCardTemplate">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description">
-        <div class="card text-center" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2 ProfilePicturePath" src="../images/driver.png" alt="Driver Image">
+        <div class="card text-center" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2 DriverImagePath" src="../images/driver.png" alt="Driver Image">
             <div class="card-body">
                 <h5 class="card-title FirstName LastName"></h5>
                 <h6 class="card-subtitle mb-2 text-muted AssignedVehicle">Assigned Vehicle: </h6>

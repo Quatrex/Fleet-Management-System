@@ -417,17 +417,6 @@
                         </tr>
                     </thead>
                     <tbody class="card-body">
-                        <?php
-                        $i = 0;
-                        foreach ($drivers as $driver) : ?>
-                            <tr id="selectionDriverTable_<?php echo $driver->getField('driverId') ?>">
-                                <th id="driver-<?php echo $i ?>"><?php echo $driver->getField('driverId') ?></td>
-                                <td><?php echo $driver->getField('firstName') . ' ' . $driver->getField('lastName') ?></td>
-                                <td><?php echo $driver->getField('purchasedYear') ?></td>
-                                <td>Nothing</td>
-                            </tr>
-                        <?php $i++;
-                        endforeach;; ?>
                     </tbody>
                 </table>
                 <div class="row d-flex justify-content-center"><button class="btn w-100 btn-light load-more mb-3 mr-5 ml-5 d-none" id="selectionDriverTable_LoadMore">Load More</button></div>
@@ -841,7 +830,7 @@
             <hr>
         </div>
         <div class="popup-body">
-            <img src="../images/default-user-image.png" class="form-image">
+            <img src="../images/default-user-image.png" class="form-image" id="DriverImagePath-DriverProfileForm">
             <div id="submit-form-wrapper">
                 <div class="basic-form">
                     <form id="DriverProfile_form">
@@ -849,13 +838,13 @@
                             <div class="form-group col-md-6">
                                 <label>Driver ID</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="driverId-DriverProfileForm" type="text" name="driverID" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="DriverID-DriverProfileForm" type="text" name="DriverID" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Employed Date</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="employedDate-DriverProfileForm" type="date" name="employedDate" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="DateOfAdmission-DriverProfileForm" type="date" name="EmployedDate" disabled>
                                 </div>
                             </div>
                         </div>
@@ -863,39 +852,39 @@
                             <div class="form-group col-md-6">
                                 <label>First Name</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="firstName-DriverProfileForm" type="text" name="firstName" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="FirstName-DriverProfileForm" type="text" name="FirstName" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Last Name</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="lastName-DriverProfileForm" type="text" name="lastName" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="LastName-DriverProfileForm" type="text" name="LastName" disabled>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row mb-4 mx-auto">
                             <label>Address</label>
                             <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border" id="address-DriverProfileForm" type="text" name="address" disabled>
+                                <input class="form-control py-2 border-right-0 border" id="Address-DriverProfileForm" type="text" name="Address" disabled>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
                             <div class="form-group col-md-4">
                                 <label>Assigned Vehicle</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="assignedVehicleID-DriverProfileForm" type="text" name="assignedVehicleID" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="AssignedVehicle-DriverProfileForm" type="text" name="AssignedVehicle" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Contact Number</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="contactNo-DriverProfileForm" type="text" name="contactNo" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="ContactNo-DriverProfileForm" type="text" name="ContactNo" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Email</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="email-DriverProfileForm" type="text" name="email" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="Email-DriverProfileForm" type="text" name="Email" disabled>
                                 </div>
                             </div>
                         </div>
@@ -903,19 +892,19 @@
                             <div class="form-group col-md-4">
                                 <label>License ID</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="licenseID-DriverProfileForm" type="text" name="designation" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="LicenseNumber-DriverProfileForm" type="text" name="Designation" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>License Type</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border " id="licenseType-DriverProfileForm" type="text" name="contactNo" disabled>
+                                    <input class="form-control py-2 border-right-0 border " id="LicenseType-DriverProfileForm" type="text" name="ContactNo" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>License Expirey Date</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="licenseExpDate-DriverProfileForm" type="text" name="email" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="LicenseExpirationDay-DriverProfileForm" type="text" name="Email" disabled>
                                 </div>
                             </div>
                         </div>

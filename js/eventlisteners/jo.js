@@ -1,24 +1,3 @@
-//Fields
-const justifyRequestCard_Fields = [
-	'RequesterName',
-	'Designation',
-	'Purpose',
-	'DateOfTrip',
-	'TimeOfTrip',
-	'PickLocation',
-	'DropLocation',
-];
-const justifiedHistoryCard_Fields = [
-	'RequesterName',
-	'Designation',
-	'Purpose',
-	'DateOfTrip',
-	'TimeOfTrip',
-	'PickLocation',
-	'DropLocation',
-];
-const vehicleCard_Fields = ['registration', 'model', 'purchasedYear'];
-
 const requestsToJustifyStore = new Store('requestsToJustify');
 const justifiedRequestsStore = new Store('justifiedRequests');
 const vehicleStore = new Store('vehicles','registration','RegistrationNo');
@@ -49,7 +28,6 @@ const SelectVehicleAlertConfirm = new DisplayNextButton('SelectVehicleAlert_Conf
 });
 const SelectionVehicleTable = new SelectionTable(
 	'selectionVehicleTable',
-	vehicleCard_Fields,
 	{},
 	vehicleStore,
 	'selectionVehicleTemplate',
@@ -91,14 +69,12 @@ DeclineRequestAlertCancel.setNext(RequestJustifyPreviewPopup);
 
 const justifyRequestContainer = new DOMContainer(
 	'justifyAwaitingRequestCard',
-	justifyRequestCard_Fields,
 	RequestJustifyPreviewPopup,
 	requestsToJustifyStore,
 	'awaitingRequestCardTemplate',
 );
 const justifiedRequestContainer = new DOMContainer(
 	'justifiedAwaitingRequestCard',
-	justifiedHistoryCard_Fields,
 	RequestHistoryPreviewPopup,
 	justifiedRequestsStore,
 	'awaitingRequestCardTemplate',
