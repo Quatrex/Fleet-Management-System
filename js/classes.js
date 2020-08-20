@@ -134,6 +134,8 @@ class DOMContainer {
 	}
 	update(action) {
 		if (action.type == 'ADD') {
+			if (action.hasOwnProperty('end')) {
+			}
 			action.payload.forEach((object) => this.insertEntry(object));
 		} else if (action.type == 'DELETE') {
 			this.deleteEntry(action.payload);
@@ -256,6 +258,7 @@ class DOMContainer {
 				}
 			}
 		} else if (event.type == 'keyup') {
+			console.log(this.searchInput);
 			if (this.searchInput.value.length == 0) {
 				if (!this.cancelSearchButton.classList.contains('d-none')) {
 					this.cancelSearchButton.classList.add('d-none');
@@ -277,13 +280,15 @@ class DOMContainer {
 					field.includes('Vehicle') ? (path = 'vehicle') : (path = 'profile');
 					object[field] != ''
 						? (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`)
-						: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
+						: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}`);
 				} else {
 					clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
 				}
 			}
 		});
-		this.cardContainer.querySelector('.card-body').insertBefore(clone, this.cardContainer.firstChild);
+		this.cardContainer
+			.querySelector('.card-body')
+			.insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
 		this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.id}_${
 			object[this.store.getObjIdType()]
 		}`;
@@ -300,7 +305,7 @@ class DOMContainer {
 					field.includes('Vehicle') ? (path = 'vehicle') : (path = 'profile');
 					object[field] != ''
 						? (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`)
-						: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
+						: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}`);
 				} else {
 					clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
 				}
@@ -352,6 +357,23 @@ class SelectionTable extends DOMContainer {
 	getId() {
 		return this.id;
 	}
+	update(action) {
+		if (action.type == 'ADD') {
+			console.log(action.payload);
+			super.insertEntry(action.payload[0]);
+			this.toggleStyle(`${this.id}_${action.payload[0][this.store.getObjIdType()]}`);
+		} else if (action.type == 'DELETE') {
+			super.deleteEntry(action.payload);
+		} else if (action.type == 'DELETEALL') {
+			super.deleteAllEntries();
+		} else if (action.type == 'UPDATE') {
+			super.updateEntry(action.payload);
+		} else if (action.type == 'APPEND') {
+			action.payload.forEach((object) => super.appendEntry(object));
+			super.finishLoadContent(action.payload.length);
+		}
+	}
+
 	render(object = {}) {
 		console.log(object[this.selectField]);
 		if (object[this.selectField] === '') {
@@ -362,16 +384,14 @@ class SelectionTable extends DOMContainer {
 			let obj = this.store.getObjectById(object[this.selectField]);
 			console.log(obj);
 			if (obj) {
-				console.log('Inside here');
 				this.deleteEntry(obj);
 				this.insertEntry(obj);
+				this.toggleStyle(`${this.id}_${object[this.selectField]}`);
 			} else {
 				this.store.loadSelectedData(object[this.selectField]);
-				console.log('Inside not here');
 			}
 			this.button.removeProperty('disabled');
 			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
-			this.toggleStyle(`${this.id}_${object[this.selectField]}`);
 		}
 	}
 	handleEvent(event, popup = {}, object = {}) {
@@ -788,10 +808,10 @@ const changeValue = (object, id) => {
 	for (let i = 0; i < objProps.length; i++) {
 		tag = document.getElementById(`${objProps[i]}-${id}`);
 		if (tag) {
-			if (!objProps[i].includes('ImagePath')) {
+			if (!objProps[i].includes('PicturePath')) {
 				tag.value = object[objProps[i]];
 			} else {
-				let path = `${objProps[i].split('ImagePath')[0].toLowerCase()}`;
+				let path = `${objProps[i].split('PicturePath')[0].toLowerCase()}`;
 				if (object[objProps[i]] != '') {
 					tag.src = `../images/${path}Pictures/${object[objProps[i]]}`;
 				} else {

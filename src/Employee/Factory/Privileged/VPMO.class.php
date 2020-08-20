@@ -13,6 +13,7 @@ use Report\VehicleHandoutSlip;
 use Request\Factory\VPMORequest\VPMORequestFactory;
 use Exception;
 
+use function PHPSTORM_META\type;
 
 class VPMO extends Requester
 {

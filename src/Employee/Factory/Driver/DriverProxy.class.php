@@ -80,7 +80,7 @@ class DriverProxy implements Driver, JsonSerializable
             'DateOfAdmission' => $this->driver->getField('dateOfAdmission'),
             'AssignedVehicle' => $this->driver->getField('assignedVehicle'),
             'NumOfAllocations' => $this->driver->getField('numOfAllocations'),
-            'State' => State::getStateString($this->state->getID()),
+            'State' => State::getStateString($this->driver->getField('state')->getID()),
             'ProfilePicturePath' => $this->driver->getField('imagePath'),            
             'AssignedRequests' => $this->driver->getField('assignedRequests',false),            
             // 'AssignedRequests' => []            

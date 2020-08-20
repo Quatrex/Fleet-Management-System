@@ -13,6 +13,7 @@ class Store {
 		};
 		this.updated = false;
 		this.checkForDuplicate = '';
+		this.tempState = [];
 	}
 	getObjIdType() {
 		return this.objId;
@@ -30,8 +31,10 @@ class Store {
 		return this.type;
 	}
 	getObjectById(id) {
-		console.log(this.type);
 		this.currentObj = this.state.find((obj) => obj[this.objId] == id);
+		if (!this.currentObj) {
+			this.currentObj = this.tempState.find((obj) => obj[this.objId] == id);
+		}
 		return this.currentObj;
 	}
 	getOffset() {
@@ -107,14 +110,13 @@ class Store {
 		}
 	}
 	loadSelectedData(id) {
-		let objId = this.objId;
 		Database.loadContent(`Load_${this.type}`, 0, ActionCreator([this], 'ADD'), {
-			keyword: "AB-1234",
+			keyword: id,
 			searchColumn: 'RegistrationNo',
 			sortColumn: 'RegistrationNo',
 			order: 'DESC',
 		});
-		// this.loadData('selection');
+		this.loadData('selection');
 		this.checkForDuplicate = id;
 	}
 	dispatch(action) {
@@ -127,13 +129,24 @@ class Store {
 				}
 			}
 			if (action.payload.length > 0) {
-				if(this.checkForDuplicate != ''){
-					action.payload.filter(obj=> obj[this.objId] !=this.checkForDuplicate)
-					this.checkForDuplicate ='';
+				if (this.checkForDuplicate != '') {
+					if (action.type == 'ADD') {
+						this.tempState = [...this.tempState, ...action.payload];
+					} else {
+						let beforeLength = action.payload.length;
+						action.payload = action.payload.filter((obj) => obj[this.objId] != this.checkForDuplicate);
+						if (beforeLength - action.payload.length != 0) {
+							this.checkForDuplicate = '';
+							this.state = [...this.state,...this.tempState]
+							this.tempState = [];
+						}
+						this.state = [...this.state, ...action.payload];
+					}
+				} else {
+					action.type === 'ADD'
+						? (this.state = [...action.payload, ...this.state])
+						: (this.state = [...this.state, ...action.payload]);
 				}
-				action.type === 'ADD'
-					? (this.state = [...action.payload, ...this.state])
-					: (this.state = [...this.state, ...action.payload]);
 			}
 		} else if (action.type === 'UPDATE') {
 			this.state = this.state.map((item) => (this.currentObj === item ? { ...item, ...action.payload } : item));
