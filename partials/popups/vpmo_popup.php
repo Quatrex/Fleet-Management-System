@@ -575,7 +575,7 @@
             <hr>
         </div>
         <div class="popup-body">
-            <img src="../images/car.png" id="VehiclePicturePath-VehicleProfileForm" class="form-image image-fluid mx-auto" style="width:24rem;">
+            <img src="../images/vehiclePictures/default-vehicle.png" id="VehiclePicturePath-VehicleProfileForm" class="form-image image-fluid mx-auto" style="width:24rem;">
             <div id="submit-form-wrapper">
                 <div class="basic-form">
                     <form id="VehicleProfile_form">
@@ -693,7 +693,7 @@
                 <div class="basic-form">
                     <form id="UpdateVehicle_form" enctype="multipart/form-data">
                         <div class="center" style="text-align: center; ">
-                            <img src='../images/car.png' id="vehicleImagePath-VehicleProfileEditForm" class="form-image" style="padding:5px; width:50%;text-align: center;">
+                            <img src='../images/vehiclePictures/default-vehicle.png' id="vehicleImagePath-VehicleProfileEditForm" class="form-image" style="padding:5px; width:50%;text-align: center;">
                         </div>
                         <div class="overlay">
                             <i class="fa fa-camera upload-button" data-input='ChangeVehiclePicture' style="cursor: pointer;"></i>

@@ -573,7 +573,7 @@
         <div class="popup-body">
             <div>
                 <div class="center" style="text-align: center; ">
-                    <img src="<?php echo $employee->getField('profilePicturePath') != null ? "../images/userProfilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; ?>" class="form-image ProfilePicture" style="padding:5px; width:600p;text-align: center; cursor:pointer" id="change-profile-picture-button">
+                    <img src="<?php echo $employee->getField('profilePicturePath') != null ? "../images/profilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; ?>" class="form-image ProfilePicture" style="padding:5px; width:600p;text-align: center; cursor:pointer" id="change-profile-picture-button">
                 </div>
                 <!-- <div class="row">
                     <div class="small-12 medium-2 large-2 columns">
@@ -657,7 +657,7 @@
                     <input type="file" name="Image" id="ChangeProfilePicture" class="inputs file-upload" data-imageid="preview-profile-pic" accept="image/png, .jpeg, .jpg, image/gif" />
                     <input class="inputs" type="hidden" name="Method" value='ChangeProfilePicture' disabled>
                     <div class="col" style="text-align: center;">
-                        <img id='preview-profile-pic' class="form-image ProfilePicture" src="<?php echo $employee->getField('profilePicturePath') != null ? "../images/userProfilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; ?>" style="padding:5px; width:50%;"></img>
+                        <img id='preview-profile-pic' class="form-image ProfilePicture" src="<?php echo $employee->getField('profilePicturePath') != null ? "../images/profilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; ?>" style="padding:5px; width:50%;"></img>
                     </div>
                     <input type="button" value="Save" class="btn btn-primary" id="ChangeProfilePictureForm_Submit">
                     <input type="button" value="Close" class="btn btn-primary" id="ChangeProfilePictureForm_Cancel">
