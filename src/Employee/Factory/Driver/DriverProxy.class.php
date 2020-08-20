@@ -4,6 +4,7 @@ namespace Employee\Factory\Driver;
 
 use Exception;
 use JsonSerializable;
+use Employee\State\Driver\State;
 
 class DriverProxy implements Driver, JsonSerializable
 {
@@ -79,7 +80,7 @@ class DriverProxy implements Driver, JsonSerializable
             'DateOfAdmission' => $this->driver->getField('dateOfAdmission'),
             'AssignedVehicle' => $this->driver->getField('assignedVehicle'),
             'NumOfAllocations' => $this->driver->getField('numOfAllocations'),
-            'State' => $this->driver->getField('state')->getID(),
+            'State' => State::getStateString($this->state->getID()),
             'ProfilePicturePath' => $this->driver->getField('imagePath'),            
             'AssignedRequests' => $this->driver->getField('assignedRequests',false),            
             // 'AssignedRequests' => []            

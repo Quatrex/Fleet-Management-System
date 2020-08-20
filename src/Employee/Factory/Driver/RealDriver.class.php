@@ -30,7 +30,7 @@ class RealDriver extends Employee implements Driver
         $this->licenseExpirationDay = $values['LicenseExpirationDay'];
         $this->dateOfAdmission = $values['DateOfAdmission'];
         $this->assignedVehicle = $values['AssignedVehicle'];
-        $this->state = State::getState($values['State']);
+        $this->state = is_numeric($values['State'])?State::getState($values['State']):State::getState(State::getStateID($values['State']));
         $this->numOfAllocations=$values['NumOfAllocations'];
         $this->assignedRequests=[];
         $this->imagePath=$values['ProfilePicturePath'];
