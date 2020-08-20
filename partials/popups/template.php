@@ -59,11 +59,11 @@
 <template id="vehicleCardTemplate">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description" style="cursor: pointer;">
         <div class="card text-center" style="width: 15rem;">
-            <img class="vehicleImagePath card-img-top vehicle-image mt-2" src="../images/logo.png" alt="Vehicle Image">
+            <img class="VehiclePicturePath card-img-top vehicle-image mt-2" src="" alt="Vehicle Image">
             <div class="card-body">
-                <h5 class="card-title model"></h5>
-                <h6 class="card-subtitle mb-2 text-muted registration"></h6>
-                <p class="card-text purchasedYear"></p>
+                <h5 class="card-title Model"></h5>
+                <h6 class="card-subtitle mb-2 text-muted RegistrationNo"></h6>
+                <p class="card-text PurchasedYear"></p>
                 <p class="card-text">Nothing</p>
             </div>
         </div>
@@ -109,8 +109,8 @@
 
 <template id="selectionVehicleTemplate">
     <tr role="row" class="detail-description">
-        <th class="registration"></th>
-        <td class="model"></td>
+        <th class="RegistrationNo"></th>
+        <td class="Model"></td>
         <td class="NumOfAllocations"></td>
         <td class="assignedTrips" data-field="assignedRequests"><i class="fas fa-info-circle"></i></td>
     </tr>

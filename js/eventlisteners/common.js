@@ -59,9 +59,9 @@ const UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, U
 
 const NewRequestButton = new DOMButton('NewRequestButton', VehicleRequestFormPopup)
 const UserProfileEditButton = new DOMButton('UserProfileEditButton', UserProfilePopup)
-const pendingRequestTable = new DOMContainer('pendingRequestsCard', PendingRequestPreviewPopup, requestsByMeStore, "cardTemplate");
-const ongoingRequestTable = new DOMContainer('ongoingRequestsCard', OngoingRequestPreviewPopup, ongoingRequestsStore, "cardTemplate");
-const requestHistoryTable = new DOMContainer('pastRequestsCard', RequestHistoryPreviewPopup, pastRequestsStore, "cardTemplate");
+const pendingRequestTable = new DOMContainer('pendingRequestsContainer', PendingRequestPreviewPopup, requestsByMeStore, "cardTemplate");
+const ongoingRequestTable = new DOMContainer('ongoingRequestsContainer', OngoingRequestPreviewPopup, ongoingRequestsStore, "cardTemplate");
+const requestHistoryTable = new DOMContainer('pastRequestsContainer', RequestHistoryPreviewPopup, pastRequestsStore, "cardTemplate");
 
 const pendingRequestTab = new DOMTabContainer('PendingRequestsSecTab', pendingRequestTable);
 const ongoingRequestTab = new DOMTabContainer('OngoingRequestsSecTab', ongoingRequestTable);

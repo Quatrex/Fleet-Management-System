@@ -285,7 +285,7 @@
             <hr>
         </div>
         <div class="popup-body">
-            <img src="../images/default-user-image.png" class="form-image image-fluid" id="DriverImagePath-DriverProfileForm">
+            <img src="../images/default-user-image.png" class="form-image image-fluid" id="ProfilePicturePath-DriverProfileForm">
             <div id="submit-form-wrapper">
                 <div class="basic-form">
                     <form id="DriverProfile_form">
@@ -386,7 +386,7 @@
                 <div class="basic-form">
                     <form id="UpdateDriver_form">
                         <div class="center" style="text-align: center; ">
-                            <img src='../images/default-user-image.png' id="DriverImagePath-DriverProfileEditForm" class="form-image image-fluid" style="padding:5px;text-align: center;">
+                            <img src='../images/default-user-image.png' id="ProfilePicturePath-DriverProfileEditForm" class="form-image image-fluid" style="padding:5px;text-align: center;">
                         </div>
                         <div class="overlay">
                             <i class="fa fa-camera upload-button" data-input='ChangeDriverPicture' style="cursor: pointer;"></i>

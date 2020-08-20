@@ -1,7 +1,7 @@
 const requestsToAssignStore = new Store('requestsToAssign');
 const ongoingTripStore = new Store('scheduledRequests');
 const scheduledRequestsStore = new Store('scheduledHistoryRequests');
-const vehicleStore = new Store('vehicles', 'registration', 'RegistrationNo');
+const vehicleStore = new Store('vehicles', 'RegistrationNo', 'RegistrationNo');
 const driverStore = new Store('drivers', 'DriverID', 'DriverID');
 
 //Add a vehicle
@@ -114,7 +114,7 @@ const SelectionDriverTable = new SelectionTable(
 	SelectDriverAlertConfirm,
 	'Driver',
 	'Vehicle',
-	'assignedVehicleID'
+	'AssignedVehicle'
 );
 const SelectDriverAlertPopup = new Popup(
 	'SelectDriverAlertPopup',
@@ -200,30 +200,30 @@ const ActiveTripDetailsPopup = new Popup(
 );
 
 const assignRequestContainer = new DOMContainer(
-	'assignAwaitingRequestCard',
+	'assignAwaitingRequestContainer',
 	RequestAssignPreviewPopup,
 	requestsToAssignStore,
 	'awaitingRequestCardTemplate'
 );
 const ongoingTripContainer = new DOMContainer(
-	'ongoingAwaitingRequestCard',
+	'ongoingAwaitingRequestContainer',
 	ActiveTripDetailsPopup,
 	ongoingTripStore,
 	'awaitingRequestCardTemplate'
 );
 const scheduledHistoryContainer = new DOMContainer(
-	'scheduledAwaitingRequestCard',
+	'scheduledAwaitingRequestContainer',
 	RequestHistoryPreviewPopup,
 	scheduledRequestsStore,
 	'awaitingRequestCardTemplate'
 );
 const vehicleContainer = new DOMContainer(
-	'vehicleContainer',
+	'vehiclesContainer',
 	VehicleProfileFormPopup,
 	vehicleStore,
 	'vehicleCardTemplate'
 );
-const driverContainer = new DOMContainer('driverContainer', DriverProfileFormPopup, driverStore, 'driverCardTemplate');
+const driverContainer = new DOMContainer('driversContainer', DriverProfileFormPopup, driverStore, 'driverCardTemplate');
 const AddVehicleButton = new DOMButton('AddVehicleButton', VehicleAddFormPopup);
 
 const assignRequestContainerTab = new DOMTabContainer('AssignRequestsSecTab', assignRequestContainer);

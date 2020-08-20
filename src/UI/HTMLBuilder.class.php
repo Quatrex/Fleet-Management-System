@@ -176,7 +176,7 @@ class HTMLBuilder
             $i++;
         }
         $card = $this->compositeBuilder
-            ->createComposite('div', ['class' => 'card', 'id' => strtolower($state) . 'RequestsCard'])
+            ->createComposite('div', ['class' => 'card', 'id' => strtolower($state) . 'RequestsContainer'])
             ->composite()
             ->createComposite('div', ['class' => "card-header bg-dark text-white py-0"])
             ->addToContent($this->createMySearchBar($header, ['Created Date', 'Pick Location', 'Drop Location', 'Time Of Trip', 'Date Of Trip', 'Purpose', 'State']))
@@ -187,7 +187,7 @@ class HTMLBuilder
             ->get()
             ->composite()
             ->createComposite('div', ['class' => "row d-flex justify-content-center"])
-            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5", "id" => strtolower($state) . 'RequestsCard_LoadMore'], ['Load More'])
+            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5", "id" => strtolower($state) . 'RequestsContainer_LoadMore'], ['Load More'])
             ->get()
             ->getComposite();
         array_push($this->subTabContents, $card);
@@ -237,7 +237,7 @@ class HTMLBuilder
             $i++;
         }
         $card = $this->compositeBuilder
-            ->createComposite('div', ['class' => 'card', 'id' => strtolower($state) . 'AwaitingRequestCard'])
+            ->createComposite('div', ['class' => 'card', 'id' => strtolower($state) . 'AwaitingRequestContainer'])
             ->composite()
             ->createComposite('div', ['class' => "card-header bg-dark text-white py-0"])
             ->addToContent($this->createMySearchBar($header, ['Created Date', 'Pickup Location', 'Drop Location', 'Time of Trip', 'Date of Trip', 'Purpose', 'State']))
@@ -248,7 +248,7 @@ class HTMLBuilder
             ->get()
             ->composite()
             ->createComposite('div', ['class' => "row d-flex justify-content-center"])
-            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5", "id" => strtolower($state) . 'AwaitingRequestCard_LoadMore'], ['Load More'])
+            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5", "id" => strtolower($state) . 'AwaitingRequestContainer_LoadMore'], ['Load More'])
             ->get()
             ->getComposite();
         array_push($this->subTabContents, $card);
@@ -260,7 +260,7 @@ class HTMLBuilder
         $driverCards = [];
         foreach ($drivers as $driver) {
             $driverCard = $this->compositeBuilder
-                ->createComposite('div', ['class' => 'col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description', 'id' => 'driverContainer_' . htmlentities($driver->getField('driverId'))])
+                ->createComposite('div', ['class' => 'col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description', 'id' => 'driversContainer_' . htmlentities($driver->getField('driverId'))])
                 ->composite()
                 ->createComposite('div', ['class' => 'card text-center', 'style' => 'width: 15rem;'])
                 ->addElement('img', ['class' => "card-img-top rounded-circle user-image mt-2", 'src' => "../images/default-user-image.png", 'alt' => "Driver Image"])
@@ -276,7 +276,7 @@ class HTMLBuilder
             array_push($driverCards, $driverCard);
         }
         $card = $this->compositeBuilder
-            ->createComposite('div', ['class' => 'card', 'id' => 'driverContainer'])
+            ->createComposite('div', ['class' => 'card', 'id' => 'driversContainer'])
             ->composite()
             ->createComposite('div', ['class' => "card-header bg-dark text-white py-0"])
             ->addToContent($this->createMySearchBar('Drivers', ['First Name', 'Last Name', 'Driver ID']))
@@ -299,7 +299,7 @@ class HTMLBuilder
         $vehicleCards = [];
         foreach ($vehicles as $vehicle) {
             $vehicleCard = $this->compositeBuilder
-                ->createComposite('div', ['class' => 'col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description', 'id' => 'vehicleContainer_' . htmlentities($vehicle->getField('registrationNo'))])
+                ->createComposite('div', ['class' => 'col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description', 'id' => 'vehiclesContainer_' . htmlentities($vehicle->getField('registrationNo'))])
                 ->composite()
                 ->createComposite('div', ['class' => 'card text-center', 'style' => 'width: 15rem;'])
                 ->addElement('img', ['class' => "card-img-top rounded-circle user-image mt-2", 'src' => "../images/default-user-image.png", 'alt' => "Driver Image"])
@@ -315,7 +315,7 @@ class HTMLBuilder
             array_push($vehicleCards, $vehicleCard);
         }
         $card = $this->compositeBuilder
-            ->createComposite('div', ['class' => 'card mt-5', 'id' => 'vehicleContainer'])
+            ->createComposite('div', ['class' => 'card mt-5', 'id' => 'vehiclesContainer'])
             ->composite()
             ->createComposite('div', ['class' => "card-header bg-dark text-white py-0"])
             ->addToContent($this->createMySearchBar('Vehicles', ['Registration No', 'Model', 'FuelType']))
@@ -326,7 +326,7 @@ class HTMLBuilder
             ->get()
             ->composite()
             ->createComposite('div', ['class' => "row d-flex justify-content-center"])
-            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5", "id" => 'vehicleContainer_LoadMore'], ['Load More'])
+            ->addElement('button', ['class' => "btn w-100 btn-light load-more mb-3 d-none mr-5 ml-5", "id" => 'vehiclesContainer_LoadMore'], ['Load More'])
             ->get()
             ->getComposite();
         array_push($this->subTabContents, $card);
@@ -461,7 +461,7 @@ class HTMLBuilder
             ->createComposite('div', ['class' => 'row w-100'])
             ->composite()
             ->createComposite('div', ['class' => 'col-sm-6 pr-0 form-group position-relative'])
-            ->addElement('input', ['type' => "text", 'class' => "form-control pr-2", 'id' => lcfirst(str_replace(' ', '', $header)) . "Card_SearchInput", 'placeholder' => "Search", 'style' => "border-radius: 0px!important;"])
+            ->addElement('input', ['type' => "text", 'class' => "form-control pr-2", 'id' => lcfirst(str_replace(' ', '', $header)) . "Container_SearchInput", 'placeholder' => "Search", 'style' => "border-radius: 0px!important;"])
             ->composite()
             ->createComposite('span', ['class' => "form-clear searchTabButton d-none mr-2", 'id' => "Cancel_Confirm_button"])
             ->addElement('i', ['class' => "material-icons"], ['clear'])

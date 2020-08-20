@@ -35,7 +35,7 @@ abstract class AbstractVehicle implements Vehicle
         $this->insuranceValue = $values['InsuranceValue'];
         $this->insuranceCompany = $values['InsuranceCompany'];
         $this->assignedOfficer = $values['AssignedOfficer'];
-        $this->status = State::getStateString($values['State']);
+        // $this->status = State::getStateString($values['State']);
         $this->state = State::getState($values['State']);
         $this->currentLocation = ($values['CurrentLocation'] != null) ? $values['CurrentLocation'] : '';
         $this->numOfAllocations = $values['NumOfAllocations'];

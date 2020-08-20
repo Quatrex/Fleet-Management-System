@@ -20,8 +20,8 @@ const RequestApprovePreviewPopup = new Popup('RequestApprovePreviewPopup',[Reque
 ApproveRequestAlertCancel.setNext(RequestApprovePreviewPopup);
 DenyRequestAlertCancel.setNext(RequestApprovePreviewPopup);
 
-const approveRequestContainer = new DOMContainer('approveAwaitingRequestCard',RequestApprovePreviewPopup,requestsToApproveStore,"awaitingRequestCardTemplate")
-const approvedHistoryContainer = new DOMContainer('approvedAwaitingRequestCard',RequestHistoryPreviewPopup, approvedRequestsStore,"awaitingRequestCardTemplate")
+const approveRequestContainer = new DOMContainer('approveAwaitingRequestContainer',RequestApprovePreviewPopup,requestsToApproveStore,"awaitingRequestCardTemplate")
+const approvedHistoryContainer = new DOMContainer('approvedAwaitingRequestContainer',RequestHistoryPreviewPopup, approvedRequestsStore,"awaitingRequestCardTemplate")
 
 
 const approveRequestContainerTab = new DOMTabContainer('ApproveRequestsSecTab',approveRequestContainer);

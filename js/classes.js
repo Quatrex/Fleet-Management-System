@@ -272,11 +272,12 @@ class DOMContainer {
 		let objFields = Object.getOwnPropertyNames(object);
 		objFields.forEach((field) => {
 			if (clone.querySelector(`.${field}`)) {
-				if (field.includes('ImagePath')) {
-					let path = this.store.getType().slice(0, -1);
+				if (field.includes('PicturePath')) {
+					let path = '';
+					field.includes('Vehicle') ? (path = 'vehicle') : (path = 'profile');
 					object[field] != ''
 						? (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`)
-						: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${path}.png`);
+						: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
 				} else {
 					clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
 				}
@@ -294,11 +295,12 @@ class DOMContainer {
 		let objFields = Object.getOwnPropertyNames(object);
 		objFields.forEach((field) => {
 			if (clone.querySelector(`.${field}`)) {
-				if (field.includes('ImagePath')) {
-					let path = this.store.getType().slice(0, -1);
+				if (field.includes('PicturePath')) {
+					let path = '';
+					field.includes('Vehicle') ? (path = 'vehicle') : (path = 'profile');
 					object[field] != ''
 						? (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`)
-						: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${path}.png`);
+						: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
 				} else {
 					clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
 				}
@@ -351,12 +353,22 @@ class SelectionTable extends DOMContainer {
 		return this.id;
 	}
 	render(object = {}) {
-		super.render(object);
-
+		console.log(object[this.selectField]);
 		if (object[this.selectField] === '') {
+			super.render(object);
 			this.toggleStyle(-1);
 			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = '';
 		} else {
+			let obj = this.store.getObjectById(object[this.selectField]);
+			console.log(obj);
+			if (obj) {
+				console.log('Inside here');
+				this.deleteEntry(obj);
+				this.insertEntry(obj);
+			} else {
+				this.store.loadSelectedData(object[this.selectField]);
+				console.log('Inside not here');
+			}
 			this.button.removeProperty('disabled');
 			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
 			this.toggleStyle(`${this.id}_${object[this.selectField]}`);
@@ -367,8 +379,6 @@ class SelectionTable extends DOMContainer {
 			if (event.target.closest('tbody')) {
 				let id = event.target.closest('.detail-description').id;
 				let targetObject = this.store.getObjectById(id.split('_')[1]);
-				console.log(event.target.closest('td').dataset.field);
-
 				if ('field' in event.target.closest('td').dataset) {
 					super.loadContent(event.type, 'UPDATE');
 				} else {

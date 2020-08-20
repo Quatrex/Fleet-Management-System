@@ -7,11 +7,12 @@ class Store {
 		this.currentObj = {};
 		this.searchObj = {
 			keyword: '',
-			searchColumn: 'All',
+			searchColumn: sortColumn,
 			sortColumn: sortColumn,
 			order: 'DESC',
 		};
 		this.updated = false;
+		this.checkForDuplicate = '';
 	}
 	getObjIdType() {
 		return this.objId;
@@ -29,6 +30,7 @@ class Store {
 		return this.type;
 	}
 	getObjectById(id) {
+		console.log(this.type);
 		this.currentObj = this.state.find((obj) => obj[this.objId] == id);
 		return this.currentObj;
 	}
@@ -77,7 +79,6 @@ class Store {
 			);
 		}
 	}
-
 	loadData(trigger = 'render', method = 'APPEND') {
 		if (!this.updated) {
 			Database.loadContent(`Load_${this.type}`, this.state.length, ActionCreator([this], method), this.searchObj);
@@ -105,6 +106,17 @@ class Store {
 			}
 		}
 	}
+	loadSelectedData(id) {
+		let objId = this.objId;
+		Database.loadContent(`Load_${this.type}`, 0, ActionCreator([this], 'ADD'), {
+			keyword: "AB-1234",
+			searchColumn: 'RegistrationNo',
+			sortColumn: 'RegistrationNo',
+			order: 'DESC',
+		});
+		// this.loadData('selection');
+		this.checkForDuplicate = id;
+	}
 	dispatch(action) {
 		if (action.type === 'ADD' || action.type === 'APPEND') {
 			if (!Array.isArray(action.payload)) {
@@ -115,7 +127,13 @@ class Store {
 				}
 			}
 			if (action.payload.length > 0) {
-				this.state = [...this.state, ...action.payload];
+				if(this.checkForDuplicate != ''){
+					action.payload.filter(obj=> obj[this.objId] !=this.checkForDuplicate)
+					this.checkForDuplicate ='';
+				}
+				action.type === 'ADD'
+					? (this.state = [...action.payload, ...this.state])
+					: (this.state = [...this.state, ...action.payload]);
 			}
 		} else if (action.type === 'UPDATE') {
 			this.state = this.state.map((item) => (this.currentObj === item ? { ...item, ...action.payload } : item));

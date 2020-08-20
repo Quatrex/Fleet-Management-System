@@ -295,11 +295,66 @@
             <h2>Select Vehicle</h2>
             <hr>
         </div>
-        <div class="popup-body" style="max-height: 80vh;" id="selectionVehicleTable">
+        <div class="popup-body" id="selectionVehicleTable">
             <div class="row mx-auto">
                 <label class="mr-2">Selected Vehicle:</label> <span>
                     <p id="Vehicle-selectionVehicleTable"></p>
                 </span>
+            </div>
+            <div class="container-fluid search-container">
+                <div class="row mt-3 pt-3 ml-3 border">
+                    <div class="col-sm-6 mb-3">
+                        <div class="input-group">
+                            <div class="row w-100">
+                                <div class="col-sm-6 pr-0 form-group position-relative">
+                                    <input type="text" class="form-control pr-2" id="selectionVehicleTable_SearchInput" placeholder="Search" style="border-radius: 0px!important;">
+                                    <span class="form-clear searchTabButton d-none mr-2" id="Cancel_Confirm_button"><i class="material-icons">clear</i></span>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <select class="custom-select mr-sm-2" data-field="Search" style="border-radius: 0px!important;">
+                                        <option selected>Registration No</option>
+                                        <option value="Value">Value</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="button" class="btn btn-primary searchTabButton" id="Search_Confirm_" value="Search">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 ml-2">
+                        <div class="row">
+                            <div class="sm-8">
+                                <div class="row">
+                                    <div class="col-sm-2 my-auto mr-1">
+                                        <label class="mr-2">Sort</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <select class="custom-select mr-sm-2" data-field="Sort">
+                                            <option selected>Registration No</option>
+                                            <option value="Value">Value</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 ml-2 my-auto">
+                                <button type="button" class="btn btn btn-outline-dark searchTabButton" id="Desc_">
+                                    <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-sort-down-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M3 3a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-1 0v-10A.5.5 0 0 1 3 3z" />
+                                        <path fill-rule="evenodd" d="M5.354 11.146a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L3 12.793l1.646-1.647a.5.5 0 0 1 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z" />
+                                    </svg>
+                                </button>
+                                <button type="button" class="btn btn btn-outline-dark searchTabButton" id="Asc_">
+                                    <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-sort-up-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M3 14a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z" />
+                                        <path fill-rule="evenodd" d="M5.354 5.854a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L3 4.207l1.646 1.647a.5.5 0 0 0 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div style="overflow-y:scroll">
                 <table class="table table-hover" style="width:100%">
@@ -307,7 +362,6 @@
                         <tr>
                             <th class="" scope="col">#</th>
                             <th class="th-sm" scope="col">Vehicle</th>
-                            <th class="th-sm" scope="col">Assigned Driver</th>
                             <th class="th-sm" scope="col">Allocations</th>
                             <th class="th-sm" scope="col">Info</th>
                         </tr>
@@ -338,7 +392,7 @@
             <h2>Select driver</h2>
             <hr>
         </div>
-        <div class="popup-body" style="max-height: 80vh;" id="selectionDriverTable">
+        <div class="popup-body" id="selectionDriverTable">
             <div class="row mx-auto">
                 <label class="mr-2">Selected Driver:</label> <span>
                     <p id="Driver-selectionDriverTable"></p>
@@ -521,7 +575,7 @@
             <hr>
         </div>
         <div class="popup-body">
-            <img src="../images/car.png" id="vehicleImagePath-VehicleProfileForm" class="form-image image-fluid mx-auto" style="width:24rem;">
+            <img src="../images/car.png" id="VehiclePicturePath-VehicleProfileForm" class="form-image image-fluid mx-auto" style="width:24rem;">
             <div id="submit-form-wrapper">
                 <div class="basic-form">
                     <form id="VehicleProfile_form">
@@ -529,13 +583,13 @@
                             <div class="col-md-6">
                                 <label>Registration Number</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="registration-VehicleProfileForm" type="text" name="registrationNoDisplay" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="RegistrationNo-VehicleProfileForm" type="text" name="registrationNoDisplay" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Model</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="model-VehicleProfileForm" type="text" name="model" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="Model-VehicleProfileForm" type="text" name="model" disabled>
                                 </div>
                             </div>
                         </div>
@@ -543,13 +597,13 @@
                             <div class="form-group col-md-6">
                                 <label>Purchased Year</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="purchasedYear-VehicleProfileForm" type="text" name="purchasedYear" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="PurchasedYear-VehicleProfileForm" type="text" name="purchasedYear" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Price</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="value-VehicleProfileForm" type="text" name="value" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="Value-VehicleProfileForm" type="text" name="value" disabled>
                                 </div>
                             </div>
                         </div>
@@ -557,13 +611,13 @@
                             <div class="form-group col-md-6">
                                 <label>Fuel Type</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="fuelType-VehicleProfileForm" type="text" name="fuelType" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="FuelType-VehicleProfileForm" type="text" name="fuelType" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Current Location</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="currentLocation-VehicleProfileForm" type="text" name="currentLocation" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="CurrentLocation-VehicleProfileForm" type="text" name="currentLocation" disabled>
 
                                 </div>
                             </div>
@@ -572,14 +626,14 @@
                             <div class="form-group col-md-6">
                                 <label>Insurance Company</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="insuranceCompany-VehicleProfileForm" type="text" name="insuranceCompany" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="InsuranceCompany-VehicleProfileForm" type="text" name="insuranceCompany" disabled>
 
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Insurance Value</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="insuranceValue-VehicleProfileForm" type="text" name="insuranceValue" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="InsuranceValue-VehicleProfileForm" type="text" name="insuranceValue" disabled>
                                 </div>
                             </div>
                         </div>
@@ -642,7 +696,7 @@
                             <img src='../images/car.png' id="vehicleImagePath-VehicleProfileEditForm" class="form-image" style="padding:5px; width:50%;text-align: center;">
                         </div>
                         <div class="overlay">
-                            <i class="fa fa-camera upload-button" data-input='ChangeVehiclePicture' style="cursor: pointer;" ></i>
+                            <i class="fa fa-camera upload-button" data-input='ChangeVehiclePicture' style="cursor: pointer;"></i>
                             <input type="file" name="Image" id="ChangeVehiclePicture" class="file-upload" data-imageid="vehicleImagePath-VehicleProfileEditForm" accept="image/png, .jpeg, .jpg, image/gif" />
                         </div>
                         <div class="form-group row">
@@ -784,7 +838,7 @@
         </div>
     </div>
 </div> -->
-<!--Delete Vehicle Alert-->
+<!--Delete Vehicle Alertf-->
 <div class="popup" id="DeleteVehicleAlertPopup">
     <!-- Confirm alert content -->
     <div class="popup-content">

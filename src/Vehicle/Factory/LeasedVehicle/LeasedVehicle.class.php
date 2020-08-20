@@ -18,10 +18,10 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
     public function __construct(array $values)
     {
         parent::__construct($values);
-        $this->leasedCompany = $values['leasedCompany'];
-        $this->leasedPeriodFrom = $values['leasedPeriodFrom'];
-        $this->leasedPeriodTo = $values['leasedPeriodTo'];
-        $this->monthlyPayment = $values['monthlyPayment'];
+        $this->leasedCompany = $values['LeasedCompany'];
+        $this->leasedPeriodFrom = $values['LeasedPeriodFrom'];
+        $this->leasedPeriodTo = $values['LeasedPeriodTo'];
+        $this->monthlyPayment = $values['MonthlyPayment'];
     }
 
     public function getField(string $field)
@@ -47,12 +47,12 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
             'State' => State::getStateString($this->state->getID()),
             'CurrentLocation' => $this->currentLocation,
             'NumOfAllocations' => $this->numOfAllocations,
-            'leasedCompany' => $this->leasedCompany,
-            'leasedPeriodFrom' => $this->leasedPeriodFrom,
-            'leasedPeriodTo' => $this->leasedPeriodTo,
-            'monthlyPayment' => $this->monthlyPayment,
+            'LeasedCompany' => $this->leasedCompany,
+            'LeasedPeriodFrom' => $this->leasedPeriodFrom,
+            'LeasedPeriodTo' => $this->leasedPeriodTo,
+            'MonthlyPayment' => $this->monthlyPayment,
             'VehicleImagePath' => $this->vehicleImagePath,
-            'assignedRequests'=>$this->assignedRequests,
+            'AssignedRequests'=>$this->assignedRequests,
             'IsLeased'=>true //true/false or 1/0?
 
         ];

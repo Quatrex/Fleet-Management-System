@@ -68,13 +68,13 @@ JustifyRequestAlertCancel.setNext(RequestJustifyPreviewPopup);
 DeclineRequestAlertCancel.setNext(RequestJustifyPreviewPopup);
 
 const justifyRequestContainer = new DOMContainer(
-	'justifyAwaitingRequestCard',
+	'justifyAwaitingRequestContainer',
 	RequestJustifyPreviewPopup,
 	requestsToJustifyStore,
 	'awaitingRequestCardTemplate',
 );
 const justifiedRequestContainer = new DOMContainer(
-	'justifiedAwaitingRequestCard',
+	'justifiedAwaitingRequestContainer',
 	RequestHistoryPreviewPopup,
 	justifiedRequestsStore,
 	'awaitingRequestCardTemplate',

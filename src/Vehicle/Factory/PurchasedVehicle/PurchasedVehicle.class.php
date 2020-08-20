@@ -26,18 +26,18 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'registration' => $this->registrationNo,
-            'model' => $this->model,
-            'purchasedYear' => $this->purchasedYear,
-            'value' => $this->value,
-            'fuelType' => $this->fuelType,
-            'insuranceValue' => $this->insuranceValue,
-            'insuranceCompany' => $this->insuranceCompany,
-            'assignedOfficer' => $this->assignedOfficer,
-            'state' => State::getStateString($this->state->getID()),
-            'currentLocation' => $this->currentLocation,
+            'RegistrationNo' => $this->registrationNo,
+            'Model' => $this->model,
+            'PurchasedYear' => $this->purchasedYear,
+            'Value' => $this->value,
+            'FuelType' => $this->fuelType,
+            'InsuranceValue' => $this->insuranceValue,
+            'InsuranceCompany' => $this->insuranceCompany,
+            'AssignedOfficer' => $this->assignedOfficer,
+            'State' => State::getStateString($this->state->getID()),
+            'CurrentLocation' => $this->currentLocation,
             'NumOfAllocations' => $this->numOfAllocations,
-            'vehicleImagePath' => $this->vehicleImagePath,
+            'VehiclePicturePath' => $this->vehicleImagePath,
             'assignedRequests'=>$this->assignedRequests,
             'IsLeased'=>false //true/false or 1/0?
         ];
