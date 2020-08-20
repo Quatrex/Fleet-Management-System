@@ -30,6 +30,9 @@ abstract class VehicleModel extends Model
             'CurrentLocation', 'NumOfAllocations', 'IsLeased', 'leasedCompany', 'leasedPeriodFrom',
             'leasedPeriodTo', 'monthlyPayment', 'VehiclePicturePath'
         ];
+        if($search[key($search)][0]=='RegistrationNo')
+            $search[key($search)] = ['vehicle.RegistrationNo'];
+
         $query = $this->queryBuilder->select($this->tableName, $wantedFields)
             ->join($this->tableName, $joinConditions, "LEFT")
             ->where()

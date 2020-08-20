@@ -1,6 +1,7 @@
 <?php
 
 use DB\Controller\RequestController;
+use DB\Viewer\VehicleViewer;
 use Employee\Factory\Driver\DriverFactory;
 use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
 use Request\Factory\Base\RealRequest;
@@ -36,8 +37,11 @@ $employee = PrivilegedEmployeeFactory::makeEmployee(1);
 
 // echo json_encode($object);
 
-$requests = $employee->getMyRequests(['scheduled', 'justified'], 0, ['CreatedDate' => 'DESC'], ['Ampara' => ['PickLocation']]);
-//print_r($requests);
-$vehicle=DriverFactory::makeDriver('1');
-print_r($vehicle->getField('assignedRequests'));
+// $requests = $employee->getMyRequests(['scheduled', 'justified'], 0, ['CreatedDate' => 'DESC'], ['Ampara' => ['PickLocation']]);
+// //print_r($requests);
+// $vehicle=DriverFactory::makeDriver('1');
+// print_r($vehicle->getField('assignedRequests'));
 
+$vv = new VehicleViewer();
+$vehicles = $vv->getAllRecords(0,['RegistrationNo' => 'ASC'],['' => ['All']],[]);
+print_r($vehicles);

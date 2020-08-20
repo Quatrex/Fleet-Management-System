@@ -138,6 +138,10 @@ class WhereBuilder
             $columnRecords = $dbh->read($columnQuery);
             $fields = [];
             array_walk_recursive($columnRecords, function($a) use (&$fields) { $fields[] = $a;});
+            if (in_array('RegistrationNo',$columnRecords))
+            {
+                $columnRecords[array_search('RegistrationNo',$columnRecords)] = 'vehcile.RegistrationNo';
+            }
         }
         
         
