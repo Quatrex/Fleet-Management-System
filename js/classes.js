@@ -492,7 +492,7 @@ class Popup {
 	}
 	render(object) {
 		this.object = object;
-		console.log(this.object);
+		// console.log(this.object);
 		let inputs = this.popup.querySelectorAll('.inputs');
 		inputs.forEach((input) => {
 			input.value = '';
