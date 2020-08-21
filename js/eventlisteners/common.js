@@ -22,7 +22,7 @@ const NewRequestPreviewPopup = new Popup('NewRequestPreviewPopup', [NewRequestPr
 const VehicleRequestFormClose = new DisplayAlertButton('VehicleRequestForm_Close', CancelRequestAlertPopup)
 const VehicleRequestFormCancel = new DisplayAlertButton('VehicleRequestForm_Cancel', CancelRequestAlertPopup)
 const VehicleRequestFormSubmit = new ValidatorButton('VehicleRequestForm_Submit', NewRequestPreviewPopup, [ObjectCreate, FormValidate, DateValidator]);
-const VehicleRequestFormPopup = new Popup('VehicleRequestForm', [VehicleRequestFormCancel, VehicleRequestFormClose, VehicleRequestFormSubmit], ['click', 'keyup']);
+const VehicleRequestFormPopup = new Popup('VehicleRequestForm', [VehicleRequestFormCancel, VehicleRequestFormClose, VehicleRequestFormSubmit]);
 NewRequestPreviewEdit.setNext(VehicleRequestFormPopup);
 
 

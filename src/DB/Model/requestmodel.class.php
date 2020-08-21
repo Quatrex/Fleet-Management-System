@@ -87,7 +87,7 @@ abstract class RequestModel extends Model
 
     protected function approveRequest($requestID, $CAOComment, $empID, $state)
     {
-        $values = ['State' => $state, 'JOComment' => $CAOComment, 'JustifiedBy' => $empID];
+        $values = ['State' => $state, 'CAOComment' => $CAOComment, 'ApprovedBy' => $empID];
         $conditions = ['RequestID' => $requestID];
         parent::updateRecord($values, $conditions);
     }

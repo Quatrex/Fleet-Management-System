@@ -101,7 +101,7 @@ class RealRequest implements Request, INotifiableRequest, IVisitable
             $stateID = State::getStateID('approved');
         } else {
             $this->state->disapprove($this);
-            $stateID = State::getStateID('denied');
+            $stateID = State::getStateID('disapproved');
         }
 
         $requestController = new RequestController();
