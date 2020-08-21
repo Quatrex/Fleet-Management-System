@@ -19,12 +19,12 @@ const NewRequestPreviewConfirm = new DisplayNextButton('NewRequestPreview_Confir
 const NewRequestPreviewPopup = new Popup('NewRequestPreviewPopup', [NewRequestPreviewClose, NewRequestPreviewConfirm, NewRequestPreviewEdit]);
 //cancel request next setup
 
-const VehicleRequestFormClose = new DisplayAlertButton('VehicleRequestForm_Close', CancelRequestAlertPopup)
-const VehicleRequestFormCancel = new DisplayAlertButton('VehicleRequestForm_Cancel', CancelRequestAlertPopup)
+const VehicleRequestFormClose = new DisplayAlertCheckButton('VehicleRequestForm_Close', CancelRequestAlertPopup)
+const VehicleRequestFormCancel = new DisplayAlertCheckButton('VehicleRequestForm_Cancel', CancelRequestAlertPopup)
 const VehicleRequestFormSubmit = new ValidatorButton('VehicleRequestForm_Submit', NewRequestPreviewPopup, [ObjectCreate, FormValidate, DateValidator]);
 const VehicleRequestFormPopup = new Popup('VehicleRequestForm', [VehicleRequestFormCancel, VehicleRequestFormClose, VehicleRequestFormSubmit]);
 NewRequestPreviewEdit.setNext(VehicleRequestFormPopup);
-
+VehicleRequestFormPopup.setDataType('value');
 
 const DriverDetailPopupClose = new DisplayNextButton('DriverDetailPopup_Close')
 const DriverDetailPopup = new Popup('DriverDetailPopup', [DriverDetailPopupClose]);

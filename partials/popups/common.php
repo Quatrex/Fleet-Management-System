@@ -16,27 +16,27 @@
             <div id="submit-form-wrapper">
                 <form id="RequestAdd_form">
                     <div class="form-group">
-                        <input type="date" class="form-control inputs" name="date" placeholder="Date" autocomplete="off" required>
+                        <input type="date" class="form-control inputs" name="date" id="date-VehicleRequestForm" placeholder="Date" autocomplete="off" required>
                         <div id="date-error" class="text-danger"></div>
                     </div>
 
                     <div class="form-group">
-                        <input type="time" class="form-control inputs" name="time" placeholder="Time" autocomplete="off" required>
+                        <input type="time" class="form-control inputs" name="time" placeholder="Time" id="time-VehicleRequestForm" autocomplete="off" required>
                         <div id="time-error" class="text-danger"></div>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control inputs" name="pickup" placeholder="Pick-up Location" autocomplete="off" required>
+                        <input type="text" class="form-control inputs" name="pickup" placeholder="Pick-up Location" id="pickup-VehicleRequestForm" autocomplete="off" required>
                         <div id="pickup-error" class="text-danger"></div>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control inputs" name="dropoff" placeholder="Drop-off Location" autocomplete="off" required>
+                        <input type="text" class="form-control inputs" name="dropoff" placeholder="Drop-off Location" id="dropoff-VehicleRequestForm" autocomplete="off" required>
                         <div id="dropoff-error" class="text-danger"></div>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control inputs" name="purpose" placeholder="Purpose" autocomplete="off">
+                        <input type="text" class="form-control inputs" name="purpose" placeholder="Purpose" id="purpose-VehicleRequestForm" autocomplete="off">
                         <div id="purpose-error" class="text-danger"></div>
                     </div>
 
