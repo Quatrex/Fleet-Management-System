@@ -258,7 +258,6 @@ class DOMContainer {
 				}
 			}
 		} else if (event.type == 'keyup') {
-			console.log(this.searchInput);
 			if (this.searchInput.value.length == 0) {
 				if (!this.cancelSearchButton.classList.contains('d-none')) {
 					this.cancelSearchButton.classList.add('d-none');
@@ -628,6 +627,30 @@ class DisplayAlertButton extends PopupButton {
 	}
 }
 
+class DisplayAlertCheckButton extends PopupButton {
+	constructor(id, next = {}, properties = {}) {
+		super(id, next, properties);
+	}
+	handleEvent(popup, object = {}, event) {
+		let check = false;
+		popup.popup.querySelectorAll(`.inputs`).forEach((element) => {
+			if (element.type == 'file') {
+				obj[element.name] = element.files[0];
+			} else {
+				if (element.value != '') {
+					check = true;
+				}
+			}
+		});
+		if (check) {
+			this.next.render(object);
+			this.next.setPrev(popup);
+		} else {
+			document.querySelectorAll('.popup').forEach((element) => (element.style.display = 'none'));
+			popup.removeFromDOM();
+		}
+	}
+}
 class ValidatorButton extends PopupButton {
 	constructor(id, next = {}, eventHandleHelpers = [], properties = {}) {
 		super(id, next, properties);
@@ -644,9 +667,6 @@ class ValidatorButton extends PopupButton {
 			}
 		});
 		let check = object.hasOwnProperty('valid') ? object.valid : true;
-		console.log(check);
-		console.log(event.type);
-		console.log(object);
 		if (check) {
 			if (event.type === 'click') {
 				if (Object.keys(this.next).length == 0) {
@@ -657,10 +677,8 @@ class ValidatorButton extends PopupButton {
 				}
 			} else if (event.type === 'keyup') {
 				if (SimilarityCheck(object, popup.getObject())) {
-					console.log('Inside similar');
 					document.getElementById(this.id).setAttribute('disabled', 'true');
 				} else {
-					console.log('Inside different');
 					document.getElementById(this.id).removeAttribute('disabled');
 				}
 			} else if (event.type === 'change') {
