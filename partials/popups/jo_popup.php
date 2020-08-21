@@ -93,7 +93,7 @@
             <div class="popup-body">
                 <p>Are you sure you want to justify the request?</p>
                 <form id='JOJustify_form'>
-                    <input class="inputs" type="hidden" name="Status" value="Justified" disabled>
+                    <input class="inputs d-none" type="text" name="Status" value="Justified">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control inputs" id="JOSelectedVehicle-JustifyRequestAlertPopup" name="JOSelectedVehicle" placeholder="Select Vehicle (Optional)" disabled>
                         <div class="input-group-append">
@@ -179,7 +179,7 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <div style ="overflow-y:scroll;overflow-x:hidden;height: 50%;">
                     <table class="table table-hover" style="width:100%">
                         <thead class="thead-dark " style="position:relative; width:100%!important;">
                             <tr>
@@ -216,7 +216,7 @@
             <div class="popup-body">
                 <p>Are you sure you want to decline the request?</p>
                 <form id='JODeny_form'>
-                    <input class="inputs" type="hidden" name="Status" value="Justified" disabled>
+                    <input class="inputs d-none" type="text" name="Status" value="Denied">
                     <textarea class="form-control inputs" name="JOComment" placeholder="Comments" rows="4"></textarea>
                 </form>
             </div>

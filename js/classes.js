@@ -792,12 +792,15 @@ const FormValidate = (popup, object = {}, event) => {
 const ObjectCreate = (popup, object = {}, event) => {
 	let obj = {};
 	popup.popup.querySelectorAll(`.inputs`).forEach((element) => {
+		console.log(element);
 		if (element.type == 'file') {
 			obj[element.name] = element.files[0];
 		} else {
+			console.log(element.value);
 			obj[element.name] = element.value;
 		}
 	});
+	console.log(obj);
 	if (event.type == 'keyup') {
 		return { ...object, ...obj };
 	} else {

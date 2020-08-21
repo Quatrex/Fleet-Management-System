@@ -356,7 +356,7 @@
                     </div>
                 </div>
             </div>
-            <div style="overflow-y:scroll">
+            <div style="overflow-y:scroll;overflow-x:hidden;height: 50%;">
                 <table class="table table-hover" style="width:100%">
                     <thead class="thead-dark " style="position:relative; width:100%!important;">
                         <tr>
@@ -459,7 +459,7 @@
                     </div>
                 </div>
             </div>
-            <div style="overflow-y:auto">
+            <div style="overflow-y:scroll;overflow-x:hidden;height: 50%;">
                 <table class="table table-hover" style="width:100%">
                     <thead class="thead-dark" style="width:100%!important">
                         <tr>
@@ -985,18 +985,21 @@
                     <p id="assignedVehicleID-assignVehicleToDriverTable"></p>
                 </span>
             </div>
-            <table class="table table-hover" style="width:100%">
-                <thead class="thead-dark " style="position:relative; width:100%!important;">
-                    <tr>
-                        <th class="" scope="col">#</th>
-                        <th class="th-sm" scope="col">Vehicle</th>
-                        <th class="th-sm" scope="col">Assigned Driver</th>
-                        <th class="th-sm" scope="col">Passengers</th>
-                    </tr>
-                </thead>
-                <tbody class="card-body">
-                </tbody>
-            </table>
+            <div style="overflow-y:scroll;overflow-x:hidden;height: 50%;">
+
+                <table class="table table-hover" style="width:100%">
+                    <thead class="thead-dark " style="position:relative; width:100%!important;">
+                        <tr>
+                            <th class="" scope="col">#</th>
+                            <th class="th-sm" scope="col">Vehicle</th>
+                            <th class="th-sm" scope="col">Assigned Driver</th>
+                            <th class="th-sm" scope="col">Passengers</th>
+                        </tr>
+                    </thead>
+                    <tbody class="card-body">
+                    </tbody>
+                </table>
+            </div>
             <div class="row d-flex justify-content-center"><button class="btn w-100 btn-light load-more mb-3 mr-5 ml-5" id="assignVehicleToDriverTable_LoadMore">Load More</button></div>
         </div>
 
