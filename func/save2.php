@@ -331,13 +331,13 @@ switch ($method) {
 		if ($object['message'] == '') {
 			if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
 				$driver = $employee->UpdateDriverPicture([
-					'DriverId' => $_POST['driverId'],
+					'DriverId' => $_POST['DriverID'],
 					'DriverPicturePath' => $driverImageName
 				]);
 				if ($driver !== null) {
 					$object['error'] = false;
 					$object['object'] = $driver;
-					$object['message'] = "success_Driver " . $_POST['driverId'] . " successfully updated";
+					$object['message'] = "success_Driver " . $_POST['DriverID'] . " successfully updated";
 				} else {
 					$object['error'] = true;
 					$object['message'] = 'Failed to create a driver object';

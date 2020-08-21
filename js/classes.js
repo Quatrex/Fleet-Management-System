@@ -278,6 +278,7 @@ class DOMContainer {
                 if (field.includes('PicturePath')) {
                     let path = '';
                     field.includes('Vehicle') ? (path = 'vehicle') : (path = 'profile');
+                    field.includes('Driver') ? (path = 'driver') : (path = 'profile');
                     object[field] != '' ?
                         (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`) :
                         (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
@@ -291,7 +292,7 @@ class DOMContainer {
             .insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
         this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.id}_${
 			object[this.store.getObjIdType()]
-		}`;
+			}`;
     }
 
     appendEntry(object) {
@@ -303,6 +304,7 @@ class DOMContainer {
                 if (field.includes('PicturePath')) {
                     let path = '';
                     field.includes('Vehicle') ? (path = 'vehicle') : (path = 'profile');
+                    field.includes('Driver') ? (path = 'driver') : (path = 'profile');
                     object[field] !== '' ?
                         (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`) :
                         (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
@@ -314,7 +316,7 @@ class DOMContainer {
         this.cardContainer.querySelector('.card-body').appendChild(clone);
         this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.id}_${
 			object[this.store.getObjIdType()]
-		}`;
+			}`;
     }
 
     deleteEntry(object) {
