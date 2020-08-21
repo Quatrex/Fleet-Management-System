@@ -211,7 +211,7 @@ class VPMO extends Requester
      */
     public function updateVehiclePicture($values)
     {
-        if ($values['isLeased']) {
+        if ($values['IsLeased']) {
             $vehicle = $this->leasedVehicleFactory->makeVehicle($values['RegistrationNo']);
         } else {
             $vehicle = $this->purchasedVehicleFactory->makeVehicle($values['RegistrationNo']);

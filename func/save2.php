@@ -149,13 +149,13 @@ switch ($method) {
 			if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
 				$vehicle = $employee->UpdateVehiclePicture([
 					'VehiclePicturePath' => $vehicleImageName,
-					'RegistrationNo' => $_POST['registration'],
-					'IsLeased' => ($_POST['leasedCompany'] !== "")
+					'RegistrationNo' => $_POST['RegistrationNo'],
+					'IsLeased' => ($_POST['LeasedCompany'] !== "")
 				]);
 				if ($vehicle !== null) {
 					$object['error'] = false;
 					$object['object'] = $vehicle;
-					$object['message'] = "success_Vehicle " . $_POST['registration'] . " successfully updated";
+					$object['message'] = "success_Vehicle " . $_POST['RegistrationNo'] . " successfully updated";
 				} else {
 					$object['error'] = true;
 					$object['message'] = 'Failed to update a vehicle object';

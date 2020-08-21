@@ -24,6 +24,7 @@ abstract class AbstractVehicle implements Vehicle
     protected string $numOfAllocations;
     protected string $status;
     protected ?array $assignedRequests;
+    protected ?string $vehicleImagePath;
 
     public function __construct($values)
     {
@@ -98,6 +99,7 @@ abstract class AbstractVehicle implements Vehicle
     public function updatePicture(array $vehicleInfo): void
     {
         $vehicleController = new VehicleController();
+        $this->vehicleImagePath=$vehicleInfo['VehiclePicturePath'];
         $vehicleController->updatePicture($this->registrationNo,$vehicleInfo['VehiclePicturePath']);
     }
 
