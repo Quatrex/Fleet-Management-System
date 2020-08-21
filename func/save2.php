@@ -60,29 +60,29 @@ switch ($method) {
 
 	case 'AddVehicle':
 		$vehicle = null;
-		if ($_POST['isLeased'] == "Yes") {
+		if ($_POST['IsLeased'] == "Yes") {
 			$vehicle = $employee->addLeasedVehicle([
-				'RegistrationNo' => $_POST['registration'],
-				'Model' => $_POST['model'],
-				'PurchasedYear' => $_POST['purchasedYear'],
-				'Value' => $_POST['value'],
-				'FuelType' => $_POST['fuelType'],
-				'InsuranceValue' => $_POST['insuranceValue'],
-				'InsuranceCompany' => $_POST['insuranceCompany'],
-				'LeasedCompany' => $_POST['leasedCompany'],
-				'LeasedPeriodFrom' => $_POST['leasedPeriodFrom'],
-				'LeasedPeriodTo' => $_POST['leasedPeriodTo'],
-				'MonthlyPayment' => $_POST['monthlyPayment']
+				'RegistrationNo' => $_POST['RegistrationNo'],
+				'Model' => $_POST['Model'],
+				'PurchasedYear' => $_POST['PurchasedYear'],
+				'Value' => $_POST['Value'],
+				'FuelType' => $_POST['FuelType'],
+				'InsuranceValue' => $_POST['InsuranceValue'],
+				'InsuranceCompany' => $_POST['InsuranceCompany'],
+				'LeasedCompany' => $_POST['LeasedCompany'],
+				'LeasedPeriodFrom' => $_POST['LeasedPeriodFrom'],
+				'LeasedPeriodTo' => $_POST['LeasedPeriodTo'],
+				'MonthlyPayment' => $_POST['MonthlyPayment']
 			]);
 		} else {
 			$vehicle = $employee->addPurchasedVehicle([
-				'RegistrationNo' => $_POST['registration'],
-				'Model' => $_POST['model'],
-				'PurchasedYear' => $_POST['purchasedYear'],
-				'Value' => $_POST['value'],
-				'FuelType' => $_POST['fuelType'],
-				'InsuranceValue' => $_POST['insuranceValue'],
-				'InsuranceCompany' => $_POST['insuranceCompany']
+				'RegistrationNo' => $_POST['RegistrationNo'],
+				'Model' => $_POST['Model'],
+				'PurchasedYear' => $_POST['PurchasedYear'],
+				'Value' => $_POST['Value'],
+				'FuelType' => $_POST['FuelType'],
+				'InsuranceValue' => $_POST['InsuranceValue'],
+				'InsuranceCompany' => $_POST['InsuranceCompany']
 			]);
 		}
 		if ($vehicle !== null) {
@@ -101,6 +101,7 @@ switch ($method) {
 
 		if ($_POST['leasedCompany'] !== "") {
 			$vehicle = $employee->updateLeasedVehicleInfo([
+				
 				'RegistrationNo' => $_POST['registration'],
 				'Model' => $_POST['model'],
 				'PurchasedYear' => $_POST['purchasedYear'],
@@ -202,7 +203,7 @@ switch ($method) {
 
 	case 'AddEmployee':
 		$emp = $employee->createNewAccount([
-			'EmpID' => $_POST['empID'],
+			'EmpID' => $_POST['EmpID'],
 			'FirstName' => $_POST['FirstName'],
 			'LastName' => $_POST['LastName'],
 			'Username' => "",
@@ -219,7 +220,8 @@ switch ($method) {
 
 	case 'UpdateEmployee':
 		$emp = $employee->updateAccount([
-			'NewEmpID' => $_POST['empID'],
+			'NewEmpID' => $_POST['NewEmpID'],
+			'EmpID' => $_POST['EmpID'],
 			'FirstName' => $_POST['FirstName'],
 			'LastName' => $_POST['LastName'],
 			'Username' => "",
@@ -280,7 +282,7 @@ switch ($method) {
 			'LicenseType' => $_POST['LicenseType'],
 			'LicenseExpirationDay' => $_POST['LicenseExpirationDay'],
 			'DateOfAdmission' => $_POST['DateOfAdmission'],
-			'AssignedVehicleID' => ""
+			'AssignedVehicle' => ""
 		]);
 		$object['error'] = false;
 		$object['request'] = $driver;

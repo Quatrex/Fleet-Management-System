@@ -10,20 +10,20 @@
             <div id="submit-form-wrapper">
                 <form id="AddEmployee_form">
                     <div class="form-group">
-                        <input class="form-control inputs" placeholder="Employee ID" type="text" name="newEmployeeId" required>
-                        <div id="newEmployeeId-error" class="text-danger"></div>
+                        <input class="form-control inputs" placeholder="Employee ID" type="text" name="EmpID" required>
+                        <div id="EmpID-error" class="text-danger"></div>
                     </div>
                     <div class="form-group">
-                        <input class="form-control inputs" placeholder="First Name" type="text" name="firstName" required>
-                        <div id="firstName-error" class="text-danger"></div>
+                        <input class="form-control inputs" placeholder="First Name" type="text" name="FirstName" required>
+                        <div id="FirstName-error" class="text-danger"></div>
                     </div>
                     <div class="form-group">
-                        <input class="form-control inputs" placeholder="Last Name" type="text" name="lastName" required>
-                        <div id="lastName-error" class="text-danger"></div>
+                        <input class="form-control inputs" placeholder="Last Name" type="text" name="LastName" required>
+                        <div id="LastName-error" class="text-danger"></div>
 
                     </div>
                     <div class="form-group">
-                        <select class="custom-select inputs" name="position" id="position-select" required>
+                        <select class="custom-select inputs" name="position" id="Position-select" required>
                             <option selected>Account Type</option>
                             <option value="Requester">Requester</option>
                             <option value="VPMO">VPMO</option>
@@ -32,32 +32,32 @@
                             <option value="DCAO">DCAO</option>
                             <option value="Administrator">Administrator</option>
                         </select>
-                        <div id="position-error" class="text-danger"></div>
+                        <div id="Position-error" class="text-danger"></div>
 
                     </div>
                     <div class="form-group">
-                        <input class="form-control inputs" placeholder="Designation" id="employee-designation" type="text" name="designation" required>
-                        <div id="designation-error" class="text-danger"></div>
+                        <input class="form-control inputs" placeholder="Designation" id="employee-Designation" type="text" name="Designation" required>
+                        <div id="Designation-error" class="text-danger"></div>
 
                     </div>
                     <div class="form-group">
-                        <input type="number" name="contactNo" class="form-control inputs" placeholder="Contact Number" required>
-                        <div id="contactNo-error" class="text-danger"></div>
+                        <input type="number" name="ContactNo" class="form-control inputs" placeholder="Contact Number" required>
+                        <div id="ContactNo-error" class="text-danger"></div>
 
                     </div>
                     <div class="form-group">
-                        <input name="email" class="form-control inputs" placeholder="Email" type="text" required>
-                        <div id="email-error" class="text-danger"></div>
+                        <input name="Email" class="form-control inputs" placeholder="Email" type="text" required>
+                        <div id="Email-error" class="text-danger"></div>
 
                     </div>
                     <div class="form-group">
-                        <input name="password" class="form-control inputs" placeholder="Password" type="password" required>
-                        <div id="password-error" class="text-danger"></div>
+                        <input name="Password" class="form-control inputs" placeholder="Password" type="password" required>
+                        <div id="Password-error" class="text-danger"></div>
 
                     </div>
                     <div class="form-group">
-                        <input name="confirmPassword" class="form-control inputs" placeholder="Confirm Password" type="password" required>
-                        <div id="confirmPassword-error" class="text-danger"></div>
+                        <input name="ConfirmPassword" class="form-control inputs" placeholder="Confirm Password" type="password" required>
+                        <div id="ConfirmPassword-error" class="text-danger"></div>
 
                     </div>
                     <input type="button" value="Submit" class="btn btn-success" id="EmployeeAddForm_Confirm">
@@ -84,20 +84,20 @@
                         <div class="form-group-row mb-4">
                             <label>Employee ID</label>
                             <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border inputs" id="empID-EmployeeProfileForm" type="text" name="employeeID" disabled>
+                                <input class="form-control py-2 border-right-0 border inputs" id="EmpID-EmployeeProfileForm" type="text" name="EmpID" disabled>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
                             <div class="col-md-6">
                                 <label>First Name</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="FirstName-EmployeeProfileForm" type="text" name="firstName" disabled>
+                                    <input class="form-control py-2 border-right-0 border inputs" id="FirstName-EmployeeProfileForm" type="text" name="FirstName" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Last Name</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="LastName-EmployeeProfileForm" type="text" name="lastName" disabled>
+                                    <input class="form-control py-2 border-right-0 border inputs" id="LastName-EmployeeProfileForm" type="text" name="LastName" disabled>
                                 </div>
                             </div>
                         </div>
@@ -105,19 +105,19 @@
                             <div class="form-group col-md-4">
                                 <label>Designation</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="Designation-EmployeeProfileForm" type="text" name="designation" disabled>
+                                    <input class="form-control py-2 border-right-0 border inputs" id="Designation-EmployeeProfileForm" type="text" name="Designation" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Contact Number</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="ContactNo-EmployeeProfileForm" type="text" name="contactNo" disabled>
+                                    <input class="form-control py-2 border-right-0 border inputs" id="ContactNo-EmployeeProfileForm" type="text" name="ContactNo" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Email</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="Email-EmployeeProfileForm" type="text" name="email" disabled>
+                                    <input class="form-control py-2 border-right-0 border inputs" id="Email-EmployeeProfileForm" type="text" name="Email" disabled>
                                 </div>
                             </div>
                         </div>
@@ -140,15 +140,15 @@
             <hr>
         </div>
         <div class="popup-body">
-            <img src="../images/default-user-image.png" class="form-image image-fluid" id="EmployeeImagePath-EmployeeProfileEditForm">
+            <img src="../images/default-user-image.png" class="form-image image-fluid" id="ProfilePicturePath-EmployeeProfileEditForm">
             <div id="submit-form-wrapper">
                 <div class="basic-form">
                     <form id="UpdateEmployee_form">
                         <div class="form-group-row mb-4">
                             <label>Employee ID</label>
                             <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border inputs" id="empID-EmployeeProfileEditForm" type="text" name="empID" required>
-                                <div id="empID-error" class="text-danger"></div>
+                                <input class="form-control py-2 border-right-0 border inputs" id="EmpID-EmployeeProfileEditForm" type="text" name="NewEmpID" required>
+                                <div id="NewEmpID-error" class="text-danger"></div>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
@@ -253,7 +253,7 @@
                         <div id="ContactNo-error" class="text-danger"></div>
                     </div>
                     <div class="form-group">
-                        <input name="DateOfAdmission" class="form-control inputs" placeholder="Employed Date" type="date">
+                        <input name="DateOfAdmission" class="form-control inputs" placeholder="Date Of Admission" type="date">
                         <div id="DateOfAdmission-error" class="text-danger"></div>
                     </div>
                     <div class="form-group">

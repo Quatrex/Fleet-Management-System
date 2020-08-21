@@ -757,7 +757,6 @@ const FormValidate = (popup, object = {}, event) => {
 					popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
 				} else {
 					field.classList.remove('invalid-details');
-					console.log(field.name);
 					popup.popup.querySelector(`#${field.name}-error`).innerHTML = null;
 				}
 			}
