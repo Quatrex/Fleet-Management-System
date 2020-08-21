@@ -96,6 +96,15 @@ abstract class VehicleModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    protected function updateAssignedOfficer($registrationNo, $assignedOfficer)
+    {
+        $values = [
+            'AssignedOfficer' => $assignedOfficer
+        ];
+        $conditions = ['RegistrationNo' => $registrationNo];
+        parent::updateRecord($values, $conditions);
+    }
+
     protected function updateVehiclePicture(string $registrationNo, string $imagePath)
     {
         $values = [

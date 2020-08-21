@@ -188,6 +188,21 @@ class VPMO extends Requester
 
     /**
      *
+     * Update vehicle's AssignedOfficer field.
+     *
+     * @param registrationNo, fields
+     * @return void
+     *
+     */
+    public function updateVehicleAssignedOfficer($values)
+    {
+        $vehicle = VehicleFactory::getVehicle($values['RegistrationNo']);
+        $vehicle->updateAssignedOfficer($values);
+        return $vehicle;
+    }
+
+    /**
+     *
      * Update vehicle picture.
      *
      * @param imageName,registrationNo,isLeased, fields

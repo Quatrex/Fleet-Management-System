@@ -137,4 +137,17 @@ abstract class AbstractVehicle implements Vehicle
     {
         $this->state->finishRepair($this);
     }
+
+    public function updateAssignedOfficer(array $values): void
+    {
+        //changed vehicle attributes can be analysed here
+
+        $this->assignedOfficer = $values['AssignedOfficer'];
+
+        $vehicleController = new VehicleController();
+        $vehicleController->updateAssignedOfficer(
+            $this->registrationNo,
+            $this->assignedOfficer,
+        );
+    }
 }

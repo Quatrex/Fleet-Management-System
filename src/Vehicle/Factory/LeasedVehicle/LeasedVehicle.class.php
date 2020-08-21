@@ -116,4 +116,6 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
             $this->monthlyPayment
         );
     }
+
+    
 }
