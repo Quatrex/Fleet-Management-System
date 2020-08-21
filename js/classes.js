@@ -280,7 +280,7 @@ class DOMContainer {
 					field.includes('Vehicle') ? (path = 'vehicle') : (path = 'profile');
 					object[field] != ''
 						? (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`)
-						: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}`);
+						: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
 				} else {
 					clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
 				}
@@ -305,7 +305,7 @@ class DOMContainer {
 					field.includes('Vehicle') ? (path = 'vehicle') : (path = 'profile');
 					object[field] != ''
 						? (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`)
-						: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}`);
+						: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
 				} else {
 					clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
 				}
@@ -382,13 +382,12 @@ class SelectionTable extends DOMContainer {
 			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = '';
 		} else {
 			let obj = this.store.getObjectById(object[this.selectField]);
-			console.log(obj);
 			if (obj) {
 				this.deleteEntry(obj);
 				this.insertEntry(obj);
 				this.toggleStyle(`${this.id}_${object[this.selectField]}`);
 			} else {
-				this.store.loadSelectedData(object[this.selectField]);
+				this.store.loadSelectedData(object[this.selectField], this);
 			}
 			this.button.removeProperty('disabled');
 			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
@@ -439,19 +438,28 @@ class SelectionTable extends DOMContainer {
 		let tableRow = document.getElementById(tableRowId);
 		let rows = this.cardContainer.querySelectorAll('tr');
 		let hasSelected = false;
-		rows.forEach((element) => {
-			if (element === tableRow) {
-				element.classList.toggle(this.style);
-				if (element.classList.contains(this.style)) {
-					this.button.removeProperty('disabled');
-					hasSelected = true;
+		if (tableRow) {
+			rows.forEach((element) => {
+				if (element === tableRow) {
+					element.classList.toggle(this.style);
+					if (element.classList.contains(this.style)) {
+						this.button.removeProperty('disabled');
+						hasSelected = true;
+					}
+				} else {
+					if (element.classList.contains(this.style)) {
+						element.classList.remove(this.style);
+					}
 				}
-			} else {
+			});
+		} else {
+			rows.forEach((element) => {
 				if (element.classList.contains(this.style)) {
 					element.classList.remove(this.style);
 				}
-			}
-		});
+			});
+		}
+
 		return hasSelected;
 	}
 }
