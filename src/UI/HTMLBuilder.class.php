@@ -136,7 +136,7 @@ class HTMLBuilder
         $requestElements = [];
         foreach ($requests as $request) {
             $requestElement = $this->compositeBuilder
-                ->createComposite('div', ['class' => 'card request-card detail-description', 'id' => strtolower($state) . 'RequestCard_' . htmlentities($request->getField('requestID')), 'style' => 'z-index:2;'])
+                ->createComposite('div', ['class' => 'card request-card detail-description', 'id' => strtolower($state) . 'RequestsCard_' . htmlentities($request->getField('requestID')), 'style' => 'z-index:2;'])
                 ->composite()
                 ->createComposite('div', ['class' => 'description'])
                 //->addElement('span',['class'=>'request-id','id'=> strtolower($state) . '-request-' . $i],['Requset id: ' . htmlentities($request->getField('requestID'))])

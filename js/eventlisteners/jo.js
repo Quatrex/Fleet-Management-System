@@ -1,6 +1,6 @@
 const requestsToJustifyStore = new Store('requestsToJustify');
 const justifiedRequestsStore = new Store('justifiedRequests');
-const vehicleStore = new Store('vehicles','registration','RegistrationNo');
+const vehicleStore = new Store('vehicles','RegistrationNo','RegistrationNo');
 
 
 const JustifyRequestAlertClose = new DisplayNextButton('JustifyRequestAlert_Close');

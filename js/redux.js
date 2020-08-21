@@ -125,6 +125,7 @@ class Store {
 		setTimeout(this.loadData('selection'), 3000);
 	}
 	dispatch(action) {
+		console.log(action.type);
 		let selectionPayload = [];
 		if (action.type === 'ADD' || action.type === 'APPEND') {
 			if (!Array.isArray(action.payload)) {

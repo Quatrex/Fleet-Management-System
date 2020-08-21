@@ -151,7 +151,7 @@ SelectDriverAlertBack.setNext(RequestAssignPreviewPopup);
 //Active Trips Preview Popup
 const EndTripConfirmClose = new DisplayNextButton('EndTripConfirm_Close');
 const EndTripConfirmCancel = new DisplayNextButton('EndTripConfirm_Cancel');
-const EndTripConfirmEnd = new DisplayNextButton('EndTripConfirm_End', {}, [
+const EndTripConfirmEnd = new DisplayNextButton('EndTripConfirm_Confirm', {}, [
     ObjectCreate,
     BackendAccess('EndTrip', ActionCreator([ongoingTripStore, scheduledRequestsStore], 'DELETE&ADD')),
     RemoveAllPopup,
@@ -165,7 +165,7 @@ const EndTripConfirmPopup = new Popup('EndTripConfirmPopup', [
 //Active Trips Preview Popup
 const ActiveTripDetailsClose = new DisplayNextButton('ActiveTripDetails_Close');
 const ActiveTripDetailsCancel = new DisplayNextButton('ActiveTripDetails_Cancel', {}, [
-    BackendAccess('CancelTrip', ActionCreator([ongoingTripStore, scheduledRequestsStore], 'UPDATE')),
+    BackendAccess('CancelRequest', ActionCreator([ongoingTripStore, scheduledRequestsStore], 'UPDATE')),
 ]);
 const ActiveTripDetailsEnd = new DisplayAlertButton('ActiveTripDetails_End', EndTripConfirmPopup);
 const ActiveTripDetailsPrintSlip = new OpenNewWindowButton(

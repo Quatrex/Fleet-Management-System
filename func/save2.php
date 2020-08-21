@@ -17,7 +17,7 @@ switch ($method) {
 		$comment = '';
 		if ($_POST['JOSelectedVehicle'] != '') {
 			$comment = $_POST['JOComment'] . ' Suggested Vehicle: ' . $_POST['JOSelectedVehicle'];
-		}
+		} else $comment = $_POST['JOComment'];
 		$request = $employee->justifyRequest($_POST['RequestId'], $comment);
 		$object['error'] = false;
 		$object['object'] = $request;

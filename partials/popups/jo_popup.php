@@ -93,11 +93,11 @@
             <div class="popup-body">
                 <p>Are you sure you want to justify the request?</p>
                 <form id='JOJustify_form'>
-                    <input class="inputs" type="hidden" name="Status" value="Justified" disabled>
+                    <input class="inputs d-none" type="text" name="Status" value="Justified">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control inputs" id ="JOSelectedVehicle-JustifyRequestAlertPopup" name="JOSelectedVehicle" placeholder="Select Vehicle (Optional)" disabled>
+                        <input type="text" class="form-control inputs" id="JOSelectedVehicle-JustifyRequestAlertPopup" name="JOSelectedVehicle" placeholder="Select Vehicle (Optional)" disabled>
                         <div class="input-group-append">
-                            <input type="button" class="btn btn-outline-secondary"  id="JustifyRequestAlert_SelectVehicle" value="Choose">
+                            <input type="button" class="btn btn-outline-secondary" id="JustifyRequestAlert_SelectVehicle" value="Choose">
                         </div>
                     </div>
                     <textarea class="form-control inputs" name="JOComment" placeholder="Comments" rows="4"></textarea>
@@ -118,35 +118,82 @@
                 <h2>Select Vehicle</h2>
                 <hr>
             </div>
-            <div class="popup-body" style="max-height: 80vh;">
+            <div class="popup-body" style="max-height: 80vh;" id="selectionVehicleTable">
                 <div class="row mx-auto">
                     <label class="mr-2">Selected Vehicle:</label> <span>
                         <p id="JOSelectedVehicle-selectionVehicleTable"></p>
                     </span>
                 </div>
-                <table class="table table-hover" style="width:100%">
-                    <thead class="thead-dark " style="position:relative; width:100%!important;">
-                        <tr>
-                            <th class="" scope="col">#</th>
-                            <th class="th-sm" scope="col">Vehicle</th>
-                            <th class="th-sm" scope="col">Assigned Driver</th>
-                            <th class="th-sm" scope="col">Passengers</th>
-                        </tr>
-                    </thead>
-                    <tbody id="selectionVehicleTable">
-                        <?php
-                        $i = 0;
-                        foreach ($vehicles as $vehicle) : ?>
-                            <tr id="selectionVehicleTable_<?php echo $vehicle->getField('registrationNo') ?>">
-                                <th id="vehicle-<?php echo $i ?>"><?php echo $vehicle->getField('registrationNo') ?></th>
-                                <td><?php echo $vehicle->getField('model') ?></td>
-                                <td><?php echo $vehicle->getField('purchasedYear') ?></td>
-                                <td>Nothing</td>
+                <div class="container-fluid search-container">
+                    <div class="row mt-3 pt-3 ml-3 border">
+                        <div class="col-sm-6 mb-3">
+                            <div class="input-group">
+                                <div class="row w-100">
+                                    <div class="col-sm-6 pr-0 form-group position-relative">
+                                        <input type="text" class="form-control pr-2" id="selectionVehicleTable_SearchInput" placeholder="Search" style="border-radius: 0px!important;">
+                                        <span class="form-clear searchTabButton d-none mr-2" id="Cancel_Confirm_button"><i class="material-icons">clear</i></span>
+
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="custom-select mr-sm-2" data-field="Search" style="border-radius: 0px!important;">
+                                            <option selected>Registration No</option>
+                                            <option value="Value">Value</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="button" class="btn btn-primary searchTabButton" id="Search_Confirm_" value="Search">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 ml-2">
+                            <div class="row">
+                                <div class="sm-8">
+                                    <div class="row">
+                                        <div class="col-sm-2 my-auto mr-1">
+                                            <label class="mr-2">Sort</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <select class="custom-select mr-sm-2" data-field="Sort">
+                                                <option selected>Registration No</option>
+                                                <option value="Value">Value</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 ml-2 my-auto">
+                                    <button type="button" class="btn btn btn-outline-dark searchTabButton" id="Desc_">
+                                        <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-sort-down-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M3 3a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-1 0v-10A.5.5 0 0 1 3 3z" />
+                                            <path fill-rule="evenodd" d="M5.354 11.146a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L3 12.793l1.646-1.647a.5.5 0 0 1 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z" />
+                                        </svg>
+                                    </button>
+                                    <button type="button" class="btn btn btn-outline-dark searchTabButton" id="Asc_">
+                                        <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-sort-up-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M3 14a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z" />
+                                            <path fill-rule="evenodd" d="M5.354 5.854a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L3 4.207l1.646 1.647a.5.5 0 0 0 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style ="overflow-y:scroll;overflow-x:hidden;height: 50%;">
+                    <table class="table table-hover" style="width:100%">
+                        <thead class="thead-dark " style="position:relative; width:100%!important;">
+                            <tr>
+                                <th class="" scope="col">#</th>
+                                <th class="th-sm" scope="col">Vehicle</th>
+                                <th class="th-sm" scope="col">Assigned Driver</th>
+                                <th class="th-sm" scope="col">Passengers</th>
                             </tr>
-                        <?php $i++;
-                        endforeach;; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody id="selectionVehicleTable" class="card-body">
+                        </tbody>
+                    </table>
+                    <div class="row d-flex justify-content-center"><button class="btn w-100 btn-light load-more mb-3 mr-5 ml-5" id="selectionVehicleTable_LoadMore">Load More</button></div>
+                </div>
             </div>
 
             <div class="popup-footer">
@@ -169,7 +216,7 @@
             <div class="popup-body">
                 <p>Are you sure you want to decline the request?</p>
                 <form id='JODeny_form'>
-                    <input class="inputs" type="hidden" name="Status" value="Justified" disabled>
+                    <input class="inputs d-none" type="text" name="Status" value="Denied">
                     <textarea class="form-control inputs" name="JOComment" placeholder="Comments" rows="4"></textarea>
                 </form>
             </div>

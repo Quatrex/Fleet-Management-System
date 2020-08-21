@@ -102,7 +102,7 @@
                 <p>Are you sure you want to approve the request?</p>
                 <form id='CAOApprove_form'>
                     <input class="inputs" type="hidden" name="Status" value="Approved" disabled>
-                    <textarea class="form-control inputs" id="CAOComment" name="approve-comment" placeholder="Comments" rows="4"></textarea>
+                    <textarea class="form-control inputs"  name="CAOComment" placeholder="Comments" rows="4"></textarea>
                 </form>
             </div>
             <div class="popup-footer">
@@ -125,7 +125,7 @@
                 <p>Are you sure you want to decline the request?</p>
                 <form id='CAODeny_form'>
                     <input class="inputs" type="hidden" name="Status" value="Denied" disabled>
-                    <textarea class="form-control" name="CAOComment" placeholder="Comments" rows="4"></textarea>
+                    <textarea class="form-control inputs" name="CAOComment" placeholder="Comments" rows="4"></textarea>
                 </form>
             </div>
             <div class="popup-footer">

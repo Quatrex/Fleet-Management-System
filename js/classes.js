@@ -114,6 +114,7 @@ class DOMTabContainer {
 class DOMContainer {
     constructor(id, popup, store, templateId) {
         this.id = id;
+        this.cardId = this.id.substring(id.length - 9) == 'Container' ? id.substring(0, id.length - 9) + 'Card' : id
         this.popup = popup;
         this.cardContainer = document.getElementById(id);
         this.store = store;
@@ -258,7 +259,6 @@ class DOMContainer {
                 }
             }
         } else if (event.type == 'keyup') {
-            console.log(this.searchInput);
             if (this.searchInput.value.length == 0) {
                 if (!this.cancelSearchButton.classList.contains('d-none')) {
                     this.cancelSearchButton.classList.add('d-none');
@@ -278,7 +278,6 @@ class DOMContainer {
                 if (field.includes('PicturePath')) {
                     let path = '';
                     field.includes('Vehicle') ? (path = 'vehicle') : (path = 'profile');
-                    field.includes('Driver') ? (path = 'driver') : (path = 'profile');
                     object[field] != '' ?
                         (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`) :
                         (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
@@ -290,9 +289,9 @@ class DOMContainer {
         this.cardContainer
             .querySelector('.card-body')
             .insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
-        this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.id}_${
+        this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.cardId}_${
 			object[this.store.getObjIdType()]
-			}`;
+		}`;
     }
 
     appendEntry(object) {
@@ -304,8 +303,7 @@ class DOMContainer {
                 if (field.includes('PicturePath')) {
                     let path = '';
                     field.includes('Vehicle') ? (path = 'vehicle') : (path = 'profile');
-                    field.includes('Driver') ? (path = 'driver') : (path = 'profile');
-                    object[field] !== '' ?
+                    object[field] != '' ?
                         (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`) :
                         (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
                 } else {
@@ -314,13 +312,13 @@ class DOMContainer {
             }
         });
         this.cardContainer.querySelector('.card-body').appendChild(clone);
-        this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.id}_${
+        this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.cardId}_${
 			object[this.store.getObjIdType()]
-			}`;
+		}`;
     }
 
     deleteEntry(object) {
-        let entry = document.getElementById(`${this.id}_${object[this.store.getObjIdType()]}`);
+        let entry = document.getElementById(`${this.cardId}_${object[this.store.getObjIdType()]}`);
         if (entry != 'undefined' && entry != null) {
             this.cardContainer.querySelector('.card-body').removeChild(entry);
         }
@@ -332,7 +330,7 @@ class DOMContainer {
         });
     }
     updateEntry(object) {
-        let entry = document.getElementById(`${this.id}_${object[this.store.getObjIdType()]}`);
+        let entry = document.getElementById(`${this.cardId}_${object[this.store.getObjIdType()]}`);
         if (entry != 'undefined' && entry != null) {
             let objFields = Object.getOwnPropertyNames(object);
             objFields.forEach((field) => {
@@ -495,7 +493,7 @@ class Popup {
     }
     render(object) {
         this.object = object;
-        console.log(this.object);
+        // console.log(this.object);
         let inputs = this.popup.querySelectorAll('.inputs');
         inputs.forEach((input) => {
             input.value = '';
@@ -630,6 +628,30 @@ class DisplayAlertButton extends PopupButton {
     }
 }
 
+class DisplayAlertCheckButton extends PopupButton {
+    constructor(id, next = {}, properties = {}) {
+        super(id, next, properties);
+    }
+    handleEvent(popup, object = {}, event) {
+        let check = false;
+        popup.popup.querySelectorAll(`.inputs`).forEach((element) => {
+            if (element.type == 'file') {
+                obj[element.name] = element.files[0];
+            } else {
+                if (element.value != '') {
+                    check = true;
+                }
+            }
+        });
+        if (check) {
+            this.next.render(object);
+            this.next.setPrev(popup);
+        } else {
+            document.querySelectorAll('.popup').forEach((element) => (element.style.display = 'none'));
+            popup.removeFromDOM();
+        }
+    }
+}
 class ValidatorButton extends PopupButton {
     constructor(id, next = {}, eventHandleHelpers = [], properties = {}) {
         super(id, next, properties);
@@ -646,9 +668,6 @@ class ValidatorButton extends PopupButton {
             }
         });
         let check = object.hasOwnProperty('valid') ? object.valid : true;
-        console.log(check);
-        console.log(event.type);
-        console.log(object);
         if (check) {
             if (event.type === 'click') {
                 if (Object.keys(this.next).length == 0) {
@@ -659,10 +678,8 @@ class ValidatorButton extends PopupButton {
                 }
             } else if (event.type === 'keyup') {
                 if (SimilarityCheck(object, popup.getObject())) {
-                    console.log('Inside similar');
                     document.getElementById(this.id).setAttribute('disabled', 'true');
                 } else {
-                    console.log('Inside different');
                     document.getElementById(this.id).removeAttribute('disabled');
                 }
             } else if (event.type === 'change') {
