@@ -27,8 +27,8 @@ abstract class VehicleModel extends Model
         $wantedFields = [
             'vehicle.RegistrationNo', 'Model', 'PurchasedYear', 'Value', 'FuelType',
             'InsuranceValue', 'InsuranceCompany', 'AssignedOfficer', 'State',
-            'CurrentLocation', 'NumOfAllocations', 'IsLeased', 'leasedCompany', 'leasedPeriodFrom',
-            'leasedPeriodTo', 'monthlyPayment', 'VehiclePicturePath'
+            'CurrentLocation', 'NumOfAllocations', 'IsLeased', 'LeasedCompany', 'LeasedPeriodFrom',
+            'LeasedPeriodTo', 'MonthlyPayment', 'VehiclePicturePath'
         ];
         if($search[key($search)][0]=='RegistrationNo')
             $search[key($search)] = ['vehicle.RegistrationNo'];
@@ -71,10 +71,10 @@ abstract class VehicleModel extends Model
         parent::setTableName('leased_vehicle');
         $values = [
             'RegistrationNo' => $registrationNo,
-            'leasedCompany' => $leasedCompany,
-            'leasedPeriodFrom' => $leasedPeriodFrom,
-            'leasedPeriodTo' => $leasedPeriodTo,
-            'monthlyPayment' => $monthlyPayment
+            'LeasedCompany' => $leasedCompany,
+            'LeasedPeriodFrom' => $leasedPeriodFrom,
+            'LeasedPeriodTo' => $leasedPeriodTo,
+            'MonthlyPayment' => $monthlyPayment
         ];
         parent::addRecord($values);
         parent::setTableName('vehicle');
@@ -109,10 +109,10 @@ abstract class VehicleModel extends Model
     {
         parent::setTableName('leased_vehicle');
         $values = [
-            'leasedCompany' => $leasedCompany,
-            'leasedPeriodFrom' => $leasedPeriodFrom,
-            'leasedPeriodTo' => $leasedPeriodTo,
-            'monthlyPayment' => $monthlyPayment
+            'LeasedCompany' => $leasedCompany,
+            'LeasedPeriodFrom' => $leasedPeriodFrom,
+            'LeasedPeriodTo' => $leasedPeriodTo,
+            'MonthlyPayment' => $monthlyPayment
         ];
         $conditions = ['RegistrationNo' => $registrationNo];
         parent::updateRecord($values, $conditions);

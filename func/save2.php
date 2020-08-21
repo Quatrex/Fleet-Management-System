@@ -149,7 +149,7 @@ switch ($method) {
 				$vehicle = $employee->UpdateVehiclePicture([
 					'VehiclePicturePath' => $vehicleImageName,
 					'RegistrationNo' => $_POST['registration'],
-					'isLeased' => ($_POST['leasedCompany'] !== "")
+					'IsLeased' => ($_POST['leasedCompany'] !== "")
 				]);
 				if ($vehicle !== null) {
 					$object['error'] = false;

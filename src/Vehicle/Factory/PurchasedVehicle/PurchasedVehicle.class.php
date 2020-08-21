@@ -38,7 +38,8 @@ class PurchasedVehicle extends AbstractVehicle implements JsonSerializable
             'CurrentLocation' => $this->currentLocation,
             'NumOfAllocations' => $this->numOfAllocations,
             'VehiclePicturePath' => $this->vehicleImagePath,
-            'assignedRequests'=>$this->assignedRequests,
+            'AssignedRequests'=>$this->assignedRequests,
+            'AssignedOfficer'=>$this->assignedOfficer,
             'IsLeased'=>0 //true/false or 1/0?
         ];
     }
