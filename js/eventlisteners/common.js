@@ -24,7 +24,7 @@ const VehicleRequestFormCancel = new DisplayAlertCheckButton('VehicleRequestForm
 const VehicleRequestFormSubmit = new ValidatorButton('VehicleRequestForm_Submit', NewRequestPreviewPopup, [ObjectCreate, FormValidate, DateValidator]);
 const VehicleRequestFormPopup = new Popup('VehicleRequestForm', [VehicleRequestFormCancel, VehicleRequestFormClose, VehicleRequestFormSubmit]);
 NewRequestPreviewEdit.setNext(VehicleRequestFormPopup);
-
+VehicleRequestFormPopup.setDataType('value');
 
 const DriverDetailPopupClose = new DisplayNextButton('DriverDetailPopup_Close')
 const DriverDetailPopup = new Popup('DriverDetailPopup', [DriverDetailPopupClose]);
