@@ -114,6 +114,7 @@ class DOMTabContainer {
 class DOMContainer {
 	constructor(id, popup, store, templateId) {
 		this.id = id;
+		this.cardId = this.id.substring(id.length-9)=='Container'? id.substring(0,id.length-9)+'Card':id
 		this.popup = popup;
 		this.cardContainer = document.getElementById(id);
 		this.store = store;
@@ -288,7 +289,7 @@ class DOMContainer {
 		this.cardContainer
 			.querySelector('.card-body')
 			.insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
-		this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.id}_${
+		this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.cardId}_${
 			object[this.store.getObjIdType()]
 		}`;
 	}
@@ -311,13 +312,13 @@ class DOMContainer {
 			}
 		});
 		this.cardContainer.querySelector('.card-body').appendChild(clone);
-		this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.id}_${
+		this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.cardId}_${
 			object[this.store.getObjIdType()]
 		}`;
 	}
 
 	deleteEntry(object) {
-		let entry = document.getElementById(`${this.id}_${object[this.store.getObjIdType()]}`);
+		let entry = document.getElementById(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 		if (entry != 'undefined' && entry != null) {
 			this.cardContainer.querySelector('.card-body').removeChild(entry);
 		}
@@ -329,7 +330,7 @@ class DOMContainer {
 		});
 	}
 	updateEntry(object) {
-		let entry = document.getElementById(`${this.id}_${object[this.store.getObjIdType()]}`);
+		let entry = document.getElementById(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 		if (entry != 'undefined' && entry != null) {
 			let objFields = Object.getOwnPropertyNames(object);
 			objFields.forEach((field) => {
@@ -492,7 +493,7 @@ class Popup {
 	}
 	render(object) {
 		this.object = object;
-		console.log(this.object);
+		// console.log(this.object);
 		let inputs = this.popup.querySelectorAll('.inputs');
 		inputs.forEach((input) => {
 			input.value = '';

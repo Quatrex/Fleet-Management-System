@@ -190,17 +190,6 @@
                             </tr>
                         </thead>
                         <tbody id="selectionVehicleTable" class="card-body">
-                            <?php
-                            $i = 0;
-                            foreach ($vehicles as $vehicle) : ?>
-                                <tr id="selectionVehicleTable_<?php echo $vehicle->getField('registrationNo') ?>">
-                                    <th id="vehicle-<?php echo $i ?>"><?php echo $vehicle->getField('registrationNo') ?></th>
-                                    <td><?php echo $vehicle->getField('model') ?></td>
-                                    <td><?php echo $vehicle->getField('purchasedYear') ?></td>
-                                    <td>Nothing</td>
-                                </tr>
-                            <?php $i++;
-                            endforeach;; ?>
                         </tbody>
                     </table>
                     <div class="row d-flex justify-content-center"><button class="btn w-100 btn-light load-more mb-3 mr-5 ml-5" id="selectionVehicleTable_LoadMore">Load More</button></div>
