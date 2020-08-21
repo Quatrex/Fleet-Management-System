@@ -109,6 +109,9 @@ class VPMO extends Requester
     {
         $request = VPMORequestFactory::makeRequest($requestID);
         $request->close();
+        $request->getField('vehicle')->deallocate();
+        $driver = DriverFactory::makeDriver($request->getField('driver')->getField('driverId'));
+        $driver->deallocate();
         return $request;
     }
 
@@ -124,6 +127,9 @@ class VPMO extends Requester
     {
         $request = VPMORequestFactory::makeRequest($requestID);
         $request->cancel();
+        $request->getField('vehicle')->deallocate();
+        $driver = DriverFactory::makeDriver($request->getField('driver')->getField('driverId'));
+        $driver->deallocate();
         return $request;
     }
 
