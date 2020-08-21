@@ -14,6 +14,9 @@ class Store {
 		this.updated = false;
 		this.checkForDuplicate = '';
 		this.tempState = [];
+		this.selectionObserver = {};
+		this.notifySelectionSeparately = false;
+		this.selectionSearch = false;
 	}
 	getObjIdType() {
 		return this.objId;
@@ -109,17 +112,20 @@ class Store {
 			}
 		}
 	}
-	loadSelectedData(id) {
+	loadSelectedData(id, observer) {
+		this.selectionSearch = true;
+		this.checkForDuplicate = id;
+		this.selectionObserver = observer;
 		Database.loadContent(`Load_${this.type}`, 0, ActionCreator([this], 'ADD'), {
 			keyword: id,
 			searchColumn: 'RegistrationNo',
 			sortColumn: 'RegistrationNo',
 			order: 'DESC',
 		});
-		this.loadData('selection');
-		this.checkForDuplicate = id;
+		setTimeout(this.loadData('selection'), 3000);
 	}
 	dispatch(action) {
+		let selectionPayload = [];
 		if (action.type === 'ADD' || action.type === 'APPEND') {
 			if (!Array.isArray(action.payload)) {
 				if (Object.keys(action.payload).length != 0) {
@@ -130,14 +136,13 @@ class Store {
 			}
 			if (action.payload.length > 0) {
 				if (this.checkForDuplicate != '') {
-					if (action.type == 'ADD') {
+					if (this.selectionSearch && action.type == 'ADD') {
 						this.tempState = [...this.tempState, ...action.payload];
 					} else {
-						let beforeLength = action.payload.length;
-						action.payload = action.payload.filter((obj) => obj[this.objId] != this.checkForDuplicate);
-						if (beforeLength - action.payload.length != 0) {
+						selectionPayload = action.payload.filter((obj) => obj[this.objId] != this.checkForDuplicate);
+						if (action.payload.length - selectionPayload.length > 0) {
+							this.notifySelectionSeparately = true;
 							this.checkForDuplicate = '';
-							this.state = [...this.state,...this.tempState]
 							this.tempState = [];
 						}
 						this.state = [...this.state, ...action.payload];
@@ -156,13 +161,28 @@ class Store {
 			this.state = [];
 		}
 		console.log(this.state);
-		this.notifyObservers(action);
+		if (this.selectionSearch && action.type == 'ADD') {
+			this.selectionObserver.update(action);
+			this.selectionSearch = false;
+		} else if (this.notifySelectionSeparately) {
+			this.selectionObserver.update({ type: action.type, payload: selectionPayload });
+			this.notifyObservers(action);
+		} else {
+			this.notifyObservers(action);
+		}
 	}
 	addObservers(observer) {
 		this.observers.push(observer);
 	}
 	notifyObservers(update) {
-		this.observers.forEach((observer) => observer.update(update));
+		if (this.notifySelectionSeparately) {
+			let tempObservers = this.observers.filter((observer) => observer != this.selectionObserver);
+			tempObservers.forEach((observer) => observer.update(update));
+			this.notifySelectionSeparately = false;
+			this.selectionObserver = {};
+		} else {
+			this.observers.forEach((observer) => observer.update(update));
+		}
 	}
 }
 
