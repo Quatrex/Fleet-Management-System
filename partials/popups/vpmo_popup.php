@@ -697,7 +697,7 @@
                         </div>
                         <div class="overlay">
                             <i class="fa fa-camera upload-button" data-input='ChangeVehiclePicture' style="cursor: pointer;"></i>
-                            <input type="file" name="Image" id="ChangeVehiclePicture" class="file-upload" data-imageid="vehicleImagePath-VehicleProfileEditForm" accept="image/png, .jpeg, .jpg, image/gif" />
+                            <input type="file" name="Image" id="ChangeVehiclePicture" class="file-upload" data-imageid="VehiclePicturePath-VehicleProfileEditForm" accept="image/png, .jpeg, .jpg, image/gif" />
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6">
