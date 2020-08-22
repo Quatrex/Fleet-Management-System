@@ -274,7 +274,7 @@ class DOMContainer {
 	assignStateColor(id) {
 		if (this.store.getObjIdType() == 'RequestId') {
 			let element = document.getElementById(id);
-			let stateField = element.querySelector('.State');
+			let stateField = element.getElementsByClassName('Status');
 			switch (stateField.innerHTML) {
 				case 'Justified':
 					stateField.color = 'darkorange';

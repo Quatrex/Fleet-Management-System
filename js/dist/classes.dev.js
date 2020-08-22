@@ -413,7 +413,7 @@ function () {
     value: function assignStateColor(id) {
       if (this.store.getObjIdType() == 'RequestId') {
         var element = document.getElementById(id);
-        var stateField = element.querySelector('.State');
+        var stateField = element.getElementsByClassName('Status');
 
         switch (stateField.innerHTML) {
           case 'Justified':

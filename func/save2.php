@@ -165,7 +165,7 @@ switch ($method) {
 		}
 		break;
 
-	
+
 	case 'CancelRequest':
 		$request = $employee->cancelRequest($_POST['RequestId']);
 		$object['error'] = false;
@@ -233,6 +233,29 @@ switch ($method) {
 		$object['error'] = false;
 		$object['object'] = $emp;
 		$object['message'] = "success_Employee " . $_POST['empID'] . " successfully updated";
+		if ($_POST['hasImage'] == 'true') {
+			$profileImageName = time() . '-' . $_FILES["Image"]["name"];
+
+			$target_dir = "../images/profilePictures/";
+			$target_file = $target_dir . basename($profileImageName);
+
+			if ($_FILES['Image']['size'] > 200000) {
+				$object['message'] = "Image size should not be greated than 200Kb";
+			}
+
+			if (file_exists($target_file)) {
+				$object['message'] = "File already exists";
+			} else {
+				if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
+					$emp = $employee->UpdateProfilePicture(['ProfilePicturePath' => $profileImageName]);
+					$object['error'] = false;
+					$object['object'] = [$emp];
+					$object['message'] = "success_Employee " . " successfully updated profile picture";
+				} else {
+					$object['message'] = "There was an error uploading the file";
+				}
+			}
+		}
 		break;
 
 	case 'ChangeProfilePicture':
@@ -311,27 +334,34 @@ switch ($method) {
 			]
 		);
 		$object['error'] = false;
-		$object['object'] = $driver;
+		$object['object'] = [$driver];
 		$object['message'] = "success_Driver " . $_POST['employeeID'] . " successfully updated";
-		if ($_POST['hasImage'] =='true') {
-			$profileImageName = time() . '-' . $_FILES["Image"]["name"];
+		if ($_POST['hasImage'] == 'true') {
+			$driverImageName = time() . '-' . $_FILES["Image"]["name"];
 
-			$target_dir = "../images/userProfilePictures/";
-			$target_file = $target_dir . basename($profileImageName);
-
-			if ($_FILES['Image']['size'] > 200000) {
-				$object['message'] = "Image size should not be greated than 200Kb";
-			}
+			$target_dir = "../images/profilePictures/";
+			$target_file = $target_dir . basename($driverImageName);
 
 			if (file_exists($target_file)) {
 				$object['message'] = "File already exists";
-			} else {
+			}
+
+			else {
 				if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
-					$emp = $employee->UpdateProfilePicture(['ProfilePicturePath' => $profileImageName]);
-					$object['error'] = false;
-					$object['object'] = $target_file;
-					$object['message'] = "success_Employee " . " successfully updated profile picture";
+					$driver = $employee->UpdateDriverPicture([
+						'DriverId' => $_POST['DriverID'],
+						'DriverPicturePath' => $driverImageName
+					]);
+					if ($driver !== null) {
+						$object['error'] = false;
+						$object['object'] = [$driver];
+						$object['message'] = "success_Driver " . $_POST['DriverID'] . " successfully updated";
+					} else {
+						$object['error'] = true;
+						$object['message'] = 'Failed to create a driver object';
+					}
 				} else {
+					$object['error'] = true;
 					$object['message'] = "There was an error uploading the file";
 				}
 			}
