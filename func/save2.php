@@ -204,8 +204,8 @@ switch ($method) {
 	case 'AddEmployee':
 		$emp = $employee->createNewAccount([
 			'EmpID' => $_POST['EmpID'],
-			'FirstName' => $_POST['FirstName'],
-			'LastName' => $_POST['LastName'],
+			'FirstName' => ucfirst($_POST['FirstName']),
+			'LastName' => ucfirst($_POST['LastName']),
 			'Username' => "",
 			'Designation' => $_POST['Designation'],
 			'Position' => $_POST['Position'],
@@ -222,8 +222,8 @@ switch ($method) {
 		$emp = $employee->updateAccount([
 			'NewEmpID' => $_POST['NewEmpID'],
 			'EmpID' => $_POST['EmpID'],
-			'FirstName' => $_POST['FirstName'],
-			'LastName' => $_POST['LastName'],
+			'FirstName' => ucfirst($_POST['FirstName']),
+			'LastName' => ucfirst($_POST['LastName']),
 			'Username' => "",
 			'Designation' => $_POST['Designation'],
 			'Position' => $_POST['Position'],
@@ -273,8 +273,8 @@ switch ($method) {
 	case 'AddDriver':
 		$driver = $employee->createNewDriver([
 			'DriverID' => $_POST['DriverID'],
-			'FirstName' => $_POST['FirstName'],
-			'LastName' => $_POST['LastName'],
+			'FirstName' => ucfirst($_POST['FirstName']),
+			'LastName' => ucfirst($_POST['LastName']),
 			'Email' => $_POST['Email'],
 			'Address' => $_POST['Address'],
 			'ContactNo' => $_POST['ContactNo'],
@@ -301,8 +301,8 @@ switch ($method) {
 			$_POST['driverID'],
 			[
 				'DriverID' => $_POST['DriverID'],
-				'FirstName' => $_POST['FirstName'],
-				'LastName' => $_POST['LastName'],
+				'FirstName' => ucfirst($_POST['FirstName']),
+				'LastName' => ucfirst($_POST['LastName']),
 				'Email' => $_POST['Email'],
 				'Address' => $_POST['Address'],
 				'ContactNo' => $_POST['ContactNo'],
