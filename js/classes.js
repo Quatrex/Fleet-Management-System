@@ -114,7 +114,7 @@ class DOMTabContainer {
 class DOMContainer {
 	constructor(id, popup, store, templateId) {
 		this.id = id;
-		this.cardId = this.id.substring(id.length-9)=='Container'? id.substring(0,id.length-9)+'Card':id
+		this.cardId = this.id.substring(id.length - 9) == 'Container' ? id.substring(0, id.length - 9) + 'Card' : id;
 		this.popup = popup;
 		this.cardContainer = document.getElementById(id);
 		this.store = store;
@@ -151,9 +151,11 @@ class DOMContainer {
 	}
 
 	finishLoadContent(len) {
-		this.loadMoreButton.classList.contains('active')
-			? this.loadMoreButton.classList.remove('active') // : this.cardContainer.removeChild(document.getElementById(`${this.id}_Loader`));
-			: $('bouncybox').fadeOut(300);
+		if (this.loadMoreButton.classList.contains('active')) {
+			this.loadMoreButton.classList.remove('active'); // : this.cardContainer.removeChild(document.getElementById(`${this.id}_Loader`));
+		} else {
+			document.getElementById(`${this.id}_Loader`).classList.add('fade-out');
+			setTimeout(() => {document.getElementById(`${this.id}_Loader`).remove()},500)		}
 
 		if (len < 5) {
 			if (!this.loadMoreButton.classList.contains('d-none')) {
@@ -175,11 +177,10 @@ class DOMContainer {
 				this.store.loadData(trigger, method);
 			}
 		} else {
-			// let template = document.querySelector('#loaderTemplate');
-			// let clone = template.content.cloneNode(true);
-			// this.cardContainer.insertBefore(clone, this.cardContainer.firstChild);
-			// this.cardContainer.firstElementChild.id = `${this.id}_Loader`;
-			$('bouncybox').fadeIn(300);
+			let template = document.querySelector('#loaderTemplate');
+			let clone = template.content.cloneNode(true);
+			this.cardContainer.querySelector('.card-body').insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
+			this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.id}_Loader`;
 			this.store.loadData(trigger);
 		}
 	}

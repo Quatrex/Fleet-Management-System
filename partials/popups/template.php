@@ -117,7 +117,10 @@
 </template>
 
 <template id="loaderTemplate">
-    <div class="bouncybox">
+    <!-- <div class="bouncybox" style="opacity:0;z-index:100;">
         <div class="bouncy"></div>
-    </div>
+    </div> -->
+    <div class="bouncybox spinner-grow text-info" role="status" style="opacity:0;z-index:0;top:50%">
+  <span class="sr-only">Loading...</span>
+</div>
 </template>
