@@ -1,56 +1,57 @@
 <?php
 
 use EmailClient\EmailClient;
+use Input\Input;
 
 include_once '../includes/autoloader.inc.php';
 
 session_start();
 ob_start();
 header("Content-type: application/json; charset=utf-8");
-$method = $_POST['Method'];
+$method = Input::get('Method');
 $employee = $_SESSION['employee'];
 $object = ['error' => true, 'object' => '', 'message' => ''];
 
 switch ($method) {
 	case 'JOJustify':
 		$comment = '';
-		if ($_POST['JOSelectedVehicle'] != '') {
-			$comment = $_POST['JOComment'] . ' Suggested Vehicle: ' . $_POST['JOSelectedVehicle'];
-		} else $comment = $_POST['JOComment'];
-		$request = $employee->justifyRequest($_POST['RequestId'], $comment);
+		if (Input::get('JOSelectedVehicle') != '') {
+			$comment = Input::get('JOComment') . ' Suggested Vehicle: ' . Input::get('JOSelectedVehicle');
+		} else $comment = Input::get('JOComment');
+		$request = $employee->justifyRequest(Input::get('RequestId'), $comment);
 		$object['error'] = false;
 		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully justified";
+		$object['message'] = "success_Request " . Input::get('RequestId') . " successfully justified";
 		break;
 
 	case 'JODeny':
-		$request = $employee->denyRequest($_POST['RequestId'], $_POST['JOComment']);
+		$request = $employee->denyRequest(Input::get('RequestId'), Input::get('JOComment'));
 		$object['error'] = false;
 		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully denied";
+		$object['message'] = "success_Request " . Input::get('RequestId') . " successfully denied";
 		break;
 
 	case 'CAOApprove':
-		$request = $employee->approveRequest($_POST['RequestId'], $_POST['CAOComment']);
+		$request = $employee->approveRequest(Input::get('RequestId'), Input::get('CAOComment'));
 		$object['error'] = false;
 		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully approved";
+		$object['message'] = "success_Request " . Input::get('RequestId') . " successfully approved";
 		break;
 
 	case 'CAODeny':
-		$request = $employee->denyRequest($_POST['RequestId'], $_POST['CAOComment']);
+		$request = $employee->denyRequest(Input::get('RequestId'), Input::get('CAOComment'));
 		$object['error'] = false;
 		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully denied";
+		$object['message'] = "success_Request " . Input::get('RequestId') . " successfully denied";
 		break;
 
 	case 'RequestAdd':
 		$request = $employee->placeRequest([
-			'DateOfTrip' => $_POST['date'],
-			'TimeOfTrip' => $_POST['time'],
-			'DropLocation' => $_POST['dropoff'],
-			'PickLocation' => $_POST['pickup'],
-			'Purpose' => $_POST['purpose']
+			'DateOfTrip' => Input::get('date'),
+			'TimeOfTrip' => Input::get('time'),
+			'DropLocation' => Input::get('dropoff'),
+			'PickLocation' => Input::get('pickup'),
+			'Purpose' => Input::get('purpose')
 		]);
 		$object['error'] = false;
 		$object['object'] = $request;
@@ -59,35 +60,35 @@ switch ($method) {
 
 	case 'AddVehicle':
 		$vehicle = null;
-		if ($_POST['IsLeased'] == "Yes") {
+		if (Input::get('IsLeased') == "Yes") {
 			$vehicle = $employee->addLeasedVehicle([
-				'RegistrationNo' => $_POST['RegistrationNo'],
-				'Model' => $_POST['Model'],
-				'PurchasedYear' => $_POST['PurchasedYear'],
-				'Value' => $_POST['Value'],
-				'FuelType' => $_POST['FuelType'],
-				'InsuranceValue' => $_POST['InsuranceValue'],
-				'InsuranceCompany' => $_POST['InsuranceCompany'],
-				'LeasedCompany' => $_POST['LeasedCompany'],
-				'LeasedPeriodFrom' => $_POST['LeasedPeriodFrom'],
-				'LeasedPeriodTo' => $_POST['LeasedPeriodTo'],
-				'MonthlyPayment' => $_POST['MonthlyPayment']
+				'RegistrationNo' => Input::get('RegistrationNo'),
+				'Model' => Input::get('Model'),
+				'PurchasedYear' => Input::get('PurchasedYear'),
+				'Value' => Input::get('Value'),
+				'FuelType' => Input::get('FuelType'),
+				'InsuranceValue' => Input::get('InsuranceValue'),
+				'InsuranceCompany' => Input::get('InsuranceCompany'),
+				'LeasedCompany' => Input::get('LeasedCompany'),
+				'LeasedPeriodFrom' => Input::get('LeasedPeriodFrom'),
+				'LeasedPeriodTo' => Input::get('LeasedPeriodTo'),
+				'MonthlyPayment' => Input::get('MonthlyPayment')
 			]);
 		} else {
 			$vehicle = $employee->addPurchasedVehicle([
-				'RegistrationNo' => $_POST['RegistrationNo'],
-				'Model' => $_POST['Model'],
-				'PurchasedYear' => $_POST['PurchasedYear'],
-				'Value' => $_POST['Value'],
-				'FuelType' => $_POST['FuelType'],
-				'InsuranceValue' => $_POST['InsuranceValue'],
-				'InsuranceCompany' => $_POST['InsuranceCompany']
+				'RegistrationNo' => Input::get('RegistrationNo'),
+				'Model' => Input::get('Model'),
+				'PurchasedYear' => Input::get('PurchasedYear'),
+				'Value' => Input::get('Value'),
+				'FuelType' => Input::get('FuelType'),
+				'InsuranceValue' => Input::get('InsuranceValue'),
+				'InsuranceCompany' => Input::get('InsuranceCompany')
 			]);
 		}
 		if ($vehicle !== null) {
 			$object['error'] = false;
 			$object['object'] = $vehicle;
-			$object['message'] = "success_Vehicle " . $_POST['registration'] . " successfully added";
+			$object['message'] = "success_Vehicle " . Input::get('registration') . " successfully added";
 		} else {
 			$object['error'] = true;
 			$object['message'] = 'Failed to create a vehicle object';
@@ -97,45 +98,45 @@ switch ($method) {
 
 	case 'UpdateVehicle':
 		$vehicle = null;
-		if ($_POST['LeasedCompany'] !== "") {
+		if (Input::get('LeasedCompany') !== "") {
 			$vehicle = $employee->updateLeasedVehicleInfo([
 
-				'RegistrationNo' => $_POST['RegistrationNo'],
-				'NewRegistrationNo' => $_POST['RegistrationNo'],
-				'Model' => $_POST['Model'],
-				'PurchasedYear' => $_POST['PurchasedYear'],
-				'Value' => $_POST['Value'],
-				'FuelType' => $_POST['FuelType'],
-				'CurrentLocation' => $_POST['CurrentLocation'],
-				'InsuranceValue' => $_POST['InsuranceValue'],
-				'InsuranceCompany' => $_POST['InsuranceCompany'],
-				'LeasedCompany' => $_POST['LeasedCompany'],
-				'LeasedPeriodFrom' => $_POST['LeasedPeriodFrom'],
-				'LeasedPeriodTo' => $_POST['LeasedPeriodTo'],
-				'MonthlyPayment' => $_POST['MonthlyPayment']
+				'RegistrationNo' => Input::get('RegistrationNo'),
+				'NewRegistrationNo' => Input::get('RegistrationNo'),
+				'Model' => Input::get('Model'),
+				'PurchasedYear' => Input::get('PurchasedYear'),
+				'Value' => Input::get('Value'),
+				'FuelType' => Input::get('FuelType'),
+				'CurrentLocation' => Input::get('CurrentLocation'),
+				'InsuranceValue' => Input::get('InsuranceValue'),
+				'InsuranceCompany' => Input::get('InsuranceCompany'),
+				'LeasedCompany' => Input::get('LeasedCompany'),
+				'LeasedPeriodFrom' => Input::get('LeasedPeriodFrom'),
+				'LeasedPeriodTo' => Input::get('LeasedPeriodTo'),
+				'MonthlyPayment' => Input::get('MonthlyPayment')
 			]);
 		} else {
 			$vehicle = $employee->updatePurchasedVehicleInfo([
-				'RegistrationNo' => $_POST['RegistrationNo'],
-				'NewRegistrationNo' => $_POST['RegistrationNo'],
-				'Model' => $_POST['Model'],
-				'PurchasedYear' => $_POST['PurchasedYear'],
-				'CurrentLocation' => $_POST['CurrentLocation'],
-				'Value' => $_POST['Value'],
-				'FuelType' => $_POST['FuelType'],
-				'InsuranceValue' => $_POST['InsuranceValue'],
-				'InsuranceCompany' => $_POST['InsuranceCompany']
+				'RegistrationNo' => Input::get('RegistrationNo'),
+				'NewRegistrationNo' => Input::get('RegistrationNo'),
+				'Model' => Input::get('Model'),
+				'PurchasedYear' => Input::get('PurchasedYear'),
+				'CurrentLocation' => Input::get('CurrentLocation'),
+				'Value' => Input::get('Value'),
+				'FuelType' => Input::get('FuelType'),
+				'InsuranceValue' => Input::get('InsuranceValue'),
+				'InsuranceCompany' => Input::get('InsuranceCompany')
 			]);
 		}
 		if ($vehicle !== null) {
 			$object['error'] = false;
 			$object['object'] = [$vehicle];
-			$object['message'] = "success_Vehicle " . $_POST['RegistrationNo'] . " successfully updated";
+			$object['message'] = "success_Vehicle " . Input::get('RegistrationNo') . " successfully updated";
 		} else {
 			$object['error'] = true;
 			$object['message'] = 'Failed to create a vehicle object';
 		}
-		if ($_POST['hasImage'] == 'true') {
+		if (Input::get('hasImage') == 'true') {
 			$vehicleImageName = time() . '-' . $_FILES["Image"]["name"];
 			$target_dir = "../images/vehiclePictures/";
 			$target_file = $target_dir . basename($vehicleImageName);
@@ -146,13 +147,13 @@ switch ($method) {
 				if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
 					$vehicle = $employee->UpdateVehiclePicture([
 						'VehiclePicturePath' => $vehicleImageName,
-						'RegistrationNo' => $_POST['RegistrationNo'],
-						'IsLeased' => ($_POST['LeasedCompany'] !== "")
+						'RegistrationNo' => Input::get('RegistrationNo'),
+						'IsLeased' => (Input::get('LeasedCompany') !== "")
 					]);
 					if ($vehicle !== null) {
 						$object['error'] = false;
 						$object['object'] = [$vehicle];
-						$object['message'] = "success_Vehicle " . $_POST['RegistrationNo'] . " successfully updated";
+						$object['message'] = "success_Vehicle " . Input::get('RegistrationNo') . " successfully updated";
 					} else {
 						$object['error'] = true;
 						$object['message'] = 'Failed to update a vehicle object';
@@ -166,73 +167,73 @@ switch ($method) {
 
 
 	case 'CancelRequest':
-		$request = $employee->cancelRequest($_POST['RequestId']);
+		$request = $employee->cancelRequest(Input::get('RequestId'));
 		$object['error'] = false;
 		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully cancelled";
+		$object['message'] = "success_Request " . Input::get('RequestId') . " successfully cancelled";
 		break;
 
 	case 'DeletePurchasedVehicle':
-		$vehicle = $employee->deletePurchasedVehicle($_POST['registration']);
+		$vehicle = $employee->deletePurchasedVehicle(Input::get('registration'));
 		$object['error'] = false;
 		$object['object'] = $vehicle;
-		$object['message'] = "success_Vehicle " . $_POST['registration'] . " successfully deleted";
+		$object['message'] = "success_Vehicle " . Input::get('registration') . " successfully deleted";
 		break;
 
 	case 'DeleteLeasedVehicle':
-		$vehicle = $employee->deleteLeasedVehicle($_POST['registration']);
+		$vehicle = $employee->deleteLeasedVehicle(Input::get('registration'));
 		$object['error'] = false;
 		$object['object'] = $vehicle;
-		$object['message'] = "success_Vehicle " . $_POST['registration'] . " successfully deleted";
+		$object['message'] = "success_Vehicle " . Input::get('registration') . " successfully deleted";
 		break;
 
 	case 'Schedule':
-		$request = $employee->scheduleRequest($_POST['RequestId'], $_POST['Driver'], $_POST['Vehicle']);
+		$request = $employee->scheduleRequest(Input::get('RequestId'), Input::get('Driver'), Input::get('Vehicle'));
 		$object['error'] = false;
 		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully Assigned";
+		$object['message'] = "success_Request " . Input::get('RequestId') . " successfully Assigned";
 		break;
 
 	case 'EndTrip':
-		$request = $employee->closeRequest($_POST['RequestId']);
+		$request = $employee->closeRequest(Input::get('RequestId'));
 		$object['error'] = false;
 		$object['object'] = $request;
-		$object['message'] = "success_Trip " . $_POST['RequestId'] . " successfully ended";
+		$object['message'] = "success_Trip " . Input::get('RequestId') . " successfully ended";
 		break;
 
 	case 'AddEmployee':
 		$emp = $employee->createNewAccount([
-			'EmpID' => $_POST['EmpID'],
-			'FirstName' => ucfirst($_POST['FirstName']),
-			'LastName' => ucfirst($_POST['LastName']),
+			'EmpID' => Input::get('EmpID'),
+			'FirstName' => ucfirst(Input::get('FirstName')),
+			'LastName' => ucfirst(Input::get('LastName')),
 			'Username' => "",
-			'Designation' => $_POST['Designation'],
-			'Position' => $_POST['Position'],
-			'Email' => $_POST['Email'],
-			'Password' => $_POST['Password'],
-			'ContactNo' => $_POST['ContactNo']
+			'Designation' => Input::get('Designation'),
+			'Position' => Input::get('Position'),
+			'Email' => Input::get('Email'),
+			'Password' => Input::get('Password'),
+			'ContactNo' => Input::get('ContactNo')
 		]);
 		$object['error'] = false;
 		$object['object'] = $emp;
-		$object['message'] = "success_Employee " . $_POST['empID'] . " successfully added";
+		$object['message'] = "success_Employee " . Input::get('empID') . " successfully added";
 		break;
 
 	case 'UpdateEmployee':
 		$emp = $employee->updateAccount([
-			'NewEmpID' => $_POST['NewEmpID'],
-			'EmpID' => $_POST['EmpID'],
-			'FirstName' => ucfirst($_POST['FirstName']),
-			'LastName' => ucfirst($_POST['LastName']),
+			'NewEmpID' => Input::get('NewEmpID'),
+			'EmpID' => Input::get('EmpID'),
+			'FirstName' => ucfirst(Input::get('FirstName')),
+			'LastName' => ucfirst(Input::get('LastName')),
 			'Username' => "",
-			'Designation' => $_POST['Designation'],
-			'Position' => $_POST['Position'],
-			'Email' => $_POST['Email'],
-			'ContactNo' => $_POST['ContactNo']
+			'Designation' => Input::get('Designation'),
+			'Position' => Input::get('Position'),
+			'Email' => Input::get('Email'),
+			'ContactNo' => Input::get('ContactNo')
 		]);
 		$object['error'] = false;
 		$object['object'] = $emp;
-		$object['message'] = "success_Employee " . $_POST['empID'] . " successfully updated";
-		if ($_POST['hasImage'] == 'true') {
+		$object['message'] = "success_Employee " . Input::get('empID') . " successfully updated";
+		if (Input::get('hasImage') == 'true') {
 			$profileImageName = time() . '-' . $_FILES["Image"]["name"];
 
 			$target_dir = "../images/profilePictures/";
@@ -282,60 +283,60 @@ switch ($method) {
 		break;
 
 	case 'DeleteEmployee':
-		$emp = $employee->removeAccount($_POST['empID']);
+		$emp = $employee->removeAccount(Input::get('empID'));
 		$object['error'] = false;
 		$object['object'] = $emp;
-		$object['message'] = "success_Employee " . $_POST['empID'] . " successfully deleted";
+		$object['message'] = "success_Employee " . Input::get('empID') . " successfully deleted";
 		break;
 
 	case 'AddDriver':
 		$driver = $employee->createNewDriver([
-			'DriverID' => $_POST['DriverID'],
-			'FirstName' => ucfirst($_POST['FirstName']),
-			'LastName' => ucfirst($_POST['LastName']),
-			'Email' => $_POST['Email'],
-			'Address' => $_POST['Address'],
-			'ContactNo' => $_POST['ContactNo'],
-			'LicenseNumber' => $_POST['LicenseNumber'],
-			'LicenseType' => $_POST['LicenseType'],
-			'LicenseExpirationDay' => $_POST['LicenseExpirationDay'],
-			'DateOfAdmission' => $_POST['DateOfAdmission'],
+			'DriverID' => Input::get('DriverID'),
+			'FirstName' => ucfirst(Input::get('FirstName')),
+			'LastName' => ucfirst(Input::get('LastName')),
+			'Email' => Input::get('Email'),
+			'Address' => Input::get('Address'),
+			'ContactNo' => Input::get('ContactNo'),
+			'LicenseNumber' => Input::get('LicenseNumber'),
+			'LicenseType' => Input::get('LicenseType'),
+			'LicenseExpirationDay' => Input::get('LicenseExpirationDay'),
+			'DateOfAdmission' => Input::get('DateOfAdmission'),
 			'AssignedVehicle' => ""
 		]);
 		$object['error'] = false;
 		$object['request'] = $driver;
-		$object['message'] = "success_Driver " . $_POST['driverId'] . " successfully added";
+		$object['message'] = "success_Driver " . Input::get('driverId') . " successfully added";
 		break;
 
 	case 'DeleteDriver':
-		$driver = $employee->deleteDriver($_POST['driverId']);
+		$driver = $employee->deleteDriver(Input::get('driverId'));
 		$object['error'] = false;
 		$object['object'] = $driver;
-		$object['message'] = "success_Driver " . $_POST['driverId'] . " successfully deleted";
+		$object['message'] = "success_Driver " . Input::get('driverId') . " successfully deleted";
 		break;
 
 	case 'UpdateDriver':
 		$driver = $employee->updateDriverInfo(
-			$_POST['DriverID'],
+			Input::get('DriverID'),
 			[
-				'DriverID' => $_POST['DriverID'],
-				'NewDriverID' => $_POST['DriverID'],
-				'FirstName' => ucfirst($_POST['FirstName']),
-				'LastName' => ucfirst($_POST['LastName']),
-				'Email' => $_POST['Email'],
-				'Address' => $_POST['Address'],
-				'ContactNo' => $_POST['ContactNo'],
-				'LicenseNumber' => $_POST['LicenseNumber'],
-				'LicenseType' => $_POST['LicenseType'],
-				'LicenseExpirationDay' => $_POST['LicenseExpirationDay'],
-				'DateOfAdmission' => $_POST['DateOfAdmission'],
+				'DriverID' => Input::get('DriverID'),
+				'NewDriverID' => Input::get('DriverID'),
+				'FirstName' => ucfirst(Input::get('FirstName')),
+				'LastName' => ucfirst(Input::get('LastName')),
+				'Email' => Input::get('Email'),
+				'Address' => Input::get('Address'),
+				'ContactNo' => Input::get('ContactNo'),
+				'LicenseNumber' => Input::get('LicenseNumber'),
+				'LicenseType' => Input::get('LicenseType'),
+				'LicenseExpirationDay' => Input::get('LicenseExpirationDay'),
+				'DateOfAdmission' => Input::get('DateOfAdmission'),
 				'AssignedVehicle' => ""
 			]
 		);
 		$object['error'] = false;
 		$object['object'] = [$driver];
-		$object['message'] = "success_Driver " . $_POST['employeeID'] . " successfully updated";
-		if ($_POST['hasImage'] == 'true') {
+		$object['message'] = "success_Driver " . Input::get('employeeID') . " successfully updated";
+		if (Input::get('hasImage') == 'true') {
 			$driverImageName = time() . '-' . $_FILES["Image"]["name"];
 
 			$target_dir = "../images/profilePictures/";
@@ -348,13 +349,13 @@ switch ($method) {
 			else {
 				if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
 					$driver = $employee->UpdateDriverPicture([
-						'DriverId' => $_POST['DriverID'],
+						'DriverId' => Input::get('DriverID'),
 						'DriverPicturePath' => $driverImageName
 					]);
 					if ($driver !== null) {
 						$object['error'] = false;
 						$object['object'] = [$driver];
-						$object['message'] = "success_Driver " . $_POST['DriverID'] . " successfully updated";
+						$object['message'] = "success_Driver " . Input::get('DriverID') . " successfully updated";
 					} else {
 						$object['error'] = true;
 						$object['message'] = 'Failed to create a driver object';
@@ -380,13 +381,13 @@ switch ($method) {
 		if ($object['message'] == '') {
 			if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
 				$driver = $employee->UpdateDriverPicture([
-					'DriverId' => $_POST['DriverID'],
+					'DriverId' => Input::get('DriverID'),
 					'DriverPicturePath' => $driverImageName
 				]);
 				if ($driver !== null) {
 					$object['error'] = false;
 					$object['object'] = $driver;
-					$object['message'] = "success_Driver " . $_POST['DriverID'] . " successfully updated";
+					$object['message'] = "success_Driver " . Input::get('DriverID') . " successfully updated";
 				} else {
 					$object['error'] = true;
 					$object['message'] = 'Failed to create a driver object';
@@ -399,22 +400,22 @@ switch ($method) {
 		break;
 
 	case 'AssignVehicleToDriver':
-		$driver = $employee->assignVehicleToDriver($_POST['DriverID'], $_POST['AssignedVehicle']);
+		$driver = $employee->assignVehicleToDriver(Input::get('DriverID'), Input::get('AssignedVehicle'));
 		$object['error'] = false;
 		$object['request'] = $driver;
-		$object['message'] = "success_Driver " . $_POST['DriverID'] . " successfully assigned " . $_POST['AssignedVehicle'];
+		$object['message'] = "success_Driver " . Input::get('DriverID') . " successfully assigned " . Input::get('AssignedVehicle');
 		break;
 
 	case 'PrintSlip':
-		$employee->generateVehicleHandoutSlip($_POST['RequestId']);
-		$object['message'] = "success_Printed Slip For" . $_POST['RequestId'];
+		$employee->generateVehicleHandoutSlip(Input::get('RequestId'));
+		$object['message'] = "success_Printed Slip For" . Input::get('RequestId');
 		break;
 
 	case 'CancelTrip':
-		$request = $employee->cancelRequest($_POST['RequestId']);
+		$request = $employee->cancelRequest(Input::get('RequestId'));
 		$object['error'] = false;
 		$object['object'] = $request;
-		$object['message'] = "success_Request " . $_POST['RequestId'] . " successfully cancelled";
+		$object['message'] = "success_Request " . Input::get('RequestId') . " successfully cancelled";
 		break;
 
 	default:
