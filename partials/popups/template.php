@@ -73,7 +73,7 @@
 
 <template id="employeeCardTemplate">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description">
-        <div class="  card text-center"  style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2 ProfilePicturePath" src="../images/employee.png" alt="Driver Image">
+        <div class="  card text-center" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2 ProfilePicturePath" src="../images/employee.png" alt="Driver Image">
             <div class="card-body">
                 <h5 class="card-title"></h5>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
@@ -114,13 +114,4 @@
         <td class="NumOfAllocations"></td>
         <td class="assignedTrips" data-field="assignedRequests"><i class="fas fa-info-circle"></i></td>
     </tr>
-</template>
-
-<template id="loaderTemplate">
-    <!-- <div class="bouncybox" style="opacity:0;z-index:100;">
-        <div class="bouncy"></div>
-    </div> -->
-    <div class="bouncybox spinner-grow text-info" role="status" style="opacity:0;z-index:0;top:50%">
-  <span class="sr-only">Loading...</span>
-</div>
 </template>

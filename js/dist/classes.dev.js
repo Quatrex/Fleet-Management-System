@@ -1373,16 +1373,19 @@ var Database = {
       type: 'POST',
       data: holder,
       dataType: 'json',
-      beforeSend: function beforeSend() {// $('#overlay').fadeIn(300);
+      beforeSend: function beforeSend() {
+        $('.bouncybox').fadeIn(300);
       },
       success: function success(returnArr) {
-        console.log(returnArr); // $('#overlay').fadeOut(300);
+        console.log(returnArr);
+        $('.bouncybox').fadeOut(300);
 
         if (Object.keys(actionCreater).length != 0) {
           actionCreater.updateStores({}, returnArr.object);
         }
       },
-      error: function error() {// $('#overlay').fadeOut(300);
+      error: function error() {
+        $('.bouncybox').fadeOut(300);
       },
       timeout: 10000
     });

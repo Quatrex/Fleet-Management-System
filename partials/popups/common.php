@@ -725,3 +725,7 @@
     </div>
 
 </div>
+
+<div class="bouncybox spinner-grow text-info" role="status" style="z-index:0;">
+    <span class="sr-only">Loading...</span>
+</div>

@@ -935,17 +935,17 @@ const Database = {
 			data: holder,
 			dataType: 'json',
 			beforeSend: function () {
-				// $('#overlay').fadeIn(300);
+				$('.bouncybox').fadeIn(300);
 			},
 			success: function (returnArr) {
 				console.log(returnArr);
-				// $('#overlay').fadeOut(300);
+				$('.bouncybox').fadeOut(300);
 				if (Object.keys(actionCreater).length != 0) {
 					actionCreater.updateStores({}, returnArr.object);
 				}
 			},
 			error: function () {
-				// $('#overlay').fadeOut(300);
+				$('.bouncybox').fadeOut(300);
 			},
 			timeout: 10000,
 		});
