@@ -114,7 +114,7 @@ class DOMTabContainer {
 class DOMContainer {
 	constructor(id, popup, store, templateId) {
 		this.id = id;
-		this.cardId = this.id.substring(id.length-9)=='Container'? id.substring(0,id.length-9)+'Card':id
+		this.cardId = this.id.substring(id.length - 9) == 'Container' ? id.substring(0, id.length - 9) + 'Card' : id;
 		this.popup = popup;
 		this.cardContainer = document.getElementById(id);
 		this.store = store;
@@ -151,10 +151,12 @@ class DOMContainer {
 	}
 
 	finishLoadContent(len) {
-		this.loadMoreButton.classList.contains('active')
-			? this.loadMoreButton.classList.remove('active') // : this.cardContainer.removeChild(document.getElementById(`${this.id}_Loader`));
-			: $('bouncybox').fadeOut(300);
-
+		if (this.loadMoreButton.classList.contains('active')) {
+			this.loadMoreButton.classList.remove('active'); // : this.cardContainer.removeChild(document.getElementById(`${this.id}_Loader`));
+		} else {
+			// document.getElementById(`${this.ixd}_Loader`).classList.add('fade-out');
+			// setTimeout(() => {document.getElementById(`${this.id}_Loader`).remove()},500)		}
+		}
 		if (len < 5) {
 			if (!this.loadMoreButton.classList.contains('d-none')) {
 				this.loadMoreButton.classList.add('d-none');
@@ -177,9 +179,10 @@ class DOMContainer {
 		} else {
 			// let template = document.querySelector('#loaderTemplate');
 			// let clone = template.content.cloneNode(true);
-			// this.cardContainer.insertBefore(clone, this.cardContainer.firstChild);
-			// this.cardContainer.firstElementChild.id = `${this.id}_Loader`;
-			$('bouncybox').fadeIn(300);
+			// this.cardContainer
+			// 	.querySelector('.card-body')
+			// 	.insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
+			// this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.id}_Loader`;
 			this.store.loadData(trigger);
 		}
 	}
@@ -268,7 +271,32 @@ class DOMContainer {
 			}
 		}
 	}
-
+	assignStateColor(id) {
+		if (this.store.getObjIdType() == 'RequestId') {
+			let element = document.getElementById(id);
+			let stateField = element.getElementsByClassName('Status');
+			switch (stateField.innerHTML) {
+				case 'Justified':
+					stateField.color = 'darkorange';
+					break;
+				case 'Approved':
+					stateField.color = 'green';
+					break;
+				case 'Denied':
+					stateField.color = 'red';
+					break;
+				case 'Disapproved':
+					stateField.color = 'red';
+					break;
+				case 'Completed':
+					stateField.color = 'blue';
+					break;
+				default:
+					stateField.color = 'rgba(95,99,104,0.9)';
+					break;
+			}
+		}
+	}
 	insertEntry(object) {
 		let template = document.querySelector(`#${this.templateId}`);
 		let clone = template.content.cloneNode(true);
@@ -292,6 +320,7 @@ class DOMContainer {
 		this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.cardId}_${
 			object[this.store.getObjIdType()]
 		}`;
+		this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 	}
 
 	appendEntry(object) {
@@ -315,10 +344,12 @@ class DOMContainer {
 		this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.cardId}_${
 			object[this.store.getObjIdType()]
 		}`;
+		this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 	}
 
 	deleteEntry(object) {
 		let entry = document.getElementById(`${this.cardId}_${object[this.store.getObjIdType()]}`);
+		entry.classList.add('animate');
 		if (entry != 'undefined' && entry != null) {
 			this.cardContainer.querySelector('.card-body').removeChild(entry);
 		}
@@ -326,6 +357,7 @@ class DOMContainer {
 	deleteAllEntries() {
 		let children = this.cardContainer.querySelectorAll('.detail-description');
 		children.forEach((child) => {
+			child.style.opacity = '0';
 			child.remove();
 		});
 	}
@@ -335,9 +367,18 @@ class DOMContainer {
 			let objFields = Object.getOwnPropertyNames(object);
 			objFields.forEach((field) => {
 				if (entry.querySelector(`.${field}`)) {
-					entry.querySelector(`.${field}`).innerHTML = object[field];
+					if (field.includes('PicturePath')) {
+						let path = '';
+						field.includes('Vehicle') ? (path = 'vehicle') : (path = 'profile');
+						object[field] != ''
+							? (entry.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`)
+							: (entry.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
+					} else {
+						entry.querySelector(`.${field}`).innerHTML = object[field];
+					}
 				}
 			});
+			this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 		} else {
 			this.insertEntry(object);
 		}
@@ -359,7 +400,6 @@ class SelectionTable extends DOMContainer {
 	}
 	update(action) {
 		if (action.type == 'ADD') {
-			console.log(action.payload);
 			super.insertEntry(action.payload[0]);
 			this.toggleStyle(`${this.id}_${action.payload[0][this.store.getObjIdType()]}`);
 		} else if (action.type == 'DELETE') {
@@ -375,8 +415,7 @@ class SelectionTable extends DOMContainer {
 	}
 
 	render(object = {}) {
-		console.log(object[this.selectField]);
-		if (object[this.selectField] === '') {
+		if (object[this.selectField] == '') {
 			super.render(object);
 			this.toggleStyle(-1);
 			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = '';
@@ -539,10 +578,8 @@ class Popup {
 			}
 		} else if (event.type == 'keyup') {
 			let targetObject = this.eventObjects.find((obj) => obj.id.includes('Confirm') || obj.id.includes('Submit'));
-			console.log(targetObject);
 			targetObject.handleEvent(this, this.object, event);
 		} else if (event.type == 'change') {
-			console.log('Change');
 			let targetObject = this.eventObjects.find((obj) => obj.id.includes('Confirm') || obj.id.includes('Submit'));
 			targetObject.handleEvent(this, this.object, event);
 		}
@@ -588,9 +625,6 @@ class DisplayNextButton extends PopupButton {
 				this.next.render(object);
 			}
 		} else if (event.type === 'keyup') {
-			console.log(SimilarityCheck(object, popup.getObject()));
-			console.log(object);
-			console.log(popup.getObject());
 			if (SimilarityCheck(object, popup.getObject())) {
 				document.getElementById(this.id).setAttribute('disabled', 'true');
 			} else {
@@ -683,13 +717,7 @@ class ValidatorButton extends PopupButton {
 					document.getElementById(this.id).removeAttribute('disabled');
 				}
 			} else if (event.type === 'change') {
-				console.log(object);
 				document.getElementById(this.id).removeAttribute('disabled');
-				// if (SimilarityCheck(object, popup.getObject())) {
-				//     document.getElementById(this.id).setAttribute('disabled', 'true');
-				// } else {
-				//     document.getElementById(this.id).removeAttribute('disabled');
-				// }
 			}
 		}
 	}
@@ -727,9 +755,9 @@ const BackendAccess = (method, actionCreater = {}) => (popup, object = {}, event
 	return object;
 };
 
-const BackendAccessForPicture = (method, id = [], actionCreater = []) => (popup, object = {}, event) => {
+const BackendAccessWithPicture = (method, actionCreater = []) => (popup, object = {}, event) => {
 	if (event.type == 'click') {
-		Database.savePicture(object, method, id, actionCreater);
+		Database.savePicture(object, method, actionCreater);
 	}
 	return object;
 };
@@ -792,15 +820,13 @@ const FormValidate = (popup, object = {}, event) => {
 const ObjectCreate = (popup, object = {}, event) => {
 	let obj = {};
 	popup.popup.querySelectorAll(`.inputs`).forEach((element) => {
-		console.log(element);
 		if (element.type == 'file') {
 			obj[element.name] = element.files[0];
+			element.files.length > 0 ? (obj['hasImage'] = true) : (obj['hasImage'] = false);
 		} else {
-			console.log(element.value);
 			obj[element.name] = element.value;
 		}
 	});
-	console.log(obj);
 	if (event.type == 'keyup') {
 		return { ...object, ...obj };
 	} else {
@@ -844,22 +870,11 @@ const changeValue = (object, id) => {
 				if (object[objProps[i]] != '') {
 					tag.src = `../images/${path}Pictures/${object[objProps[i]]}`;
 				} else {
-					tag.src = `../images/${path}Pictures/${path}.png`;
+					tag.src = `../images/${path}Pictures/default-${path}.png`;
 				}
 			}
 		}
 	}
-	// for (let i = 0; i < objProps.length; i++) {
-	//     document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
-	//         if (!(objProps[i].includes('ImagePath'))) {
-	//             tag.value = object[objProps[i]];
-	//         } else {
-	//             if (object[objProps[i]] != '') {
-	//                 tag.src = `../images/${objProps[i].split('ImagePath')[0]}Pictures/${object[objProps[i]]}`;
-	//             }
-	//         }
-	//     });
-	// }
 };
 
 const changeInnerHTML = (object, id, objectFields = {}) => {
@@ -867,7 +882,16 @@ const changeInnerHTML = (object, id, objectFields = {}) => {
 	for (let i = 0; i < objProps.length; i++) {
 		document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
 			if (typeof object[objProps[i]] !== 'object') {
-				tag.innerHTML = object[objProps[i]];
+				if (!objProps[i].includes('PicturePath')) {
+					tag.innerHTML = object[objProps[i]];
+				} else {
+					let path = `${objProps[i].split('PicturePath')[0].toLowerCase()}`;
+					if (object[objProps[i]] != '') {
+						tag.src = `../images/${path}Pictures/${object[objProps[i]]}`;
+					} else {
+						tag.src = `../images/${path}Pictures/default-${path}.png`;
+					}
+				}
 			} else {
 				tag.innerHTML = '';
 				let fields = objectFields[objProps[i]];
@@ -913,28 +937,28 @@ const Database = {
 			data: holder,
 			dataType: 'json',
 			beforeSend: function () {
-				// $('#overlay').fadeIn(300);
+				$('.bouncybox').fadeIn(300);
 			},
 			success: function (returnArr) {
 				console.log(returnArr);
-				// $('#overlay').fadeOut(300);
+				$('.bouncybox').fadeOut(300);
 				if (Object.keys(actionCreater).length != 0) {
 					actionCreater.updateStores({}, returnArr.object);
 				}
 			},
 			error: function () {
-				// $('#overlay').fadeOut(300);
+				$('.bouncybox').fadeOut(300);
 			},
 			timeout: 10000,
 		});
 	},
-	savePicture(object, method, ids = [], actionCreater = {}) {
+	savePicture(object, method, actionCreater = {}) {
 		data = new FormData();
-		data.append('Image', $(`#${method}`)[0].files[0]);
-		data.append('Method', method);
-		ids.forEach(function (id) {
-			data.append(id.split('-')[0], $(`#${id}`).val());
+		let objProperties = Object.getOwnPropertyNames(object);
+		objProperties.forEach((property) => {
+			data.append(property, object[property]);
 		});
+		data.append('Method', method);
 		$.ajax({
 			url: '../func/save2.php',
 			type: 'POST',
@@ -944,10 +968,8 @@ const Database = {
 			processData: false,
 			cache: false,
 			success: function (returnArr) {
-				console.log(returnArr);
-				if (returnArr.includes('false')) {
-					path = returnArr.split(',')[1].split(':')[1].replace(/\\/g, '');
-					$(`.${method.substring(6)}`).prop('src', path);
+				if (Object.keys(actionCreater).length != 0) {
+					actionCreater.updateStores(object, returnArr.object[0]);
 				}
 			},
 		});

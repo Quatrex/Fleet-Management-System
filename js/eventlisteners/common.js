@@ -36,7 +36,7 @@ const OngoingRequestPreviewClose = new DisplayNextButton('OngoingRequestPreview_
 const OngoingRequestPreviewRequestCancel = new DisplayAlertButton('OngoingRequestPreviewRequestCancel', CancelAddedRequestAlertPopup)
 const OngoingRequestPreviewDriverDetial = new DisplayAlertButton('Info_Driver_OngoingRequestPreview', DriverDetailPopup)
 const OngoingRequestPreviewVehicleDetail = new DisplayAlertButton('Info_Vehicle_OngoingRequestPreview', VehicleDetailPopup)
-const OngoingRequestPreviewPopup = new Popup('OngoingRequestPreviewPopup', [OngoingRequestPreviewClose, OngoingRequestPreviewRequestCancel, OngoingRequestPreviewDriverDetial, OngoingRequestPreviewVehicleDetail], ['click'], { 'Vehicle': ['registration'], 'Driver': ['firstName', 'lastName'] });
+const OngoingRequestPreviewPopup = new Popup('OngoingRequestPreviewPopup', [OngoingRequestPreviewClose, OngoingRequestPreviewRequestCancel, OngoingRequestPreviewDriverDetial, OngoingRequestPreviewVehicleDetail], ['click'], { 'Vehicle': ['RegistrationNo'], 'Driver': ['FirstName', 'LastName'] });
 DriverDetailPopupClose.setNext(OngoingRequestPreviewPopup);
 VehicleDetailPopupClose.setNext(OngoingRequestPreviewPopup);
 
@@ -50,7 +50,7 @@ const RequestHistoryPreviewPopup = new Popup('RequestHistoryPreviewPopup', [Requ
 
 const ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePictureForm_Close');
 const ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');
-const ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessForPicture('ChangeProfilePicture')]);
+const ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture')]);
 const ChangeProfilePicturePopup = new Popup('ChangeProfilePictureForm', [ChangeProfilePicturePopupClose, ChangeProfilePicturePopupCancel, ChangeProfilePicturePopupSubmit]);
 
 const UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');

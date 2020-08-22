@@ -386,11 +386,11 @@
                 <div class="basic-form">
                     <form id="UpdateDriver_form">
                         <div class="center" style="text-align: center; ">
-                            <img src='../images/default-user-image.png' id="ProfilePicturePath-DriverProfileEditForm" class="form-image image-fluid" style="padding:5px;text-align: center;">
+                            <img src='../images/default-user-image.png' id="DriverPicturePath-DriverProfileEditForm" class="form-image image-fluid" style="padding:5px;text-align: center;">
                         </div>
                         <div class="overlay">
                             <i class="fa fa-camera upload-button" data-input='ChangeDriverPicture' style="cursor: pointer;"></i>
-                            <input type="file" name="Image" id="ChangeDriverPicture" class="file-upload" data-imageid="driverImagePath-DriverProfileEditForm" accept="image/png, .jpeg, .jpg, image/gif" />
+                            <input type="file" name="Image" id="ChangeDriverPicture" class="file-upload" data-imageid="DriverPicturePath-DriverProfileEditForm" accept="image/png, .jpeg, .jpg, image/gif" />
                         </div>
                         <div class="form-group row mb-4">
                             <div class="form-group col-md-6">

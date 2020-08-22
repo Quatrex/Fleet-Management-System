@@ -3,7 +3,7 @@
         <div class="description">
             <h1 class="card-title Purpose">For: </h1>
             <div class="row" style="padding-left:1rem;">
-                <h2 class="card-title Status" style="color:rgba(95,99,104,0.9);">Status: </h2>
+                <h2 class="card-title" style="color:rgba(95,99,104,0.9);">Status: <b class="Status" style="font-weight:bold"></b></h2>
             </div>
             <hr>
             <div class="row justify-content-between">
@@ -73,7 +73,7 @@
 
 <template id="employeeCardTemplate">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description">
-        <div class="  card text-center"  style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2 ProfilePicturePath" src="../images/employee.png" alt="Driver Image">
+        <div class="  card text-center" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2 ProfilePicturePath" src="../images/employee.png" alt="Driver Image">
             <div class="card-body">
                 <h5 class="card-title"></h5>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
@@ -114,10 +114,4 @@
         <td class="NumOfAllocations"></td>
         <td class="assignedTrips" data-field="assignedRequests"><i class="fas fa-info-circle"></i></td>
     </tr>
-</template>
-
-<template id="loaderTemplate">
-    <div class="bouncybox">
-        <div class="bouncy"></div>
-    </div>
 </template>

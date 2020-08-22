@@ -14,3 +14,98 @@
     justify-content: center;
     align-items: center;
 }
+
+// .bouncybox {
+//     opacity: 0;
+//     transition: opacity;
+//     animation: fadein 1s;
+//     -moz-animation: fadein 1s;
+//     /* Firefox */
+//     -webkit-animation: fadein 1s;
+//     /* Safari and Chrome */
+//     -o-animation: fadein 1s;
+// }
+.bouncybox {
+    position: fixed;
+    top: 55%;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadein {
+    /* Firefox */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadein {
+    /* Safari and Chrome */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadein {
+    /* Opera */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-out {
+    animation: fadeOut 2s;
+    -webkit-animation: fadeOut 2s;
+    -moz-animation: fadeOut 2s;
+}
+
+
+/* Animate opacity */
+
+@keyframes fadeOut {
+    from {
+        opacity: 1
+    }
+    to {
+        opacity: 0
+    }
+}
+
+@-moz-keyframes fadeOut {
+    from {
+        opacity: 1
+    }
+    to {
+        opacity: 0
+    }
+}
+
+@-webkit-keyframes fadeOut {
+    from {
+        opacity: 1
+    }
+    to {
+        opacity: 0
+    }
+}

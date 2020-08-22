@@ -1,6 +1,5 @@
 <?php
 
-use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
 use EmailClient\EmailClient;
 
 include_once '../includes/autoloader.inc.php';
@@ -98,73 +97,73 @@ switch ($method) {
 
 	case 'UpdateVehicle':
 		$vehicle = null;
-
-		if ($_POST['leasedCompany'] !== "") {
+		if ($_POST['LeasedCompany'] !== "") {
 			$vehicle = $employee->updateLeasedVehicleInfo([
-				
-				'RegistrationNo' => $_POST['registration'],
-				'Model' => $_POST['model'],
-				'PurchasedYear' => $_POST['purchasedYear'],
-				'Value' => $_POST['value'],
-				'FuelType' => $_POST['fuelType'],
-				'InsuranceValue' => $_POST['insuranceValue'],
-				'InsuranceCompany' => $_POST['insuranceCompany'],
-				'LeasedCompany' => $_POST['leasedCompany'],
-				'LeasedPeriodFrom' => $_POST['leasedPeriodFrom'],
-				'LeasedPeriodTo' => $_POST['leasedPeriodTo'],
-				'MonthlyPayment' => $_POST['monthlyPayment']
+
+				'RegistrationNo' => $_POST['RegistrationNo'],
+				'NewRegistrationNo' => $_POST['RegistrationNo'],
+				'Model' => $_POST['Model'],
+				'PurchasedYear' => $_POST['PurchasedYear'],
+				'Value' => $_POST['Value'],
+				'FuelType' => $_POST['FuelType'],
+				'CurrentLocation' => $_POST['CurrentLocation'],
+				'InsuranceValue' => $_POST['InsuranceValue'],
+				'InsuranceCompany' => $_POST['InsuranceCompany'],
+				'LeasedCompany' => $_POST['LeasedCompany'],
+				'LeasedPeriodFrom' => $_POST['LeasedPeriodFrom'],
+				'LeasedPeriodTo' => $_POST['LeasedPeriodTo'],
+				'MonthlyPayment' => $_POST['MonthlyPayment']
 			]);
 		} else {
 			$vehicle = $employee->updatePurchasedVehicleInfo([
-				'RegistrationNo' => $_POST['registration'],
-				'Model' => $_POST['model'],
-				'PurchasedYear' => $_POST['purchasedYear'],
-				'Value' => $_POST['value'],
-				'FuelType' => $_POST['fuelType'],
-				'InsuranceValue' => $_POST['insuranceValue'],
-				'InsuranceCompany' => $_POST['insuranceCompany']
+				'RegistrationNo' => $_POST['RegistrationNo'],
+				'NewRegistrationNo' => $_POST['RegistrationNo'],
+				'Model' => $_POST['Model'],
+				'PurchasedYear' => $_POST['PurchasedYear'],
+				'CurrentLocation' => $_POST['CurrentLocation'],
+				'Value' => $_POST['Value'],
+				'FuelType' => $_POST['FuelType'],
+				'InsuranceValue' => $_POST['InsuranceValue'],
+				'InsuranceCompany' => $_POST['InsuranceCompany']
 			]);
 		}
 		if ($vehicle !== null) {
 			$object['error'] = false;
-			$object['object'] = $vehicle;
-			$object['message'] = "success_Vehicle " . $_POST['registration'] . " successfully updated";
+			$object['object'] = [$vehicle];
+			$object['message'] = "success_Vehicle " . $_POST['RegistrationNo'] . " successfully updated";
 		} else {
 			$object['error'] = true;
 			$object['message'] = 'Failed to create a vehicle object';
 		}
-		break;
+		if ($_POST['hasImage'] == 'true') {
+			$vehicleImageName = time() . '-' . $_FILES["Image"]["name"];
+			$target_dir = "../images/vehiclePictures/";
+			$target_file = $target_dir . basename($vehicleImageName);
 
-	case 'ChangeVehiclePicture':
-		print_r($_POST);
-		$vehicleImageName = time() . '-' . $_FILES["Image"]["name"];
-
-		$target_dir = "../images/vehiclePictures/";
-		$target_file = $target_dir . basename($vehicleImageName);
-
-		if (file_exists($target_file)) {
-			$object['message'] = "File already exists";
-		}
-		if ($object['message'] == '') {
-			if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
-				$vehicle = $employee->UpdateVehiclePicture([
-					'VehiclePicturePath' => $vehicleImageName,
-					'RegistrationNo' => $_POST['registration'],
-					'IsLeased' => ($_POST['leasedCompany'] !== "")
-				]);
-				if ($vehicle !== null) {
-					$object['error'] = false;
-					$object['object'] = $vehicle;
-					$object['message'] = "success_Vehicle " . $_POST['registration'] . " successfully updated";
-				} else {
-					$object['error'] = true;
-					$object['message'] = 'Failed to update a vehicle object';
-				}
+			if (file_exists($target_file)) {
+				$object['message'] = "File already exists";
 			} else {
-				$object['message'] = "There was an error uploading the file";
+				if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
+					$vehicle = $employee->UpdateVehiclePicture([
+						'VehiclePicturePath' => $vehicleImageName,
+						'RegistrationNo' => $_POST['RegistrationNo'],
+						'IsLeased' => ($_POST['LeasedCompany'] !== "")
+					]);
+					if ($vehicle !== null) {
+						$object['error'] = false;
+						$object['object'] = [$vehicle];
+						$object['message'] = "success_Vehicle " . $_POST['RegistrationNo'] . " successfully updated";
+					} else {
+						$object['error'] = true;
+						$object['message'] = 'Failed to update a vehicle object';
+					}
+				} else {
+					$object['message'] = "There was an error uploading the file";
+				}
 			}
 		}
 		break;
+
 
 	case 'CancelRequest':
 		$request = $employee->cancelRequest($_POST['RequestId']);
@@ -233,6 +232,29 @@ switch ($method) {
 		$object['error'] = false;
 		$object['object'] = $emp;
 		$object['message'] = "success_Employee " . $_POST['empID'] . " successfully updated";
+		if ($_POST['hasImage'] == 'true') {
+			$profileImageName = time() . '-' . $_FILES["Image"]["name"];
+
+			$target_dir = "../images/profilePictures/";
+			$target_file = $target_dir . basename($profileImageName);
+
+			if ($_FILES['Image']['size'] > 200000) {
+				$object['message'] = "Image size should not be greated than 200Kb";
+			}
+
+			if (file_exists($target_file)) {
+				$object['message'] = "File already exists";
+			} else {
+				if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
+					$emp = $employee->UpdateProfilePicture(['ProfilePicturePath' => $profileImageName]);
+					$object['error'] = false;
+					$object['object'] = [$emp];
+					$object['message'] = "success_Employee " . " successfully updated profile picture";
+				} else {
+					$object['message'] = "There was an error uploading the file";
+				}
+			}
+		}
 		break;
 
 	case 'ChangeProfilePicture':
@@ -241,10 +263,6 @@ switch ($method) {
 
 		$target_dir = "../images/userProfilePictures/";
 		$target_file = $target_dir . basename($profileImageName);
-
-		if ($_FILES['Image']['size'] > 200000) {
-			$object['message'] = "Image size should not be greated than 200Kb";
-		}
 
 		if (file_exists($target_file)) {
 			$object['message'] = "File already exists";
@@ -298,24 +316,55 @@ switch ($method) {
 
 	case 'UpdateDriver':
 		$driver = $employee->updateDriverInfo(
-			$_POST['driverID'],
+			$_POST['DriverID'],
 			[
 				'DriverID' => $_POST['DriverID'],
+				'NewDriverID' => $_POST['DriverID'],
 				'FirstName' => ucfirst($_POST['FirstName']),
 				'LastName' => ucfirst($_POST['LastName']),
 				'Email' => $_POST['Email'],
 				'Address' => $_POST['Address'],
 				'ContactNo' => $_POST['ContactNo'],
 				'LicenseNumber' => $_POST['LicenseNumber'],
-				'LicenseType' => $_POST['licenseType'],
+				'LicenseType' => $_POST['LicenseType'],
 				'LicenseExpirationDay' => $_POST['LicenseExpirationDay'],
 				'DateOfAdmission' => $_POST['DateOfAdmission'],
 				'AssignedVehicle' => ""
 			]
 		);
 		$object['error'] = false;
-		$object['object'] = $driver;
+		$object['object'] = [$driver];
 		$object['message'] = "success_Driver " . $_POST['employeeID'] . " successfully updated";
+		if ($_POST['hasImage'] == 'true') {
+			$driverImageName = time() . '-' . $_FILES["Image"]["name"];
+
+			$target_dir = "../images/profilePictures/";
+			$target_file = $target_dir . basename($driverImageName);
+
+			if (file_exists($target_file)) {
+				$object['message'] = "File already exists";
+			}
+
+			else {
+				if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
+					$driver = $employee->UpdateDriverPicture([
+						'DriverId' => $_POST['DriverID'],
+						'DriverPicturePath' => $driverImageName
+					]);
+					if ($driver !== null) {
+						$object['error'] = false;
+						$object['object'] = [$driver];
+						$object['message'] = "success_Driver " . $_POST['DriverID'] . " successfully updated";
+					} else {
+						$object['error'] = true;
+						$object['message'] = 'Failed to create a driver object';
+					}
+				} else {
+					$object['error'] = true;
+					$object['message'] = "There was an error uploading the file";
+				}
+			}
+		}
 		break;
 
 	case 'ChangeDriverPicture':
@@ -331,13 +380,13 @@ switch ($method) {
 		if ($object['message'] == '') {
 			if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
 				$driver = $employee->UpdateDriverPicture([
-					'DriverId' => $_POST['driverId'],
+					'DriverId' => $_POST['DriverID'],
 					'DriverPicturePath' => $driverImageName
 				]);
 				if ($driver !== null) {
 					$object['error'] = false;
 					$object['object'] = $driver;
-					$object['message'] = "success_Driver " . $_POST['driverId'] . " successfully updated";
+					$object['message'] = "success_Driver " . $_POST['DriverID'] . " successfully updated";
 				} else {
 					$object['error'] = true;
 					$object['message'] = 'Failed to create a driver object';
@@ -350,10 +399,10 @@ switch ($method) {
 		break;
 
 	case 'AssignVehicleToDriver':
-		$driver = $employee->assignVehicleToDriver($_POST['driverId'], $_POST['assignedVehicleID']);
+		$driver = $employee->assignVehicleToDriver($_POST['DriverID'], $_POST['AssignedVehicle']);
 		$object['error'] = false;
 		$object['request'] = $driver;
-		$object['message'] = "success_Driver " . $_POST['driverId'] . " successfully assigned " . $_POST['assignedVehicleID'];
+		$object['message'] = "success_Driver " . $_POST['DriverID'] . " successfully assigned " . $_POST['AssignedVehicle'];
 		break;
 
 	case 'PrintSlip':

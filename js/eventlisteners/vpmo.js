@@ -35,11 +35,7 @@ const VehicleProfileEditFormConfirm = new ValidatorButton(
 	[
 		ObjectCreate,
 		FormValidate,
-		BackendAccess('UpdateVehicle', ActionCreator([vehicleStore], 'UPDATE')),
-		BackendAccessForPicture('ChangeVehiclePicture', [
-			'registration-VehicleProfileEditForm',
-			'leasedCompany-VehicleProfileEditForm',
-		]),
+		BackendAccessWithPicture('UpdateVehicle',ActionCreator([vehicleStore], 'UPDATE')),
 	],
 	{ disabled: 'true' }
 );
@@ -140,18 +136,18 @@ const assignVehicleToDriverTable = new SelectionTable(
 	vehicleStore,
 	'selectionVehicleTemplate',
 	AssignVehicleToDriverConfirm,
-	'assignedVehicleID'
+	'AssignedVehicle'
 );
 const AssignVehicleToDriverPopup = new Popup(
 	'AssignVehicleToDriverPopup',
 	[AssignVehicleToDriverBack, AssignVehicleToDriverClose, AssignVehicleToDriverConfirm],
-	['click'],
+	['click'],{},
 	assignVehicleToDriverTable
 );
 
 //Driver Profile Form
 const DriverProfileFormClose = new DisplayNextButton('DriverProfileForm_Close');
-const DriverProfileFormAssignVehicle = new DisplayNextButton('DriverProfileForm_AssignVehicle');
+const DriverProfileFormAssignVehicle = new DisplayNextButton('DriverProfileForm_AssignVehicle',AssignVehicleToDriverPopup);
 const DriverProfileFormPopup = new Popup('DriverProfileForm', [DriverProfileFormAssignVehicle, DriverProfileFormClose]);
 DriverProfileFormPopup.setDataType('value');
 AssignVehicleToDriverBack.setNext(DriverProfileFormPopup);
@@ -223,7 +219,7 @@ const vehicleContainer = new DOMContainer(
 	vehicleStore,
 	'vehicleCardTemplate'
 );
-const driverContainer = new DOMContainer('driversContainer', DriverProfileFormPopup, driverStore, 'driverCardTemplate');
+const driverContainer = new DOMContainer('driverContainer', DriverProfileFormPopup, driverStore, 'driverCardTemplate');
 const AddVehicleButton = new DOMButton('AddVehicleButton', VehicleAddFormPopup);
 
 const assignRequestContainerTab = new DOMTabContainer('AssignRequestsSecTab', assignRequestContainer);
@@ -268,5 +264,6 @@ ongoingTripStore.addObservers(ongoingTripContainer);
 scheduledRequestsStore.addObservers(scheduledHistoryContainer);
 vehicleStore.addObservers(vehicleContainer);
 vehicleStore.addObservers(SelectionVehicleTable);
+vehicleStore.addObservers(assignVehicleToDriverTable);
 driverStore.addObservers(driverContainer);
 driverStore.addObservers(SelectionDriverTable);
