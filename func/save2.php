@@ -136,7 +136,6 @@ switch ($method) {
 		break;
 
 	case 'ChangeVehiclePicture':
-		print_r($_POST);
 		$vehicleImageName = time() . '-' . $_FILES["Image"]["name"];
 
 		$target_dir = "../images/vehiclePictures/";
@@ -241,10 +240,6 @@ switch ($method) {
 
 		$target_dir = "../images/userProfilePictures/";
 		$target_file = $target_dir . basename($profileImageName);
-
-		if ($_FILES['Image']['size'] > 200000) {
-			$object['message'] = "Image size should not be greated than 200Kb";
-		}
 
 		if (file_exists($target_file)) {
 			$object['message'] = "File already exists";
