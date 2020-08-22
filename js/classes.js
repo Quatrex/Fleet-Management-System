@@ -349,6 +349,7 @@ class DOMContainer {
 
 	deleteEntry(object) {
 		let entry = document.getElementById(`${this.cardId}_${object[this.store.getObjIdType()]}`);
+		entry.classList.add('animate');
 		if (entry != 'undefined' && entry != null) {
 			this.cardContainer.querySelector('.card-body').removeChild(entry);
 		}
@@ -356,6 +357,7 @@ class DOMContainer {
 	deleteAllEntries() {
 		let children = this.cardContainer.querySelectorAll('.detail-description');
 		children.forEach((child) => {
+			child.style.opacity = '0';
 			child.remove();
 		});
 	}

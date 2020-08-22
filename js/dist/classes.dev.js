@@ -488,6 +488,7 @@ function () {
     key: "deleteEntry",
     value: function deleteEntry(object) {
       var entry = document.getElementById("".concat(this.cardId, "_").concat(object[this.store.getObjIdType()]));
+      entry.classList.add('animate');
 
       if (entry != 'undefined' && entry != null) {
         this.cardContainer.querySelector('.card-body').removeChild(entry);
@@ -498,6 +499,7 @@ function () {
     value: function deleteAllEntries() {
       var children = this.cardContainer.querySelectorAll('.detail-description');
       children.forEach(function (child) {
+        child.style.opacity = 0;
         child.remove();
       });
     }
