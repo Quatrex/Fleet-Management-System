@@ -631,8 +631,8 @@
                                 <a id="change-password-button" style="cursor:pointer; color:royalblue">Change password</a>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-dark" id="user-profile-confirm">Confirm</button>
-                        <button type="submit" class="btn btn-dark" id="user-profile-edit">Edit</button>
+                        <button class="btn btn-dark" id="user-profile-confirm">Confirm</button>
+                        <button class="btn btn-dark" id="user-profile-edit">Edit</button>
                     </form>
                 </div>
 

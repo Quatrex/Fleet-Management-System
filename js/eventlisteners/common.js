@@ -50,7 +50,7 @@ const RequestHistoryPreviewPopup = new Popup('RequestHistoryPreviewPopup', [Requ
 
 const ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePictureForm_Close');
 const ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');
-const ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessForPicture('ChangeProfilePicture')]);
+const ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture')]);
 const ChangeProfilePicturePopup = new Popup('ChangeProfilePictureForm', [ChangeProfilePicturePopupClose, ChangeProfilePicturePopupCancel, ChangeProfilePicturePopupSubmit]);
 
 const UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');

@@ -3,7 +3,7 @@
         <div class="description">
             <h1 class="card-title Purpose">For: </h1>
             <div class="row" style="padding-left:1rem;">
-                <h2 class="card-title Status" style="color:rgba(95,99,104,0.9);">Status: </h2>
+                <h2 class="card-title" style="color:rgba(95,99,104,0.9);">Status: <b class="Status" style="font-weight:bold"></b></h2>
             </div>
             <hr>
             <div class="row justify-content-between">

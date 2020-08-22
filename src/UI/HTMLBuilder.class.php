@@ -178,7 +178,7 @@ class HTMLBuilder
         $card = $this->compositeBuilder
             ->createComposite('div', ['class' => 'card', 'id' => strtolower($state) . 'RequestsContainer'])
             ->composite()
-            ->createComposite('div', ['class' => "card-header bg-dark text-white py-0"])
+            ->createComposite('div', ['class' => "card-header text-white py-0"])
             ->addToContent($this->createMySearchBar($header, ['Created Date', 'Pick Location', 'Drop Location', 'Time Of Trip', 'Date Of Trip', 'Purpose', 'State']))
             ->get()
             ->composite()
@@ -239,7 +239,7 @@ class HTMLBuilder
         $card = $this->compositeBuilder
             ->createComposite('div', ['class' => 'card', 'id' => strtolower($state) . 'AwaitingRequestContainer'])
             ->composite()
-            ->createComposite('div', ['class' => "card-header bg-dark text-white py-0"])
+            ->createComposite('div', ['class' => "card-header  text-white py-0"])
             ->addToContent($this->createMySearchBar(strtolower($state) . 'AwaitingRequest', ['Created Date', 'Pickup Location', 'Drop Location', 'Time of Trip', 'Date of Trip', 'Purpose', 'State']))
             ->get()
             ->composite()
@@ -278,7 +278,7 @@ class HTMLBuilder
         $card = $this->compositeBuilder
             ->createComposite('div', ['class' => 'card', 'id' => 'driverContainer'])
             ->composite()
-            ->createComposite('div', ['class' => "card-header bg-dark text-white py-0"])
+            ->createComposite('div', ['class' => "card-header text-white py-0"])
             ->addToContent($this->createMySearchBar('Drivers', ['First Name', 'Last Name', 'Driver ID']))
             ->get()
             ->composite()
@@ -317,7 +317,7 @@ class HTMLBuilder
         $card = $this->compositeBuilder
             ->createComposite('div', ['class' => 'card mt-5', 'id' => 'vehiclesContainer'])
             ->composite()
-            ->createComposite('div', ['class' => "card-header bg-dark text-white py-0"])
+            ->createComposite('div', ['class' => "card-header text-white py-0"])
             ->addToContent($this->createMySearchBar('Vehicles', ['Registration No', 'Model', 'FuelType']))
             ->get()
             ->composite()
@@ -356,7 +356,7 @@ class HTMLBuilder
         $card = $this->compositeBuilder
             ->createComposite('div', ['class' => 'card', 'id' => 'employeeContainer'])
             ->composite()
-            ->createComposite('div', ['class' => "card-header bg-dark text-white py-0"])
+            ->createComposite('div', ['class' => "card-header text-white py-0"])
             ->addToContent($this->createMySearchBar('Employees', ['Employee ID', 'First Name', 'Last Name', 'Designation', 'Position']))
             ->get()
             ->composite()

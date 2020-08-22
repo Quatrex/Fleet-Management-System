@@ -75,8 +75,7 @@ const DriverProfileEditFormConfirm = new ValidatorButton(
     'DriverProfileEditForm_Confirm', {}, [
         ObjectCreate,
         FormValidate,
-        BackendAccess('UpdateDriver', ActionCreator([driverStore], 'UPDATE')),
-        BackendAccessForPicture('ChangeDriverPicture', ['DriverID-DriverProfileEditForm']),
+        BackendAccessWithPicture('UpdateDriver', ActionCreator([driverStore], 'UPDATE'))
     ], { disabled: 'true' }
 );
 const DriverProfileEditFormPopup = new Popup(

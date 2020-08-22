@@ -271,7 +271,32 @@ class DOMContainer {
 			}
 		}
 	}
-
+	assignStateColor(id) {
+		if (this.store.getObjIdType() == 'RequestId') {
+			let element = document.getElementById(id);
+			let stateField = element.querySelector('.State');
+			switch (stateField.innerHTML) {
+				case 'Justified':
+					stateField.color = 'darkorange';
+					break;
+				case 'Approved':
+					stateField.color = 'green';
+					break;
+				case 'Denied':
+					stateField.color = 'red';
+					break;
+				case 'Disapproved':
+					stateField.color = 'red';
+					break;
+				case 'Completed':
+					stateField.color = 'blue';
+					break;
+				default:
+					stateField.color = 'rgba(95,99,104,0.9)';
+					break;
+			}
+		}
+	}
 	insertEntry(object) {
 		let template = document.querySelector(`#${this.templateId}`);
 		let clone = template.content.cloneNode(true);
@@ -295,6 +320,7 @@ class DOMContainer {
 		this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.cardId}_${
 			object[this.store.getObjIdType()]
 		}`;
+		this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 	}
 
 	appendEntry(object) {
@@ -318,6 +344,7 @@ class DOMContainer {
 		this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.cardId}_${
 			object[this.store.getObjIdType()]
 		}`;
+		this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 	}
 
 	deleteEntry(object) {
@@ -338,9 +365,18 @@ class DOMContainer {
 			let objFields = Object.getOwnPropertyNames(object);
 			objFields.forEach((field) => {
 				if (entry.querySelector(`.${field}`)) {
-					entry.querySelector(`.${field}`).innerHTML = object[field];
+					if (field.includes('PicturePath')) {
+						let path = '';
+						field.includes('Vehicle') ? (path = 'vehicle') : (path = 'profile');
+						object[field] != ''
+							? (entry.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`)
+							: (entry.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
+					} else {
+						entry.querySelector(`.${field}`).innerHTML = object[field];
+					}
 				}
 			});
+			this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 		} else {
 			this.insertEntry(object);
 		}
@@ -494,7 +530,7 @@ class Popup {
 	}
 	render(object) {
 		this.object = object;
-		console.log(this.object);
+		// console.log(this.object);
 		let inputs = this.popup.querySelectorAll('.inputs');
 		inputs.forEach((input) => {
 			input.value = '';
@@ -680,11 +716,6 @@ class ValidatorButton extends PopupButton {
 				}
 			} else if (event.type === 'change') {
 				document.getElementById(this.id).removeAttribute('disabled');
-				// if (SimilarityCheck(object, popup.getObject())) {
-				//     document.getElementById(this.id).setAttribute('disabled', 'true');
-				// } else {
-				//     document.getElementById(this.id).removeAttribute('disabled');
-				// }
 			}
 		}
 	}
@@ -722,9 +753,9 @@ const BackendAccess = (method, actionCreater = {}) => (popup, object = {}, event
 	return object;
 };
 
-const BackendAccessForPicture = (method, id = [], actionCreater = []) => (popup, object = {}, event) => {
+const BackendAccessWithPicture = (method, actionCreater = []) => (popup, object = {}, event) => {
 	if (event.type == 'click') {
-		Database.savePicture(object, method, id, actionCreater);
+		Database.savePicture(object, method, actionCreater);
 	}
 	return object;
 };
@@ -789,6 +820,7 @@ const ObjectCreate = (popup, object = {}, event) => {
 	popup.popup.querySelectorAll(`.inputs`).forEach((element) => {
 		if (element.type == 'file') {
 			obj[element.name] = element.files[0];
+			element.files.length > 0 ? (obj['hasImage'] = true) : (obj['hasImage'] = false);
 		} else {
 			obj[element.name] = element.value;
 		}
@@ -841,17 +873,6 @@ const changeValue = (object, id) => {
 			}
 		}
 	}
-	// for (let i = 0; i < objProps.length; i++) {
-	//     document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
-	//         if (!(objProps[i].includes('ImagePath'))) {
-	//             tag.value = object[objProps[i]];
-	//         } else {
-	//             if (object[objProps[i]] != '') {
-	//                 tag.src = `../images/${objProps[i].split('ImagePath')[0]}Pictures/${object[objProps[i]]}`;
-	//             }
-	//         }
-	//     });
-	// }
 };
 
 const changeInnerHTML = (object, id, objectFields = {}) => {
@@ -929,13 +950,13 @@ const Database = {
 			timeout: 10000,
 		});
 	},
-	savePicture(object, method, ids = [], actionCreater = {}) {
+	savePicture(object, method, actionCreater = {}) {
 		data = new FormData();
-		data.append('Image', $(`#${method}`)[0].files[0]);
-		data.append('Method', method);
-		ids.forEach(function (id) {
-			data.append(id.split('-')[0], $(`#${id}`).val());
+		let objProperties = Object.getOwnPropertyNames(object);
+		objProperties.forEach((property) => {
+			data.append(property, object[property]);
 		});
+		data.append('Method', method);
 		$.ajax({
 			url: '../func/save2.php',
 			type: 'POST',
@@ -945,10 +966,8 @@ const Database = {
 			processData: false,
 			cache: false,
 			success: function (returnArr) {
-				console.log(returnArr);
-				if (returnArr.includes('false')) {
-					path = returnArr.split(',')[1].split(':')[1].replace(/\\/g, '');
-					$(`.${method.substring(6)}`).prop('src', path);
+				if (Object.keys(actionCreater).length != 0) {
+					actionCreater.updateStores(object, returnArr.object[0]);
 				}
 			},
 		});

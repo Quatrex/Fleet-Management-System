@@ -35,11 +35,7 @@ const VehicleProfileEditFormConfirm = new ValidatorButton(
 	[
 		ObjectCreate,
 		FormValidate,
-		BackendAccess('UpdateVehicle', ActionCreator([vehicleStore], 'UPDATE')),
-		BackendAccessForPicture('ChangeVehiclePicture', [
-			'RegistrationNo-VehicleProfileEditForm',
-			'LeasedCompany-VehicleProfileEditForm',
-		]),
+		BackendAccessWithPicture('UpdateVehicle',ActionCreator([vehicleStore], 'UPDATE')),
 	],
 	{ disabled: 'true' }
 );
