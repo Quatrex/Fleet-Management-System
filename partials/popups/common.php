@@ -474,13 +474,13 @@
             <hr>
         </div>
         <div class="popup-body">
-            <img src="../images/default-user-image.png" class="form-image" style="height:150px;width:150px">
+            <img src="../images/default-user-image.png" id="ProfilePicturePath-DriverDetailPopup" class="form-image image-fluid">
             <div class="row mt-3">
                 <div class="col-sm-6">
                     <p>First Name</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="firstName-DriverDetailPopup">DD-MM-YYYY</p>
+                    <p id="FirstName-DriverDetailPopup">DD-MM-YYYY</p>
                 </div>
             </div>
 
@@ -489,7 +489,7 @@
                     <p>Last Name</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="lastName-DriverDetailPopup">HH:MM: AM/PM</p>
+                    <p id="LastName-DriverDetailPopup">HH:MM: AM/PM</p>
                 </div>
             </div>
 
@@ -498,7 +498,7 @@
                     <p>Contact Number</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="contactNo-DriverDetailPopup">Text</p>
+                    <p id="ContactNo-DriverDetailPopup">Text</p>
                 </div>
             </div>
         </div>
@@ -517,13 +517,13 @@
             <hr>
         </div>
         <div class="popup-body">
-            <img src="../images/default-user-image.png" class="form-image" style="height:150px;width:150px">
+            <img src="../images/default-user-image.png" class="form-image image-fluid" id="VehiclePicturePath-VehicleDetailPopup">
             <div class="row mt-3">
                 <div class="col-sm-6">
                     <p>Registration Number</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="registration-VehicleDetailPopup">DD-MM-YYYY</p>
+                    <p id="RegistrationNo-VehicleDetailPopup">DD-MM-YYYY</p>
                 </div>
             </div>
 
@@ -532,7 +532,7 @@
                     <p>Model</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="model-VehicleDetailPopup">HH:MM: AM/PM</p>
+                    <p id="Model-VehicleDetailPopup">HH:MM: AM/PM</p>
                 </div>
             </div>
 
@@ -541,7 +541,7 @@
                     <p>Purchased Year</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="purchasedYear-VehicleDetailPopup">Text</p>
+                    <p id="PurchasedYear-VehicleDetailPopup">Text</p>
                 </div>
             </div>
         </div>

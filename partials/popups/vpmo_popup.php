@@ -318,7 +318,7 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="button" class="btn btn-primary searchTabButton" id="Search_Confirm_" value="Search">
+                                    <input type="button" class="btn btn-primary searchTabButton" id="Search_Confirm_selectionVehicleTable" value="Search">
                                 </div>
                             </div>
                         </div>
@@ -339,13 +339,13 @@
                                 </div>
                             </div>
                             <div class="col-sm-4 ml-2 my-auto">
-                                <button type="button" class="btn btn btn-outline-dark searchTabButton" id="Desc_">
+                                <button type="button" class="btn btn btn-outline-dark searchTabButton" id="Desc_selectionVehicleTable">
                                     <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-sort-down-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M3 3a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-1 0v-10A.5.5 0 0 1 3 3z" />
                                         <path fill-rule="evenodd" d="M5.354 11.146a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L3 12.793l1.646-1.647a.5.5 0 0 1 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z" />
                                     </svg>
                                 </button>
-                                <button type="button" class="btn btn btn-outline-dark searchTabButton" id="Asc_">
+                                <button type="button" class="btn btn btn-outline-dark searchTabButton" id="Asc_selectionVehicleTable">
                                     <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-sort-up-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M3 14a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z" />
                                         <path fill-rule="evenodd" d="M5.354 5.854a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L3 4.207l1.646 1.647a.5.5 0 0 0 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z" />
@@ -418,7 +418,7 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="button" class="btn btn-primary searchTabButton" id="Search_Confirm_" value="Search">
+                                    <input type="button" class="btn btn-primary searchTabButton" id="Search_Confirm_selectionDriverTable" value="Search">
                                 </div>
                             </div>
                         </div>
@@ -442,13 +442,13 @@
                                 </div>
                             </div>
                             <div class="col-sm-4 ml-2 my-auto">
-                                <button type="button" class="btn btn btn-outline-dark searchTabButton" id="Desc_">
+                                <button type="button" class="btn btn btn-outline-dark searchTabButton" id="Desc_selectionDriverTable">
                                     <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-sort-down-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M3 3a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-1 0v-10A.5.5 0 0 1 3 3z" />
                                         <path fill-rule="evenodd" d="M5.354 11.146a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L3 12.793l1.646-1.647a.5.5 0 0 1 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z" />
                                     </svg>
                                 </button>
-                                <button type="button" class="btn btn btn-outline-dark searchTabButton" id="Asc_">
+                                <button type="button" class="btn btn btn-outline-dark searchTabButton" id="Asc_selectionDriverTable">
                                     <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-sort-up-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M3 14a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z" />
                                         <path fill-rule="evenodd" d="M5.354 5.854a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L3 4.207l1.646 1.647a.5.5 0 0 0 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z" />
@@ -884,7 +884,7 @@
             <hr>
         </div>
         <div class="popup-body">
-            <img src="../images/default-user-image.png" class="form-image" id="DriverImagePath-DriverProfileForm">
+            <img src="../images/default-user-image.png" class="form-image" id="ProfilePicturePath-DriverProfileForm">
             <div id="submit-form-wrapper">
                 <div class="basic-form">
                     <form id="DriverProfile_form">
@@ -982,8 +982,63 @@
         <div class="popup-body" style="max-height: 80vh;" id="assignVehicleToDriverTable">
             <div class="row mx-auto">
                 <label class="mr-2">Assign Vehicle:</label> <span>
-                    <p id="assignedVehicleID-assignVehicleToDriverTable"></p>
+                    <p id="AssignedVehicle-assignVehicleToDriverTable"></p>
                 </span>
+            </div>
+            <div class="container-fluid search-container">
+                <div class="row mt-3 pt-3 ml-3 border">
+                    <div class="col-sm-6 mb-3">
+                        <div class="input-group">
+                            <div class="row w-100">
+                                <div class="col-sm-6 pr-0 form-group position-relative">
+                                    <input type="text" class="form-control pr-2" id="assignVehicleToDriverTable_SearchInput" placeholder="Search" style="border-radius: 0px!important;">
+                                    <span class="form-clear searchTabButton d-none mr-2" id="Cancel_Confirm_button"><i class="material-icons">clear</i></span>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <select class="custom-select mr-sm-2" data-field="Search" style="border-radius: 0px!important;">
+                                        <option selected>Registration No</option>
+                                        <option value="Value">Value</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="button" class="btn btn-primary searchTabButton" id="Search_Confirm_assignVehicleToDriverTable" value="Search">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 ml-2">
+                        <div class="row">
+                            <div class="sm-8">
+                                <div class="row">
+                                    <div class="col-sm-2 my-auto mr-1">
+                                        <label class="mr-2">Sort</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <select class="custom-select mr-sm-2" data-field="Sort">
+                                            <option selected>Registration No</option>
+                                            <option value="Value">Value</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 ml-2 my-auto">
+                                <button type="button" class="btn btn btn-outline-dark searchTabButton" id="Desc_assignVehicleToDriverTable">
+                                    <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-sort-down-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M3 3a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-1 0v-10A.5.5 0 0 1 3 3z" />
+                                        <path fill-rule="evenodd" d="M5.354 11.146a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L3 12.793l1.646-1.647a.5.5 0 0 1 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z" />
+                                    </svg>
+                                </button>
+                                <button type="button" class="btn btn btn-outline-dark searchTabButton" id="Asc_assignVehicleToDriverTable">
+                                    <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-sort-up-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M3 14a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z" />
+                                        <path fill-rule="evenodd" d="M5.354 5.854a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L3 4.207l1.646 1.647a.5.5 0 0 0 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div style="overflow-y:scroll;overflow-x:hidden;height: 50%;">
 

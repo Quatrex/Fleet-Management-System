@@ -350,10 +350,10 @@ switch ($method) {
 		break;
 
 	case 'AssignVehicleToDriver':
-		$driver = $employee->assignVehicleToDriver($_POST['driverId'], $_POST['assignedVehicleID']);
+		$driver = $employee->assignVehicleToDriver($_POST['DriverID'], $_POST['AssignedVehicle']);
 		$object['error'] = false;
 		$object['request'] = $driver;
-		$object['message'] = "success_Driver " . $_POST['driverId'] . " successfully assigned " . $_POST['assignedVehicleID'];
+		$object['message'] = "success_Driver " . $_POST['DriverID'] . " successfully assigned " . $_POST['AssignedVehicle'];
 		break;
 
 	case 'PrintSlip':

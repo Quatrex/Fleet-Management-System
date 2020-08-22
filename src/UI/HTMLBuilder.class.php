@@ -240,7 +240,7 @@ class HTMLBuilder
             ->createComposite('div', ['class' => 'card', 'id' => strtolower($state) . 'AwaitingRequestContainer'])
             ->composite()
             ->createComposite('div', ['class' => "card-header bg-dark text-white py-0"])
-            ->addToContent($this->createMySearchBar($header, ['Created Date', 'Pickup Location', 'Drop Location', 'Time of Trip', 'Date of Trip', 'Purpose', 'State']))
+            ->addToContent($this->createMySearchBar(strtolower($state) . 'AwaitingRequest', ['Created Date', 'Pickup Location', 'Drop Location', 'Time of Trip', 'Date of Trip', 'Purpose', 'State']))
             ->get()
             ->composite()
             ->createComposite('div', ['class' => 'card-body pb-3'])

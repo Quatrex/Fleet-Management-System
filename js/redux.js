@@ -125,7 +125,6 @@ class Store {
 		setTimeout(this.loadData('selection'), 3000);
 	}
 	dispatch(action) {
-		console.log(action.type);
 		let selectionPayload = [];
 		if (action.type === 'ADD' || action.type === 'APPEND') {
 			if (!Array.isArray(action.payload)) {
@@ -161,7 +160,6 @@ class Store {
 		} else if (action.type === 'DELETEALL') {
 			this.state = [];
 		}
-		console.log(this.state);
 		if (this.selectionSearch && action.type == 'ADD') {
 			this.selectionObserver.update(action);
 			this.selectionSearch = false;
