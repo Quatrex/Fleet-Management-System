@@ -262,7 +262,7 @@ switch ($method) {
 
 		$profileImageName = time() . '-' . $_FILES["Image"]["name"];
 
-		$target_dir = "../images/userProfilePictures/";
+		$target_dir = "../images/profilePictures/";
 		$target_file = $target_dir . basename($profileImageName);
 
 		if (file_exists($target_file)) {
@@ -404,11 +404,6 @@ switch ($method) {
 		$object['error'] = false;
 		$object['request'] = $driver;
 		$object['message'] = "success_Driver " . Input::get('DriverID') . " successfully assigned " . Input::get('AssignedVehicle');
-		break;
-
-	case 'PrintSlip':
-		$employee->generateVehicleHandoutSlip(Input::get('RequestId'));
-		$object['message'] = "success_Printed Slip For" . Input::get('RequestId');
 		break;
 
 	case 'CancelTrip':
