@@ -85,8 +85,8 @@ var ActiveTripDetailsCancel = new DisplayNextButton('ActiveTripDetails_Cancel', 
 var ActiveTripDetailsEnd = new DisplayAlertButton('ActiveTripDetails_End', EndTripConfirmPopup);
 var ActiveTripDetailsPrintSlip = new OpenNewWindowButton('ActiveTripDetails_PrintSlip', [], [BackendAccess('PrintSlip')]);
 var ActiveTripDetailsPopup = new Popup('ActiveTripDetailsPopup', [ActiveTripDetailsCancel, ActiveTripDetailsClose, ActiveTripDetailsEnd, ActiveTripDetailsPrintSlip], ['click'], {
-  Vehicle: ['registration'],
-  Driver: ['firstName', 'lastName']
+  Vehicle: ['RegistrationNo'],
+  Driver: ['FirstName', 'LastName']
 });
 var assignRequestContainer = new DOMContainer('assignAwaitingRequestContainer', RequestAssignPreviewPopup, requestsToAssignStore, 'awaitingRequestCardTemplate');
 var ongoingTripContainer = new DOMContainer('ongoingAwaitingRequestContainer', ActiveTripDetailsPopup, ongoingTripStore, 'awaitingRequestCardTemplate');

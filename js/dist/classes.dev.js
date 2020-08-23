@@ -280,7 +280,7 @@ function () {
           this.loadMoreButton.classList.remove('active');
         }
 
-        if (len < 5) {
+        if (len < 5 && !this.store.selectionSearch) {
           if (!this.loadMoreButton.classList.contains('d-none')) {
             this.loadMoreButton.classList.add('d-none');
           }
