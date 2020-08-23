@@ -406,11 +406,6 @@ switch ($method) {
 		$object['message'] = "success_Driver " . Input::get('DriverID') . " successfully assigned " . Input::get('AssignedVehicle');
 		break;
 
-	case 'PrintSlip':
-		$employee->generateVehicleHandoutSlip(Input::get('RequestId'));
-		$object['message'] = "success_Printed Slip For" . Input::get('RequestId');
-		break;
-
 	case 'CancelTrip':
 		$request = $employee->cancelRequest(Input::get('RequestId'));
 		$object['error'] = false;

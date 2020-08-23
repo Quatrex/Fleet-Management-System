@@ -904,7 +904,7 @@ const changeInnerHTML = (object, id, objectFields = {}) => {
 				tag.innerHTML = '';
 				let fields = objectFields[objProps[i]];
 				fields.forEach((field) => {
-					tag.innerHTML += object[objProps[i]][field];
+					tag.innerHTML += ` ${object[objProps[i]][field]}`;
 				});
 			}
 		});
