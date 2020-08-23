@@ -71,7 +71,7 @@ if (Input::exists()) {
 			break;
 
 		case 'Load_scheduledHistoryRequests':
-			$requests = $employee->getRequests(['scheduled', 'cancelled'], $offset, $sort, $search);
+			$requests = $employee->getMyScheduledRequests(['completed', 'cancelled'], $offset, $sort, $search);
 			$object['error'] = false;
 			$object['object'] = $requests;
 			break;

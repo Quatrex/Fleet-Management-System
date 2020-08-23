@@ -26,16 +26,23 @@ abstract class RequestModel extends Model
         return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset,$sort,key($search),$search[key($search)]);
     }
 
-    protected function getJustifiedRequestsByIDNState(String $requesterID, array $states, int $offset, array $sort, array $search)
+    protected function getJustifiedRequestsByIDNState(String $justifiedBy, array $states, int $offset, array $sort, array $search)
     {
-        $conditions = ['JustifiedBy' => $requesterID];
+        $conditions = ['JustifiedBy' => $justifiedBy];
         $stateConditions = ['State' => $states];
         return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset,$sort,key($search),$search[key($search)]);
     }
 
-    protected function getApprovedRequestsByIDNState(String $requesterID, array $states, int $offset, array $sort, array $search)
+    protected function getApprovedRequestsByIDNState(String $approvedBy, array $states, int $offset, array $sort, array $search)
     {
-        $conditions = ['ApprovedBy' => $requesterID];
+        $conditions = ['ApprovedBy' => $approvedBy];
+        $stateConditions = ['State' => $states];
+        return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset,$sort,key($search),$search[key($search)]);
+    }
+
+    protected function getScheduledRequestsByIDNState(String $scheduledBy, array $states, int $offset, array $sort, array $search)
+    {
+        $conditions = ['ScheduledBy' => $scheduledBy];
         $stateConditions = ['State' => $states];
         return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset,$sort,key($search),$search[key($search)]);
     }

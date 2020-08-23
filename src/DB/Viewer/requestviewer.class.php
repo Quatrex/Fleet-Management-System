@@ -26,6 +26,10 @@ class RequestViewer extends RequestModel{
         return parent::getApprovedRequestsByIDNState($approvedBy,$states,$offset,$sort,$search);
     }
 
+    public function getScheduledRequestsByIDNState(string $scheduledBy,array $states,int $offset, array $sort, array $search){
+        return parent::getScheduledRequestsByIDNState($scheduledBy,$states,$offset,$sort,$search);
+    }
+
     public function getRequestsbyState(array $states, int $offset, array $sort, array $search) {
         return parent::getRequestsbyState($states, $offset, $sort, $search);
     }

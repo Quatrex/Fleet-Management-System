@@ -9,6 +9,28 @@ use Exception;
 class VPMORequestFactory
 {
     /**
+     * Returns the requests scheduled by the VPMO
+     * 
+     * @param int $empID
+     * @param string $stateString
+     * @return array(Request)
+     */
+    public static function makeScheduledRequests(int $empID, array $states, int $offset, array $sort, array $search) : array
+    {
+        $requestViewer = new RequestViewer();
+        $stateIDs =  array_map(function($state) { return State::getStateID($state); }, $states);
+        $requestRecords= $requestViewer->getScheduledRequestsByIDNState($empID,$stateIDs,$offset,$sort,$search);
+        $requests=array();
+
+        foreach($requestRecords as $values){
+            $request= new VPMORequestProxy($values);
+            array_push($requests,self::castToRequest($request));
+        }
+
+        return $requests;
+    }
+
+    /**
      * Returns all requests for a given state
      * 
      * @param string $state
