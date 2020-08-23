@@ -115,3 +115,15 @@
         <td class="assignedTrips" data-field="assignedRequests"><i class="fas fa-info-circle"></i></td>
     </tr>
 </template>
+
+<template id="emptyPlaceholder">
+    <div class="card request-card detail-description" style="z-index:2;">
+        <div class="description">
+            <div class="row" style="padding-left:1rem;">
+                <div class="d-flex row w-100 mb-3 justify-content-center" style="color:gray"><i class="far fa-file fa-2x"></i></div>
+                <div class="d-flex row w-100 justify-content-center" style="color:gray">There are no requests.</div>
+            </div>
+            <hr>
+        </div>
+    </div>
+</template>

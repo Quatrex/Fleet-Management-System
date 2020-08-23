@@ -253,8 +253,7 @@ function () {
       var _this = this;
 
       if (action.type == 'ADD') {
-        if (action.hasOwnProperty('end')) {}
-
+        this.finishLoadContent(action.payload.length, action.type);
         action.payload.forEach(function (object) {
           return _this.insertEntry(object);
         });
@@ -274,19 +273,34 @@ function () {
   }, {
     key: "finishLoadContent",
     value: function finishLoadContent(len) {
-      if (this.loadMoreButton.classList.contains('active')) {
-        this.loadMoreButton.classList.remove('active'); // : this.cardContainer.removeChild(document.getElementById(`${this.id}_Loader`));
-      } else {// document.getElementById(`${this.ixd}_Loader`).classList.add('fade-out');
-          // setTimeout(() => {document.getElementById(`${this.id}_Loader`).remove()},500)		}
+      var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'APPEND';
+
+      if (method == 'APPEND') {
+        if (this.loadMoreButton.classList.contains('active')) {
+          this.loadMoreButton.classList.remove('active');
         }
 
-      if (len < 5) {
-        if (!this.loadMoreButton.classList.contains('d-none')) {
-          this.loadMoreButton.classList.add('d-none');
+        if (len < 5) {
+          if (!this.loadMoreButton.classList.contains('d-none')) {
+            this.loadMoreButton.classList.add('d-none');
+          }
+
+          if (len == 0) {
+            if (this.store.getOffset() == 0) {
+              var template = document.querySelector("#emptyPlaceholder");
+              var clone = template.content.cloneNode(true);
+              this.cardContainer.querySelector('.card-body').insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
+              this.cardContainer.querySelector('.card-body').firstElementChild.id = "".concat(this.cardId, "_emptyPlaceholder");
+            }
+          }
+        } else {
+          if (this.loadMoreButton.classList.contains('d-none')) {
+            this.loadMoreButton.classList.remove('d-none');
+          }
         }
       } else {
-        if (this.loadMoreButton.classList.contains('d-none')) {
-          this.loadMoreButton.classList.remove('d-none');
+        if (this.cardContainer.getElementById("".concat(this.cardId, "_emptyPlaceholder")) && this.store.getOffset() > 0) {
+          document.getElementById("".concat(this.cardId, "_emptyPlaceholder")).remove();
         }
       }
     }
@@ -305,12 +319,6 @@ function () {
           this.store.loadData(trigger, method);
         }
       } else {
-        // let template = document.querySelector('#loaderTemplate');
-        // let clone = template.content.cloneNode(true);
-        // this.cardContainer
-        // 	.querySelector('.card-body')
-        // 	.insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
-        // this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.id}_Loader`;
         this.store.loadData(trigger);
       }
     }
@@ -487,8 +495,7 @@ function () {
   }, {
     key: "deleteEntry",
     value: function deleteEntry(object) {
-      var entry = document.getElementById("".concat(this.cardId, "_").concat(object[this.store.getObjIdType()]));
-      entry.classList.add('animate');
+      var entry = document.getElementById("".concat(this.cardId, "_").concat(object[this.store.getObjIdType()])); // entry.classList.add('animate');
 
       if (entry != 'undefined' && entry != null) {
         this.cardContainer.querySelector('.card-body').removeChild(entry);
@@ -499,7 +506,7 @@ function () {
     value: function deleteAllEntries() {
       var children = this.cardContainer.querySelectorAll('.detail-description');
       children.forEach(function (child) {
-        child.style.opacity = 0;
+        // child.style.opacity = '0';
         child.remove();
       });
     }

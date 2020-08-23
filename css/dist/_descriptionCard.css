@@ -46,7 +46,6 @@
 }
 .detail-description {
   opacity: "1";
-  transition: 1s opacity;
   animation: slide-up 0.5s ease-in-out;
 }
 
