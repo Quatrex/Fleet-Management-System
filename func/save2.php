@@ -173,6 +173,13 @@ switch ($method) {
 		$object['message'] = "success_Request " . Input::get('RequestId') . " successfully cancelled";
 		break;
 
+	case 'CancelScheduledRequest':
+		$request = $employee->cancelScheduledRequest(Input::get('RequestId'));
+		$object['error'] = false;
+		$object['object'] = $request;
+		$object['message'] = "success_Request " . Input::get('RequestId') . " successfully cancelled";
+		break;
+
 	case 'DeletePurchasedVehicle':
 		$vehicle = $employee->deletePurchasedVehicle(Input::get('registration'));
 		$object['error'] = false;
