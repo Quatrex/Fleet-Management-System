@@ -1,7 +1,7 @@
 "use strict";
 
-var employeeStore = new Store('employees', 'empID');
-var driverStore = new Store('drivers', 'DriverID'); //Add a employee
+var employeeStore = new Store('employees', 'empID', 'EmployeeID');
+var driverStore = new Store('drivers', 'DriverID', 'DriverID'); //Add a employee
 
 var EmployeeAddFormClose = new DisplayNextButton('EmployeeAddForm_Close');
 var EmployeeAddFormConfirm = new ValidatorButton('EmployeeAddForm_Confirm', {}, [ObjectCreate, FormValidate, BackendAccess('AddEmployee', ActionCreator([employeeStore], 'ADD'))]);

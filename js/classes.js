@@ -976,6 +976,9 @@ const Database = {
 			processData: false,
 			cache: false,
 			success: function (returnArr) {
+				returnArr = JSON.parse(returnArr)
+				console.log(returnArr.object);
+				console.log(returnArr);
 				if (Object.keys(actionCreater).length != 0) {
 					actionCreater.updateStores(object, returnArr.object[0]);
 				}

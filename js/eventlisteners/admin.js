@@ -1,5 +1,5 @@
-const employeeStore = new Store('employees', 'empID');
-const driverStore = new Store('drivers', 'DriverID');
+const employeeStore = new Store('employees', 'empID','EmployeeID');
+const driverStore = new Store('drivers', 'DriverID','DriverID');
 
 //Add a employee
 const EmployeeAddFormClose = new DisplayNextButton('EmployeeAddForm_Close');

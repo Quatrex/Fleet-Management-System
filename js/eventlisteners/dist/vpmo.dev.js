@@ -81,11 +81,11 @@ var EndTripConfirmEnd = new DisplayNextButton('EndTripConfirm_Confirm', {}, [Obj
 var EndTripConfirmPopup = new Popup('EndTripConfirmPopup', [EndTripConfirmCancel, EndTripConfirmClose, EndTripConfirmEnd]); //Active Trips Preview Popup
 
 var ActiveTripDetailsClose = new DisplayNextButton('ActiveTripDetails_Close');
-var ActiveTripDetailsCancel = new DisplayNextButton('ActiveTripDetails_Cancel', {}, [BackendAccess('CancelRequest', ActionCreator([ongoingTripStore, scheduledRequestsStore], 'UPDATE'))]);
+var ActiveTripDetailsCancel = new DisplayNextButton('ActiveTripDetails_Cancel', {}, [BackendAccess('CancelScheduledRequest', ActionCreator([ongoingTripStore, scheduledRequestsStore], 'UPDATE'))]);
 var ActiveTripDetailsEnd = new DisplayAlertButton('ActiveTripDetails_End', EndTripConfirmPopup);
 var ActiveTripDetailsPrintSlip = new OpenNewWindowButton('ActiveTripDetails_PrintSlip', [], [BackendAccess('PrintSlip')]);
 var ActiveTripDetailsPopup = new Popup('ActiveTripDetailsPopup', [ActiveTripDetailsCancel, ActiveTripDetailsClose, ActiveTripDetailsEnd, ActiveTripDetailsPrintSlip], ['click'], {
-  Vehicle: ['RegistrationNo'],
+  Vehicle: ['RegistrationNo', 'Model'],
   Driver: ['FirstName', 'LastName']
 });
 var assignRequestContainer = new DOMContainer('assignAwaitingRequestContainer', RequestAssignPreviewPopup, requestsToAssignStore, 'awaitingRequestCardTemplate');

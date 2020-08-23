@@ -1323,7 +1323,7 @@ var changeInnerHTML = function changeInnerHTML(object, id) {
         tag.innerHTML = '';
         var fields = objectFields[objProps[i]];
         fields.forEach(function (field) {
-          tag.innerHTML += object[objProps[i]][field];
+          tag.innerHTML += " ".concat(object[objProps[i]][field]);
         });
       }
     });
@@ -1416,6 +1416,10 @@ var Database = {
       processData: false,
       cache: false,
       success: function success(returnArr) {
+        returnArr = JSON.parse(returnArr);
+        console.log(returnArr.object);
+        console.log(returnArr);
+
         if (Object.keys(actionCreater).length != 0) {
           actionCreater.updateStores(object, returnArr.object[0]);
         }
