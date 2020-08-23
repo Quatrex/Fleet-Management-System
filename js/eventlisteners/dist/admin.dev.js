@@ -1,6 +1,6 @@
 "use strict";
 
-var employeeStore = new Store('employees', 'empID', 'EmployeeID');
+var employeeStore = new Store('employees', 'empID', 'EmpID');
 var driverStore = new Store('drivers', 'DriverID', 'DriverID'); //Add a employee
 
 var EmployeeAddFormClose = new DisplayNextButton('EmployeeAddForm_Close');

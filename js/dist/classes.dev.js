@@ -252,6 +252,8 @@ function () {
     value: function update(action) {
       var _this = this;
 
+      console.log(action.type);
+
       if (action.type == 'ADD') {
         this.finishLoadContent(action.payload.length, action.type);
         action.payload.forEach(function (object) {
@@ -319,7 +321,17 @@ function () {
           this.store.loadData(trigger, method);
         }
       } else {
-        this.store.loadData(trigger);
+        var offset = this.store.getOffset();
+
+        if (offset == 0) {
+          this.store.loadData(trigger);
+        } else {
+          if (offset % 5 == 0) {
+            if (this.loadMoreButton.classList.contains('d-none')) {
+              this.loadMoreButton.classList.remove('d-none');
+            }
+          }
+        }
       }
     }
   }, {
@@ -514,10 +526,14 @@ function () {
     key: "updateEntry",
     value: function updateEntry(object) {
       var entry = document.getElementById("".concat(this.cardId, "_").concat(object[this.store.getObjIdType()]));
+      console.log(entry);
+      console.log("".concat(this.cardId, "_").concat(object[this.store.getObjIdType()]));
 
       if (entry != 'undefined' && entry != null) {
         var objFields = Object.getOwnPropertyNames(object);
         objFields.forEach(function (field) {
+          console.log(field);
+
           if (entry.querySelector(".".concat(field))) {
             if (field.includes('PicturePath')) {
               var path = '';

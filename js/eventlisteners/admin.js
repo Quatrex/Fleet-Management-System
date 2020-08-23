@@ -1,4 +1,4 @@
-const employeeStore = new Store('employees', 'empID','EmployeeID');
+const employeeStore = new Store('employees', 'empID','EmpID');
 const driverStore = new Store('drivers', 'DriverID','DriverID');
 
 //Add a employee

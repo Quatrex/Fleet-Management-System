@@ -122,9 +122,12 @@ function () {
     value: function loadData() {
       var trigger = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'render';
       var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'APPEND';
+      console.log(this.state);
 
       if (!this.updated) {
-        Database.loadContent("Load_".concat(this.type), this.state.length, ActionCreator([this], method), this.searchObj);
+        // if(this.state.length==0){
+        Database.loadContent("Load_".concat(this.type), this.state.length, ActionCreator([this], method), this.searchObj); // }
+
         this.updated = true;
       } else {
         if (trigger != 'render') {
@@ -157,6 +160,7 @@ function () {
     value: function dispatch(action) {
       var _this2 = this;
 
+      console.log(action.type);
       var selectionPayload = [];
       console.log(action.payload);
 

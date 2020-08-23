@@ -38,6 +38,7 @@ $drivers = [];
     ?>
     <script>
         const employees = <?php echo json_encode($employees) ?>;
+        console.log(employees);
         const drivers = <?php echo json_encode($drivers) ?>;
     </script>
     <script src="../js/classes.js"></script>

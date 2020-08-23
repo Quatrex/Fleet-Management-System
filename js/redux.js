@@ -86,8 +86,11 @@ class Store {
 		}
 	}
 	loadData(trigger = 'render', method = 'APPEND') {
+		console.log(this.state);
 		if (!this.updated) {
+			// if(this.state.length==0){
 			Database.loadContent(`Load_${this.type}`, this.state.length, ActionCreator([this], method), this.searchObj);
+			// }
 			this.updated = true;
 		} else {
 			if (trigger != 'render') {
@@ -125,6 +128,7 @@ class Store {
 		setTimeout(this.loadData('selection'), 3000);
 	}
 	dispatch(action) {
+		console.log(action.type);
 		let selectionPayload = [];
 		console.log(action.payload);
 		if (action.type === 'ADD' || action.type === 'APPEND') {

@@ -279,7 +279,7 @@ class HTMLBuilder
             ->createComposite('div', ['class' => 'card', 'id' => 'driverContainer'])
             ->composite()
             ->createComposite('div', ['class' => "card-header text-white py-0"])
-            ->addToContent($this->createMySearchBar('Drivers', ['First Name', 'Last Name', 'Driver ID']))
+            ->addToContent($this->createMySearchBar('Driver', ['First Name', 'Last Name', 'Driver ID']))
             ->get()
             ->composite()
             ->createComposite('div', ['class' => 'card-body row pb-3'])

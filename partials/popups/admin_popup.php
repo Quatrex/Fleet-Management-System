@@ -77,14 +77,14 @@
             <hr>
         </div>
         <div class="popup-body">
-            <img src="../images/default-user-image.png" class="form-image" id="EmployeeImagePath-EmployeeProfileForm">
+            <img src="../images/default-user-image.png" class="form-image" id="ProfilePicturePath-EmployeeProfileForm">
             <div id="submit-form-wrapper">
                 <div class="basic-form">
                     <form id="EmployeeProfile_form">
                         <div class="form-group-row mb-4">
                             <label>Employee ID</label>
                             <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border inputs" id="EmpID-EmployeeProfileForm" type="text" name="EmpID" disabled>
+                                <input class="form-control py-2 border-right-0 border inputs" id="empID-EmployeeProfileForm" type="text" name="empID" disabled>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
@@ -147,7 +147,7 @@
                         <div class="form-group-row mb-4">
                             <label>Employee ID</label>
                             <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border inputs" id="EmpID-EmployeeProfileEditForm" type="text" name="NewEmpID" required>
+                                <input class="form-control py-2 border-right-0 border inputs" id="empID-EmployeeProfileEditForm" type="text" name="NewEmpID" required>
                                 <div id="NewEmpID-error" class="text-danger"></div>
                             </div>
                         </div>
