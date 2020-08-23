@@ -269,7 +269,7 @@ switch ($method) {
 
 		$profileImageName = time() . '-' . $_FILES["Image"]["name"];
 
-		$target_dir = "../images/userProfilePictures/";
+		$target_dir = "../images/profilePictures/";
 		$target_file = $target_dir . basename($profileImageName);
 
 		if (file_exists($target_file)) {

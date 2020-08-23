@@ -35,7 +35,7 @@
 }
 
 .float-button:hover:before {
-    content: 'New Request';
+    content: attr(data-title);
     position: absolute;
     opacity: 1;
     right: 66px;
