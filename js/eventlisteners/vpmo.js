@@ -192,7 +192,7 @@ const ActiveTripDetailsPopup = new Popup(
 	'ActiveTripDetailsPopup',
 	[ActiveTripDetailsCancel, ActiveTripDetailsClose, ActiveTripDetailsEnd, ActiveTripDetailsPrintSlip],
 	['click'],
-	{ Vehicle: ['registration'], Driver: ['firstName', 'lastName'] }
+	{ Vehicle: ['RegistrationNo'], Driver: ['FirstName', 'LastName'] }
 );
 
 const assignRequestContainer = new DOMContainer(
