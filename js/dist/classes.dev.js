@@ -299,7 +299,7 @@ function () {
           }
         }
       } else {
-        if (this.cardContainer.getElementById("".concat(this.cardId, "_emptyPlaceholder")) && this.store.getOffset() > 0) {
+        if (document.getElementById("".concat(this.cardId, "_emptyPlaceholder")) && this.store.getOffset() > 0) {
           document.getElementById("".concat(this.cardId, "_emptyPlaceholder")).remove();
         }
       }

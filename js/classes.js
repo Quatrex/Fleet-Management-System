@@ -176,7 +176,7 @@ class DOMContainer {
 				}
 			}
 		} else {
-			if (this.cardContainer.getElementById(`${this.cardId}_emptyPlaceholder`) && this.store.getOffset() > 0) {
+			if (document.getElementById(`${this.cardId}_emptyPlaceholder`) && this.store.getOffset() > 0) {
 				document.getElementById(`${this.cardId}_emptyPlaceholder`).remove();
 			}
 		}
