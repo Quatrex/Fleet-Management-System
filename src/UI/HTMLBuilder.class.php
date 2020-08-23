@@ -425,6 +425,7 @@ class HTMLBuilder
 
             $tabCom = $this->compositeBuilder
                 ->addArrayToContent([$this->secNavList[$i], $this->secTabs[$i]])
+                ->addToContent($this->getButtonForSecTab($tabids[$i]))
                 ->getComposite();
             array_push($mainTabComList, $tabCom);
         }
@@ -547,50 +548,49 @@ class HTMLBuilder
         return $dropDownMenu;
     }
 
-    private function getButton($tabid):HTMLComponent
+    private function getButtonForSecTab($navId)
+    {
+        $buttonBuilder = new CompositeBuilder();
+        switch ($navId) {
+            case 'MyRequests':
+                $button = $buttonBuilder
+                    ->createComposite()
+                    ->composite()
+                    ->createComposite('button', ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"])
+                    ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
+                    ->get()
+                    ->getComposite();
+                return $button;
+                break;
+            default:
+                $button = $buttonBuilder->createComposite()->getComposite();
+                return $button;
+                break;
+        }
+    }
+
+    private function getButton($tabid): HTMLComponent
     {
         $buttonBuilder = new CompositeBuilder();
         switch ($tabid) {
-            case 'PendingRequests':
-                $button = $buttonBuilder
-                    ->createComposite()
-                    ->composite()
-                    ->createComposite('button', ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"])
-                    ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
-                    ->get()
-                    ->getComposite();
-                return $button;
-                break;
-            case 'OngoingRequests':
-                $button = $buttonBuilder
-                    ->createComposite()
-                    ->composite()
-                    ->createComposite('button', ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"])
-                    ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
-                    ->get()
-                    ->getComposite();
-                return $button;
-                break;
-            case 'History':
-                $button = $buttonBuilder
-                    ->createComposite()
-                    ->composite()
-                    ->createComposite('button', ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"])
-                    ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
-                    ->get()
-                    ->getComposite();
-                return $button;
-                break;
             case 'Employees':
                 $button = $buttonBuilder
-                    ->createComposite('button', ['type' => "button", 'value' => "Add Employee", 'class' => "btn btn-primary mb-3", 'id' => "AddEmployeeButton"])
+                    ->createComposite()
+                    ->composite()
+                    ->createComposite('button', ['type' => "button", 'value' => "Add Employee", 'class' => "float-button p-3 mb-4", 'id' => "AddEmployeeButton"])
+                    ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
+                    ->get()
                     ->getComposite();
                 return $button;
                 break;
             case 'Drivers':
                 if ($_SESSION['position'] == 'admin') {
                     $button = $buttonBuilder
-                        ->createComposite('button', ['type' => "button", 'value' => "Add Driver", 'class' => "btn btn-primary mb-3", 'id' => "AddDriverButton"])
+                        ->createComposite()
+                        ->composite()
+                        ->createComposite('button', ['type' => "button", 'value' => "Add Driver", 'class' => "float-button p-3 mb-4", 'id' => "AddDriverButton"])
+                        ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
+                        ->get()
                         ->getComposite();
                 } else {
                     $button = $buttonBuilder->createComposite()->getComposite();
@@ -599,7 +599,11 @@ class HTMLBuilder
                 break;
             case 'Vehicles':
                 $button = $buttonBuilder
-                    ->createComposite('button', ['type' => "button", 'value' => "Add Vehicle", 'class' => "btn btn-primary mb-3", 'id' => "AddVehicleButton"])
+                    ->createComposite()
+                    ->composite()
+                    ->createComposite('button', ['type' => "button", 'value' => "Add Vehicle", 'class' => "float-button p-3 mb-4", 'id' => "AddVehicleButton"])
+                    ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
+                    ->get()
                     ->getComposite();
                 return $button;
                 break;
