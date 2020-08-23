@@ -123,7 +123,7 @@ class VPMO extends Requester
      * @return void
      *
      */
-    public function cancelRequest($requestID)
+    public function cancelScheduledRequest($requestID)
     {
         $request = VPMORequestFactory::makeRequest($requestID);
         $request->cancel();

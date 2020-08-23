@@ -556,7 +556,7 @@ class HTMLBuilder
                 $button = $buttonBuilder
                     ->createComposite()
                     ->composite()
-                    ->createComposite('button', ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton"])
+                    ->createComposite('button', ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton","data-title"=>"New Request"])
                     ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
                     ->get()
                     ->getComposite();
@@ -577,7 +577,7 @@ class HTMLBuilder
                 $button = $buttonBuilder
                     ->createComposite()
                     ->composite()
-                    ->createComposite('button', ['type' => "button", 'value' => "Add Employee", 'class' => "float-button p-3 mb-4", 'id' => "AddEmployeeButton"])
+                    ->createComposite('button', ['type' => "button", 'value' => "Add Employee", 'class' => "float-button p-3 mb-4", 'id' => "AddEmployeeButton","data-title"=>"New Employee"])
                     ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
                     ->get()
                     ->getComposite();
@@ -588,7 +588,7 @@ class HTMLBuilder
                     $button = $buttonBuilder
                         ->createComposite()
                         ->composite()
-                        ->createComposite('button', ['type' => "button", 'value' => "Add Driver", 'class' => "float-button p-3 mb-4", 'id' => "AddDriverButton"])
+                        ->createComposite('button', ['type' => "button", 'value' => "Add Driver", 'class' => "float-button p-3 mb-4", 'id' => "AddDriverButton","data-title"=>"New Driver"])
                         ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
                         ->get()
                         ->getComposite();
@@ -601,7 +601,7 @@ class HTMLBuilder
                 $button = $buttonBuilder
                     ->createComposite()
                     ->composite()
-                    ->createComposite('button', ['type' => "button", 'value' => "Add Vehicle", 'class' => "float-button p-3 mb-4", 'id' => "AddVehicleButton"])
+                    ->createComposite('button', ['type' => "button", 'value' => "Add Vehicle", 'class' => "float-button p-3 mb-4", 'id' => "AddVehicleButton","data-title"=>"New Vehicle"])
                     ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
                     ->get()
                     ->getComposite();

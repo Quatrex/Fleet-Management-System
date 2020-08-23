@@ -34,8 +34,8 @@
     transition: opacity 500ms ease-in;
 }
 
-.float-button:hover:before {
-    content: 'New Request';
+.float-button[data-title]:hover:before {
+    content: attr(data-title);
     position: absolute;
     opacity: 1;
     right: 66px;
