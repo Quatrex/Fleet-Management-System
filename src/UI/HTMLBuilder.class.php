@@ -420,12 +420,12 @@ class HTMLBuilder
                     ->createComposite('div', ['class' => $tabClass, 'role' => 'tabpanel']);
             } else {
                 $this->compositeBuilder
-                    ->createComposite('div', ['class' => $tabClass, 'id' => $tabids[$i] . 'MainTab', 'role' => 'tabpanel']);
+                    ->createComposite('div', ['class' => $tabClass, 'id' => $tabids[$i] . 'MainTab', 'role' => 'tabpanel'])
+                    ->addToContent($this->getButtonForSecTab($tabids[$i]));
             }
 
             $tabCom = $this->compositeBuilder
                 ->addArrayToContent([$this->secNavList[$i], $this->secTabs[$i]])
-                ->addToContent($this->getButtonForSecTab($tabids[$i]))
                 ->getComposite();
             array_push($mainTabComList, $tabCom);
         }
