@@ -1,6 +1,6 @@
 <?php
 
-use Employee\Factory\Privileged\VPMO;
+use Input\Input;
 
 include_once '../includes/autoloader.inc.php';
 
@@ -14,9 +14,9 @@ if (!isset($_SESSION['employee'])) {
 // if($_SESSION['employee'] !== VPMO::class)
 //     die("Only VPMO is authorized to generate a handout slip.");
 
-if (!isset($_GET['id'])) {
+if (!Input::exists('get')) {
     header('Location: ../Layout/404.php');
     exit;
 }
 $employee = $_SESSION['employee'];
-$employee->generateVehicleHandoutSlip((int)$_GET['id']);
+$employee->generateVehicleHandoutSlip((int)Input::get('id'));
