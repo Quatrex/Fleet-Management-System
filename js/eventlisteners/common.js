@@ -1,7 +1,7 @@
 const requestsByMeStore = new Store('requestsByMe');
 const ongoingRequestsStore = new Store('ongoingRequests');
 const pastRequestsStore = new Store('pastRequests');
-
+const UserStore = new User();
 
 const CancelRequestAlertClose = new DisplayNextButton('CancelRequestAlert_Close');
 const CancelRequestAlertCancel = new DisplayNextButton('CancelRequestAlert_Cancel');
@@ -50,7 +50,7 @@ const RequestHistoryPreviewPopup = new Popup('RequestHistoryPreviewPopup', [Requ
 
 const ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePictureForm_Close');
 const ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');
-const ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture')]);
+const ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture',ActionCreator([UserStore], "UPDATE"))]);
 const ChangeProfilePicturePopup = new Popup('ChangeProfilePictureForm', [ChangeProfilePicturePopupClose, ChangeProfilePicturePopupCancel, ChangeProfilePicturePopupSubmit]);
 
 const UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');

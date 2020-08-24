@@ -10,6 +10,42 @@ class DOMButton {
 	}
 }
 
+class User {
+	constructor() {
+		this.popupPropertyName = {
+			FirstName: '.UserFirstName',
+			LastName: '.UserLastName',
+			ProfilePicturePath: '.UserProfilePicture',
+			Email: '.UserEmail',
+			ContactNo: '.UserContactNo',
+			Designation: '.UserDesignation',
+		};
+	}
+	dispatch(object) {
+		let objFields = Object.getOwnPropertyNames(object.payload);
+		objFields.forEach((field) => {
+			document.querySelectorAll(this.popupPropertyName[field]).forEach((element) => {
+				if (field != 'ProfilePicturePath') {
+					element.value = '';
+				}
+			});
+		});
+		objFields.forEach((field) => {
+			document.querySelectorAll(this.popupPropertyName[field]).forEach((element) => {
+				if (field == 'ProfilePicturePath') {
+					if (object[field] != '') {
+						element.src = object.payload[field];
+					} else {
+						element.src = `../images/profilePictures/default-profile.png`;
+					}
+				} else {
+					element.value += object.payload[key] + ' ';
+				}
+			});
+		});
+	}
+}
+
 class MainTab {
 	constructor(id, mainTabButtons, defaultButton) {
 		this.id = id;
@@ -193,11 +229,10 @@ class DOMContainer {
 			}
 		} else {
 			let offset = this.store.getOffset();
-			if(offset == 0){
+			if (offset == 0) {
 				this.store.loadData(trigger);
-			}
-			else{
-				if(offset%5==0){
+			} else {
+				if (offset % 5 == 0) {
 					if (this.loadMoreButton.classList.contains('d-none')) {
 						this.loadMoreButton.classList.remove('d-none');
 					}

@@ -501,3 +501,111 @@
         </div>
     </div>
 </div>
+
+<div class="popup" id="UserProfilePopup">
+    <!-- User Profile content -->
+    <div class="popup-content">
+        <div class="popup-header">
+            <span class="close" id="UserProfilePopup_Close">&times;</span>
+            <h2>My Profile</h2>
+            <hr>
+        </div>
+        <div class="popup-body">
+            <div>
+                <div class="center" style="text-align: center; ">
+                    <img src="<?php echo $employee->getField('profilePicturePath') != null ? "../images/profilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; ?>" class="form-image ProfilePicture UserProfilePicture" style="padding:5px; width:600p;text-align: center; cursor:pointer" id="change-profile-picture-button">
+                </div>
+                <!-- <div class="row">
+                    <div class="small-12 medium-2 large-2 columns">
+                        <div class="circle">
+                            <img src="<?php //echo $employee->getField('profilePicturePath') != null ? "../images/userProfilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; 
+                                        ?>" class="form-image ProfilePicture" id="change-profile-picture-button">
+                        </div>
+                        <div class="p-image">
+                            <i class="fa fa-camera upload-button"></i>
+                            <input class="file-upload" type="file" accept="image/*" />
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <button class="btn btn-link" id="change-profile-picture-button">Change Profile Picture</button>
+                    </div>
+                </div> -->
+            </div>
+            <div id="submit-form-wrapper">
+                <div class="basic-form">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Name</label>
+                                <div class="input-group">
+                                    <input class="form-control py-2 border-right-0 border UserFirstName UserLastName" type="text" value='<?php echo $employee->getfield('firstName') . ' ' . $employee->getfield('lastName'); ?>' disabled>
+                                </div>
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Email</label>
+                                <div class="input-group">
+                                    <input class="form-control py-2 border-right-0 border UserEmail" type="text" value="<?php echo $employee->getfield('email'); ?>" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Contact Number</label>
+                                <div class="input-group">
+                                    <input class="form-control py-2 border-right-0 border UserContactNo" type="text" value="Contacts Number" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Designation</label>
+                                <div class="input-group">
+                                    <input class="form-control py-2 border-right-0 border UserDesignation" type="text" value="<?php echo $employee->getfield('designation'); ?>" disabled>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <a id="change-password-button" style="cursor:pointer; color:royalblue">Change password</a>
+                            </div>
+                        </div>
+                        <button class="btn btn-dark" id="user-profile-confirm">Confirm</button>
+                        <button class="btn btn-dark" id="user-profile-edit">Edit</button>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- change profile picture -->
+<div id="ChangeProfilePictureForm" class="popup">
+    <div class="popup-content">
+        <div class="popup-header">
+            <span class="close" id="ChangeProfilePictureForm_Close">&times;</span>
+            <h2>Change Profile Picture</h2>
+            <hr>
+        </div>
+        <div class="popup-body">
+            <div class="modal-body">
+                <form id="ChangeProfilePicture_Form" method="post" enctype="multipart/form-data">
+                    <strong>Upload Image:</strong> <br><br>
+                    <input type="file" name="Image" id="ChangeProfilePicture" class="inputs file-upload" data-imageid="preview-profile-pic" accept="image/png, .jpeg, .jpg, image/gif" />
+                    <input class="inputs" type="hidden" name="Method" value='ChangeProfilePicture' disabled>
+                    <div class="col" style="text-align: center;">
+                        <img id='preview-profile-pic' class="form-image ProfilePicture UserProfilePicture" src="<?php echo $employee->getField('profilePicturePath') != null ? "../images/profilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; ?>" style="padding:5px; width:50%;"></img>
+                    </div>
+                    <input type="button" value="Save" class="btn btn-primary" id="ChangeProfilePictureForm_Submit">
+                    <input type="button" value="Close" class="btn btn-primary" id="ChangeProfilePictureForm_Cancel">
+                </form>
+            </div>
+        </div>
+        <div class="popup-footer">
+
+        </div>
+    </div>
+</div>

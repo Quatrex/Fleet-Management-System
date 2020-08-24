@@ -280,7 +280,7 @@ switch ($method) {
 			if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
 				$emp = $employee->UpdateProfilePicture(['ProfilePicturePath' => $profileImageName]);
 				$object['error'] = false;
-				$object['object'] = $target_file;
+				$object['object'] = [['ProfilePicturePath'=>$target_file]];
 				$object['message'] = "success_Employee " . " successfully updated profile picture";
 			} else {
 				$object['message'] = "There was an error uploading the file";

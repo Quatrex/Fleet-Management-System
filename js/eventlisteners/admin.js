@@ -1,5 +1,6 @@
-const employeeStore = new Store('employees', 'empID','EmpID');
+const employeeStore = new Store('employees', 'empID','FirstName');
 const driverStore = new Store('drivers', 'DriverID','DriverID');
+const UserStore = new User();
 
 //Add a employee
 const EmployeeAddFormClose = new DisplayNextButton('EmployeeAddForm_Close');
@@ -95,6 +96,18 @@ const DriverProfileFormPopup = new Popup('DriverProfileForm', [
 DriverProfileFormPopup.setDataType('value');
 DriverProfileEditFormCancel.setNext(DriverProfileFormPopup);
 
+const ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePictureForm_Close');
+const ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');
+const ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture',ActionCreator([UserStore], "UPDATE"))]);
+const ChangeProfilePicturePopup = new Popup('ChangeProfilePictureForm', [ChangeProfilePicturePopupClose, ChangeProfilePicturePopupCancel, ChangeProfilePicturePopupSubmit]);
+
+const UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');
+const UserProfilePictureChange = new DisplayNextButton('change-profile-picture-button', ChangeProfilePicturePopup);
+const UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, UserProfilePictureChange]);
+
+
+
+const UserProfileEditButton = new DOMButton('UserProfileEditButton', UserProfilePopup)
 const AddEmployeeButton = new DOMButton('AddEmployeeButton', EmployeeAddFormPopup);
 const AddDriverButton = new DOMButton('AddDriverButton', DriverAddFormPopup);
 const employeeContainer = new DOMContainer(
@@ -103,6 +116,7 @@ const employeeContainer = new DOMContainer(
     employeeStore,
     'employeeCardTemplate'
 );
+
 const driverContainer = new DOMContainer('driverContainer', DriverProfileFormPopup, driverStore, 'driverCardTemplate');
 
 const driverTab = new DOMTabContainer('DriversSecTab', driverContainer);

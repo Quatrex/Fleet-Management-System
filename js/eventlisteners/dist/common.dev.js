@@ -3,6 +3,7 @@
 var requestsByMeStore = new Store('requestsByMe');
 var ongoingRequestsStore = new Store('ongoingRequests');
 var pastRequestsStore = new Store('pastRequests');
+var UserStore = new User();
 var CancelRequestAlertClose = new DisplayNextButton('CancelRequestAlert_Close');
 var CancelRequestAlertCancel = new DisplayNextButton('CancelRequestAlert_Cancel');
 var CancelRequestAlertConfirm = new DisplayNextButton('CancelRequestAlert_Confirm', {}, [RemoveAllPopup]);
@@ -41,12 +42,12 @@ var PendingRequestPreviewRequestCancel = new DisplayAlertButton('PendingRequestP
 var PendingRequestPreviewPopup = new Popup('PendingRequestPreviewPopup', [PendingRequestPreviewClose, PendingRequestPreviewRequestCancel]);
 var RequestHistoryPreviewClose = new DisplayNextButton('RequestHistoryPreview_Close');
 var RequestHistoryPreviewPopup = new Popup('RequestHistoryPreviewPopup', [RequestHistoryPreviewClose], ['click'], {
-  'Vehicle': ['registration'],
-  'Driver': ['firstName', 'lastName']
+  'Vehicle': ['RegistrationNo'],
+  'Driver': ['FirstName', 'LastName']
 });
 var ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePictureForm_Close');
 var ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');
-var ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture')]);
+var ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture', ActionCreator([UserStore], "UPDATE"))]);
 var ChangeProfilePicturePopup = new Popup('ChangeProfilePictureForm', [ChangeProfilePicturePopupClose, ChangeProfilePicturePopupCancel, ChangeProfilePicturePopupSubmit]);
 var UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');
 var UserProfilePictureChange = new DisplayNextButton('change-profile-picture-button', ChangeProfilePicturePopup);
