@@ -704,8 +704,8 @@
                             <div class="form-group col-md-6">
                                 <label>Confirm New Password</label>
                                 <div class="input-group">
-                                    <input class="form-control inputs py-2 border-right-0 border" id="ConfirmNewPassword-ChangePasswordForm" type="password" name="ConfirmNewPassword" required>
-                                    <div id="ConfirmNewPassword-error" class="text-danger"></div>
+                                    <input class="form-control inputs py-2 border-right-0 border" id="RetypeNewPassword-ChangePasswordForm" type="password" name="RetypeNewPassword" required>
+                                    <div id="RetypeNewPassword-error" class="text-danger"></div>
                                 </div>
                             </div>
                         </div>
