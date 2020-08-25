@@ -50,6 +50,54 @@ function () {
   return DOMButton;
 }();
 
+var User =
+/*#__PURE__*/
+function () {
+  function User() {
+    _classCallCheck(this, User);
+
+    this.popupPropertyName = {
+      FirstName: '.UserFirstName',
+      LastName: '.UserLastName',
+      ProfilePicturePath: '.UserProfilePicture',
+      Email: '.UserEmail',
+      ContactNo: '.UserContactNo',
+      Designation: '.UserDesignation'
+    };
+  }
+
+  _createClass(User, [{
+    key: "dispatch",
+    value: function dispatch(object) {
+      var _this = this;
+
+      var objFields = Object.getOwnPropertyNames(object.payload);
+      objFields.forEach(function (field) {
+        document.querySelectorAll(_this.popupPropertyName[field]).forEach(function (element) {
+          if (field != 'ProfilePicturePath') {
+            element.value = '';
+          }
+        });
+      });
+      objFields.forEach(function (field) {
+        document.querySelectorAll(_this.popupPropertyName[field]).forEach(function (element) {
+          if (field == 'ProfilePicturePath') {
+            if (object[field] != '') {
+              element.src = object.payload[field];
+            } else {
+              element.src = "../images/profilePictures/default-profile.png";
+            }
+          } else {
+            element.value += object.payload[key] + ' ';
+          }
+        });
+      });
+    }
+  }]);
+
+  return User;
+}();
+
 var MainTab =
 /*#__PURE__*/
 function () {
@@ -250,12 +298,14 @@ function () {
   }, {
     key: "update",
     value: function update(action) {
-      var _this = this;
+      var _this2 = this;
+
+      console.log(action.type);
 
       if (action.type == 'ADD') {
         this.finishLoadContent(action.payload.length, action.type);
         action.payload.forEach(function (object) {
-          return _this.insertEntry(object);
+          return _this2.insertEntry(object);
         });
       } else if (action.type == 'DELETE') {
         this.deleteEntry(action.payload);
@@ -265,7 +315,7 @@ function () {
         this.updateEntry(action.payload);
       } else if (action.type == 'APPEND') {
         action.payload.forEach(function (object) {
-          return _this.appendEntry(object);
+          return _this2.appendEntry(object);
         });
         this.finishLoadContent(action.payload.length);
       }
@@ -280,7 +330,7 @@ function () {
           this.loadMoreButton.classList.remove('active');
         }
 
-        if (len < 5) {
+        if (len < 5 && !this.store.selectionSearch) {
           if (!this.loadMoreButton.classList.contains('d-none')) {
             this.loadMoreButton.classList.add('d-none');
           }
@@ -319,7 +369,17 @@ function () {
           this.store.loadData(trigger, method);
         }
       } else {
-        this.store.loadData(trigger);
+        var offset = this.store.getOffset();
+
+        if (offset == 0) {
+          this.store.loadData(trigger);
+        } else {
+          if (offset % 5 == 0) {
+            if (this.loadMoreButton.classList.contains('d-none')) {
+              this.loadMoreButton.classList.remove('d-none');
+            }
+          }
+        }
       }
     }
   }, {
@@ -514,10 +574,14 @@ function () {
     key: "updateEntry",
     value: function updateEntry(object) {
       var entry = document.getElementById("".concat(this.cardId, "_").concat(object[this.store.getObjIdType()]));
+      console.log(entry);
+      console.log("".concat(this.cardId, "_").concat(object[this.store.getObjIdType()]));
 
       if (entry != 'undefined' && entry != null) {
         var objFields = Object.getOwnPropertyNames(object);
         objFields.forEach(function (field) {
+          console.log(field);
+
           if (entry.querySelector(".".concat(field))) {
             if (field.includes('PicturePath')) {
               var path = '';
@@ -544,23 +608,23 @@ function (_DOMContainer) {
   _inherits(SelectionTable, _DOMContainer);
 
   function SelectionTable(id, popup, store, templateId, button, selectField) {
-    var _this2;
+    var _this3;
 
     var nextField = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : '';
     var nextFieldId = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : '';
 
     _classCallCheck(this, SelectionTable);
 
-    _this2 = _possibleConstructorReturn(this, _getPrototypeOf(SelectionTable).call(this, id, popup, store, templateId));
-    _this2.selectField = selectField;
-    _this2.button = button;
+    _this3 = _possibleConstructorReturn(this, _getPrototypeOf(SelectionTable).call(this, id, popup, store, templateId));
+    _this3.selectField = selectField;
+    _this3.button = button;
 
-    _this2.cardContainer.removeEventListener('click', _assertThisInitialized(_this2));
+    _this3.cardContainer.removeEventListener('click', _assertThisInitialized(_this3));
 
-    _this2.style = 'selected';
-    _this2.nextField = nextField;
-    _this2.nextFieldId = nextFieldId;
-    return _this2;
+    _this3.style = 'selected';
+    _this3.nextField = nextField;
+    _this3.nextFieldId = nextFieldId;
+    return _this3;
   }
 
   _createClass(SelectionTable, [{
@@ -571,7 +635,7 @@ function (_DOMContainer) {
   }, {
     key: "update",
     value: function update(action) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (action.type == 'ADD') {
         _get(_getPrototypeOf(SelectionTable.prototype), "insertEntry", this).call(this, action.payload[0]);
@@ -585,7 +649,7 @@ function (_DOMContainer) {
         _get(_getPrototypeOf(SelectionTable.prototype), "updateEntry", this).call(this, action.payload);
       } else if (action.type == 'APPEND') {
         action.payload.forEach(function (object) {
-          return _get(_getPrototypeOf(SelectionTable.prototype), "appendEntry", _this3).call(_this3, object);
+          return _get(_getPrototypeOf(SelectionTable.prototype), "appendEntry", _this4).call(_this4, object);
         });
 
         _get(_getPrototypeOf(SelectionTable.prototype), "finishLoadContent", this).call(this, action.payload.length);
@@ -670,7 +734,7 @@ function (_DOMContainer) {
   }, {
     key: "toggleStyle",
     value: function toggleStyle(tableRowId) {
-      var _this4 = this;
+      var _this5 = this;
 
       var tableRow = document.getElementById(tableRowId);
       var rows = this.cardContainer.querySelectorAll('tr');
@@ -679,23 +743,23 @@ function (_DOMContainer) {
       if (tableRow) {
         rows.forEach(function (element) {
           if (element === tableRow) {
-            element.classList.toggle(_this4.style);
+            element.classList.toggle(_this5.style);
 
-            if (element.classList.contains(_this4.style)) {
-              _this4.button.removeProperty('disabled');
+            if (element.classList.contains(_this5.style)) {
+              _this5.button.removeProperty('disabled');
 
               hasSelected = true;
             }
           } else {
-            if (element.classList.contains(_this4.style)) {
-              element.classList.remove(_this4.style);
+            if (element.classList.contains(_this5.style)) {
+              element.classList.remove(_this5.style);
             }
           }
         });
       } else {
         rows.forEach(function (element) {
-          if (element.classList.contains(_this4.style)) {
-            element.classList.remove(_this4.style);
+          if (element.classList.contains(_this5.style)) {
+            element.classList.remove(_this5.style);
           }
         });
       }
@@ -756,7 +820,7 @@ function () {
   }, {
     key: "render",
     value: function render(object) {
-      var _this5 = this;
+      var _this6 = this;
 
       this.object = object; // console.log(this.object);
 
@@ -765,8 +829,8 @@ function () {
         input.value = '';
         input.classList.remove('invalid-details', 'warning-details');
 
-        if (_this5.popup.querySelector("#".concat(input.name, "-error"))) {
-          _this5.popup.querySelector("#".concat(input.name, "-error")).innerHTML = null;
+        if (_this6.popup.querySelector("#".concat(input.name, "-error"))) {
+          _this6.popup.querySelector("#".concat(input.name, "-error")).innerHTML = null;
         }
       });
       this.dataType == 'innerHTML' ? changeInnerHTML(object, this.id, this.objectFields) : changeValue(object, this.id);
@@ -779,17 +843,17 @@ function () {
       }
 
       this.eventTypes.forEach(function (type) {
-        _this5.popup.addEventListener(type, _this5);
+        _this6.popup.addEventListener(type, _this6);
       });
       this.popup.style.display = 'block';
     }
   }, {
     key: "removeFromDOM",
     value: function removeFromDOM() {
-      var _this6 = this;
+      var _this7 = this;
 
       this.eventTypes.forEach(function (type) {
-        _this6.popup.removeEventListener(type, _this6);
+        _this7.popup.removeEventListener(type, _this7);
       });
       this.popup.style.display = 'none';
     }
@@ -852,8 +916,8 @@ function () {
   _createClass(PopupButton, [{
     key: "initializeProperties",
     value: function initializeProperties() {
-      for (var key in this.properties) {
-        document.getElementById(this.id).setAttribute(key, this.properties[key]);
+      for (var _key in this.properties) {
+        document.getElementById(this.id).setAttribute(_key, this.properties[_key]);
       }
     }
   }, {
@@ -877,7 +941,7 @@ function (_PopupButton) {
   _inherits(DisplayNextButton, _PopupButton);
 
   function DisplayNextButton(id) {
-    var _this7;
+    var _this8;
 
     var next = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var eventHandleHelpers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
@@ -885,9 +949,9 @@ function (_PopupButton) {
 
     _classCallCheck(this, DisplayNextButton);
 
-    _this7 = _possibleConstructorReturn(this, _getPrototypeOf(DisplayNextButton).call(this, id, next, properties));
-    _this7.eventHandleHelpers = eventHandleHelpers;
-    return _this7;
+    _this8 = _possibleConstructorReturn(this, _getPrototypeOf(DisplayNextButton).call(this, id, next, properties));
+    _this8.eventHandleHelpers = eventHandleHelpers;
+    return _this8;
   }
 
   _createClass(DisplayNextButton, [{
@@ -931,7 +995,7 @@ function (_PopupButton2) {
   _inherits(OpenNewWindowButton, _PopupButton2);
 
   function OpenNewWindowButton(id) {
-    var _this8;
+    var _this9;
 
     var next = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var eventHandleHelpers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
@@ -939,9 +1003,9 @@ function (_PopupButton2) {
 
     _classCallCheck(this, OpenNewWindowButton);
 
-    _this8 = _possibleConstructorReturn(this, _getPrototypeOf(OpenNewWindowButton).call(this, id, next, properties));
-    _this8.eventHandleHelpers = eventHandleHelpers;
-    return _this8;
+    _this9 = _possibleConstructorReturn(this, _getPrototypeOf(OpenNewWindowButton).call(this, id, next, properties));
+    _this9.eventHandleHelpers = eventHandleHelpers;
+    return _this9;
   }
 
   _createClass(OpenNewWindowButton, [{
@@ -1037,7 +1101,7 @@ function (_PopupButton5) {
   _inherits(ValidatorButton, _PopupButton5);
 
   function ValidatorButton(id) {
-    var _this9;
+    var _this10;
 
     var next = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var eventHandleHelpers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
@@ -1045,9 +1109,9 @@ function (_PopupButton5) {
 
     _classCallCheck(this, ValidatorButton);
 
-    _this9 = _possibleConstructorReturn(this, _getPrototypeOf(ValidatorButton).call(this, id, next, properties));
-    _this9.eventHandleHelpers = eventHandleHelpers;
-    return _this9;
+    _this10 = _possibleConstructorReturn(this, _getPrototypeOf(ValidatorButton).call(this, id, next, properties));
+    _this10.eventHandleHelpers = eventHandleHelpers;
+    return _this10;
   }
 
   _createClass(ValidatorButton, [{
@@ -1096,7 +1160,7 @@ function (_PopupButton6) {
   _inherits(SearchButton, _PopupButton6);
 
   function SearchButton(id) {
-    var _this10;
+    var _this11;
 
     var next = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var eventHandleHelpers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
@@ -1104,9 +1168,9 @@ function (_PopupButton6) {
 
     _classCallCheck(this, SearchButton);
 
-    _this10 = _possibleConstructorReturn(this, _getPrototypeOf(SearchButton).call(this, id, next, properties));
-    _this10.eventHandleHelpers = eventHandleHelpers;
-    return _this10;
+    _this11 = _possibleConstructorReturn(this, _getPrototypeOf(SearchButton).call(this, id, next, properties));
+    _this11.eventHandleHelpers = eventHandleHelpers;
+    return _this11;
   }
 
   _createClass(SearchButton, [{
@@ -1323,7 +1387,7 @@ var changeInnerHTML = function changeInnerHTML(object, id) {
         tag.innerHTML = '';
         var fields = objectFields[objProps[i]];
         fields.forEach(function (field) {
-          tag.innerHTML += object[objProps[i]][field];
+          tag.innerHTML += " ".concat(object[objProps[i]][field]);
         });
       }
     });
@@ -1416,6 +1480,10 @@ var Database = {
       processData: false,
       cache: false,
       success: function success(returnArr) {
+        returnArr = JSON.parse(returnArr);
+        console.log(returnArr.object);
+        console.log(returnArr);
+
         if (Object.keys(actionCreater).length != 0) {
           actionCreater.updateStores(object, returnArr.object[0]);
         }

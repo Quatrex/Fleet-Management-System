@@ -14,12 +14,8 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.login-box {
-    max-width: 700px;
-    float: none;
-    margin: 150px auto;
-    background-color: (211, 211, 211, 0.5);
-    padding: 30px;
+.card-register {
+    max-width: 600px;
 }
 
 .login form input[type="submit"] {
@@ -121,4 +117,13 @@
 
 form .row:first-child .floating-label-form-group {
     border-top: 1px solid #e9ecef;
+}
+
+.field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-top: -28px;
+    margin-right: 10px;
+    position: relative;
+    z-index: 2;
 }

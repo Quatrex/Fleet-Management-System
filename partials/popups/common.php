@@ -573,7 +573,7 @@
         <div class="popup-body">
             <div>
                 <div class="center" style="text-align: center; ">
-                    <img src="<?php echo $employee->getField('profilePicturePath') != null ? "../images/profilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; ?>" class="form-image ProfilePicture" style="padding:5px; width:600p;text-align: center; cursor:pointer" id="change-profile-picture-button">
+                    <img src="<?php echo $employee->getField('profilePicturePath') != null ? "../images/profilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; ?>" class="form-image ProfilePicture UserProfilePicture" style="padding:5px; width:600p;text-align: center; cursor:pointer" id="UserProfilePictureChange">
                 </div>
                 <!-- <div class="row">
                     <div class="small-12 medium-2 large-2 columns">
@@ -600,14 +600,14 @@
                             <div class="form-group col-md-6">
                                 <label>Name</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" type="text" value='<?php echo $employee->getfield('firstName') . ' ' . $employee->getfield('lastName'); ?>' disabled>
+                                    <input class="form-control py-2 border-right-0 border UserFirstName UserLastName" type="text" value='<?php echo $employee->getfield('firstName') . ' ' . $employee->getfield('lastName'); ?>' disabled>
                                 </div>
 
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Email</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" type="text" value="<?php echo $employee->getfield('email'); ?>" disabled>
+                                    <input class="form-control py-2 border-right-0 border UserEmail" type="text" value="<?php echo $employee->getfield('email'); ?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -615,20 +615,20 @@
                             <div class="form-group col-md-6">
                                 <label>Contact Number</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" type="text" value="Contacts Number" disabled>
+                                    <input class="form-control py-2 border-right-0 border UserContactNo" type="text" value="Contacts Number" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Designation</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" type="text" value="<?php echo $employee->getfield('designation'); ?>" disabled>
+                                    <input class="form-control py-2 border-right-0 border UserDesignation" type="text" value="<?php echo $employee->getfield('designation'); ?>" disabled>
                                 </div>
                             </div>
 
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-auto">
-                                <a id="change-password-button" style="cursor:pointer; color:royalblue">Change password</a>
+                                <a id="UserPasswordChange" style="cursor:pointer; color:royalblue">Change password</a>
                             </div>
                         </div>
                         <button class="btn btn-dark" id="user-profile-confirm">Confirm</button>
@@ -657,7 +657,7 @@
                     <input type="file" name="Image" id="ChangeProfilePicture" class="inputs file-upload" data-imageid="preview-profile-pic" accept="image/png, .jpeg, .jpg, image/gif" />
                     <input class="inputs" type="hidden" name="Method" value='ChangeProfilePicture' disabled>
                     <div class="col" style="text-align: center;">
-                        <img id='preview-profile-pic' class="form-image ProfilePicture" src="<?php echo $employee->getField('profilePicturePath') != null ? "../images/profilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; ?>" style="padding:5px; width:50%;"></img>
+                        <img id='preview-profile-pic' class="form-image ProfilePicture UserProfilePicture" src="<?php echo $employee->getField('profilePicturePath') != null ? "../images/profilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; ?>" style="padding:5px; width:50%;"></img>
                     </div>
                     <input type="button" value="Save" class="btn btn-primary" id="ChangeProfilePictureForm_Submit">
                     <input type="button" value="Close" class="btn btn-primary" id="ChangeProfilePictureForm_Cancel">
@@ -671,39 +671,49 @@
 </div>
 
 <!--Change my password popup-->
-<div class="popup" id="change-password">
-    <!-- change password content -->
+<div class="popup" id="ChangePasswordForm">
+    <!-- Request Form content -->
     <div class="popup-content">
-
         <div class="popup-header">
-            <span class="close" id="change-password-close">&times;</span>
-            <h2 id="change-password-header">Enter Your Password</h2>
+            <span class="close" id="ChangePasswordForm_Close">&times;</span>
+            <h2>Change Password</h2>
             <hr>
         </div>
-
-        <div class="popup-body" id="change-password-body">
-
-            <div class="col" style="text-align: center;">
-                <!--Form-password-->
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="col-md">
-                            <div id="password-input">
-                                <input type="password" name="current-password" class="form-control" id="current-password-input" placeholder="Enter your current password..." required autocomplete="off">
+        <div class="popup-body">
+            <div id="submit-form-wrapper">
+                <div class="basic-form">
+                    <form id="ChangePassword_form">
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label>Current Password</label>
+                                <div class="input-group">
+                                    <input class="form-control inputs py-2 border-right-0 border" id="CurrentPassword-ChangePasswordForm" type="password" name="CurrentPassword" required>
+                                    <div id="CurrentPassword-error" class="text-danger"></div>
+                                </div>
                             </div>
-                            <div id="password-error" style="color:red; text-align:left"></div>
                         </div>
-                    </div>
-                </div>
-                <div style="text-align: right;">
-                    <input type="button" value="Cancel" class="btn btn-link" id="change-password-cancel-button">
-                    <button type="button" class="btn btn-primary " name="password-submit" id="check-my-password-button">Next</button>
+                        <div class="form-group row">
+                            <div class="form-group col-md-6">
+                                <label>New Password</label>
+                                <div class="input-group">
+                                    <input class="form-control inputs py-2 border-right-0 border" id="NewPassword-ChangePasswordForm" type="password" name="NewPassword" required>
+                                    <div id="NewPassword-error" class="text-danger"></div>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Confirm New Password</label>
+                                <div class="input-group">
+                                    <input class="form-control inputs py-2 border-right-0 border" id="RetypeNewPassword-ChangePasswordForm" type="password" name="RetypeNewPassword" required>
+                                    <div id="RetypeNewPassword-error" class="text-danger"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <span class="d-inline-block" id="edit-confirm-tooltip" data-toggle="tooltip" title="Make changes to enable"><input type="button" class="btn btn-success" value="Change" id="ChangePasswordForm_Submit"></span>
+                    <input type="button" value="Cancel" class="btn btn-primary" id="ChangePasswordForm_Cancel">
                 </div>
             </div>
-
-        </div>
-        <div class="popup-footer">
-
         </div>
     </div>
 </div>

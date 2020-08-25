@@ -13,13 +13,21 @@ $(document).ready(function() {
         document.querySelector('#password-input').className = 'form-control';
     });
 
-    $(function() {
-        $("body").on("input propertychange", ".floating-label-form-group", function(e) {
-            $(this).toggleClass("floating-label-form-group-with-value", !!$(e.target).val());
-        }).on("focus", ".floating-label-form-group", function() {
-            $(this).addClass("floating-label-form-group-with-focus");
-        }).on("blur", ".floating-label-form-group", function() {
-            $(this).removeClass("floating-label-form-group-with-focus");
-        });
+    $("body").on("input propertychange", ".floating-label-form-group", function(e) {
+        $(this).toggleClass("floating-label-form-group-with-value", !!$(e.target).val());
+    }).on("focus", ".floating-label-form-group", function() {
+        $(this).addClass("floating-label-form-group-with-focus");
+    }).on("blur", ".floating-label-form-group", function() {
+        $(this).removeClass("floating-label-form-group-with-focus");
+    });
+
+    $("body").on('click', '.toggle-password', function() {
+        $('.toggle-password').toggleClass("fa-eye fa-eye-slash");
+        var input = $("#password-input");
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
     });
 });

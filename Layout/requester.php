@@ -33,7 +33,7 @@ $_SESSION['pastRequests'] = $pastRequests;
         ->myRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests')
         ->myRequests($pastRequests, 'Past', 'Past Requests')
         ->buildSecTabBody(['PendingRequests', 'OngoingRequests', 'History'])
-        ->createMainNavHierachy()
+        ->createMainNavHierachy(['MyRequests'])
         ->show();
     ?>
 

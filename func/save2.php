@@ -173,6 +173,13 @@ switch ($method) {
 		$object['message'] = "success_Request " . Input::get('RequestId') . " successfully cancelled";
 		break;
 
+	case 'CancelScheduledRequest':
+		$request = $employee->cancelScheduledRequest(Input::get('RequestId'));
+		$object['error'] = false;
+		$object['object'] = $request;
+		$object['message'] = "success_Request " . Input::get('RequestId') . " successfully cancelled";
+		break;
+
 	case 'DeletePurchasedVehicle':
 		$vehicle = $employee->deletePurchasedVehicle(Input::get('registration'));
 		$object['error'] = false;
@@ -262,7 +269,7 @@ switch ($method) {
 
 		$profileImageName = time() . '-' . $_FILES["Image"]["name"];
 
-		$target_dir = "../images/userProfilePictures/";
+		$target_dir = "../images/profilePictures/";
 		$target_file = $target_dir . basename($profileImageName);
 
 		if (file_exists($target_file)) {
@@ -273,7 +280,7 @@ switch ($method) {
 			if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
 				$emp = $employee->UpdateProfilePicture(['ProfilePicturePath' => $profileImageName]);
 				$object['error'] = false;
-				$object['object'] = $target_file;
+				$object['object'] = [['ProfilePicturePath'=>$target_file]];
 				$object['message'] = "success_Employee " . " successfully updated profile picture";
 			} else {
 				$object['message'] = "There was an error uploading the file";
@@ -404,11 +411,6 @@ switch ($method) {
 		$object['error'] = false;
 		$object['request'] = $driver;
 		$object['message'] = "success_Driver " . Input::get('DriverID') . " successfully assigned " . Input::get('AssignedVehicle');
-		break;
-
-	case 'PrintSlip':
-		$employee->generateVehicleHandoutSlip(Input::get('RequestId'));
-		$object['message'] = "success_Printed Slip For" . Input::get('RequestId');
 		break;
 
 	case 'CancelTrip':

@@ -36,14 +36,22 @@ class VPMO extends Requester
      *
      * @return array{Request}
      */
-    public function getRequests(
-        $state,
-        int $offset,
-        array $sort = ['CreatedDate' => 'DESC'],
-        array $search = ['' => ['All']]
-    ): array {
+    public function getRequests($state,
+                                int $offset,
+                                array $sort = ['CreatedDate' => 'DESC'],
+                                array $search = ['' => ['All']]): array 
+    {
         $states = is_array($state) ? $state : [$state];
         return VPMORequestFactory::makeRequests($states, $offset, $sort, $search);
+    }
+
+    public function getMyScheduledRequests( $state,
+                                            int $offset,
+                                            array $sort = ['CreatedDate' => 'DESC'],
+                                            array $search = ['' => ['All']]): array 
+    {
+        $states = is_array($state) ? $state : [$state];
+        return VPMORequestFactory::makeScheduledRequests($this->empID, $states, $offset, $sort, $search);
     }
 
     /**
@@ -123,7 +131,7 @@ class VPMO extends Requester
      * @return void
      *
      */
-    public function cancelRequest($requestID)
+    public function cancelScheduledRequest($requestID)
     {
         $request = VPMORequestFactory::makeRequest($requestID);
         $request->cancel();

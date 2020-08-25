@@ -71,7 +71,7 @@ if (Input::exists()) {
 			break;
 
 		case 'Load_scheduledHistoryRequests':
-			$requests = $employee->getRequests(['scheduled', 'cancelled'], $offset, $sort, $search);
+			$requests = $employee->getMyScheduledRequests(['completed', 'cancelled'], $offset, $sort, $search);
 			$object['error'] = false;
 			$object['object'] = $requests;
 			break;
@@ -109,7 +109,7 @@ if (Input::exists()) {
 			// print_r($updatedDriver);
 			break;
 
-		case 'Load_employeess':
+		case 'Load_employees':
 			$employees = $employee->getAllPriviledgedEmployees($offset, $sort, $search);
 			$object['error'] = false;
 			$object['object'] = $employees;

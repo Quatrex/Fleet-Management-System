@@ -1,7 +1,7 @@
 const requestsByMeStore = new Store('requestsByMe');
 const ongoingRequestsStore = new Store('ongoingRequests');
 const pastRequestsStore = new Store('pastRequests');
-
+const UserStore = new User();
 
 const CancelRequestAlertClose = new DisplayNextButton('CancelRequestAlert_Close');
 const CancelRequestAlertCancel = new DisplayNextButton('CancelRequestAlert_Cancel');
@@ -46,16 +46,23 @@ const PendingRequestPreviewRequestCancel = new DisplayAlertButton('PendingReques
 const PendingRequestPreviewPopup = new Popup('PendingRequestPreviewPopup', [PendingRequestPreviewClose, PendingRequestPreviewRequestCancel]);
 
 const RequestHistoryPreviewClose = new DisplayNextButton('RequestHistoryPreview_Close');
-const RequestHistoryPreviewPopup = new Popup('RequestHistoryPreviewPopup', [RequestHistoryPreviewClose], ['click'], { 'Vehicle': ['registration'], 'Driver': ['firstName', 'lastName'] });
+const RequestHistoryPreviewPopup = new Popup('RequestHistoryPreviewPopup', [RequestHistoryPreviewClose], ['click'], { 'Vehicle': ['RegistrationNo'], 'Driver': ['FirstName', 'LastName'] });
 
 const ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePictureForm_Close');
 const ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');
-const ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture')]);
+const ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture', ActionCreator([UserStore], "UPDATE"))]);
 const ChangeProfilePicturePopup = new Popup('ChangeProfilePictureForm', [ChangeProfilePicturePopupClose, ChangeProfilePicturePopupCancel, ChangeProfilePicturePopupSubmit]);
 
+
+const ChangePasswordPopupClose = new DisplayNextButton('ChangePasswordForm_Close');
+const ChangePasswordPopupCancel = new DisplayNextButton('ChangePasswordForm_Cancel');
+const ChangePasswordPopupSubmit = new ValidatorButton('ChangePasswordForm_Submit', {}, [ObjectCreate, FormValidate, BackendAccess('ChangePassword')]);
+const ChangePasswordPopup = new Popup('ChangePasswordForm', [ChangePasswordPopupClose, ChangePasswordPopupCancel, ChangePasswordPopupSubmit]);
+
 const UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');
-const UserProfilePictureChange = new DisplayNextButton('change-profile-picture-button', ChangeProfilePicturePopup);
-const UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, UserProfilePictureChange]);
+const UserProfilePictureChange = new DisplayNextButton('UserProfilePictureChange', ChangeProfilePicturePopup);
+const UserPasswordChange = new DisplayNextButton('UserPasswordChange', ChangePasswordPopup);
+const UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, UserProfilePictureChange, UserPasswordChange]);
 
 const NewRequestButton = new DOMButton('NewRequestButton', VehicleRequestFormPopup)
 const UserProfileEditButton = new DOMButton('UserProfileEditButton', UserProfilePopup)

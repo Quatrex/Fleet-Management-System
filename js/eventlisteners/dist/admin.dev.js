@@ -1,7 +1,8 @@
 "use strict";
 
-var employeeStore = new Store('employees', 'empID');
-var driverStore = new Store('drivers', 'DriverID'); //Add a employee
+var employeeStore = new Store('employees', 'empID', 'FirstName');
+var driverStore = new Store('drivers', 'DriverID', 'DriverID');
+var UserStore = new User(); //Add a employee
 
 var EmployeeAddFormClose = new DisplayNextButton('EmployeeAddForm_Close');
 var EmployeeAddFormConfirm = new ValidatorButton('EmployeeAddForm_Confirm', {}, [ObjectCreate, FormValidate, BackendAccess('AddEmployee', ActionCreator([employeeStore], 'ADD'))]);
@@ -50,6 +51,14 @@ var DriverProfileFormDelete = new DisplayAlertButton('DriverProfileForm_Delete',
 var DriverProfileFormPopup = new Popup('DriverProfileForm', [DriverProfileFormEdit, DriverProfileFormClose, DriverProfileFormDelete]);
 DriverProfileFormPopup.setDataType('value');
 DriverProfileEditFormCancel.setNext(DriverProfileFormPopup);
+var ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePictureForm_Close');
+var ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');
+var ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture', ActionCreator([UserStore], "UPDATE"))]);
+var ChangeProfilePicturePopup = new Popup('ChangeProfilePictureForm', [ChangeProfilePicturePopupClose, ChangeProfilePicturePopupCancel, ChangeProfilePicturePopupSubmit]);
+var UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');
+var UserProfilePictureChange = new DisplayNextButton('change-profile-picture-button', ChangeProfilePicturePopup);
+var UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, UserProfilePictureChange]);
+var UserProfileEditButton = new DOMButton('UserProfileEditButton', UserProfilePopup);
 var AddEmployeeButton = new DOMButton('AddEmployeeButton', EmployeeAddFormPopup);
 var AddDriverButton = new DOMButton('AddDriverButton', DriverAddFormPopup);
 var employeeContainer = new DOMContainer('employeeContainer', EmployeeProfileFormPopup, employeeStore, 'employeeCardTemplate');
