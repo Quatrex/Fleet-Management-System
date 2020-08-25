@@ -54,18 +54,11 @@ abstract class EmployeeModel extends Model
         parent::addRecord($values);
     }
 
-    protected function checkPassword($username, $password)
-    {
-        $conditions = ['Username' => $username, 'IsDeleted' => 0];
-        $wantedFields = ['Username', 'Password'];
-        return (parent::getRecords($conditions, $wantedFields)[0]['Password'] == $password) ? true : false;
-    }
-
     protected function checkPasswordByID($empID,$password)
     {
         $conditions = ['EmpID' => $empID, 'IsDeleted' => 0];
         $wantedFields = ['Password'];
-        return (parent::getRecords($conditions, $wantedFields)[0]['Password'] == $password) ? true : false;
+        return password_verify($password,parent::getRecords($conditions, $wantedFields)[0]['Password']);
     }
 
     protected function getEmails(string $position)

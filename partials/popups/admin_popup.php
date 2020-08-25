@@ -513,7 +513,7 @@
         <div class="popup-body">
             <div>
                 <div class="center" style="text-align: center; ">
-                    <img src="<?php echo $employee->getField('profilePicturePath') != null ? "../images/profilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; ?>" class="form-image ProfilePicture UserProfilePicture" style="padding:5px; width:600p;text-align: center; cursor:pointer" id="change-profile-picture-button">
+                    <img src="<?php echo $employee->getField('profilePicturePath') != null ? "../images/profilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png"; ?>" class="form-image ProfilePicture UserProfilePicture" style="padding:5px; width:600p;text-align: center; cursor:pointer" id="ChangeProfilePictureButton">
                 </div>
                 <!-- <div class="row">
                     <div class="small-12 medium-2 large-2 columns">
@@ -568,7 +568,7 @@
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-auto">
-                                <a id="change-password-button" style="cursor:pointer; color:royalblue">Change password</a>
+                                <a id="UserPasswordChange" style="cursor:pointer; color:royalblue">Change password</a>
                             </div>
                         </div>
                         <button class="btn btn-dark" id="user-profile-confirm">Confirm</button>
@@ -606,6 +606,54 @@
         </div>
         <div class="popup-footer">
 
+        </div>
+    </div>
+</div>
+
+<!--Change my password popup-->
+<div class="popup" id="ChangePasswordForm">
+    <!-- Request Form content -->
+    <div class="popup-content">
+        <div class="popup-header">
+            <span class="close" id="ChangePasswordForm_Close">&times;</span>
+            <h2>Change Password</h2>
+            <hr>
+        </div>
+        <div class="popup-body">
+            <div id="submit-form-wrapper">
+                <div class="basic-form">
+                    <form id="ChangePassword_form">
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label>Current Password</label>
+                                <div class="input-group">
+                                    <input class="form-control inputs py-2 border-right-0 border" id="CurrentPassword-ChangePasswordForm" type="password" name="CurrentPassword" required>
+                                    <div id="CurrentPassword-error" class="text-danger"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="form-group col-md-6">
+                                <label>New Password</label>
+                                <div class="input-group">
+                                    <input class="form-control inputs py-2 border-right-0 border" id="NewPassword-ChangePasswordForm" type="password" name="NewPassword" required>
+                                    <div id="NewPassword-error" class="text-danger"></div>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Confirm New Password</label>
+                                <div class="input-group">
+                                    <input class="form-control inputs py-2 border-right-0 border" id="RetypeNewPassword-ChangePasswordForm" type="password" name="RetypeNewPassword" required>
+                                    <div id="RetypeNewPassword-error" class="text-danger"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <span class="d-inline-block" id="edit-confirm-tooltip" data-toggle="tooltip" title="Make changes to enable"><input type="button" class="btn btn-success" value="Change" id="ChangePasswordForm_Submit"></span>
+                    <input type="button" value="Cancel" class="btn btn-primary" id="ChangePasswordForm_Cancel">
+                </div>
+            </div>
         </div>
     </div>
 </div>

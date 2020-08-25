@@ -22,7 +22,7 @@ class User
 			$viewer = new EmployeeViewer();
 			$data = $viewer->getRecordByUsername($user);
 			if (sizeof($data) > 0) {
-				$check = $viewer->checkPassword($user, $password);
+				$check = $viewer->checkPasswordByID($data[0]['EmpID'], $password);
 				if ($check) {
 					$this->_data = $data[0];
 					$this->_isLoggedIn = true;

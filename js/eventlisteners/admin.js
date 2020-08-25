@@ -1,5 +1,5 @@
-const employeeStore = new Store('employees', 'empID','FirstName');
-const driverStore = new Store('drivers', 'DriverID','DriverID');
+const employeeStore = new Store('employees', 'empID', 'FirstName');
+const driverStore = new Store('drivers', 'DriverID', 'DriverID');
 const UserStore = new User();
 
 //Add a employee
@@ -98,13 +98,18 @@ DriverProfileEditFormCancel.setNext(DriverProfileFormPopup);
 
 const ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePictureForm_Close');
 const ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');
-const ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture',ActionCreator([UserStore], "UPDATE"))]);
+const ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture', ActionCreator([UserStore], "UPDATE"))]);
 const ChangeProfilePicturePopup = new Popup('ChangeProfilePictureForm', [ChangeProfilePicturePopupClose, ChangeProfilePicturePopupCancel, ChangeProfilePicturePopupSubmit]);
 
-const UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');
-const UserProfilePictureChange = new DisplayNextButton('change-profile-picture-button', ChangeProfilePicturePopup);
-const UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, UserProfilePictureChange]);
+const ChangePasswordPopupClose = new DisplayNextButton('ChangePasswordForm_Close');
+const ChangePasswordPopupCancel = new DisplayNextButton('ChangePasswordForm_Cancel');
+const ChangePasswordPopupSubmit = new ValidatorButton('ChangePasswordForm_Submit', {}, [ObjectCreate, FormValidate, BackendAccess('ChangePassword')]);
+const ChangePasswordPopup = new Popup('ChangePasswordForm', [ChangePasswordPopupClose, ChangePasswordPopupCancel, ChangePasswordPopupSubmit]);
 
+const UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');
+const UserProfilePictureChange = new DisplayNextButton('ChangeProfilePictureButton', ChangeProfilePicturePopup);
+const UserPasswordChange = new DisplayNextButton('UserPasswordChange', ChangePasswordPopup);
+const UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, UserProfilePictureChange, UserPasswordChange]);
 
 
 const UserProfileEditButton = new DOMButton('UserProfileEditButton', UserProfilePopup)

@@ -21,10 +21,6 @@ class EmployeeViewer extends EmployeeModel{
         return parent::getRecordByUsername($userName);
     }
 
-    public function checkPassword($userName,$password){
-        return parent::checkPassword($userName,$password);
-    }
-
     public function checkPasswordByID($empID,$oldPassword){
         return parent::checkPasswordByID($empID,$oldPassword);
     }

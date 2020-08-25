@@ -280,13 +280,27 @@ switch ($method) {
 			if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
 				$emp = $employee->UpdateProfilePicture(['ProfilePicturePath' => $profileImageName]);
 				$object['error'] = false;
-				$object['object'] = [['ProfilePicturePath'=>$target_file]];
+				$object['object'] = [['ProfilePicturePath' => $target_file]];
 				$object['message'] = "success_Employee " . " successfully updated profile picture";
 			} else {
 				$object['message'] = "There was an error uploading the file";
 			}
 		}
 
+		break;
+
+	case 'ChangePassword':
+		if (Input::get('NewPassword') === Input::get('RetypeNewPassword')) {
+			$emp = $employee->updatePassword([
+				'OldPassword' => Input::get('CurrentPassword'),
+				'NewPassword' => password_hash(Input::get('NewPassword'), PASSWORD_BCRYPT)
+			]);
+			$object['error'] = false;
+			$object['object'] = $emp;
+			$object['message'] = "success_Employee successfully password updated";
+		} else {
+			$object['message'] = "This field should be match to the previous field";
+		}
 		break;
 
 	case 'DeleteEmployee':
@@ -351,9 +365,7 @@ switch ($method) {
 
 			if (file_exists($target_file)) {
 				$object['message'] = "File already exists";
-			}
-
-			else {
+			} else {
 				if (move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
 					$driver = $employee->UpdateDriverPicture([
 						'DriverId' => Input::get('DriverID'),
