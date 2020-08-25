@@ -4,6 +4,7 @@ namespace Employee\Factory\Privileged;
 
 use Employee\Employee;
 use DB\Controller\EmployeeController;
+use DB\Viewer\EmployeeViewer;
 use JsonSerializable;
 
 
@@ -58,6 +59,20 @@ abstract class PrivilegedEmployee extends Employee implements JsonSerializable
             $this->designation,
             $this->email
         );
+    }
+
+    public function updatePassword(array $values): void
+    {
+        //$values should include 'OldPassword', 'NewPassword'
+
+        $employeeController = new EmployeeController();
+        $employeeViewer = new EmployeeViewer();
+        if ($employeeViewer->checkPasswordByID($this->empID,$values['OldPassword'])) {
+            $employeeController->updateEmployeePassword(
+                $this->empID,
+                $values['NewPassword']
+            );
+        }
     }
 
     public function updateProfilePicture(array $values): void
