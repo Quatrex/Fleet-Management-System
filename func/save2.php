@@ -228,7 +228,7 @@ switch ($method) {
 	case 'UpdateEmployee':
 		$emp = $employee->updateAccount([
 			'NewEmpID' => Input::get('NewEmpID'),
-			'EmpID' => Input::get('EmpID'),
+			'EmpID' => Input::get('empID'),
 			'FirstName' => ucfirst(Input::get('FirstName')),
 			'LastName' => ucfirst(Input::get('LastName')),
 			'Username' => "",

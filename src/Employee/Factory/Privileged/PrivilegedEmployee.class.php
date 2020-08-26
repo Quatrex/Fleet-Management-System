@@ -51,8 +51,8 @@ abstract class PrivilegedEmployee extends Employee implements JsonSerializable
 
         $employeeController = new EmployeeController();
         $employeeController->updateEmployeeInfo(
-            $values['EmpID'],
             $this->empID,
+            $values['EmpID'],
             $this->firstName,
             $this->lastName,
             $this->position,

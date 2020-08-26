@@ -12,11 +12,6 @@ class EmployeeController extends EmployeeModel
         parent::saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $username, $password);
     }
 
-    public function getAllRecords()
-    {
-        return parent::getAllRecords();
-    }
-
     public function updateEmployeeInfo($empID, $newEmpID, $firstName, $lastName, $position, $designation, $email)
     {
         parent::updateEmployeeInfo($empID, $newEmpID, $firstName, $lastName, $position, $designation, $email);
