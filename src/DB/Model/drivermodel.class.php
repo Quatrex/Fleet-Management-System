@@ -49,7 +49,7 @@ abstract class DriverModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
-    protected function updateDriverInfo($driverId, $newDriverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicle, $email)
+    protected function updateDriverInfo($driverId, $newDriverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $email)
     {
         $values = [
             'DriverID' => $newDriverId,
@@ -59,7 +59,6 @@ abstract class DriverModel extends Model
             'LicenseType' => $licenseType,
             'LicenseExpirationDay' => $licenseExpirationDay,
             'DateOfAdmission' => $dateOfAdmission,
-            'AssignedVehicle' => $assignedVehicle,
             'Email' => $email
         ];
         $conditions = ['DriverID' => $driverId];

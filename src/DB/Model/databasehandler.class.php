@@ -43,7 +43,6 @@ class DatabaseHandler
     public function read(SQLQuery $query): array
     {
         $stmt = $this->pdo->prepare($query->getField('statement'));
-        // echo $query->getField('statement');
         $stmt->execute($query->getField('values'));
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $query->reset();

@@ -350,8 +350,7 @@ switch ($method) {
 				'LicenseNumber' => Input::get('LicenseNumber'),
 				'LicenseType' => Input::get('LicenseType'),
 				'LicenseExpirationDay' => Input::get('LicenseExpirationDay'),
-				'DateOfAdmission' => Input::get('DateOfAdmission'),
-				'AssignedVehicle' => ""
+				'DateOfAdmission' => Input::get('DateOfAdmission')
 			]
 		);
 		$object['error'] = false;

@@ -105,7 +105,6 @@ class RealDriver extends Employee implements Driver
         $this->licenseType = $values['LicenseType'];
         $this->licenseExpirationDay = $values['LicenseExpirationDay'];
         $this->dateOfAdmission = $values['DateOfAdmission'];
-        $this->assignedVehicle = $values['AssignedVehicle'];
         $this->email = $values['Email'];
 
         $driverController = new DriverController();
@@ -118,7 +117,6 @@ class RealDriver extends Employee implements Driver
             $this->licenseType,
             $this->licenseExpirationDay,
             $this->dateOfAdmission,
-            $this->assignedVehicle,
             $this->email
         );
     }
