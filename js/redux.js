@@ -1,5 +1,5 @@
 class Store {
-	constructor(type, networkManager, objId = 'RequestId', sortColumn = 'CreatedDate') {
+	constructor(type, networkManager, objId = 'RequestId', sortColumn = 'CreatedDate',order = 'DESC') {
 		this.state = eval(type);
 		this.observers = [];
 		this.type = type;
@@ -10,7 +10,7 @@ class Store {
 			keyword: '',
 			searchColumn: 'All',
 			sortColumn: sortColumn,
-			order: 'DESC',
+			order: order,
 		};
 		this.updated = false;
 		this.lastQueryID = -1;

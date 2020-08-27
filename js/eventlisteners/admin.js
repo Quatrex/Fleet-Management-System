@@ -1,5 +1,5 @@
 const networkManager = new NetworkManager();
-const employeeStore = new Store('employees',networkManager, 'empID', 'FirstName');
+const employeeStore = new Store('employees',networkManager, 'empID', 'FirstName','ASC');
 const driverStore = new Store('drivers', networkManager,'DriverID', 'FirstName');
 const UserStore = new User();
 
