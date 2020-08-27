@@ -1,5 +1,5 @@
-const requestsToApproveStore = new Store('requestsToApprove');
-const approvedRequestsStore = new Store('approvedRequests');
+const requestsToApproveStore = new Store('requestsToApprove',networkManager);
+const approvedRequestsStore = new Store('approvedRequests',networkManager);
 
 
 //CAO

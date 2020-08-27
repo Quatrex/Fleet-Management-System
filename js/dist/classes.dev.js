@@ -348,9 +348,13 @@ function () {
             this.loadMoreButton.classList.remove('d-none');
           }
         }
-      } else {
+      } else if (method == 'ADD') {
         if (document.getElementById("".concat(this.cardId, "_emptyPlaceholder")) && this.store.getOffset() > 0) {
           document.getElementById("".concat(this.cardId, "_emptyPlaceholder")).remove();
+        }
+      } else if (method == 'OFFLINE') {
+        if (this.loadMoreButton.classList.contains('active')) {
+          this.loadMoreButton.classList.remove('active');
         }
       }
     }
@@ -399,6 +403,7 @@ function () {
         if (method != 'NULL') {
           switch (method) {
             case 'SEARCH':
+              this.searchInput.value != '' ? method = 'SEARCH' : 'NONE';
               this.searchObj.keyword = this.searchInput.value;
               break;
 
@@ -438,7 +443,9 @@ function () {
               break;
           }
 
-          this.store.searchAndSort(method, this.searchObj);
+          if (method != 'NONE') {
+            this.store.searchAndSort(this.searchObj);
+          }
         } else {
           if (event.target.tagName.toLowerCase() != 'input' && event.target.tagName.toLowerCase() != 'select') {
             if (event.target.id) {
@@ -458,12 +465,9 @@ function () {
         var eventTarget = event.target;
 
         if (event.target.tagName.toLowerCase() == 'select') {
-          var _method = event.target.dataset.field.toUpperCase(); //Select_Search/Sort_containerid
-
-
           if (this.searchObj[eventTarget.name]) {
             this.searchObj[eventTarget.name] = eventTarget.value;
-            this.store.searchAndSort(_method, this.searchObj);
+            this.store.searchAndSort(this.searchObj);
           }
         }
       } else if (event.type == 'keyup') {
@@ -1274,6 +1278,19 @@ var FormValidate = function FormValidate(popup) {
     var fields = popup.popup.querySelectorAll('.inputs');
     var valid = true;
     fields.forEach(function (field) {
+      if (field.name.indexOf('Retype') != -1) {
+        if (field.value != popup.popup.querySelector("#".concat(field.id.split('Retype')[1])).value) {
+          valid = false;
+          field.classList.add('invalid-details');
+          popup.popup.querySelector("#".concat(field.name, "-error")).innerHTML = 'This field should be match to the previous field';
+          popup.popup.querySelector("#".concat(field.name, "-error")).classList = '';
+          popup.popup.querySelector("#".concat(field.name, "-error")).classList.add('text-danger');
+        } else {
+          field.classList.remove('invalid-details');
+          popup.popup.querySelector("#".concat(field.name, "-error")).innerHTML = null;
+        }
+      }
+
       if (field.hasAttribute('required')) {
         if (field.value.length == 0) {
           valid = false;
@@ -1429,16 +1446,20 @@ var Database = {
       timeout: 5000
     });
   },
-  loadContent: function loadContent(method, offset) {
-    var actionCreater = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var searchObject = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-    var object = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
+  //query[0]=> Method,
+  //query[1]=> Offset,
+  //query[2]=> actionCreater,
+  //query[3]=> searchObject,
+  //query[4]=> object,
+  loadContent: function loadContent(query) {
+    var errCallback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+    var actionCreater = query[2];
 
     var holder = _objectSpread({}, {
-      offset: offset,
-      Method: method,
-      object: object
-    }, {}, searchObject);
+      Method: query[0],
+      offset: query[1],
+      object: query[5]
+    }, {}, query[3]);
 
     console.log(holder);
     $.ajax({
@@ -1447,17 +1468,26 @@ var Database = {
       data: holder,
       dataType: 'json',
       beforeSend: function beforeSend() {
-        $('.bouncybox').fadeIn(300);
-      },
-      success: function success(returnArr) {
-        console.log(returnArr);
-        $('.bouncybox').fadeOut(300);
-
-        if (Object.keys(actionCreater).length != 0) {
-          actionCreater.updateStores({}, returnArr.object);
+        if (!navigator.onLine) {
+          $('.bouncybox').fadeOut(300);
+          errCallback(query, 'OFFLINE');
+          return false;
+        } else {
+          $('.bouncybox').fadeIn(300);
         }
       },
-      error: function error() {
+      success: function success(data, textStatus, jqXHR) {
+        if (jqXHR.status == '200') {
+          if (Object.keys(actionCreater).length != 0) {
+            actionCreater.updateStores({}, data.object);
+          }
+        }
+      },
+      error: function error(xhr, status, _error) {
+        console.log('Error occured');
+        errCallback(query, 'UNDEFINED');
+      },
+      complete: function complete() {
         $('.bouncybox').fadeOut(300);
       },
       timeout: 10000

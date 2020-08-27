@@ -726,6 +726,24 @@
     </div>
 </div>
 
+<div id="OfflineDisplay" class="mx-auto mt-1" style="display:none; width:70%; position:fixed; top:0; z-index:2000;left:0;right:0;text-align:center;">
+    <div class="alert alert-danger" role="alert">
+        Internet Connection Offline <span class="ml-1"><svg height="20" width="20" class="blinking">
+                <circle cx="10" cy="8" r="7" fill="red" />
+                Sorry, your browser does not support inline SVG.
+            </svg> </span>
+    </div>
+</div>
+
+<div id="OnlineDisplay" class="mx-auto mt-1" style="display:none; width:70%; position:fixed; top:0; z-index:2000;left:0;right:0;text-align:center;">
+    <div class="alert alert-success" role="alert">
+        Connection Established<span class="ml-1"><svg height="20" width="20">
+                <circle cx="10" cy="8" r="7" fill="green" />
+                Sorry, your browser does not support inline SVG.
+            </svg> </span>
+    </div>
+</div>
+
 
 <div id="overlay">
     <div class="cv-spinner">

@@ -1,10 +1,10 @@
 "use strict";
 
-var requestsToAssignStore = new Store('requestsToAssign');
-var ongoingTripStore = new Store('scheduledRequests');
-var scheduledRequestsStore = new Store('scheduledHistoryRequests');
-var vehicleStore = new Store('vehicles', 'RegistrationNo', 'RegistrationNo');
-var driverStore = new Store('drivers', 'DriverID', 'DriverID'); //Add a vehicle
+var requestsToAssignStore = new Store('requestsToAssign', networkManager);
+var ongoingTripStore = new Store('scheduledRequests', networkManager);
+var scheduledRequestsStore = new Store('scheduledHistoryRequests', networkManager);
+var vehicleStore = new Store('vehicles', networkManager, 'RegistrationNo', 'RegistrationNo');
+var driverStore = new Store('drivers', networkManager, 'DriverID', 'DriverID'); //Add a vehicle
 
 var VehicleAddFormClose = new DisplayNextButton('VehicleAddForm_Close');
 var VehicleAddFormSubmit = new ValidatorButton('VehicleAddForm_Submit', {}, [ObjectCreate, FormValidate, BackendAccess('AddVehicle', ActionCreator([vehicleStore], 'ADD'))]);

@@ -23,29 +23,33 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Store =
 /*#__PURE__*/
 function () {
-  function Store(type) {
-    var objId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'RequestId';
-    var sortColumn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'CreatedDate';
+  function Store(type, networkManager) {
+    var objId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'RequestId';
+    var sortColumn = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'CreatedDate';
 
     _classCallCheck(this, Store);
 
     this.state = eval(type);
     this.observers = [];
     this.type = type;
+    this.networkManager = networkManager;
     this.objId = objId;
     this.currentObj = {};
     this.searchObj = {
       keyword: '',
-      searchColumn: sortColumn,
+      searchColumn: 'All',
       sortColumn: sortColumn,
       order: 'DESC'
     };
     this.updated = false;
+    this.lastQueryID = -1;
     this.checkForDuplicate = '';
     this.tempState = [];
     this.selectionObserver = {};
     this.notifySelectionSeparately = false;
-    this.selectionSearch = false;
+    this.selectionSearch = false; //queriesToRun[0]=>SelectionSearch,queriesToRun[1]=>SelectionSearchLoadMore,queriesToRun[2]=>SearchObject,queriesToRun[3]=>LoadDataInRender,
+
+    this.queriesToRun = [[], [], [], []];
   }
 
   _createClass(Store, [{
@@ -54,19 +58,9 @@ function () {
       return this.objId;
     }
   }, {
-    key: "setCurrentObj",
-    value: function setCurrentObj(obj) {
-      this.currentObj = obj;
-    }
-  }, {
     key: "getSearchObject",
     value: function getSearchObject() {
       return this.searchObj;
-    }
-  }, {
-    key: "getState",
-    value: function getState() {
-      return this.state;
     }
   }, {
     key: "getType",
@@ -96,47 +90,80 @@ function () {
       return this.state.length;
     }
   }, {
-    key: "searchAndSort",
-    value: function searchAndSort(method, obj) {
-      if (method == 'SEARCH') {
-        this.searchObj = _objectSpread({}, this.searchObj, {}, obj);
+    key: "processFailedRequest",
+    value: function processFailedRequest(query, err) {
+      console.log(this.lastQueryID);
 
-        if (this.searchObj.keyword != '') {
-          Database.loadContent("Load_".concat(this.type), 0, ActionCreator([this, this], 'DELETEALL&APPEND'), this.searchObj);
-        }
-      } else if (method == 'SORT') {
-        if (obj.keyword != '') {
-          this.searchObj = _objectSpread({}, this.searchObj, {}, obj);
-          Database.loadContent("Load_".concat(this.type), 0, ActionCreator([this, this], 'DELETEALL&APPEND'), this.searchObj);
-        } else {
-          this.searchObj = _objectSpread({}, this.searchObj, {}, obj);
-          Database.loadContent("Load_".concat(this.type), 0, ActionCreator([this, this], 'DELETEALL&APPEND'), this.searchObj);
-        }
-      } else if (method == 'CANCEL') {
-        this.searchObj = _objectSpread({}, this.searchObj, {}, obj);
-        Database.loadContent("Load_".concat(this.type), 0, ActionCreator([this, this], 'DELETEALL&APPEND'), this.searchObj);
+      if (this.lastQueryID !== -1 && err == 'OFFLINE') {
+        this.queriesToRun[this.lastQueryID] = query;
+        this.lastQueryID = -1;
+      } else if (this.lastQueryID != -1) {
+        console.log('Do Nothing');
+      } else if (this.lastQueryID == -1) {
+        this.observers.forEach(function (observer) {
+          return observer.finishLoadContent(0, 'OFFLINE');
+        });
       }
+
+      console.log(this.queriesToRun);
+    }
+  }, {
+    key: "runConnectionAwaitingQueries",
+    value: function runConnectionAwaitingQueries() {
+      console.log(this.queriesToRun);
+
+      for (var i = 0; i < 4; i++) {
+        var query = this.queriesToRun[i];
+        console.log(query);
+
+        if (query.length > 0) {
+          this.lastQueryID = i;
+          Database.loadContent(query, this.processFailedRequest.bind(this));
+          this.queriesToRun[i] = [];
+        }
+      }
+    }
+  }, {
+    key: "searchAndSort",
+    value: function searchAndSort(obj) {
+      this.searchObj = _objectSpread({}, this.searchObj, {}, obj);
+      var query = ["Load_".concat(this.type), 0, ActionCreator([this, this], 'DELETEALL&APPEND'), this.searchObj, {}];
+      this.networkManager.updateStoreOrder(this);
+      this.lastQueryID = 2;
+      Database.loadContent(query, this.processFailedRequest.bind(this));
     }
   }, {
     key: "loadData",
     value: function loadData() {
       var trigger = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'render';
       var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'APPEND';
-      console.log(this.state);
 
       if (!this.updated) {
-        // if(this.state.length==0){
-        Database.loadContent("Load_".concat(this.type), this.state.length, ActionCreator([this], method), this.searchObj); // }
-
+        var query = ["Load_".concat(this.type), this.state.length, ActionCreator([this], method), this.searchObj, {}];
+        this.lastQueryID = 3;
+        this.networkManager.updateStoreOrder(this);
+        Database.loadContent(query, this.processFailedRequest.bind(this));
         this.updated = true;
       } else {
         if (trigger != 'render') {
           if (method == 'UPDATE') {
             if (this.currentObj.NumOfAllocations > 0) {
-              Database.loadContent("Load_".concat(this.type, "_assignedRequests"), 0, ActionCreator([this], method), this.searchObj, this.currentObj);
+              var _query = ["Load_".concat(this.type, "_assignedRequests"), 0, ActionCreator([this], method), this.searchObj, this.currentObj];
+              this.lastQueryID = -1;
+              this.networkManager.updateStoreOrder(this);
+              Database.loadContent(_query, this.processFailedRequest.bind(this));
             }
           } else {
-            Database.loadContent("Load_".concat(this.type), this.state.length, ActionCreator([this], method), this.searchObj);
+            var _query2 = ["Load_".concat(this.type), this.state.length, ActionCreator([this], method), this.searchObj, {}];
+            this.networkManager.updateStoreOrder(this);
+
+            if (trigger == 'selection') {
+              this.lastQueryID = 2;
+            } else {
+              this.lastQueryID = -1;
+            }
+
+            Database.loadContent(_query2, this.processFailedRequest.bind(this));
           }
         }
       }
@@ -147,12 +174,15 @@ function () {
       this.selectionSearch = true;
       this.checkForDuplicate = id;
       this.selectionObserver = observer;
-      Database.loadContent("Load_".concat(this.type), 0, ActionCreator([this], 'ADD'), {
+      var query = ["Load_".concat(this.type), 0, ActionCreator([this], 'ADD'), {
         keyword: id,
         searchColumn: 'RegistrationNo',
         sortColumn: 'RegistrationNo',
         order: 'DESC'
-      });
+      }, {}];
+      this.lastQueryID = 0;
+      this.networkManager.updateStoreOrder(this);
+      Database.loadContent(query, this.processFailedRequest.bind(this));
       setTimeout(this.loadData('selection'), 3000);
     }
   }, {
@@ -247,6 +277,54 @@ function () {
   }]);
 
   return Store;
+}();
+
+var NetworkManager =
+/*#__PURE__*/
+function () {
+  function NetworkManager() {
+    _classCallCheck(this, NetworkManager);
+
+    this.status = 'online';
+    window.addEventListener('online', this);
+    window.addEventListener('offline', this);
+    this.storesOrder = [];
+  }
+
+  _createClass(NetworkManager, [{
+    key: "updateStoreOrder",
+    value: function updateStoreOrder(obj) {
+      this.storesOrder = this.storesOrder.filter(function (store) {
+        return store !== obj;
+      });
+      this.storesOrder = [obj].concat(_toConsumableArray(this.storesOrder));
+    }
+  }, {
+    key: "handleEvent",
+    value: function handleEvent(event) {
+      if (event.type == 'online' && this.status != 'online') {
+        this.status = 'online';
+        $('#OfflineDisplay').fadeOut(300);
+        $('#OnlineDisplay').fadeIn(300);
+        window.setTimeout(function () {
+          $('#OnlineDisplay').fadeOut(300);
+        }, 2000);
+        this.notifyStores();
+      } else if (event.type == 'offline' && this.status != 'offline') {
+        this.status = 'offline';
+        $('#OfflineDisplay').fadeIn(300);
+      }
+    }
+  }, {
+    key: "notifyStores",
+    value: function notifyStores() {
+      this.storesOrder.forEach(function (store) {
+        return store.runConnectionAwaitingQueries();
+      });
+    }
+  }]);
+
+  return NetworkManager;
 }();
 
 var ActionCreator = function ActionCreator(stores, actionType) {

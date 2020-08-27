@@ -1,6 +1,7 @@
-const requestsByMeStore = new Store('requestsByMe');
-const ongoingRequestsStore = new Store('ongoingRequests');
-const pastRequestsStore = new Store('pastRequests');
+const networkManager = new NetworkManager();
+const requestsByMeStore = new Store('requestsByMe',networkManager);
+const ongoingRequestsStore = new Store('ongoingRequests',networkManager);
+const pastRequestsStore = new Store('pastRequests',networkManager);
 const UserStore = new User();
 
 const CancelRequestAlertClose = new DisplayNextButton('CancelRequestAlert_Close');

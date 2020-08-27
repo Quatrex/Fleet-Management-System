@@ -1,7 +1,8 @@
 "use strict";
 
-var employeeStore = new Store('employees', 'empID', 'FirstName');
-var driverStore = new Store('drivers', 'DriverID', 'DriverID');
+var networkManager = new NetworkManager();
+var employeeStore = new Store('employees', networkManager, 'empID', 'FirstName');
+var driverStore = new Store('drivers', networkManager, 'DriverID', 'DriverID');
 var UserStore = new User(); //Add a employee
 
 var EmployeeAddFormClose = new DisplayNextButton('EmployeeAddForm_Close');
@@ -55,9 +56,14 @@ var ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePicture
 var ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');
 var ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture', ActionCreator([UserStore], "UPDATE"))]);
 var ChangeProfilePicturePopup = new Popup('ChangeProfilePictureForm', [ChangeProfilePicturePopupClose, ChangeProfilePicturePopupCancel, ChangeProfilePicturePopupSubmit]);
+var ChangePasswordPopupClose = new DisplayNextButton('ChangePasswordForm_Close');
+var ChangePasswordPopupCancel = new DisplayNextButton('ChangePasswordForm_Cancel');
+var ChangePasswordPopupSubmit = new ValidatorButton('ChangePasswordForm_Submit', {}, [ObjectCreate, FormValidate, BackendAccess('ChangePassword')]);
+var ChangePasswordPopup = new Popup('ChangePasswordForm', [ChangePasswordPopupClose, ChangePasswordPopupCancel, ChangePasswordPopupSubmit]);
 var UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');
-var UserProfilePictureChange = new DisplayNextButton('change-profile-picture-button', ChangeProfilePicturePopup);
-var UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, UserProfilePictureChange]);
+var UserProfilePictureChange = new DisplayNextButton('ChangeProfilePictureButton', ChangeProfilePicturePopup);
+var UserPasswordChange = new DisplayNextButton('UserPasswordChange', ChangePasswordPopup);
+var UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, UserProfilePictureChange, UserPasswordChange]);
 var UserProfileEditButton = new DOMButton('UserProfileEditButton', UserProfilePopup);
 var AddEmployeeButton = new DOMButton('AddEmployeeButton', EmployeeAddFormPopup);
 var AddDriverButton = new DOMButton('AddDriverButton', DriverAddFormPopup);

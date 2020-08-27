@@ -1,5 +1,6 @@
-const employeeStore = new Store('employees', 'empID', 'FirstName');
-const driverStore = new Store('drivers', 'DriverID', 'DriverID');
+const networkManager = new NetworkManager();
+const employeeStore = new Store('employees',networkManager, 'empID', 'FirstName');
+const driverStore = new Store('drivers', networkManager,'DriverID', 'DriverID');
 const UserStore = new User();
 
 //Add a employee

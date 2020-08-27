@@ -1,8 +1,9 @@
 "use strict";
 
-var requestsByMeStore = new Store('requestsByMe');
-var ongoingRequestsStore = new Store('ongoingRequests');
-var pastRequestsStore = new Store('pastRequests');
+var networkManager = new NetworkManager();
+var requestsByMeStore = new Store('requestsByMe', networkManager);
+var ongoingRequestsStore = new Store('ongoingRequests', networkManager);
+var pastRequestsStore = new Store('pastRequests', networkManager);
 var UserStore = new User();
 var CancelRequestAlertClose = new DisplayNextButton('CancelRequestAlert_Close');
 var CancelRequestAlertCancel = new DisplayNextButton('CancelRequestAlert_Cancel');
@@ -49,9 +50,14 @@ var ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePicture
 var ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');
 var ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture', ActionCreator([UserStore], "UPDATE"))]);
 var ChangeProfilePicturePopup = new Popup('ChangeProfilePictureForm', [ChangeProfilePicturePopupClose, ChangeProfilePicturePopupCancel, ChangeProfilePicturePopupSubmit]);
+var ChangePasswordPopupClose = new DisplayNextButton('ChangePasswordForm_Close');
+var ChangePasswordPopupCancel = new DisplayNextButton('ChangePasswordForm_Cancel');
+var ChangePasswordPopupSubmit = new ValidatorButton('ChangePasswordForm_Submit', {}, [ObjectCreate, FormValidate, BackendAccess('ChangePassword')]);
+var ChangePasswordPopup = new Popup('ChangePasswordForm', [ChangePasswordPopupClose, ChangePasswordPopupCancel, ChangePasswordPopupSubmit]);
 var UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');
-var UserProfilePictureChange = new DisplayNextButton('change-profile-picture-button', ChangeProfilePicturePopup);
-var UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, UserProfilePictureChange]);
+var UserProfilePictureChange = new DisplayNextButton('UserProfilePictureChange', ChangeProfilePicturePopup);
+var UserPasswordChange = new DisplayNextButton('UserPasswordChange', ChangePasswordPopup);
+var UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, UserProfilePictureChange, UserPasswordChange]);
 var NewRequestButton = new DOMButton('NewRequestButton', VehicleRequestFormPopup);
 var UserProfileEditButton = new DOMButton('UserProfileEditButton', UserProfilePopup);
 var pendingRequestTable = new DOMContainer('pendingRequestsContainer', PendingRequestPreviewPopup, requestsByMeStore, "cardTemplate");

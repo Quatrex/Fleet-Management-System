@@ -1,8 +1,8 @@
-const requestsToAssignStore = new Store('requestsToAssign');
-const ongoingTripStore = new Store('scheduledRequests');
-const scheduledRequestsStore = new Store('scheduledHistoryRequests');
-const vehicleStore = new Store('vehicles', 'RegistrationNo', 'RegistrationNo');
-const driverStore = new Store('drivers', 'DriverID', 'DriverID');
+const requestsToAssignStore = new Store('requestsToAssign',networkManager);
+const ongoingTripStore = new Store('scheduledRequests',networkManager);
+const scheduledRequestsStore = new Store('scheduledHistoryRequests',networkManager);
+const vehicleStore = new Store('vehicles',networkManager, 'RegistrationNo', 'RegistrationNo');
+const driverStore = new Store('drivers',networkManager,'DriverID', 'DriverID');
 
 //Add a vehicle
 const VehicleAddFormClose = new DisplayNextButton('VehicleAddForm_Close');
