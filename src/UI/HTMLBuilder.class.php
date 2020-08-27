@@ -338,7 +338,7 @@ class HTMLBuilder
         $employeeCards = [];
         foreach ($employees as $employee) {
             $employeeCard = $this->compositeBuilder
-                ->createComposite('div', ['class' => 'col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description', 'id' => 'employeeContainer_' . htmlentities($employee->getField('empID'))])
+                ->createComposite('div', ['class' => 'col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description', 'id' => 'employeeCard_' . htmlentities($employee->getField('empID'))])
                 ->composite()
                 ->createComposite('div', ['class' => 'card text-center', 'style' => 'width: 15rem;'])
                 ->addElement('img', ['class' => "card-img-top rounded-circle user-image mt-2", 'src' => $employee->getField('profilePicturePath') != null ? "../images/profilePictures/" . $employee->getField('profilePicturePath') : "../images/default-user-image.png", 'alt' => "Driver Image"])

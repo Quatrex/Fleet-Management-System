@@ -422,13 +422,11 @@ class DOMContainer {
 		});
 	}
 	updateEntry(object) {
-		let entry = document.getElementById(`${this.cardId}_${object[this.store.getObjIdType()]}`);
-		console.log(entry);
-		console.log(`${this.cardId}_${object[this.store.getObjIdType()]}`);
+		let id = `${this.cardId}_${object[this.store.getObjIdType()]}`
+		let entry = document.getElementById(id.trim());
 		if (entry != 'undefined' && entry != null) {
 			let objFields = Object.getOwnPropertyNames(object);
 			objFields.forEach((field) => {
-				console.log(field);
 				if (entry.querySelector(`.${field}`)) {
 					if (field.includes('PicturePath')) {
 						let path = '';
@@ -1021,7 +1019,7 @@ const Database = {
 			dataType: 'json',
 			beforeSend: function () {
 				if (!navigator.onLine) {
-					$('.bouncybox').fadeOut(300);
+					$('.bouncybox').fade(300);
 					errCallback(query, 'OFFLINE');
 					return false;
 				} else {

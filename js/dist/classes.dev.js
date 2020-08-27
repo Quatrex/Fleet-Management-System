@@ -577,15 +577,12 @@ function () {
   }, {
     key: "updateEntry",
     value: function updateEntry(object) {
-      var entry = document.getElementById("".concat(this.cardId, "_").concat(object[this.store.getObjIdType()]));
-      console.log(entry);
-      console.log("".concat(this.cardId, "_").concat(object[this.store.getObjIdType()]));
+      var id = "".concat(this.cardId, "_").concat(object[this.store.getObjIdType()]);
+      var entry = document.getElementById(id.trim());
 
       if (entry != 'undefined' && entry != null) {
         var objFields = Object.getOwnPropertyNames(object);
         objFields.forEach(function (field) {
-          console.log(field);
-
           if (entry.querySelector(".".concat(field))) {
             if (field.includes('PicturePath')) {
               var path = '';
@@ -1469,7 +1466,7 @@ var Database = {
       dataType: 'json',
       beforeSend: function beforeSend() {
         if (!navigator.onLine) {
-          $('.bouncybox').fadeOut(300);
+          $('.bouncybox').fade(300);
           errCallback(query, 'OFFLINE');
           return false;
         } else {
