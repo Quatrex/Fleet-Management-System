@@ -1,5 +1,5 @@
 <!--Active Trip Table Row click Preview-->
-<div class="popup" id="ActiveTripDetailsPopup">
+<div class="popup d-block" id="ActiveTripDetailsPopup">
     <!-- Request details content -->
     <div class="popup-content">
         <div class="popup-header">
@@ -855,6 +855,24 @@
     </div>
 </div>
 <!--End Trip Confirm-->
+<div class="popup" id="CancelActiveTripPopup">
+    <!-- Confirm alert content -->
+    <div class="popup-content">
+        <div class="popup-header">
+            <span class="close" id="CancelActiveTrip_Close">&times;</span>
+            <h3 id="cancel-alert-header">Cancel Trip</h3>
+            <hr>
+        </div>
+        <div class="popup-body">
+            <input class="inputs" type="hidden" name="Status" value="Completed" disabled>
+            <p id="cancel-alert-message">Are you sure you want to cancel the trip?</p>
+            <input type="button" value="Yes" class="btn btn-danger" id="CancelActiveTrip_Confirm">
+            <input type="button" value="No" class="btn btn-primary" id="CancelActiveTrip_Cancel">
+        </div>
+        <div class="popup-footer">
+        </div>
+    </div>
+</div>
 <div class="popup" id="EndTripConfirmPopup">
     <!-- Confirm alert content -->
     <div class="popup-content">

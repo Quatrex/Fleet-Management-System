@@ -80,8 +80,13 @@ var EndTripConfirmCancel = new DisplayNextButton('EndTripConfirm_Cancel');
 var EndTripConfirmEnd = new DisplayNextButton('EndTripConfirm_Confirm', {}, [ObjectCreate, BackendAccess('EndTrip', ActionCreator([ongoingTripStore, scheduledRequestsStore], 'DELETE&ADD')), RemoveAllPopup]);
 var EndTripConfirmPopup = new Popup('EndTripConfirmPopup', [EndTripConfirmCancel, EndTripConfirmClose, EndTripConfirmEnd]); //Active Trips Preview Popup
 
+var CancelActiveTripClose = new DisplayNextButton('CancelActiveTrip_Close');
+var CancelActiveTripCancel = new DisplayNextButton('CancelActiveTrip_Cancel');
+var CancelActiveTripConfirm = new DisplayNextButton('CancelActiveTrip_Confirm', {}, [BackendAccess('CancelScheduledRequest', ActionCreator([ongoingTripStore, scheduledRequestsStore], 'UPDATE')), RemoveAllPopup]);
+var CancelActiveTripPopup = new Popup('CancelActiveTripPopup', [CancelActiveTripCancel, CancelActiveTripClose, CancelActiveTripConfirm]); //Active Trips Preview Popup
+
 var ActiveTripDetailsClose = new DisplayNextButton('ActiveTripDetails_Close');
-var ActiveTripDetailsCancel = new DisplayNextButton('ActiveTripDetails_Cancel', {}, [BackendAccess('CancelScheduledRequest', ActionCreator([ongoingTripStore, scheduledRequestsStore], 'UPDATE'))]);
+var ActiveTripDetailsCancel = new DisplayAlertButton('ActiveTripDetails_Cancel', CancelActiveTripPopup);
 var ActiveTripDetailsEnd = new DisplayAlertButton('ActiveTripDetails_End', EndTripConfirmPopup);
 var ActiveTripDetailsPrintSlip = new OpenNewWindowButton('ActiveTripDetails_PrintSlip', [], [BackendAccess('PrintSlip')]);
 var ActiveTripDetailsPopup = new Popup('ActiveTripDetailsPopup', [ActiveTripDetailsCancel, ActiveTripDetailsClose, ActiveTripDetailsEnd, ActiveTripDetailsPrintSlip], ['click'], {
