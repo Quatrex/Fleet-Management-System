@@ -422,7 +422,7 @@ class DOMContainer {
 		});
 	}
 	updateEntry(object) {
-		let id = `${this.cardId}_${object[this.store.getObjIdType()]}`
+		let id = `${this.cardId}_${object[this.store.getObjIdType()]}`;
 		let entry = document.getElementById(id.trim());
 		if (entry != 'undefined' && entry != null) {
 			let objFields = Object.getOwnPropertyNames(object);
@@ -935,19 +935,20 @@ const WindowOpen = () => {
 const changeValue = (object, id) => {
 	let objProps = Object.getOwnPropertyNames(object);
 	for (let i = 0; i < objProps.length; i++) {
-		tag = document.getElementById(`${objProps[i]}-${id}`);
-		if (tag) {
-			if (!objProps[i].includes('PicturePath')) {
-				tag.value = object[objProps[i]];
-			} else {
-				let path = `${objProps[i].split('PicturePath')[0].toLowerCase()}`;
-				if (object[objProps[i]] != '') {
-					tag.src = `../images/${path}Pictures/${object[objProps[i]]}`;
+		document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
+			if (tag) {
+				if (!objProps[i].includes('PicturePath')) {
+					tag.value = object[objProps[i]];
 				} else {
-					tag.src = `../images/${path}Pictures/default-${path}.png`;
+					let path = `${objProps[i].split('PicturePath')[0].toLowerCase()}`;
+					if (object[objProps[i]] != '') {
+						tag.src = `../images/${path}Pictures/${object[objProps[i]]}`;
+					} else {
+						tag.src = `../images/${path}Pictures/default-${path}.png`;
+					}
 				}
 			}
-		}
+		});
 	}
 };
 

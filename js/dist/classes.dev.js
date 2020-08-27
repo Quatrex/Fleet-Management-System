@@ -1360,22 +1360,26 @@ var WindowOpen = function WindowOpen() {
 var changeValue = function changeValue(object, id) {
   var objProps = Object.getOwnPropertyNames(object);
 
-  for (var i = 0; i < objProps.length; i++) {
-    tag = document.getElementById("".concat(objProps[i], "-").concat(id));
-
-    if (tag) {
-      if (!objProps[i].includes('PicturePath')) {
-        tag.value = object[objProps[i]];
-      } else {
-        var path = "".concat(objProps[i].split('PicturePath')[0].toLowerCase());
-
-        if (object[objProps[i]] != '') {
-          tag.src = "../images/".concat(path, "Pictures/").concat(object[objProps[i]]);
+  var _loop = function _loop(i) {
+    document.querySelectorAll("#".concat(objProps[i], "-").concat(id)).forEach(function (tag) {
+      if (tag) {
+        if (!objProps[i].includes('PicturePath')) {
+          tag.value = object[objProps[i]];
         } else {
-          tag.src = "../images/".concat(path, "Pictures/default-").concat(path, ".png");
+          var path = "".concat(objProps[i].split('PicturePath')[0].toLowerCase());
+
+          if (object[objProps[i]] != '') {
+            tag.src = "../images/".concat(path, "Pictures/").concat(object[objProps[i]]);
+          } else {
+            tag.src = "../images/".concat(path, "Pictures/default-").concat(path, ".png");
+          }
         }
       }
-    }
+    });
+  };
+
+  for (var i = 0; i < objProps.length; i++) {
+    _loop(i);
   }
 };
 
@@ -1383,7 +1387,7 @@ var changeInnerHTML = function changeInnerHTML(object, id) {
   var objectFields = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   var objProps = Object.getOwnPropertyNames(object);
 
-  var _loop = function _loop(i) {
+  var _loop2 = function _loop2(i) {
     document.querySelectorAll("#".concat(objProps[i], "-").concat(id)).forEach(function (tag) {
       if (_typeof(object[objProps[i]]) !== 'object') {
         if (!objProps[i].includes('PicturePath')) {
@@ -1408,7 +1412,7 @@ var changeInnerHTML = function changeInnerHTML(object, id) {
   };
 
   for (var i = 0; i < objProps.length; i++) {
-    _loop(i);
+    _loop2(i);
   }
 };
 

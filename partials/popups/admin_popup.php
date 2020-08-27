@@ -393,6 +393,7 @@
                             <input type="file" name="Image" id="ChangeDriverPicture" class="file-upload" data-imageid="DriverPicturePath-DriverProfileEditForm" accept="image/png, .jpeg, .jpg, image/gif" />
                         </div>
                         <div class="form-group row mb-4">
+                        <input class="form-control py-2 border-right-0 border inputs" id="DriverID-DriverProfileEditForm" type="hidden" name="NewDriverID">
                             <div class="form-group col-md-6">
                                 <label>Driver ID</label>
                                 <div class="input-group">

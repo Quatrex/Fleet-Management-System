@@ -2,7 +2,7 @@
 
 var networkManager = new NetworkManager();
 var employeeStore = new Store('employees', networkManager, 'empID', 'FirstName');
-var driverStore = new Store('drivers', networkManager, 'DriverID', 'DriverID');
+var driverStore = new Store('drivers', networkManager, 'DriverID', 'FirstName');
 var UserStore = new User(); //Add a employee
 
 var EmployeeAddFormClose = new DisplayNextButton('EmployeeAddForm_Close');
