@@ -357,7 +357,7 @@ class HTMLBuilder
             ->createComposite('div', ['class' => 'card', 'id' => 'employeeContainer'])
             ->composite()
             ->createComposite('div', ['class' => "card-header text-white py-0"])
-            ->addToContent($this->createMySearchBar('Employee ', ['First Name', 'Last Name', 'Designation', 'Position']))
+            ->addToContent($this->createMySearchBar('Employee ', ['First Name', 'Last Name', 'Designation', 'Position','EmployeeID']))
             ->get()
             ->composite()
             ->createComposite('div', ['class' => 'card-body row pb-3'])
