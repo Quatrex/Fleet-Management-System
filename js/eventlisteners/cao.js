@@ -21,7 +21,7 @@ ApproveRequestAlertCancel.setNext(RequestApprovePreviewPopup);
 DenyRequestAlertCancel.setNext(RequestApprovePreviewPopup);
 
 const approveRequestContainer = new DOMContainer('approveAwaitingRequestContainer',RequestApprovePreviewPopup,requestsToApproveStore,"awaitingRequestCardTemplate")
-const approvedHistoryContainer = new DOMContainer('approvedAwaitingRequestContainer',RequestHistoryPreviewPopup, approvedRequestsStore,"awaitingRequestCardTemplate")
+const approvedHistoryContainer = new DOMContainer('approvedAwaitingRequestContainer',RequestHistoryPreviewPopup, approvedRequestsStore,"awaitingRequestHistoryCardTemplate")
 
 
 const approveRequestContainerTab = new DOMTabContainer('ApproveRequestsSecTab',approveRequestContainer);

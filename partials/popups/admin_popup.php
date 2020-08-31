@@ -572,12 +572,8 @@
                                 <a id="UserPasswordChange" style="cursor:pointer; color:royalblue">Change password</a>
                             </div>
                         </div>
-                        <button class="btn btn-dark" id="user-profile-confirm">Confirm</button>
-                        <button class="btn btn-dark" id="user-profile-edit">Edit</button>
                     </form>
                 </div>
-
-
             </div>
         </div>
     </div>

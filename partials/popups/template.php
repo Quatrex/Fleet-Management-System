@@ -55,6 +55,35 @@
         </div>
     </div>
 </template>
+<template id="awaitingRequestHistoryCardTemplate">
+    <div class="card request-card detail-description" style="z-index:2;">
+        <div class="description">
+            <h1 class="card-title Purpose">For: </h1>
+            <h2 class="card-title RequesterName">By: </h2>
+            <h2 class="card-title Status">Status: </h2>
+            <h2 class="card-title hidden-details Designation">Designation: </h2>
+            <hr>
+            <div class="row justify-content-between">
+                <div class="col-sm-3">
+                    <p class='DateOfTrip'>On: </p>
+                    </p>
+                </div>
+                <div class="col-sm-3">
+                    <p class='TimeOfTrip'>At: </p>
+                </div>
+                <div class="col-sm-3">
+                    <p class='PickLocation'>From: </p>
+                </div>
+                <div class="col-sm-3">
+                    <p class='DropLocation'>To: </p>
+                </div>
+                <div class="col">
+                    <p class="more"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
 
 <template id="vehicleCardTemplate">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description" style="cursor: pointer;">

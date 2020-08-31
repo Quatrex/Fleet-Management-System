@@ -64,6 +64,10 @@ const UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');
 const UserProfilePictureChange = new DisplayNextButton('UserProfilePictureChange', ChangeProfilePicturePopup);
 const UserPasswordChange = new DisplayNextButton('UserPasswordChange', ChangePasswordPopup);
 const UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, UserProfilePictureChange, UserPasswordChange]);
+ChangeProfilePicturePopupClose.setNext(UserProfilePopup);
+ChangeProfilePicturePopupCancel.setNext(UserProfilePopup);
+ChangeProfilePicturePopupSubmit.setNext(UserProfilePopup);
+
 
 const NewRequestButton = new DOMButton('NewRequestButton', VehicleRequestFormPopup)
 const UserProfileEditButton = new DOMButton('UserProfileEditButton', UserProfilePopup)

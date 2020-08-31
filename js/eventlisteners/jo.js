@@ -77,7 +77,7 @@ const justifiedRequestContainer = new DOMContainer(
 	'justifiedAwaitingRequestContainer',
 	RequestHistoryPreviewPopup,
 	justifiedRequestsStore,
-	'awaitingRequestCardTemplate',
+	'awaitingRequestHistoryCardTemplate',
 );
 
 const justifyRequestContainerTab = new DOMTabContainer('JustifyRequestsSecTab', justifyRequestContainer);

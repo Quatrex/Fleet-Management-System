@@ -1,5 +1,5 @@
 <!--Active Trip Table Row click Preview-->
-<div class="popup d-block" id="ActiveTripDetailsPopup">
+<div class="popup" id="ActiveTripDetailsPopup">
     <!-- Request details content -->
     <div class="popup-content">
         <div class="popup-header">

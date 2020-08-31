@@ -10,7 +10,7 @@
   color: #FFF;
   border-radius: 50px;
   text-align: center;
-  outline: none;
+  outline: none !important;
   transition: width 100ms ease-in;
 }
 

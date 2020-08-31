@@ -111,7 +111,9 @@ const UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');
 const UserProfilePictureChange = new DisplayNextButton('ChangeProfilePictureButton', ChangeProfilePicturePopup);
 const UserPasswordChange = new DisplayNextButton('UserPasswordChange', ChangePasswordPopup);
 const UserProfilePopup = new Popup('UserProfilePopup', [UserProfilePopupClose, UserProfilePictureChange, UserPasswordChange]);
-
+ChangeProfilePicturePopupClose.setNext(UserProfilePopup);
+ChangeProfilePicturePopupCancel.setNext(UserProfilePopup);
+ChangeProfilePicturePopupSubmit.setNext(UserProfilePopup);
 
 const UserProfileEditButton = new DOMButton('UserProfileEditButton', UserProfilePopup)
 const AddEmployeeButton = new DOMButton('AddEmployeeButton', EmployeeAddFormPopup);

@@ -222,7 +222,7 @@ const scheduledHistoryContainer = new DOMContainer(
 	'scheduledAwaitingRequestContainer',
 	RequestHistoryPreviewPopup,
 	scheduledRequestsStore,
-	'awaitingRequestCardTemplate'
+	'awaitingRequestHistoryCardTemplate'
 );
 const vehicleContainer = new DOMContainer(
 	'vehiclesContainer',

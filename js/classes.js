@@ -463,6 +463,9 @@ class SelectionTable extends DOMContainer {
 		if (action.type == 'ADD') {
 			super.insertEntry(action.payload[0]);
 			this.toggleStyle(`${this.id}_${action.payload[0][this.store.getObjIdType()]}`);
+			document.getElementById(
+				`${this.selectField}-${this.id}`
+			).innerHTML = `${action.payload[0]['RegistrationNo']}, ${action.payload[0]['Model']}`;
 		} else if (action.type == 'DELETE') {
 			super.deleteEntry(action.payload);
 		} else if (action.type == 'DELETEALL') {
@@ -476,21 +479,23 @@ class SelectionTable extends DOMContainer {
 	}
 
 	render(object = {}) {
-		if (object[this.selectField] == '') {
-			super.render(object);
-			this.toggleStyle(-1);
-			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = '';
-		} else {
-			let obj = this.store.getObjectById(object[this.selectField]);
-			if (obj) {
-				this.deleteEntry(obj);
-				this.insertEntry(obj);
-				this.toggleStyle(`${this.id}_${object[this.selectField]}`);
+		if (object.hasOwnProperty(this.selectField)) {
+			if (object[this.selectField] == '') {
+				super.render(object);
+				this.toggleStyle(-1);
+				document.getElementById(`${this.selectField}-${this.id}`).innerHTML = '';
 			} else {
-				this.store.loadSelectedData(object[this.selectField], this);
+				let obj = this.store.getObjectById(object[this.selectField]);
+				if (obj) {
+					this.deleteEntry(obj);
+					this.insertEntry(obj);
+					this.toggleStyle(`${this.id}_${object[this.selectField]}`);
+				} else {
+					this.store.loadSelectedData(object[this.selectField], this);
+				}
+				this.button.removeProperty('disabled');
+
 			}
-			this.button.removeProperty('disabled');
-			document.getElementById(`${this.selectField}-${this.id}`).innerHTML = object[this.selectField];
 		}
 	}
 	handleEvent(event, popup = {}, object = {}) {
@@ -503,17 +508,16 @@ class SelectionTable extends DOMContainer {
 				} else {
 					if (this.toggleStyle(id)) {
 						object[this.selectField] = targetObject[this.store.getObjIdType()];
+						document.getElementById(`${this.selectField}-${this.id}`).innerHTML =
+							this.selectField == 'Vehicle'
+								? `${targetObject['RegistrationNo']}, ${targetObject['Model']} `
+								: `${targetObject['FirstName']} ${targetObject['LastName']} `;
 						if (this.nextFieldId != '') {
-							document.getElementById(`${this.selectField}-${this.id}`).innerHTML =
-								object[this.selectField];
 							if (targetObject[this.nextFieldId]) {
 								object[this.nextField] = targetObject[this.nextFieldId];
 							} else {
 								object[this.nextField] = '';
 							}
-						} else {
-							document.getElementById(`${this.selectField}-${this.id}`).innerHTML =
-								object[this.selectField];
 						}
 						popup.setObject(object);
 					} else {
