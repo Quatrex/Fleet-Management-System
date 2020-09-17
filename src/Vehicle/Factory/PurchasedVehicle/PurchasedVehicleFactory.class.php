@@ -4,8 +4,6 @@ namespace Vehicle\Factory\PurchasedVehicle;
 
 use Vehicle\Factory\Base\VehicleFactory;
 use Vehicle\Vehicle;
-use DB\Viewer\VehicleViewer;
-use Vehicle\State\State;
 
 class PurchasedVehicleFactory extends VehicleFactory
 {
@@ -26,32 +24,10 @@ class PurchasedVehicleFactory extends VehicleFactory
     /**
      * @inheritDoc
      */
-    public function makeNewVehicle(array $values): Vehicle
+    protected function createVehicle(array $values, bool $isNew = false) : Vehicle
     {
-        $values['State'] = State::getStateID('available');
-        $values['CurrentLocation'] = '';
-        $values['AssignedOfficer'] = null;
-        $values['NumOfAllocations'] = 0;
         $vehicle = new PurchasedVehicle($values);
-        $vehicle->saveToDatabase(); //check for failure
+        if ($isNew) $vehicle->saveToDatabase();
         return $this->castToVehicle($vehicle);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function makeVehicle(string $registrationNo): Vehicle
-    {
-        $vehicleViewer = new VehicleViewer(); // method of obtaining the viewer/controller must be determined and changed
-        $values = $vehicleViewer->getRecordByID($registrationNo, false);
-        return $this->castToVehicle(new PurchasedVehicle($values));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function makeVehicleByValues(array $values): Vehicle
-    {
-        return $this->castToVehicle(new PurchasedVehicle($values));
     }
 }

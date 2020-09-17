@@ -15,7 +15,15 @@ abstract class VehicleFactory
      * @param array $vehicleInfo
      * @return Vehicle
      */
-    abstract public function makeNewVehicle(array $values) : Vehicle;
+    public function makeNewVehicle(array $values) : Vehicle
+    {
+        $values['State'] = State::getStateID('available');
+        $values['CurrentLocation'] = '';
+        $values['AssignedOfficer'] = null;
+        $values['NumOfAllocations'] = 0;
+        $vehicle = $this->createVehicle($values,true);
+        return $this->castToVehicle($vehicle);
+    }
 
     /**
      * Creates a vehicle object for a given ID
@@ -23,7 +31,13 @@ abstract class VehicleFactory
      * @param int $vehicleID
      * @return Vehicle
      */
-    abstract public function makeVehicle(string $vehicleID) : Vehicle;
+    public function makeVehicle(string $registrationNo) : Vehicle
+    {
+        $vehicleViewer = new VehicleViewer();
+        $values = $vehicleViewer->getRecordByID($registrationNo, true);
+        $vehicle = $this->createVehicle($values);
+        return $vehicle;
+    }
 
     /**
      * Create a vehicle object for given values
@@ -31,7 +45,21 @@ abstract class VehicleFactory
      * @param array $vehicleInfo
      * @return Vehicle
      */
-    abstract public function makeVehicleByValues(array $values) : Vehicle;
+    public function makeVehicleByValues(array $values) : Vehicle
+    {
+        $vehicle = $this->createVehicle($values);
+        return $vehicle;
+    }
+
+    /**
+     * Factory method to create a concrete vehicle object
+     * 
+     * @param array $values
+     * @param bool $isNew If creating a new vehicle object
+     * 
+     * @return Vehicle
+     */
+    abstract protected function createVehicle(array $values, bool $isNew = false) : Vehicle;
 
     /**
      * Casts a vehicle object to vehicle interface
