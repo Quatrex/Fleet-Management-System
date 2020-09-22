@@ -31,9 +31,8 @@ class LeasedVehicleFactory extends VehicleFactory
         } else 
         {
             $vehicle = new LeasedVehicle($values);
+            $vehicle->saveToDatabase();
         }
-        
-        $vehicle->saveToDatabase();
         return $this->castToVehicle($vehicle);
     }
 }

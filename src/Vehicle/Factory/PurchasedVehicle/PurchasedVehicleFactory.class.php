@@ -35,9 +35,8 @@ class PurchasedVehicleFactory extends VehicleFactory
         } else 
         {
             $vehicle = new PurchasedVehicle($values);
+            $vehicle->saveToDatabase();
         }
-        
-        $vehicle->saveToDatabase();
         return $this->castToVehicle($vehicle);
     }
 }
