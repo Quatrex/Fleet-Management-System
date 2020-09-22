@@ -3,6 +3,7 @@ namespace Vehicle\Factory\LeasedVehicle;
 
 use Vehicle\Factory\Base\VehicleFactory;
 use Vehicle\Vehicle;
+use DB\Viewer\VehicleViewer;
 
 class LeasedVehicleFactory extends VehicleFactory 
 {
@@ -20,11 +21,19 @@ class LeasedVehicleFactory extends VehicleFactory
     /**
      * @inheritDoc
      */
-    protected function createVehicle(array $values, bool $isNew = false) : Vehicle
+    protected function createVehicle(array $values = [], string $registrationNo = '') : Vehicle
     {
+        if (empty($values)) 
+        {
+            $vehicleViewer = new VehicleViewer();
+            $values = $vehicleViewer->getRecordByID($registrationNo, true); 
+            $vehicle = new LeasedVehicle($values);
+        } else 
+        {
+            $vehicle = new LeasedVehicle($values);
+        }
         
-        $vehicle = new LeasedVehicle($values);
-        if ($isNew) $vehicle->saveToDatabase();
+        $vehicle->saveToDatabase();
         return $this->castToVehicle($vehicle);
     }
 }

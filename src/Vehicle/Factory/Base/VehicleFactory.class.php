@@ -21,7 +21,7 @@ abstract class VehicleFactory
         $values['CurrentLocation'] = '';
         $values['AssignedOfficer'] = null;
         $values['NumOfAllocations'] = 0;
-        $vehicle = $this->createVehicle($values,true);
+        $vehicle = $this->createVehicle($values);
         return $this->castToVehicle($vehicle);
     }
 
@@ -33,9 +33,7 @@ abstract class VehicleFactory
      */
     public function makeVehicle(string $registrationNo) : Vehicle
     {
-        $vehicleViewer = new VehicleViewer();
-        $values = $vehicleViewer->getRecordByID($registrationNo, true);
-        $vehicle = $this->createVehicle($values);
+        $vehicle = $this->createVehicle([],$registrationNo);
         return $vehicle;
     }
 
@@ -59,7 +57,7 @@ abstract class VehicleFactory
      * 
      * @return Vehicle
      */
-    abstract protected function createVehicle(array $values, bool $isNew = false) : Vehicle;
+    abstract protected function createVehicle(array $values = [], string $registrationNo = '') : Vehicle;
 
     /**
      * Casts a vehicle object to vehicle interface
