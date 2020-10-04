@@ -14,7 +14,7 @@ class User
 	{
 	}
 
-	public function check($user = null, $password = null)
+	private function check($user = null, $password = null)
 	{
 		$_SESSION['user-error'] = '';
 		$_SESSION['password-error'] = '';
@@ -47,7 +47,7 @@ class User
 		if ($result === true && $this->exists()) {
 			$_SESSION['loggedin'] = true;
 			$_SESSION['empid'] = $this->_data['EmpID'];
-			$_SESSION['position'] = $this->_data['Position'];
+			$_SESSION['position'] = strtolower($this->_data['Position']);
 		}
 		return $result;
 	}

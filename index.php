@@ -1,5 +1,7 @@
 <?php
 session_start();
+session_destroy();
+session_start();
 if (!isset($_SESSION['position'])) {
 	header('Location: ./Layout/login.php');
 	exit;
@@ -26,4 +28,3 @@ else{
     
     exit;
 }
-?>
