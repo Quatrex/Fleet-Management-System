@@ -42,6 +42,20 @@ $drivers = [];
         console.log(employees);
         const drivers = <?php echo json_encode($drivers) ?>;
     </script>
+    <script>
+    $('.menu-toggle').click(function() {
+        $(".psd").toggleClass("psd-animate");
+        // $("#psd").slideUp();
+        console.log("Clicked");
+
+
+    });
+    $('#close-button').click(function() {
+        $(".psd").toggleClass("psd-animate");
+
+
+    });
+</script>
     <script src="../js/classes.js"></script>
     <script src="../js/redux.js"></script>
     <script src="../js/functions.js"></script>
