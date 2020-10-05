@@ -24,6 +24,7 @@ $drivers = [];
     <?php
     $uiBuilder
         ->createMainNavBar($employee,[])
+        ->createPsd(['My Requests'=>['Pending Requests', 'Ongoing Requests', 'History'], 'Awaiting Requests'=>['Assign Requests', 'Ongoing Trips', 'Scheduled History'], 'Database'=>['Vehicles', 'Drivers']])
         ->createSecondaryNavBar('AdminSecTab',['Employees', 'Drivers'])
         ->employees($employees)
         ->drivers($drivers)

@@ -130,6 +130,69 @@ class HTMLBuilder
         return $this;
     }
 
+    public function createPsd(array $navList)
+    {
+        $navContentList = [];
+        $j = 0;
+        foreach ($navList as $mainNav => $secondNavList) {
+
+            if ($j == 0) {
+                $tabClass = 'main-navi main-nav-link hvrcenter active';
+            } else {
+                $tabClass = 'main-navi main-nav-link hvrcenter';
+            }
+            $j++;
+            $liList = [];
+            for ($i = 0; $i < sizeof($secondNavList); $i++) {
+                $liComposite = $this->compositeBuilder
+                    ->createComposite('li', ['class' => "secondary-nav"])
+                    ->addElement('a', ['class' => "nav-link hvrcenter", 'href' => ""], [$secondNavList[$i]])
+                    ->getComposite();
+                array_push($liList, $liComposite);
+            }
+            $navComposite = $this->compositeBuilder
+                ->createComposite('div', ['class' => "nav-content_child_3"])
+                ->addElement('a', ['class' => $tabClass], [$mainNav])
+                ->composite()
+                ->createComposite('ul', ['class' => "list-group"])
+                ->addArrayToContent($liList)
+                ->get()
+                ->getComposite();
+            array_push($navContentList, $navComposite);
+        }
+        $psd = $this->compositeBuilder
+            ->createComposite('div', ['class' => 'psd'])
+            ->composite()
+            ->createComposite('div', ['class' => 'psd_child_1'])
+            ->composite()
+            ->createComposite('div',['class'=>'css-vurnku', "style" => "box-sizing: border-box; margin: 0; min-width: 0;"])
+            ->composite()
+            ->createComposite('button', ['class' => "psd_child_2", 'id' => "close-button"])
+            ->composite()
+            ->createComposite('div', ['class' => "psd_child_3"])
+            ->composite()
+            ->createComposite()
+            ->addElement('span', ['class' => "psd_child_4"], ['Close Menu'])
+            ->get()
+            ->get()
+            ->get()
+            ->get()
+            ->get()
+            ->composite()
+            ->createComposite('div', ['class' => "nav-content"])
+            ->composite()
+            ->createComposite('div', ['class' => "nav-content_child_1"])
+            ->composite()
+            ->createComposite('div', ['class' => "nav-content_child_2"])
+            ->addArrayToContent($navContentList)
+            ->get()
+            ->get()
+            ->get()
+            ->getComposite();
+        array_push($this->contents,$psd);
+        return $this;
+    }
+    
     public function myRequests(array $requests, string $state, $header = ''): HTMLBuilder
     {
         $i = 0;
@@ -357,7 +420,7 @@ class HTMLBuilder
             ->createComposite('div', ['class' => 'card', 'id' => 'employeeContainer'])
             ->composite()
             ->createComposite('div', ['class' => "card-header text-white py-0"])
-            ->addToContent($this->createMySearchBar('Employee ', ['First Name', 'Last Name', 'Designation', 'Position','EmployeeID']))
+            ->addToContent($this->createMySearchBar('Employee ', ['First Name', 'Last Name', 'Designation', 'Position', 'EmployeeID']))
             ->get()
             ->composite()
             ->createComposite('div', ['class' => 'card-body row pb-3'])
@@ -556,7 +619,7 @@ class HTMLBuilder
                 $button = $buttonBuilder
                     ->createComposite()
                     ->composite()
-                    ->createComposite('button', ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton","data-title"=>"New Request"])
+                    ->createComposite('button', ['type' => 'button', 'value' => 'New Request', 'class' => "float-button p-3 mb-4", "id" => "NewRequestButton", "data-title" => "New Request"])
                     ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
                     ->get()
                     ->getComposite();
@@ -577,7 +640,7 @@ class HTMLBuilder
                 $button = $buttonBuilder
                     ->createComposite()
                     ->composite()
-                    ->createComposite('button', ['type' => "button", 'value' => "Add Employee", 'class' => "float-button p-3 mb-4", 'id' => "AddEmployeeButton","data-title"=>"New Employee"])
+                    ->createComposite('button', ['type' => "button", 'value' => "Add Employee", 'class' => "float-button p-3 mb-4", 'id' => "AddEmployeeButton", "data-title" => "New Employee"])
                     ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
                     ->get()
                     ->getComposite();
@@ -588,7 +651,7 @@ class HTMLBuilder
                     $button = $buttonBuilder
                         ->createComposite()
                         ->composite()
-                        ->createComposite('button', ['type' => "button", 'value' => "Add Driver", 'class' => "float-button p-3 mb-4", 'id' => "AddDriverButton","data-title"=>"New Driver"])
+                        ->createComposite('button', ['type' => "button", 'value' => "Add Driver", 'class' => "float-button p-3 mb-4", 'id' => "AddDriverButton", "data-title" => "New Driver"])
                         ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
                         ->get()
                         ->getComposite();
@@ -601,7 +664,7 @@ class HTMLBuilder
                 $button = $buttonBuilder
                     ->createComposite()
                     ->composite()
-                    ->createComposite('button', ['type' => "button", 'value' => "Add Vehicle", 'class' => "float-button p-3 mb-4", 'id' => "AddVehicleButton","data-title"=>"New Vehicle"])
+                    ->createComposite('button', ['type' => "button", 'value' => "Add Vehicle", 'class' => "float-button p-3 mb-4", 'id' => "AddVehicleButton", "data-title" => "New Vehicle"])
                     ->addElement('i', ['class' => "fa fa-plus float-icon", 'style' => "font-size:40px;color:white"])
                     ->get()
                     ->getComposite();
