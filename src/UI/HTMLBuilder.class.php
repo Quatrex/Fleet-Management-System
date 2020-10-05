@@ -55,7 +55,7 @@ class HTMLBuilder
             ->addElement('img', ['src' => "../images/national-logo.png", 'class' => "logo img-fluid"])
             ->get()
             ->composite()
-            ->createComposite('button', ['class' => "navbar-toggler my-2", 'type' => "button", 'data-toggle' => "collapse", 'data-target' => "#mainnavbarContent"])
+            ->createComposite('button', ['class' => "menu-toggle navbar-toggler my-2", 'type' => "button", 'data-toggle' => "collapse", 'data-target' => "#mainnavbarContent"])
             ->addElement('span', ['class' => "navbar-toggler-icon"])
             ->get()
             ->composite()
