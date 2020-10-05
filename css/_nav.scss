@@ -30,7 +30,7 @@
         transition-timing-function: ease-out;
     }
     &:hover:before,
-    :focus:before {
+     :focus:before {
         left: 0;
         right: 0;
     }
@@ -97,4 +97,16 @@
 
 .dropdown-toggle::after {
     content: none !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .secondary-nav-bar {
+        display: none;
+    }
+    #mainnavbarContent {
+        display: none;
+    }
+    // .tab-info {
+    //     display: none;
+    // }
 }
