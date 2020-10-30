@@ -3,6 +3,8 @@
 namespace UI;
 
 use Employee\Employee;
+use UI\Builder\CompositeBuilder;
+use UI\Builder\ElementBuilder;
 
 class HTMLBuilder
 {
@@ -638,7 +640,7 @@ class HTMLBuilder
         }
     }
 
-    private function getButton($tabid): HTMLComponent
+    private function getButton($tabid): Builder\HTMLComponent
     {
         $buttonBuilder = new CompositeBuilder();
         switch ($tabid) {

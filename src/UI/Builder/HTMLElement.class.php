@@ -1,6 +1,6 @@
 <?php
 
-namespace UI;
+namespace UI\Builder;
 
 class HTMLElement extends HTMLComponent
 {
