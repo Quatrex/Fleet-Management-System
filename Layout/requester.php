@@ -2,7 +2,12 @@
 <?php include '../partials/head.php';
 
 use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
-use UI\HTMLBuilder;
+use UI\UI;
+use UI\HTMLBodyComponent\MainNavBar;
+use UI\HTMLBodyComponent\SecNavBar;
+use UI\HTMLBodyComponent\MyRequests;
+use UI\HTMLBodyComponent\SecTabBody;
+use UI\HTMLBodyComponent\MainNavHierachy;
 
 session_start();
 if (!isset($_SESSION['empid']) or !isset($_SESSION['position'])) {
@@ -10,10 +15,10 @@ if (!isset($_SESSION['empid']) or !isset($_SESSION['position'])) {
     exit();
 }
 require_once '../includes/autoloader.inc.php';
-$uiBuilder = HTMLBuilder::getInstance();
+$ui = UI::getInstance();
 $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']); //, $_SESSION['firstname'],$_SESSION['lastname'],$_SESSION['position'],$_SESSION['email'],$_SESSION['username'],"agfd");
 $_SESSION['employee'] = $employee;
-$requests = $employee->getMyRequests(['pending', 'justified', 'approved'],0);
+$requests = $employee->getMyRequests(['pending', 'justified', 'approved'], 0);
 // $ongoingRequests = $employee->getMyRequests(['scheduled']);
 $ongoingRequests = [];
 // $pastRequests = $employee->getMyRequests(['denied', 'expired', 'cancelled', 'completed']);
@@ -26,15 +31,27 @@ $_SESSION['pastRequests'] = $pastRequests;
 <body id="page-top">
 
     <?php
-    $uiBuilder
-        ->createMainNavBar($employee)
-        ->createSecondaryNavBar('MyRequestsSecTab',['Pending Requests', 'Ongoing Requests', 'History'])
-        ->myRequests($requests, 'Pending', 'Pending Requests')
-        ->myRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests')
-        ->myRequests($pastRequests, 'Past', 'Past Requests')
-        ->buildSecTabBody(['PendingRequests', 'OngoingRequests', 'History'])
-        ->createMainNavHierachy(['MyRequests'])
-        ->show();
+    $ui->setContents([
+        new MainNavBar($employee),
+        new MainNavHierachy(
+            ['MyRequests'],
+            [
+                new SecNavBar('MyRequestsSecTab', ['Pending Requests', 'Ongoing Requests', 'History'])
+            ],
+            [
+                new SecTabBody(
+                    ['PendingRequests', 'OngoingRequests', 'History'],
+                    [
+                        new MyRequests($requests, 'Pending', 'Pending Requests'),
+                        new MyRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests'),
+                        new MyRequests($pastRequests, 'Past', 'Past Requests')
+                    ]
+                )
+            ]
+        )
+    ]);
+    $ui->create();
+    $ui->show();
     ?>
 
     <?php include '../partials/footer.php'; ?>
@@ -49,7 +66,7 @@ $_SESSION['pastRequests'] = $pastRequests;
     <script src="../js/classes.js"></script>
     <script src="../js/eventlisteners/common.js"></script>
     <script src="../js/functions.js"></script>
-  
+
 </body>
 
 </html>

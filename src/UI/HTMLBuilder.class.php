@@ -511,7 +511,7 @@ class HTMLBuilder
         return $this;
     }
 
-    public function show()
+    public function show():void
     {
         foreach ($this->contents as $content) {
             $content->show();
