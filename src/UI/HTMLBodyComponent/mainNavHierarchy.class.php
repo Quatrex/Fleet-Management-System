@@ -4,7 +4,7 @@ namespace UI\HTMLBodyComponent;
 
 use UI\Builder\CompositeBuilder;
 
-class MainNavHierachy extends HTMLBodyComponent
+class MainNavHierarchy extends HTMLBodyComponent
 {
     private array $tabids;
     private array $secNavList = [];

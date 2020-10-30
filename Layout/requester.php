@@ -7,7 +7,7 @@ use UI\HTMLBodyComponent\MainNavBar;
 use UI\HTMLBodyComponent\SecNavBar;
 use UI\HTMLBodyComponent\MyRequests;
 use UI\HTMLBodyComponent\SecTabBody;
-use UI\HTMLBodyComponent\MainNavHierachy;
+use UI\HTMLBodyComponent\MainNavHierarchy;
 
 session_start();
 if (!isset($_SESSION['empid']) or !isset($_SESSION['position'])) {
@@ -33,7 +33,7 @@ $_SESSION['pastRequests'] = $pastRequests;
     <?php
     $ui->setContents([
         new MainNavBar($employee),
-        new MainNavHierachy(
+        new MainNavHierarchy(
             ['MyRequests'],
             [
                 new SecNavBar('MyRequestsSecTab', ['Pending Requests', 'Ongoing Requests', 'History'])
