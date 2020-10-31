@@ -2,7 +2,13 @@
 <?php
 
 use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
-use UI\HTMLBuilder;
+use UI\UI;
+use UI\HTMLBodyComponent\MainNavBar;
+use UI\HTMLBodyComponent\SecNavBar;
+use UI\HTMLBodyComponent\MyRequests;
+use UI\HTMLBodyComponent\AwaitingRequests;
+use UI\HTMLBodyComponent\SecTabBody;
+use UI\HTMLBodyComponent\MainNavHierarchy;
 
 session_start();
 if (!isset($_SESSION['empid']) or !isset($_SESSION['position']) or $_SESSION['position'] != 'jo') {
@@ -11,11 +17,11 @@ if (!isset($_SESSION['empid']) or !isset($_SESSION['position']) or $_SESSION['po
 }
 include '../partials/head.php';
 require_once '../includes/autoloader.inc.php';
-$uiBuilder = HTMLBuilder::getInstance();
+$ui = UI::getInstance();
 $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
-$requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved'],0);
+$requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved'], 0);
 $ongoingRequests = [];
-$ongoingRequests = $employee->getMyRequests(['scheduled'],0);
+$ongoingRequests = $employee->getMyRequests(['scheduled'], 0);
 $pastRequests = [];
 $pastRequests = $employee->getMyRequests(['denied', 'expired', 'cancelled', 'completed']);
 $requestsToJustify = [];
@@ -29,19 +35,35 @@ $_SESSION['employee'] = $employee;
 
 <body id="page-top">
     <?php
-    $uiBuilder
-        ->createMainNavBar($employee,['My Requests', 'Awaiting Requests'])
-        ->createSecondaryNavBar('MyRequestsSecTab',['Pending Requests', 'Ongoing Requests', 'History'])
-        ->myRequests($requestsByMe, 'Pending', 'Pending Requests')
-        ->myRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests')
-        ->myRequests($pastRequests, 'Past', 'Past Requests')
-        ->buildSecTabBody(['PendingRequests', 'OngoingRequests', 'History'])
-        ->createSecondaryNavBar('AwaitingRequestsSecTab',['Justify Requests', 'Justified History'])
-        ->awaitingRequests($requestsToJustify, 'Justify', 'Justify Requests')
-        ->awaitingRequests($justifiedRequests, 'Justified', 'Justified History')
-        ->buildSecTabBody(['JustifyRequests', 'JustifiedHistory'])
-        ->createMainNavHierachy(['MyRequests', 'AwaitingRequests'])
-        ->show();
+    $ui->setContents([
+        new MainNavBar($employee, ['My Requests', 'Awaiting Requests']),
+        new MainNavHierarchy(
+            ['MyRequests', 'AwaitingRequests'],
+            [
+                new SecNavBar('MyRequestsSecTab', ['Pending Requests', 'Ongoing Requests', 'History']),
+                new SecNavBar('AwaitingRequestsSecTab', ['Justify Requests', 'Justified History'])
+            ],
+            [
+                new SecTabBody(
+                    ['PendingRequests', 'OngoingRequests', 'History'],
+                    [
+                        new MyRequests($requests, 'Pending', 'Pending Requests'),
+                        new MyRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests'),
+                        new MyRequests($pastRequests, 'Past', 'Past Requests')
+                    ]
+                ),
+                new SecTabBody(
+                    ['JustifyRequests', 'JustifiedHistory'],
+                    [
+                        new AwaitingRequests($requestsToJustify, 'Justify', 'Justify Requests'),
+                        new AwaitingRequests($justifiedRequests, 'Justified', 'Justified History')
+                    ]
+                )
+            ]
+        )
+    ]);
+    $ui->create();
+    $ui->show();
     ?>
 
 
@@ -59,7 +81,6 @@ $_SESSION['employee'] = $employee;
         const requestsToJustify = <?php echo json_encode($requestsToJustify) ?>;
         const justifiedRequests = <?php echo json_encode($justifiedRequests) ?>;
         const vehicles = <?php echo json_encode($vehicles) ?>;
-
     </script>
     <script src="../js/classes.js"></script>
     <script src="../js/redux.js"></script>

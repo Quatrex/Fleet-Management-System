@@ -1,7 +1,15 @@
 <?php
 
 use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
-use UI\HTMLBuilder;
+use UI\UI;
+use UI\HTMLBodyComponent\MainNavBar;
+use UI\HTMLBodyComponent\SecNavBar;
+use UI\HTMLBodyComponent\MyRequests;
+use UI\HTMLBodyComponent\AwaitingRequests;
+use UI\HTMLBodyComponent\Vehicles;
+use UI\HTMLBodyComponent\Drivers;
+use UI\HTMLBodyComponent\SecTabBody;
+use UI\HTMLBodyComponent\MainNavHierarchy;
 
 session_start();
 if (!isset($_SESSION['empid']) or !isset($_SESSION['position']) or $_SESSION['position'] != 'vpmo') {
@@ -9,9 +17,9 @@ if (!isset($_SESSION['empid']) or !isset($_SESSION['position']) or $_SESSION['po
     exit();
 }
 require_once '../includes/autoloader.inc.php';
-$uiBuilder = HTMLBuilder::getInstance();
+$ui = UI::getInstance();
 $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
-$requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved'],0);
+$requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved'], 0);
 // $ongoingRequests = $employee->getMyRequests(['scheduled']);
 $ongoingRequests = [];
 // $pastRequests = $employee->getRequests('completed');
@@ -35,24 +43,44 @@ $_SESSION['employee'] = $employee;
 
 <body id="page-top">
     <?php
-    $uiBuilder
-        ->createMainNavBar($employee,['My Requests', 'Awaiting Requests', 'Database'])
-        ->createSecondaryNavBar('MyRequestsSecTab',['Pending Requests', 'Ongoing Requests', 'History'])
-        ->myRequests($requestsByMe, 'Pending', 'Pending Requests')
-        ->myRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests')
-        ->myRequests($pastRequests, 'Past', 'Past Requests')
-        ->buildSecTabBody(['PendingRequests', 'OngoingRequests', 'History'])
-        ->createSecondaryNavBar('AwaitingRequestsSecTab',['Assign Requests', 'Ongoing Trips', 'Scheduled History'])
-        ->awaitingRequests($requestsToAssign, 'Assign', 'Assign Requests')
-        ->awaitingRequests($scheduledRequests, 'Ongoing', 'Ongoing Trips')
-        ->awaitingRequests($scheduledHistoryRequests, 'Scheduled', 'Scheduled History')
-        ->buildSecTabBody(['AssignRequests', 'OngoingTrips', 'ScheduledHistory'])
-        ->createSecondaryNavBar('DatabaseSecTab',['Vehicles', 'Drivers'])
-        ->vehicles($vehicles)
-        ->drivers($drivers)
-        ->buildSecTabBody(['Vehicles', 'Drivers'])
-        ->createMainNavHierachy(['MyRequests', 'AwaitingRequests', 'Database'])
-        ->show();
+    $ui->setContents([
+        new MainNavBar($employee, ['My Requests', 'Awaiting Requests', 'Database']),
+        new MainNavHierarchy(
+            ['MyRequests', 'AwaitingRequests', 'Database'],
+            [
+                new SecNavBar('MyRequestsSecTab', ['Pending Requests', 'Ongoing Requests', 'History']),
+                new SecNavBar('AwaitingRequestsSecTab', ['Assign Requests', 'Ongoing Trips', 'Scheduled History']),
+                new SecNavBar('DatabaseSecTab', ['Vehicles', 'Drivers'])
+            ],
+            [
+                new SecTabBody(
+                    ['PendingRequests', 'OngoingRequests', 'History'],
+                    [
+                        new MyRequests($requests, 'Pending', 'Pending Requests'),
+                        new MyRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests'),
+                        new MyRequests($pastRequests, 'Past', 'Past Requests')
+                    ]
+                ),
+                new SecTabBody(
+                    ['AssignRequests', 'OngoingTrips', 'ScheduledHistory'],
+                    [
+                        new AwaitingRequests($requestsToAssign, 'Assign', 'Assign Requests'),
+                        new AwaitingRequests($scheduledRequests, 'Ongoing', 'Ongoing Trips'),
+                        new AwaitingRequests($scheduledHistoryRequests, 'Scheduled', 'Scheduled History')
+                    ]
+                ),
+                new SecTabBody(
+                    ['Vehicles', 'Drivers'],
+                    [
+                        new Vehicles($vehicles),
+                        new Drivers($drivers)
+                    ]
+                )
+            ]
+        )
+    ]);
+    $ui->create();
+    $ui->show();
     ?>
 
 

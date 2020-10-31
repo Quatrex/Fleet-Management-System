@@ -2,7 +2,13 @@
 <?php
 
 use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
-use UI\HTMLBuilder;
+use UI\UI;
+use UI\HTMLBodyComponent\MainNavBar;
+use UI\HTMLBodyComponent\SecNavBar;
+use UI\HTMLBodyComponent\MyRequests;
+use UI\HTMLBodyComponent\AwaitingRequests;
+use UI\HTMLBodyComponent\SecTabBody;
+use UI\HTMLBodyComponent\MainNavHierarchy;
 
 session_start();
 if (!isset($_SESSION['empid']) or !isset($_SESSION['position']) or $_SESSION['position'] != 'cao') {
@@ -11,9 +17,9 @@ if (!isset($_SESSION['empid']) or !isset($_SESSION['position']) or $_SESSION['po
 }
 include '../partials/head.php';
 require_once '../includes/autoloader.inc.php';
-$uiBuilder = HTMLBuilder::getInstance();
+$ui = UI::getInstance();
 $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
-$requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved'],0);
+$requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved'], 0);
 $ongoingRequests = [];
 // $ongoingRequests = $employee->getMyRequests(['scheduled']);
 $pastRequests = [];
@@ -27,19 +33,35 @@ $_SESSION['employee'] = $employee;
 
 <body id="page-top">
     <?php
-    $uiBuilder
-        ->createMainNavBar($employee,['My Requests', 'Awaiting Requests'])
-        ->createSecondaryNavBar('MyRequestsSecTab',['Pending Requests', 'Ongoing Requests', 'History'])
-        ->myRequests($requestsByMe, 'Pending', 'Pending Requests')
-        ->myRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests')
-        ->myRequests($pastRequests, 'Past', 'Past Requests')
-        ->buildSecTabBody(['PendingRequests', 'OngoingRequests', 'History'])
-        ->createSecondaryNavBar('AwaitingRequestsSecTab',['Approve Requests', 'Approved History'])
-        ->awaitingRequests($requestsToApprove, 'Approve', 'Approve Requests')
-        ->awaitingRequests($approvedRequests, 'Approved', 'Approved History')
-        ->buildSecTabBody(['ApproveRequests', 'ApprovedHistory'])
-        ->createMainNavHierachy(['MyRequests', 'AwaitingRequests'])
-        ->show();
+    $ui->setContents([
+        new MainNavBar($employee, ['My Requests', 'Awaiting Requests']),
+        new MainNavHierarchy(
+            ['MyRequests', 'AwaitingRequests'],
+            [
+                new SecNavBar('MyRequestsSecTab', ['Pending Requests', 'Ongoing Requests', 'History']),
+                new SecNavBar('AwaitingRequestsSecTab', ['Approve Requests', 'Approved History'])
+            ],
+            [
+                new SecTabBody(
+                    ['PendingRequests', 'OngoingRequests', 'History'],
+                    [
+                        new MyRequests($requests, 'Pending', 'Pending Requests'),
+                        new MyRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests'),
+                        new MyRequests($pastRequests, 'Past', 'Past Requests')
+                    ]
+                ),
+                new SecTabBody(
+                    ['ApproveRequests', 'ApprovedHistory'],
+                    [
+                        new AwaitingRequests($requestsToApprove, 'Approve', 'Approve Requests'),
+                        new AwaitingRequests($approvedRequests, 'Approved', 'Approved History')
+                    ]
+                )
+            ]
+        )
+    ]);
+    $ui->create();
+    $ui->show();
     ?>
 
 
@@ -56,7 +78,6 @@ $_SESSION['employee'] = $employee;
         const pastRequests = <?php echo json_encode($pastRequests) ?>;
         const requestsToApprove = <?php echo json_encode($requestsToApprove) ?>;
         const approvedRequests = <?php echo json_encode($approvedRequests) ?>;
-
     </script>
     <script src="../js/classes.js"></script>
     <script src="../js/redux.js"></script>
