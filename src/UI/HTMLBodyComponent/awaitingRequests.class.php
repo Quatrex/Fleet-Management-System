@@ -13,7 +13,6 @@ class AwaitingRequests extends Tab
 
     public function __construct(array $requests, string $state, $header = '')
     {
-        parent::__construct();
         $this->state = $state;
         $this->header = $header;
         $this->requests = $requests;

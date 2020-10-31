@@ -5,9 +5,9 @@ namespace UI\Builder;
 abstract class HTMLComponent
 {
 
-    protected $tag;
-    protected $attributes;
-    protected $contents;
+    protected string $tag;
+    protected array $attributes;
+    protected array $contents;
 
     public function __construct(string $tag = 'div')
     {

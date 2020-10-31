@@ -11,7 +11,6 @@ class Drivers extends Tab
 
     public function __construct(array $drivers)
     {
-        parent::__construct();
         $this->drivers = $drivers;
         $this->compositeBuilder = new CompositeBuilder();
     }

@@ -11,7 +11,6 @@ class Employees extends Tab
 
     public function __construct(array $employees)
     {
-        parent::__construct();
         $this->employees = $employees;
         $this->compositeBuilder = new CompositeBuilder();
     }

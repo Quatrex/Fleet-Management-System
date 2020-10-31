@@ -11,7 +11,6 @@ class Vehicles extends Tab
 
     public function __construct(array $vehicles)
     {
-        parent::__construct();
         $this->vehicles = $vehicles;
         $this->compositeBuilder = new CompositeBuilder();
     }
