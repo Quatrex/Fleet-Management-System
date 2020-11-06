@@ -22,13 +22,13 @@ $ui = UI::getInstance();
 $employee = PrivilegedEmployeeFactory::makeEmployee($_SESSION['empid']);
 $requestsByMe = $employee->getMyRequests(['pending', 'justified', 'approved'], 0);
 $ongoingRequests = [];
-$ongoingRequests = $employee->getMyRequests(['scheduled'], 0);
+// $ongoingRequests = $employee->getMyRequests(['scheduled'], 0);
 $pastRequests = [];
-$pastRequests = $employee->getMyRequests(['denied', 'expired', 'cancelled', 'completed']);
+// $pastRequests = $employee->getMyRequests(['denied', 'expired', 'cancelled', 'completed']);
 $requestsToJustify = [];
-$requestsToJustify = $employee->getPendingRequests();
+// $requestsToJustify = $employee->getPendingRequests();
 $justifiedRequests = [];
-$justifiedRequests = $employee->getMyJustifiedRequests(['approved', 'justified', 'denied', 'expired', 'cancelled', 'completed']);
+// $justifiedRequests = $employee->getMyJustifiedRequests(['approved', 'justified', 'denied', 'expired', 'cancelled', 'completed']);
 $vehicles = [];
 $_SESSION['employee'] = $employee;
 
@@ -49,7 +49,7 @@ $_SESSION['employee'] = $employee;
                 new SecTabBody(
                     ['PendingRequests', 'OngoingRequests', 'History'],
                     [
-                        new MyRequests($requests, 'Pending', 'Pending Requests'),
+                        new MyRequests($requestsByMe, 'Pending', 'Pending Requests'),
                         new MyRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests'),
                         new MyRequests($pastRequests, 'Past', 'Past Requests')
                     ]

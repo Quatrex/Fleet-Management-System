@@ -58,7 +58,7 @@ $_SESSION['employee'] = $employee;
                 new SecTabBody(
                     ['PendingRequests', 'OngoingRequests', 'History'],
                     [
-                        new MyRequests($requests, 'Pending', 'Pending Requests'),
+                        new MyRequests($requestsByMe, 'Pending', 'Pending Requests'),
                         new MyRequests($ongoingRequests, 'Ongoing', 'Ongoing Requests'),
                         new MyRequests($pastRequests, 'Past', 'Past Requests')
                     ]
