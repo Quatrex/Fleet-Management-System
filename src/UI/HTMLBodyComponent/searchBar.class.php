@@ -13,7 +13,7 @@ class SearchBar extends HTMLBodyComponent
     public function __construct(string $header, array $dropDownList)
     {
         $this->header=$header;
-        $this->dropdownList = $dropDownList;
+        $this->dropDownList = $dropDownList;
     }
 
     public function create(): void
