@@ -4,6 +4,7 @@
 use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
 use UI\UI;
 use UI\HTMLBodyComponent\MainNavBar;
+use UI\HTMLBodyComponent\Psd;
 use UI\HTMLBodyComponent\SecNavBar;
 use UI\HTMLBodyComponent\MyRequests;
 use UI\HTMLBodyComponent\SecTabBody;
@@ -33,6 +34,7 @@ $_SESSION['pastRequests'] = $pastRequests;
     <?php
     $ui->setContents([
         new MainNavBar($employee),
+        new Psd(['My Requests' => ['Pending Requests', 'Ongoing Requests', 'History']]),
         new MainNavHierarchy(
             ['MyRequests'],
             [

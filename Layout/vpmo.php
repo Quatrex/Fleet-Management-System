@@ -3,6 +3,7 @@
 use Employee\Factory\Privileged\PrivilegedEmployeeFactory;
 use UI\UI;
 use UI\HTMLBodyComponent\MainNavBar;
+use UI\HTMLBodyComponent\Psd;
 use UI\HTMLBodyComponent\SecNavBar;
 use UI\HTMLBodyComponent\MyRequests;
 use UI\HTMLBodyComponent\AwaitingRequests;
@@ -45,6 +46,7 @@ $_SESSION['employee'] = $employee;
     <?php
     $ui->setContents([
         new MainNavBar($employee, ['My Requests', 'Awaiting Requests', 'Database']),
+        new Psd(['My Requests' => ['Pending Requests', 'Ongoing Requests', 'History'], 'Awaiting Requests' => ['Assign Requests', 'Ongoing Trips', 'Scheduled History'], 'Database' => ['Vehicles', 'Drivers']]),
         new MainNavHierarchy(
             ['MyRequests', 'AwaitingRequests', 'Database'],
             [
