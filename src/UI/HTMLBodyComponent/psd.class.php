@@ -31,15 +31,15 @@ class Psd extends HTMLBodyComponent
             for ($i = 0; $i < sizeof($secondNavList); $i++) {
                 $liComposite = $this->compositeBuilder
                     ->createComposite('li', ['class' => "secondary-nav"])
-                    ->addElement('a', ['class' => "nav-link hvrcenter", 'href' => ""], [$secondNavList[$i]])
+                    ->addElement('a', ['class' => "nav-link hvrcenter", 'id' => str_replace(' ', '', $secondNavList[$i]) . 'SecLinkResponsive'], [$secondNavList[$i]])
                     ->getComposite();
                 array_push($liList, $liComposite);
             }
             $navComposite = $this->compositeBuilder
-                ->createComposite('div', ['class' => "nav-content_child_3"])
-                ->addElement('a', ['class' => $tabClass], [$mainNav])
+                ->createComposite('div', ['class' => "nav-content_child_3", 'id' => str_replace(' ', '', $mainNav) . 'SecTabResponsive'])
+                ->addElement('a', ['class' => $tabClass, 'id' =>  str_replace(' ', '', $mainNav) . 'MainLinkResponsive'], [$mainNav])
                 ->composite()
-                ->createComposite('ul', ['class' => "list-group"])
+                ->createComposite('ul', ['class' => "hidden-list", 'id' =>  str_replace(' ', '', $mainNav) . 'SecList'])
                 ->addArrayToContent($liList)
                 ->get()
                 ->getComposite();
@@ -54,7 +54,7 @@ class Psd extends HTMLBodyComponent
             ->composite()
             ->createComposite('button', ['class' => "psd_child_2", 'id' => "close-button"])
             ->composite()
-            ->createComposite('div', ['class' => "psd_child_3"])
+            ->createComposite('div', ['class' => "psd_child_3",'id'=>''])
             ->composite()
             ->createComposite()
             ->addElement('span', ['class' => "psd_child_4"], ['Close Menu'])

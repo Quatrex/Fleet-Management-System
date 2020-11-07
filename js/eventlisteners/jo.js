@@ -79,7 +79,7 @@ const justifiedRequestContainer = new DOMContainer(
 	justifiedRequestsStore,
 	'awaitingRequestHistoryCardTemplate',
 );
-
+const responsiveMenuToggler = new ResponsiveMenuToggler();
 const justifyRequestContainerTab = new DOMTabContainer('JustifyRequestsSecTab', justifyRequestContainer);
 const justifiedRequestContainerTab = new DOMTabContainer('JustifiedHistorySecTab', justifiedRequestContainer);
 
@@ -100,6 +100,7 @@ const requesterTabButton = new MainTabButton('MyRequestsMainLink', 'MyRequestsMa
 const justifyTabButton = new MainTabButton('AwaitingRequestsMainLink', 'AwaitingRequestsMainTab', justifyTab);
 
 const joMainTab = new MainTab('mainNavBarContainer', [justifyTabButton, requesterTabButton], requesterTabButton);
+
 
 requestsToJustifyStore.addObservers(justifyRequestContainer);
 justifiedRequestsStore.addObservers(justifiedRequestContainer);

@@ -77,6 +77,11 @@
     }
 }
 
+.hidden-list {
+    flex-direction: column;
+    display: none;
+}
+
 @include media-md {}
 
 @include media-lg {}

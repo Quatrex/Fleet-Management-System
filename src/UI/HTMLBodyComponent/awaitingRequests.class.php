@@ -62,7 +62,7 @@ class AwaitingRequests extends Tab
             $i++;
         }
         $this->bodyComponent = $this->compositeBuilder
-            ->createComposite('div', ['class' => 'card', 'id' => strtolower($this->state) . 'AwaitingRequestContainer'])
+            ->createComposite('div', ['class' => 'card mt-5', 'id' => strtolower($this->state) . 'AwaitingRequestContainer'])
             ->composite()
             ->createComposite('div', ['class' => "card-header  text-white py-0"])
             ->addToContent($this->createMySearchBar(strtolower($this->state) . 'AwaitingRequest', ['Created Date', 'Pickup Location', 'Drop Location', 'Time of Trip', 'Date of Trip', 'Purpose', 'State']))

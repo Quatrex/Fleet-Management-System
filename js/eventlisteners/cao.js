@@ -23,6 +23,8 @@ DenyRequestAlertCancel.setNext(RequestApprovePreviewPopup);
 const approveRequestContainer = new DOMContainer('approveAwaitingRequestContainer',RequestApprovePreviewPopup,requestsToApproveStore,"awaitingRequestCardTemplate")
 const approvedHistoryContainer = new DOMContainer('approvedAwaitingRequestContainer',RequestHistoryPreviewPopup, approvedRequestsStore,"awaitingRequestHistoryCardTemplate")
 
+const responsiveMenuToggler = new ResponsiveMenuToggler();
+
 
 const approveRequestContainerTab = new DOMTabContainer('ApproveRequestsSecTab',approveRequestContainer);
 const approvedHistoryContainerTab = new DOMTabContainer('ApprovedHistorySecTab',approvedHistoryContainer);

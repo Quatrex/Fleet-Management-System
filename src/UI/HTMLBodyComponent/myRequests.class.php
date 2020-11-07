@@ -65,7 +65,7 @@ class MyRequests extends Tab
             $i++;
         }
         $this->bodyComponent = $this->compositeBuilder
-            ->createComposite('div', ['class' => 'card', 'id' => strtolower($this->state) . 'RequestsContainer'])
+            ->createComposite('div', ['class' => 'card mt-5', 'id' => strtolower($this->state) . 'RequestsContainer'])
             ->composite()
             ->createComposite('div', ['class' => "card-header text-white py-0"])
             ->addToContent($this->createMySearchBar($this->header, ['Created Date', 'Pick Location', 'Drop Location', 'Time Of Trip', 'Date Of Trip', 'Purpose', 'State']))
