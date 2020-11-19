@@ -2,24 +2,18 @@
 
 namespace DB\Model;
 
-use PDO;
 use DB\Model\SQLQueryBuilder\SQLQuery;
+
 
 class DatabaseHandler
 {
     private static ?DatabaseHandler $instance = null;
-    private string $host = 'remotemysql.com';
-    private string $user = 'Kvs8AuC78e';
-    private string $pass = 'bmMrp4oj2h';
-    private string $dbname = 'Kvs8AuC78e';
-    private string $port = '3306'; //Config::$port
-    private PDO $pdo;
+    private DatabaseDirector $director;
 
     private function __construct()
     {
-        $this->pdo = new PDO('mysql:host=' . $this->host . ';port=' . $this->port . ';
-        dbname=' . $this->dbname, $this->user, $this->pass);
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->director = new PDOAdapter();
+        $this->director->initializeConnection();
     }
 
     /**
@@ -42,11 +36,7 @@ class DatabaseHandler
      */
     public function read(SQLQuery $query): array
     {
-        $stmt = $this->pdo->prepare($query->getField('statement'));
-        $stmt->execute($query->getField('values'));
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $query->reset();
-        return $results;
+        return $this->director->read($query);
     }
 
     /**
@@ -56,8 +46,6 @@ class DatabaseHandler
      */
     public function write(SQLQuery $query)
     {
-        $stmt = $this->pdo->prepare($query->getField('statement'));
-        $stmt->execute($query->getField('values'));
-        $query->reset();
+        return $this->director->write($query);
     }
 }
