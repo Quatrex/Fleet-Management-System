@@ -1,0 +1,39 @@
+.float-button {
+  position: fixed;
+  width: 70px;
+  height: 70px;
+  bottom: 80px;
+  right: 60px;
+  z-index: 9;
+  background-color: #457b9d;
+  border: antiquewhite;
+  color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  outline: none !important;
+  transition: width 100ms ease-in;
+}
+
+.float-icon {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+}
+
+.float-button:hover {
+  width: 186px;
+}
+
+.float-button::before {
+  content: "";
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+.float-button[data-title]:hover:before {
+  content: attr(data-title);
+  position: absolute;
+  opacity: 1;
+  right: 66px;
+  top: 21px;
+}

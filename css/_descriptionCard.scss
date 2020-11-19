@@ -1,0 +1,75 @@
+.card-body {
+    position: relative;
+}
+
+.status-color {
+    /* position: fixed; */
+    width: 20px;
+    height: 20px;
+    /* bottom: 40px; */
+    /* right: 40px; */
+    background: rgb(63, 94, 251);
+    background: radial-gradient(circle, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 82%);
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    box-shadow: 2px 2px 3px #999;
+}
+
+.bouncybox {
+    position: absolute;
+    left: 50%;
+    height: 100px;
+    width: 40px;
+    margin-left: 20px;
+}
+
+.bouncy {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background: grey;
+    animation: bouncy 2s infinite ease-in-out;
+}
+
+@keyframes bouncy {
+    40% {
+        height: 40px;
+    }
+    50% {
+        transform: translate(0, 65px);
+        height: 34px;
+    }
+    65% {
+        height: 40px;
+    }
+}
+
+.detail-description {
+    opacity: '1';
+    // transition: 1s opacity;
+    animation: slide-up 0.5s ease-in-out;
+}
+
+.animate {
+    height: 0px;
+    transition: height 1s;
+}
+
+// @keyframes expand {
+//     from {
+//         transform: scale(0);
+//         opacity: 0;
+//         background: #5470b0;
+//     }
+// }
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
