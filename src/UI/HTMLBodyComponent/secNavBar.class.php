@@ -20,6 +20,9 @@ class SecNavBar extends HTMLBodyComponent
         $this->elementBuilder = ElementBuilder::getInstance();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function create(): void
     {
         $i = 0;

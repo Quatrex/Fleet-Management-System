@@ -17,6 +17,9 @@ class secTabBody extends HTMLBodyComponent
         $this->compositeBuilder = new CompositeBuilder();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function create(): void
     {
         $i = 0;

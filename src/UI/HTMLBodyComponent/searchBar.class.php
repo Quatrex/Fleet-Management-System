@@ -16,6 +16,9 @@ class SearchBar extends HTMLBodyComponent
         $this->dropDownList = $dropDownList;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function create(): void
     {
         $searchbarBuilder = new CompositeBuilder();

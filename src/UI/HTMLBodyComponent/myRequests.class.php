@@ -19,6 +19,9 @@ class MyRequests extends Tab
         $this->compositeBuilder = new CompositeBuilder();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function create(): void
     {
         $i = 0;

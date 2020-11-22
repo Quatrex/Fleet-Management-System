@@ -16,6 +16,12 @@ abstract class HTMLComponent
         $this->contents = [];
     }
 
+    /**
+     * Insert attributes
+     * 
+     * @param array $attributes ['Field' => 'Value']
+     * 
+     */
     public function addAttributes(array $attributes):void
     {
         $this->attributes = array_merge($this->attributes, $attributes);
