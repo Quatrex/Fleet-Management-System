@@ -30,10 +30,6 @@ class PHPMailerAdapter implements Mailer
         $this->mail->Username = "oopassign1@gmail.com"; //set email address
         $this->mail->Password = "pleasedontremovenetwork"; //set password
         $this->mail->SetFrom("noreply@quatrex.lk");
-        // if (!$mail->isSMTP()) {
-        //     echo "SMTP auth failed";
-        //     return; // smtp authentification failed  
-        // }
     }
 
     /**
@@ -49,10 +45,8 @@ class PHPMailerAdapter implements Mailer
 
         try {
             $this->mail->Send();
-            // echo "Mail sent<br>";
         } catch (phpmailerException $e) {
             $e -> errorMessage();
-            // echo "Mail not sent";
         }
 
         $this->clearMail();
