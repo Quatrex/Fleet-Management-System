@@ -15,6 +15,9 @@ class Employees extends Tab
         $this->compositeBuilder = new CompositeBuilder();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function create(): void{
         $employeeCards = [];
         foreach ($this->employees as $employee) {

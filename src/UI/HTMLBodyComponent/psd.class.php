@@ -15,6 +15,9 @@ class Psd extends HTMLBodyComponent
         $this->compositeBuilder = new CompositeBuilder();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function create(): void
     {
         $navContentList = [];

@@ -19,6 +19,9 @@ class MainNavHierarchy extends HTMLBodyComponent
         $this->compositeBuilder = new CompositeBuilder();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function create(): void
     {
         $mainTabComList = [];

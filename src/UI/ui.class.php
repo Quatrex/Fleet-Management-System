@@ -19,7 +19,12 @@ class UI
         return self::$instance;
     }
 
-    public function setContents(array $contents = [])
+    /**
+     * Set contents to the ui
+     * 
+     * @param array $contents
+     */
+    public function setContents(array $contents = []) : void
     {
         $this->contents=$contents;
     }
