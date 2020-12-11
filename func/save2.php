@@ -217,7 +217,7 @@ switch ($method) {
 			'Designation' => Input::get('Designation'),
 			'Position' => Input::get('position'),
 			'Email' => Input::get('Email'),
-			'Password' => Input::get('Password'),
+			'Password' => password_hash(Input::get('Password'), PASSWORD_BCRYPT),
 			'ContactNo' => Input::get('ContactNo')
 		]);
 		$object['error'] = false;
@@ -290,16 +290,20 @@ switch ($method) {
 		break;
 
 	case 'ChangePassword':
-		if (Input::get('NewPassword') === Input::get('RetypeNewPassword')) {
-			$emp = $employee->updatePassword([
-				'OldPassword' => Input::get('CurrentPassword'),
-				'NewPassword' => password_hash(Input::get('NewPassword'), PASSWORD_BCRYPT)
-			]);
-			$object['error'] = false;
-			$object['object'] = $emp;
-			$object['message'] = "success_Employee successfully password updated";
+		if ($employee->verifyPassword(Input::get('CurrentPassword'))) {
+			if (Input::get('NewPassword') === Input::get('RetypeNewPassword')) {
+				$emp = $employee->updatePassword([
+					'OldPassword' => Input::get('CurrentPassword'),
+					'NewPassword' => password_hash(Input::get('NewPassword'), PASSWORD_BCRYPT)
+				]);
+				$object['error'] = false;
+				$object['object'] = $emp;
+				$object['message'] = "success_Employee successfully password updated";
+			} else {
+				$object['message'] = "This field should be match to the previous field";
+			}
 		} else {
-			$object['message'] = "This field should be match to the previous field";
+			$object['message'] = "Password Incorrect";
 		}
 		break;
 
@@ -430,7 +434,6 @@ switch ($method) {
 		$object['object'] = $request;
 		$object['message'] = "success_Request " . Input::get('RequestId') . " successfully cancelled";
 		break;
-
 	default:
 		$object['error'] = true;
 		$object['message'] = 'Invalid method';

@@ -66,13 +66,18 @@ abstract class PrivilegedEmployee extends Employee implements JsonSerializable
         //$values should include 'OldPassword', 'NewPassword'
 
         $employeeController = new EmployeeController();
-        $employeeViewer = new EmployeeViewer();
-        if ($employeeViewer->checkPasswordByID($this->empID,$values['OldPassword'])) {
+        if ($this->verifyPassword($values['OldPassword'])) {
             $employeeController->updateEmployeePassword(
                 $this->empID,
                 $values['NewPassword']
             );
         }
+    }
+
+    public function verifyPassword(string $password): bool
+    {
+        $employeeViewer = new EmployeeViewer();
+        return $employeeViewer->checkPasswordByID($this->empID, $password);
     }
 
     public function updateProfilePicture(array $values): void
