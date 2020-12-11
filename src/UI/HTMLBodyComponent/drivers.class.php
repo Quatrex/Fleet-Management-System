@@ -15,6 +15,9 @@ class Drivers extends Tab
         $this->compositeBuilder = new CompositeBuilder();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function create(): void{
         $driverCards = [];
         foreach ($this->drivers as $driver) {

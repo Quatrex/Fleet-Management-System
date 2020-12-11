@@ -15,7 +15,11 @@ class Vehicles extends Tab
         $this->compositeBuilder = new CompositeBuilder();
     }
 
-    public function create(): void{
+    /**
+     * @inheritDoc
+     */
+    public function create(): void
+    {
         $vehicleCards = [];
         foreach ($this->vehicles as $vehicle) {
             $vehicleCard = $this->compositeBuilder
