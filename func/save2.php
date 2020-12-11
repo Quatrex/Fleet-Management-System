@@ -215,7 +215,7 @@ switch ($method) {
 			'LastName' => ucfirst(Input::get('LastName')),
 			'Username' => "",
 			'Designation' => Input::get('Designation'),
-			'Position' => Input::get('Position'),
+			'Position' => Input::get('position'),
 			'Email' => Input::get('Email'),
 			'Password' => Input::get('Password'),
 			'ContactNo' => Input::get('ContactNo')

@@ -1,5 +1,5 @@
 CREATE TABLE `employee` (
-  `EmpID` CHAR(30),
+  `EmpID` CHAR(30) NOT NULL,
   `FirstName` VARCHAR(255),
   `LastName` VARCHAR(255),
   `Position` VARCHAR(30),
@@ -13,7 +13,7 @@ CREATE TABLE `employee` (
 );
 
 CREATE TABLE `vehicle` (
-  `RegistrationNo` CHAR(30),
+  `RegistrationNo` CHAR(30) NOT NULL,
   `Model` VARCHAR(50),
   `PurchasedYear` TIMESTAMP,
   `Value` INT,
@@ -32,7 +32,7 @@ CREATE TABLE `vehicle` (
 );
 
 CREATE TABLE `driver` (
-  `DriverID` CHAR(30),
+  `DriverID` CHAR(30) NOT NULL,
   `FirstName` VARCHAR(255),
   `LastName` VARCHAR(255),
   `LicenseNumber` VARCHAR(30),
@@ -50,7 +50,7 @@ CREATE TABLE `driver` (
 );
 
 CREATE TABLE `leased_vehicle` (
-  `RegistrationNo` CHAR(30),
+  `RegistrationNo` CHAR(30) NOT NULL,
   `LeasedCompany` VARCHAR(50),
   `LeasedPeriodFrom` VARCHAR(255),
   `LeasedPeriodTo` VARCHAR(30),
@@ -59,7 +59,7 @@ CREATE TABLE `leased_vehicle` (
 );
 
 CREATE TABLE `request` (
-  `RequestID` INT,
+  `RequestID` INT NOT NULL,
   `CreatedDate` TIMESTAMP,
   `State` TINYINT,
   `DateOfTrip` DATE,
