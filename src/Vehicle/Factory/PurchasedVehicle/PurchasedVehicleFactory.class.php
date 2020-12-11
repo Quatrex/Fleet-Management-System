@@ -25,7 +25,7 @@ class PurchasedVehicleFactory extends VehicleFactory
     /**
      * @inheritDoc
      */
-    protected function createVehicle(array $values = [], string $registrationNo = '') : Vehicle
+    protected function createVehicle(array $values = [], string $registrationNo = '', bool $isNew=false) : Vehicle
     {
         if (empty($values)) 
         {
@@ -35,7 +35,7 @@ class PurchasedVehicleFactory extends VehicleFactory
         } else 
         {
             $vehicle = new PurchasedVehicle($values);
-            $vehicle->saveToDatabase();
+            if($isNew) $vehicle->saveToDatabase();
         }
         return $this->castToVehicle($vehicle);
     }

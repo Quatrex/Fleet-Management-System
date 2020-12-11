@@ -76,7 +76,7 @@ if (Input::exists()) {
 			$object['object'] = $requests;
 			break;
 
-		case 'Load_vehicles':
+		case 'Load_vehicles':			
 			$vehicles = $employee->getVehicles($offset, $sort, $search);
 			$object['error'] = false;
 			$object['object'] = $vehicles;

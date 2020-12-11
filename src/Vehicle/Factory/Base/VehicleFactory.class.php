@@ -21,7 +21,7 @@ abstract class VehicleFactory
         $values['CurrentLocation'] = '';
         $values['AssignedOfficer'] = null;
         $values['NumOfAllocations'] = 0;
-        $vehicle = $this->createVehicle($values);
+        $vehicle = $this->createVehicle($values,'',true);
         return $this->castToVehicle($vehicle);
     }
 
@@ -57,7 +57,7 @@ abstract class VehicleFactory
      * 
      * @return Vehicle
      */
-    abstract protected function createVehicle(array $values = [], string $registrationNo = '') : Vehicle;
+    abstract protected function createVehicle(array $values = [], string $registrationNo = '', bool $isNew=false) : Vehicle;
 
     /**
      * Casts a vehicle object to vehicle interface
