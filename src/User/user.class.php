@@ -32,12 +32,12 @@ class User
 					return false;
 				}
 			} else {
-				$_SESSION['user-error'] = 'Incorrect username!';
+				$_SESSION['user-error'] = 'Incorrect Email!';
 				return false;
 			}
 		}
 
-		$_SESSION['user-error'] = 'Incorrect username!';
+		$_SESSION['user-error'] = 'Incorrect Email!';
 		return false;
 	}
 

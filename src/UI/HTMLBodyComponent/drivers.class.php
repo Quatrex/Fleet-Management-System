@@ -25,7 +25,7 @@ class Drivers extends Tab
                 ->createComposite('div', ['class' => 'col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description', 'id' => 'driverContainer_' . htmlentities($driver->getField('driverId'))])
                 ->composite()
                 ->createComposite('div', ['class' => 'card text-center', 'style' => 'width: 15rem;'])
-                ->addElement('img', ['class' => "card-img-top rounded-circle user-image mt-2", 'src' => "../images/default-user-image.png", 'alt' => "Driver Image"])
+                ->addElement('img', ['class' => "card-img-top rounded-circle user-image mt-2", 'src' => "../images/default-user-image.png", 'alt' => "Driver Image " . $driver->getField('firstName') . ' ' . $driver->getField('lastName'), 'style' => 'height: 15rem;'])
                 ->composite()
                 ->createComposite('div', ['class' => 'card-body'])
                 ->addElement('h5', ['class' => 'card-title firstName lastName'], [$driver->getField('firstName') . ' ' . $driver->getField('lastName')])
