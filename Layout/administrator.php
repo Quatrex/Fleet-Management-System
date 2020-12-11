@@ -31,7 +31,7 @@ $drivers = [];
     <?php
     $ui->setContents([
         new MainNavBar($employee),
-        new Psd([ 'Database' => ['Employees', 'Drivers']]),
+        new Psd([ 'Admin' => ['Employees', 'Drivers']]),
         new MainNavHierarchy(
             ['Database'],
             [
