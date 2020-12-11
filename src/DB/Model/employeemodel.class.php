@@ -26,15 +26,15 @@ abstract class EmployeeModel extends Model
     protected function getRecordByID($empID)
     {
         $conditions = ['EmpID' => $empID, 'IsDeleted' => 0];
-        $wantedFields = ['EmpID', 'FirstName', 'LastName', 'Position', 'Designation', 'Email', 'Username', 'ProfilePicturePath'];
-        $results = parent::getRecords($conditions, $wantedFields); //change getRecords() to not get password from database
+        $wantedFields = ['EmpID', 'FirstName', 'LastName', 'Position', 'Designation', 'Email',  'ProfilePicturePath'];
+        $results = parent::getRecords($conditions, $wantedFields); 
         return $results[0];
     }
 
-    protected function getRecordByUsername($username)
+    protected function getRecordByEmail($email)
     {
-        $conditions = ['Username' => $username, 'IsDeleted' => 0];
-        $wantedFields = array('EmpID', 'FirstName', 'LastName', 'Position', 'Designation', 'Email', 'Username', 'ProfilePicturePath');
+        $conditions = ['Email' => $email, 'IsDeleted' => 0];
+        $wantedFields = array('EmpID', 'FirstName', 'LastName', 'Position', 'Designation', 'Email', 'ProfilePicturePath');
         return parent::getRecords($conditions, $wantedFields);
     }
 
@@ -47,9 +47,9 @@ abstract class EmployeeModel extends Model
             'Position' => $position,
             'Designation' => $designation,
             'Email' => $email,
-            'Username' => $username,
+            // 'Username' => $username,
             'Password' => $password,
-            'ProfilePicturePath' => 'images/default-user-image.png'
+            'ProfilePicturePath' => null
         ];
         parent::addRecord($values);
     }

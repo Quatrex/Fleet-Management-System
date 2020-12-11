@@ -20,7 +20,7 @@ class User
 		$_SESSION['password-error'] = '';
 		if ($user) {
 			$viewer = new EmployeeViewer();
-			$data = $viewer->getRecordByUsername($user);
+			$data = $viewer->getRecordByEmail($user);
 			if (sizeof($data) > 0) {
 				$check = $viewer->checkPasswordByID($data[0]['EmpID'], $password);
 				if ($check) {

@@ -66,8 +66,8 @@ RealRequest::expireRequests();
                     <div id="message"></div>
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                            <label for="username">Username</label>
-                            <input class="form-control" name='username' id="username-input" type="text" placeholder="Username..." required="required" autocomplete="off" value="<?php if (isset($_POST['username'])) echo $_POST['username']; ?>" />
+                            <label for="email">Email</label>
+                            <input class="form-control" name='email' id="email-input" type="text" placeholder="Email..." required="required" autocomplete="off" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" />
                             <div id="name-error" class="text-danger"><?php if (isset($_SESSION['user-error'])) echo $_SESSION['user-error']; ?></div>
                         </div>
                     </div>

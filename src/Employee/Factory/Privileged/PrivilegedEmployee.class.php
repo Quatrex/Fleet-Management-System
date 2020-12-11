@@ -22,7 +22,7 @@ abstract class PrivilegedEmployee extends Employee implements JsonSerializable
         $this->empID = $values['EmpID'];
         $this->position = $values['Position'];
         $this->designation = $values['Designation'];
-        $this->username = $values['Username'];
+        // $this->username = $values['Username'];
         $this->password = $values['Password'];
     }
     public function jsonSerialize()
