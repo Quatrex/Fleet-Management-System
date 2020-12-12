@@ -147,7 +147,7 @@ class RealDriver extends Employee implements Driver
     {
         $this->numOfAllocations += 1;
         
-        if ($this->numOfAllocations > 0) {
+        if ($this->numOfAllocations == 1) {
             $this->state->allocate($this);
         }
         $stateID = $this->state->getID();

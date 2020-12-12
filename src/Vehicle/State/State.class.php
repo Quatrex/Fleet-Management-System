@@ -9,27 +9,27 @@ abstract class State {
     protected int $stateID;
 
     public function allocate(AbstractVehicle $vehicle) : void {
-        echo "Invalid transition";
+        echo "Invalid transition allocate";
     }
 
     public function deallocate(AbstractVehicle $vehicle) : void {
-        echo "Invalid transition";
+        echo "Invalid transition deallocate";
     }
 
     public function repair(AbstractVehicle $vehicle) : void {
-        echo "Invalid transition";
+        echo "Invalid transition repair";
     }
 
     public function finishRepair(AbstractVehicle $vehicle) : void {
-        echo "Invalid transition";
+        echo "Invalid transition finishRepair";
     }
 
     public function assign(AbstractVehicle $vehcile) : void {
-        echo "Invalid transition";
+        echo "Invalid transition assign";
     }
 
     public function disassociate(AbstractVehicle $vehcile) : void {
-        echo "Invalid transition";
+        echo "Invalid transition disassociate";
     }
 
     public function getID() : int{
