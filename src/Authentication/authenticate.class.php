@@ -7,6 +7,10 @@ use User\User;
 
 class Authenticate
 {
+    /**
+	 * Authonticate user
+	 * 
+	 */
     public static function authenticateMe()
     {
         if (!empty($_POST)) {
