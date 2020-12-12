@@ -145,23 +145,26 @@ class RealDriver extends Employee implements Driver
     public function allocate() : void
     {
         $this->numOfAllocations += 1;
-        $driverController = new DriverController();
-        $driverController->updateNumOfAllocations($this->driverId, $this->numOfAllocations);
-
+        
         if ($this->numOfAllocations > 0) {
             $this->state->allocate($this);
         }
+        $stateID = $this->state->getID();
+
+        $driverController = new DriverController();
+        $driverController->updateNumOfAllocations($this->driverId, $this->numOfAllocations, $stateID);    
     }
 
     public function deallocate() : void
     {
         $this->numOfAllocations -= 1;
-        $driverController = new DriverController();
-        $driverController->updateNumOfAllocations($this->driverId, $this->numOfAllocations);
-
         if ($this->numOfAllocations == 0) {
             $this->state->deallocate($this);
         }
+        $stateID = $this->state->getID();
+
+        $driverController = new DriverController();
+        $driverController->updateNumOfAllocations($this->driverId, $this->numOfAllocations, $stateID);   
     }
 
     public function assignVehicle(string $registrationNo) : void

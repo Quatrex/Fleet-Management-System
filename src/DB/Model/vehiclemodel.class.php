@@ -128,10 +128,11 @@ abstract class VehicleModel extends Model
         parent::setTableName('vehicle');
     }
 
-    protected function updateNumOfAllocations(string $registrationNo, int $numOfAllocations)
+    protected function updateNumOfAllocations(string $registrationNo, int $numOfAllocations, int $stateID)
     {
         $values = [
-            'NumOfAllocations' => $numOfAllocations
+            'NumOfAllocations' => $numOfAllocations,
+            'State' => $stateID
         ];
         $conditions = ['RegistrationNo' => $registrationNo];
         parent::updateRecord($values, $conditions);

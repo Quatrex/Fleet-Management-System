@@ -111,23 +111,25 @@ abstract class AbstractVehicle implements Vehicle
     public function allocate(): void
     {
         $this->numOfAllocations += 1;
-        $vehicleController = new VehicleController();
-        $vehicleController->updateNumOfAllocations($this->registrationNo, $this->numOfAllocations);
-
         if ($this->numOfAllocations > 0) {
             $this->state->allocate($this);
         }
+        $stateID = $this->state->getID();
+
+        $vehicleController = new VehicleController();
+        $vehicleController->updateNumOfAllocations($this->registrationNo, $this->numOfAllocations, $stateID);
     }
 
     public function deallocate(): void
     {
         $this->numOfAllocations -= 1;
-        $vehicleController = new VehicleController();
-        $vehicleController->updateNumOfAllocations($this->registrationNo, $this->numOfAllocations);
-
         if ($this->numOfAllocations == 0) {
             $this->state->deallocate($this);
         }
+        $stateID = $this->state->getID();
+        
+        $vehicleController = new VehicleController();
+        $vehicleController->updateNumOfAllocations($this->registrationNo, $this->numOfAllocations, $stateID);
     }
 
     public function repair(): void
