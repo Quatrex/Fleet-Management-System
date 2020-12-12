@@ -304,7 +304,7 @@
                                 <label>Driver ID</label>
                                 <div class="input-group">
                                     <input class="form-control py-2 border-right-0 border" id="DriverID-DriverProfileForm" type="text" name="DriverID" disabled>
-                                    <input class="form-control py-2 border-right-0 border" id="NewDriverID-DriverProfileForm" type="text" name="NewDriverID" disabled>
+                                    <input class="form-control py-2 border-right-0 border d-none" id="NewDriverID-DriverProfileForm" type="text" name="NewDriverID" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
@@ -410,6 +410,7 @@
                                 <div class="input-group">
                                     <input class="form-control py-2 border-right-0 border inputs" id="DriverID-DriverProfileEditForm" type="text" name="DriverID" required>
                                     <div id="NewDriverID-error" class="text-danger"></div>
+                                    <div id="DriverID-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
