@@ -13,16 +13,20 @@ $object = ['error' => true, 'object' => '', 'message' => ''];
 
 if (Input::exists()) {
     if (Input::get('Method') == 'ChangePassword') {
-        if (Input::get('NewPassword') === Input::get('RetypeNewPassword')) {
-            $emp = $employee->updatePassword([
-                'OldPassword' => Input::get('CurrentPassword'),
-                'NewPassword' => password_hash(Input::get('NewPassword'), PASSWORD_BCRYPT)
-            ]);
-            $object['error'] = false;
-            $object['object'] = $emp;
-            $object['message'] = "success_Employee successfully password updated";
+        if ($employee->verifyPassword(Input::get('CurrentPassword'))) {
+            if (Input::get('NewPassword') === Input::get('RetypeNewPassword')) {
+                $emp = $employee->updatePassword([
+                    'OldPassword' => Input::get('CurrentPassword'),
+                    'NewPassword' => password_hash(Input::get('NewPassword'), PASSWORD_BCRYPT)
+                ]);
+                $object['error'] = false;
+                $object['object'] = $emp;
+                $object['message'] = "success_Employee successfully password updated";
+            } else {
+                $object['message'] = "This field should be match to the previous field";
+            }
         } else {
-            $object['message'] = "This field should be match to the previous field";
+            $object['message'] = "Password Incorrect";
         }
     }
 }

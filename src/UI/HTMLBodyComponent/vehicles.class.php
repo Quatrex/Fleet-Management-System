@@ -26,7 +26,7 @@ class Vehicles extends Tab
                 ->createComposite('div', ['class' => 'col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description', 'id' => 'vehiclesContainer_' . htmlentities($vehicle->getField('registrationNo'))])
                 ->composite()
                 ->createComposite('div', ['class' => 'card text-center', 'style' => 'width: 15rem;'])
-                ->addElement('img', ['class' => "card-img-top rounded-circle user-image mt-2", 'src' => "../images/default-user-image.png", 'alt' => "Driver Image"])
+                ->addElement('img', ['class' => "card-img-top rounded-circle user-image mt-2", 'src' => "../images/default-user-image.png", 'alt' => "Vehicle Image "  . $vehicle->getField('model'), 'style' => 'height: 10rem;'])
                 ->composite()
                 ->createComposite('div', ['class' => 'card-body'])
                 ->addElement('h5', ['class' => 'card-title model'], [$vehicle->getField('model')])
