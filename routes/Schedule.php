@@ -16,7 +16,7 @@ if (Input::exists()) {
         $request = $employee->scheduleRequest(Input::get('RequestId'), Input::get('Driver'), Input::get('Vehicle'));
         $object['error'] = false;
         $object['object'] = $request;
-        $object['message'] = "success_Request " . Input::get('RequestId') . " successfully Assigned";
+        $object['message'] = "Request " . Input::get('RequestId') . " successfully Assigned";
     }
 }
 echo json_encode($object);

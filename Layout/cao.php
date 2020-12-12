@@ -85,7 +85,6 @@ $_SESSION['employee'] = $employee;
     <script src="../js/redux.js"></script>
     <script src="../js/eventlisteners/common.js"></script>
     <script src="../js/eventlisteners/cao.js"></script>
-    <script src="../js/functions.js"></script>
 
 </body>
 

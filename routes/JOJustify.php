@@ -20,7 +20,7 @@ if (Input::exists()) {
         $request = $employee->justifyRequest(Input::get('RequestId'), $comment);
         $object['error'] = false;
         $object['object'] = $request;
-        $object['message'] = "success_Request " . Input::get('RequestId') . " successfully justified";
+        $object['message'] = "Request " . Input::get('RequestId') . " successfully justified";
     }
 }
 echo json_encode($object);

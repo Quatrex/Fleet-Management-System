@@ -29,7 +29,7 @@ if (Input::exists()) {
         ]);
         $object['error'] = false;
         $object['request'] = $driver;
-        $object['message'] = "success_Driver " . Input::get('driverId') . " successfully added";
+        $object['message'] = "Driver " . Input::get('driverId') . " successfully added";
     }
 }
 echo json_encode($object);

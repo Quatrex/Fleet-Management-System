@@ -16,7 +16,7 @@ if (Input::exists()) {
         $vehicle = $employee->deleteLeasedVehicle(Input::get('registration'));
         $object['error'] = false;
         $object['object'] = $vehicle;
-        $object['message'] = "success_Vehicle " . Input::get('registration') . " successfully deleted";
+        $object['message'] = "Vehicle " . Input::get('registration') . " successfully deleted";
     }
 }
 echo json_encode($object);

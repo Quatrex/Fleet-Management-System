@@ -21,7 +21,7 @@ if (Input::exists()) {
                 ]);
                 $object['error'] = false;
                 $object['object'] = $emp;
-                $object['message'] = "success_Employee successfully password updated";
+                $object['message'] = "Employee successfully password updated";
             } else {
                 $object['message'] = "This field should be match to the previous field";
             }

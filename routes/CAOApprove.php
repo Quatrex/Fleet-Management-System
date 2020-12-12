@@ -16,7 +16,7 @@ if (Input::exists()) {
         $request = $employee->approveRequest(Input::get('RequestId'), Input::get('CAOComment'));
         $object['error'] = false;
         $object['object'] = $request;
-        $object['message'] = "success_Request " . Input::get('RequestId') . " successfully approved";
+        $object['message'] = "Request " . Input::get('RequestId') . " successfully approved";
     }
 }
 echo json_encode($object);

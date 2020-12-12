@@ -42,7 +42,7 @@ if (Input::exists()) {
 		if ($vehicle !== null) {
 			$object['error'] = false;
 			$object['object'] = $vehicle;
-			$object['message'] = "success_Vehicle " . Input::get('registration') . " successfully added";
+			$object['message'] = "Vehicle " . Input::get('registration') . " successfully added";
 		} else {
 			$object['error'] = true;
 			$object['message'] = 'Failed to create a vehicle object';

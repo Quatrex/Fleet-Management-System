@@ -206,6 +206,7 @@ class NetworkManager {
 		window.addEventListener('online', this);
 		window.addEventListener('offline', this);
 		this.storesOrder = [];
+		console.log("Object made");
 	}
 	updateStoreOrder(obj) {
 		this.storesOrder = this.storesOrder.filter((store) => store !== obj);
@@ -214,6 +215,8 @@ class NetworkManager {
 	handleEvent(event) {
 		if (event.type == 'online' && this.status != 'online') {
 			this.status = 'online';
+			console.log("Object active");
+			console.log(event.type);
 			$('#OfflineDisplay').fadeOut(300);
 			$('#OnlineDisplay').fadeIn(300);
 			window.setTimeout(() => {

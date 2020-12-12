@@ -16,7 +16,7 @@ if (Input::exists()) {
         $driver = $employee->assignVehicleToDriver(Input::get('DriverID'), Input::get('AssignedVehicle'));
         $object['error'] = false;
         $object['request'] = $driver;
-        $object['message'] = "success_Driver " . Input::get('DriverID') . " successfully assigned " . Input::get('AssignedVehicle');
+        $object['message'] = "Driver " . Input::get('DriverID') . " successfully assigned " . Input::get('AssignedVehicle');
     }
 }
 echo json_encode($object);

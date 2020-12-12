@@ -44,7 +44,7 @@ if (Input::exists()) {
 					$emp = $employee->UpdateProfilePicture(['ProfilePicturePath' => $profileImageName]);
 					$object['error'] = false;
 					$object['object'] = [$emp];
-					$object['message'] = "success_Employee " . " successfully updated profile picture";
+					$object['message'] = "Employee " . " successfully updated profile picture";
 				} else {
 					$object['message'] = "There was an error uploading the file";
 				}

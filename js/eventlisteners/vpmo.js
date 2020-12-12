@@ -1,21 +1,28 @@
-const requestsToAssignStore = new Store('requestsToAssign',networkManager);
-const ongoingTripStore = new Store('scheduledRequests',networkManager);
-const scheduledRequestsStore = new Store('scheduledHistoryRequests',networkManager);
-const vehicleStore = new Store('vehicles',networkManager, 'RegistrationNo', 'RegistrationNo');
-const driverStore = new Store('drivers',networkManager,'DriverID', 'DriverID');
+// $('#alert-ajax-failure').fadeIn(300).delay(1500);
+// $( "#alert-ajax-success" ).fadeIn( 300 ).delay( 2500 ).fadeOut( 400 );
+const requestsToAssignStore = new Store('requestsToAssign', networkManager);
+const ongoingTripStore = new Store('scheduledRequests', networkManager);
+const scheduledRequestsStore = new Store('scheduledHistoryRequests', networkManager);
+const vehicleStore = new Store('vehicles', networkManager, 'RegistrationNo', 'RegistrationNo');
+const driverStore = new Store('drivers', networkManager, 'DriverID', 'DriverID');
 
 //Add a vehicle
 const VehicleAddFormClose = new DisplayNextButton('VehicleAddForm_Close');
-const VehicleAddFormSubmit = new BackendAcessButton('VehicleAddForm_Submit', 'AddVehicle', [
-	ObjectCreate,
-	FormValidate],
-	ActionCreator([vehicleStore], 'ADD'));
+const VehicleAddFormSubmit = new BackendAcessButton(
+	'VehicleAddForm_Submit',
+	'AddVehicle',
+	[ObjectCreate, FormValidate],
+	ActionCreator([vehicleStore], 'ADD')
+);
 const VehicleAddFormPopup = new Popup('VehicleAddForm', [VehicleAddFormClose, VehicleAddFormSubmit]);
 
 //Vehicle Delete Confirm
 const DeleteVehicleAlertClose = new DisplayNextButton('DeleteVehicleAlert_Close');
 const DeleteVehicleAlertCancel = new DisplayNextButton('DeleteVehicleAlert_Cancel');
-const DeleteVehicleAlertDelete = new BackendAcessButton('DeleteVehicleAlert_Delete', 'DeleteVehicle', [],
+const DeleteVehicleAlertDelete = new BackendAcessButton(
+	'DeleteVehicleAlert_Delete',
+	'DeleteVehicle',
+	[],
 	ActionCreator([vehicleStore], 'DELETE')
 );
 const DeleteVehicleAlertPopup = new Popup('DeleteVehicleAlertPopup', [
@@ -30,10 +37,9 @@ const VehicleProfileEditFormCancel = new DisplayNextButton('VehicleProfileEditFo
 const VehicleProfileEditFormConfirm = new BackendAcessButton(
 	'VehicleProfileEditForm_Confirm',
 	'UpdateVehicle',
-	[
-		ObjectCreate,
-		FormValidate],ActionCreator([vehicleStore], 'UPDATE')
-	,'PHOTO',
+	[ObjectCreate, FormValidate],
+	ActionCreator([vehicleStore], 'UPDATE'),
+	'PHOTO',
 	{ disabled: 'true' }
 );
 const VehicleProfileEditFormPopup = new Popup(
@@ -60,9 +66,12 @@ DeleteVehicleAlertClose.setNext(VehicleProfileFormPopup);
 //Assign Final Preview
 const RequestFinalDetailsClose = new DisplayAlertButton('RequestFinalDetails_Close', CancelRequestAlertPopup);
 const RequestFinalDetailsBack = new DisplayNextButton('RequestFinalDetails_Back');
-const RequestFinalDetailsConfirm = new BackendAcessButton('RequestFinalDetails_Confirm', 'Schedule', [
-	ObjectCreate],
-	ActionCreator([requestsToAssignStore, ongoingTripStore], 'DELETE&ADD'));
+const RequestFinalDetailsConfirm = new BackendAcessButton(
+	'RequestFinalDetails_Confirm',
+	'Schedule',
+	[ObjectCreate],
+	ActionCreator([requestsToAssignStore, ongoingTripStore], 'DELETE&ADD')
+);
 const RequestFinalDetailsPopup = new Popup('RequestFinalDetailsPopup', [
 	RequestFinalDetailsBack,
 	RequestFinalDetailsClose,
@@ -122,7 +131,8 @@ const AssignVehicleToDriverClose = new DisplayNextButton('AssignVehicleToDriver_
 const AssignVehicleToDriverBack = new DisplayNextButton('AssignVehicleToDriver_Goback');
 const AssignVehicleToDriverConfirm = new BackendAcessButton(
 	'AssignVehicleToDriver_Confirm',
-	'AssignVehicleToDriver',[],
+	'AssignVehicleToDriver',
+	[],
 	ActionCreator([vehicleStore, driverStore], 'UPDATE&UPDATE'),
 	'DEFAULT',
 	{ disabled: 'true' }
@@ -138,13 +148,17 @@ const assignVehicleToDriverTable = new SelectionTable(
 const AssignVehicleToDriverPopup = new Popup(
 	'AssignVehicleToDriverPopup',
 	[AssignVehicleToDriverBack, AssignVehicleToDriverClose, AssignVehicleToDriverConfirm],
-	['click'],{},
+	['click'],
+	{},
 	assignVehicleToDriverTable
 );
 
 //Driver Profile Form
 const DriverProfileFormClose = new DisplayNextButton('DriverProfileForm_Close');
-const DriverProfileFormAssignVehicle = new DisplayNextButton('DriverProfileForm_AssignVehicle',AssignVehicleToDriverPopup);
+const DriverProfileFormAssignVehicle = new DisplayNextButton(
+	'DriverProfileForm_AssignVehicle',
+	AssignVehicleToDriverPopup
+);
 const DriverProfileFormPopup = new Popup('DriverProfileForm', [DriverProfileFormAssignVehicle, DriverProfileFormClose]);
 DriverProfileFormPopup.setDataType('value');
 AssignVehicleToDriverBack.setNext(DriverProfileFormPopup);
@@ -163,9 +177,12 @@ SelectDriverAlertBack.setNext(RequestAssignPreviewPopup);
 //Active Trips Preview Popup
 const EndTripConfirmClose = new DisplayNextButton('EndTripConfirm_Close');
 const EndTripConfirmCancel = new DisplayNextButton('EndTripConfirm_Cancel');
-const EndTripConfirmEnd = new BackendAcessButton('EndTripConfirm_Confirm', 'EndTrip', [
-	ObjectCreate],
-	ActionCreator([ongoingTripStore, scheduledRequestsStore], 'DELETE&ADD'));
+const EndTripConfirmEnd = new BackendAcessButton(
+	'EndTripConfirm_Confirm',
+	'EndTrip',
+	[ObjectCreate],
+	ActionCreator([ongoingTripStore, scheduledRequestsStore], 'DELETE&ADD')
+);
 const EndTripConfirmPopup = new Popup('EndTripConfirmPopup', [
 	EndTripConfirmCancel,
 	EndTripConfirmClose,
@@ -175,7 +192,10 @@ const EndTripConfirmPopup = new Popup('EndTripConfirmPopup', [
 //Active Trips Preview Popup
 const CancelActiveTripClose = new DisplayNextButton('CancelActiveTrip_Close');
 const CancelActiveTripCancel = new DisplayNextButton('CancelActiveTrip_Cancel');
-const CancelActiveTripConfirm = new BackendAcessButton('CancelActiveTrip_Confirm', 'CancelScheduledRequest',[],
+const CancelActiveTripConfirm = new BackendAcessButton(
+	'CancelActiveTrip_Confirm',
+	'CancelScheduledRequest',
+	[],
 	ActionCreator([ongoingTripStore, scheduledRequestsStore], 'UPDATE')
 );
 const CancelActiveTripPopup = new Popup('CancelActiveTripPopup', [
@@ -183,7 +203,6 @@ const CancelActiveTripPopup = new Popup('CancelActiveTripPopup', [
 	CancelActiveTripClose,
 	CancelActiveTripConfirm,
 ]);
-
 
 //Active Trips Preview Popup
 const ActiveTripDetailsClose = new DisplayNextButton('ActiveTripDetails_Close');
@@ -198,7 +217,7 @@ const ActiveTripDetailsPopup = new Popup(
 	'ActiveTripDetailsPopup',
 	[ActiveTripDetailsCancel, ActiveTripDetailsClose, ActiveTripDetailsEnd, ActiveTripDetailsPrintSlip],
 	['click'],
-	{ Vehicle: ['RegistrationNo','Model'], Driver: ['FirstName', 'LastName'] }
+	{ Vehicle: ['RegistrationNo', 'Model'], Driver: ['FirstName', 'LastName'] }
 );
 
 const assignRequestContainer = new DOMContainer(

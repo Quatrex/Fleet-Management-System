@@ -27,7 +27,7 @@ if (Input::exists()) {
 		]);
 		$object['error'] = false;
 		$object['object'] = $emp;
-		$object['message'] = "success_Employee " . Input::get('empID') . " successfully added";
+		$object['message'] = "Employee " . Input::get('empID') . " successfully added";
     }
 }
 echo json_encode($object);
