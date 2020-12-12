@@ -23,7 +23,7 @@
 
                     </div>
                     <div class="form-group">
-                        <select class="custom-select inputs" name="position" id="Position-select" required>
+                        <select class="custom-select inputs" name="Position" id="Position-select" required>
                             <option selected>Account Type</option>
                             <option value="Requester">Requester</option>
                             <option value="VPMO">VPMO</option>

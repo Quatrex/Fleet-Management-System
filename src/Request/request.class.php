@@ -5,8 +5,8 @@ use Report\VehicleHandoutSlip;
 
 interface Request {
     public function cancel() : void;
-    public function setJustify(bool $justification, int $empID, string $comment) : void;
-    public function setApprove(bool $approval, int $empID, string $comment) : void;
+    public function setJustify(bool $justification, string $empID, string $comment) : void;
+    public function setApprove(bool $approval, string $empID, string $comment) : void;
     public function schedule(string $empID, string $driver, string $vehicle) : void;
     public function close() : void;
     public function getField(string $field);

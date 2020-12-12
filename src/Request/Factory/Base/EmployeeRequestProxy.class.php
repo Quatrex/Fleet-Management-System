@@ -46,10 +46,10 @@ abstract class EmployeeRequestProxy implements Request, JsonSerializable
      * Set the justification status of the request
      * 
      * @param bool $justification
-     * @param int $empID
+     * @param string $empID
      * @param string $comment
      */
-    public function setJustify(bool $justification, int $empID, string $comment) : void
+    public function setJustify(bool $justification, string $empID, string $comment) : void
     {
         echo "Access Denied";
     }
@@ -58,10 +58,10 @@ abstract class EmployeeRequestProxy implements Request, JsonSerializable
      * Set the justification status of the request
      * 
      * @param bool $approval 
-     * @param int $empID
+     * @param string $empID
      * @param string $comment
      */
-    public function setApprove(bool $approval, int $empID, string $comment) : void
+    public function setApprove(bool $approval, string $empID, string $comment) : void
     {
         echo "Access Denied";
     }
@@ -70,7 +70,7 @@ abstract class EmployeeRequestProxy implements Request, JsonSerializable
     /**
      * Schedules the request
      * 
-     * @param int $empID
+     * @param string $empID
      * @param Driver $driver
      * @param Vehicle $vehicle
      */

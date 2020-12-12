@@ -14,19 +14,20 @@ $object = ['error' => true, 'object' => '', 'message' => ''];
 if (Input::exists()) {
     if (Input::get('Method') == 'AddEmployee') {
         $emp = $employee->createNewAccount([
-            'EmpID' => Input::get('EmpID'),
-            'FirstName' => ucfirst(Input::get('FirstName')),
-            'LastName' => ucfirst(Input::get('LastName')),
-            'Username' => "",
-            'Designation' => Input::get('Designation'),
-            'Position' => Input::get('Position'),
-            'Email' => Input::get('Email'),
-            'Password' => Input::get('Password'),
-            'ContactNo' => Input::get('ContactNo')
-        ]);
-        $object['error'] = false;
-        $object['object'] = $emp;
-        $object['message'] = "success_Employee " . Input::get('empID') . " successfully added";
+			'EmpID' => Input::get('EmpID'),
+			'FirstName' => ucfirst(Input::get('FirstName')),
+			'LastName' => ucfirst(Input::get('LastName')),
+			'Username' => "",
+			'Designation' => Input::get('Designation'),
+			'Position' => Input::get('Position'),
+			'Email' => Input::get('Email'),
+			'Password' => password_hash(Input::get('Password'), PASSWORD_BCRYPT),
+            'ContactNo' => Input::get('ContactNo'),
+            'ProfilePicturePath' => null
+		]);
+		$object['error'] = false;
+		$object['object'] = $emp;
+		$object['message'] = "success_Employee " . Input::get('empID') . " successfully added";
     }
 }
 echo json_encode($object);

@@ -11,11 +11,11 @@ class CAORequestFactory
     /**
      * Returns the requests approved by the CAO
      * 
-     * @param int $empID
+     * @param string $empID
      * @param string $stateString
      * @return array(Request)
      */
-    public static function makeApprovedRequests(int $empID, array $states, int $offset, array $sort, array $search) : array
+    public static function makeApprovedRequests(string $empID, array $states, int $offset, array $sort, array $search) : array
     {
         $requestViewer = new RequestViewer();
         $stateIDs =  array_map(function($state) { return State::getStateID($state); }, $states);
