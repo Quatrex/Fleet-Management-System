@@ -104,7 +104,8 @@
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description" id="employeeContainer_50">
         <div class="card text-center" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2 ProfilePicturePath" src="../images/profilePictures/1597416665-pp.jpg" alt="Driver Image">
             <div class="card-body">
-                <h5 class="card-title FirstName LastName"></h5>
+                <h5 class="card-title FirstName d-inline"></h5>
+                <h5 class="card-title LastName d-inline-block"></h5>
                 <h6 class="card-subtitle mb-2 text-muted Designation">Designation: </h6>
                 <h6 class="card-subtitle mb-2 text-muted Position">Role: </h6>
                 <p class="card-text Email"></p>

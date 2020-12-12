@@ -480,7 +480,7 @@ class DOMContainer {
 							? (entry.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`)
 							: (entry.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
 					} else {
-						entry.querySelector(`.${field}`).innerHTML = object[field];
+						entry.querySelector(`.${field}`).innerHTML = `${object[field]} `;
 					}
 				}
 			});
@@ -641,7 +641,7 @@ class Popup {
 	}
 	render(object) {
 		this.object = object;
-		// console.log(this.object);
+		console.log(this.objectFields);
 		let inputs = this.popup.querySelectorAll('.inputs');
 		inputs.forEach((input) => {
 			input.value = '';
@@ -1083,6 +1083,7 @@ const changeValue = (object, id) => {
 
 const changeInnerHTML = (object, id, objectFields = {}) => {
 	let objProps = Object.getOwnPropertyNames(object);
+	console.log(objProps);
 	for (let i = 0; i < objProps.length; i++) {
 		document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
 			if (typeof object[objProps[i]] !== 'object') {
@@ -1098,9 +1099,12 @@ const changeInnerHTML = (object, id, objectFields = {}) => {
 				}
 			} else {
 				tag.innerHTML = '';
+				console.log(objectFields);
+				console.log(objProps[i]);
 				let fields = objectFields[objProps[i]];
+				console.log(fields);
 				fields.forEach((field) => {
-					tag.innerHTML += ` ${object[objProps[i]][field]}`;
+					tag.innerHTML += ` ${object[objProps[i]][field]} `;
 				});
 			}
 		});
