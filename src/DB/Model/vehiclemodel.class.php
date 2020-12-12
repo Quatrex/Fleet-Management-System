@@ -11,6 +11,13 @@ abstract class VehicleModel extends Model
         parent::__construct('vehicle');
     }
 
+    /**
+     * Get vehicle record
+     *
+     * @param $registrationNo
+     * @param $isLeased
+     * @return mixed
+     */
     protected function getRecordByID($registrationNo, $isLeased)
     {
         $joinConditions = [['vehicle' => 'RegistrationNo', 'leased_vehicle' => 'RegistrationNo']];
@@ -20,6 +27,16 @@ abstract class VehicleModel extends Model
         return $results[0];
     }
 
+    /**
+     * Get all vehicle records
+     *
+     * @param int $offset
+     * @param array $sort
+     * @param array $search
+     * @param array $states
+     * @return array
+     * @throws SQLQueryBuilder\SQLException
+     */
     protected function getAllRecords(int $offset, array $sort, array $search, array $states)
     {
         $joinConditions = [['vehicle' => 'RegistrationNo', 'leased_vehicle' => 'RegistrationNo']];
@@ -47,6 +64,22 @@ abstract class VehicleModel extends Model
         return $result ? $result : [];
     }
 
+    /**
+     * Add new vehicle record
+     *
+     * @param $registrationNo
+     * @param $model
+     * @param $purchasedYear
+     * @param $value
+     * @param $fuelType
+     * @param $insuranceValue
+     * @param $insuranceCompany
+     * @param $assignedOfficer
+     * @param $state
+     * @param $currentLocation
+     * @param $numOfAllocations
+     * @param $isLeased
+     */
     protected function saveRecordToVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer, $state, $currentLocation, $numOfAllocations, $isLeased)
     {
         $values = [
@@ -66,6 +99,15 @@ abstract class VehicleModel extends Model
         parent::addRecord($values);
     }
 
+    /**
+     * Add leased vehicle specific information of a new vehicle
+     *
+     * @param $registrationNo
+     * @param $leasedCompany
+     * @param $leasedPeriodFrom
+     * @param $leasedPeriodTo
+     * @param $monthlyPayment
+     */
     protected function saveRecordToLeasedVehicle($registrationNo, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
     {
         parent::setTableName('leased_vehicle');
@@ -80,6 +122,19 @@ abstract class VehicleModel extends Model
         parent::setTableName('vehicle');
     }
 
+    /**
+     * Change vehicle information
+     *
+     * @param $registrationNo
+     * @param $newRegistrationNo
+     * @param $model
+     * @param $purchasedYear
+     * @param $value
+     * @param $fuelType
+     * @param $insuranceValue
+     * @param $insuranceCompany
+     * @param $assignedOfficer
+     */
     protected function updateVehicleRow($registrationNo, $newRegistrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer)
     {
         $values = [
@@ -96,6 +151,12 @@ abstract class VehicleModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    /**
+     * Assign a vehicle to an officer
+     *
+     * @param $registrationNo
+     * @param $assignedOfficer
+     */
     protected function updateAssignedOfficer($registrationNo, $assignedOfficer)
     {
         $values = [
@@ -105,6 +166,12 @@ abstract class VehicleModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    /**
+     * Change vehicle's picture
+     *
+     * @param string $registrationNo
+     * @param string $imagePath
+     */
     protected function updateVehiclePicture(string $registrationNo, string $imagePath)
     {
         $values = [
@@ -114,6 +181,15 @@ abstract class VehicleModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    /**
+     * Change leased vehicle specific information of a vehicle
+     *
+     * @param $registrationNo
+     * @param $leasedCompany
+     * @param $leasedPeriodFrom
+     * @param $leasedPeriodTo
+     * @param $monthlyPayment
+     */
     protected function updateLeasedVehicleRow($registrationNo, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
     {
         parent::setTableName('leased_vehicle');
@@ -128,6 +204,13 @@ abstract class VehicleModel extends Model
         parent::setTableName('vehicle');
     }
 
+    /**
+     * Update NumOfAllocations,State of vehicle
+     *
+     * @param string $registrationNo
+     * @param int $numOfAllocations
+     * @param int $stateID
+     */
     protected function updateNumOfAllocations(string $registrationNo, int $numOfAllocations, int $stateID)
     {
         $values = [
@@ -138,6 +221,11 @@ abstract class VehicleModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    /**
+     * Delete vehicle record
+     *
+     * @param $registrationNo
+     */
     protected function deleteVehicle($registrationNo)
     {
         $values = ['IsDeleted' => 1];
@@ -145,6 +233,12 @@ abstract class VehicleModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    /**
+     * Check whether a vehicle is a leased vehicle or not
+     *
+     * @param $registrationNo
+     * @return bool
+     */
     protected function isLeasedVehicle($registrationNo): bool
     {
         $conditions = ['RegistrationNo' => $registrationNo, 'IsDeleted' => 0];

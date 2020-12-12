@@ -94,7 +94,7 @@ abstract class EmployeeModel extends Model
     }
 
     /**
-     * Check
+     * Verify password of an employee
      *
      * @param $empID
      * @param $password
@@ -107,6 +107,12 @@ abstract class EmployeeModel extends Model
         return password_verify($password,parent::getRecords($conditions, $wantedFields)[0]['Password']);
     }
 
+    /**
+     * Get emails
+     *
+     * @param string $position
+     * @return array
+     */
     protected function getEmails(string $position)
     {
         $conditions = ['Position' => $position, 'IsDeleted' => 0];
@@ -119,6 +125,17 @@ abstract class EmployeeModel extends Model
         return $emails;
     }
 
+    /**
+     * Update employee record
+     *
+     * @param $newEmpID
+     * @param $empID
+     * @param $firstName
+     * @param $lastName
+     * @param $position
+     * @param $designation
+     * @param $email
+     */
     protected function updateEmployeeInfo($newEmpID, $empID, $firstName, $lastName, $position, $designation, $email)
     {
         $values = [
@@ -133,6 +150,12 @@ abstract class EmployeeModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    /**
+     * Change employee password
+     *
+     * @param $empID
+     * @param $newPassword
+     */
     protected function updateEmployeePassword($empID, $newPassword)
     {
         $values = [
@@ -142,6 +165,12 @@ abstract class EmployeeModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    /**
+     * Change employee profile picture
+     *
+     * @param $empID
+     * @param string $imagePath
+     */
     protected function updateEmployeeProfilePicture($empID, string $imagePath)
     {
         $values = [
@@ -151,6 +180,11 @@ abstract class EmployeeModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    /**
+     * Delete employee record
+     *
+     * @param $empID
+     */
     protected function deleteEmployee($empID)
     {
         $values = ['IsDeleted' => 1];
@@ -158,6 +192,16 @@ abstract class EmployeeModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    /**
+     * get employees
+     *
+     * @param array $conditions
+     * @param int $offset
+     * @param array $sort
+     * @param array $search
+     * @return array
+     * @throws SQLQueryBuilder\SQLException
+     */
     private function getAllRecords(array $conditions, int $offset, array $sort, array $search)
     {
         $query = $this->queryBuilder->select($this->tableName)

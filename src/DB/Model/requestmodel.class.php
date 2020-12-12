@@ -12,6 +12,12 @@ abstract class RequestModel extends Model
         parent::__construct('request');
     }
 
+    /**
+     * Get request record
+     *
+     * @param $requestID
+     * @return mixed
+     */
     protected function getRecordByID($requestID)
     {
         $conditions = ['RequestID' => $requestID];
@@ -19,6 +25,16 @@ abstract class RequestModel extends Model
         return $results[0];
     }
 
+    /**
+     * Get Request record
+     *
+     * @param String $requesterID
+     * @param array $states
+     * @param int $offset
+     * @param array $sort
+     * @param array $search
+     * @return array
+     */
     protected function getRequestsByIDNState(String $requesterID, array $states, int $offset, array $sort, array $search)
     {
         $conditions = ['RequesterID' => $requesterID];
@@ -26,6 +42,16 @@ abstract class RequestModel extends Model
         return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset,$sort,key($search),$search[key($search)]);
     }
 
+    /**
+     * Get justified Request records
+     *
+     * @param String $justifiedBy
+     * @param array $states
+     * @param int $offset
+     * @param array $sort
+     * @param array $search
+     * @return array
+     */
     protected function getJustifiedRequestsByIDNState(String $justifiedBy, array $states, int $offset, array $sort, array $search)
     {
         $conditions = ['JustifiedBy' => $justifiedBy];
@@ -33,6 +59,16 @@ abstract class RequestModel extends Model
         return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset,$sort,key($search),$search[key($search)]);
     }
 
+    /**
+     * Get approved request records
+     *
+     * @param String $approvedBy
+     * @param array $states
+     * @param int $offset
+     * @param array $sort
+     * @param array $search
+     * @return array
+     */
     protected function getApprovedRequestsByIDNState(String $approvedBy, array $states, int $offset, array $sort, array $search)
     {
         $conditions = ['ApprovedBy' => $approvedBy];
@@ -40,6 +76,16 @@ abstract class RequestModel extends Model
         return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset,$sort,key($search),$search[key($search)]);
     }
 
+    /**
+     * Get scheduled request records
+     *
+     * @param String $scheduledBy
+     * @param array $states
+     * @param int $offset
+     * @param array $sort
+     * @param array $search
+     * @return array
+     */
     protected function getScheduledRequestsByIDNState(String $scheduledBy, array $states, int $offset, array $sort, array $search)
     {
         $conditions = ['ScheduledBy' => $scheduledBy];
@@ -47,6 +93,16 @@ abstract class RequestModel extends Model
         return parent::getRecordsFromMultipleStates($conditions,$stateConditions,$offset,$sort,key($search),$search[key($search)]);
     }
 
+    /**
+     * Get request records
+     *
+     * @param array $states
+     * @param int $offset
+     * @param array $sort
+     * @param array $search
+     * @return array
+     * @throws SQLQueryBuilder\SQLException
+     */
     public function getRequestsbyState(array $states, int $offset, array $sort, array $search)
     {
         $joinConditions = [['request' => 'RequesterID', 'employee' => 'EmpID']];
@@ -65,6 +121,18 @@ abstract class RequestModel extends Model
         return $result ? $result : [];
     }
 
+    /**
+     * Add new request record
+     *
+     * @param $createdDate
+     * @param $state
+     * @param $dateOfTrip
+     * @param $timeOfTrip
+     * @param $dropLocation
+     * @param $pickLocation
+     * @param $requesterID
+     * @param $purpose
+     */
     protected function saveRecord($createdDate, $state, $dateOfTrip, $timeOfTrip, $dropLocation, $pickLocation, $requesterID, $purpose)
     {
         $values = ['CreatedDate' => $createdDate,
@@ -78,6 +146,12 @@ abstract class RequestModel extends Model
         parent::addRecord($values);
     }
 
+    /**
+     * Change request's state
+     *
+     * @param $requestID
+     * @param $state
+     */
     protected function updateState($requestID, $state)
     {
         $values = ['State' => $state];
@@ -85,6 +159,14 @@ abstract class RequestModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    /**
+     * Change request's state to justified
+     *
+     * @param $requestID
+     * @param $JOComment
+     * @param $empID
+     * @param $state
+     */
     protected function justifyRequest($requestID, $JOComment, $empID, $state)
     {
         $values = ['State' => $state, 'JOComment' => $JOComment, 'JustifiedBy' => $empID];
@@ -92,6 +174,14 @@ abstract class RequestModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    /**
+     * Change request's state to approved
+     *
+     * @param $requestID
+     * @param $CAOComment
+     * @param $empID
+     * @param $state
+     */
     protected function approveRequest($requestID, $CAOComment, $empID, $state)
     {
         $values = ['State' => $state, 'CAOComment' => $CAOComment, 'ApprovedBy' => $empID];
@@ -99,6 +189,15 @@ abstract class RequestModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    /**
+     * Change request's state to scheduled
+     *
+     * @param $requestID
+     * @param $scehduledBy
+     * @param $driver
+     * @param $vehicle
+     * @param $state
+     */
     protected function scheduleRequest($requestID, $scehduledBy, $driver, $vehicle, $state)
     {
         $values = ['State' => $state, 'ScheduledBy' => $scehduledBy, 'Driver' => $driver, 'Vehicle' => $vehicle];
@@ -106,6 +205,12 @@ abstract class RequestModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    /**
+     * Change request's state to completed
+     *
+     * @param $requestID
+     * @param $state
+     */
     protected function closeRequest($requestID, $state)
     {
         $values = ['State' => $state];
@@ -113,6 +218,13 @@ abstract class RequestModel extends Model
         parent::updateRecord($values, $conditions);
     }
 
+    /**
+     * Get last created request's ID
+     *
+     * @param string $empID
+     * @return mixed
+     * @throws SQLQueryBuilder\SQLException
+     */
     protected function getLastRequestID(string $empID)
     {
         $query = $this->queryBuilder->select($this->tableName, ['RequestID'])
@@ -126,6 +238,13 @@ abstract class RequestModel extends Model
         return $result[0]['RequestID'];
     }
 
+    /**
+     * Change request's state to expired
+     *
+     * @param int $state
+     * @param array $conditionStates
+     * @throws SQLQueryBuilder\SQLException
+     */
     protected function expireRequests(int $state , array $conditionStates) 
     {
         $nowDate = date('Y-m-d');
@@ -152,6 +271,13 @@ abstract class RequestModel extends Model
         $this->dbh->write($query);  
     }
 
+    /**
+     * Get request records
+     *
+     * @param string $registrationNo
+     * @param int $state
+     * @return array
+     */
     protected function getRequestsByVehicle(string $registrationNo, int $state)
     {
         $conditions = ['Vehicle' => $registrationNo, 'State' => $state];
@@ -159,6 +285,13 @@ abstract class RequestModel extends Model
         return $requests;
     }
 
+    /**
+     * Get request records
+     *
+     * @param string $driverID
+     * @param int $state
+     * @return array
+     */
     protected function getRequestsByDriver(string $driverID, int $state)
     {
         $conditions = ['Driver' => $driverID, 'State' => $state];
