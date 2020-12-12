@@ -2,41 +2,42 @@
 namespace Request\State;
 
 use Request\Factory\Base\RealRequest;
+use Exception;
 
 abstract class State {
 
     protected int $stateID;
 
     public function cancel(RealRequest $request) : void {
-        echo "Invalid transition cancel";
+        throw new Exception('Invalid transition');
     }
 
     public function justify(RealRequest $request) : void {
-        echo "Invalid transition justify";
+        throw new Exception('Invalid transition');
     }
 
     public function denyJustify(RealRequest $request) : void {
-        echo "Invalid transition denyJustify";
+        throw new Exception('Invalid transition');
     }
 
     public function approve(RealRequest $request) : void {
-        echo "Invalid transition approve";
+        throw new Exception('Invalid transition');
     }
 
     public function disapprove(RealRequest $request) : void {
-        echo "Invalid transition disapprove";
+        throw new Exception('Invalid transition');
     }
 
     public function expire(RealRequest $request) : void {
-        echo "Invalid transition expire";
+        throw new Exception('Invalid transition');
     }
 
     public function schedule(RealRequest $request) : void {
-        echo "Invalid transition schedule";
+        throw new Exception('Invalid transition');
     }
 
     public function close(RealRequest $request) : void {
-        echo "Invalid transition close";
+        throw new Exception('Invalid transition');
     }
 
     public function getID() : int{
