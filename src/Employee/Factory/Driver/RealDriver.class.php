@@ -122,13 +122,13 @@ class RealDriver extends Employee implements Driver
         );
     }
 
-    public function updatePicture(string $imagePath): void
+    public function updatePicture(string $profilePicturePath): void
     {
-        $this->imagePath=$imagePath;
+        $this->profilePicturePath=$profilePicturePath;
         $driverController = new DriverController();
         $driverController->updateDriverPicture(
             $this->driverId,
-            $this->imagePath
+            $this->profilePicturePath
         );
     }
 

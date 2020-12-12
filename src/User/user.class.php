@@ -14,13 +14,20 @@ class User
 	{
 	}
 
-	private function check($user = null, $password = null)
+	/**
+	 * Check validity of email and password
+	 * 
+	 * @param string $email - dafault null
+	 * @param string $password dafault null
+	 * @return bool
+	 */
+	private function check($email = null, $password = null): bool
 	{
 		$_SESSION['user-error'] = '';
 		$_SESSION['password-error'] = '';
-		if ($user) {
+		if ($email) {
 			$viewer = new EmployeeViewer();
-			$data = $viewer->getRecordByEmail($user);
+			$data = $viewer->getRecordByEmail($email);
 			if (sizeof($data) > 0) {
 				$check = $viewer->checkPasswordByID($data[0]['EmpID'], $password);
 				if ($check) {
@@ -41,9 +48,17 @@ class User
 		return false;
 	}
 
-	public function login($username = null, $password = null, $remember = false)
+	/**
+	 * Login user
+	 * 
+	 * @param string $email - dafault null
+	 * @param string $password dafault null
+	 * @param bool $remember - dafault false
+	 * @return bool
+	 */
+	public function login($email = null, $password = null, $remember = false): bool
 	{
-		$result = $this->check($username, $password);
+		$result = $this->check($email, $password);
 		if ($result === true && $this->exists()) {
 			$_SESSION['loggedin'] = true;
 			$_SESSION['empid'] = $this->_data['EmpID'];
@@ -51,13 +66,20 @@ class User
 		}
 		return $result;
 	}
-
-	public function exists()
+	/**
+	 * Check existense of user account
+	 * 
+	 * @return bool
+	 */
+	public function exists(): bool
 	{
 		return (!empty($this->_data)) ? true : false;
 	}
 
-	public function logout()
+	/**
+	 * Log out user
+	 */
+	public function logout(): void
 	{
 		session_start();
 		session_destroy();
