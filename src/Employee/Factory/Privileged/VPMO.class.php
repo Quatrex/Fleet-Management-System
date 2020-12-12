@@ -120,8 +120,6 @@ class VPMO extends Requester
         $request->getField('vehicle')->deallocate();
         $driver = DriverFactory::makeDriver($request->getField('driver')->getField('driverId'));
         $driver->deallocate();
-        $vehicle = VehicleFactory::getVehicle($request->getField('vehicle')->getField('registrationNo'));
-        $vehicle->deallocate();
         return $request;
     }
 
@@ -140,8 +138,6 @@ class VPMO extends Requester
         $request->getField('vehicle')->deallocate();
         $driver = DriverFactory::makeDriver($request->getField('driver')->getField('driverId'));
         $driver->deallocate();
-        $vehicle = VehicleFactory::getVehicle($request->getField('vehicle')->getField('registrationNo'));
-        $vehicle->deallocate();
         return $request;
     }
 
