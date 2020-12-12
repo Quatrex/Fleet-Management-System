@@ -4,6 +4,7 @@ CREATE TABLE `employee` (
   `LastName` VARCHAR(255),
   `Position` VARCHAR(30),
   `Designation` VARCHAR(30),
+  `ContactNumber` VARCHAR(15),
   `Email` VARCHAR(50),
   `Username` VARCHAR(50),
   `Password` CHAR(64),
@@ -45,6 +46,7 @@ CREATE TABLE `driver` (
   `State` TINYINT,
   `NumOfAllocations` INT,
   `Email` VARCHAR(50),
+  `ContactNumber` VARCHAR(15),
   PRIMARY KEY (`DriverID`),
   FOREIGN KEY (AssignedVehicle) REFERENCES vehicle(RegistrationNo)
 );

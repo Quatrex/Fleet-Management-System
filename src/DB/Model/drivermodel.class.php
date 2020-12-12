@@ -85,7 +85,7 @@ abstract class DriverModel extends Model
      * @param $dateOfAdmission
      * @param $email
      */
-    protected function updateDriverInfo($driverId, $newDriverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $email)
+    protected function updateDriverInfo($driverId, $newDriverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $email, $contactNumber)
     {
         $values = [
             'DriverID' => $newDriverId,
@@ -95,7 +95,8 @@ abstract class DriverModel extends Model
             'LicenseType' => $licenseType,
             'LicenseExpirationDay' => $licenseExpirationDay,
             'DateOfAdmission' => $dateOfAdmission,
-            'Email' => $email
+            'Email' => $email,
+            'ContactNumber' => $contactNumber
         ];
         $conditions = ['DriverID' => $driverId];
         parent::updateRecord($values, $conditions);
@@ -146,7 +147,7 @@ abstract class DriverModel extends Model
      * @param $state
      * @param $numOfAllocations
      */
-    protected function saveRecord($driverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicle, $email, $state, $numOfAllocations, $profilePicturePath)
+    protected function saveRecord($driverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicle, $email, $state, $numOfAllocations, $profilePicturePath, $contactNumber)
     {
         $values = [
             'DriverID' => $driverId,
@@ -160,7 +161,8 @@ abstract class DriverModel extends Model
             'Email' => $email,
             'State' => $state,
             'NumOfAllocations' => $numOfAllocations,
-            'ProfilePicturePath' => $profilePicturePath
+            'ProfilePicturePath' => $profilePicturePath,
+            'ContactNumber' => $contactNumber
         ];
         parent::addRecord($values);
     }

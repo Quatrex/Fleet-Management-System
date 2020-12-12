@@ -78,7 +78,7 @@ abstract class EmployeeModel extends Model
      * @param $email
      * @param $password
      */
-    protected function saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $password, $profilePicturePath)
+    protected function saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $password, $profilePicturePath, $contactNumber)
     {
         $values = [
             'EmpID' => $empID,
@@ -88,7 +88,8 @@ abstract class EmployeeModel extends Model
             'Designation' => $designation,
             'Email' => $email,
             'Password' => $password,
-            'ProfilePicturePath' => $profilePicturePath
+            'ProfilePicturePath' => $profilePicturePath,
+            'ContactNumber' => $contactNumber
         ];
         parent::addRecord($values);
     }
@@ -136,7 +137,7 @@ abstract class EmployeeModel extends Model
      * @param $designation
      * @param $email
      */
-    protected function updateEmployeeInfo($newEmpID, $empID, $firstName, $lastName, $position, $designation, $email)
+    protected function updateEmployeeInfo($newEmpID, $empID, $firstName, $lastName, $position, $designation, $email, $contactNumber)
     {
         $values = [
             'EmpID' => $newEmpID,
@@ -144,7 +145,8 @@ abstract class EmployeeModel extends Model
             'LastName' => $lastName,
             'Position' => $position,
             'Designation' => $designation,
-            'Email' => $email
+            'Email' => $email,
+            'ContactNumber' => $contactNumber
         ];
         $conditions = ['EmpID' => $empID];
         parent::updateRecord($values, $conditions);
