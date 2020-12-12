@@ -31,7 +31,7 @@ if (Input::exists()) {
                 if ($driver !== null) {
                     $object['error'] = false;
                     $object['object'] = $driver;
-                    $object['message'] = "success_Driver " . Input::get('DriverID') . " successfully updated";
+                    $object['message'] = "Driver " . Input::get('DriverID') . " successfully updated";
                 } else {
                     $object['error'] = true;
                     $object['message'] = 'Failed to create a driver object';

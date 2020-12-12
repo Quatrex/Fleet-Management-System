@@ -16,7 +16,7 @@ if (Input::exists()) {
         $request = $employee->denyRequest(Input::get('RequestId'), Input::get('JOComment'));
         $object['error'] = false;
         $object['object'] = $request;
-        $object['message'] = "success_Request " . Input::get('RequestId') . " successfully denied";
+        $object['message'] = "Request " . Input::get('RequestId') . " successfully denied";
     }
 }
 echo json_encode($object);

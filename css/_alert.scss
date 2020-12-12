@@ -1,0 +1,63 @@
+.display-success {
+    display: flex;
+    -webkit-animation: fadeinout 4s linear forwards;
+    animation: fadeinout 4s linear forwards;
+}
+
+@-webkit-keyframes fadeinout {
+    0% {
+        display: flex;
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    100% {
+        display: none!important;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeinout {
+    0% {
+        display: flex;
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    100% {
+        display: none!important;
+        opacity: 0;
+    }
+}
+
+.display-failure {
+    display: flex;
+    -webkit-animation: fadein 2s linear forwards;
+    animation: fadein 2s linear forwards;
+}
+
+@-webkit-keyframes fadeinout {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeinout {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}

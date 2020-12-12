@@ -16,7 +16,7 @@ if (Input::exists()) {
         $request = $employee->closeRequest(Input::get('RequestId'));
         $object['error'] = false;
         $object['object'] = $request;
-        $object['message'] = "success_Trip " . Input::get('RequestId') . " successfully ended";
+        $object['message'] = "Trip " . Input::get('RequestId') . " successfully ended";
     }
 }
 echo json_encode($object);

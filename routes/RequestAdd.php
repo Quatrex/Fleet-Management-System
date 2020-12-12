@@ -22,7 +22,7 @@ if (Input::exists()) {
         ]);
         $object['error'] = false;
         $object['object'] = $request;
-        $object['message'] = "success_Request successfully added";
+        $object['message'] = "Request successfully added";
     }
 }
 echo json_encode($object);

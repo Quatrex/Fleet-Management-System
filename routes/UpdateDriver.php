@@ -31,7 +31,7 @@ if (Input::exists()) {
         );
         $object['error'] = false;
         $object['object'] = [$driver];
-        $object['message'] = "success_Driver " . Input::get('employeeID') . " successfully updated";
+        $object['message'] = "Driver " . Input::get('employeeID') . " successfully updated";
         if (Input::get('hasImage') == 'true') {
             $driverImageName = time() . '-' . $_FILES["Image"]["name"];
 

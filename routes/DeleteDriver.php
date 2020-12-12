@@ -16,7 +16,7 @@ if (Input::exists()) {
         $driver = $employee->deleteDriver(Input::get('driverId'));
         $object['error'] = false;
         $object['object'] = $driver;
-        $object['message'] = "success_Driver " . Input::get('driverId') . " successfully deleted";
+        $object['message'] = "Driver " . Input::get('driverId') . " successfully deleted";
     }
 }
 echo json_encode($object);

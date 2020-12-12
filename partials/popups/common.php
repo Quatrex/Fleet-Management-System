@@ -717,10 +717,29 @@
 </div>
 
 <!-- Alert after ajax call -->
-<div id="alert-ajax" style="display:none; width:100%; position:absolute; top:0; z-index:2000;">
-    <div id="alertdiv" class="alert  mx-auto mt-3 text-center" role="alert" style="width:60%; height:50px">
-        <p id="alert-message" style=" font-weight:500;font-size: initial;"></p>
+<div id="alert-ajax-success" class="" style="display:none; width:100%; position:absolute; top:0; z-index:2000;">
+    <div class="d-flex" style="justify-content:center;">
+        <div class="alert alert-success mt-5 row" style="width:80%;min-height:4rem;" role="alert">
+            <div class="col-10 d-flex message" style="align-items:center;justify-content:center;">
+                This is a success alert—check it out!
+            </div>
+            <div class="col-2">
+            </div>
+        </div>
+    </div>
 
+</div>
+
+<div id="alert-ajax-failure" class="" style="display:none; width:100%; position:absolute; top:0; z-index:2000;">
+    <div class="d-flex" style="justify-content:center;">
+        <div class="alert alert-danger mt-5 row" style="width:80%;min-height:4rem;" role="alert">
+            <div class="col-10 d-flex message" style="align-items:center;justify-content:center;">
+                This is a failure alert—check it out!
+            </div>
+            <div class="col-2">
+                <button class="close"id="Close-failure" style="line-height:33px;">&times;</button>
+            </div>
+        </div>
     </div>
 </div>
 

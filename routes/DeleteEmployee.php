@@ -16,7 +16,7 @@ if (Input::exists()) {
         $emp = $employee->removeAccount(Input::get('empID'));
 		$object['error'] = false;
 		$object['object'] = $emp;
-		$object['message'] = "success_Employee " . Input::get('empID') . " successfully deleted";
+		$object['message'] = "Employee " . Input::get('empID') . " successfully deleted";
     }
 }
 echo json_encode($object);

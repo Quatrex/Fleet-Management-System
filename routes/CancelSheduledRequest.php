@@ -16,7 +16,7 @@ if (Input::exists()) {
         $request = $employee->cancelScheduledRequest(Input::get('RequestId'));
         $object['error'] = false;
         $object['object'] = $request;
-        $object['message'] = "success_Request " . Input::get('RequestId') . " successfully cancelled";
+        $object['message'] = "Request " . Input::get('RequestId') . " successfully cancelled";
     }
 }
 echo json_encode($object);
