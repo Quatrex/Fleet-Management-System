@@ -9,6 +9,13 @@
         <div class="popup-body">
             <div id="submit-form-wrapper">
                 <form id="AddEmployee_form">
+                    <div class="center" style="text-align: center;">
+                        <img src='../images/profilePictures/default-profile.png' id="VehiclePicturePath-VehicleProfileEditForm" class="form-image image-fluid" style="padding:5px; width:20%;text-align: center;">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control inputs" placeholder="Employee ID" type="text" name="EmpID" required>
+                        <div id="EmpID-error" class="text-danger"></div>
+                    </div>
                     <div class="form-group">
                         <input class="form-control inputs" placeholder="Employee ID" type="text" name="EmpID" required>
                         <div id="EmpID-error" class="text-danger"></div>
@@ -393,7 +400,7 @@
                             <input type="file" name="Image" id="ChangeDriverPicture" class="file-upload" data-imageid="DriverPicturePath-DriverProfileEditForm" accept="image/png, .jpeg, .jpg, image/gif" />
                         </div>
                         <div class="form-group row mb-4">
-                        <input class="form-control py-2 border-right-0 border inputs" id="DriverID-DriverProfileEditForm" type="hidden" name="NewDriverID">
+                            <input class="form-control py-2 border-right-0 border inputs" id="DriverID-DriverProfileEditForm" type="hidden" name="NewDriverID">
                             <div class="form-group col-md-6">
                                 <label>Driver ID</label>
                                 <div class="input-group">
@@ -652,5 +659,51 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Alert after ajax call -->
+<div id="alert-ajax-success" class="" style="display:none; width:100%; position:absolute; top:0; z-index:2000;">
+    <div class="d-flex" style="justify-content:center;">
+        <div class="alert alert-success mt-5 row" style="width:80%;min-height:4rem;" role="alert">
+            <div class="col-10 d-flex message" style="align-items:center;justify-content:center;">
+                This is a success alert—check it out!
+            </div>
+            <div class="col-2">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="alert-ajax-failure" class="" style="display:none; width:100%; position:absolute; top:0; z-index:2000;">
+    <div class="d-flex" style="justify-content:center;">
+        <div class="alert alert-danger mt-5 row" style="width:80%;min-height:4rem;" role="alert">
+            <div class="col-10 d-flex message" style="align-items:center;justify-content:center;">
+                This is a failure alert—check it out!
+            </div>
+            <div class="col-2">
+                <button class="close" id="Close-failure" style="line-height:33px;">&times;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="OfflineDisplay" class="mx-auto mt-1" style="display:none; width:70%; position:fixed; top:0; z-index:2000;left:0;right:0;text-align:center;">
+    <div class="alert alert-danger" role="alert">
+        Internet Connection Offline <span class="ml-1"><svg height="20" width="20" class="blinking">
+                <circle cx="10" cy="8" r="7" fill="red" />
+                Sorry, your browser does not support inline SVG.
+            </svg> </span>
+    </div>
+</div>
+
+<div id="OnlineDisplay" class="mx-auto mt-1" style="display:none; width:70%; position:fixed; top:0; z-index:2000;left:0;right:0;text-align:center;">
+    <div class="alert alert-success" role="alert">
+        Connection Established<span class="ml-1"><svg height="20" width="20">
+                <circle cx="10" cy="8" r="7" fill="green" />
+                Sorry, your browser does not support inline SVG.
+            </svg> </span>
     </div>
 </div>

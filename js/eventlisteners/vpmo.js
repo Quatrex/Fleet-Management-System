@@ -210,8 +210,8 @@ const ActiveTripDetailsCancel = new DisplayAlertButton('ActiveTripDetails_Cancel
 const ActiveTripDetailsEnd = new DisplayAlertButton('ActiveTripDetails_End', EndTripConfirmPopup);
 const ActiveTripDetailsPrintSlip = new OpenNewWindowButton(
 	'ActiveTripDetails_PrintSlip',
-	[],
-	[BackendAccess('PrintSlip')]
+	{},
+	[]
 );
 const ActiveTripDetailsPopup = new Popup(
 	'ActiveTripDetailsPopup',
