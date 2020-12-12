@@ -640,6 +640,7 @@ class Popup {
 		this.dataType = type;
 	}
 	render(object) {
+		// console.log(object);
 		this.object = object;
 		let inputs = this.popup.querySelectorAll('.inputs');
 		inputs.forEach((input) => {
@@ -1110,10 +1111,13 @@ const changeInnerHTML = (object, id, objectFields = {}) => {
 				}
 			} else {
 				tag.innerHTML = '';
-				let fields = objectFields[objProps[i]];
-				fields.forEach((field) => {
-					tag.innerHTML += ` ${object[objProps[i]][field]} `;
-				});
+				if(objectFields[objProps[i]]){
+					let fields = objectFields[objProps[i]];
+					fields.forEach((field) => {
+						tag.innerHTML += ` ${object[objProps[i]][field]} `;
+					});
+				}
+				
 			}
 		});
 	}

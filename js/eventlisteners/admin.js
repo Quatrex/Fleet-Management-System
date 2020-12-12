@@ -36,7 +36,7 @@ const DeleteEmployeeAlertPopup = new Popup('DeleteEmployeeAlertPopup', [
 
 //Employee Profile Form
 const EmployeeProfileFormClose = new DisplayNextButton('EmployeeProfileForm_Close');
-const EmployeeProfileFormEdit = new DisplayNextButton('EmployeeProfileForm_Edit', EmployeeProfileEditFormPopup);
+const EmployeeProfileFormEdit = new DisplayNextButton('EmployeeProfileForm_Edit', EmployeeProfileEditFormPopup,[ObjectCreate]);
 const EmployeeProfileFormDelete = new DisplayAlertButton('EmployeeProfileForm_Delete', DeleteEmployeeAlertPopup);
 const EmployeeProfileFormPopup = new Popup('EmployeeProfileForm', [
     EmployeeProfileFormEdit,
@@ -83,7 +83,7 @@ DriverProfileEditFormPopup.setDataType('value');
 
 //Driver Profile Form
 const DriverProfileFormClose = new DisplayNextButton('DriverProfileForm_Close');
-const DriverProfileFormEdit = new DisplayNextButton('DriverProfileForm_Edit', DriverProfileEditFormPopup);
+const DriverProfileFormEdit = new DisplayNextButton('DriverProfileForm_Edit', DriverProfileEditFormPopup,[ObjectCreate]);
 const DriverProfileFormDelete = new DisplayAlertButton('DriverProfileForm_Delete', DeleteDriverAlertPopup);
 const DriverProfileFormPopup = new Popup('DriverProfileForm', [
     DriverProfileFormEdit,

@@ -91,8 +91,8 @@
                         <div class="form-group-row mb-4">
                             <label>Employee ID</label>
                             <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border inputs" id="empID-EmployeeProfileForm" type="text" name="empID" disabled>
-                                <input class="form-control py-2 border-right-0 border inputs d-none" id="NewempID-EmployeeProfileForm" type="text" name="NewempID" disabled>
+                                <input class="form-control py-2 border-right-0 border inputs" id="empID-EmployeeProfileForm" type="text" name="EmpID" disabled>
+                                <input class="form-control py-2 border-right-0 border inputs d-none" id="NewempID-EmployeeProfileForm" type="text" name="NewEmpID" disabled>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
@@ -156,8 +156,9 @@
                             <label>Employee ID</label>
                             <div class="input-group">
                                 <input class="form-control py-2 border-right-0 border inputs" id="NewempID-EmployeeProfileEditForm" type="text" name="NewEmpID" required>
-                                <input class="form-control py-2 border-right-0 border inputs d-none" id="empID-EmployeeProfileEditForm" type="text" name="EmpID" required>
+                                <input class="form-control py-2 border-right-0 border inputs d-none" id="EmpID-EmployeeProfileEditForm" type="text" name="EmpID" required>
                                 <div id="NewEmpID-error" class="text-danger"></div>
+                                <div id="EmpID-error" class="text-danger"></div>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
