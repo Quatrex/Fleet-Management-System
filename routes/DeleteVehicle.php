@@ -12,11 +12,11 @@ $employee = $_SESSION['employee'];
 $object = ['error' => true, 'object' => '', 'message' => ''];
 
 if (Input::exists()) {
-    if (Input::get('Method') == 'DeletePurchasedVehicle') {
-        $vehicle = $employee->deletePurchasedVehicle(Input::get('registration'));
+    if (Input::get('Method') == 'DeleteVehicle') {
+        $vehicle = $employee->deletePurchasedVehicle(Input::get('RegistrationNo'));
         $object['error'] = false;
         $object['object'] = $vehicle;
-        $object['message'] = "Vehicle " . Input::get('registration') . " successfully deleted";
+        $object['message'] = "Vehicle " . Input::get('RegistrationNo') . " successfully deleted";
     }
 }
 echo json_encode($object);
