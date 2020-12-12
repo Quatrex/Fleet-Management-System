@@ -553,7 +553,7 @@ class SelectionTable extends DOMContainer {
 					if (this.toggleStyle(id)) {
 						object[this.selectField] = targetObject[this.store.getObjIdType()];
 						document.getElementById(`${this.selectField}-${this.id}`).innerHTML =
-							this.selectField == 'Vehicle'
+							this.selectField == 'Vehicle'|this.selectField == 'JOSelectedVehicle'
 								? `${targetObject['RegistrationNo']}, ${targetObject['Model']} `
 								: `${targetObject['FirstName']} ${targetObject['LastName']} `;
 						if (this.nextFieldId != '') {
@@ -640,8 +640,8 @@ class Popup {
 		this.dataType = type;
 	}
 	render(object) {
+		// console.log(object);
 		this.object = object;
-		console.log(this.objectFields);
 		let inputs = this.popup.querySelectorAll('.inputs');
 		inputs.forEach((input) => {
 			input.value = '';
@@ -949,6 +949,7 @@ class BackendAcessButton extends PopupButton {
 		if (check) {
 			if (event.type === 'click') {
 				if (this.type == 'DEFAULT') {
+					console.log(object);
 					Database.writeToDatabase(object, this.method, this.finishBackendAcess.bind(this));
 				} else {
 					Database.savePicture(object, this.method, this.finishBackendAcess.bind(this));
@@ -1026,10 +1027,18 @@ const ObjectCreate = (popup, object = {}, event) => {
 		if (element.type == 'file') {
 			obj[element.name] = element.files[0];
 			element.files.length > 0 ? (obj['hasImage'] = true) : (obj['hasImage'] = false);
+		} else if (element.type == 'radio') {
+			console.log(element);
+			console.log('Inside ratio');
+			if (element.checked) {
+				obj[element.name] = element.id.split('_')[1];
+				console.log(`${element.name} = ${element.id.split('_')[1]}`);
+			}
 		} else {
 			obj[element.name] = element.value;
 		}
 	});
+	console.log(obj);
 	if (event.type == 'keyup') {
 		return { ...object, ...obj };
 	} else {
@@ -1067,6 +1076,10 @@ const changeValue = (object, id) => {
 		document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
 			if (tag) {
 				if (!objProps[i].includes('PicturePath')) {
+					let dupElement = document.querySelector(`#New${objProps[i]}-${id}`);
+					if (dupElement) {
+						dupElement.value = object[objProps[i]];
+					}
 					tag.value = object[objProps[i]];
 				} else {
 					let path = `${objProps[i].split('PicturePath')[0].toLowerCase()}`;
@@ -1098,10 +1111,13 @@ const changeInnerHTML = (object, id, objectFields = {}) => {
 				}
 			} else {
 				tag.innerHTML = '';
-				let fields = objectFields[objProps[i]];
-				fields.forEach((field) => {
-					tag.innerHTML += ` ${object[objProps[i]][field]} `;
-				});
+				if(objectFields[objProps[i]]){
+					let fields = objectFields[objProps[i]];
+					fields.forEach((field) => {
+						tag.innerHTML += ` ${object[objProps[i]][field]} `;
+					});
+				}
+				
 			}
 		});
 	}

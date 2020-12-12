@@ -111,7 +111,7 @@ abstract class AbstractVehicle implements Vehicle
     public function allocate(): void
     {
         $this->numOfAllocations += 1;
-        if ($this->numOfAllocations > 0) {
+        if ($this->numOfAllocations == 1) {
             $this->state->allocate($this);
         }
         $stateID = $this->state->getID();
