@@ -9,11 +9,11 @@ abstract class State {
     protected int $stateID;
 
     public function allocate(RealDriver $driver) : void {
-        echo "Invalid transition";
+        echo "Invalid transition allocate";
     }
 
     public function deallocate(RealDriver $driver) : void {
-        echo "Invalid transition";
+        echo "Invalid transition deallocate";
     }
 
     public function getID() : int{

@@ -8,35 +8,35 @@ abstract class State {
     protected int $stateID;
 
     public function cancel(RealRequest $request) : void {
-        echo "Invalid transition";
+        echo "Invalid transition cancel";
     }
 
     public function justify(RealRequest $request) : void {
-        echo "Invalid transition";
+        echo "Invalid transition justify";
     }
 
     public function denyJustify(RealRequest $request) : void {
-        echo "Invalid transition";
+        echo "Invalid transition denyJustify";
     }
 
     public function approve(RealRequest $request) : void {
-        echo "Invalid transition";
+        echo "Invalid transition approve";
     }
 
     public function disapprove(RealRequest $request) : void {
-        echo "Invalid transition";
+        echo "Invalid transition disapprove";
     }
 
     public function expire(RealRequest $request) : void {
-        echo "Invalid transition";
+        echo "Invalid transition expire";
     }
 
     public function schedule(RealRequest $request) : void {
-        echo "Invalid transition";
+        echo "Invalid transition schedule";
     }
 
     public function close(RealRequest $request) : void {
-        echo "Invalid transition";
+        echo "Invalid transition close";
     }
 
     public function getID() : int{
