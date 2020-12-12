@@ -6,7 +6,7 @@ use Request\Factory\Base\RealRequest;
 
 class JORequestProxy extends RequesterRequestProxy
 {
-    public function setJustify(bool $justification, int $empID, string $comment) : void 
+    public function setJustify(bool $justification, string $empID, string $comment) : void 
     {
         $this->realRequest->setJustify($justification,$empID,$comment);
     }

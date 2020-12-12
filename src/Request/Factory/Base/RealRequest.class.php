@@ -67,7 +67,7 @@ class RealRequest implements Request, INotifiableRequest, IVisitable
         $this->state = $state;
     }
 
-    public function setJustify(bool $justification, int $empID, string $comment): void
+    public function setJustify(bool $justification, string $empID, string $comment): void
     {
         $this->justifiedBy['ID'] = $empID;
         $this->JOComment = $comment;
@@ -90,7 +90,7 @@ class RealRequest implements Request, INotifiableRequest, IVisitable
         );
     }
 
-    public function setApprove(bool $approval, int $empID, string $comment): void
+    public function setApprove(bool $approval, string $empID, string $comment): void
     {
         $this->approvedBy['ID'] = $empID;
         $this->CAOComment = $comment;

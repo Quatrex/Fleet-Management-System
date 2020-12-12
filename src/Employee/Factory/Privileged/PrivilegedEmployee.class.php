@@ -13,8 +13,7 @@ abstract class PrivilegedEmployee extends Employee implements JsonSerializable
     protected string $empID;
     protected string $position;
     protected string $designation;
-    protected string $username;
-    protected ?string $password; //TODO: might need a separate table for username and password
+    protected ?string $password; 
 
     function __construct($values)
     {
@@ -22,7 +21,6 @@ abstract class PrivilegedEmployee extends Employee implements JsonSerializable
         $this->empID = $values['EmpID'];
         $this->position = $values['Position'];
         $this->designation = $values['Designation'];
-        // $this->username = $values['Username'];
         $this->password = $values['Password'];
     }
     public function jsonSerialize()
@@ -116,7 +114,6 @@ abstract class PrivilegedEmployee extends Employee implements JsonSerializable
             $this->position,
             $this->designation,
             $this->email,
-            $this->username,
             $this->password
         );
     }

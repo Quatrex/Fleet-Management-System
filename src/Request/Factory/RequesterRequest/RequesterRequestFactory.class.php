@@ -11,11 +11,11 @@ class RequesterRequestFactory
     /**
      * Returns the requests made by the requester
      * 
-     * @param int $empID
+     * @param string $empID
      * @param string $stateString
      * @return array(Request)
      */
-    public static function makeRequests(int $empID, 
+    public static function makeRequests(string $empID, 
                                         array $states, 
                                         int $offset,
                                         array $sort,

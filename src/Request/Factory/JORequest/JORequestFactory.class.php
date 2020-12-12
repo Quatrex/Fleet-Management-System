@@ -12,11 +12,11 @@ class JORequestFactory
     /**
      * Returns the requests justified by the JO
      * 
-     * @param int $empID
+     * @param string $empID
      * @param string $stateString
      * @return array(Request)
      */
-    public static function makeJustifiedRequests(int $empID, array $states, int $offset,array $sort, array $search) : array
+    public static function makeJustifiedRequests(string $empID, array $states, int $offset,array $sort, array $search) : array
     {
         $requestViewer = new RequestViewer();
         $stateIDs =  array_map(function($state) { return State::getStateID($state); }, $states);

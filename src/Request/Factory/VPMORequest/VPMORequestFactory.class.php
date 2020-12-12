@@ -11,11 +11,11 @@ class VPMORequestFactory
     /**
      * Returns the requests scheduled by the VPMO
      * 
-     * @param int $empID
+     * @param string $empID
      * @param string $stateString
      * @return array(Request)
      */
-    public static function makeScheduledRequests(int $empID, array $states, int $offset, array $sort, array $search) : array
+    public static function makeScheduledRequests(string $empID, array $states, int $offset, array $sort, array $search) : array
     {
         $requestViewer = new RequestViewer();
         $stateIDs =  array_map(function($state) { return State::getStateID($state); }, $states);

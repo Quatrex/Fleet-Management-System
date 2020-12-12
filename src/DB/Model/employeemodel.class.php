@@ -38,7 +38,7 @@ abstract class EmployeeModel extends Model
         return parent::getRecords($conditions, $wantedFields);
     }
 
-    protected function saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $username, $password)
+    protected function saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $password)
     {
         $values = [
             'EmpID' => $empID,
@@ -47,7 +47,6 @@ abstract class EmployeeModel extends Model
             'Position' => $position,
             'Designation' => $designation,
             'Email' => $email,
-            // 'Username' => $username,
             'Password' => $password,
             'ProfilePicturePath' => null
         ];

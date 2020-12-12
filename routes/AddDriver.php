@@ -24,7 +24,8 @@ if (Input::exists()) {
             'LicenseType' => Input::get('LicenseType'),
             'LicenseExpirationDay' => Input::get('LicenseExpirationDay'),
             'DateOfAdmission' => Input::get('DateOfAdmission'),
-            'AssignedVehicle' => ""
+            'AssignedVehicle' => null,
+            'ProfilePicturePath' => null
         ]);
         $object['error'] = false;
         $object['request'] = $driver;
