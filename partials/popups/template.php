@@ -93,7 +93,7 @@
                 <h5 class="card-title Model"></h5>
                 <h6 class="card-subtitle mb-2 text-muted RegistrationNo"></h6>
                 <p class="card-text PurchasedYear"></p>
-                <p class="card-text">Nothing</p>
+                <p class="card-text FuelType"></p>
             </div>
         </div>
     </div>
