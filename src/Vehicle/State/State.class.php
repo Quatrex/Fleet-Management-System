@@ -2,6 +2,7 @@
 namespace Vehicle\State;
 
 use Vehicle\Factory\Base\AbstractVehicle;
+use Exception;
 
 abstract class State {
     //TODO: add all transitions and implement
@@ -9,27 +10,27 @@ abstract class State {
     protected int $stateID;
 
     public function allocate(AbstractVehicle $vehicle) : void {
-        echo "Invalid transition";
+        throw new Exception('Invalid transition');
     }
 
     public function deallocate(AbstractVehicle $vehicle) : void {
-        echo "Invalid transition";
+        throw new Exception('Invalid transition');
     }
 
     public function repair(AbstractVehicle $vehicle) : void {
-        echo "Invalid transition";
+        throw new Exception('Invalid transition');
     }
 
     public function finishRepair(AbstractVehicle $vehicle) : void {
-        echo "Invalid transition";
+        throw new Exception('Invalid transition');
     }
 
     public function assign(AbstractVehicle $vehcile) : void {
-        echo "Invalid transition";
+        throw new Exception('Invalid transition');
     }
 
     public function disassociate(AbstractVehicle $vehcile) : void {
-        echo "Invalid transition";
+        throw new Exception('Invalid transition');
     }
 
     public function getID() : int{

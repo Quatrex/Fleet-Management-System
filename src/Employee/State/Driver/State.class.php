@@ -2,18 +2,17 @@
 namespace Employee\State\Driver;
 
 use Employee\Factory\Driver\RealDriver;
+use Exception;
 
 abstract class State {
-    //TODO: add all transitions and implement
-
     protected int $stateID;
 
     public function allocate(RealDriver $driver) : void {
-        echo "Invalid transition";
+        throw new Exception('Invalid transition');
     }
 
     public function deallocate(RealDriver $driver) : void {
-        echo "Invalid transition";
+        throw new Exception('Invalid transition');
     }
 
     public function getID() : int{
