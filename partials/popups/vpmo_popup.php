@@ -1087,3 +1087,75 @@
         </div>
     </div>
 </div>
+
+<!--Assigned Request selection-->
+<div class="popup" id="AssignedRequestToDriverPopup">
+    <!-- My profile content -->
+    <div class="popup-content">
+
+        <div class="popup-header row mb-4">
+            <div class="col-10">
+                <h2>Assigned Request</h2>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-light py-1 px-3" style="float:right;font-size:1.5rem" onclick="document.getElementById('AssignedRequestToDriverPopup').style.display = 'none';">&times;</button>
+            </div>
+            <hr>
+        </div>
+        <div class="popup-body" id="assignedRequestToDriverContainer">
+            <div style="overflow-y:auto;overflow-x:hidden;height: 50%;">
+                <table class="table table-hover" style="width:100%">
+                    <thead class="thead-dark" style="width:100%!important">
+                        <tr>
+                            <th class="th-sm" scope="col">Date</th>
+                            <th class="th-sm" scope="col">Time</th>
+                            <th class="th-sm" scope="col">Pickup</th>
+                            <th class="th-sm" scope="col">Dropoff</th>
+                        </tr>
+                    </thead>
+                    <tbody class="card-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- <div class="row d-flex justify-content-center d-none"><button class="btn w-100 btn-light load-more mb-3 mr-5 ml-5" id="assignedRequestToDriverContainer_LoadMore">Load More</button></div> -->
+        <div class="popup-footer">
+            <hr style="margin-bottom: 0.5rem;">
+        </div>
+    </div>
+</div>
+<div class="popup" id="AssignedRequestToVehiclePopup">
+    <!-- My profile content -->
+    <div class="popup-content">
+        <div class="popup-header row mb-4">
+            <div class="col-10">
+                <h2>Assigned Request</h2>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-light py-1 px-3" style="float:right;font-size:1.5rem" onclick="document.getElementById('AssignedRequestToVehiclePopup').style.display = 'none';">&times;</button>
+            </div>
+            <hr>
+        </div>
+        <div class="popup-body" id="assignedRequestToVehicleContainer">
+            <div style="overflow-y:auto;overflow-x:hidden;height: 50%;">
+                <table class="table table-hover" style="width:100%">
+                    <thead class="thead-dark" style="width:100%!important">
+                        <tr>
+                            <th class="th-sm" scope="col">Date</th>
+                            <th class="th-sm" scope="col">Time</th>
+                            <th class="th-sm" scope="col">Pickup</th>
+                            <th class="th-sm" scope="col">Dropoff</th>
+                        </tr>
+                    </thead>
+                    <tbody class="card-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- <div class="row d-flex justify-content-center d-none"><button class="btn w-100 btn-light load-more mb-3 mr-5 ml-5" id="assignedRequestToVehicleContainer_LoadMore">Load More</button></div> -->
+
+        <div class="popup-footer">
+            <hr style="margin-bottom: 0.5rem;">
+        </div>
+    </div>
+</div>

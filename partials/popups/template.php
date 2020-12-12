@@ -157,3 +157,21 @@
         </div>
     </div>
 </template>
+
+<template id="AssignedRequestToVehicleTemplate">
+    <tr role="row" class="detail-description">
+        <td class="DateOfTrip"></th>
+        <td class="TimeOfTrip"></td>
+        <td class="PickLocation"></td>
+        <td class="DropLocation"></td>
+    </tr>
+</template>
+
+<template id="AssignedRequestToDriverTemplate">
+    <tr role="row" class="detail-description">
+        <td class="DateOfTrip"></th>
+        <td class="TimeOfTrip"></td>
+        <td class="PickLocation"></td>
+        <td class="DropLocation"></td>
+    </tr>
+</template>

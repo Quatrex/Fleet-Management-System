@@ -220,6 +220,19 @@ const ActiveTripDetailsPopup = new Popup(
 	{ Vehicle: ['RegistrationNo', 'Model'], Driver: ['FirstName', 'LastName'] }
 );
 
+
+const assignedRequestToDriverContainer = new DOMContainer(
+	'assignedRequestToDriverContainer',
+	{},
+	driverStore,
+	'AssignedRequestToDriverTemplate'
+);
+const assignedRequestToVehicleContainer = new DOMContainer(
+	'assignedRequestToVehicleContainer',
+	{},
+	vehicleStore,
+	'AssignedRequestToVehicleTemplate'
+);
 const assignRequestContainer = new DOMContainer(
 	'assignAwaitingRequestContainer',
 	RequestAssignPreviewPopup,
@@ -288,7 +301,9 @@ requestsToAssignStore.addObservers(assignRequestContainer);
 ongoingTripStore.addObservers(ongoingTripContainer);
 scheduledRequestsStore.addObservers(scheduledHistoryContainer);
 vehicleStore.addObservers(vehicleContainer);
+vehicleStore.setAsssignedRequestContainer(assignedRequestToVehicleContainer);
 vehicleStore.addObservers(SelectionVehicleTable);
 vehicleStore.addObservers(assignVehicleToDriverTable);
 driverStore.addObservers(driverContainer);
 driverStore.addObservers(SelectionDriverTable);
+driverStore.setAsssignedRequestContainer(assignedRequestToDriverContainer);
