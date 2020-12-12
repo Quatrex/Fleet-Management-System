@@ -11,12 +11,12 @@ const CancelRequestAlertPopup = new Popup('CancelRequestAlertPopup', [CancelRequ
 
 const CancelAddedRequestAlertClose = new DisplayNextButton('CancelAddedRequestAlert_Close');
 const CancelAddedRequestAlertCancel = new DisplayNextButton('CancelAddedRequestAlert_Cancel');
-const CancelAddedRequestAlertConfirm = new DisplayNextButton('CancelAddedRequestAlert_Confirm', {}, [ObjectCreate, BackendAccess('CancelRequest', ActionCreator([requestsByMeStore, pastRequestsStore], "DELETE&ADD")), RemoveAllPopup])
+const CancelAddedRequestAlertConfirm = new BackendAcessButton('CancelAddedRequestAlert_Confirm','CancelRequest', [ObjectCreate], ActionCreator([requestsByMeStore, pastRequestsStore], "DELETE&ADD"))
 const CancelAddedRequestAlertPopup = new Popup('CancelAddedRequestAlertPopup', [CancelAddedRequestAlertClose, CancelAddedRequestAlertCancel, CancelAddedRequestAlertConfirm]);
 
 const NewRequestPreviewClose = new DisplayAlertButton('NewRequestPreview_Close', CancelRequestAlertPopup)
 const NewRequestPreviewEdit = new DisplayNextButton('NewRequestPreview_Edit')
-const NewRequestPreviewConfirm = new DisplayNextButton('NewRequestPreview_Confirm', {}, [BackendAccess('RequestAdd', ActionCreator([requestsByMeStore], "ADD"))])
+const NewRequestPreviewConfirm = new BackendAcessButton('NewRequestPreview_Confirm', 'RequestAdd', [], ActionCreator([requestsByMeStore], "ADD"))
 const NewRequestPreviewPopup = new Popup('NewRequestPreviewPopup', [NewRequestPreviewClose, NewRequestPreviewConfirm, NewRequestPreviewEdit]);
 //cancel request next setup
 
@@ -51,13 +51,13 @@ const RequestHistoryPreviewPopup = new Popup('RequestHistoryPreviewPopup', [Requ
 
 const ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePictureForm_Close');
 const ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');
-const ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture', ActionCreator([UserStore], "UPDATE"))]);
+const ChangeProfilePicturePopupSubmit = new BackendAcessButton('ChangeProfilePictureForm_Submit', 'ChangeProfilePicture', [ObjectCreate], ActionCreator([UserStore], "UPDATE"),'PHOTO');
 const ChangeProfilePicturePopup = new Popup('ChangeProfilePictureForm', [ChangeProfilePicturePopupClose, ChangeProfilePicturePopupCancel, ChangeProfilePicturePopupSubmit]);
 
 
 const ChangePasswordPopupClose = new DisplayNextButton('ChangePasswordForm_Close');
 const ChangePasswordPopupCancel = new DisplayNextButton('ChangePasswordForm_Cancel');
-const ChangePasswordPopupSubmit = new ValidatorButton('ChangePasswordForm_Submit', {}, [ObjectCreate, FormValidate, BackendAccess('ChangePassword')]);
+const ChangePasswordPopupSubmit = new BackendAcessButton('ChangePasswordForm_Submit', 'ChangePassword', [ObjectCreate, FormValidate]);
 const ChangePasswordPopup = new Popup('ChangePasswordForm', [ChangePasswordPopupClose, ChangePasswordPopupCancel, ChangePasswordPopupSubmit]);
 
 const UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');

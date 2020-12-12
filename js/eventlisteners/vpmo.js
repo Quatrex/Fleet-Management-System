@@ -6,20 +6,18 @@ const driverStore = new Store('drivers',networkManager,'DriverID', 'DriverID');
 
 //Add a vehicle
 const VehicleAddFormClose = new DisplayNextButton('VehicleAddForm_Close');
-const VehicleAddFormSubmit = new ValidatorButton('VehicleAddForm_Submit', {}, [
+const VehicleAddFormSubmit = new BackendAcessButton('VehicleAddForm_Submit', 'AddVehicle', [
 	ObjectCreate,
-	FormValidate,
-	BackendAccess('AddVehicle', ActionCreator([vehicleStore], 'ADD')),
-]);
+	FormValidate],
+	ActionCreator([vehicleStore], 'ADD'));
 const VehicleAddFormPopup = new Popup('VehicleAddForm', [VehicleAddFormClose, VehicleAddFormSubmit]);
 
 //Vehicle Delete Confirm
 const DeleteVehicleAlertClose = new DisplayNextButton('DeleteVehicleAlert_Close');
 const DeleteVehicleAlertCancel = new DisplayNextButton('DeleteVehicleAlert_Cancel');
-const DeleteVehicleAlertDelete = new DisplayNextButton('DeleteVehicleAlert_Delete', {}, [
-	BackendAccess('DeleteVehicle', ActionCreator([vehicleStore], 'DELETE')),
-	RemoveAllPopup,
-]);
+const DeleteVehicleAlertDelete = new BackendAcessButton('DeleteVehicleAlert_Delete', 'DeleteVehicle', [],
+	ActionCreator([vehicleStore], 'DELETE')
+);
 const DeleteVehicleAlertPopup = new Popup('DeleteVehicleAlertPopup', [
 	DeleteVehicleAlertCancel,
 	DeleteVehicleAlertClose,
@@ -29,14 +27,13 @@ const DeleteVehicleAlertPopup = new Popup('DeleteVehicleAlertPopup', [
 //Vehicle Edit Profile Form
 const VehicleProfileEditFormClose = new DisplayAlertButton('VehicleProfileEditForm_Close', CancelRequestAlertPopup);
 const VehicleProfileEditFormCancel = new DisplayNextButton('VehicleProfileEditForm_Cancel');
-const VehicleProfileEditFormConfirm = new ValidatorButton(
+const VehicleProfileEditFormConfirm = new BackendAcessButton(
 	'VehicleProfileEditForm_Confirm',
-	{},
+	'UpdateVehicle',
 	[
 		ObjectCreate,
-		FormValidate,
-		BackendAccessWithPicture('UpdateVehicle',ActionCreator([vehicleStore], 'UPDATE')),
-	],
+		FormValidate],ActionCreator([vehicleStore], 'UPDATE')
+	,'PHOTO',
 	{ disabled: 'true' }
 );
 const VehicleProfileEditFormPopup = new Popup(
@@ -63,10 +60,9 @@ DeleteVehicleAlertClose.setNext(VehicleProfileFormPopup);
 //Assign Final Preview
 const RequestFinalDetailsClose = new DisplayAlertButton('RequestFinalDetails_Close', CancelRequestAlertPopup);
 const RequestFinalDetailsBack = new DisplayNextButton('RequestFinalDetails_Back');
-const RequestFinalDetailsConfirm = new DisplayNextButton('RequestFinalDetails_Confirm', {}, [
-	ObjectCreate,
-	BackendAccess('Schedule', ActionCreator([requestsToAssignStore, ongoingTripStore], 'DELETE&ADD')),
-]);
+const RequestFinalDetailsConfirm = new BackendAcessButton('RequestFinalDetails_Confirm', 'Schedule', [
+	ObjectCreate],
+	ActionCreator([requestsToAssignStore, ongoingTripStore], 'DELETE&ADD'));
 const RequestFinalDetailsPopup = new Popup('RequestFinalDetailsPopup', [
 	RequestFinalDetailsBack,
 	RequestFinalDetailsClose,
@@ -124,10 +120,11 @@ SelectVehicleAlertBack.setNext(SelectDriverAlertPopup);
 //Assign Vehicle To Driver
 const AssignVehicleToDriverClose = new DisplayNextButton('AssignVehicleToDriver_Close');
 const AssignVehicleToDriverBack = new DisplayNextButton('AssignVehicleToDriver_Goback');
-const AssignVehicleToDriverConfirm = new DisplayNextButton(
+const AssignVehicleToDriverConfirm = new BackendAcessButton(
 	'AssignVehicleToDriver_Confirm',
-	{},
-	[BackendAccess('AssignVehicleToDriver', ActionCreator([vehicleStore, driverStore], 'UPDATE&UPDATE'))],
+	'AssignVehicleToDriver',[],
+	ActionCreator([vehicleStore, driverStore], 'UPDATE&UPDATE'),
+	'DEFAULT',
 	{ disabled: 'true' }
 );
 const assignVehicleToDriverTable = new SelectionTable(
@@ -166,11 +163,9 @@ SelectDriverAlertBack.setNext(RequestAssignPreviewPopup);
 //Active Trips Preview Popup
 const EndTripConfirmClose = new DisplayNextButton('EndTripConfirm_Close');
 const EndTripConfirmCancel = new DisplayNextButton('EndTripConfirm_Cancel');
-const EndTripConfirmEnd = new DisplayNextButton('EndTripConfirm_Confirm', {}, [
-	ObjectCreate,
-	BackendAccess('EndTrip', ActionCreator([ongoingTripStore, scheduledRequestsStore], 'DELETE&ADD')),
-	RemoveAllPopup,
-]);
+const EndTripConfirmEnd = new BackendAcessButton('EndTripConfirm_Confirm', 'EndTrip', [
+	ObjectCreate],
+	ActionCreator([ongoingTripStore, scheduledRequestsStore], 'DELETE&ADD'));
 const EndTripConfirmPopup = new Popup('EndTripConfirmPopup', [
 	EndTripConfirmCancel,
 	EndTripConfirmClose,
@@ -180,9 +175,9 @@ const EndTripConfirmPopup = new Popup('EndTripConfirmPopup', [
 //Active Trips Preview Popup
 const CancelActiveTripClose = new DisplayNextButton('CancelActiveTrip_Close');
 const CancelActiveTripCancel = new DisplayNextButton('CancelActiveTrip_Cancel');
-const CancelActiveTripConfirm = new DisplayNextButton('CancelActiveTrip_Confirm', {},[
-	BackendAccess('CancelScheduledRequest', ActionCreator([ongoingTripStore, scheduledRequestsStore], 'UPDATE')),RemoveAllPopup
-]);
+const CancelActiveTripConfirm = new BackendAcessButton('CancelActiveTrip_Confirm', 'CancelScheduledRequest',[],
+	ActionCreator([ongoingTripStore, scheduledRequestsStore], 'UPDATE')
+);
 const CancelActiveTripPopup = new Popup('CancelActiveTripPopup', [
 	CancelActiveTripCancel,
 	CancelActiveTripClose,

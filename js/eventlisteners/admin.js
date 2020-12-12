@@ -5,18 +5,18 @@ const UserStore = new User();
 
 //Add a employee
 const EmployeeAddFormClose = new DisplayNextButton('EmployeeAddForm_Close');
-const EmployeeAddFormConfirm = new ValidatorButton('EmployeeAddForm_Confirm', {}, [
+const EmployeeAddFormConfirm = new BackendAcessButton('EmployeeAddForm_Confirm', 'AddEmployee', [
     ObjectCreate,
-    FormValidate,
-    BackendAccess('AddEmployee', ActionCreator([employeeStore], 'ADD')),
-]);
+    FormValidate],
+    ActionCreator([employeeStore], 'ADD')
+);
 const EmployeeAddFormPopup = new Popup('EmployeeAddForm', [EmployeeAddFormClose, EmployeeAddFormConfirm]);
 
 //Employee Profile Form
 const EmployeeProfileEditFormClose = new DisplayNextButton('EmployeeProfileEditForm_Close');
 const EmployeeProfileEditFormCancel = new DisplayNextButton('EmployeeProfileEditForm_Cancel');
-const EmployeeProfileEditFormConfirm = new ValidatorButton(
-    'EmployeeProfileEditForm_Confirm', {}, [ObjectCreate, FormValidate, BackendAccess('UpdateEmployee', ActionCreator([employeeStore], 'UPDATE'))], { disabled: 'true' }
+const EmployeeProfileEditFormConfirm = new BackendAcessButton(
+    'EmployeeProfileEditForm_Confirm','UpdateEmployee', [ObjectCreate, FormValidate], ActionCreator([employeeStore], 'UPDATE'), 'DEFAULT', { disabled: 'true' }
 );
 const EmployeeProfileEditFormPopup = new Popup(
     'EmployeeProfileEditForm', [EmployeeProfileEditFormCancel, EmployeeProfileEditFormClose, EmployeeProfileEditFormConfirm], ['click', 'keyup']
@@ -26,10 +26,8 @@ EmployeeProfileEditFormPopup.setDataType('value');
 //Employee Delete Confirm
 const DeleteEmployeeAlertClose = new DisplayNextButton('DeleteEmployeeAlert_Close');
 const DeleteEmployeeAlertCancel = new DisplayNextButton('DeleteEmployeeAlert_Cancel');
-const DeleteEmployeeAlertDelete = new DisplayNextButton('DeleteEmployeeAlert_Delete', {}, [
-    BackendAccess('DeleteEmployee', ActionCreator([employeeStore], 'DELETE')),
-    RemoveAllPopup,
-]);
+const DeleteEmployeeAlertDelete = new BackendAcessButton('DeleteEmployeeAlert_Delete', 'DeleteEmployee', [],
+    ActionCreator([employeeStore], 'DELETE'));
 const DeleteEmployeeAlertPopup = new Popup('DeleteEmployeeAlertPopup', [
     DeleteEmployeeAlertCancel,
     DeleteEmployeeAlertClose,
@@ -50,20 +48,17 @@ EmployeeProfileEditFormCancel.setNext(EmployeeProfileFormPopup);
 
 //Add a employee
 const DriverAddFormClose = new DisplayNextButton('DriverAddForm_Close');
-const DriverAddFormConfirm = new ValidatorButton('DriverAddForm_Confirm', {}, [
+const DriverAddFormConfirm = new BackendAcessButton('DriverAddForm_Confirm', 'AddDriver', [
     ObjectCreate,
-    FormValidate,
-    BackendAccess('AddDriver', ActionCreator([driverStore], 'ADD')),
-]);
+    FormValidate,],
+    ActionCreator([driverStore], 'ADD'));
 const DriverAddFormPopup = new Popup('DriverAddForm', [DriverAddFormClose, DriverAddFormConfirm]);
 
 //Driver Delete Confirm
 const DeleteDriverAlertClose = new DisplayNextButton('DeleteDriverAlert_Close');
 const DeleteDriverAlertCancel = new DisplayNextButton('DeleteDriverAlert_Cancel');
-const DeleteDriverAlertDelete = new DisplayNextButton('DeleteDriverAlert_Delete', {}, [
-    BackendAccess('DeleteDriver', ActionCreator([driverStore], 'DELETE')),
-    RemoveAllPopup,
-]);
+const DeleteDriverAlertDelete = new BackendAcessButton('DeleteDriverAlert_Delete', 'DeleteDriver', [],
+    ActionCreator([driverStore], 'DELETE'));
 const DeleteDriverAlertPopup = new Popup('DeleteDriverAlertPopup', [
     DeleteDriverAlertCancel,
     DeleteDriverAlertClose,
@@ -73,12 +68,13 @@ const DeleteDriverAlertPopup = new Popup('DeleteDriverAlertPopup', [
 //Driver Assign Profile Form
 const DriverProfileEditFormClose = new DisplayNextButton('DriverProfileEditForm_Close');
 const DriverProfileEditFormCancel = new DisplayNextButton('DriverProfileEditForm_Cancel');
-const DriverProfileEditFormConfirm = new ValidatorButton(
-    'DriverProfileEditForm_Confirm', {}, [
+const DriverProfileEditFormConfirm = new BackendAcessButton(
+    'DriverProfileEditForm_Confirm','UpdateDriver',  [
         ObjectCreate,
-        FormValidate,
-        BackendAccessWithPicture('UpdateDriver', ActionCreator([driverStore], 'UPDATE'))
-    ], { disabled: 'true' }
+        FormValidate],
+        ActionCreator([driverStore], 'UPDATE')
+        ,'PHOTO',
+        { disabled: 'true' }
 );
 const DriverProfileEditFormPopup = new Popup(
     'DriverProfileEditForm', [DriverProfileEditFormCancel, DriverProfileEditFormClose, DriverProfileEditFormConfirm], ['click', 'keyup', 'change']
@@ -99,12 +95,12 @@ DriverProfileEditFormCancel.setNext(DriverProfileFormPopup);
 
 const ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePictureForm_Close');
 const ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');
-const ChangeProfilePicturePopupSubmit = new DisplayNextButton('ChangeProfilePictureForm_Submit', {}, [ObjectCreate, BackendAccessWithPicture('ChangeProfilePicture', ActionCreator([UserStore], "UPDATE"))]);
+const ChangeProfilePicturePopupSubmit = new BackendAcessButton('ChangeProfilePictureForm_Submit', 'ChangeProfilePicture', [ObjectCreate],  ActionCreator([UserStore], "UPDATE"));
 const ChangeProfilePicturePopup = new Popup('ChangeProfilePictureForm', [ChangeProfilePicturePopupClose, ChangeProfilePicturePopupCancel, ChangeProfilePicturePopupSubmit]);
 
 const ChangePasswordPopupClose = new DisplayNextButton('ChangePasswordForm_Close');
 const ChangePasswordPopupCancel = new DisplayNextButton('ChangePasswordForm_Cancel');
-const ChangePasswordPopupSubmit = new ValidatorButton('ChangePasswordForm_Submit', {}, [ObjectCreate, FormValidate, BackendAccess('ChangePassword')]);
+const ChangePasswordPopupSubmit = new BackendAcessButton('ChangePasswordForm_Submit','ChangePassword', [ObjectCreate, FormValidate]);
 const ChangePasswordPopup = new Popup('ChangePasswordForm', [ChangePasswordPopupClose, ChangePasswordPopupCancel, ChangePasswordPopupSubmit]);
 
 const UserProfilePopupClose = new DisplayNextButton('UserProfilePopup_Close');

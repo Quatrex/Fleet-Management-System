@@ -899,6 +899,65 @@ const DateValidator = (popup, object = {}, event) => {
     }
     return object;
 };
+class BackendAcessButton extends PopupButton {
+	constructor(id, method, eventHandleHelpers = [], actionCreater={}, type = 'DEFAULT', properties = {}, next = {}) {
+		super(id, next, properties);
+		this.eventHandleHelpers = eventHandleHelpers;
+		this.method = method;
+		this.actionCreater = actionCreater;
+		this.popup = {};
+		this.object = {};
+		this.type = type;
+	}
+	finishBackendAcess(response, err, receivedObject = {}) {
+		if (!err) {
+			if (Object.keys(this.actionCreater).length != 0) {
+				this.actionCreater.updateStores(this.object, receivedObject);
+			}
+			if (Object.keys(this.next).length == 0) {
+				this.popup.removeFromDOM();
+				document.querySelectorAll('.popup').forEach((element) => (element.style.display = 'none'));
+				if (Object.keys(this.popup.getPrev()).length != 0) {
+					this.popup.getPrev().removeFromDOM();
+				}
+			} else {
+				this.popup.removeFromDOM();
+				this.next.render(object);
+			}
+		} else {
+			if (response == 'OFFLINE') {
+				console.log("Offline");
+			} else {
+			}
+		}
+	}
+	handleEvent(popup, object = {}, event) {
+		this.popup = popup;
+		this.eventHandleHelpers.forEach((helper) => {
+			object = helper(popup, object, event);
+		});
+		let check = object.hasOwnProperty('valid') ? object.valid : true;
+		this.object = object;
+		if (check) {
+			if (event.type === 'click') {
+				if (this.type == 'DEFAULT') {
+					Database.writeToDatabase(object, this.method, this.finishBackendAcess.bind(this));
+				} else {
+					Database.savePicture(object, this.method,this.finishBackendAcess.bind(this));
+				}
+			} else if (event.type === 'keyup') {
+				if (SimilarityCheck(object, popup.getObject())) {
+					document.getElementById(this.id).setAttribute('disabled', 'true');
+				} else {
+					document.getElementById(this.id).removeAttribute('disabled');
+				}
+			} else if (event.type === 'change') {
+				document.getElementById(this.id).removeAttribute('disabled');
+			}
+		}
+	}
+}
+
 const FormValidate = (popup, object = {}, event) => {
     if (event.type == 'click') {
         let fields = popup.popup.querySelectorAll('.inputs');
@@ -985,7 +1044,6 @@ const SimilarityCheck = (first, second) => {
     }
     return true;
 };
-
 const WindowOpen = () => {
     windowObjectReference = window.open(
         'http://www.domainname.ext/path/ImageFile.png',
@@ -993,6 +1051,7 @@ const WindowOpen = () => {
         'resizable,scrollbars,status'
     );
 };
+
 //************************Change Popup InnerHTML/Value Helper Function *********/
 const changeValue = (object, id) => {
     let objProps = Object.getOwnPropertyNames(object);
@@ -1041,35 +1100,38 @@ const changeInnerHTML = (object, id, objectFields = {}) => {
 };
 
 const Database = {
-    writeToDatabase: (object, method, actionCreater = {}) => {
-        console.log({...object, Method: method });
-        $.ajax({
-            url: `../routes/${method}.php`,
-            type: 'POST',
-            data: {...object, Method: method },
-            cache: false,
-            beforeSend: function() {
-                $('#overlay').fadeIn(300);
-            },
-            success: function(returnArr) {
-                console.log(returnArr);
-                $('#overlay').fadeOut(300);
-                $(`#${method}_form`).trigger('reset');
-                if (Object.keys(actionCreater).length != 0) {
-                    actionCreater.updateStores(object, returnArr.object);
-                }
-            },
-            error: function() {
-                $('#overlay').fadeOut(300);
-            },
-            timeout: 5000,
-        });
-    },
-    //query[0]=> Method,
-    //query[1]=> Offset,
-    //query[2]=> actionCreater,
-    //query[3]=> searchObject,
-    //query[4]=> object,
+	writeToDatabase: (object, method, callback = () => {}) => {
+		console.log({ ...object, Method: method });
+		$.ajax({
+			url:  `../routes/${method}.php`,
+			type: 'POST',
+			data: { ...object, Method: method },
+			cache: false,
+			beforeSend: function () {
+				if (!navigator.onLine) {
+					callback('OFFLINE', true);
+					return false;
+				} else {
+					$('#overlay').fadeIn(300);
+				}
+			},
+			success: function (returnArr) {
+				console.log(returnArr);
+				$('#overlay').fadeOut(300);
+				$(`#${method}_form`).trigger('reset');
+				callback(returnArr.message, returnArr.err, returnArr.object);
+			},
+			error: function () {
+				$('#overlay').fadeOut(300);
+			},
+			timeout: 5000,
+		});
+	},
+	//query[0]=> Method,
+	//query[1]=> Offset,
+	//query[2]=> actionCreater,
+	//query[3]=> searchObject,
+	//query[4]=> object,
 
     loadContent(query, errCallback = () => {}) {
         let actionCreater = query[2];
@@ -1106,7 +1168,7 @@ const Database = {
             timeout: 10000,
         });
     },
-    savePicture(object, method, actionCreater = {}) {
+    savePicture(object, method, callback = () => {}) {
         data = new FormData();
         let objProperties = Object.getOwnPropertyNames(object);
         objProperties.forEach((property) => {
@@ -1126,8 +1188,7 @@ const Database = {
                 console.log(returnArr.object);
                 console.log(returnArr);
                 if (Object.keys(actionCreater).length != 0) {
-                    actionCreater.updateStores(object, returnArr.object[0]);
-                }
+                    callback(returnArr.message, returnArr.err, returnArr.object);                }
             },
         });
     },
