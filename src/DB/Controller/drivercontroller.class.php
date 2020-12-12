@@ -11,8 +11,8 @@ class DriverController extends DriverModel
         parent::saveRecord($driverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $assignedVehicleId, $email, $state, $numOfAllocations);
     }
 
-    public function updateNumOfAllocations(string $driverId, int $numOfAllocations){
-        parent::updateNumOfAllocations($driverId, $numOfAllocations);
+    public function updateNumOfAllocations(string $driverId, int $numOfAllocations, int $stateID){
+        parent::updateNumOfAllocations($driverId, $numOfAllocations, $stateID);
     }
 
     public function updateDriverInfo($driverId, $newDriverId, $firstName, $lastName, $licenseNumber, $licenseType, $licenseExpirationDay, $dateOfAdmission, $email){

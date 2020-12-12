@@ -38,9 +38,9 @@ class VehicleController extends VehicleModel
         parent::updateVehiclePicture($registrationNo,$imagePath);
     }
 
-    public function updateNumOfAllocations(string $registrationNo, int $numOfAllocations)
+    public function updateNumOfAllocations(string $registrationNo, int $numOfAllocations, int $stateID)
     {
-        parent::updateNumOfAllocations($registrationNo, $numOfAllocations);
+        parent::updateNumOfAllocations($registrationNo, $numOfAllocations, $stateID);
     }
 
     public function deleteVehicle($registrationNo)

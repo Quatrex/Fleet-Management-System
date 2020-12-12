@@ -40,10 +40,11 @@ abstract class DriverModel extends Model
 
     // }
     //should contain a state of the driver
-    protected function updateNumOfAllocations(string $driverId, int $numOfAllocations)
+    protected function updateNumOfAllocations(string $driverId, int $numOfAllocations, int $stateID)
     {
         $values = [
-            'NumOfAllocations' => $numOfAllocations
+            'NumOfAllocations' => $numOfAllocations,
+            'State' => $stateID
         ];
         $conditions = ['DriverID' => $driverId];
         parent::updateRecord($values, $conditions);
