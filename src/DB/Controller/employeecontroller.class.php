@@ -10,17 +10,17 @@ class EmployeeController extends EmployeeModel
     /**
      * @inheritDoc
      */
-    public function saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $password, $profilePicturePath)
+    public function saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $password, $profilePicturePath, $contactNumber)
     {
-        parent::saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $password, $profilePicturePath);
+        parent::saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $password, $profilePicturePath, $contactNumber);
     }
 
     /**
      * @inheritDoc
      */
-    public function updateEmployeeInfo($empID, $newEmpID, $firstName, $lastName, $position, $designation, $email)
+    public function updateEmployeeInfo($empID, $newEmpID, $firstName, $lastName, $position, $designation, $email, $contactNumber)
     {
-        parent::updateEmployeeInfo($empID, $newEmpID, $firstName, $lastName, $position, $designation, $email);
+        parent::updateEmployeeInfo($empID, $newEmpID, $firstName, $lastName, $position, $designation, $email, $contactNumber);
     }
 
     /**

@@ -92,7 +92,8 @@ class RealDriver extends Employee implements Driver
                                     $this->email,
                                     $this->state->getID(),
                                     $this->numOfAllocations,
-                                    $this->profilePicturePath);
+                                    $this->profilePicturePath,
+                                    $this->contactNumber);
     }
 
     public function updateInfo(array $values): void
@@ -107,6 +108,7 @@ class RealDriver extends Employee implements Driver
         $this->licenseExpirationDay = $values['LicenseExpirationDay'];
         $this->dateOfAdmission = $values['DateOfAdmission'];
         $this->email = $values['Email'];
+        $this->contactNumber = $values['ContactNumber'];
 
         $driverController = new DriverController();
         $driverController->updateDriverInfo(
@@ -118,7 +120,8 @@ class RealDriver extends Employee implements Driver
             $this->licenseType,
             $this->licenseExpirationDay,
             $this->dateOfAdmission,
-            $this->email
+            $this->email,
+            $this->contactNumber
         );
     }
 
