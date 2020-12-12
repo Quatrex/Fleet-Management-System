@@ -10,6 +10,14 @@ abstract class EmployeeModel extends Model
         parent::__construct('employee');
     }
 
+    /**
+     * Get all employee records
+     *
+     * @param int $offset
+     * @param array $sort
+     * @param array $search
+     * @return array
+     */
     protected function getAllEmployees(int $offset, array $sort, array $search)
     {
         $conditions = ['IsDeleted' => 0];
@@ -17,12 +25,27 @@ abstract class EmployeeModel extends Model
         
     }
 
+    /**
+     * Get employees
+     *
+     * @param string $position
+     * @param int $offset
+     * @param array $sort
+     * @param array $search
+     * @return array
+     */
     protected function getEmployeesByPosition(string $position, int $offset, array $sort, array $search)
     {
         $conditions = ['Position' => $position, 'IsDeleted' => 0];
         return $this->getAllRecords($conditions,$offset,$sort,$search);
     }
 
+    /**
+     * Get employee record
+     *
+     * @param $empID
+     * @return mixed
+     */
     protected function getRecordByID($empID)
     {
         $conditions = ['EmpID' => $empID, 'IsDeleted' => 0];
@@ -31,6 +54,12 @@ abstract class EmployeeModel extends Model
         return $results[0];
     }
 
+    /**
+     * Get employee record
+     *
+     * @param $email
+     * @return array
+     */
     protected function getRecordByEmail($email)
     {
         $conditions = ['Email' => $email, 'IsDeleted' => 0];
@@ -38,7 +67,18 @@ abstract class EmployeeModel extends Model
         return parent::getRecords($conditions, $wantedFields);
     }
 
-    protected function saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $password)
+    /**
+     * Add new employee record
+     *
+     * @param $empID
+     * @param $firstName
+     * @param $lastName
+     * @param $position
+     * @param $designation
+     * @param $email
+     * @param $password
+     */
+    protected function saveRecord($empID, $firstName, $lastName, $position, $designation, $email, $password, $profilePicturePath)
     {
         $values = [
             'EmpID' => $empID,
@@ -48,11 +88,18 @@ abstract class EmployeeModel extends Model
             'Designation' => $designation,
             'Email' => $email,
             'Password' => $password,
-            'ProfilePicturePath' => null
+            'ProfilePicturePath' => $profilePicturePath
         ];
         parent::addRecord($values);
     }
 
+    /**
+     * Check
+     *
+     * @param $empID
+     * @param $password
+     * @return bool
+     */
     protected function checkPasswordByID($empID,$password)
     {
         $conditions = ['EmpID' => $empID, 'IsDeleted' => 0];
