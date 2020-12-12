@@ -899,6 +899,65 @@ const DateValidator = (popup, object = {}, event) => {
 	}
 	return object;
 };
+class BackendAcessButton extends PopupButton {
+	constructor(id, method, eventHandleHelpers = [], actionCreater={}, type = 'DEFAULT', properties = {}, next = {}) {
+		super(id, next, properties);
+		this.eventHandleHelpers = eventHandleHelpers;
+		this.method = method;
+		this.actionCreater = actionCreater;
+		this.popup = {};
+		this.object = {};
+		this.type = type;
+	}
+	finishBackendAcess(response, err, receivedObject = {}) {
+		if (!err) {
+			if (Object.keys(this.actionCreater).length != 0) {
+				this.actionCreater.updateStores(this.object, receivedObject);
+			}
+			if (Object.keys(this.next).length == 0) {
+				this.popup.removeFromDOM();
+				document.querySelectorAll('.popup').forEach((element) => (element.style.display = 'none'));
+				if (Object.keys(this.popup.getPrev()).length != 0) {
+					this.popup.getPrev().removeFromDOM();
+				}
+			} else {
+				this.popup.removeFromDOM();
+				this.next.render(object);
+			}
+		} else {
+			if (response == 'OFFLINE') {
+				console.log("Offline");
+			} else {
+			}
+		}
+	}
+	handleEvent(popup, object = {}, event) {
+		this.popup = popup;
+		this.eventHandleHelpers.forEach((helper) => {
+			object = helper(popup, object, event);
+		});
+		let check = object.hasOwnProperty('valid') ? object.valid : true;
+		this.object = object;
+		if (check) {
+			if (event.type === 'click') {
+				if (this.type == 'DEFAULT') {
+					Database.writeToDatabase(object, this.method, this.finishBackendAcess.bind(this));
+				} else {
+					Database.savePicture(object, this.method,this.finishBackendAcess.bind(this));
+				}
+			} else if (event.type === 'keyup') {
+				if (SimilarityCheck(object, popup.getObject())) {
+					document.getElementById(this.id).setAttribute('disabled', 'true');
+				} else {
+					document.getElementById(this.id).removeAttribute('disabled');
+				}
+			} else if (event.type === 'change') {
+				document.getElementById(this.id).removeAttribute('disabled');
+			}
+		}
+	}
+}
+
 const FormValidate = (popup, object = {}, event) => {
 	if (event.type == 'click') {
 		let fields = popup.popup.querySelectorAll('.inputs');
@@ -925,22 +984,8 @@ const FormValidate = (popup, object = {}, event) => {
 					popup.popup.querySelector(`#${field.name}-error`).classList = '';
 					popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
 				} else {
-					if (field.name.indexOf('Retype') != -1) {
-						if (field.value != popup.popup.querySelector(`#${field.id.split('Retype')[1]}`).value) {
-							valid = false;
-							field.classList.add('invalid-details');
-							popup.popup.querySelector(`#${field.name}-error`).innerHTML =
-								'This field should be match to the previous field';
-							popup.popup.querySelector(`#${field.name}-error`).classList = '';
-							popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
-						} else {
-							field.classList.remove('invalid-details');
-							popup.popup.querySelector(`#${field.name}-error`).innerHTML = null;
-						}
-					} else {
-						field.classList.remove('invalid-details');
-						popup.popup.querySelector(`#${field.name}-error`).innerHTML = null;
-					}
+					field.classList.remove('invalid-details');
+					popup.popup.querySelector(`#${field.name}-error`).innerHTML = null;
 				}
 			}
 			if (field.type == 'text') {
@@ -985,7 +1030,6 @@ const SimilarityCheck = (first, second) => {
 	}
 	return true;
 };
-
 const WindowOpen = () => {
 	windowObjectReference = window.open(
 		'http://www.domainname.ext/path/ImageFile.png',
@@ -993,6 +1037,7 @@ const WindowOpen = () => {
 		'resizable,scrollbars,status'
 	);
 };
+
 //************************Change Popup InnerHTML/Value Helper Function *********/
 const changeValue = (object, id) => {
 	let objProps = Object.getOwnPropertyNames(object);
@@ -1041,7 +1086,7 @@ const changeInnerHTML = (object, id, objectFields = {}) => {
 };
 
 const Database = {
-	writeToDatabase: (object, method, actionCreater = {}) => {
+	writeToDatabase: (object, method, callback = () => {}) => {
 		console.log({ ...object, Method: method });
 		$.ajax({
 			url: '../func/save2.php',
@@ -1049,15 +1094,18 @@ const Database = {
 			data: { ...object, Method: method },
 			cache: false,
 			beforeSend: function () {
-				$('#overlay').fadeIn(300);
+				if (!navigator.onLine) {
+					callback('OFFLINE', true);
+					return false;
+				} else {
+					$('#overlay').fadeIn(300);
+				}
 			},
 			success: function (returnArr) {
 				console.log(returnArr);
 				$('#overlay').fadeOut(300);
 				$(`#${method}_form`).trigger('reset');
-				if (Object.keys(actionCreater).length != 0) {
-					actionCreater.updateStores(object, returnArr.object);
-				}
+				callback(returnArr.message, returnArr.err, returnArr.object);
 			},
 			error: function () {
 				$('#overlay').fadeOut(300);
