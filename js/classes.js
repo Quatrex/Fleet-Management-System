@@ -405,27 +405,29 @@ class DOMContainer {
 	insertEntry(object) {
 		let template = document.querySelector(`#${this.templateId}`);
 		let clone = template.content.cloneNode(true);
-		let objFields = Object.getOwnPropertyNames(object);
-		objFields.forEach((field) => {
-			if (clone.querySelector(`.${field}`)) {
-				if (field.includes('PicturePath')) {
-					let path = '';
-					field.includes('Vehicle') ? (path = 'vehicle') : (path = 'profile');
-					object[field] != ''
-						? (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`)
-						: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
-				} else {
-					clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
+		if (object) {
+			let objFields = Object.getOwnPropertyNames(object);
+			objFields.forEach((field) => {
+				if (clone.querySelector(`.${field}`)) {
+					if (field.includes('PicturePath')) {
+						let path = '';
+						field.includes('Vehicle') ? (path = 'vehicle') : (path = 'profile');
+						object[field] != ''
+							? (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`)
+							: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
+					} else {
+						clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
+					}
 				}
-			}
-		});
-		this.cardContainer
-			.querySelector('.card-body')
-			.insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
-		this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.cardId}_${
-			object[this.store.getObjIdType()]
-		}`;
-		this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
+			});
+			this.cardContainer
+				.querySelector('.card-body')
+				.insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
+			this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.cardId}_${
+				object[this.store.getObjIdType()]
+			}`;
+			this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
+		}
 	}
 
 	appendEntry(object) {
@@ -506,11 +508,13 @@ class SelectionTable extends DOMContainer {
 	}
 	update(action) {
 		if (action.type == 'ADD') {
-			super.insertEntry(action.payload[0]);
-			this.toggleStyle(`${this.id}_${action.payload[0][this.store.getObjIdType()]}`);
-			document.getElementById(
-				`${this.selectField}-${this.id}`
-			).innerHTML = `${action.payload[0]['RegistrationNo']}, ${action.payload[0]['Model']}`;
+			if (action.payload[0]) {
+				super.insertEntry(action.payload[0]);
+				this.toggleStyle(`${this.id}_${action.payload[0][this.store.getObjIdType()]}`);
+				document.getElementById(
+					`${this.selectField}-${this.id}`
+				).innerHTML = `${action.payload[0]['RegistrationNo']}, ${action.payload[0]['Model']}`;
+			}
 		} else if (action.type == 'DELETE') {
 			super.deleteEntry(action.payload);
 		} else if (action.type == 'DELETEALL') {
@@ -553,7 +557,7 @@ class SelectionTable extends DOMContainer {
 					if (this.toggleStyle(id)) {
 						object[this.selectField] = targetObject[this.store.getObjIdType()];
 						document.getElementById(`${this.selectField}-${this.id}`).innerHTML =
-							this.selectField == 'Vehicle'|this.selectField == 'JOSelectedVehicle'
+							(this.selectField == 'Vehicle') | (this.selectField == 'JOSelectedVehicle')
 								? `${targetObject['RegistrationNo']}, ${targetObject['Model']} `
 								: `${targetObject['FirstName']} ${targetObject['LastName']} `;
 						if (this.nextFieldId != '') {
@@ -1111,13 +1115,12 @@ const changeInnerHTML = (object, id, objectFields = {}) => {
 				}
 			} else {
 				tag.innerHTML = '';
-				if(objectFields[objProps[i]]){
+				if (objectFields[objProps[i]]) {
 					let fields = objectFields[objProps[i]];
 					fields.forEach((field) => {
 						tag.innerHTML += ` ${object[objProps[i]][field]} `;
 					});
 				}
-				
 			}
 		});
 	}

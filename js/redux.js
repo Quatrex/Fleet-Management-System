@@ -1,5 +1,5 @@
 class Store {
-	constructor(type, networkManager, objId = 'RequestId', sortColumn = 'CreatedDate',order = 'DESC') {
+	constructor(type, networkManager, objId = 'RequestId', sortColumn = 'CreatedDate', order = 'DESC') {
 		this.state = eval(type);
 		this.observers = [];
 		this.type = type;
@@ -54,7 +54,7 @@ class Store {
 		console.log(this.queriesToRun);
 	}
 	runConnectionAwaitingQueries() {
-		console.log(this.queriesToRun );
+		console.log(this.queriesToRun);
 		for (let i = 0; i < 4; i++) {
 			let query = this.queriesToRun[i];
 			console.log(query);
@@ -77,9 +77,7 @@ class Store {
 			let query = [`Load_${this.type}`, this.state.length, ActionCreator([this], method), this.searchObj, {}];
 			this.lastQueryID = 3;
 			this.networkManager.updateStoreOrder(this);
-			Database.loadContent(query, 
-				this.processFailedRequest.bind(this)
-			);
+			Database.loadContent(query, this.processFailedRequest.bind(this));
 			this.updated = true;
 		} else {
 			if (trigger != 'render') {
@@ -199,14 +197,13 @@ class Store {
 	}
 }
 
-
 class NetworkManager {
 	constructor() {
 		this.status = 'online';
 		window.addEventListener('online', this);
 		window.addEventListener('offline', this);
 		this.storesOrder = [];
-		console.log("Object made");
+		console.log('Object made');
 	}
 	updateStoreOrder(obj) {
 		this.storesOrder = this.storesOrder.filter((store) => store !== obj);
@@ -215,7 +212,7 @@ class NetworkManager {
 	handleEvent(event) {
 		if (event.type == 'online' && this.status != 'online') {
 			this.status = 'online';
-			console.log("Object active");
+			console.log('Object active');
 			console.log(event.type);
 			$('#OfflineDisplay').fadeOut(300);
 			$('#OnlineDisplay').fadeIn(300);
@@ -232,7 +229,6 @@ class NetworkManager {
 		this.storesOrder.forEach((store) => store.runConnectionAwaitingQueries());
 	}
 }
-
 
 const ActionCreator = (stores, actionType) => ({
 	type: actionType,
