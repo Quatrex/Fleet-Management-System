@@ -38,6 +38,7 @@ class PrivilegedEmployeeFactory
     {
         if (!self::checkAccess()) throw new Exception('Illegel Access');
 
+        $values['ProfilePicturePath'] = '';
         $employee = self::createConcreteEmployee($values);
         $employee->saveToDatabase();
         return self::castToEmployee($employee);

@@ -19,7 +19,7 @@ class RealDriver extends Employee implements Driver
     private State $state;
     private int $numOfAllocations;
     private ?array $assignedRequests;
-    private ?string $imagePath;
+    //private ?string $imagePath;
     
     public function __construct($values)
     {
@@ -33,7 +33,7 @@ class RealDriver extends Employee implements Driver
         $this->state = is_numeric($values['State'])?State::getState($values['State']):State::getState(State::getStateID($values['State']));
         $this->numOfAllocations=$values['NumOfAllocations'];
         $this->assignedRequests=[];
-        $this->imagePath=$values['ProfilePicturePath'];
+        //$this->imagePath=$values['ProfilePicturePath'];
     }
 
 
@@ -91,7 +91,8 @@ class RealDriver extends Employee implements Driver
                                     $this->assignedVehicle,
                                     $this->email,
                                     $this->state->getID(),
-                                    $this->numOfAllocations); 
+                                    $this->numOfAllocations,
+                                    $this->profilePicturePath);
     }
 
     public function updateInfo(array $values): void

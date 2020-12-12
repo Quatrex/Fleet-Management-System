@@ -20,6 +20,11 @@ abstract class Model
         $this->queryBuilder = MySQLQueryBuilder::getInstance($query);
     }
 
+    /**
+     * Set currently accessing database table
+     *
+     * @param $tableName
+     */
     protected function setTableName($tableName)
     {
         $this->tableName = $tableName;

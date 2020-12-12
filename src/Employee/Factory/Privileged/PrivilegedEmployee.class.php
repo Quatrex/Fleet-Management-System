@@ -114,7 +114,8 @@ abstract class PrivilegedEmployee extends Employee implements JsonSerializable
             $this->position,
             $this->designation,
             $this->email,
-            $this->password
+            $this->password,
+            $this->profilePicturePath
         );
     }
 }
