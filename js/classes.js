@@ -553,7 +553,7 @@ class SelectionTable extends DOMContainer {
 					if (this.toggleStyle(id)) {
 						object[this.selectField] = targetObject[this.store.getObjIdType()];
 						document.getElementById(`${this.selectField}-${this.id}`).innerHTML =
-							this.selectField == 'Vehicle'
+							this.selectField == 'Vehicle'|this.selectField == 'JOSelectedVehicle'
 								? `${targetObject['RegistrationNo']}, ${targetObject['Model']} `
 								: `${targetObject['FirstName']} ${targetObject['LastName']} `;
 						if (this.nextFieldId != '') {
@@ -640,9 +640,7 @@ class Popup {
 		this.dataType = type;
 	}
 	render(object) {
-		console.log(object);
 		this.object = object;
-		console.log(this.objectFields);
 		let inputs = this.popup.querySelectorAll('.inputs');
 		inputs.forEach((input) => {
 			input.value = '';
