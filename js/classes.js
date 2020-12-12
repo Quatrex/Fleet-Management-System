@@ -672,7 +672,7 @@ class Popup {
 
 	handleEvent(event) {
 		if (event.type == 'click') {
-            let targetObject = this.eventObjects.find((obj) => obj.id === event.target.id);
+			let targetObject = this.eventObjects.find((obj) => obj.id === event.target.id);
 			if (targetObject) {
 				if (targetObject.id.includes('Info')) {
 					let field = targetObject.id.split('_')[1];
@@ -912,7 +912,7 @@ class BackendAcessButton extends PopupButton {
 		this.failureAlert = document.getElementById('alert-ajax-failure');
 	}
 	finishBackendAcess(response, err, receivedObject = {}) {
-        console.log(err);
+		console.log(err);
 		if (!err) {
 			if (Object.keys(this.actionCreater).length != 0) {
 				this.actionCreater.updateStores(this.object, receivedObject);
@@ -926,14 +926,14 @@ class BackendAcessButton extends PopupButton {
 			} else {
 				this.popup.removeFromDOM();
 				this.next.render(object);
-            }
-            this.successAlert.querySelector('.message').innerHTML = response.toUpperCase();
-            $( "#alert-ajax-success" ).fadeIn( 500 ).delay( 2500 ).fadeOut( 400 );
-        } else {
-            console.log('Error');
-            this.failureAlert.querySelector('.message').innerHTML = response.toUpperCase();
-            $( "#alert-ajax-failure" ).fadeIn( 300 ).delay( 1500 );
-            if (response == 'OFFLINE') {
+			}
+			this.successAlert.querySelector('.message').innerHTML = response.toUpperCase();
+			$('#alert-ajax-success').fadeIn(500).delay(2500).fadeOut(400);
+		} else {
+			console.log('Error');
+			this.failureAlert.querySelector('.message').innerHTML = response.toUpperCase();
+			$('#alert-ajax-failure').fadeIn(300).delay(1500);
+			if (response == 'OFFLINE') {
 				console.log('Offline');
 			} else {
 			}
@@ -1083,7 +1083,6 @@ const changeValue = (object, id) => {
 
 const changeInnerHTML = (object, id, objectFields = {}) => {
 	let objProps = Object.getOwnPropertyNames(object);
-	console.log(objProps);
 	for (let i = 0; i < objProps.length; i++) {
 		document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
 			if (typeof object[objProps[i]] !== 'object') {
@@ -1099,10 +1098,7 @@ const changeInnerHTML = (object, id, objectFields = {}) => {
 				}
 			} else {
 				tag.innerHTML = '';
-				console.log(objectFields);
-				console.log(objProps[i]);
 				let fields = objectFields[objProps[i]];
-				console.log(fields);
 				fields.forEach((field) => {
 					tag.innerHTML += ` ${object[objProps[i]][field]} `;
 				});
@@ -1202,9 +1198,7 @@ const Database = {
 				returnArr = JSON.parse(returnArr);
 				console.log(returnArr.object);
 				console.log(returnArr);
-				if (Object.keys(actionCreater).length != 0) {
-					callback(returnArr.message, returnArr.err, returnArr.object);
-				}
+				callback(returnArr.message, returnArr.error, returnArr.object);
 			},
 		});
 	},
