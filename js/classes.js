@@ -646,6 +646,19 @@ class Popup {
 	render(object) {
 		// console.log(object);
 		this.object = object;
+		if(this.object.hasOwnProperty('IsLeased')){
+			if(this.object["IsLeased"] == 1){
+				document.querySelectorAll('.leasedVehicleData').forEach(entry => {
+					entry.classList.remove('d-none');
+				})
+			}else{
+				document.querySelectorAll('.leasedVehicleData').forEach(entry => {
+					if(!entry.classList.contains('d-none')){
+						entry.classList.add('d-none');
+					}
+				})
+			}
+		}
 		let inputs = this.popup.querySelectorAll('.inputs');
 		inputs.forEach((input) => {
 			input.value = '';
