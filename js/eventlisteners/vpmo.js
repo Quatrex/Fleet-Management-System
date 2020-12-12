@@ -51,7 +51,7 @@ VehicleProfileEditFormPopup.setDataType('value');
 
 //Vehicle Profile Form
 const VehicleProfileFormClose = new DisplayNextButton('VehicleProfileForm_Close');
-const VehicleProfileFormEdit = new DisplayNextButton('VehicleProfileForm_Edit', VehicleProfileEditFormPopup);
+const VehicleProfileFormEdit = new DisplayNextButton('VehicleProfileForm_Edit', VehicleProfileEditFormPopup,[ObjectCreate]);
 const VehicleProfileFormDelete = new DisplayAlertButton('VehicleProfileForm_Delete', DeleteVehicleAlertPopup);
 const VehicleProfileFormPopup = new Popup('VehicleProfileForm', [
 	VehicleProfileFormEdit,

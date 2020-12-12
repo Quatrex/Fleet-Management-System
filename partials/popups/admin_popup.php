@@ -16,10 +16,10 @@
                         <input class="form-control inputs" placeholder="Employee ID" type="text" name="EmpID" required>
                         <div id="EmpID-error" class="text-danger"></div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <input class="form-control inputs" placeholder="Employee ID" type="text" name="EmpID" required>
                         <div id="EmpID-error" class="text-danger"></div>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <input class="form-control inputs" placeholder="First Name" type="text" name="FirstName" required>
                         <div id="FirstName-error" class="text-danger"></div>
@@ -92,6 +92,7 @@
                             <label>Employee ID</label>
                             <div class="input-group">
                                 <input class="form-control py-2 border-right-0 border inputs" id="empID-EmployeeProfileForm" type="text" name="empID" disabled>
+                                <input class="form-control py-2 border-right-0 border inputs d-none" id="NewempID-EmployeeProfileForm" type="text" name="NewempID" disabled>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
@@ -154,7 +155,8 @@
                         <div class="form-group-row mb-4">
                             <label>Employee ID</label>
                             <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border inputs" id="empID-EmployeeProfileEditForm" type="text" name="NewEmpID" required>
+                                <input class="form-control py-2 border-right-0 border inputs" id="NewempID-EmployeeProfileEditForm" type="text" name="NewEmpID" required>
+                                <input class="form-control py-2 border-right-0 border inputs d-none" id="empID-EmployeeProfileEditForm" type="text" name="EmpID" required>
                                 <div id="NewEmpID-error" class="text-danger"></div>
                             </div>
                         </div>
@@ -301,6 +303,7 @@
                                 <label>Driver ID</label>
                                 <div class="input-group">
                                     <input class="form-control py-2 border-right-0 border" id="DriverID-DriverProfileForm" type="text" name="DriverID" disabled>
+                                    <input class="form-control py-2 border-right-0 border" id="NewDriverID-DriverProfileForm" type="text" name="NewDriverID" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
@@ -400,12 +403,12 @@
                             <input type="file" name="Image" id="ChangeDriverPicture" class="file-upload" data-imageid="DriverPicturePath-DriverProfileEditForm" accept="image/png, .jpeg, .jpg, image/gif" />
                         </div>
                         <div class="form-group row mb-4">
-                            <input class="form-control py-2 border-right-0 border inputs" id="DriverID-DriverProfileEditForm" type="hidden" name="NewDriverID">
+                            <input class="form-control py-2 border-right-0 border inputs" id="NewDriverID-DriverProfileEditForm" type="hidden" name="NewDriverID">
                             <div class="form-group col-md-6">
                                 <label>Driver ID</label>
                                 <div class="input-group">
                                     <input class="form-control py-2 border-right-0 border inputs" id="DriverID-DriverProfileEditForm" type="text" name="DriverID" required>
-                                    <div id="DriverID-error" class="text-danger"></div>
+                                    <div id="NewDriverID-error" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">

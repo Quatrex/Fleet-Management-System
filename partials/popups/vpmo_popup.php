@@ -583,7 +583,8 @@
                             <div class="col-md-6">
                                 <label>Registration Number</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border" id="RegistrationNo-VehicleProfileForm" type="text" name="RegistrationNo" disabled>
+                                    <input class="form-control py-2 border-right-0 border inputs" id="RegistrationNo-VehicleProfileForm" type="text" name="RegistrationNo" disabled>
+                                    <input class="form-control py-2 border-right-0 border inputs d-none" id="NewRegistrationNo-VehicleProfileForm" type="text" name="NewRegistrationNo" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
@@ -704,7 +705,8 @@
                                 <label>Registration Number</label>
                                 <div class="input-group">
                                     <input class="form-control inputs py-2 border-right-0 border d-none" id="RegistrationNo-VehicleProfileEditForm" type="text" name="RegistrationNo" required>
-                                    <input class="form-control inputs py-2 border-right-0 border" id="RegistrationNo-VehicleProfileEditForm" type="text" name="NewRegistrationNo" required>
+                                    <input class="form-control inputs py-2 border-right-0 border" id="NewRegistrationNo-VehicleProfileEditForm" type="text" name="NewRegistrationNo" required>
+                                    <div id="NewRegistrationNo-error" class="text-danger"></div>
                                     <div id="RegistrationNo-error" class="text-danger"></div>
                                 </div>
                             </div>
