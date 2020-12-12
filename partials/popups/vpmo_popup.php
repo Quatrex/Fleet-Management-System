@@ -150,11 +150,11 @@
                     <div class="inline">
                         <p>Leased Vehicle</p>
                         <label class="radio-inline">
-                            <input class="inputs" type="radio" name="IsLeased" value="Yes" onclick="document.getElementById('leasing-details').style.display = 'block';">
+                            <input class="inputs" type="radio" id="leased_Yes" name="IsLeased" value="Yes" onclick="document.getElementById('leasing-details').style.display = 'block';">
                             <label for="IsLeased">Yes</label>
                         </label>
                         <label class="radio-inline">
-                            <input class="inputs" type="radio" name="IsLeased" value="No" onclick="document.getElementById('leasing-details').style.display = 'none';">
+                            <input class="inputs" type="radio" id="leased_No" name="IsLeased" value="No" onclick="document.getElementById('leasing-details').style.display = 'none';">
                             <label for="IsLeased">No</label>
                         </label>
                     </div>

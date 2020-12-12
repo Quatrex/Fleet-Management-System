@@ -1026,7 +1026,16 @@ const ObjectCreate = (popup, object = {}, event) => {
 		if (element.type == 'file') {
 			obj[element.name] = element.files[0];
 			element.files.length > 0 ? (obj['hasImage'] = true) : (obj['hasImage'] = false);
-		} else {
+		}else if (element.type == 'radio'){
+			console.log(element);
+			console.log("Inside ratio");
+			if (element.checked) {
+				obj[element.name] = element.id.split('_')[1];
+				console.log(`${element.name} = ${element.id.split('_')[1]}`);
+			  }
+			  
+		} 
+		else {
 			obj[element.name] = element.value;
 		}
 	});
