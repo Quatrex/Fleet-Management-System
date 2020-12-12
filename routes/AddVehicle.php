@@ -26,7 +26,8 @@ if (Input::exists()) {
 				'LeasedCompany' => Input::get('LeasedCompany'),
 				'LeasedPeriodFrom' => Input::get('LeasedPeriodFrom'),
 				'LeasedPeriodTo' => Input::get('LeasedPeriodTo'),
-				'MonthlyPayment' => Input::get('MonthlyPayment')
+				'MonthlyPayment' => Input::get('MonthlyPayment'),
+				'VehiclePicturePath' => ''
 			]);
 		} else {
 			$vehicle = $employee->addPurchasedVehicle([
@@ -36,7 +37,8 @@ if (Input::exists()) {
 				'Value' => Input::get('Value'),
 				'FuelType' => Input::get('FuelType'),
 				'InsuranceValue' => Input::get('InsuranceValue'),
-				'InsuranceCompany' => Input::get('InsuranceCompany')
+				'InsuranceCompany' => Input::get('InsuranceCompany'),
+				'VehiclePicturePath' => ''
 			]);
 		}
 		if ($vehicle !== null) {
