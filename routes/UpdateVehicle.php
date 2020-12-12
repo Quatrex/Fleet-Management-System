@@ -18,7 +18,7 @@ if (Input::exists()) {
             $vehicle = $employee->updateLeasedVehicleInfo([
 
                 'RegistrationNo' => Input::get('RegistrationNo'),
-                'NewRegistrationNo' => Input::get('RegistrationNo'),
+                'NewRegistrationNo' => Input::get('NewRegistrationNo'),
                 'Model' => Input::get('Model'),
                 'PurchasedYear' => Input::get('PurchasedYear'),
                 'Value' => Input::get('Value'),
@@ -32,9 +32,10 @@ if (Input::exists()) {
                 'MonthlyPayment' => Input::get('MonthlyPayment')
             ]);
         } else {
+            echo(Input::get('RegistrationNo'));
             $vehicle = $employee->updatePurchasedVehicleInfo([
                 'RegistrationNo' => Input::get('RegistrationNo'),
-                'NewRegistrationNo' => Input::get('RegistrationNo'),
+                'NewRegistrationNo' => Input::get('NewRegistrationNo'),
                 'Model' => Input::get('Model'),
                 'PurchasedYear' => Input::get('PurchasedYear'),
                 'CurrentLocation' => Input::get('CurrentLocation'),

@@ -703,7 +703,8 @@
                             <div class="col-md-6">
                                 <label>Registration Number</label>
                                 <div class="input-group">
-                                    <input class="form-control inputs py-2 border-right-0 border" id="RegistrationNo-VehicleProfileEditForm" type="text" name="RegistrationNo" required>
+                                    <input class="form-control inputs py-2 border-right-0 border d-none" id="RegistrationNo-VehicleProfileEditForm" type="text" name="RegistrationNo" required>
+                                    <input class="form-control inputs py-2 border-right-0 border" id="RegistrationNo-VehicleProfileEditForm" type="text" name="NewRegistrationNo" required>
                                     <div id="RegistrationNo-error" class="text-danger"></div>
                                 </div>
                             </div>
