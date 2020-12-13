@@ -13,6 +13,7 @@ class Store {
 			order: order,
 		};
 		this.updated = false;
+		this.assignedRequestContainer = {}
 		this.lastQueryID = -1;
 		this.checkForDuplicate = '';
 		this.tempState = [];
@@ -24,6 +25,12 @@ class Store {
 	}
 	getObjIdType() {
 		return this.objId;
+	}
+	getAssignedRequests(){
+		
+	}
+	setAsssignedRequestContainer(cont){
+		this.assignedRequestContainer = cont
 	}
 	getSearchObject() {
 		return this.searchObj;
@@ -86,10 +93,11 @@ class Store {
 						let query = [
 							`Load_${this.type}_assignedRequests`,
 							0,
-							ActionCreator([this], method),
+							ActionCreator([this], 'UPDATELOAD'),
 							this.searchObj,
 							this.currentObj,
 						];
+						
 						this.lastQueryID = -1;
 						this.networkManager.updateStoreOrder(this);
 						Database.loadContent(query, this.processFailedRequest.bind(this));
@@ -165,7 +173,7 @@ class Store {
 						: (this.state = [...this.state, ...action.payload]);
 				}
 			}
-		} else if (action.type === 'UPDATE') {
+		} else if (action.type === 'UPDATE'||action.type === 'UPDATELOAD') {
 			this.state = this.state.map((item) => (this.currentObj === item ? { ...item, ...action.payload } : item));
 		} else if (action.type === 'DELETE') {
 			this.state = this.state.filter((item) => this.currentObj !== item);
@@ -179,7 +187,12 @@ class Store {
 			this.selectionObserver.update({ type: action.type, payload: selectionPayload });
 			this.notifyObservers(action);
 		} else {
-			this.notifyObservers(action);
+			if(action.type == 'UPDATELOAD'){
+				this.assignedRequestContainer.update({type:'DELETEALL',payload:[]});
+				this.assignedRequestContainer.update({type:'APPEND',payload:action.payload.AssignedRequests});
+			}else{
+				this.notifyObservers(action);
+			}
 		}
 	}
 	addObservers(observer) {
@@ -203,7 +216,6 @@ class NetworkManager {
 		window.addEventListener('online', this);
 		window.addEventListener('offline', this);
 		this.storesOrder = [];
-		console.log('Object made');
 	}
 	updateStoreOrder(obj) {
 		this.storesOrder = this.storesOrder.filter((store) => store !== obj);
@@ -237,7 +249,7 @@ const ActionCreator = (stores, actionType) => ({
 		let types = actionType.split('&');
 		if (types.length == 1) {
 			let actionObj = { type: actionType };
-			actionType == 'ADD' || actionType == 'APPEND' || actionType == 'UPDATE'
+			actionType == 'ADD' || actionType == 'APPEND' || actionType == 'UPDATE'|| actionType == 'UPDATELOAD'
 				? stores[0].dispatch({ ...actionObj, payload: returnedObj })
 				: stores[0].dispatch({ ...actionObj, payload: currentObj });
 		} else if (types.length > 1) {

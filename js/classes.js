@@ -193,7 +193,7 @@ class DOMTabContainer {
 }
 
 class DOMContainer {
-	constructor(id, popup, store, templateId) {
+	constructor(id, popup, store, templateId,init = true) {
 		this.id = id;
 		this.cardId = this.id.substring(id.length - 9) == 'Container' ? id.substring(0, id.length - 9) + 'Card' : id;
 		this.popup = popup;
@@ -232,11 +232,11 @@ class DOMContainer {
 	}
 
 	finishLoadContent(len, method = 'APPEND') {
-		if (method == 'APPEND') {
+		if (method == 'APPEND' && this.loadMoreButton) {
 			if (this.loadMoreButton.classList.contains('active')) {
 				this.loadMoreButton.classList.remove('active');
 			}
-			if (len < 5 && !this.store.selectionSearch) {
+			if (len < 4 && !this.store.selectionSearch) {
 				if (!this.loadMoreButton.classList.contains('d-none')) {
 					this.loadMoreButton.classList.add('d-none');
 				}
@@ -426,7 +426,7 @@ class DOMContainer {
 			this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.cardId}_${
 				object[this.store.getObjIdType()]
 			}`;
-			this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
+			// this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 		}
 	}
 
@@ -546,13 +546,31 @@ class SelectionTable extends DOMContainer {
 			}
 		}
 	}
+	loadAssigned(len) {
+		if(len==0){
+			this.store.loadData('click', 'UPDATE');
+		}
+		let typeOfSelectField =
+			this.selectField === 'Driver' ? '#AssignedRequestToDriverPopup' : '#AssignedRequestToVehiclePopup';
+		console.log('AFTER');
+		console.log(typeOfSelectField);
+		document.querySelector(typeOfSelectField).style.display = 'block';
+	}
 	handleEvent(event, popup = {}, object = {}) {
 		if (event.type == 'click') {
 			if (event.target.closest('tbody')) {
 				let id = event.target.closest('.detail-description').id;
 				let targetObject = this.store.getObjectById(id.split('_')[1]);
 				if ('field' in event.target.closest('td').dataset) {
-					super.loadContent(event.type, 'UPDATE');
+					if (targetObject.hasOwnProperty('NumOfAllocations')) {
+						if (targetObject['NumOfAllocations'] > 0 && targetObject.hasOwnProperty('AssignedRequests')) {
+							if (targetObject['AssignedRequests']) {
+								this.loadAssigned(targetObject['AssignedRequests'].length);
+							} else {
+								this.loadAssigned(0);
+							}
+						}
+					}
 				} else {
 					if (this.toggleStyle(id)) {
 						object[this.selectField] = targetObject[this.store.getObjIdType()];
@@ -646,17 +664,17 @@ class Popup {
 	render(object) {
 		// console.log(object);
 		this.object = object;
-		if(this.object.hasOwnProperty('IsLeased')){
-			if(this.object["IsLeased"] == 1){
-				document.querySelectorAll('.leasedVehicleData').forEach(entry => {
+		if (this.object.hasOwnProperty('IsLeased')) {
+			if (this.object['IsLeased'] == 1) {
+				document.querySelectorAll('.leasedVehicleData').forEach((entry) => {
 					entry.classList.remove('d-none');
-				})
-			}else{
-				document.querySelectorAll('.leasedVehicleData').forEach(entry => {
-					if(!entry.classList.contains('d-none')){
+				});
+			} else {
+				document.querySelectorAll('.leasedVehicleData').forEach((entry) => {
+					if (!entry.classList.contains('d-none')) {
 						entry.classList.add('d-none');
 					}
-				})
+				});
 			}
 		}
 		let inputs = this.popup.querySelectorAll('.inputs');
@@ -1160,6 +1178,7 @@ const Database = {
 			},
 			success: function (returnArr) {
 				console.log(returnArr);
+				console.log(returnArr.object);
 				$('#overlay').fadeOut(300);
 				$(`#${method}_form`).trigger('reset');
 				callback(returnArr.message, returnArr.error, returnArr.object);
@@ -1178,7 +1197,8 @@ const Database = {
 
 	loadContent(query, errCallback = () => {}) {
 		let actionCreater = query[2];
-		let holder = { ...{ Method: query[0], offset: query[1], object: query[5] }, ...query[3] };
+		console.log(query[4]);
+		let holder = { ...{ Method: query[0], offset: query[1], object: query[4] }, ...query[3] };
 		console.log(holder);
 		$.ajax({
 			url: '../func/fetch.php',
@@ -1191,10 +1211,13 @@ const Database = {
 					errCallback(query, 'OFFLINE');
 					return false;
 				} else {
+
 					$('.bouncybox').fadeIn(300);
+
 				}
 			},
 			success: (data, textStatus, jqXHR) => {
+				console.log(data);
 				if (jqXHR.status == '200') {
 					if (Object.keys(actionCreater).length != 0) {
 						actionCreater.updateStores({}, data.object);

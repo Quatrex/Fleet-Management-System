@@ -771,6 +771,20 @@
 
 </div>
 
-<div class="bouncybox spinner-grow text-info" role="status" style="z-index:0;">
+<!-- <div id="overlay2" style="z-index:2000;position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background: rgba(0,0,0,0.6);">
+    <div class="cv-spinner">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+</div> -->
+
+<div class="bouncybox spinner-grow text-info" role="status" style="z-index:1000;display:none;">
     <span class="sr-only">Loading...</span>
 </div>
