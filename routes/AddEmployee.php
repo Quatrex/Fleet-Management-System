@@ -22,7 +22,7 @@ if (Input::exists()) {
 			'Position' => Input::get('Position'),
 			'Email' => Input::get('Email'),
 			'Password' => password_hash(Input::get('Password'), PASSWORD_BCRYPT),
-            'ContactNo' => Input::get('ContactNo'),
+            'ContactNumber' => Input::get('ContactNo'),
             'ProfilePicturePath' => null
 		]);
 		$object['error'] = false;
