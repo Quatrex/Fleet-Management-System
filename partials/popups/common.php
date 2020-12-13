@@ -197,9 +197,9 @@
                 </div>
             </div>
         </div>
-        <div class="popup-footer">
+        <!-- <div class="popup-footer">
             <button class="btn btn-danger" id="OngoingRequestPreviewRequestCancel">Cancel Request</button>
-        </div>
+        </div> -->
     </div>
 </div>
 <!--Request Preview for a Pending Table-->
