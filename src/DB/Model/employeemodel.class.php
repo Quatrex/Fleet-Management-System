@@ -49,7 +49,7 @@ abstract class EmployeeModel extends Model
     protected function getRecordByID($empID)
     {
         $conditions = ['EmpID' => $empID, 'IsDeleted' => 0];
-        $wantedFields = ['EmpID', 'FirstName', 'LastName', 'Position', 'Designation', 'Email',  'ProfilePicturePath'];
+        $wantedFields = ['EmpID', 'FirstName', 'LastName', 'Position', 'Designation', 'Email',  'ProfilePicturePath','ContactNumber'];
         $results = parent::getRecords($conditions, $wantedFields); 
         return $results[0];
     }
@@ -63,7 +63,7 @@ abstract class EmployeeModel extends Model
     protected function getRecordByEmail($email)
     {
         $conditions = ['Email' => $email, 'IsDeleted' => 0];
-        $wantedFields = array('EmpID', 'FirstName', 'LastName', 'Position', 'Designation', 'Email', 'ProfilePicturePath');
+        $wantedFields = array('EmpID', 'FirstName', 'LastName', 'Position', 'Designation', 'Email', 'ProfilePicturePath','ContactNumber');
         return parent::getRecords($conditions, $wantedFields);
     }
 
