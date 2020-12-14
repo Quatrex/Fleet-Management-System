@@ -5,6 +5,7 @@ namespace Employee\Factory\Privileged;
 use DB\Viewer\EmployeeViewer;
 use Exception;
 use Request\Factory\Base\RealRequest;
+use EmailClient\EmailClient;
 
 class PrivilegedEmployeeFactory
 {
@@ -39,7 +40,11 @@ class PrivilegedEmployeeFactory
         if (!self::checkAccess()) throw new Exception('Illegel Access');
 
         $values['ProfilePicturePath'] = '';
-        $values['Password']=password_hash(self::generateRandomPassword(), PASSWORD_BCRYPT);
+
+        $emailClient = EmailClient::getInstance();
+        $password = self::generateRandomPassword();
+        $emailClient->notifyNewAccount($values['Email'],$password);
+        $values['Password']=password_hash($password, PASSWORD_BCRYPT);
         $employee = self::createConcreteEmployee($values);
         $employee->saveToDatabase();
         return self::castToEmployee($employee);

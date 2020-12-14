@@ -25,7 +25,7 @@ CREATE TABLE `vehicle` (
   `CurrentLocation` VARCHAR(255),
   `NumOfAllocations` INT,
   `IsLeased` TINYINT(1),
-  `VehiclePicturePath` VARCHAR(50),
+  `VehiclePicturePath` VARCHAR(255),
   `IsDeleted` TINYINT(1) DEFAULT 0,
   PRIMARY KEY (`RegistrationNo`),
   FOREIGN KEY (AssignedOfficer) REFERENCES employee(EmpID) ON UPDATE CASCADE
