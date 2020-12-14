@@ -205,6 +205,31 @@ class EmailGenerator
                         ->getEmail();
     }
 
+     /**
+     * Sends an email to the respective user
+     * 
+     * @param string email
+     * @param string password
+     * 
+     * @return Email
+     */
+    public function newAccountNotification(string $email, string $password)
+    {
+        $email = htmlentities($email);
+        $password = htmlentities($password);
+
+        $builder = EmailBuilder::getInstance();
+
+        return $builder->recipient($email)
+                       ->subject('New User Account')
+                       ->paragraph()
+                            ->text('A new account has been created for you in Vehicle Fleet Management System.')
+                            ->text("Email: $email")
+                            ->text("Password: $password")
+                            ->close()
+                        ->getEmail();
+    }
+
     /**
      * Get details from the request object
      * 

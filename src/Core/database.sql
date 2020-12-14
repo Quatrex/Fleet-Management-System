@@ -3,33 +3,32 @@ CREATE TABLE `employee` (
   `FirstName` VARCHAR(255),
   `LastName` VARCHAR(255),
   `Position` VARCHAR(30),
-  `Designation` VARCHAR(30),
+  `Designation` VARCHAR(200),
   `ContactNumber` VARCHAR(15),
   `Email` VARCHAR(50),
-  `Username` VARCHAR(50),
   `Password` CHAR(64),
   `ProfilePicturePath` VARCHAR(255),
-  `IsDeleted` TINYINT(1),
+  `IsDeleted` TINYINT(1) DEFAULT 0,
   PRIMARY KEY (`EmpID`)
 );
 
 CREATE TABLE `vehicle` (
   `RegistrationNo` CHAR(30) NOT NULL,
   `Model` VARCHAR(50),
-  `PurchasedYear` TIMESTAMP,
+  `PurchasedYear` DATE,
   `Value` INT,
   `FuelType` VARCHAR(30),
   `InsuranceValue` VARCHAR(50),
   `InsuranceCompany` VARCHAR(100),
   `AssignedOfficer` CHAR(30),
-  `State` TINYINT,
+  `State` TINYINT(10),
   `CurrentLocation` VARCHAR(255),
   `NumOfAllocations` INT,
   `IsLeased` TINYINT(1),
   `VehiclePicturePath` VARCHAR(50),
-  `IsDeleted` TINYINT,
+  `IsDeleted` TINYINT(1) DEFAULT 0,
   PRIMARY KEY (`RegistrationNo`),
-  FOREIGN KEY (AssignedOfficer) REFERENCES employee(EmpID)
+  FOREIGN KEY (AssignedOfficer) REFERENCES employee(EmpID) ON UPDATE CASCADE
 );
 
 CREATE TABLE `driver` (
@@ -39,16 +38,15 @@ CREATE TABLE `driver` (
   `LicenseNumber` VARCHAR(30),
   `LicenseType` VARCHAR(30),
   `LicenseExpirationDay` VARCHAR(50),
-  `DateOfAdmission` TIMESTAMP,
+  `DateOfAdmission` DATE,
   `ProfilePicturePath` VARCHAR(255),
-  `IsDeleted` TINYINT,
+  `IsDeleted` TINYINT(1) DEFAULT 0,
   `AssignedVehicle` CHAR(30),
   `State` TINYINT,
   `NumOfAllocations` INT,
   `Email` VARCHAR(50),
-  `ContactNumber` VARCHAR(15),
   PRIMARY KEY (`DriverID`),
-  FOREIGN KEY (AssignedVehicle) REFERENCES vehicle(RegistrationNo)
+  FOREIGN KEY (AssignedVehicle) REFERENCES vehicle(RegistrationNo) ON UPDATE CASCADE
 );
 
 CREATE TABLE `leased_vehicle` (
@@ -57,13 +55,14 @@ CREATE TABLE `leased_vehicle` (
   `LeasedPeriodFrom` VARCHAR(255),
   `LeasedPeriodTo` VARCHAR(30),
   `MonthlyPayment` VARCHAR(30),
-  PRIMARY KEY (`RegistrationNo`)
+  PRIMARY KEY (`RegistrationNo`),
+  FOREIGN KEY (RegistrationNo) REFERENCES vehicle(RegistrationNo) ON UPDATE CASCADE
 );
 
 CREATE TABLE `request` (
-  `RequestID` INT NOT NULL,
-  `CreatedDate` TIMESTAMP,
-  `State` TINYINT,
+  `RequestID` INT NOT NULL AUTO_INCREMENT,
+  `CreatedDate` DATE,
+  `State` TINYINT(10),
   `DateOfTrip` DATE,
   `TimeOfTrip` TIME,
   `DropLocation` VARCHAR(100),
@@ -78,9 +77,9 @@ CREATE TABLE `request` (
   `Driver` CHAR(30),
   `Vehicle` CHAR(30),
   PRIMARY KEY (`RequestID`),
-  FOREIGN KEY (RequesterID) REFERENCES employee(EmpID),
-  FOREIGN KEY (ApprovedBy) REFERENCES employee(EmpID),
-  FOREIGN KEY (ScheduledBy) REFERENCES employee(EmpID),
-  FOREIGN KEY (Driver) REFERENCES driver(DriverID),
-  FOREIGN KEY (Vehicle) REFERENCES vehicle(RegistrationNo)
+  FOREIGN KEY (RequesterID) REFERENCES employee(EmpID) ON UPDATE CASCADE,
+  FOREIGN KEY (ApprovedBy) REFERENCES employee(EmpID) ON UPDATE CASCADE,
+  FOREIGN KEY (ScheduledBy) REFERENCES employee(EmpID) ON UPDATE CASCADE,
+  FOREIGN KEY (Driver) REFERENCES driver(DriverID) ON UPDATE CASCADE,
+  FOREIGN KEY (Vehicle) REFERENCES vehicle(RegistrationNo) ON UPDATE CASCADE
 );

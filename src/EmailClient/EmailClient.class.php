@@ -107,6 +107,17 @@ class EmailClient {
         $this->emailQueue[] = $email;
     }
 
+    /**
+     * Generate an email to the user about the email and the password
+     * 
+     * @param string $email
+     * @param string $password
+     */
+    public function notifyNewAccount(string $email, string $password)
+    {
+        $email = $this->emailGen->newAccountNotification($email,$password);
+        $this->emailQueue[] = $email;
+    }
 
     public function sendEmails()
     {
