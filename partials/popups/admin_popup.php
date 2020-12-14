@@ -44,7 +44,7 @@
 
                     </div>
                     <div class="form-group">
-                        <input type="number" name="ContactNo" class="form-control inputs" placeholder="Contact Number" required>
+                        <input type="number" name="ContactNo" class="form-control inputs" placeholder="Contact Number" required maxlength="10">
                         <div id="ContactNo-error" class="text-danger"></div>
 
                     </div>

@@ -1053,6 +1053,13 @@ const FormValidate = (popup, object = {}, event) => {
 					popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
 				}
 			}
+			if (field.name == 'ContactNo'){
+				if (new RegExp("^[0-9]{10}$").test(field.value) == false){
+					popup.popup.querySelector(`#${field.name}-error`).innerHTML = "Contact No must include 10 digits.";
+					popup.popup.querySelector(`#${field.name}-error`).classList = '';
+					popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
+				}
+			}
 			if (field.type == 'text') {
 				field.value = field.value.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 			}
