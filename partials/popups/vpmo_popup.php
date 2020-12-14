@@ -121,7 +121,7 @@
                         <div id="RegistrationNo-error" class="text-danger"></div>
                     </div>
                     <div class="form-group">
-                        <input type="date" name="PurchasedYear" class="form-control my-3 inputs" placeholder="Date of purchase">
+                        <input type="text" name="PurchasedYear" class="form-control my-3 inputs" placeholder="Date of purchase" onfocus="(this.type='date')">
                         <div id="PurchasedYear-error" class="text-danger"></div>
                     </div>
                     <div class="form-group">
@@ -166,12 +166,12 @@
 
                         </div>
                         <div class="form-group">
-                            <input type="date" name="LeasedPeriodFrom" class="form-control my-3 inputs" placeholder="Lease period (from)">
+                            <input type="text" name="LeasedPeriodFrom" class="form-control my-3 inputs" placeholder="Lease period (from)" onfocus="(this.type='date')">
                             <div id="LeasedPeriodFrom-error" class="text-danger"></div>
 
                         </div>
                         <div class="form-group">
-                            <input type="date" name="LeasedPeriodTo" class="form-control my-3 inputs" placeholder="Lease period (to)">
+                            <input type="text" name="LeasedPeriodTo" class="form-control my-3 inputs" placeholder="Lease period (to)" onfocus="(this.type='date')">
                             <div id="LeasedPeriodTo-error" class="text-danger"></div>
 
                         </div>
@@ -935,12 +935,6 @@
                                 <div class="input-group">
                                     <input class="form-control py-2 border-right-0 border" id="LastName-DriverProfileForm" type="text" name="LastName" disabled>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group row mb-4 mx-auto">
-                            <label>Address</label>
-                            <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border" id="Address-DriverProfileForm" type="text" name="Address" disabled>
                             </div>
                         </div>
                         <div class="form-group row mb-4">

@@ -28,7 +28,7 @@ if (Input::exists()) {
             'ProfilePicturePath' => null
         ]);
         $object['error'] = false;
-        $object['request'] = $driver;
+        $object['object'] = $driver;
         $object['message'] = "Driver " . Input::get('driverId') . " successfully added";
     }
 }

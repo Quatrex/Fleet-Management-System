@@ -16,12 +16,12 @@
             <div id="submit-form-wrapper">
                 <form id="RequestAdd_form">
                     <div class="form-group">
-                        <input type="date" class="form-control inputs" name="date" id="date-VehicleRequestForm" placeholder="Date" autocomplete="off" required>
+                        <input type="text" class="form-control inputs" name="date" id="date-VehicleRequestForm" placeholder="Date" autocomplete="off" required onfocus="(this.type='date')">
                         <div id="date-error" class="text-danger"></div>
                     </div>
 
                     <div class="form-group">
-                        <input type="time" class="form-control inputs" name="time" placeholder="Time" id="time-VehicleRequestForm" autocomplete="off" required>
+                        <input type="text" class="form-control inputs" name="time" placeholder="Time" id="time-VehicleRequestForm" autocomplete="off" required onfocus="(this.type='time')">
                         <div id="time-error" class="text-danger"></div>
                     </div>
 

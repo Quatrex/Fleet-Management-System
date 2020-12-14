@@ -16,10 +16,6 @@
                         <input class="form-control inputs" placeholder="Employee ID" type="text" name="EmpID" required>
                         <div id="EmpID-error" class="text-danger"></div>
                     </div>
-                    <!-- <div class="form-group">
-                        <input class="form-control inputs" placeholder="Employee ID" type="text" name="EmpID" required>
-                        <div id="EmpID-error" class="text-danger"></div>
-                    </div> -->
                     <div class="form-group">
                         <input class="form-control inputs" placeholder="First Name" type="text" name="FirstName" required>
                         <div id="FirstName-error" class="text-danger"></div>
@@ -55,17 +51,6 @@
                     <div class="form-group">
                         <input name="Email" class="form-control inputs" placeholder="Email" type="text" required>
                         <div id="Email-error" class="text-danger"></div>
-
-                    </div>
-                    <div class="form-group">
-                        <input name="Password" class="form-control inputs" placeholder="Password" type="password" required>
-                        <div id="Password-error" class="text-danger"></div>
-
-                    </div>
-                    <div class="form-group">
-                        <input name="ConfirmPassword" class="form-control inputs" placeholder="Confirm Password" type="password" required>
-                        <div id="ConfirmPassword-error" class="text-danger"></div>
-
                     </div>
                     <input type="button" value="Submit" class="btn btn-success" id="EmployeeAddForm_Confirm">
                 </form>
@@ -255,15 +240,11 @@
                         <div id="Email-error" class="text-danger"></div>
                     </div>
                     <div class="form-group">
-                        <input class="form-control inputs" placeholder="Address" type="text" name="Address" required>
-                        <div id="Address-error" class="text-danger"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="number" name="ContactNo" class="form-control inputs" placeholder="Contact Number" required>
+                        <input type="tel" minlength="10" maxlength="10" name="ContactNo" class="form-control inputs" placeholder="Contact Number" required>
                         <div id="ContactNo-error" class="text-danger"></div>
                     </div>
                     <div class="form-group">
-                        <input name="DateOfAdmission" class="form-control inputs" placeholder="Date Of Admission" type="date">
+                        <input name="DateOfAdmission" class="form-control inputs" placeholder="Date Of Admission" type="text" onfocus="(this.type='date')">
                         <div id="DateOfAdmission-error" class="text-danger"></div>
                     </div>
                     <div class="form-group">
@@ -275,7 +256,7 @@
                         <div id="LicenseType-error" class="text-danger"></div>
                     </div>
                     <div class="form-group">
-                        <input name="LicenseExpirationDay" class="form-control inputs" placeholder="License Expire Data" type="date">
+                        <input name="LicenseExpirationDay" class="form-control inputs" placeholder="License Expire Data" type="text" onfocus="(this.type='date')">
                         <div id="LicenseExpirationDay-error" class="text-danger"></div>
                     </div>
                     <input type="button" value="Submit" class="btn btn-success" id="DriverAddForm_Confirm">
