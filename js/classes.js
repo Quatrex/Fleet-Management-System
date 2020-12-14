@@ -1049,6 +1049,7 @@ const FormValidate = (popup, object = {}, event) => {
 				if (validity == false) {
 					field.classList.add('invalid-details');
 					popup.popup.querySelector(`#${field.name}-error`).innerHTML = "Your Password doesn't meet minimum requirments";
+					popup.popup.querySelector(`#Retype${field.name}-error`).innerHTML = null;
 					popup.popup.querySelector(`#${field.name}-error`).classList = '';
 					popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
 				}

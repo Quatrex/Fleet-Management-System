@@ -989,7 +989,7 @@ a {
   margin-top: 10px;
   margin-right: 10px;
   position: relative;
-  z-index: 2;
+  z-index: 61;
 }
 
 .float-button {
