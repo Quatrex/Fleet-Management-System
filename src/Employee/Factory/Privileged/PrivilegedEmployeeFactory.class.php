@@ -75,7 +75,7 @@ class PrivilegedEmployeeFactory
         if (!self::checkAccess()) throw new Exception('Illegel Access');
 
         $position = strtolower($position);
-        $validPositonNames = ['', 'requester', 'jo', 'cao', 'vpmo', 'admin'];
+        $validPositonNames = ['', 'requester', 'jo', 'cao', 'vpmo', 'admin','dcao'];
         $position = strtolower($position);
         if (!in_array($position, $validPositonNames)) {
             echo 'Invalid Position Paramter'; // TODO: throw exception
@@ -129,6 +129,8 @@ class PrivilegedEmployeeFactory
             case 'jo':
                 return new JO($values);
             case 'cao':
+                return new CAO($values);
+            case 'dcao':
                 return new CAO($values);
             case 'vpmo':
                 return new VPMO($values);

@@ -22,7 +22,7 @@ if (Input::exists()) {
 			'Designation' => Input::get('Designation'),
 			'Position' => Input::get('Position'),
 			'Email' => Input::get('Email'),
-			'ContactNo' => Input::get('ContactNo')
+			'ContactNumber' => Input::get('ContactNo')
 		]);
 		$object['error'] = false;
 		$object['object'] = $emp;

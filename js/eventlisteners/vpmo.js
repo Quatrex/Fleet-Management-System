@@ -196,7 +196,7 @@ const CancelActiveTripConfirm = new BackendAcessButton(
 	'CancelActiveTrip_Confirm',
 	'CancelScheduledRequest',
 	[],
-	ActionCreator([ongoingTripStore, scheduledRequestsStore], 'UPDATE')
+	ActionCreator([ongoingTripStore, scheduledRequestsStore], 'DELETE&APPEND')
 );
 const CancelActiveTripPopup = new Popup('CancelActiveTripPopup', [
 	CancelActiveTripCancel,

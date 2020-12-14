@@ -193,7 +193,7 @@ class DOMTabContainer {
 }
 
 class DOMContainer {
-	constructor(id, popup, store, templateId,init = true) {
+	constructor(id, popup, store, templateId, init = true) {
 		this.id = id;
 		this.cardId = this.id.substring(id.length - 9) == 'Container' ? id.substring(0, id.length - 9) + 'Card' : id;
 		this.popup = popup;
@@ -423,9 +423,8 @@ class DOMContainer {
 			this.cardContainer
 				.querySelector('.card-body')
 				.insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
-			this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.cardId}_${
-				object[this.store.getObjIdType()]
-			}`;
+			this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.cardId}_${object[this.store.getObjIdType()]
+				}`;
 			// this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 		}
 	}
@@ -448,9 +447,8 @@ class DOMContainer {
 			}
 		});
 		this.cardContainer.querySelector('.card-body').appendChild(clone);
-		this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.cardId}_${
-			object[this.store.getObjIdType()]
-		}`;
+		this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.cardId}_${object[this.store.getObjIdType()]
+			}`;
 		this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 	}
 
@@ -547,7 +545,7 @@ class SelectionTable extends DOMContainer {
 		}
 	}
 	loadAssigned(len) {
-		if(len==0){
+		if (len == 0) {
 			this.store.loadData('click', 'UPDATE');
 		}
 		let typeOfSelectField =
@@ -1046,6 +1044,15 @@ const FormValidate = (popup, object = {}, event) => {
 					}
 				}
 			}
+			if (field.name == 'NewPassword') {
+				validity = AnalysePassword(field.value)
+				if (validity == false) {
+					field.classList.add('invalid-details');
+					popup.popup.querySelector(`#${field.name}-error`).innerHTML = "Your Password doesn't meet minimum requirments";
+					popup.popup.querySelector(`#${field.name}-error`).classList = '';
+					popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
+				}
+			}
 			if (field.type == 'text') {
 				field.value = field.value.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 			}
@@ -1096,6 +1103,38 @@ const SimilarityCheck = (first, second) => {
 	}
 	return true;
 };
+const AnalysePassword = (password) => {
+	var upperCase = new RegExp('[A-Z]');
+	var lowerCase = new RegExp('[a-z]');
+	var numbers = new RegExp('[0-9]');
+	var special = new RegExp('[!@#$%^&*]+');
+
+	var characters = (password.length >= 8);
+	var capitalletters = password.match(upperCase) ? true : false;
+	var lowerletters = password.match(lowerCase) ? true : false;
+	var number = password.match(numbers) ? true : false;
+	var containWhiteSpace = password.indexOf(' ') >= 0 ? true : false;
+	var containSpecialChars = password.match(special) ? true : false;
+
+	valid = characters && capitalletters && lowerletters && number && containSpecialChars && !containWhiteSpace;
+
+	const _update_info = (criterion, isValid) => {
+		var $passwordCriteria = $(".NewPasswordinfo > ul").find('li[data-criterion="' + criterion + '"]');
+
+		if (isValid) {
+			$passwordCriteria.removeClass('invalid').addClass('valid');
+		} else {
+			$passwordCriteria.removeClass('valid').addClass('invalid');
+		}
+	}
+	_update_info('length', password.length >= 8 && password.length <= 20);
+	_update_info('capital', capitalletters);
+	_update_info('number', number);
+	_update_info('letter', !containWhiteSpace);
+	_update_info('special', containSpecialChars);
+
+	return valid;
+}
 const WindowOpen = () => {
 	windowObjectReference = window.open(
 		'http://www.domainname.ext/path/ImageFile.png',
@@ -1158,7 +1197,7 @@ const changeInnerHTML = (object, id, objectFields = {}) => {
 };
 
 const Database = {
-	writeToDatabase: (object, method, callback = () => {}) => {
+	writeToDatabase: (object, method, callback = () => { }) => {
 		console.log({ ...object, Method: method });
 		$.ajax({
 			url: `../routes/${method}.php`,
@@ -1195,7 +1234,7 @@ const Database = {
 	//query[3]=> searchObject,
 	//query[4]=> object,
 
-	loadContent(query, errCallback = () => {}) {
+	loadContent(query, errCallback = () => { }) {
 		let actionCreater = query[2];
 		console.log(query[4]);
 		let holder = { ...{ Method: query[0], offset: query[1], object: query[4] }, ...query[3] };
@@ -1234,7 +1273,7 @@ const Database = {
 			timeout: 10000,
 		});
 	},
-	savePicture(object, method, callback = () => {}) {
+	savePicture(object, method, callback = () => { }) {
 		data = new FormData();
 		let objProperties = Object.getOwnPropertyNames(object);
 		objProperties.forEach((property) => {
@@ -1258,3 +1297,21 @@ const Database = {
 		});
 	},
 };
+
+
+document.getElementById("NewPassword-ChangePasswordForm").addEventListener("keyup", Analyse);
+
+function Analyse() {
+  var x = document.getElementById("NewPassword-ChangePasswordForm");
+  AnalysePassword(x.value);
+}
+
+$("body").on('click', '.toggle-password', function () {
+	$('.toggle-password').toggleClass("fa-eye fa-eye-slash");
+	var input = $('#' + $('.toggle-password').data('pass'));
+	if (input.attr("type") === "password") {
+		input.attr("type", "text");
+	} else {
+		input.attr("type", "password");
+	}
+});

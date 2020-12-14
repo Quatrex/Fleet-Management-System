@@ -22,7 +22,7 @@ if (Input::exists()) {
                 'LastName' => ucfirst(Input::get('LastName')),
                 'Email' => Input::get('Email'),
                 'Address' => Input::get('Address'),
-                'ContactNo' => Input::get('ContactNo'),
+                'ContactNumber' => Input::get('ContactNo'),
                 'LicenseNumber' => Input::get('LicenseNumber'),
                 'LicenseType' => Input::get('LicenseType'),
                 'LicenseExpirationDay' => Input::get('LicenseExpirationDay'),
