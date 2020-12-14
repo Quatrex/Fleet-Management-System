@@ -21,7 +21,7 @@ if (Input::exists()) {
 			'Designation' => Input::get('Designation'),
 			'Position' => Input::get('Position'),
 			'Email' => Input::get('Email'),
-			'Password' => password_hash(Input::get('Password'), PASSWORD_BCRYPT),
+			'Password' => Input::get('Password'),
             'ContactNumber' => Input::get('ContactNo'),
             'ProfilePicturePath' => null
 		]);

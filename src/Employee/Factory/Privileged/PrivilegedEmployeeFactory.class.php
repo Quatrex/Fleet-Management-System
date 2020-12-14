@@ -39,6 +39,7 @@ class PrivilegedEmployeeFactory
         if (!self::checkAccess()) throw new Exception('Illegel Access');
 
         $values['ProfilePicturePath'] = '';
+        $values['Password']=password_hash(self::generateRandomPassword(), PASSWORD_BCRYPT);
         $employee = self::createConcreteEmployee($values);
         $employee->saveToDatabase();
         return self::castToEmployee($employee);
@@ -75,15 +76,15 @@ class PrivilegedEmployeeFactory
         if (!self::checkAccess()) throw new Exception('Illegel Access');
 
         $position = strtolower($position);
-        $validPositonNames = ['', 'requester', 'jo', 'cao', 'vpmo', 'admin','dcao'];
+        $validPositonNames = ['', 'requester', 'jo', 'cao', 'vpmo', 'admin', 'dcao'];
         $position = strtolower($position);
         if (!in_array($position, $validPositonNames)) {
             echo 'Invalid Position Paramter'; // TODO: throw exception
         }
 
         $employeeViewer = new EmployeeViewer();
-        $employeeRecords = $position === '' ? $employeeViewer->getAllEmployees($offset,$sort,$search) :
-            $employeeViewer->getEmployeesByPosition($position,$offset,$sort,$search);;
+        $employeeRecords = $position === '' ? $employeeViewer->getAllEmployees($offset, $sort, $search) :
+            $employeeViewer->getEmployeesByPosition($position, $offset, $sort, $search);;
 
         $employees = [];
         foreach ($employeeRecords as $record) {
@@ -139,5 +140,29 @@ class PrivilegedEmployeeFactory
             default:
                 throw new Exception('Invalid Position Parameter'); // TODO: throw excpetion
         }
+    }
+
+    private static function generateRandomPassword()
+    {
+        $len = 8;
+
+        $sets = array();
+        $sets[] = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+        $sets[] = 'abcdefghjkmnpqrstuvwxyz';
+        $sets[] = '123456789';
+        $sets[] = '!@#$%^&*';
+
+        $password = '';
+
+        foreach ($sets as $set) {
+            $password .= $set[array_rand(str_split($set))];
+        }
+
+        while (strlen($password) < $len) {
+            $randomSet = $sets[array_rand($sets)];
+            $password .= $randomSet[array_rand(str_split($randomSet))];
+        }
+
+        return str_shuffle($password);
     }
 }
