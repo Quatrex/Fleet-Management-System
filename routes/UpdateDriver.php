@@ -13,30 +13,32 @@ $object = ['error' => true, 'object' => null, 'message' => 'Failed to create a d
 
 if (Input::exists()) {
     if (Input::get('Method') == 'UpdateDriver') {
+        $driver = null;
+        $object['error'] = false;
+        $object['object'] = $driver;
+        $object['message'] = "Driver " . Input::get('DriverID') . " successfully updated";
         try {
-        $driver = $employee->updateDriverInfo(
-            Input::get('DriverID'),
-            [
-                'DriverID' => Input::get('DriverID'),
-                'NewDriverID' => Input::get('DriverID'),
-                'FirstName' => ucfirst(Input::get('FirstName')),
-                'LastName' => ucfirst(Input::get('LastName')),
-                'Email' => Input::get('Email'),
-                'Address' => Input::get('Address'),
-                'ContactNumber' => Input::get('ContactNo'),
-                'LicenseNumber' => Input::get('LicenseNumber'),
-                'LicenseType' => Input::get('LicenseType'),
-                'LicenseExpirationDay' => Input::get('LicenseExpirationDay'),
-                'DateOfAdmission' => Input::get('DateOfAdmission')
-            ]
-        );
+            $driver = $employee->updateDriverInfo(
+                Input::get('DriverID'),
+                [
+                    'DriverID' => Input::get('DriverID'),
+                    'NewDriverID' => Input::get('NewDriverID'),
+                    'FirstName' => ucfirst(Input::get('FirstName')),
+                    'LastName' => ucfirst(Input::get('LastName')),
+                    'Email' => Input::get('Email'),
+                    'Address' => Input::get('Address'),
+                    'ContactNumber' => Input::get('ContactNo'),
+                    'LicenseNumber' => Input::get('LicenseNumber'),
+                    'LicenseType' => Input::get('LicenseType'),
+                    'LicenseExpirationDay' => Input::get('LicenseExpirationDay'),
+                    'DateOfAdmission' => Input::get('DateOfAdmission')
+                ]
+            );
         } catch (PDOException $e)
         {
+            $object['error'] = true;
             $object['message'] = 'Update failed. Duplicate entry exists in database';
         }
-        $object['error'] = false;
-        $object['object'] = [$driver];
-        $object['message'] = "Driver " . Input::get('employeeID') . " successfully updated";
         if (Input::get('hasImage') == 'true') {
             $driverImageName = time() . '-' . $_FILES["Image"]["name"];
 

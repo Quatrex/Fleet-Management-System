@@ -137,11 +137,11 @@ class WhereBuilder
             $columnQuery->appendStatement($columnsSQL);
             $columnRecords = $dbh->read($columnQuery);
             $fields = [];
-            array_walk_recursive($columnRecords, function($a) use (&$fields) { $fields[] = $a;});
-            if (in_array('RegistrationNo',$columnRecords))
+            if (in_array('RegistrationNo',$columnRecords[0]))
             {
-                $columnRecords[array_search('RegistrationNo',$columnRecords)] = 'vehcile.RegistrationNo';
+                $columnRecords[0][array_search('RegistrationNo',$columnRecords[0])] = 'vehicle.RegistrationNo';
             }
+            array_walk_recursive($columnRecords, function($a) use (&$fields) { $fields[] = $a;});
         }
         
         
