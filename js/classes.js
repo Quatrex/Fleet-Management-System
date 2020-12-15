@@ -17,7 +17,6 @@ class ResponsiveMenuToggler {
 	}
 	handleEvent(event) {
 		if (event.type == 'click') {
-			console.log('event triggered');
 			if (event.target.closest('button').id == 'res-menu-toggler') {
 				document.querySelector('.psd').classList.add('psd-animate');
 			} else {
@@ -149,7 +148,6 @@ class SecondaryTab {
 			let targetButton = this.buttons.find((button) => button.id == event.target.id.replace('Responsive', ''));
 			if (targetButton != null) {
 				if (targetButton.id != this.activeButton.id) {
-					console.log('Event triggered');
 					this.activeButton.removeFromDOM();
 					targetButton.renderContent();
 					this.activeButton = targetButton;
@@ -215,7 +213,6 @@ class DOMContainer {
 		this.loadContent();
 	}
 	update(action) {
-		console.log(action.type);
 		if (action.type == 'ADD') {
 			this.finishLoadContent(action.payload.length, action.type);
 			action.payload.forEach((object) => this.insertEntry(object));
@@ -554,8 +551,6 @@ class SelectionTable extends DOMContainer {
 		}
 		let typeOfSelectField =
 			this.selectField === 'Driver' ? '#AssignedRequestToDriverPopup' : '#AssignedRequestToVehiclePopup';
-		console.log('AFTER');
-		console.log(typeOfSelectField);
 		document.querySelector(typeOfSelectField).style.display = 'block';
 	}
 	handleEvent(event, popup = {}, object = {}) {
@@ -708,7 +703,6 @@ class Popup {
 	}
 
 	handleEvent(event) {
-		console.log(event.type);
 		if (event.type == 'click') {
 			let targetObject = this.eventObjects.find((obj) => obj.id === event.target.id);
 			if (targetObject) {
@@ -916,9 +910,7 @@ const RemoveAllPopup = (popup, object = {}, event) => {
 };
 
 const DateValidator = (popup, object = {}, event) => {
-	console.log(event.type);
 	if (event.type == 'keyup' || event.type == 'click') {
-		console.log('Inside');
 		let target = event.target;
 		if (target.id == 'date-VehicleRequestForm') {
 			if (target.type == 'date') {
@@ -956,7 +948,6 @@ class BackendAcessButton extends PopupButton {
 		this.failureAlert = document.getElementById('alert-ajax-failure');
 	}
 	finishBackendAcess(response, err, receivedObject = {}) {
-		console.log(err);
 		if (!err) {
 			if (Object.keys(this.actionCreater).length != 0) {
 				this.actionCreater.updateStores(this.object, receivedObject);
@@ -968,14 +959,12 @@ class BackendAcessButton extends PopupButton {
 					this.popup.getPrev().removeFromDOM();
 				}
 			} else {
-				console.log(this.next);
 				this.popup.removeFromDOM();
 				this.next.render(receivedObject);
 			}
 			this.successAlert.querySelector('.message').innerHTML = response.toUpperCase();
 			$('#alert-ajax-success').fadeIn(500).delay(2500).fadeOut(400);
 		} else {
-			console.log('Error');
 			this.failureAlert.querySelector('.message').innerHTML = response.toUpperCase();
 			$('#alert-ajax-failure').fadeIn(300).delay(1500);
 			if (response == 'OFFLINE') {
@@ -994,7 +983,7 @@ class BackendAcessButton extends PopupButton {
 		if (check) {
 			if (event.type === 'click') {
 				if (this.type == 'DEFAULT') {
-					console.log(object);
+					// console.log(object);
 					Database.writeToDatabase(object, this.method, this.finishBackendAcess.bind(this));
 				} else {
 					Database.savePicture(object, this.method, this.finishBackendAcess.bind(this));
@@ -1089,17 +1078,13 @@ const ObjectCreate = (popup, object = {}, event) => {
 			obj[element.name] = element.files[0];
 			element.files.length > 0 ? (obj['hasImage'] = true) : (obj['hasImage'] = false);
 		} else if (element.type == 'radio') {
-			console.log(element);
-			console.log('Inside ratio');
 			if (element.checked) {
 				obj[element.name] = element.id.split('_')[1];
-				console.log(`${element.name} = ${element.id.split('_')[1]}`);
 			}
 		} else {
 			obj[element.name] = element.value;
 		}
 	});
-	console.log(obj);
 	if (event.type == 'keyup') {
 		return { ...object, ...obj };
 	} else {
@@ -1226,19 +1211,15 @@ const Database = {
 			data: { ...object, Method: method },
 			cache: false,
 			beforeSend: function () {
-				console.log('Here');
 				if (!navigator.onLine) {
-					console.log('Not online');
 					callback('OFFLINE', true);
 					return false;
 				} else {
-					console.log(navigator.onLine);
 					$('#overlay').fadeIn(300);
 				}
 			},
 			success: function (returnArr) {
 				console.log(returnArr);
-				console.log(returnArr.object);
 				$('#overlay').fadeOut(300);
 				$(`#${method}_form`).trigger('reset');
 				callback(returnArr.message, returnArr.error, returnArr.object);
@@ -1257,7 +1238,6 @@ const Database = {
 
 	loadContent(query, errCallback = () => {}) {
 		let actionCreater = query[2];
-		console.log(query[4]);
 		let holder = { ...{ Method: query[0], offset: query[1], object: query[4] }, ...query[3] };
 		console.log(holder);
 		$.ajax({
@@ -1309,7 +1289,6 @@ const Database = {
 			cache: false,
 			success: function (returnArr) {
 				returnArr = JSON.parse(returnArr);
-				console.log(returnArr.object);
 				console.log(returnArr);
 				callback(returnArr.message, returnArr.error, returnArr.object);
 			},
