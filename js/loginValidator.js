@@ -4,13 +4,13 @@ class LogInValidator {
         this.errors = ['', ''];
     }
 
-    validateUsername(username) {
-        if (username == "") {
-            this.errors[0] = "Username is required";
+    validateEmail(email) {
+        if (email == "") {
+            this.errors[0] = "Email is required";
             return false;
         }
-        else if (username.length < 3) {
-            this.errors[0] = "Username must be at least 3 characters";
+        else if (!email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
+            this.errors[0] = "Not a valid email";
             return false;
         }
         else {
@@ -23,8 +23,8 @@ class LogInValidator {
             this.errors[1] = "Password is required";
             return false;
         }
-        else if (password.length < 3) {
-            this.errors[1] = "Password must be at least 3 characters";
+        else if (password.length < 8) {
+            this.errors[1] = "Password must be at least 8 characters";
             return false;
         }
         else {
@@ -33,7 +33,7 @@ class LogInValidator {
         }
     }
 
-    getUsernameError() {
+    getEmailError() {
         return this.errors[0];
     }
 
