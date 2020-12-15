@@ -10,8 +10,8 @@ $(document).ready(function () {
         }
     });
     $('#password-input').keyup(function () {
-        if (!logInValidator.validatePassword(document.forms['vform']['password'].value.trim())) {
-            document.querySelector('#password-error').innerHTML = logInValidator.getPasswordError();
+        if (document.forms['vform']['password'].value.trim() == '') {
+            document.querySelector('#password-error').innerHTML = "Password is required";
         } else {
             document.querySelector('#password-error').innerHTML = null;
             document.querySelector('#password-input').className = 'form-control';
@@ -37,8 +37,7 @@ $(document).ready(function () {
     });
 });
 
-const validate = ()=>{
-    console.log('validating')
+const validate = () => {
     const logInValidator = new LogInValidator();
     logInValidator.validateEmail(document.forms['vform']['email'].value.trim());
     document.querySelector('#name-error').innerHTML = logInValidator.getEmailError();

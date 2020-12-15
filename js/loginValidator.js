@@ -42,7 +42,6 @@ class LogInValidator {
     }
 
     isvalidationPassed() {
-        console.log(this.errors == ['', '']);
-        return this.errors == ['', ''];
+        return this.errors[0] == '' && this.errors[1]=='';
     }
 }
