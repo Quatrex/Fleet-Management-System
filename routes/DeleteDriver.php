@@ -13,10 +13,10 @@ $object = ['error' => true, 'object' => '', 'message' => ''];
 
 if (Input::exists()) {
     if (Input::get('Method') == 'DeleteDriver') {
-        $driver = $employee->deleteDriver(Input::get('driverId'));
+        $driver = $employee->deleteDriver(Input::get('DriverID'));
         $object['error'] = false;
         $object['object'] = $driver;
-        $object['message'] = "Driver " . Input::get('driverId') . " successfully deleted";
+        $object['message'] = "Driver " . Input::get('DriverID') . " successfully deleted";
     }
 }
 echo json_encode($object);

@@ -84,6 +84,7 @@ class Administrator extends PrivilegedEmployee
     public function deleteDriver(string $driverID) : Driver
     {
         $driver = DriverFactory::makeDriver($driverID);
+        $driver->delete();
         return $driver;
     }
 }

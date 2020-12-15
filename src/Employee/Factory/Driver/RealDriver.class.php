@@ -135,10 +135,10 @@ class RealDriver extends Employee implements Driver
         );
     }
 
-    public function deleteDriver(string $driverID): void
+    public function delete(): void
     {
         $driverController = new DriverController();
-        $driverController->deleteDriver($driverID);
+        $driverController->deleteDriver($this->driverId);
     }
 
     public function setState(State $state) 
