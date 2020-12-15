@@ -9,8 +9,12 @@
         <div class="popup-body">
             <div id="submit-form-wrapper">
                 <form id="AddEmployee_form">
-                    <div class="center" style="text-align: center;">
-                        <img src='../images/profilePictures/default-profile.png' id="VehiclePicturePath-VehicleProfileEditForm" class="form-image image-fluid" style="padding:5px; width:20%;text-align: center;">
+                    <div class="center" style="text-align: center; ">
+                        <img src="../images/default-user-image.png" id="ProfilePicturePath-EmployeeAddForm" class="form-image" style="padding:5px; width:25%;text-align: center;">
+                    </div>
+                    <div class="overlay">
+                        <i class="fa fa-camera upload-button" data-input='ChangeEmployeePicture' style="cursor: pointer;"></i>
+                        <input type="file" name="Image" id="AddEmployeeImage" class="file-upload inputs" data-imageid="ProfilePicturePath-EmployeeAddForm" accept="image/png, .jpeg, .jpg, image/gif" />
                     </div>
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls">
@@ -238,6 +242,13 @@
         <div class="popup-body">
             <div id="submit-form-wrapper">
                 <form id="AddDriver_form">
+                    <div class="center" style="text-align: center; ">
+                        <img src="../images/default-user-image.png" id="ProfilePicturePath-DriverAddForm" class="form-image" style="padding:5px; width:25%;text-align: center;">
+                    </div>
+                    <div class="overlay">
+                        <i class="fa fa-camera upload-button" data-input='ChangeDriverPicture' style="cursor: pointer;"></i>
+                        <input type="file" name="Image" id="AddDriverImage" class="file-upload inputs" data-imageid="ProfilePicturePath-DriverAddForm" accept="image/png, .jpeg, .jpg, image/gif" />
+                    </div>
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls">
                             <label for="DriverID">Driver ID</label>

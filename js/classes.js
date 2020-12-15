@@ -1283,9 +1283,11 @@ const Database = {
 		let objProperties = Object.getOwnPropertyNames(object);
 		objProperties.forEach((property) => {
 			data.append(property, object[property]);
+			console.log(property, object[property]);
 		});
 		data.append('Method', method);
 		console.log(data);
+		console.log(method);
 		$.ajax({
 			url: `../routes/${method}.php`,
 			type: 'POST',
