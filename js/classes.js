@@ -1285,6 +1285,7 @@ const Database = {
 			data.append(property, object[property]);
 		});
 		data.append('Method', method);
+		console.log(data);
 		$.ajax({
 			url: `../routes/${method}.php`,
 			type: 'POST',
