@@ -426,8 +426,9 @@ class DOMContainer {
 			this.cardContainer
 				.querySelector('.card-body')
 				.insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
-			this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.cardId}_${object[this.store.getObjIdType()]
-				}`;
+			this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.cardId}_${
+				object[this.store.getObjIdType()]
+			}`;
 			// this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 		}
 	}
@@ -450,8 +451,9 @@ class DOMContainer {
 			}
 		});
 		this.cardContainer.querySelector('.card-body').appendChild(clone);
-		this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.cardId}_${object[this.store.getObjIdType()]
-			}`;
+		this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.cardId}_${
+			object[this.store.getObjIdType()]
+		}`;
 		this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 	}
 
@@ -574,11 +576,20 @@ class SelectionTable extends DOMContainer {
 					}
 				} else {
 					if (this.toggleStyle(id)) {
+						let objType =
+							this.store.getObjIdType() == 'RegistrationNo' ? ['Model'] : ['FirstName', 'LastName'];
+						object[this.selectField] = targetObject[this.store.getObjIdType()];
+						if(objType.length == 2){
+							object['DriverName'] = targetObject['FirstName'] + ' '+ targetObject['LastName'];
+						}
+						else{
+							object['Model'] = targetObject['Model'] 
+						}
 						object[this.selectField] = targetObject[this.store.getObjIdType()];
 						document.getElementById(`${this.selectField}-${this.id}`).innerHTML =
 							(this.selectField == 'Vehicle') |
-								(this.selectField == 'JOSelectedVehicle') |
-								(this.selectField == 'AssignedVehicle')
+							(this.selectField == 'JOSelectedVehicle') |
+							(this.selectField == 'AssignedVehicle')
 								? `${targetObject['RegistrationNo']}, ${targetObject['Model']} `
 								: `${targetObject['FirstName']} ${targetObject['LastName']} `;
 						if (this.nextFieldId != '') {
@@ -1078,7 +1089,7 @@ const FormValidate = (popup, object = {}, event) => {
 				if (!field.value.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
 					field.classList.add('invalid-details');
 					valid = false;
-					popup.popup.querySelector(`#${field.name}-error`).innerHTML = "Not a valid email";
+					popup.popup.querySelector(`#${field.name}-error`).innerHTML = 'Not a valid email';
 					popup.popup.querySelector(`#${field.name}-error`).classList = '';
 					popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
 				}
@@ -1224,7 +1235,7 @@ const changeInnerHTML = (object, id, objectFields = {}) => {
 };
 
 const Database = {
-	writeToDatabase: (object, method, callback = () => { }) => {
+	writeToDatabase: (object, method, callback = () => {}) => {
 		console.log({ ...object, Method: method });
 		$.ajax({
 			url: `../routes/${method}.php`,
@@ -1259,7 +1270,7 @@ const Database = {
 	//query[3]=> searchObject,
 	//query[4]=> object,
 
-	loadContent(query, errCallback = () => { }) {
+	loadContent(query, errCallback = () => {}) {
 		let actionCreater = query[2];
 		let holder = { ...{ Method: query[0], offset: query[1], object: query[4] }, ...query[3] };
 		console.log(holder);
@@ -1295,7 +1306,7 @@ const Database = {
 			timeout: 10000,
 		});
 	},
-	savePicture(object, method, callback = () => { }) {
+	savePicture(object, method, callback = () => {}) {
 		data = new FormData();
 		let objProperties = Object.getOwnPropertyNames(object);
 		objProperties.forEach((property) => {
