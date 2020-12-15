@@ -1,7 +1,7 @@
 class LogInValidator {
     constructor() {
         this.is_passed = false;
-        this.errors = ['', ''];
+        this.errors = [false, false];
     }
 
     validateEmail(email) {
@@ -23,8 +23,8 @@ class LogInValidator {
             this.errors[1] = "Password is required";
             return false;
         }
-        else if (password.length < 8) {
-            this.errors[1] = "Password must be at least 8 characters";
+        else if (!password.match(/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/)) {
+            this.errors[1] = "Incorrect Password";
             return false;
         }
         else {
@@ -42,6 +42,7 @@ class LogInValidator {
     }
 
     isvalidationPassed() {
+        console.log(this.errors == ['', '']);
         return this.errors == ['', ''];
     }
 }

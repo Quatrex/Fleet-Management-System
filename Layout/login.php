@@ -62,7 +62,7 @@ RealRequest::expireRequests();
                 <h2 class="card-title">Sign in</h2>
 
                 <!-- <form action="authenticate.php" method="post" onsubmit="return validatelogin()" name="vform"> -->
-                <form method="post" name="vform" action="login.php">
+                <form method="post" name="vform" action="login.php" onsubmit="return validate()">
                     <div id="message"></div>
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls mb-0 pb-2">

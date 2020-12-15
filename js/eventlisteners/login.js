@@ -36,3 +36,13 @@ $(document).ready(function () {
         }
     });
 });
+
+const validate = ()=>{
+    console.log('validating')
+    const logInValidator = new LogInValidator();
+    logInValidator.validateEmail(document.forms['vform']['email'].value.trim());
+    document.querySelector('#name-error').innerHTML = logInValidator.getEmailError();
+    logInValidator.validatePassword(document.forms['vform']['password'].value.trim());
+    document.querySelector('#password-error').innerHTML = logInValidator.getPasswordError();
+    return logInValidator.isvalidationPassed();
+}
