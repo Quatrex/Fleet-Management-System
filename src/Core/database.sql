@@ -9,7 +9,8 @@ CREATE TABLE `employee` (
   `Password` CHAR(64),
   `ProfilePicturePath` VARCHAR(255),
   `IsDeleted` TINYINT(1) DEFAULT 0,
-  PRIMARY KEY (`EmpID`)
+  PRIMARY KEY (`EmpID`),
+  UNIQUE (`Email`)
 );
 
 CREATE TABLE `vehicle` (
