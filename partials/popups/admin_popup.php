@@ -12,18 +12,26 @@
                     <div class="center" style="text-align: center;">
                         <img src='../images/profilePictures/default-profile.png' id="VehiclePicturePath-VehicleProfileEditForm" class="form-image image-fluid" style="padding:5px; width:20%;text-align: center;">
                     </div>
-                    <div class="form-group">
-                        <input class="form-control inputs" placeholder="Employee ID" type="text" name="EmpID" required>
-                        <div id="EmpID-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="EmpID">Employee ID</label>
+                            <input class="form-control inputs" placeholder="Employee ID" type="text" name="EmpID" required>
+                            <div id="EmpID-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input class="form-control inputs" placeholder="First Name" type="text" name="FirstName" required>
-                        <div id="FirstName-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="FirstName">First Name</label>
+                            <input class="form-control inputs" placeholder="First Name" type="text" name="FirstName" required>
+                            <div id="FirstName-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input class="form-control inputs" placeholder="Last Name" type="text" name="LastName" required>
-                        <div id="LastName-error" class="text-danger"></div>
-
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="LastName">Last Name</label>
+                            <input class="form-control inputs" placeholder="Last Name" type="text" name="LastName" required>
+                            <div id="LastName-error" class="text-danger"></div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <select class="custom-select inputs" name="Position" id="Position-select" required>
@@ -38,19 +46,26 @@
                         <div id="Position-error" class="text-danger"></div>
 
                     </div>
-                    <div class="form-group">
-                        <input class="form-control inputs" placeholder="Designation" id="employee-Designation" type="text" name="Designation" required>
-                        <div id="Designation-error" class="text-danger"></div>
-
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="Designation">Designation</label>
+                            <input class="form-control inputs" placeholder="Designation" id="employee-Designation" type="text" name="Designation" required>
+                            <div id="Designation-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="number" name="ContactNo" class="form-control inputs" placeholder="Contact Number" required maxlength="10">
-                        <div id="ContactNo-error" class="text-danger"></div>
-
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="ContactNo">Contact Number</label>
+                            <input type="number" name="ContactNo" class="form-control inputs" placeholder="Contact Number" required maxlength="10">
+                            <div id="ContactNo-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input name="Email" class="form-control inputs" placeholder="Email" type="text" required>
-                        <div id="Email-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="Email">Email</label>
+                            <input name="Email" class="form-control inputs" placeholder="Email" type="text" required>
+                            <div id="Email-error" class="text-danger"></div>
+                        </div>
                     </div>
                     <input type="button" value="Submit" class="btn btn-success" id="EmployeeAddForm_Confirm">
                 </form>
@@ -223,41 +238,68 @@
         <div class="popup-body">
             <div id="submit-form-wrapper">
                 <form id="AddDriver_form">
-                    <div class="form-group">
-                        <input class="form-control inputs" placeholder="Driver ID" type="text" name="DriverID" required>
-                        <div id="DriverID-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="DriverID">Driver ID</label>
+                            <input class="form-control inputs" placeholder="Driver ID" type="text" name="DriverID" required>
+                            <div id="DriverID-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input class="form-control inputs" placeholder="First Name" type="text" name="FirstName" required>
-                        <div id="FirstName-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="FirstName">First Name</label>
+                            <input class="form-control inputs" placeholder="First Name" type="text" name="FirstName" required>
+                            <div id="FirstName-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input class="form-control inputs" placeholder="Last Name" type="text" name="LastName" required>
-                        <div id="LastName-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="LastName">Last Name</label>
+                            <input class="form-control inputs" placeholder="Last Name" type="text" name="LastName" required>
+                            <div id="LastName-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input class="form-control inputs" placeholder="Email" type="text" name="Email" required>
-                        <div id="Email-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="Email">Email</label>
+                            <input class="form-control inputs" placeholder="Email" type="text" name="Email" required>
+                            <div id="Email-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="tel" minlength="10" maxlength="10" name="ContactNo" class="form-control inputs" placeholder="Contact Number" required>
-                        <div id="ContactNo-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="ContactNo">Contact Number</label>
+                            <input type="tel" minlength="10" maxlength="10" name="ContactNo" class="form-control inputs" placeholder="Contact Number" required>
+                            <div id="ContactNo-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input name="DateOfAdmission" class="form-control inputs" placeholder="Date Of Admission" type="text" onfocus="(this.type='date')">
-                        <div id="DateOfAdmission-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="DateOfAdmission">Date of Admission</label>
+                            <input name="DateOfAdmission" class="form-control inputs" placeholder="Date Of Admission" type="text" onfocus="(this.type='date')" max="<?php echo date("Y-m-d"); ?>">
+                            <div id="DateOfAdmission-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input name="LicenseNumber" class="form-control inputs" placeholder="License Number" type="text" required>
-                        <div id="LicenseNumber-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="LicenseNumber">License Number</label>
+                            <input name="LicenseNumber" class="form-control inputs" placeholder="License Number" type="text" required>
+                            <div id="LicenseNumber-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input name="LicenseType" class="form-control inputs" placeholder="License Type" type="text" required>
-                        <div id="LicenseType-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="LicenseType">License Type</label>
+                            <input name="LicenseType" class="form-control inputs" placeholder="License Type" type="text" required>
+                            <div id="LicenseType-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input name="LicenseExpirationDay" class="form-control inputs" placeholder="License Expire Day" type="text" onfocus="(this.type='date')">
-                        <div id="LicenseExpirationDay-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="LicenseExpirationDay">License Expiration Day</label>
+                            <input name="LicenseExpirationDay" class="form-control inputs" placeholder="License Expire Day" type="text" onfocus="(this.type='date')" min="<?php echo date("Y-m-d"); ?>">
+                            <div id="LicenseExpirationDay-error" class="text-danger"></div>
+                        </div>
                     </div>
                     <input type="button" value="Submit" class="btn btn-success" id="DriverAddForm_Confirm">
                 </form>
