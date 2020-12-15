@@ -87,7 +87,7 @@
 
 <template id="vehicleCardTemplate">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description" style="cursor: pointer;">
-        <div class="card text-center" style="width: 15rem;">
+        <div class="card text-center widthCard" style="width: 15rem;">
             <img class="VehiclePicturePath card-img-top vehicle-image mt-2" src="" alt="Vehicle Image">
             <div class="card-body">
                 <h5 class="card-title Model"></h5>
@@ -102,7 +102,7 @@
 
 <template id="employeeCardTemplate">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description" id="employeeContainer_50">
-        <div class="card text-center" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2 ProfilePicturePath" src="../images/profilePictures/1597416665-pp.jpg" alt="Driver Image">
+        <div class="card text-center widthCard" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2 ProfilePicturePath" src="../images/profilePictures/1597416665-pp.jpg" alt="Driver Image">
             <div class="card-body">
                 <h5 class="card-title FirstName d-inline"></h5>
                 <h5 class="card-title LastName d-inline-block"></h5>
@@ -116,7 +116,7 @@
 
 <template id="driverCardTemplate">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description">
-        <div class="card text-center" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2 ProfilePicturePath" src="../images/driver.png" alt="Driver Image">
+        <div class="card text-center widthCard" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2 ProfilePicturePath" src="../images/driver.png" alt="Driver Image">
             <div class="card-body">
                 <h5 class="card-title d-inline FirstName"></h5><h5 class="card-title d-inline LastName"></h5>
                 <h6 class="card-subtitle mb-2 mt-2 text-muted AssignedVehicle">Assigned Vehicle: </h6>
