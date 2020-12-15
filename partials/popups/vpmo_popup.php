@@ -582,7 +582,7 @@
                     <p>Driver</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="Driver-RequestFinalDetailsPopup">Text</p>
+                    <p id="DriverName-RequestFinalDetailsPopup">Text</p>
                 </div>
             </div>
             <div class="row">
@@ -590,7 +590,7 @@
                     <p>Vehicle</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="Vehicle-RequestFinalDetailsPopup">Text</p>
+                    <p id="Model-RequestFinalDetailsPopup">Text</p>
                 </div>
             </div>
             <input class="inputs" type="hidden" name="Status" value="Scheduled" disabled>
