@@ -95,7 +95,7 @@ DriverProfileEditFormCancel.setNext(DriverProfileFormPopup);
 
 const ChangeProfilePicturePopupClose = new DisplayNextButton('ChangeProfilePictureForm_Close');
 const ChangeProfilePicturePopupCancel = new DisplayNextButton('ChangeProfilePictureForm_Cancel');
-const ChangeProfilePicturePopupSubmit = new BackendAcessButton('ChangeProfilePictureForm_Submit', 'ChangeProfilePicture', [ObjectCreate],  ActionCreator([UserStore], "UPDATE"));
+const ChangeProfilePicturePopupSubmit = new BackendAcessButton('ChangeProfilePictureForm_Submit', 'ChangeProfilePicture', [ObjectCreate],  ActionCreator([UserStore], "UPDATE"),'PHOTO');
 const ChangeProfilePicturePopup = new Popup('ChangeProfilePictureForm', [ChangeProfilePicturePopupClose, ChangeProfilePicturePopupCancel, ChangeProfilePicturePopupSubmit]);
 
 const ChangePasswordPopupClose = new DisplayNextButton('ChangePasswordForm_Close');

@@ -1,5 +1,3 @@
-// $('#alert-ajax-failure').fadeIn(300).delay(1500);
-// $( "#alert-ajax-success" ).fadeIn( 300 ).delay( 2500 ).fadeOut( 400 );
 const requestsToAssignStore = new Store('requestsToAssign', networkManager);
 const ongoingTripStore = new Store('scheduledRequests', networkManager);
 const scheduledRequestsStore = new Store('scheduledHistoryRequests', networkManager);
