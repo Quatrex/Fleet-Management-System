@@ -40,10 +40,18 @@ class Validate
 							break;
 						case 'matches':
 							if ($value != $source[$rule_value]) {
-								$this->addError("{$rule_value} must match {$item}");
+								$this->addError("{$rule_value} must match {$item}.");
 							}
 							break;
 						case 'unique':
+							break;
+						case 'regex':
+							if (!preg_match(
+								$rule_value,
+								$value
+							)) {
+								$this->addError("{$item} is not valid.");
+							}
 							break;
 					}
 				}

@@ -17,8 +17,8 @@ class Authenticate
 
             $validate = new Validate();
             $validation = $validate->check($_POST, array(
-                'email' => array('required' => true, 'min' => 3),
-                'password' => array('required' => true),
+                'email' => array('required' => true, 'regex'=>'/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/'),
+                'password' => array('required' => true, 'min' => 8, 'regex' =>'/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/'),
             ));
 
             if ($validation->passed()) {
