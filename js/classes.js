@@ -577,7 +577,7 @@ class SelectionTable extends DOMContainer {
 					if (this.toggleStyle(id)) {
 						object[this.selectField] = targetObject[this.store.getObjIdType()];
 						document.getElementById(`${this.selectField}-${this.id}`).innerHTML =
-							(this.selectField == 'Vehicle') | (this.selectField == 'JOSelectedVehicle')
+							(this.selectField == 'Vehicle') | (this.selectField == 'JOSelectedVehicle') | (this.selectField == 'AssignedVehicle')
 								? `${targetObject['RegistrationNo']}, ${targetObject['Model']} `
 								: `${targetObject['FirstName']} ${targetObject['LastName']} `;
 						if (this.nextFieldId != '') {

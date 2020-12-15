@@ -139,7 +139,7 @@ const assignVehicleToDriverTable = new SelectionTable(
 	'assignVehicleToDriverTable',
 	{},
 	vehicleStore,
-	'selectionVehicleTemplate',
+	'selectionDriverVehicleTemplate',
 	AssignVehicleToDriverConfirm,
 	'AssignedVehicle'
 );
