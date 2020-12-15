@@ -28,7 +28,7 @@ if (Input::exists()) {
 				'LeasedPeriodFrom' => Input::get('LeasedPeriodFrom'),
 				'LeasedPeriodTo' => Input::get('LeasedPeriodTo'),
 				'MonthlyPayment' => Input::get('MonthlyPayment'),
-				'VehiclePicturePath' => ''
+				'VehiclePicturePath' => Input::get('Image'),
 			]);
 		} catch(PDOException $e)
 		{
@@ -44,7 +44,7 @@ if (Input::exists()) {
 					'FuelType' => Input::get('FuelType'),
 					'InsuranceValue' => Input::get('InsuranceValue'),
 					'InsuranceCompany' => Input::get('InsuranceCompany'),
-					'VehiclePicturePath' => ''
+					'VehiclePicturePath' => Input::get('Image'),
 				]);
 			} catch(PDOException $e) {
 				$object['message'] = 'Update failed. Duplicate entry exists in database';

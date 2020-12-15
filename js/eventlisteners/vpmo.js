@@ -10,7 +10,7 @@ const VehicleAddFormSubmit = new BackendAcessButton(
 	'VehicleAddForm_Submit',
 	'AddVehicle',
 	[ObjectCreate, FormValidate],
-	ActionCreator([vehicleStore], 'ADD')
+	ActionCreator([vehicleStore], 'ADD'),'PHOTO'
 );
 const VehicleAddFormPopup = new Popup('VehicleAddForm', [VehicleAddFormClose, VehicleAddFormSubmit]);
 
