@@ -1048,7 +1048,7 @@ const FormValidate = (popup, object = {}, event) => {
 					}
 				}
 			}
-			if (field.name == 'NewPassword') {
+			if (field.name == 'NewPassword' && field.value.length != 0) {
 				validity = AnalysePassword(field.value);
 				if (validity == false) {
 					field.classList.add('invalid-details');
@@ -1059,9 +1059,18 @@ const FormValidate = (popup, object = {}, event) => {
 					popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
 				}
 			}
-			if (field.name == 'ContactNo') {
+			if (field.name == 'ContactNo' && field.value.length != 0) {
 				if (new RegExp('^[0-9]{10}$').test(field.value) == false) {
+					field.classList.add('invalid-details');
 					popup.popup.querySelector(`#${field.name}-error`).innerHTML = 'Contact No must include 10 digits.';
+					popup.popup.querySelector(`#${field.name}-error`).classList = '';
+					popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
+				}
+			}
+			if (field.name == 'Email' && field.value.length != 0){
+				if (new RegExp("^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$").test(field.value) == false){
+					field.classList.add('invalid-details');
+					popup.popup.querySelector(`#${field.name}-error`).innerHTML = "Not a valid email";
 					popup.popup.querySelector(`#${field.name}-error`).classList = '';
 					popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
 				}
