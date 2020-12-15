@@ -224,7 +224,11 @@ class EmailGenerator
                        ->subject('New User Account')
                        ->paragraph()
                             ->text('A new account has been created for you in Vehicle Fleet Management System.')
+                            ->close()
+                        ->paragraph()
                             ->text("Email: $email")
+                            ->close()
+                        ->paragraph()
                             ->text("Password: $password")
                             ->close()
                         ->getEmail();

@@ -44,7 +44,7 @@
 
                     </div>
                     <div class="form-group">
-                        <input type="number" name="ContactNo" class="form-control inputs" placeholder="Contact Number" required>
+                        <input type="number" name="ContactNo" class="form-control inputs" placeholder="Contact Number" required maxlength="10">
                         <div id="ContactNo-error" class="text-danger"></div>
 
                     </div>
@@ -613,31 +613,44 @@
             <div id="submit-form-wrapper">
                 <div class="basic-form">
                     <form id="ChangePassword_form">
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label>Current Password</label>
+                        <div class="control-group">
+                            <div class="col-md-6 form-group floating-label-form-group controls">
+                                <label for="CurrentPassword">Current Password</label>
                                 <div class="input-group">
-                                    <input class="form-control inputs py-2 border-right-0 border" id="CurrentPassword-ChangePasswordForm" type="password" name="CurrentPassword" required>
+                                    <input class="form-control inputs py-2 border" id="CurrentPassword-ChangePasswordForm"  type="password" name="CurrentPassword" required>
                                     <div id="CurrentPassword-error" class="text-danger"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="form-group col-md-6">
-                                <label>New Password</label>
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls col-md-6">
+                                <label for="NewPassword">New Password</label>
                                 <div class="input-group">
-                                    <input class="form-control inputs py-2 border-right-0 border" id="NewPassword-ChangePasswordForm" type="password" name="NewPassword" required>
+                                    <input class="form-control inputs py-2 border" id="NewPassword-ChangePasswordForm"  type="password" name="NewPassword" required>
+                                    <span class="fa fa-fw fa-eye field-icon toggle-password" data-pass="NewPassword-ChangePasswordForm"></span>
                                     <div id="NewPassword-error" class="text-danger"></div>
-
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label>Confirm New Password</label>
+                        </div>
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls col-md-6">
+                                <label for="RetypeNewPassword">Confirm New Password</label>
                                 <div class="input-group">
-                                    <input class="form-control inputs py-2 border-right-0 border" id="RetypeNewPassword-ChangePasswordForm" type="password" name="RetypeNewPassword" required>
+                                    <input class="form-control inputs py-2 border" id="RetypeNewPassword-ChangePasswordForm"  type="password" name="RetypeNewPassword" required>
+                                    <!-- <span class="fa fa-fw fa-eye field-icon toggle-password" data-pass="RetypeNewPassword-ChangePasswordForm"></span> -->
                                     <div id="RetypeNewPassword-error" class="text-danger"></div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="NewPasswordinfo form-group">
+                            <h6>Password must include:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li data-criterion="length" class="valid">At least <strong>8 Characters</strong></li>
+                                <li data-criterion="capital" class="valid">At least <strong>one capital letter</strong></li>
+                                <li data-criterion="number" class="valid">At least <strong>one number</strong></li>
+                                <li data-criterion="special" class="valid">At least <strong>one special character (!@#$%^&*)</strong></li>
+                                <li data-criterion="letter" class="valid">No spaces</li>
+                            </ul>
                         </div>
                     </form>
                     <span class="d-inline-block" id="edit-confirm-tooltip" data-toggle="tooltip" title="Make changes to enable"><input type="button" class="btn btn-success" value="Change" id="ChangePasswordForm_Submit"></span>
