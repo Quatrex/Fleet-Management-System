@@ -39,7 +39,6 @@ class PrivilegedEmployeeFactory
     {
         if (!self::checkAccess()) throw new Exception('Illegel Access');
 
-        $values['ProfilePicturePath'] = '';
 
         $emailClient = EmailClient::getInstance();
         $password = self::generateRandomPassword();

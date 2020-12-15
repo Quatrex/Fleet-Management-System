@@ -20,7 +20,7 @@ class DriverFactory
     {
         $values['State'] = State::getStateID('available');
         $values['NumOfAllocations']=0;
-        $values['ProfilePicturePath']='';
+ 
         $driver = self::createProxy($values);
         $driver->saveToDatabase();
 
