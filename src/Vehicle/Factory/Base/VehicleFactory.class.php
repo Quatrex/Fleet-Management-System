@@ -21,7 +21,6 @@ abstract class VehicleFactory
         $values['CurrentLocation'] = '';
         $values['AssignedOfficer'] = null;
         $values['NumOfAllocations'] = 0;
-        $values['VehiclePicturePath'] = '';
         $vehicle = $this->createVehicle($values,'',true);
         return $this->castToVehicle($vehicle);
     }

@@ -78,7 +78,8 @@ class LeasedVehicle extends AbstractVehicle implements JsonSerializable
             $this->leasedCompany,
             $this->leasedPeriodFrom,
             $this->leasedPeriodTo,
-            $this->monthlyPayment
+            $this->monthlyPayment,
+            $this->vehicleImagePath
         );
     }
 

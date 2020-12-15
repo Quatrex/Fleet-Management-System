@@ -12,9 +12,9 @@ class AdminDriverProxy extends DriverProxy
         $this->driver->updateInfo($values);
     }
 
-    public function deleteDriver(string $driverID): void
+    public function delete(): void
     {
-        $this->driver->deleteDriver($driverID);
+        $this->driver->delete();
     }
 
     public function updatePicture(string $imagePath): void

@@ -9,29 +9,35 @@ session_start();
 ob_start();
 header("Content-type: application/json; charset=utf-8");
 $employee = $_SESSION['employee'];
-$object = ['error' => true, 'object' => '', 'message' => ''];
+$object = ['error' => true, 'object' => null, 'message' => 'Failed to create a vehicle object'];
 
 if (Input::exists()) {
     if (Input::get('Method') == 'UpdateVehicle') {
         $vehicle = null;
         if (Input::get('LeasedCompany') !== "") {
-            $vehicle = $employee->updateLeasedVehicleInfo([
+            try {
+                $vehicle = $employee->updateLeasedVehicleInfo([
 
-                'RegistrationNo' => Input::get('RegistrationNo'),
-                'NewRegistrationNo' => Input::get('NewRegistrationNo'),
-                'Model' => Input::get('Model'),
-                'PurchasedYear' => Input::get('PurchasedYear'),
-                'Value' => Input::get('Value'),
-                'FuelType' => Input::get('FuelType'),
-                'CurrentLocation' => Input::get('CurrentLocation'),
-                'InsuranceValue' => Input::get('InsuranceValue'),
-                'InsuranceCompany' => Input::get('InsuranceCompany'),
-                'LeasedCompany' => Input::get('LeasedCompany'),
-                'LeasedPeriodFrom' => Input::get('LeasedPeriodFrom'),
-                'LeasedPeriodTo' => Input::get('LeasedPeriodTo'),
-                'MonthlyPayment' => Input::get('MonthlyPayment')
-            ]);
+                    'RegistrationNo' => Input::get('RegistrationNo'),
+                    'NewRegistrationNo' => Input::get('NewRegistrationNo'),
+                    'Model' => Input::get('Model'),
+                    'PurchasedYear' => Input::get('PurchasedYear'),
+                    'Value' => Input::get('Value'),
+                    'FuelType' => Input::get('FuelType'),
+                    'CurrentLocation' => Input::get('CurrentLocation'),
+                    'InsuranceValue' => Input::get('InsuranceValue'),
+                    'InsuranceCompany' => Input::get('InsuranceCompany'),
+                    'LeasedCompany' => Input::get('LeasedCompany'),
+                    'LeasedPeriodFrom' => Input::get('LeasedPeriodFrom'),
+                    'LeasedPeriodTo' => Input::get('LeasedPeriodTo'),
+                    'MonthlyPayment' => Input::get('MonthlyPayment')
+                ]);
+            } catch (PDOException $e)
+            {
+                $object['message'] = 'Update failed. Duplicate entry exists in database';
+            }
         } else {
+            try {
             $vehicle = $employee->updatePurchasedVehicleInfo([
                 'RegistrationNo' => Input::get('RegistrationNo'),
                 'NewRegistrationNo' => Input::get('NewRegistrationNo'),
@@ -43,15 +49,16 @@ if (Input::exists()) {
                 'InsuranceValue' => Input::get('InsuranceValue'),
                 'InsuranceCompany' => Input::get('InsuranceCompany')
             ]);
+            } catch(PDOException $e)
+            {
+                $object['message'] = 'Update failed. Duplicate entry exists in database';
+            }
         }
         if ($vehicle !== null) {
             $object['error'] = false;
             $object['object'] = $vehicle;
             $object['message'] = "Vehicle " . Input::get('RegistrationNo') . " successfully updated";
-        } else {
-            $object['error'] = true;
-            $object['message'] = 'Failed to create a vehicle object';
-        }
+        } 
         if (Input::get('hasImage') == 'true') {
             $vehicleImageName = time() . '-' . $_FILES["Image"]["name"];
             $target_dir = "../images/vehiclePictures/";

@@ -112,6 +112,13 @@
         <div class="popup-body">
             <div id="submit-form-wrapper">
                 <form id="AddVehicle_form">
+                    <div class="center" style="text-align: center; ">
+                        <img src='../images/vehiclePictures/default-vehicle.png' id="VehiclePicturePath-AddVehicleForm" class="form-image" style="padding:5px; width:25%;text-align: center;">
+                    </div>
+                    <div class="overlay">
+                        <i class="fa fa-camera upload-button" data-input='ChangeVehiclePicture' style="cursor: pointer;"></i>
+                        <input type="file" name="Image" id="AddVehicleImage" class="file-upload inputs" data-imageid="VehiclePicturePath-AddVehicleForm" accept="image/png, .jpeg, .jpg, image/gif" />
+                    </div>
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls">
                             <label for="Model">Model</label>

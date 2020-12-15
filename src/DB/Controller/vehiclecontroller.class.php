@@ -21,9 +21,9 @@ class VehicleController extends VehicleModel
      * @param $currentLocation
      * @param $numOfAllocations
      */
-    public function savePurchasedVehicleRecord($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer, $state, $currentLocation, $numOfAllocations)
+    public function savePurchasedVehicleRecord($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer, $state, $currentLocation, $numOfAllocations, $vehiclePicturePath)
     {
-        parent::saveRecordToVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer, $state, $currentLocation, $numOfAllocations, 0);
+        parent::saveRecordToVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer, $state, $currentLocation, $numOfAllocations, 0, $vehiclePicturePath);
     }
 
     /**
@@ -45,9 +45,9 @@ class VehicleController extends VehicleModel
      * @param $leasedPeriodTo
      * @param $monthlyPayment
      */
-    public function saveLeasedVehicleRecord($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer, $state, $currentLocation, $numOfAllocations, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment)
+    public function saveLeasedVehicleRecord($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer, $state, $currentLocation, $numOfAllocations, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment, $vehiclePicturePath)
     {
-        parent::saveRecordToVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer, $state, $currentLocation, $numOfAllocations, 1);
+        parent::saveRecordToVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer, $state, $currentLocation, $numOfAllocations, 1, $vehiclePicturePath);
         parent::saveRecordToLeasedVehicle($registrationNo, $leasedCompany, $leasedPeriodFrom, $leasedPeriodTo, $monthlyPayment);
     }
 

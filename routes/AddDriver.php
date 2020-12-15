@@ -13,20 +13,38 @@ $object = ['error' => true, 'object' => '', 'message' => ''];
 
 if (Input::exists()) {
     if (Input::get('Method') == 'AddDriver') {
-        $driver = $employee->createNewDriver([
-            'DriverID' => Input::get('DriverID'),
-            'FirstName' => ucfirst(Input::get('FirstName')),
-            'LastName' => ucfirst(Input::get('LastName')),
-            'Email' => Input::get('Email'),
-            'Address' => Input::get('Address'),
-            'ContactNumber' => Input::get('ContactNo'),
-            'LicenseNumber' => Input::get('LicenseNumber'),
-            'LicenseType' => Input::get('LicenseType'),
-            'LicenseExpirationDay' => Input::get('LicenseExpirationDay'),
-            'DateOfAdmission' => Input::get('DateOfAdmission'),
-            'AssignedVehicle' => null,
-            'ProfilePicturePath' => null
-        ]);
+        $driverImageName = '';
+        if (Input::get('hasImage') == 'true') {
+            $driverImageName = time() . '-' . $_FILES["Image"]["name"];
+            $target_dir = "../images/profilePictures/";
+            $target_file = $target_dir . basename($driverImageName);
+
+            if (file_exists($target_file)) {
+                $object['message'] = "File already exists";
+            } else {
+                if (!move_uploaded_file($_FILES["Image"]["tmp_name"], $target_file)) {
+                    $object['message'] = "There was an error uploading the file";
+                }
+            }
+        }
+        try {
+            $driver = $employee->createNewDriver([
+                'DriverID' => Input::get('DriverID'),
+                'FirstName' => ucfirst(Input::get('FirstName')),
+                'LastName' => ucfirst(Input::get('LastName')),
+                'Email' => Input::get('Email'),
+                'Address' => Input::get('Address'),
+                'ContactNumber' => Input::get('ContactNo'),
+                'LicenseNumber' => Input::get('LicenseNumber'),
+                'LicenseType' => Input::get('LicenseType'),
+                'LicenseExpirationDay' => Input::get('LicenseExpirationDay'),
+                'DateOfAdmission' => Input::get('DateOfAdmission'),
+                'AssignedVehicle' => null,
+                'ProfilePicturePath' => $driverImageName,
+            ]);
+        } catch (PDOException $e) {
+            $object['message'] = 'Update failed. Duplicate entry exists in database';
+        }
         $object['error'] = false;
         $object['object'] = $driver;
         $object['message'] = "Driver " . Input::get('driverId') . " successfully added";

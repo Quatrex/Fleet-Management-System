@@ -9,10 +9,11 @@ session_start();
 ob_start();
 header("Content-type: application/json; charset=utf-8");
 $employee = $_SESSION['employee'];
-$object = ['error' => true, 'object' => '', 'message' => ''];
+$object = ['error' => true, 'object' => null, 'message' => 'Failed to create a driver object'];
 
 if (Input::exists()) {
     if (Input::get('Method') == 'UpdateDriver') {
+        try {
         $driver = $employee->updateDriverInfo(
             Input::get('DriverID'),
             [
@@ -29,6 +30,10 @@ if (Input::exists()) {
                 'DateOfAdmission' => Input::get('DateOfAdmission')
             ]
         );
+        } catch (PDOException $e)
+        {
+            $object['message'] = 'Update failed. Duplicate entry exists in database';
+        }
         $object['error'] = false;
         $object['object'] = [$driver];
         $object['message'] = "Driver " . Input::get('employeeID') . " successfully updated";
@@ -50,9 +55,6 @@ if (Input::exists()) {
                         $object['error'] = false;
                         $object['object'] = [$driver];
                         $object['message'] = "success_Driver " . Input::get('DriverID') . " successfully updated";
-                    } else {
-                        $object['error'] = true;
-                        $object['message'] = 'Failed to create a driver object';
                     }
                 } else {
                     $object['error'] = true;

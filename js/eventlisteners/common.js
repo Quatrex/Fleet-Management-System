@@ -110,6 +110,3 @@ $(".upload-button").on('click', function() {
     $(".file-upload").click();
 });
 
-$("#Close-failure").on('click', function() {
-    $("#alert-ajax-failure").css('display','none');
-});
