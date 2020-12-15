@@ -17,7 +17,6 @@ class ResponsiveMenuToggler {
 	}
 	handleEvent(event) {
 		if (event.type == 'click') {
-			console.log('event triggered');
 			if (event.target.closest('button').id == 'res-menu-toggler') {
 				document.querySelector('.psd').classList.add('psd-animate');
 			} else {
@@ -149,7 +148,6 @@ class SecondaryTab {
 			let targetButton = this.buttons.find((button) => button.id == event.target.id.replace('Responsive', ''));
 			if (targetButton != null) {
 				if (targetButton.id != this.activeButton.id) {
-					console.log('Event triggered');
 					this.activeButton.removeFromDOM();
 					targetButton.renderContent();
 					this.activeButton = targetButton;
@@ -215,7 +213,6 @@ class DOMContainer {
 		this.loadContent();
 	}
 	update(action) {
-		console.log(action.type);
 		if (action.type == 'ADD') {
 			this.finishLoadContent(action.payload.length, action.type);
 			action.payload.forEach((object) => this.insertEntry(object));
@@ -423,8 +420,9 @@ class DOMContainer {
 			this.cardContainer
 				.querySelector('.card-body')
 				.insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
-			this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.cardId}_${object[this.store.getObjIdType()]
-				}`;
+			this.cardContainer.querySelector('.card-body').firstElementChild.id = `${this.cardId}_${
+				object[this.store.getObjIdType()]
+			}`;
 			// this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 		}
 	}
@@ -447,8 +445,9 @@ class DOMContainer {
 			}
 		});
 		this.cardContainer.querySelector('.card-body').appendChild(clone);
-		this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.cardId}_${object[this.store.getObjIdType()]
-			}`;
+		this.cardContainer.querySelector('.card-body').lastElementChild.id = `${this.cardId}_${
+			object[this.store.getObjIdType()]
+		}`;
 		this.assignStateColor(`${this.cardId}_${object[this.store.getObjIdType()]}`);
 	}
 
@@ -467,9 +466,11 @@ class DOMContainer {
 		});
 	}
 	updateEntry(object) {
-		let id = `${this.cardId}_${object[this.store.getObjIdType()]}`;
+		let idToCheck = object.hasOwnProperty('BeforeID') ? object['BeforeID'] : object[this.store.getObjIdType()];
+		let id = `${this.cardId}_${idToCheck}`;
 		let entry = document.getElementById(id.trim());
 		if (entry != 'undefined' && entry != null) {
+			entry.id = `${this.cardId}_${object[this.store.getObjIdType()]}`;
 			let objFields = Object.getOwnPropertyNames(object);
 			objFields.forEach((field) => {
 				if (entry.querySelector(`.${field}`)) {
@@ -550,8 +551,6 @@ class SelectionTable extends DOMContainer {
 		}
 		let typeOfSelectField =
 			this.selectField === 'Driver' ? '#AssignedRequestToDriverPopup' : '#AssignedRequestToVehiclePopup';
-		console.log('AFTER');
-		console.log(typeOfSelectField);
 		document.querySelector(typeOfSelectField).style.display = 'block';
 	}
 	handleEvent(event, popup = {}, object = {}) {
@@ -573,7 +572,7 @@ class SelectionTable extends DOMContainer {
 					if (this.toggleStyle(id)) {
 						object[this.selectField] = targetObject[this.store.getObjIdType()];
 						document.getElementById(`${this.selectField}-${this.id}`).innerHTML =
-							(this.selectField == 'Vehicle') | (this.selectField == 'JOSelectedVehicle')
+							(this.selectField == 'Vehicle') | (this.selectField == 'JOSelectedVehicle') | (this.selectField == 'AssignedVehicle')
 								? `${targetObject['RegistrationNo']}, ${targetObject['Model']} `
 								: `${targetObject['FirstName']} ${targetObject['LastName']} `;
 						if (this.nextFieldId != '') {
@@ -911,22 +910,26 @@ const RemoveAllPopup = (popup, object = {}, event) => {
 };
 
 const DateValidator = (popup, object = {}, event) => {
-	if (event.type == 'keyup') {
+	if (event.type == 'keyup' || event.type == 'click') {
 		let target = event.target;
-		if (target.type == 'date') {
-			if (target.value.length > 0) {
-				let currentDate = new Date();
-				let givenDate = new Date(target.value);
-				if (givenDate < currentDate) {
-					target.classList.add('warning-details');
-					popup.popup.querySelector(`#${target.name}-error`).innerHTML =
-						'Given Date is before the current date';
-					popup.popup.querySelector(`#${target.name}-error`).classList = '';
-					popup.popup.querySelector(`#${target.name}-error`).classList.add('text-warning');
-				} else {
-					target.classList.remove('warning-details');
-					popup.popup.querySelector(`#${target.name}-error`).innerHTML = null;
-				}
+		if (target.id == 'date-VehicleRequestForm') {
+			if (target.type == 'date') {
+				// if (target.value.length > 0) {
+				var today = new Date().toISOString().split('T')[0];
+				document.getElementById('date-VehicleRequestForm').setAttribute('min', today);
+				// let currentDate = new Date();
+				// let givenDate = new Date(target.value);
+				// if (givenDate < currentDate) {
+				// 	target.classList.add('warning-details');
+				// 	popup.popup.querySelector(`#${target.name}-error`).innerHTML =
+				// 		'Given Date is before the current date';
+				// 	popup.popup.querySelector(`#${target.name}-error`).classList = '';
+				// 	popup.popup.querySelector(`#${target.name}-error`).classList.add('text-warning');
+				// } else {
+				// 	target.classList.remove('warning-details');
+				// 	popup.popup.querySelector(`#${target.name}-error`).innerHTML = null;
+				// }
+				// }
 			}
 		}
 	}
@@ -945,7 +948,6 @@ class BackendAcessButton extends PopupButton {
 		this.failureAlert = document.getElementById('alert-ajax-failure');
 	}
 	finishBackendAcess(response, err, receivedObject = {}) {
-		console.log(err);
 		if (!err) {
 			if (Object.keys(this.actionCreater).length != 0) {
 				this.actionCreater.updateStores(this.object, receivedObject);
@@ -958,12 +960,11 @@ class BackendAcessButton extends PopupButton {
 				}
 			} else {
 				this.popup.removeFromDOM();
-				this.next.render(object);
+				this.next.render(receivedObject);
 			}
 			this.successAlert.querySelector('.message').innerHTML = response.toUpperCase();
 			$('#alert-ajax-success').fadeIn(500).delay(2500).fadeOut(400);
 		} else {
-			console.log('Error');
 			this.failureAlert.querySelector('.message').innerHTML = response.toUpperCase();
 			$('#alert-ajax-failure').fadeIn(300).delay(1500);
 			if (response == 'OFFLINE') {
@@ -982,7 +983,7 @@ class BackendAcessButton extends PopupButton {
 		if (check) {
 			if (event.type === 'click') {
 				if (this.type == 'DEFAULT') {
-					console.log(object);
+					// console.log(object);
 					Database.writeToDatabase(object, this.method, this.finishBackendAcess.bind(this));
 				} else {
 					Database.savePicture(object, this.method, this.finishBackendAcess.bind(this));
@@ -1045,10 +1046,11 @@ const FormValidate = (popup, object = {}, event) => {
 				}
 			}
 			if (field.name == 'NewPassword') {
-				validity = AnalysePassword(field.value)
+				validity = AnalysePassword(field.value);
 				if (validity == false) {
 					field.classList.add('invalid-details');
 					popup.popup.querySelector(`#${field.name}-error`).innerHTML = "Your Password doesn't meet minimum requirments";
+					popup.popup.querySelector(`#Retype${field.name}-error`).innerHTML = null;
 					popup.popup.querySelector(`#${field.name}-error`).classList = '';
 					popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
 				}
@@ -1064,7 +1066,6 @@ const FormValidate = (popup, object = {}, event) => {
 				field.value = field.value.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 			}
 		});
-
 		return { ...object, valid: valid };
 	}
 	return object;
@@ -1077,17 +1078,13 @@ const ObjectCreate = (popup, object = {}, event) => {
 			obj[element.name] = element.files[0];
 			element.files.length > 0 ? (obj['hasImage'] = true) : (obj['hasImage'] = false);
 		} else if (element.type == 'radio') {
-			console.log(element);
-			console.log('Inside ratio');
 			if (element.checked) {
 				obj[element.name] = element.id.split('_')[1];
-				console.log(`${element.name} = ${element.id.split('_')[1]}`);
 			}
 		} else {
 			obj[element.name] = element.value;
 		}
 	});
-	console.log(obj);
 	if (event.type == 'keyup') {
 		return { ...object, ...obj };
 	} else {
@@ -1116,7 +1113,7 @@ const AnalysePassword = (password) => {
 	var numbers = new RegExp('[0-9]');
 	var special = new RegExp('[!@#$%^&*]+');
 
-	var characters = (password.length >= 8);
+	var characters = password.length >= 8;
 	var capitalletters = password.match(upperCase) ? true : false;
 	var lowerletters = password.match(lowerCase) ? true : false;
 	var number = password.match(numbers) ? true : false;
@@ -1126,14 +1123,14 @@ const AnalysePassword = (password) => {
 	valid = characters && capitalletters && lowerletters && number && containSpecialChars && !containWhiteSpace;
 
 	const _update_info = (criterion, isValid) => {
-		var $passwordCriteria = $(".NewPasswordinfo > ul").find('li[data-criterion="' + criterion + '"]');
+		var $passwordCriteria = $('.NewPasswordinfo > ul').find('li[data-criterion="' + criterion + '"]');
 
 		if (isValid) {
 			$passwordCriteria.removeClass('invalid').addClass('valid');
 		} else {
 			$passwordCriteria.removeClass('valid').addClass('invalid');
 		}
-	}
+	};
 	_update_info('length', password.length >= 8 && password.length <= 20);
 	_update_info('capital', capitalletters);
 	_update_info('number', number);
@@ -1141,7 +1138,7 @@ const AnalysePassword = (password) => {
 	_update_info('special', containSpecialChars);
 
 	return valid;
-}
+};
 const WindowOpen = () => {
 	windowObjectReference = window.open(
 		'http://www.domainname.ext/path/ImageFile.png',
@@ -1178,33 +1175,35 @@ const changeValue = (object, id) => {
 const changeInnerHTML = (object, id, objectFields = {}) => {
 	let objProps = Object.getOwnPropertyNames(object);
 	for (let i = 0; i < objProps.length; i++) {
-		document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
-			if (typeof object[objProps[i]] !== 'object') {
-				if (!objProps[i].includes('PicturePath')) {
-					tag.innerHTML = object[objProps[i]];
-				} else {
-					let path = `${objProps[i].split('PicturePath')[0].toLowerCase()}`;
-					if (object[objProps[i]] != '') {
-						tag.src = `../images/${path}Pictures/${object[objProps[i]]}`;
+		if (document.getElementById(`#${objProps[i]}-${id}`)) {
+			document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
+				if (typeof object[objProps[i]] !== 'object') {
+					if (!objProps[i].includes('PicturePath')) {
+						tag.innerHTML = object[objProps[i]];
 					} else {
-						tag.src = `../images/${path}Pictures/default-${path}.png`;
+						let path = `${objProps[i].split('PicturePath')[0].toLowerCase()}`;
+						if (object[objProps[i]] != '') {
+							tag.src = `../images/${path}Pictures/${object[objProps[i]]}`;
+						} else {
+							tag.src = `../images/${path}Pictures/default-${path}.png`;
+						}
+					}
+				} else {
+					tag.innerHTML = '';
+					if (objectFields[objProps[i]]) {
+						let fields = objectFields[objProps[i]];
+						fields.forEach((field) => {
+							tag.innerHTML += ` ${object[objProps[i]][field]} `;
+						});
 					}
 				}
-			} else {
-				tag.innerHTML = '';
-				if (objectFields[objProps[i]]) {
-					let fields = objectFields[objProps[i]];
-					fields.forEach((field) => {
-						tag.innerHTML += ` ${object[objProps[i]][field]} `;
-					});
-				}
-			}
-		});
+			});
+		}
 	}
 };
 
 const Database = {
-	writeToDatabase: (object, method, callback = () => { }) => {
+	writeToDatabase: (object, method, callback = () => {}) => {
 		console.log({ ...object, Method: method });
 		$.ajax({
 			url: `../routes/${method}.php`,
@@ -1212,19 +1211,15 @@ const Database = {
 			data: { ...object, Method: method },
 			cache: false,
 			beforeSend: function () {
-				console.log('Here');
 				if (!navigator.onLine) {
-					console.log('Not online');
 					callback('OFFLINE', true);
 					return false;
 				} else {
-					console.log(navigator.onLine);
 					$('#overlay').fadeIn(300);
 				}
 			},
 			success: function (returnArr) {
 				console.log(returnArr);
-				console.log(returnArr.object);
 				$('#overlay').fadeOut(300);
 				$(`#${method}_form`).trigger('reset');
 				callback(returnArr.message, returnArr.error, returnArr.object);
@@ -1241,9 +1236,8 @@ const Database = {
 	//query[3]=> searchObject,
 	//query[4]=> object,
 
-	loadContent(query, errCallback = () => { }) {
+	loadContent(query, errCallback = () => {}) {
 		let actionCreater = query[2];
-		console.log(query[4]);
 		let holder = { ...{ Method: query[0], offset: query[1], object: query[4] }, ...query[3] };
 		console.log(holder);
 		$.ajax({
@@ -1257,9 +1251,7 @@ const Database = {
 					errCallback(query, 'OFFLINE');
 					return false;
 				} else {
-
 					$('.bouncybox').fadeIn(300);
-
 				}
 			},
 			success: (data, textStatus, jqXHR) => {
@@ -1280,7 +1272,7 @@ const Database = {
 			timeout: 10000,
 		});
 	},
-	savePicture(object, method, callback = () => { }) {
+	savePicture(object, method, callback = () => {}) {
 		data = new FormData();
 		let objProperties = Object.getOwnPropertyNames(object);
 		objProperties.forEach((property) => {
@@ -1297,7 +1289,6 @@ const Database = {
 			cache: false,
 			success: function (returnArr) {
 				returnArr = JSON.parse(returnArr);
-				console.log(returnArr.object);
 				console.log(returnArr);
 				callback(returnArr.message, returnArr.error, returnArr.object);
 			},
@@ -1305,20 +1296,27 @@ const Database = {
 	},
 };
 
-
-document.getElementById("NewPassword-ChangePasswordForm").addEventListener("keyup", Analyse);
+document.getElementById('NewPassword-ChangePasswordForm').addEventListener('keyup', Analyse);
 
 function Analyse() {
-  var x = document.getElementById("NewPassword-ChangePasswordForm");
-  AnalysePassword(x.value);
+	var x = document.getElementById('NewPassword-ChangePasswordForm');
+	AnalysePassword(x.value);
 }
 
-$("body").on('click', '.toggle-password', function () {
-	$('.toggle-password').toggleClass("fa-eye fa-eye-slash");
+$('body').on('click', '.toggle-password', function () {
+	$('.toggle-password').toggleClass('fa-eye fa-eye-slash');
 	var input = $('#' + $('.toggle-password').data('pass'));
-	if (input.attr("type") === "password") {
-		input.attr("type", "text");
+	if (input.attr('type') === 'password') {
+		input.attr('type', 'text');
 	} else {
-		input.attr("type", "password");
+		input.attr('type', 'password');
 	}
+});
+
+$("body").on("input propertychange", ".floating-label-form-group", function(e) {
+	$(this).toggleClass("floating-label-form-group-with-value", !!$(e.target).val());
+}).on("focus", ".floating-label-form-group", function() {
+	$(this).addClass("floating-label-form-group-with-focus");
+}).on("blur", ".floating-label-form-group", function() {
+	$(this).removeClass("floating-label-form-group-with-focus");
 });

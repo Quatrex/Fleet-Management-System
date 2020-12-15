@@ -112,40 +112,62 @@
         <div class="popup-body">
             <div id="submit-form-wrapper">
                 <form id="AddVehicle_form">
-                    <div class="form-group">
-                        <input class="form-control my-3 inputs " placeholder="Vehicle model" type="text" name="Model">
-                        <div id="Model-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="Model">Model</label>
+                            <input class="form-control my-3 inputs " placeholder="Vehicle model" type="text" name="Model">
+                            <div id="Model-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input class="form-control my-3 inputs" placeholder="Registration Number" type="text" name="RegistrationNo">
-                        <div id="RegistrationNo-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="RegistrationNo">Registration Number</label>
+                            <input class="form-control my-3 inputs" placeholder="Registration Number" type="text" name="RegistrationNo">
+                            <div id="RegistrationNo-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="text" name="PurchasedYear" class="form-control my-3 inputs" placeholder="Date of purchase" onfocus="(this.type='date')">
-                        <div id="PurchasedYear-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="PurchasedYear">Date of purchase</label>
+                            <input type="text" name="PurchasedYear" class="form-control my-3 inputs" placeholder="Date of purchase" onfocus="(this.type='date')" max="<?php echo date("Y-m-d"); ?>">
+                            <div id="PurchasedYear-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input name="Value" class="form-control my-3 inputs" placeholder="Price" type="number">
-                        <div id="Value-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="Value">Price</label>
+                            <input name="Value" class="form-control my-3 inputs" placeholder="Price" type="number">
+                            <div id="Value-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input name="FuelType" class="form-control my-3 inputs" placeholder="Fuel type" type="text">
-                        <div id="FuelType-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="FuelType">Fuel Type</label>
+                            <input name="FuelType" class="form-control my-3 inputs" placeholder="Fuel type" type="text">
+                            <div id="FuelType-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input name="CurrentLocation" class="form-control my-3 inputs" placeholder="Current Location" type="text">
-                        <div id="CurrentLocation-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="CurrentLocation">Current Location</label>
+                            <input name="CurrentLocation" class="form-control my-3 inputs" placeholder="Current Location" type="text">
+                            <div id="CurrentLocation-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <h4>Insurance details</h4>
-                        <input name="InsuranceValue" class="form-control my-3 inputs" placeholder="Monthly installment" type="number">
-                        <div id="InsuranceValue-error" class="text-danger"></div>
-
+                    <h4>Insurance details</h4>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="InsuranceValue">Monthly installment</label>
+                            <input name="InsuranceValue" class="form-control my-3 inputs" placeholder="Monthly installment" type="number">
+                            <div id="InsuranceValue-error" class="text-danger"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input name="InsuranceCompany" class="form-control my-3 inputs" placeholder="Insurance company" type="text">
-                        <div id="InsuranceCompany-error" class="text-danger"></div>
-
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="InsuranceCompany">Insurance company</label>
+                            <input name="InsuranceCompany" class="form-control my-3 inputs" placeholder="Insurance company" type="text">
+                            <div id="InsuranceCompany-error" class="text-danger"></div>
+                        </div>
                     </div>
                     <div class="inline">
                         <p>Leased Vehicle</p>
@@ -160,24 +182,33 @@
                     </div>
                     <div id="leasing-details">
                         <h4>Leasing details</h4>
-                        <div class="form-group">
-                            <input name="LeasedCompany" class="form-control my-3 inputs" placeholder="Leasing company" type="text">
-                            <div id="LeasedCompany-error" class="text-danger"></div>
-
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label for="LeasedCompany">Leasing company</label>
+                                <input name="LeasedCompany" class="form-control my-3 inputs" placeholder="Leasing company" type="text">
+                                <div id="LeasedCompany-error" class="text-danger"></div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="text" name="LeasedPeriodFrom" class="form-control my-3 inputs" placeholder="Lease period (from)" onfocus="(this.type='date')">
-                            <div id="LeasedPeriodFrom-error" class="text-danger"></div>
-
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label for="LeasedPeriodFrom">Lease period (from)</label>
+                                <input type="text" name="LeasedPeriodFrom" class="form-control my-3 inputs" placeholder="Lease period (from)" onfocus="(this.type='date')" max="<?php echo date("Y-m-d"); ?>">
+                                <div id="LeasedPeriodFrom-error" class="text-danger"></div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="text" name="LeasedPeriodTo" class="form-control my-3 inputs" placeholder="Lease period (to)" onfocus="(this.type='date')">
-                            <div id="LeasedPeriodTo-error" class="text-danger"></div>
-
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label for="LeasedPeriodTo">Lease period (to)</label>
+                                <input type="text" name="LeasedPeriodTo" class="form-control my-3 inputs" placeholder="Lease period (to)" onfocus="(this.type='date')" min="<?php echo date("Y-m-d"); ?>">
+                                <div id="LeasedPeriodTo-error" class="text-danger"></div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input name="MonthlyPayment" class="form-control my-3 inputs" placeholder="Monthly installment" type="number">
-                            <div id="MonthlyPayment-error" class="text-danger"></div>
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label for="MonthlyPayment">Monthly installment</label>
+                                <input name="MonthlyPayment" class="form-control my-3 inputs" placeholder="Monthly installment" type="number">
+                                <div id="MonthlyPayment-error" class="text-danger"></div>
+                            </div>
                         </div>
                     </div>
                     <input type="button" value="Submit" class="btn btn-success" id="VehicleAddForm_Submit">
@@ -1063,7 +1094,6 @@
                             <th class="" scope="col">#</th>
                             <th class="th-sm" scope="col">Vehicle</th>
                             <th class="th-sm" scope="col">Assigned Driver</th>
-                            <th class="th-sm" scope="col">Passengers</th>
                         </tr>
                     </thead>
                     <tbody class="card-body">

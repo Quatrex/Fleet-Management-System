@@ -49,12 +49,10 @@ class Store {
 		return this.state.length;
 	}
 	processFailedRequest(query, err) {
-		console.log(this.lastQueryID);
+		// console.log(this.lastQueryID);
 		if (this.lastQueryID !== -1 && err == 'OFFLINE') {
 			this.queriesToRun[this.lastQueryID] = query;
 			this.lastQueryID = -1;
-		} else if (this.lastQueryID != -1) {
-			console.log('Do Nothing');
 		} else if (this.lastQueryID == -1) {
 			this.observers.forEach((observer) => observer.finishLoadContent(0, 'OFFLINE'));
 		}
@@ -143,9 +141,8 @@ class Store {
 		setTimeout(this.loadData('selection'), 3000);
 	}
 	dispatch(action) {
-		console.log(action.type);
+		console.log(action);
 		let selectionPayload = [];
-		console.log(action.payload);
 		if (action.type === 'ADD' || action.type === 'APPEND') {
 			if (!Array.isArray(action.payload)) {
 				if (Object.keys(action.payload).length != 0) {
@@ -175,6 +172,11 @@ class Store {
 			}
 		} else if (action.type === 'UPDATE'||action.type === 'UPDATELOAD') {
 			this.state = this.state.map((item) => (this.currentObj === item ? { ...item, ...action.payload } : item));
+			if(action.payload.hasOwnProperty(this.objId)){
+				if(this.currentObj[this.objIdId] != action.payload[this.objId]){
+					action.payload['BeforeID'] = this.currentObj[this.objId]
+				}
+			}
 		} else if (action.type === 'DELETE') {
 			this.state = this.state.filter((item) => this.currentObj !== item);
 		} else if (action.type === 'DELETEALL') {
@@ -224,8 +226,6 @@ class NetworkManager {
 	handleEvent(event) {
 		if (event.type == 'online' && this.status != 'online') {
 			this.status = 'online';
-			console.log('Object active');
-			console.log(event.type);
 			$('#OfflineDisplay').fadeOut(300);
 			$('#OnlineDisplay').fadeIn(300);
 			window.setTimeout(() => {
