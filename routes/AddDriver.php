@@ -13,6 +13,7 @@ $object = ['error' => true, 'object' => '', 'message' => ''];
 
 if (Input::exists()) {
     if (Input::get('Method') == 'AddDriver') {
+        try {
         $driver = $employee->createNewDriver([
             'DriverID' => Input::get('DriverID'),
             'FirstName' => ucfirst(Input::get('FirstName')),
@@ -27,6 +28,10 @@ if (Input::exists()) {
             'AssignedVehicle' => null,
             'ProfilePicturePath' => null
         ]);
+        } catch(PDOException $e) 
+        {
+            $object['message'] = 'Update failed. Duplicate entry exists in database';
+        }
         $object['error'] = false;
         $object['object'] = $driver;
         $object['message'] = "Driver " . Input::get('driverId') . " successfully added";

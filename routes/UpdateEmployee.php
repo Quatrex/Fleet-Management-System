@@ -13,20 +13,28 @@ $object = ['error' => true, 'object' => '', 'message' => ''];
 
 if (Input::exists()) {
     if (Input::get('Method') == 'UpdateEmployee') {
-        $emp = $employee->updateAccount([
-			'NewEmpID' => Input::get('NewEmpID'),
-			'EmpID' => Input::get('empID'),
-			'FirstName' => ucfirst(Input::get('FirstName')),
-			'LastName' => ucfirst(Input::get('LastName')),
-			'Username' => "",
-			'Designation' => Input::get('Designation'),
-			'Position' => Input::get('Position'),
-			'Email' => Input::get('Email'),
-			'ContactNumber' => Input::get('ContactNo')
-		]);
 		$object['error'] = false;
-		$object['object'] = $emp;
 		$object['message'] = "success_Employee " . Input::get('empID') . " successfully updated";
+
+		try {
+			$emp = $employee->updateAccount([
+				'NewEmpID' => Input::get('NewEmpID'),
+				'EmpID' => Input::get('empID'),
+				'FirstName' => ucfirst(Input::get('FirstName')),
+				'LastName' => ucfirst(Input::get('LastName')),
+				'Username' => "",
+				'Designation' => Input::get('Designation'),
+				'Position' => Input::get('Position'),
+				'Email' => Input::get('Email'),
+				'ContactNumber' => Input::get('ContactNo')
+			]);
+			$object['object'] = $emp;
+		} catch (PDOException $e)
+		{
+			$object['error'] = true;
+			$object['message'] = 'Update failed. Duplicate entry exists in database';
+		}
+		
 		if (Input::get('hasImage') == 'true') {
 			$profileImageName = time() . '-' . $_FILES["Image"]["name"];
 

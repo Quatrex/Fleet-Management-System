@@ -9,10 +9,11 @@ session_start();
 ob_start();
 header("Content-type: application/json; charset=utf-8");
 $employee = $_SESSION['employee'];
-$object = ['error' => true, 'object' => '', 'message' => ''];
+$object = ['error' => true, 'object' => '', 'message' => 'Failed to create an employee object'];
 
 if (Input::exists()) {
     if (Input::get('Method') == 'AddEmployee') {
+		try {
         $emp = $employee->createNewAccount([
 			'EmpID' => Input::get('EmpID'),
 			'FirstName' => ucfirst(Input::get('FirstName')),
@@ -25,6 +26,9 @@ if (Input::exists()) {
             'ContactNumber' => Input::get('ContactNo'),
             'ProfilePicturePath' => null
 		]);
+		} catch(PDOException $e) {
+			$object['message'] = 'Update failed. Duplicate entry exists in database';
+		}
 		$object['error'] = false;
 		$object['object'] = $emp;
 		$object['message'] = "Employee " . Input::get('empID') . " successfully added";

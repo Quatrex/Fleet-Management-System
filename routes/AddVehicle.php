@@ -9,12 +9,13 @@ session_start();
 ob_start();
 header("Content-type: application/json; charset=utf-8");
 $employee = $_SESSION['employee'];
-$object = ['error' => true, 'object' => '', 'message' => ''];
+$object = ['error' => true, 'object' => '', 'message' => 'Failed to create a vehicle object'];
 
 if (Input::exists()) {
     if (Input::get('Method') == 'AddVehicle') {
         $vehicle = null;
 		if (Input::get('IsLeased') == "Yes") {
+		try {
 			$vehicle = $employee->addLeasedVehicle([
 				'RegistrationNo' => Input::get('RegistrationNo'),
 				'Model' => Input::get('Model'),
@@ -29,25 +30,30 @@ if (Input::exists()) {
 				'MonthlyPayment' => Input::get('MonthlyPayment'),
 				'VehiclePicturePath' => ''
 			]);
+		} catch(PDOException $e)
+		{
+			$object['message'] = 'Update failed. Duplicate entry exists in database';
+		}
 		} else {
-			$vehicle = $employee->addPurchasedVehicle([
-				'RegistrationNo' => Input::get('RegistrationNo'),
-				'Model' => Input::get('Model'),
-				'PurchasedYear' => Input::get('PurchasedYear'),
-				'Value' => Input::get('Value'),
-				'FuelType' => Input::get('FuelType'),
-				'InsuranceValue' => Input::get('InsuranceValue'),
-				'InsuranceCompany' => Input::get('InsuranceCompany'),
-				'VehiclePicturePath' => ''
-			]);
+			try {
+				$vehicle = $employee->addPurchasedVehicle([
+					'RegistrationNo' => Input::get('RegistrationNo'),
+					'Model' => Input::get('Model'),
+					'PurchasedYear' => Input::get('PurchasedYear'),
+					'Value' => Input::get('Value'),
+					'FuelType' => Input::get('FuelType'),
+					'InsuranceValue' => Input::get('InsuranceValue'),
+					'InsuranceCompany' => Input::get('InsuranceCompany'),
+					'VehiclePicturePath' => ''
+				]);
+			} catch(PDOException $e) {
+				$object['message'] = 'Update failed. Duplicate entry exists in database';
+			}
 		}
 		if ($vehicle !== null) {
 			$object['error'] = false;
 			$object['object'] = $vehicle;
 			$object['message'] = "Vehicle " . Input::get('registration') . " successfully added";
-		} else {
-			$object['error'] = true;
-			$object['message'] = 'Failed to create a vehicle object';
 		}
     }
 }
