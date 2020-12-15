@@ -175,6 +175,13 @@ class Store {
 			}
 		} else if (action.type === 'UPDATE'||action.type === 'UPDATELOAD') {
 			this.state = this.state.map((item) => (this.currentObj === item ? { ...item, ...action.payload } : item));
+			console.log(action.payload.hasOwnProperty(this.objId));
+			if(action.payload.hasOwnProperty(this.objId)){
+				if(this.currentObj[this.objIdId] != action.payload[this.objId]){
+					action.payload['BeforeID'] = this.currentObj[this.objId]
+				}
+			}
+			console.log(action.payload);
 		} else if (action.type === 'DELETE') {
 			this.state = this.state.filter((item) => this.currentObj !== item);
 		} else if (action.type === 'DELETEALL') {

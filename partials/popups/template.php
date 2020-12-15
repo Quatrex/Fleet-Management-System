@@ -146,6 +146,14 @@
     </tr>
 </template>
 
+<template id="selectionDriverVehicleTemplate">
+    <tr role="row" class="detail-description">
+        <th class="RegistrationNo"></th>
+        <td class="Model"></td>
+        <td class="NumOfAllocations"></td>
+    </tr>
+</template>
+
 <template id="emptyPlaceholder">
     <div class="card request-card detail-description" style="z-index:2;">
         <div class="description">
