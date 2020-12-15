@@ -213,7 +213,6 @@ class DOMContainer {
 		this.loadContent();
 	}
 	update(action) {
-		console.log(action.payload);
 		if (action.type == 'ADD') {
 			this.finishLoadContent(action.payload.length, action.type);
 			action.payload.forEach((object) => {
@@ -225,10 +224,8 @@ class DOMContainer {
 			this.deleteAllEntries();
 		} else if (action.type == 'UPDATE') {
 			if (Array.isArray(action.payload)) {
-				console.log(action.payload[0]);
 				this.updateEntry(action.payload[0]);
 			} else {
-				console.log(action.payload);
 				this.updateEntry(action.payload);
 			}
 		} else if (action.type == 'APPEND') {
@@ -409,7 +406,6 @@ class DOMContainer {
 		}
 	}
 	insertEntry(object) {
-		console.log(object);
 		let template = document.querySelector(`#${this.templateId}`);
 		let clone = template.content.cloneNode(true);
 		if (object) {
@@ -476,13 +472,10 @@ class DOMContainer {
 	updateEntry(object) {
 		let idToCheck = object.hasOwnProperty('BeforeID') ? object['BeforeID'] : object[this.store.getObjIdType()];
 		let id = `${this.cardId}_${idToCheck}`;
-		console.log(id);
 		let entry = document.getElementById(id.trim());
-		console.log(entry);
 		if (entry != 'undefined' && entry != null) {
 			entry.id = `${this.cardId}_${object[this.store.getObjIdType()]}`;
 			let objFields = Object.getOwnPropertyNames(object);
-			console.log(objFields);
 			objFields.forEach((field) => {
 				if (entry.querySelector(`.${field}`)) {
 					if (field.includes('PicturePath')) {
@@ -493,8 +486,6 @@ class DOMContainer {
 							: (entry.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
 					} else {
 						entry.querySelector(`.${field}`).innerHTML = `${object[field]} `;
-						console.log(entry.querySelector(`.${field}`));
-						console.log(`${object[field]} `);
 					}
 				}
 			});
@@ -1002,6 +993,7 @@ class BackendAcessButton extends PopupButton {
 					// console.log(object);
 					Database.writeToDatabase(object, this.method, this.finishBackendAcess.bind(this));
 				} else {
+					console.log(object);
 					Database.savePicture(object, this.method, this.finishBackendAcess.bind(this));
 				}
 			} else if (event.type === 'keyup') {
@@ -1179,7 +1171,6 @@ const WindowOpen = () => {
 //************************Change Popup InnerHTML/Value Helper Function *********/
 const changeValue = (object, id) => {
 	let objProps = Object.getOwnPropertyNames(object);
-	console.log(objProps);
 	for (let i = 0; i < objProps.length; i++) {
 		document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
 			if (tag) {
@@ -1204,7 +1195,6 @@ const changeValue = (object, id) => {
 
 const changeInnerHTML = (object, id, objectFields = {}) => {
 	let objProps = Object.getOwnPropertyNames(object);
-	console.log(objProps);
 	for (let i = 0; i < objProps.length; i++) {
 		if (document.getElementById(`${objProps[i]}-${id}`)) {
 			document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
@@ -1312,7 +1302,6 @@ const Database = {
 			data.append(property, object[property]);
 		});
 		data.append('Method', method);
-		console.log(data);
 		console.log(method);
 		$.ajax({
 			url: `../routes/${method}.php`,

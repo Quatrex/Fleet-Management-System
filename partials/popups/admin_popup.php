@@ -362,12 +362,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row mb-4 mx-auto">
-                            <label>Address</label>
-                            <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border" id="Address-DriverProfileForm" type="text" name="Address" disabled>
-                            </div>
-                        </div>
                         <div class="form-group row mb-4">
                             <div class="form-group col-md-4">
                                 <label>Assigned Vehicle</label>
@@ -438,13 +432,13 @@
                             <input type="file" name="Image" id="ChangeDriverPicture" class="file-upload inputs" data-imageid="DriverPicturePath-DriverProfileEditForm" accept="image/png, .jpeg, .jpg, image/gif" />
                         </div>
                         <div class="form-group row mb-4">
-                            <input class="form-control py-2 border-right-0 border inputs" id="NewDriverID-DriverProfileEditForm" type="hidden" name="NewDriverID">
+                            <input class="form-control py-2 border-right-0 border inputs d-none" id="DriverID-DriverProfileEditForm" type="text" name="DriverID">
                             <div class="form-group col-md-6">
                                 <label>Driver ID</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="DriverID-DriverProfileEditForm" type="text" name="DriverID" required>
+                                    <input class="form-control py-2 border-right-0 border inputs" id="NewDriverID-DriverProfileEditForm" type="text" name="NewDriverID" required>
                                     <div id="NewDriverID-error" class="text-danger"></div>
-                                    <div id="DriverID-error" class="text-danger"></div>
+                                    <div id="DriverID-error" class="text-danger d-none"></div>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
@@ -469,13 +463,6 @@
                                     <input class="form-control py-2 border-right-0 border inputs" id="LastName-DriverProfileEditForm" type="text" name="LastName" required>
                                     <div id="LastName-error" class="text-danger"></div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group row mb-4 mx-auto">
-                            <label>Address</label>
-                            <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border inputs" id="Address-DriverProfileEditForm" type="text" name="Address">
-                                <div id="Address-error" class="text-danger"></div>
                             </div>
                         </div>
                         <div class="form-group row mb-4">

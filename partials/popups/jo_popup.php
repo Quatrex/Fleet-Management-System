@@ -183,10 +183,9 @@
                     <table class="table table-hover" style="width:100%">
                         <thead class="thead-dark " style="position:relative; width:100%!important;">
                             <tr>
-                                <th class="" scope="col">#</th>
+                                <th class="" scope="col">Registration</th>
                                 <th class="th-sm" scope="col">Vehicle</th>
-                                <th class="th-sm" scope="col">Assigned Driver</th>
-                                <th class="th-sm" scope="col">Passengers</th>
+                                <th class="th-sm" scope="col">No of Allocations</th>
                             </tr>
                         </thead>
                         <tbody id="selectionVehicleTable" class="card-body">

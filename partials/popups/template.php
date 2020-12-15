@@ -106,8 +106,8 @@
             <div class="card-body">
                 <h5 class="card-title FirstName d-inline"></h5>
                 <h5 class="card-title LastName d-inline-block"></h5>
-                <h6 class="card-subtitle mb-2 text-muted Designation">Designation: </h6>
-                <h6 class="card-subtitle mb-2 text-muted Position">Role: </h6>
+                <h6 class="card-subtitle mb-2 d-iniline text-muted">Designation: </h6><h6 class="card-subtitle mb-2 d-iniline text-muted Designation"></h6>
+                <h6 class="card-subtitle mb-2 text-muted">Role: </h6><h6 class="card-subtitle mb-2 text-muted Position"></h6>
                 <p class="card-text Email"></p>
             </div>
         </div>
@@ -119,8 +119,8 @@
         <div class="card text-center widthCard" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2 ProfilePicturePath" src="../images/driver.png" alt="Driver Image">
             <div class="card-body">
                 <h5 class="card-title d-inline FirstName"></h5><h5 class="card-title d-inline LastName"></h5>
-                <h6 class="card-subtitle mb-2 mt-2 d-inline text-muted ">AssignedVehicle</h6><h6 class="card-subtitle mb-2 mt-2 d-inline text-muted AssignedVehicle"></h6>
-                <h6 class="card-subtitle mb-2 text-muted d-inline">Email:</h6><h6 class="card-subtitle mb-2 text-muted Email d-inline">Email:</h6>
+                <h6 class="card-subtitle mb-2 mt-2  text-muted ">AssignedVehicle</h6><h6 class="card-subtitle mb-2 mt-2 d-inline text-muted AssignedVehicle"></h6>
+                <h6 class="card-subtitle mb-2 text-muted ">Email:</h6><h6 class="card-subtitle mb-2 text-muted Email d-inline">Email:</h6>
                 <!-- <p class="card-text Email"></p> -->
             </div>
         </div>
@@ -142,7 +142,14 @@
         <th class="RegistrationNo"></th>
         <td class="Model"></td>
         <td class="NumOfAllocations"></td>
-        <td class="assignedTrips" data-field="assignedRequests"><i class="fas fa-info-circle"></i></td>
+        <td class="assignedTrips" style ="cursor:pointer" data-field="assignedRequests"><i class="fas fa-info-circle"></i></td>
+    </tr>
+</template>
+<template id="joSelectionVehicleTemplate">
+    <tr role="row" class="detail-description">
+        <th class="RegistrationNo"></th>
+        <td class="Model"></td>
+        <td class="NumOfAllocations"></td>
     </tr>
 </template>
 
