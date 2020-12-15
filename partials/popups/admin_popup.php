@@ -362,12 +362,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row mb-4 mx-auto">
-                            <label>Address</label>
-                            <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border" id="Address-DriverProfileForm" type="text" name="Address" disabled>
-                            </div>
-                        </div>
                         <div class="form-group row mb-4">
                             <div class="form-group col-md-4">
                                 <label>Assigned Vehicle</label>
@@ -469,13 +463,6 @@
                                     <input class="form-control py-2 border-right-0 border inputs" id="LastName-DriverProfileEditForm" type="text" name="LastName" required>
                                     <div id="LastName-error" class="text-danger"></div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group row mb-4 mx-auto">
-                            <label>Address</label>
-                            <div class="input-group">
-                                <input class="form-control py-2 border-right-0 border inputs" id="Address-DriverProfileEditForm" type="text" name="Address">
-                                <div id="Address-error" class="text-danger"></div>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
