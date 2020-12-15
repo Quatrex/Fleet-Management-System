@@ -80,7 +80,7 @@ abstract class VehicleModel extends Model
      * @param $numOfAllocations
      * @param $isLeased
      */
-    protected function saveRecordToVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer, $state, $currentLocation, $numOfAllocations, $isLeased)
+    protected function saveRecordToVehicle($registrationNo, $model, $purchasedYear, $value, $fuelType, $insuranceValue, $insuranceCompany, $assignedOfficer, $state, $currentLocation, $numOfAllocations, $isLeased, $vehiclePicturePath)
     {
         $values = [
             'RegistrationNo' => $registrationNo,
@@ -94,7 +94,8 @@ abstract class VehicleModel extends Model
             'State' => $state,
             'CurrentLocation' => $currentLocation,
             'NumOfAllocations' => $numOfAllocations,
-            'IsLeased' => $isLeased
+            'IsLeased' => $isLeased,
+            'VehiclePicturePath' => $vehiclePicturePath
         ];
         parent::addRecord($values);
     }
