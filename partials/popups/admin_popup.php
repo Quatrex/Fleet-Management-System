@@ -256,7 +256,7 @@
                         <div id="LicenseType-error" class="text-danger"></div>
                     </div>
                     <div class="form-group">
-                        <input name="LicenseExpirationDay" class="form-control inputs" placeholder="License Expire Data" type="text" onfocus="(this.type='date')">
+                        <input name="LicenseExpirationDay" class="form-control inputs" placeholder="License Expire Day" type="text" onfocus="(this.type='date')">
                         <div id="LicenseExpirationDay-error" class="text-danger"></div>
                     </div>
                     <input type="button" value="Submit" class="btn btn-success" id="DriverAddForm_Confirm">
@@ -614,29 +614,29 @@
                 <div class="basic-form">
                     <form id="ChangePassword_form">
                         <div class="control-group">
-                            <div class="col-md-6 form-group floating-label-form-group controls">
+                            <div class="form-group floating-label-form-group controls">
                                 <label for="CurrentPassword">Current Password</label>
                                 <div class="input-group">
-                                    <input class="form-control inputs py-2 border" id="CurrentPassword-ChangePasswordForm"  type="password" name="CurrentPassword" required>
+                                    <input class="form-control inputs" id="CurrentPassword-ChangePasswordForm" type="password" name="CurrentPassword" placeholder="Your Current Password" required>
                                     <div id="CurrentPassword-error" class="text-danger"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="control-group">
-                            <div class="form-group floating-label-form-group controls col-md-6">
+                            <div class="form-group floating-label-form-group controls">
                                 <label for="NewPassword">New Password</label>
                                 <div class="input-group">
-                                    <input class="form-control inputs py-2 border" id="NewPassword-ChangePasswordForm"  type="password" name="NewPassword" required>
+                                    <input class="form-control inputs " id="NewPassword-ChangePasswordForm" type="password" name="NewPassword" placeholder="Your New Password" required>
                                     <span class="fa fa-fw fa-eye field-icon toggle-password" data-pass="NewPassword-ChangePasswordForm"></span>
                                     <div id="NewPassword-error" class="text-danger"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="control-group">
-                            <div class="form-group floating-label-form-group controls col-md-6">
+                            <div class="form-group floating-label-form-group controls">
                                 <label for="RetypeNewPassword">Confirm New Password</label>
                                 <div class="input-group">
-                                    <input class="form-control inputs py-2 border" id="RetypeNewPassword-ChangePasswordForm"  type="password" name="RetypeNewPassword" required>
+                                    <input class="form-control inputs" id="RetypeNewPassword-ChangePasswordForm" type="password" name="RetypeNewPassword" placeholder="Confirm New Password" required>
                                     <!-- <span class="fa fa-fw fa-eye field-icon toggle-password" data-pass="RetypeNewPassword-ChangePasswordForm"></span> -->
                                     <div id="RetypeNewPassword-error" class="text-danger"></div>
                                 </div>

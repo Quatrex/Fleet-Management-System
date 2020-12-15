@@ -958,6 +958,43 @@ a {
   height: 11rem;
 }
 
+.floating-label-form-group {
+  position: relative;
+}
+
+.floating-label-form-group input,
+.floating-label-form-group textarea {
+  resize: none;
+}
+
+.floating-label-form-group label {
+  font-size: 0.85em;
+  position: relative;
+  top: 5px;
+  display: block;
+  -webkit-transition: top 0.3s ease, opacity 0.3s ease;
+  transition: top 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.floating-label-form-group:not(:first-child) {
+  padding-left: 14px;
+  border-left: 1px solid #e9ecef;
+}
+
+.floating-label-form-group-with-value label {
+  top: 0;
+  opacity: 1;
+}
+
+.floating-label-form-group-with-focus label {
+  color: #1abc9c;
+}
+
+form .row:first-child .floating-label-form-group {
+  border-top: 1px solid #e9ecef;
+}
+
 .NewPasswordinfo .invalid {
   background: url(../images/invalid.png) no-repeat 0 50%;
   color: #ec3f41;

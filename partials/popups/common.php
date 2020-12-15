@@ -15,31 +15,41 @@
         <div class="popup-body">
             <div id="submit-form-wrapper">
                 <form id="RequestAdd_form">
-                    <div class="form-group">
-                        <input type="text" class="form-control inputs" name="date" id="date-VehicleRequestForm" placeholder="Date" autocomplete="off" required onfocus="(this.type='date')">
-                        <div id="date-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="date">Date</label>
+                            <input type="text" class="form-control inputs" name="date" id="date-VehicleRequestForm" placeholder="Date" autocomplete="off" required onfocus="(this.type='date')" min="<?php echo date("Y-m-d"); ?>" />
+                            <div id="date-error" class="text-danger"></div>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control inputs" name="time" placeholder="Time" id="time-VehicleRequestForm" autocomplete="off" required onfocus="(this.type='time')">
-                        <div id="time-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="time">Time</label>
+                            <input type="text" class="form-control inputs" name="time" placeholder="Time" id="time-VehicleRequestForm" autocomplete="off" required onfocus="(this.type='time')" />
+                            <div id="time-error" class="text-danger"></div>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control inputs" name="pickup" placeholder="Pick-up Location" id="pickup-VehicleRequestForm" autocomplete="off" required>
-                        <div id="pickup-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label for="pickup">Pickup</label>
+                            <input type="text" class="form-control inputs" name="pickup" placeholder="Pick-up Location" id="pickup-VehicleRequestForm" autocomplete="off" required />
+                            <div id="pickup-error" class="text-danger"></div>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control inputs" name="dropoff" placeholder="Drop-off Location" id="dropoff-VehicleRequestForm" autocomplete="off" required>
-                        <div id="dropoff-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls ">
+                            <label for="dropoff">Dropoff</label>
+                            <input type="text" class="form-control inputs" name="dropoff" placeholder="Drop-off Location" id="dropoff-VehicleRequestForm" autocomplete="off" required />
+                            <div id="dropoff-error" class="text-danger"></div>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control inputs" name="purpose" placeholder="Purpose" id="purpose-VehicleRequestForm" autocomplete="off">
-                        <div id="purpose-error" class="text-danger"></div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls ">
+                            <label for="purpose">Purpose</label>
+                            <input type="text" class="form-control inputs" name="purpose" placeholder="Purpose" id="purpose-VehicleRequestForm" autocomplete="off">
+                            <div id="purpose-error" class="text-danger"></div>
+                        </div>
                     </div>
-
                     <input type="button" value="Submit" class="btn btn-primary" id="VehicleRequestForm_Submit">
                     <input type="button" value="Close" class="btn btn-primary" id="VehicleRequestForm_Cancel">
 
@@ -682,29 +692,29 @@
                 <div class="basic-form">
                     <form id="ChangePassword_form">
                         <div class="control-group">
-                            <div class="col-md-6 floating-label-form-group controls">
-                                <label>Current Password</label>
+                            <div class="form-group floating-label-form-group controls">
+                                <label for="CurrentPassword">Current Password</label>
                                 <div class="input-group">
-                                    <input class="form-control inputs py-2 border" id="CurrentPassword-ChangePasswordForm" type="password" name="CurrentPassword" required>
+                                    <input class="form-control inputs" id="CurrentPassword-ChangePasswordForm" type="password" name="CurrentPassword" placeholder="Your Current Password" required>
                                     <div id="CurrentPassword-error" class="text-danger"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="control-group">
-                            <div class="form-group floating-label-form-group controls col-md-6">
-                                <label>New Password</label>
+                            <div class="form-group floating-label-form-group controls">
+                                <label for="NewPassword">New Password</label>
                                 <div class="input-group">
-                                    <input class="form-control inputs py-2 border" id="NewPassword-ChangePasswordForm" type="password" name="NewPassword" required>
+                                    <input class="form-control inputs " id="NewPassword-ChangePasswordForm" type="password" name="NewPassword" placeholder="Your New Password" required>
                                     <span class="fa fa-fw fa-eye field-icon toggle-password" data-pass="NewPassword-ChangePasswordForm"></span>
                                     <div id="NewPassword-error" class="text-danger"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="control-group">
-                            <div class="form-group floating-label-form-group controls col-md-6">
-                                <label>Confirm New Password</label>
+                            <div class="form-group floating-label-form-group controls">
+                                <label for="RetypeNewPassword">Confirm New Password</label>
                                 <div class="input-group">
-                                    <input class="form-control inputs py-2 border" id="RetypeNewPassword-ChangePasswordForm" type="password" name="RetypeNewPassword" required>
+                                    <input class="form-control inputs" id="RetypeNewPassword-ChangePasswordForm" type="password" name="RetypeNewPassword" placeholder="Confirm New Password" required>
                                     <!-- <span class="fa fa-fw fa-eye field-icon toggle-password" data-pass="RetypeNewPassword-ChangePasswordForm"></span> -->
                                     <div id="RetypeNewPassword-error" class="text-danger"></div>
                                 </div>
