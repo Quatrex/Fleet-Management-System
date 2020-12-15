@@ -119,8 +119,8 @@
         <div class="card text-center widthCard" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2 ProfilePicturePath" src="../images/driver.png" alt="Driver Image">
             <div class="card-body">
                 <h5 class="card-title d-inline FirstName"></h5><h5 class="card-title d-inline LastName"></h5>
-                <h6 class="card-subtitle mb-2 mt-2 text-muted AssignedVehicle">Assigned Vehicle: </h6>
-                <h6 class="card-subtitle mb-2 text-muted Email">Email:</h6>
+                <h6 class="card-subtitle mb-2 mt-2 d-inline text-muted ">AssignedVehicle</h6><h6 class="card-subtitle mb-2 mt-2 d-inline text-muted AssignedVehicle"></h6>
+                <h6 class="card-subtitle mb-2 text-muted d-inline">Email:</h6><h6 class="card-subtitle mb-2 text-muted Email d-inline">Email:</h6>
                 <!-- <p class="card-text Email"></p> -->
             </div>
         </div>

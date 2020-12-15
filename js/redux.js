@@ -171,6 +171,9 @@ class Store {
 				}
 			}
 		} else if (action.type === 'UPDATE'||action.type === 'UPDATELOAD') {
+			if (Array.isArray(action.payload)) {
+				action.payload = action.payload[0]
+			}
 			this.state = this.state.map((item) => (this.currentObj === item ? { ...item, ...action.payload } : item));
 			if(action.payload.hasOwnProperty(this.objId)){
 				if(this.currentObj[this.objIdId] != action.payload[this.objId]){

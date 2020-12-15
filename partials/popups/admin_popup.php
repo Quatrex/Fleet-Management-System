@@ -435,7 +435,7 @@
                         </div>
                         <div class="overlay">
                             <i class="fa fa-camera upload-button" data-input='ChangeDriverPicture' style="cursor: pointer;"></i>
-                            <input type="file" name="Image" id="ChangeDriverPicture" class="file-upload" data-imageid="DriverPicturePath-DriverProfileEditForm" accept="image/png, .jpeg, .jpg, image/gif" />
+                            <input type="file" name="Image" id="ChangeDriverPicture" class="file-upload inputs" data-imageid="DriverPicturePath-DriverProfileEditForm" accept="image/png, .jpeg, .jpg, image/gif" />
                         </div>
                         <div class="form-group row mb-4">
                             <input class="form-control py-2 border-right-0 border inputs" id="NewDriverID-DriverProfileEditForm" type="hidden" name="NewDriverID">

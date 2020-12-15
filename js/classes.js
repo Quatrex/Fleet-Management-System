@@ -213,15 +213,24 @@ class DOMContainer {
 		this.loadContent();
 	}
 	update(action) {
+		console.log(action.payload);
 		if (action.type == 'ADD') {
 			this.finishLoadContent(action.payload.length, action.type);
-			action.payload.forEach((object) => this.insertEntry(object));
+			action.payload.forEach((object) => {
+				this.insertEntry(object);
+			});
 		} else if (action.type == 'DELETE') {
 			this.deleteEntry(action.payload);
 		} else if (action.type == 'DELETEALL') {
 			this.deleteAllEntries();
 		} else if (action.type == 'UPDATE') {
-			this.updateEntry(action.payload);
+			if (Array.isArray(action.payload)) {
+				console.log(action.payload[0]);
+				this.updateEntry(action.payload[0]);
+			} else {
+				console.log(action.payload);
+				this.updateEntry(action.payload);
+			}
 		} else if (action.type == 'APPEND') {
 			action.payload.forEach((object) => this.appendEntry(object));
 			this.finishLoadContent(action.payload.length);
@@ -400,6 +409,7 @@ class DOMContainer {
 		}
 	}
 	insertEntry(object) {
+		console.log(object);
 		let template = document.querySelector(`#${this.templateId}`);
 		let clone = template.content.cloneNode(true);
 		if (object) {
@@ -440,7 +450,7 @@ class DOMContainer {
 						? (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/${object[field]}`)
 						: (clone.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
 				} else {
-					clone.querySelector(`.${field}`).innerHTML += ` ${object[field]}`;
+					clone.querySelector(`.${field}`).innerHTML = ` ${object[field]}`;
 				}
 			}
 		});
@@ -468,10 +478,13 @@ class DOMContainer {
 	updateEntry(object) {
 		let idToCheck = object.hasOwnProperty('BeforeID') ? object['BeforeID'] : object[this.store.getObjIdType()];
 		let id = `${this.cardId}_${idToCheck}`;
+		console.log(id);
 		let entry = document.getElementById(id.trim());
+		console.log(entry);
 		if (entry != 'undefined' && entry != null) {
 			entry.id = `${this.cardId}_${object[this.store.getObjIdType()]}`;
 			let objFields = Object.getOwnPropertyNames(object);
+			console.log(objFields);
 			objFields.forEach((field) => {
 				if (entry.querySelector(`.${field}`)) {
 					if (field.includes('PicturePath')) {
@@ -482,6 +495,8 @@ class DOMContainer {
 							: (entry.querySelector(`.${field}`).src = `../images/${path}Pictures/default-${path}.png`);
 					} else {
 						entry.querySelector(`.${field}`).innerHTML = `${object[field]} `;
+						console.log(entry.querySelector(`.${field}`));
+						console.log(`${object[field]} `);
 					}
 				}
 			});
@@ -661,7 +676,7 @@ class Popup {
 		this.dataType = type;
 	}
 	render(object) {
-		// console.log(object);
+		console.log(object);
 		this.object = object;
 		if (this.object.hasOwnProperty('IsLeased')) {
 			if (this.object['IsLeased'] == 1) {
@@ -1067,10 +1082,10 @@ const FormValidate = (popup, object = {}, event) => {
 					popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
 				}
 			}
-			if (field.name == 'Email' && field.value.length != 0){
-				if (new RegExp("^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$").test(field.value) == false){
+			if (field.name == 'Email' && field.value.length != 0) {
+				if (new RegExp('^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$').test(field.value) == false) {
 					field.classList.add('invalid-details');
-					popup.popup.querySelector(`#${field.name}-error`).innerHTML = "Not a valid email";
+					popup.popup.querySelector(`#${field.name}-error`).innerHTML = 'Not a valid email';
 					popup.popup.querySelector(`#${field.name}-error`).classList = '';
 					popup.popup.querySelector(`#${field.name}-error`).classList.add('text-danger');
 				}
@@ -1163,6 +1178,7 @@ const WindowOpen = () => {
 //************************Change Popup InnerHTML/Value Helper Function *********/
 const changeValue = (object, id) => {
 	let objProps = Object.getOwnPropertyNames(object);
+	console.log(objProps);
 	for (let i = 0; i < objProps.length; i++) {
 		document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
 			if (tag) {
@@ -1187,8 +1203,9 @@ const changeValue = (object, id) => {
 
 const changeInnerHTML = (object, id, objectFields = {}) => {
 	let objProps = Object.getOwnPropertyNames(object);
+	console.log(objProps);
 	for (let i = 0; i < objProps.length; i++) {
-		if (document.getElementById(`#${objProps[i]}-${id}`)) {
+		if (document.getElementById(`${objProps[i]}-${id}`)) {
 			document.querySelectorAll(`#${objProps[i]}-${id}`).forEach((tag) => {
 				if (typeof object[objProps[i]] !== 'object') {
 					if (!objProps[i].includes('PicturePath')) {
@@ -1292,7 +1309,6 @@ const Database = {
 		let objProperties = Object.getOwnPropertyNames(object);
 		objProperties.forEach((property) => {
 			data.append(property, object[property]);
-			console.log(property, object[property]);
 		});
 		data.append('Method', method);
 		console.log(data);
