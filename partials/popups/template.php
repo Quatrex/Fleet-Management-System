@@ -142,7 +142,14 @@
         <th class="RegistrationNo"></th>
         <td class="Model"></td>
         <td class="NumOfAllocations"></td>
-        <td class="assignedTrips" data-field="assignedRequests"><i class="fas fa-info-circle"></i></td>
+        <td class="assignedTrips" style ="cursor:pointer" data-field="assignedRequests"><i class="fas fa-info-circle"></i></td>
+    </tr>
+</template>
+<template id="joSelectionVehicleTemplate">
+    <tr role="row" class="detail-description">
+        <th class="RegistrationNo"></th>
+        <td class="Model"></td>
+        <td class="NumOfAllocations"></td>
     </tr>
 </template>
 

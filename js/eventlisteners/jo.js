@@ -29,7 +29,7 @@ const SelectionVehicleTable = new SelectionTable(
 	'selectionVehicleTable',
 	{},
 	vehicleStore,
-	'selectionVehicleTemplate',
+	'joSelectionVehicleTemplate',
 	SelectVehicleAlertConfirm,
 	'JOSelectedVehicle'
 );
