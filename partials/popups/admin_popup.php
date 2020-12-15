@@ -724,7 +724,7 @@
                 This is a failure alert—check it out!
             </div>
             <div class="col-2">
-                <button class="close" id="Close-failure" style="line-height:33px;">&times;</button>
+                <button class="close" id="Close-failure" style="line-height:33px;" onclick='document.getElementById("alert-ajax-failure").style.display = "none"'>&times;</button>
             </div>
         </div>
     </div>
