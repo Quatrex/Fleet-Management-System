@@ -210,7 +210,26 @@ class DOMContainer {
 		document.getElementById(id).addEventListener('keyup', this);
 	}
 	render() {
+		this.searchObj = this.store.getSearchObject();
+		console.log(this.searchObj);
+		this.renderSearchObject(this.searchObj);
 		this.loadContent();
+	}
+	renderSearchObject(obj) {
+		this.searchInput.value = obj.keyword;
+		console.log(obj.keyword);
+		if (obj.keyword.length > 0) {
+			this.cancelSearchButton.classList.remove('d-none');
+		}
+		// if(obj.order=='ASC'){
+		// 	this.ascButton.classList.add('selected-sort');
+		// 	this.descButton.classList.remove('selected-sort');
+		// }
+		// else{
+		// 	this.ascButton.classList.remove('selected-sort');
+		// 	this.descButton.classList.add('selected-sort');
+		// }
+		// this.
 	}
 	update(action) {
 		if (action.type == 'ADD') {
@@ -245,15 +264,21 @@ class DOMContainer {
 				}
 				if (len == 0) {
 					if (this.store.getOffset() == 0) {
-						let type = this.id.toUpperCase().cotains('VEHICLE')?'vehicle':'';
-						let template = document.querySelector(`#empty${type}Placeholder`);
-						let clone = template.content.cloneNode(true);
-						this.cardContainer
-							.querySelector('.card-body')
-							.insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
-						this.cardContainer.querySelector(
-							'.card-body'
-						).firstElementChild.id = `${this.cardId}_emptyPlaceholder`;
+						if (!this.id.toUpperCase().includes('SELECTION')) {
+							let type = this.id.toUpperCase().includes('VEHICLE') ? 'vehicle' : '';
+							type = this.id.toUpperCase().includes('EMPLOYEE') ? 'EMPLOYEE' : type;
+							type = this.id.toUpperCase().includes('DRIVER') ? 'DRIVER' : type;
+							if (!this.cardContainer.querySelector(`#${this.cardId}_empty${type}Placeholder`)) {
+								let template = document.querySelector(`#empty${type}Placeholder`);
+								let clone = template.content.cloneNode(true);
+								this.cardContainer
+									.querySelector('.card-body')
+									.insertBefore(clone, this.cardContainer.querySelector('.card-body').firstChild);
+								this.cardContainer.querySelector(
+									'.card-body'
+								).firstElementChild.id = `${this.cardId}_empty${type}Placeholder`;
+							}
+						}
 					}
 				}
 			} else {
@@ -273,6 +298,7 @@ class DOMContainer {
 	}
 
 	loadContent(trigger = 'render', method = 'APPEND') {
+		console.log(trigger);
 		if (trigger != 'render') {
 			if (!this.loadMoreButton.classList.contains('active')) {
 				if (method == 'APPEND') {
@@ -580,11 +606,10 @@ class SelectionTable extends DOMContainer {
 						let objType =
 							this.store.getObjIdType() == 'RegistrationNo' ? ['Model'] : ['FirstName', 'LastName'];
 						object[this.selectField] = targetObject[this.store.getObjIdType()];
-						if(objType.length == 2){
-							object['DriverName'] = targetObject['FirstName'] + ' '+ targetObject['LastName'];
-						}
-						else{
-							object['Model'] = targetObject['Model'] 
+						if (objType.length == 2) {
+							object['DriverName'] = targetObject['FirstName'] + ' ' + targetObject['LastName'];
+						} else {
+							object['Model'] = targetObject['Model'];
 						}
 						object[this.selectField] = targetObject[this.store.getObjIdType()];
 						document.getElementById(`${this.selectField}-${this.id}`).innerHTML =

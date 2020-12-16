@@ -77,8 +77,9 @@ class Store {
 		this.lastQueryID = 2;
 		Database.loadContent(query, this.processFailedRequest.bind(this));
 	}
-	loadData(trigger = 'render', method = 'APPEND') {
-		if (!this.updated) {
+	loadData(trigger = 'render', method = 'APPEND',sendSearchObj={}) {
+		if (trigger =='render' && this.getOffset() ==0) {
+			
 			let query = [`Load_${this.type}`, this.state.length, ActionCreator([this], method), this.searchObj, {}];
 			this.lastQueryID = 3;
 			this.networkManager.updateStoreOrder(this);

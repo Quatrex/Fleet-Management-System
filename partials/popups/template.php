@@ -189,6 +189,28 @@
     </div>
 </template>
 
+<template id="emptyEmployeePlaceholder">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description">
+        <div class="card text-center widthCard" style="width: 15rem;">
+            <img class="card-img-top vehicle-image mt-2" src='../images/default-user-image.png' alt="Vehicle Image">
+            <div class="card-body">
+                <h5 class="card-title ">No Employees</h5>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="emptyDriverPlaceholder">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description">
+        <div class="card text-center widthCard" style="width: 15rem;">
+            <img class="card-img-top vehicle-image mt-2" src='../images/default-user-image.png' alt="Vehicle Image">
+            <div class="card-body">
+                <h5 class="card-title ">No Drivers</h5>
+            </div>
+        </div>
+    </div>
+</template>
+
 <template id="AssignedRequestToVehicleTemplate">
     <tr role="row" class="detail-description">
         <td class="DateOfTrip">

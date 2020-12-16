@@ -16,7 +16,7 @@ if (Input::exists()) {
         $driver = null;
         $object['error'] = false;
         $object['object'] = $driver;
-        $object['message'] = "Driver " . Input::get('DriverID') . " successfully updated";
+        // $object['message'] = "Driver " . Input::get('DriverID') . " successfully updated";
         try {
             $driver = $employee->updateDriverInfo(
                 Input::get('DriverID'),
@@ -34,8 +34,10 @@ if (Input::exists()) {
                     'DateOfAdmission' => Input::get('DateOfAdmission')
                 ]
             );
+            $object['object'] = $driver;
         } catch (PDOException $e)
         {
+            echo $e;
             $object['error'] = true;
             $object['message'] = 'Update failed. Duplicate entry exists in database';
         }
