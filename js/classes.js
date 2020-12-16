@@ -702,7 +702,7 @@ class Popup {
 		this.dataType = type;
 	}
 	render(object) {
-		console.log(object);
+		// console.log(object);
 		this.object = object;
 		if (this.object.hasOwnProperty('IsLeased')) {
 			if (this.object['IsLeased'] == 1) {
@@ -1143,6 +1143,7 @@ const ObjectCreate = (popup, object = {}, event) => {
 			obj[element.name] = element.value;
 		}
 	});
+	// console.log(obj);
 	if (event.type == 'keyup') {
 		return { ...object, ...obj };
 	} else {
