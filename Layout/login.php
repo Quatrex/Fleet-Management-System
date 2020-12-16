@@ -97,9 +97,9 @@ RealRequest::expireRequests();
 
                 <div class="clearfix">
                     <!--Forgot Password?-->
-                    <div class="text-center">
+                    <!-- <div class="text-center">
                         <a class="d-block small mt-3" href="forgot-password.html">Forgot Password?</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
