@@ -101,20 +101,27 @@
 
 
 <template id="employeeCardTemplate">
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description" id="employeeContainer_50">
-        <div class="card text-center empwidthCard" style="width: 15rem;"><img class="card-img-top rounded-circle empCardImg user-image mt-2 ProfilePicturePath" src="../images/profilePictures/1597416665-pp.jpg" alt="Driver Image">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description" id="">
+        <div class="card text-center empwidthCard" style="width: 15rem;;"><img class="card-img-top rounded-circle empCardImg user-image mt-2 ProfilePicturePath" src="../images/default-user-image.png" alt="Driver Image" style="height:15rem!important">
             <div class="card-body">
-                <h5 class="card-title FirstName d-inline"></h5>
-                <h5 class="card-title LastName d-inline-block"></h5>
-                <h6 class="card-subtitle mb-2 d-iniline text-muted">Designation: </h6>
-                <h6 class="card-subtitle mb-2 d-iniline text-muted Designation"></h6>
-                <h6 class="card-subtitle mb-2 text-muted">Role: </h6>
-                <h6 class="card-subtitle mb-2 text-muted Position"></h6>
-                <p class="card-text Email"></p>
+                <h5 class="card-title FirstName d-inline"> Poorna</h5>
+                <h5 class="card-title LastName d-inline-block">Gunathilaka</h5>
+                <div class="mb-2">
+                    <h6 class="card-subtitle  d-iniline text-muted d-inline">Designation:</h6>
+                    <h6 class="card-subtitle mb-2 d-iniline text-muted Designation d-inline">Chief Administrative Officer</h6>
+                </div>
+                <div class="mb-2">
+                    <h6 class="card-subtitle text-muted d-inline">Role: </h6>
+                    <h6 class="card-subtitle text-muted Position d-inline">CAO</h6>
+                </div>
+                <p class="card-text Email">poorna@gmail.com</p>
             </div>
         </div>
     </div>
 </template>
+
+
+
 
 <template id="driverCardTemplate">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description">
@@ -124,8 +131,8 @@
                 <h5 class="card-title d-inline LastName"></h5>
                 <h6 class="card-subtitle mb-2 mt-2  text-muted ">AssignedVehicle</h6>
                 <h6 class="card-subtitle mb-2 mt-2 d-inline text-muted AssignedVehicle"></h6>
-                <h6 class="card-subtitle mb-2 text-muted ">Email:</h6>
-                <h6 class="card-subtitle mb-2 text-muted Email d-inline">Email:</h6>
+                <h6 class="card-subtitle  text-muted ">Email:</h6>
+                <h6 class="card-subtitle mb-2 text-muted Email d-inline"></h6>
                 <!-- <p class="card-text Email"></p> -->
             </div>
         </div>
