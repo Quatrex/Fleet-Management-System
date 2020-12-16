@@ -702,23 +702,23 @@
 </div>
 
 <!-- Alert after ajax call -->
-<div id="alert-ajax-success" class="" style="display:none; width:100%; position:absolute; top:0; z-index:2000;">
+<div id="alert-ajax-success" class="" style="display:none; width:100%; position:fixed; top:0; z-index:2000;font-weight:600;opacity:0.95">
     <div class="d-flex" style="justify-content:center;">
         <div class="alert alert-success mt-5 row" style="width:80%;min-height:4rem;" role="alert">
-            <div class="col-10 d-flex message" style="align-items:center;justify-content:center;">
+            <div class="col-2 d-flex" style="justify-content:flex-end;padding-right:0;"><i class="fas fa-thumbs-up" style="font-size:1.5rem;"></i></div>
+            <div class="col-10 d-flex message" style="align-items:center;justify-content:felx-start;">
                 This is a success alert—check it out!
-            </div>
-            <div class="col-2">
             </div>
         </div>
     </div>
 
 </div>
 
-<div id="alert-ajax-failure" class="" style="display:none; width:100%; position:absolute; top:0; z-index:2000;">
+<div id="alert-ajax-failure" class="" style="display:none; width:100%; position:fixed; top:0; z-index:2000;font-weight:600;opacity:0.95">
     <div class="d-flex" style="justify-content:center;">
         <div class="alert alert-danger mt-5 row" style="width:80%;min-height:4rem;" role="alert">
-            <div class="col-10 d-flex message" style="align-items:center;justify-content:center;">
+            <div class="col-2 d-flex" style="justify-content:flex-end;padding-right:0;"><i class="fas fa-exclamation-triangle mt-2" style="font-size:1.5rem;"></i></div>
+            <div class="col-8 d-flex message" style="align-items:center;justify-content:felx-start;">
                 This is a failure alert—check it out!
             </div>
             <div class="col-2">
