@@ -466,21 +466,14 @@
                             </div>
                         </div>
                         <div class="form-group row mb-4">
-                            <div class="form-group col-md-4">
-                                <label>Assigned Vehicle</label>
-                                <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border inputs" id="AssignedVehicle-DriverProfileEditForm" type="text" name="AssignedVehicle">
-                                    <div id="AssignedVehicle-error" class="text-danger"></div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label>Contact Number</label>
                                 <div class="input-group">
                                     <input class="form-control py-2 border-right-0 border inputs" id="ContactNo-DriverProfileEditForm" type="text" name="ContactNo" required>
                                     <div id="ContactNo-error" class="text-danger"></div>
                                 </div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label>Email</label>
                                 <div class="input-group">
                                     <input class="form-control py-2 border-right-0 border inputs" id="Email-DriverProfileEditForm" type="text" name="Email">
