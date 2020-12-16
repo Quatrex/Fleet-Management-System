@@ -45,7 +45,7 @@
                             <option value="JO">JO</option>
                             <option value="CAO">CAO</option>
                             <option value="DCAO">DCAO</option>
-                            <option value="Administrator">Administrator</option>
+                            <option value="Admin">Administrator</option>
                         </select>
                         <div id="Position-error" class="text-danger"></div>
 
