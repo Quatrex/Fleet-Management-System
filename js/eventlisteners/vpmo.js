@@ -131,7 +131,7 @@ const AssignVehicleToDriverConfirm = new BackendAcessButton(
 	'AssignVehicleToDriver_Confirm',
 	'AssignVehicleToDriver',
 	[],
-	ActionCreator([vehicleStore], 'UPDATE'),
+	ActionCreator([driverStore], 'UPDATE'),
 	'DEFAULT',
 	{ disabled: 'true' }
 );
