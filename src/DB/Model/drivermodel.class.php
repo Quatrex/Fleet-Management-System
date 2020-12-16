@@ -39,6 +39,7 @@ abstract class DriverModel extends Model
             ->conditions($conditions)
             ->like($this->tableName, key($search), $search[key($search)])
             ->getWhere()
+            ->orderBy($sort)
             ->limit(5, $offset)
             ->getSQLQuery();
         $result = $this->dbh->read($query);

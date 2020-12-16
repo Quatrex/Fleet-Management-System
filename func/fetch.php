@@ -101,13 +101,13 @@ if (Input::exists()) {
 			$object['error'] = false;
 			$object['object'] = $drivers;
 			break;
+
 		case 'Load_drivers_assignedRequests':
 			$driver = Input::get('object');
 			$driver['ContactNumber'] = $driver['ContactNo'];
 			$updatedDriver = $employee->loadAssignedRequests($driver, 'driver');
 			$object['error'] = false;
 			$object['object'] = $updatedDriver;
-			// print_r($updatedDriver);
 			break;
 
 		case 'Load_employees':
