@@ -106,8 +106,10 @@
             <div class="card-body">
                 <h5 class="card-title FirstName d-inline"></h5>
                 <h5 class="card-title LastName d-inline-block"></h5>
-                <h6 class="card-subtitle mb-2 d-iniline text-muted">Designation: </h6><h6 class="card-subtitle mb-2 d-iniline text-muted Designation"></h6>
-                <h6 class="card-subtitle mb-2 text-muted">Role: </h6><h6 class="card-subtitle mb-2 text-muted Position"></h6>
+                <h6 class="card-subtitle mb-2 d-iniline text-muted">Designation: </h6>
+                <h6 class="card-subtitle mb-2 d-iniline text-muted Designation"></h6>
+                <h6 class="card-subtitle mb-2 text-muted">Role: </h6>
+                <h6 class="card-subtitle mb-2 text-muted Position"></h6>
                 <p class="card-text Email"></p>
             </div>
         </div>
@@ -118,9 +120,12 @@
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description">
         <div class="card text-center widthCard" style="width: 15rem;"><img class="card-img-top rounded-circle user-image mt-2 ProfilePicturePath" src="../images/driver.png" alt="Driver Image">
             <div class="card-body">
-                <h5 class="card-title d-inline FirstName"></h5><h5 class="card-title d-inline LastName"></h5>
-                <h6 class="card-subtitle mb-2 mt-2  text-muted ">AssignedVehicle</h6><h6 class="card-subtitle mb-2 mt-2 d-inline text-muted AssignedVehicle"></h6>
-                <h6 class="card-subtitle mb-2 text-muted ">Email:</h6><h6 class="card-subtitle mb-2 text-muted Email d-inline">Email:</h6>
+                <h5 class="card-title d-inline FirstName"></h5>
+                <h5 class="card-title d-inline LastName"></h5>
+                <h6 class="card-subtitle mb-2 mt-2  text-muted ">AssignedVehicle</h6>
+                <h6 class="card-subtitle mb-2 mt-2 d-inline text-muted AssignedVehicle"></h6>
+                <h6 class="card-subtitle mb-2 text-muted ">Email:</h6>
+                <h6 class="card-subtitle mb-2 text-muted Email d-inline">Email:</h6>
                 <!-- <p class="card-text Email"></p> -->
             </div>
         </div>
@@ -142,7 +147,7 @@
         <th class="RegistrationNo"></th>
         <td class="Model"></td>
         <td class="NumOfAllocations"></td>
-        <td class="assignedTrips" style ="cursor:pointer" data-field="assignedRequests"><i class="fas fa-info-circle"></i></td>
+        <td class="assignedTrips" style="cursor:pointer" data-field="assignedRequests"><i class="fas fa-info-circle"></i></td>
     </tr>
 </template>
 <template id="joSelectionVehicleTemplate">
@@ -173,9 +178,21 @@
     </div>
 </template>
 
+<template id="emptyVehiclePlaceholder">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description">
+        <div class="card text-center widthCard" style="width: 15rem;">
+            <img class="VehiclePicturePath card-img-top vehicle-image mt-2" src='../images/vehiclePictures/default-vehicle.png' alt="Vehicle Image">
+            <div class="card-body">
+                <h5 class="card-title ">No Vehicles</h5>
+            </div>
+        </div>
+    </div>
+</template>
+
 <template id="AssignedRequestToVehicleTemplate">
     <tr role="row" class="detail-description">
-        <td class="DateOfTrip"></th>
+        <td class="DateOfTrip">
+            </th>
         <td class="TimeOfTrip"></td>
         <td class="PickLocation"></td>
         <td class="DropLocation"></td>
@@ -184,7 +201,8 @@
 
 <template id="AssignedRequestToDriverTemplate">
     <tr role="row" class="detail-description">
-        <td class="DateOfTrip"></th>
+        <td class="DateOfTrip">
+            </th>
         <td class="TimeOfTrip"></td>
         <td class="PickLocation"></td>
         <td class="DropLocation"></td>

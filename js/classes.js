@@ -245,7 +245,8 @@ class DOMContainer {
 				}
 				if (len == 0) {
 					if (this.store.getOffset() == 0) {
-						let template = document.querySelector(`#emptyPlaceholder`);
+						let type = this.id.toUpperCase().cotains('VEHICLE')?'vehicle':'';
+						let template = document.querySelector(`#empty${type}Placeholder`);
 						let clone = template.content.cloneNode(true);
 						this.cardContainer
 							.querySelector('.card-body')
