@@ -129,9 +129,9 @@
             <div class="card-body">
                 <h5 class="card-title d-inline FirstName"></h5>
                 <h5 class="card-title d-inline LastName"></h5>
-                <h6 class="card-subtitle mb-2 mt-2  text-muted ">AssignedVehicle</h6>
-                <h6 class="card-subtitle mb-2 mt-2 d-inline text-muted AssignedVehicle"></h6>
-                <h6 class="card-subtitle  text-muted ">Email:</h6>
+                <h6 class="card-subtitle mt-2  text-muted ">AssignedVehicle:</h6>
+                <h6 class="card-subtitle mb-2 d-inline text-muted AssignedVehicle"></h6>
+                <h6 class="card-subtitle mt-2 text-muted ">Email:</h6>
                 <h6 class="card-subtitle mb-2 text-muted Email d-inline"></h6>
                 <!-- <p class="card-text Email"></p> -->
             </div>

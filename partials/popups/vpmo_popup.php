@@ -1100,7 +1100,7 @@
                         <tr>
                             <th class="" scope="col">#</th>
                             <th class="th-sm" scope="col">Vehicle</th>
-                            <th class="th-sm" scope="col">Assigned Driver</th>
+                            <th class="th-sm" scope="col">Allocated Trips</th>
                         </tr>
                     </thead>
                     <tbody class="card-body">
