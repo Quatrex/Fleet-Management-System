@@ -102,7 +102,7 @@
 
 <template id="employeeCardTemplate">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-description" id="employeeContainer_50">
-        <div class="card text-center widthCard" style="width: 15rem;"><img class="card-img-top rounded-circle empCardImg user-image mt-2 ProfilePicturePath" src="../images/profilePictures/1597416665-pp.jpg" alt="Driver Image">
+        <div class="card text-center empwidthCard" style="width: 15rem;"><img class="card-img-top rounded-circle empCardImg user-image mt-2 ProfilePicturePath" src="../images/profilePictures/1597416665-pp.jpg" alt="Driver Image">
             <div class="card-body">
                 <h5 class="card-title FirstName d-inline"></h5>
                 <h5 class="card-title LastName d-inline-block"></h5>
