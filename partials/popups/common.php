@@ -625,7 +625,7 @@
                             <div class="form-group col-md-6">
                                 <label>Contact Number</label>
                                 <div class="input-group">
-                                    <input class="form-control py-2 border-right-0 border UserContactNo" type="text" value="Contacts Number" disabled>
+                                    <input class="form-control py-2 border-right-0 border UserContactNo" type="text" value="<?php echo $employee->getfield('contactNumber'); ?>" disabled>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
@@ -743,7 +743,7 @@
 <div id="alert-ajax-success" class="" style="display:none; width:100%; position:fixed; top:0; z-index:2000;font-weight:600;opacity:0.95">
     <div class="d-flex" style="justify-content:center;">
         <div class="alert alert-success mt-5 row" style="width:80%;min-height:4rem;" role="alert">
-            <div class="col-2 d-flex" style="justify-content:flex-end;padding-right:0;"><i class="fas fa-thumbs-up" style="font-size:1.5rem;"></i></div>
+            <div class="col-2 d-flex" style="justify-content:flex-end;padding-right:0;"><i class="fas fa-check" style="font-size:1.5rem;"></i></div>
             <div class="col-10 d-flex message" style="align-items:center;justify-content:felx-start;">
                 This is a success alert—check it out!
             </div>
