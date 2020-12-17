@@ -32,6 +32,7 @@ if (Input::exists()) {
 				}
 			}
 		}
+		$emp = null;
 		try {
         $emp = $employee->createNewAccount([
 			'EmpID' => Input::get('EmpID'),

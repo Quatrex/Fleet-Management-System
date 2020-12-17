@@ -48,7 +48,7 @@ if (Input::exists()) {
             ]);
         } catch (PDOException $e) {
             $object['error'] = true;
-            $object['message'] = 'Add account failed. Duplicate entry exists in database';
+            $object['message'] = 'Add driver failed. Duplicate entry exists in database';
         }
     }
 }
