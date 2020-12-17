@@ -59,7 +59,7 @@
                     <p>Drop-off Location</p>
                 </div>
                 <div class="col-sm-6">
-                    <p id="DropOLocation-ActiveTripDetailsPopup">Text</p>
+                    <p id="DropLocation-ActiveTripDetailsPopup">Text</p>
                 </div>
             </div>
 
