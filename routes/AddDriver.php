@@ -13,6 +13,10 @@ $object = ['error' => true, 'object' => '', 'message' => ''];
 
 if (Input::exists()) {
     if (Input::get('Method') == 'AddDriver') {
+        $driver = null;
+        $object['error'] = false;
+        $object['object'] = $driver;
+        $object['message'] = "Driver " . Input::get('driverId') . " successfully added";
         $driverImageName = '';
         if (Input::get('hasImage') == 'true') {
             $driverImageName = time() . '-' . $_FILES["Image"]["name"];
@@ -43,11 +47,9 @@ if (Input::exists()) {
                 'ProfilePicturePath' => $driverImageName,
             ]);
         } catch (PDOException $e) {
-            $object['message'] = 'Update failed. Duplicate entry exists in database';
+            $object['error'] = true;
+            $object['message'] = 'Add driver failed. Duplicate entry exists in database';
         }
-        $object['error'] = false;
-        $object['object'] = $driver;
-        $object['message'] = "Driver " . Input::get('driverId') . " successfully added";
     }
 }
 echo json_encode($object);

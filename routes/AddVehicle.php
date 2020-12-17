@@ -45,7 +45,7 @@ if (Input::exists()) {
 					'VehiclePicturePath' => $vehicleImageName,
 				]);
 			} catch (PDOException $e) {
-				$object['message'] = 'Update failed. Duplicate entry exists in database';
+				$object['message'] = 'Add vehicle failed. Duplicate entry exists in database';
 			}
 		} else {
 			try {
@@ -60,7 +60,8 @@ if (Input::exists()) {
 					'VehiclePicturePath' => $vehicleImageName,
 				]);
 			} catch (PDOException $e) {
-				$object['message'] = 'Update failed. Duplicate entry exists in database';
+				$object['error'] = true;
+				$object['message'] = 'Add vehicle failed. Duplicate entry exists in database';
 			}
 		}
 		if ($vehicle !== null) {

@@ -12,7 +12,11 @@ $employee = $_SESSION['employee'];
 $object = ['error' => true, 'object' => '', 'message' => 'Failed to create an employee object'];
 
 if (Input::exists()) {
-	if (Input::get('Method') == 'AddEmployee') {
+    if (Input::get('Method') == 'AddEmployee') {
+		$emp = null;
+		$object['error'] = false;
+		$object['object'] = $emp;
+		$object['message'] = "Employee " . Input::get('empID') . " successfully added";
 		$profileImageName = '';
 		if (Input::get('hasImage') == 'true') {
 			$profileImageName = time() . '-' . $_FILES["Image"]["name"];
@@ -30,26 +34,24 @@ if (Input::exists()) {
 		}
 		$emp = null;
 		try {
-			$emp = $employee->createNewAccount([
-				'EmpID' => Input::get('EmpID'),
-				'FirstName' => ucfirst(Input::get('FirstName')),
-				'LastName' => ucfirst(Input::get('LastName')),
-				'Username' => "",
-				'Designation' => Input::get('Designation'),
-				'Position' => Input::get('Position'),
-				'Email' => Input::get('Email'),
-				'Password' => Input::get('Password'),
-				'ContactNumber' => Input::get('ContactNo'),
-				'ProfilePicturePath' => $profileImageName,
-			]);
-			$object['error'] = false;
-			$object['message'] = "Employee " . Input::get('empID') . " successfully added";
-		} catch (PDOException $e) {
+        $emp = $employee->createNewAccount([
+			'EmpID' => Input::get('EmpID'),
+			'FirstName' => ucfirst(Input::get('FirstName')),
+			'LastName' => ucfirst(Input::get('LastName')),
+			'Username' => "",
+			'Designation' => Input::get('Designation'),
+			'Position' => Input::get('Position'),
+			'Email' => Input::get('Email'),
+			'Password' => Input::get('Password'),
+            'ContactNumber' => Input::get('ContactNo'),
+            'ProfilePicturePath' => $profileImageName,
+		]);
+		} catch(PDOException $e) {
 			$object['error'] = true;
-			$object['message'] = 'Update failed. Duplicate entry exists in database';
+			$object['message'] = 'Add account failed. Duplicate entry exists in database';
 		}
-		$object['object'] = $emp;
-	}
+		
+    }
 }
 echo json_encode($object);
 header('Connection: close');
