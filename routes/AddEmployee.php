@@ -13,6 +13,10 @@ $object = ['error' => true, 'object' => '', 'message' => 'Failed to create an em
 
 if (Input::exists()) {
     if (Input::get('Method') == 'AddEmployee') {
+		$emp = null;
+		$object['error'] = false;
+		$object['object'] = $emp;
+		$object['message'] = "Employee " . Input::get('empID') . " successfully added";
 		$profileImageName = '';
 		if (Input::get('hasImage') == 'true') {
 			$profileImageName = time() . '-' . $_FILES["Image"]["name"];
@@ -42,11 +46,10 @@ if (Input::exists()) {
             'ProfilePicturePath' => $profileImageName,
 		]);
 		} catch(PDOException $e) {
-			$object['message'] = 'Update failed. Duplicate entry exists in database';
+			$object['error'] = true;
+			$object['message'] = 'Add account failed. Duplicate entry exists in database';
 		}
-		$object['error'] = false;
-		$object['object'] = $emp;
-		$object['message'] = "Employee " . Input::get('empID') . " successfully added";
+		
     }
 }
 echo json_encode($object);
